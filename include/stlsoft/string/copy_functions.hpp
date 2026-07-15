@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/string/copy_functions.hpp
+ * File:    stlsoft/string/copy_functions.hpp
  *
- * Purpose:     String utility functions for copying.
+ * Purpose: String utility functions for copying.
  *
- * Created:     13th June 2006
- * Updated:     22nd January 2024
+ * Created: 13th June 2006
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,8 +54,9 @@
 # define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_COPY_FUNCTIONS_MAJOR       1
 # define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_COPY_FUNCTIONS_MINOR       0
 # define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_COPY_FUNCTIONS_REVISION    7
-# define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_COPY_FUNCTIONS_EDIT        22
+# define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_COPY_FUNCTIONS_EDIT        25
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -72,6 +73,7 @@
 # include <stlsoft/string/char_traits.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_CHAR_TRAITS */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -84,16 +86,17 @@ namespace stlsoft
 /* ////////////////////////////////////////////////////////////////////// */
 
 /** Utility function for copying C-string contents into a caller
- *   supplied buffer, which may be NULL to measure the required extent.
+ *   supplied buffer, which may be \c nullptr to measure the required extent.
  *
  * \ingroup group__library__String
  *
  * \param dest Pointer to a character buffer that will receive the
- *  contents. May be NULL, in which case the function returns \c cchSource.
+ *   contents. May be \c nullptr, in which case the function returns
+ *   \c cchSource.
  * \param cchDest The maximum number of characters to be written into
  *  \c dest.
- * \param src Pointer to character buffer whose contents will be copied
- *  into \c dest. May not be NULL.
+ * \param src Pointer to character buffer whose contents will be copied into
+ *   \c dest. May not be \c nullptr.
  * \param cchSource The number of characters in \c src.
  *
  */
@@ -134,8 +137,9 @@ copy_contents(
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/error/unrecoverable.hpp
+ * File:    stlsoft/error/unrecoverable.hpp
  *
- * Purpose:     Definition of the \c unrecoverable exception class.
+ * Purpose: Definition of the \c unrecoverable exception class.
  *
- * Created:     14th October 2004
- * Updated:     26th January 2021
+ * Created: 14th October 2004
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2021, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_ERROR_HPP_UNRECOVERABLE_MAJOR      2
 # define STLSOFT_VER_STLSOFT_ERROR_HPP_UNRECOVERABLE_MINOR      0
-# define STLSOFT_VER_STLSOFT_ERROR_HPP_UNRECOVERABLE_REVISION   8
-# define STLSOFT_VER_STLSOFT_ERROR_HPP_UNRECOVERABLE_EDIT       42
+# define STLSOFT_VER_STLSOFT_ERROR_HPP_UNRECOVERABLE_REVISION   12
+# define STLSOFT_VER_STLSOFT_ERROR_HPP_UNRECOVERABLE_EDIT       48
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -69,23 +70,34 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
-#ifdef STLSOFT_CF_std_NAMESPACE
+#if 0
+#elif defined(STLSOFT_CF_std_NAMESPACE)
+
 # include <exception>
 #else /* ? STLSOFT_CF_std_NAMESPACE */
+
 # if defined(STLSOFT_COMPILER_IS_WATCOM)
+
 #  include <except.h>       // for terminate()
 #  include <stdexcep.h>     // for 'std' exceptions
 # else /* ? compiler */
+
 #  error No other non-std compiler supported
 # endif /* compiler */
 #endif /* STLSOFT_CF_std_NAMESPACE */
-#if defined(STLSOFT_UNRECOVERABLE_EXCEPTION_USE_WIN32_EXITPROCESS) || \
+#if defined(STLSOFT_UNRECOVERABLE_EXCEPTION_USE_WIN32_EXITPROCESS) ||\
     defined(STLSOFT_COMPILER_IS_MWERKS)
+
 # include <stdlib.h>        // for EXIT_FAILURE / exit()
 #endif /* compiler */
 #if defined(STLSOFT_UNRECOVERABLE_EXCEPTION_USE_WIN32_EXITPROCESS)
-# include <windows.h>       // for ExitProcess()
+
+# ifndef STLSOFT_INCL_H_WINDOWS
+#  define STLSOFT_INCL_H_WINDOWS
+#  include <windows.h>       // for ExitProcess()
+# endif /* !STLSOFT_INCL_H_WINDOWS */
 #endif /* STLSOFT_UNRECOVERABLE_EXCEPTION_USE_WIN32_EXITPROCESS */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -95,6 +107,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -177,6 +190,10 @@ public:
 #endif /* STLSOFT_UNRECOVERABLE_EXCEPTION_USE_WIN32_EXITPROCESS */
         }
     }
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
+
+    void* operator new(ss_size_t );
 /// @}
 
 /// \name Accessors
@@ -195,19 +212,14 @@ private:
     long *const m_refcnt;
     void        (*m_pfnHandler)();
 /// @}
-
-// Not to be implemented
-private:
-    class_type& operator =(class_type const&);
-
-    void* operator new(ss_size_t );
 };
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

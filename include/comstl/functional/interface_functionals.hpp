@@ -4,11 +4,11 @@
  * Purpose:     Interface-specific predicates and functions.
  *
  * Created:     14th June 2002
- * Updated:     29th January 2024
+ * Updated:     20th March 2025
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define COMSTL_VER_HPP_INTERFACE_FUNCTIONALS_MAJOR     4
 # define COMSTL_VER_HPP_INTERFACE_FUNCTIONALS_MINOR     0
-# define COMSTL_VER_HPP_INTERFACE_FUNCTIONALS_REVISION  7
-# define COMSTL_VER_HPP_INTERFACE_FUNCTIONALS_EDIT      81
+# define COMSTL_VER_HPP_INTERFACE_FUNCTIONALS_REVISION  8
+# define COMSTL_VER_HPP_INTERFACE_FUNCTIONALS_EDIT      84
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Auto-generation and compatibility
@@ -66,6 +67,7 @@
 [Incompatibilies-end]
 STLSOFT_COMPILER_IS_GCC:     __GNUC__ < 3 || (__GNUC__ == 3 && __GNUC_MINOR__ < 4)
  */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -87,6 +89,7 @@ STLSOFT_COMPILER_IS_GCC:     __GNUC__ < 3 || (__GNUC__ == 3 && __GNUC_MINOR__ < 
 # include <functional>
 #endif /* !STLSOFT_INCL_FUNCTIONAL */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -106,6 +109,7 @@ namespace comstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * functionals
  */
@@ -123,15 +127,20 @@ namespace comstl_project
 template <ss_typename_param_k I>
 // [[synesis:class:unary-functor: interface_release]]
 struct interface_release
+#if __cplusplus < 201103L
     : public STLSOFT_NS_QUAL_STD(unary_function)<I*, void>
+#endif
 {
 public:
-    typedef I   interface_type;
+    typedef I                                               interface_type;
+    typedef interface_type*                                 argument_type;
+    typedef void                                            result_type;
 
+public:
     /// Function call operator
     ///
     /// \param pi The interface pointer to release
-    void operator ()(interface_type *pi)
+    void operator ()(interface_type* pi)
     {
         safe_release(pi);
     }
@@ -150,15 +159,20 @@ public:
 template <ss_typename_param_k I>
 // [[synesis:class:unary-functor: interface_addref]]
 struct interface_addref
+#if __cplusplus < 201103L
     : public STLSOFT_NS_QUAL_STD(unary_function)<I*, void>
+#endif
 {
 public:
-    typedef I   interface_type;
+    typedef I                                               interface_type;
+    typedef interface_type*                                 argument_type;
+    typedef void                                            result_type;
 
+public:
     /// Function call operator
     ///
     /// \param pi The interface pointer on which to add a reference
-    void operator ()(interface_type *pi)
+    void operator ()(interface_type* pi)
     {
         safe_addref(pi);
     }
@@ -169,12 +183,13 @@ public:
 #ifndef COMSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace comstl */
+} // namespace comstl
 # else
-} /* namespace comstl_project */
-} /* namespace stlsoft */
+} // namespace comstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

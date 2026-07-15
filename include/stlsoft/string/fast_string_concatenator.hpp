@@ -1,17 +1,17 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/string/fast_string_concatenator.hpp
+ * File:    stlsoft/string/fast_string_concatenator.hpp
  *
- * Purpose:     Fast string concatenator.
+ * Purpose: Fast string concatenator.
  *
- * Created:     4th November 2003 (the time added to STLSoft libraries)
- * Updated:     22nd January 2024
+ * Created: 4th November 2003 (the time added to STLSoft libraries)
+ * Updated: 20th March 2025
  *
- * Thanks to:   Sean Kelly for picking up on my gratuitous use of pointers
- *              in the first implementation.
+ * Thanks:  Sean Kelly for picking up on my gratuitous use of pointers in
+ *          the first implementation.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -57,9 +57,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_STRING_HPP_FAST_STRING_CONCATENATOR_MAJOR       4
 # define STLSOFT_VER_STLSOFT_STRING_HPP_FAST_STRING_CONCATENATOR_MINOR       0
-# define STLSOFT_VER_STLSOFT_STRING_HPP_FAST_STRING_CONCATENATOR_REVISION    8
-# define STLSOFT_VER_STLSOFT_STRING_HPP_FAST_STRING_CONCATENATOR_EDIT        150
+# define STLSOFT_VER_STLSOFT_STRING_HPP_FAST_STRING_CONCATENATOR_REVISION    11
+# define STLSOFT_VER_STLSOFT_STRING_HPP_FAST_STRING_CONCATENATOR_EDIT        156
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -82,21 +83,22 @@ template<   ss_typename_param_k S
         >
 class fast_string_concatenator;
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
 
 #ifndef STLSOFT_INCL_STLSOFT_STRING_HPP_CHAR_TRAITS
 # include <stlsoft/string/char_traits.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_CHAR_TRAITS */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
-
 #ifndef STLSOFT_INCL_ALGORITHM
 # define STLSOFT_INCL_ALGORITHM
 # include <algorithm>
 #endif /* !STLSOFT_INCL_ALGORITHM */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -106,6 +108,7 @@ class fast_string_concatenator;
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -179,6 +182,8 @@ public:
     fast_string_concatenator(string_type const& lhs, class_type const& rhs);
     fast_string_concatenator(char_type const* lhs, class_type const& rhs);
     fast_string_concatenator(char_type const lhs, class_type const& rhs);
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Accessors
@@ -195,7 +200,7 @@ private:
         return m_lhs.length() + m_rhs.length();
     }
 #if defined(STLSOFT_FAST_STRING_CONCATENATION_ASSUME_CONTIGUOUS_STORAGE)
-    char_type *write(char_type *s) const
+    char_type* write(char_type *s) const
     {
         return m_rhs.write(m_lhs.write(s));
     }
@@ -270,18 +275,26 @@ private:
 
             switch (type)
             {
-                case    seed:
-                    len = 0;
-                    break;
-                case    single:
-                    len = 1;
-                    break;
-                case    cstring:
-                    len = ref.cstring.len;
-                    break;
-                case    concat:
-                    len = ref.concat->length();
-                    break;
+            case seed:
+
+                len = 0;
+
+                break;
+            case single:
+
+                len = 1;
+
+                break;
+            case cstring:
+
+                len = ref.cstring.len;
+
+                break;
+            case concat:
+
+                len = ref.concat->length();
+
+                break;
             }
 
             STLSOFT_ASSERT(!(len < 0));
@@ -290,7 +303,7 @@ private:
         }
 
 #if defined(STLSOFT_FAST_STRING_CONCATENATION_ASSUME_CONTIGUOUS_STORAGE)
-        char_type *write(char_type *s) const
+        char_type* write(char_type *s) const
 #else /* ? STLSOFT_FAST_STRING_CONCATENATION_ASSUME_CONTIGUOUS_STORAGE */
         string_iterator_type write(string_iterator_type s) const
 #endif /* STLSOFT_FAST_STRING_CONCATENATION_ASSUME_CONTIGUOUS_STORAGE */
@@ -311,23 +324,32 @@ private:
 
             switch (type)
             {
-                case    seed:
-                    break;
-                case    single:
-                    *(s++) = ref.ch;
-                    break;
-                case    cstring:
-                    len = ref.cstring.len;
+            case seed:
+
+                break;
+            case single:
+
+                *(s++) = ref.ch;
+
+                break;
+            case cstring:
+
+                len = ref.cstring.len;
 #if defined(STLSOFT_FAST_STRING_CONCATENATION_ASSUME_CONTIGUOUS_STORAGE)
-                    STLSOFT_API_INTERNAL_memfns_memcpy(s, ref.cstring.s, sizeof(C) * (len));
+
+                STLSOFT_API_EXTERNAL_memfns_memcpy(s, ref.cstring.s, sizeof(C) * (len));
 #else /* ? STLSOFT_FAST_STRING_CONCATENATION_ASSUME_CONTIGUOUS_STORAGE */
-                    std::copy(&ref.cstring.s[0], &ref.cstring.s[0] + len, s);
+
+                std::copy(&ref.cstring.s[0], &ref.cstring.s[0] + len, s);
 #endif /* STLSOFT_FAST_STRING_CONCATENATION_ASSUME_CONTIGUOUS_STORAGE */
-                    s += len;
-                    break;
-                case    concat:
-                    s = ref.concat->write(s);
-                    break;
+                s += len;
+
+                break;
+            case concat:
+
+                s = ref.concat->write(s);
+
+                break;
             }
 
             return s;
@@ -344,11 +366,8 @@ private:
     Data    m_lhs;
     Data    m_rhs;
 /// @}
-
-// Not to be implemented
-private:
-    fast_string_concatenator& operator =(class_type const&);
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * implementation
@@ -509,6 +528,7 @@ inline fast_string_concatenator<S, C, T>::operator ss_typename_type_k fast_strin
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * operator +
@@ -671,8 +691,9 @@ inline fast_string_concatenator<S, C, T> operator +(C const lhs, fast_string_con
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

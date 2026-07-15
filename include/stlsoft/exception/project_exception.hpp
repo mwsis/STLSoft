@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/error/project_exception.hpp (formerly stlsoft/error/project_exception.hpp)
+ * File:    stlsoft/error/project_exception.hpp (formerly stlsoft/error/project_exception.hpp)
  *
- * Purpose:     Basic exception classes.
+ * Purpose: Basic exception classes.
  *
- * Created:     19th January 2002
- * Updated:     26th December 2020
+ * Created: 19th January 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_EXCEPTION_HPP_PROJECT_EXCEPTION_MAJOR      6
 # define STLSOFT_VER_STLSOFT_EXCEPTION_HPP_PROJECT_EXCEPTION_MINOR      0
-# define STLSOFT_VER_STLSOFT_EXCEPTION_HPP_PROJECT_EXCEPTION_REVISION   2
-# define STLSOFT_VER_STLSOFT_EXCEPTION_HPP_PROJECT_EXCEPTION_EDIT       60
+# define STLSOFT_VER_STLSOFT_EXCEPTION_HPP_PROJECT_EXCEPTION_REVISION   6
+# define STLSOFT_VER_STLSOFT_EXCEPTION_HPP_PROJECT_EXCEPTION_EDIT       66
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -80,6 +81,7 @@
 # include <stlsoft/diagnostics/ProjectIdentifier.h>
 #endif /* !WINSTL_INCL_WINSTL_DIAGNOSTICS_H_PROJECTIDENTIFIER */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -88,6 +90,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -123,15 +126,20 @@ protected:
         project_identifier_type projectId
     )
         : parent_class_type()
+        , project_identifier_provider()
         , ProjectIdentifier(projectId)
     {}
     // Copy constructor
     project_exception(class_type const& rhs)
         : parent_class_type(rhs)
+        , project_identifier_provider(rhs)
         , ProjectIdentifier(rhs.ProjectIdentifier)
     {}
+#ifdef STLSOFT_COMPILER_IS_GCC
+#else
 private:
-    class_type& operator =(class_type const&);  // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
+#endif
 /// @}
 
 /// \name Accessors
@@ -156,13 +164,15 @@ public:
 /// @}
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

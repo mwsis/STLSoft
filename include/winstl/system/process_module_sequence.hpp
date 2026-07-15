@@ -1,18 +1,18 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/system/process_module_sequence.hpp
+ * File:    winstl/system/process_module_sequence.hpp
  *
- * Purpose:     Process Id sequence class.
+ * Purpose: Process Id sequence class.
  *
- * Created:     24th June 2005
- * Updated:     22nd January 2024
+ * Created: 24th June 2005
+ * Updated: 20th March 2025
  *
- * Thanks to:   Adi Shavit for spotting a small inefficiency in the
- *              resize()-ing, during the review of Extended STL volume 1
- *              (see http://extendedstl.com/).
+ * Thank:   Adi Shavit for spotting a small inefficiency in the
+ *          resize()-ing, during the review of Extended STL volume 1
+ *          (see http://extendedstl.com/).
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -58,9 +58,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SYSTEM_HPP_PROCESS_MODULE_SEQUENCE_MAJOR     2
 # define WINSTL_VER_WINSTL_SYSTEM_HPP_PROCESS_MODULE_SEQUENCE_MINOR     2
-# define WINSTL_VER_WINSTL_SYSTEM_HPP_PROCESS_MODULE_SEQUENCE_REVISION  10
-# define WINSTL_VER_WINSTL_SYSTEM_HPP_PROCESS_MODULE_SEQUENCE_EDIT      65
+# define WINSTL_VER_WINSTL_SYSTEM_HPP_PROCESS_MODULE_SEQUENCE_REVISION  14
+# define WINSTL_VER_WINSTL_SYSTEM_HPP_PROCESS_MODULE_SEQUENCE_EDIT      72
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -101,6 +102,7 @@
 # include <winstl/api/external/ErrorHandling.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -119,6 +121,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -173,6 +176,8 @@ public:
     process_module_sequence(class_type const& rhs);
     /// Releases the storage associated with the process id list
     ~process_module_sequence() STLSOFT_NOEXCEPT;
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Iteration
@@ -220,20 +225,16 @@ public:
 /// \name Members
 /// @{
 private:
-    typedef STLSOFT_NS_QUAL(auto_buffer_old)<   value_type
-                                            ,   allocator_type
-                                            ,   64
-                                            >       buffer_type_;
+    typedef STLSOFT_NS_QUAL(auto_buffer)<
+        value_type
+    ,   64
+    ,   allocator_type
+    >                                                       buffer_type_;
 
     buffer_type_    m_modules;
 /// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    class_type& operator =(class_type const&);
-/// @}
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * implementation
@@ -241,7 +242,8 @@ private:
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-inline process_module_sequence::process_module_sequence(HANDLE hProcess)
+inline
+process_module_sequence::process_module_sequence(HANDLE hProcess)
     : m_modules(buffer_type_::internal_size())
 {
     DWORD   cbReturned;
@@ -250,9 +252,11 @@ inline process_module_sequence::process_module_sequence(HANDLE hProcess)
     {
 #if defined(_PSAPI_H_) || \
     defined(_PSAPI_H)
+
         if (!::EnumProcessModules(hProcess, &m_modules[0], sizeof(value_type) * m_modules.size(), &cbReturned))
 #else /* ? psapi */
-        if (!dl_call<BOOL>(  "PSAPI.DLL"
+
+        if (!dl_call<BOOL>( "PSAPI.DLL"
                         ,   WINSTL_DL_CALL_WINx_STDCALL_LITERAL("EnumProcessModules")
                         ,   hProcess
                         ,   &m_modules[0]
@@ -270,7 +274,7 @@ inline process_module_sequence::process_module_sequence(HANDLE hProcess)
         }
         else
         {
-            const ws_size_t n   =   cbReturned / sizeof(value_type);
+            ws_size_t const n = cbReturned / sizeof(value_type);
 
             if (n < m_modules.size())
             {
@@ -280,7 +284,7 @@ inline process_module_sequence::process_module_sequence(HANDLE hProcess)
             }
             else
             {
-                const size_type size = m_modules.size();
+                size_type const size = m_modules.size();
 
                 m_modules.resize(1); // Read "Extended STL, volume 1" to find out what this is for
 
@@ -297,55 +301,72 @@ inline process_module_sequence::process_module_sequence(HANDLE hProcess)
     }
 }
 
-inline process_module_sequence::process_module_sequence(process_module_sequence const& rhs)
+inline
+process_module_sequence::process_module_sequence(process_module_sequence const& rhs)
     : m_modules(rhs.m_modules.size())
 {
     STLSOFT_NS_QUAL_STD(copy)(rhs.m_modules.begin(), rhs.m_modules.end(), m_modules.begin());
 }
 
-inline process_module_sequence::~process_module_sequence() STLSOFT_NOEXCEPT
+inline
+process_module_sequence::~process_module_sequence() STLSOFT_NOEXCEPT
 {}
 
-inline process_module_sequence::const_iterator process_module_sequence::begin() const
+inline
+process_module_sequence::const_iterator
+process_module_sequence::begin() const
 {
     return &*m_modules.begin();
 }
 
-inline process_module_sequence::const_iterator process_module_sequence::end() const
+inline
+process_module_sequence::const_iterator
+process_module_sequence::end() const
 {
     return &*m_modules.end();
 }
 
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
-inline process_module_sequence::const_reverse_iterator process_module_sequence::rbegin() const
+
+inline
+process_module_sequence::const_reverse_iterator
+process_module_sequence::rbegin() const
 {
     return const_reverse_iterator(end());
 }
 
-inline process_module_sequence::const_reverse_iterator process_module_sequence::rend() const
+inline
+process_module_sequence::const_reverse_iterator
+process_module_sequence::rend() const
 {
     return const_reverse_iterator(begin());
 }
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
 
-inline process_module_sequence::const_reference process_module_sequence::operator [](process_module_sequence::size_type index) const
+inline
+process_module_sequence::const_reference
+process_module_sequence::operator [](process_module_sequence::size_type index) const
 {
     WINSTL_MESSAGE_ASSERT("Index out of range", index < size());
 
     return m_modules[index];
 }
 
-inline ws_bool_t process_module_sequence::empty() const
+inline
+ws_bool_t
+process_module_sequence::empty() const
 {
     return m_modules.empty();
 }
 
-inline process_module_sequence::size_type process_module_sequence::size() const
+inline
+process_module_sequence::size_type
+process_module_sequence::size() const
 {
     return m_modules.size();
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -354,12 +375,13 @@ inline process_module_sequence::size_type process_module_sequence::size() const
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

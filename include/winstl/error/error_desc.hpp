@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/error/error_desc.hpp
+ * File:    winstl/error/error_desc.hpp
  *
- * Purpose:     Converts a Win32 error code to a printable string.
+ * Purpose: Converts a Win32 error code to a printable string.
  *
- * Created:     13th July 2003
- * Updated:     22nd January 2024
+ * Created: 13th July 2003
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,10 +53,11 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_ERROR_HPP_ERROR_DESC_MAJOR       4
-# define WINSTL_VER_WINSTL_ERROR_HPP_ERROR_DESC_MINOR       6
-# define WINSTL_VER_WINSTL_ERROR_HPP_ERROR_DESC_REVISION    12
-# define WINSTL_VER_WINSTL_ERROR_HPP_ERROR_DESC_EDIT        108
+# define WINSTL_VER_WINSTL_ERROR_HPP_ERROR_DESC_MINOR       7
+# define WINSTL_VER_WINSTL_ERROR_HPP_ERROR_DESC_REVISION    1
+# define WINSTL_VER_WINSTL_ERROR_HPP_ERROR_DESC_EDIT        113
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -98,6 +99,7 @@
 # include <winstl/api/external/ErrorHandling.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * feature discrimination
  */
@@ -110,6 +112,7 @@
 #  define WINSTL_ERROR_DESC_CANNOT_USE_FLEXIBLE_ERROR_PARAMETER_
 # endif /* compiler */
 #endif /* !WINSTL_ERROR_DESC_CANNOT_USE_FLEXIBLE_ERROR_PARAMETER_ */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -129,6 +132,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -359,9 +363,9 @@ public:
 #endif /* compiler */
 private:
 #if !defined(STLSOFT_COMPILER_IS_GCC)
-    basic_error_desc(class_type const&);        // copy-construction proscribed
+    basic_error_desc(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
 #endif /* compiler */
-    class_type& operator =(class_type const&);  // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Attributes
@@ -431,6 +435,7 @@ typedef basic_error_desc<ws_char_w_t>                       error_desc_w;
  * \ingroup group__library__error
  */
 typedef basic_error_desc<TCHAR>                             error_desc;
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * implementation
@@ -595,6 +600,7 @@ basic_error_desc<C, T>::empty() const STLSOFT_NOEXCEPT
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * string access shims
@@ -771,7 +777,7 @@ template<
 STLSOFT_DECLARE_DEPRECATION()
 inline
 C const*
-get_ptr(WINSTL_NS_QUAL(basic_error_desc)<C, T> const& e)
+get_ptr(WINSTL_NS_QUAL(basic_error_desc)<C, T> const& e) STLSOFT_NOEXCEPT
 {
     return e;
 }
@@ -804,10 +810,10 @@ operator <<(
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
@@ -848,11 +854,12 @@ using ::winstl::get_ptr;
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

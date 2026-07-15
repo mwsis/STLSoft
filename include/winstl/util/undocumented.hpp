@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/util/undocumented.hpp (originally MCPriv.h, ::SynesisDev)
+ * File:    winstl/util/undocumented.hpp (originally MCPriv.h, ::SynesisDev)
  *
- * Purpose:     Miscellaneous undocumented features.
+ * Purpose: Miscellaneous undocumented features.
  *
- * Created:     20th October 1994
- * Updated:     29th January 2024
+ * Created: 20th October 1994
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1994-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,8 +54,9 @@
 #define WINSTL_VER_WINSTL_UTIL_HPP_UNDOCUMENTED_MAJOR       4
 #define WINSTL_VER_WINSTL_UTIL_HPP_UNDOCUMENTED_MINOR       0
 #define WINSTL_VER_WINSTL_UTIL_HPP_UNDOCUMENTED_REVISION    5
-#define WINSTL_VER_WINSTL_UTIL_HPP_UNDOCUMENTED_EDIT        50
+#define WINSTL_VER_WINSTL_UTIL_HPP_UNDOCUMENTED_EDIT        53
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -67,6 +68,7 @@
 #ifdef STLSOFT_TRACE_INCLUDE
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -86,6 +88,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * functions
@@ -113,7 +116,8 @@ namespace winstl_project
         _MSC_VER >= 1300)
 
 template <int N>
-inline UINT get_undoc_clipboard_fmt__(LPCTSTR lpszFormat)
+inline
+UINTget_undoc_clipboard_fmt__(LPCTSTR lpszFormat)
 {
     static UINT fmt = ::RegisterClipboardFormat(lpszFormat);
 
@@ -157,6 +161,7 @@ private:
 };
 
 #endif /* compiler */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * constants
@@ -203,12 +208,13 @@ private:
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

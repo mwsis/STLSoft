@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/filesystem/handles/memory_mapped_file_view_handle.hpp
+ * File:    winstl/filesystem/handles/memory_mapped_file_view_handle.hpp
  *
- * Purpose:     Handle::Ref+Wrapper handle-adapter class template for
- *              Windows memory mapped file view handles.
+ * Purpose: Handle::Ref+Wrapper handle-adapter class template for Windows
+ *          memory mapped file view handles.
  *
- * Created:     30th August 2010
- * Updated:     22nd January 2024
+ * Created: 30th August 2010
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2010-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_FILESYSTEM_HANDLES_HPP_MEMORY_MAPPED_FILE_VIEW_HANDLE_MAJOR      1
 # define WINSTL_VER_WINSTL_FILESYSTEM_HANDLES_HPP_MEMORY_MAPPED_FILE_VIEW_HANDLE_MINOR      0
-# define WINSTL_VER_WINSTL_FILESYSTEM_HANDLES_HPP_MEMORY_MAPPED_FILE_VIEW_HANDLE_REVISION   6
-# define WINSTL_VER_WINSTL_FILESYSTEM_HANDLES_HPP_MEMORY_MAPPED_FILE_VIEW_HANDLE_EDIT       13
+# define WINSTL_VER_WINSTL_FILESYSTEM_HANDLES_HPP_MEMORY_MAPPED_FILE_VIEW_HANDLE_REVISION   9
+# define WINSTL_VER_WINSTL_FILESYSTEM_HANDLES_HPP_MEMORY_MAPPED_FILE_VIEW_HANDLE_EDIT       19
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -83,6 +84,7 @@
 # include <stlsoft/quality/cover.h>
 #endif /* !STLSOFT_INCL_STLSOFT_QUALITY_H_COVER */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -104,6 +106,7 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * classes
  */
@@ -112,7 +115,11 @@ namespace winstl_project
  */
 struct memory_mapped_file_view_state_t
 {
-    /// Pointer to the base of the view, or NULL if not mapped
+public: // types
+    typedef memory_mapped_file_view_state_t                 class_type;
+
+public: // fields
+    /// Pointer to the base of the view, or \c nullptr if not mapped
     void* const         memory;
     /// Size of the view
     ws_uintptr_t const  size;
@@ -123,8 +130,11 @@ public:
         : memory(p)
         , size(n)
     {}
+#if __cplusplus >= 201103L
+    memory_mapped_file_view_state_t(memory_mapped_file_view_state_t const&) = default;
+#endif
 private:
-    void operator =(memory_mapped_file_view_state_t const&);    // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 };
 
 /** A Handle::Ref+Wrapper handle adaptor class template for memory mapped
@@ -138,23 +148,23 @@ struct memory_mapped_file_view_handle
 {
 public: // Member Types
     /// The handle type
-    typedef memory_mapped_file_view_state_t       handle_type;
+    typedef memory_mapped_file_view_state_t                 handle_type;
     /// The reference count policy type
-    typedef R                                     refcount_policy;
+    typedef R                                               refcount_policy;
     /// This type
-    typedef memory_mapped_file_view_handle<R>     class_type;
+    typedef memory_mapped_file_view_handle<R>               class_type;
 
     /// The Handle::Ref+Wrapper <strong>Handle</strong> type.
     ///
     /// \note This type is mandatory to the pattern.
-    typedef memory_mapped_file_view_state_t       HRW_Handle_type;
+    typedef memory_mapped_file_view_state_t                 HRW_Handle_type;
     /// The Handle::Ref+Wrapper <strong>Ref</strong> type.
     ///
     /// \note This type is mandatory to the pattern.
-    typedef stlsoft::ref_ptr<class_type>          HRW_Ref_type;
+    typedef stlsoft::ref_ptr<class_type>                    HRW_Ref_type;
 
-    typedef HRW_Handle_type                       Handle;
-    typedef HRW_Ref_type                          Ref;
+    typedef HRW_Handle_type                                 Handle;
+    typedef HRW_Ref_type                                    Ref;
 
 public: // Construction
 
@@ -216,6 +226,7 @@ private:
     const bool      isOwner;
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * shims
  */
@@ -246,17 +257,21 @@ get_memory_mapped_file_view_handle(
     return (NULL != h) ? h->handle : ss_typename_type_k memory_mapped_file_view_handle<R>::handle_type(NULL, 0u);
 }
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

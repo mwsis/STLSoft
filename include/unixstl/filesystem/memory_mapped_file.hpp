@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        unixstl/filesystem/memory_mapped_file.hpp (based on MMFile.h, ::SynesisWin)
+ * File:    unixstl/filesystem/memory_mapped_file.hpp (based on MMFile.h, ::SynesisWin)
  *
- * Purpose:     Memory mapped file class.
+ * Purpose: Memory mapped file class.
  *
- * Created:     15th December 1996
- * Updated:     22nd January 2024
+ * Created: 15th December 1996
+ * Updated: 28th April 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1996-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -51,11 +51,12 @@
 #define UNIXSTL_INCL_UNIXSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE_MAJOR       4
-# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE_MINOR       6
-# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE_REVISION    2
-# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE_EDIT        109
+# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE_MAJOR    4
+# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE_MINOR    6
+# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE_REVISION 6
+# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE_EDIT     116
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -87,10 +88,11 @@
 # ifndef STLSOFT_INCL_STLSOFT_EXCEPTION_HPP_OUT_OF_MEMORY_EXCEPTION
 #  include <stlsoft/exception/out_of_memory_exception.hpp>
 # endif /* !STLSOFT_INCL_STLSOFT_EXCEPTION_HPP_OUT_OF_MEMORY_EXCEPTION */
+#else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
+# ifndef STLSOFT_INCL_STLSOFT_EXCEPTION_HPP_STATUS_CODE_PROVIDER
+#  include <stlsoft/exception/status_code_provider.hpp>
+# endif /* !STLSOFT_INCL_STLSOFT_EXCEPTION_HPP_STATUS_CODE_PROVIDER */
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
-#ifndef STLSOFT_INCL_STLSOFT_EXCEPTION_HPP_STATUS_CODE_PROVIDER
-# include <stlsoft/exception/status_code_provider.hpp>
-#endif /* !STLSOFT_INCL_STLSOFT_EXCEPTION_HPP_STATUS_CODE_PROVIDER */
 #ifndef STLSOFT_INCL_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE
 # include <stlsoft/smartptr/scoped_handle.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE */
@@ -106,6 +108,11 @@
 # define STLSOFT_INCL_SYS_H_STAT
 # include <sys/stat.h>
 #endif /* !STLSOFT_INCL_SYS_H_STAT */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -126,6 +133,7 @@ namespace unixstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * classes
  */
@@ -143,24 +151,24 @@ class memory_mapped_file
 /// @{
 private:
     /// The character type
-    typedef us_char_a_t                     char_type;
+    typedef us_char_a_t                                     char_type;
     /// The traits type
-    typedef filesystem_traits<us_char_a_t>  traits_type;
+    typedef filesystem_traits<us_char_a_t>                  traits_type;
 public:
     /// This type
-    typedef memory_mapped_file              class_type;
+    typedef memory_mapped_file                              class_type;
     /// The size type
-    typedef us_size_t                       size_type;
+    typedef us_size_t                                       size_type;
     /// The status code type
-    typedef int                             status_code_type;
+    typedef int                                             status_code_type;
     /// The error type
     ///
     /// \deprecated Instead use \c status_code_type
-    typedef status_code_type                error_type;
+    typedef status_code_type                                error_type;
     /// The offset type
-    typedef off_t                           offset_type;
+    typedef off_t                                           offset_type;
     /// The boolean type
-    typedef us_bool_t                       bool_type;
+    typedef us_bool_t                                       bool_type;
 /// @}
 
 /// \name Implementation
@@ -235,7 +243,12 @@ public:
     memory_mapped_file(
         char_type const* fileName
     )
+#ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         : m_cb(0)
+#else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
+        : status_code_provider<int>()
+        , m_cb(0)
+#endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
         , m_memory(NULL)
 #ifndef STLSOFT_CF_EXCEPTION_SUPPORT
         , m_lastStatusCode(0)
@@ -248,7 +261,12 @@ public:
     memory_mapped_file(
         S const& fileName
     )
+#ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         : m_cb(0)
+#else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
+        : status_code_provider<int>()
+        , m_cb(0)
+#endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
         , m_memory(NULL)
 #ifndef STLSOFT_CF_EXCEPTION_SUPPORT
         , m_lastStatusCode(0)
@@ -261,7 +279,12 @@ public:
     ,   offset_type         offset
     ,   size_type           requestSize
     )
+#ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         : m_cb(0)
+#else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
+        : status_code_provider<int>()
+        , m_cb(0)
+#endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
         , m_memory(NULL)
 #ifndef STLSOFT_CF_EXCEPTION_SUPPORT
         , m_lastStatusCode(0)
@@ -275,7 +298,12 @@ public:
     ,   offset_type offset
     ,   size_type   requestSize
     )
+#ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         : m_cb(0)
+#else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
+        : status_code_provider<int>()
+        , m_cb(0)
+#endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
         , m_memory(NULL)
 #ifndef STLSOFT_CF_EXCEPTION_SUPPORT
         , m_lastStatusCode(0)
@@ -300,6 +328,17 @@ public:
     {
         UNIXSTL_ASSERT(is_valid());
 
+#ifndef STLSOFT_CF_EXCEPTION_SUPPORT
+        {
+            typedef status_code_provider<int>   parent_class_t;
+
+            parent_class_t& lhs_base    =   *this;
+            parent_class_t& rhs_base    =   rhs;
+
+            std_swap(lhs_base, rhs_base);
+        }
+#endif /* !STLSOFT_CF_EXCEPTION_SUPPORT */
+
         std_swap(m_cb, rhs.m_cb);
         std_swap(m_memory, rhs.m_memory);
 #ifndef STLSOFT_CF_EXCEPTION_SUPPORT
@@ -310,8 +349,8 @@ public:
     }
 
 private:
-    memory_mapped_file(class_type const&);      // copy-construction proscribed
-    class_type& operator =(class_type const&);  // copy-assignment proscribed
+    memory_mapped_file(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Accessors
@@ -372,10 +411,12 @@ public:
         {
             return false;
         }
-        if (0 != ::memcmp(lhs.memory(), rhs.memory(), lhs.size()))
+
+        if (0 != STLSOFT_API_EXTERNAL_memfns_memcmp(lhs.memory(), rhs.memory(), lhs.size()))
         {
             return false;
         }
+
         return true;
     }
 /// @}
@@ -383,6 +424,14 @@ public:
 /// \name Implementation
 /// @{
 private:
+
+#ifdef STLSOFT_COMPILER_IS_MSVC
+# if _MSC_VER >= 1200
+#  pragma warning(push)
+# endif /* compiler */
+# pragma warning(disable : 4702)
+#endif /* compiler */
+
     bool_type
     on_failure_(
         char const*         message
@@ -394,12 +443,16 @@ private:
         switch (scode)
         {
         case ENOMEM:
+
             STLSOFT_THROW_X(STLSOFT_NS_QUAL(out_of_memory_exception)(STLSoftProjectIdentifier_UNIXSTL, STLSoftLibraryIdentifier_FileSystem, scode));
         case ENOENT:
+
             STLSOFT_THROW_X(file_not_found_exception(message, scode));
         case EACCES:
+
             STLSOFT_THROW_X(access_exception(message, scode));
         default:
+
             STLSOFT_THROW_X(filesystem_exception(message, scode));
         }
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
@@ -411,6 +464,14 @@ private:
 
         return true;
     }
+
+#ifdef STLSOFT_COMPILER_IS_MSVC
+# if _MSC_VER >= 1200
+#  pragma warning(pop)
+# else /* ? compiler */
+#  pragma warning(default : 4702)
+# endif /* _MSC_VER */
+#endif /* compiler */
 
     bool_type is_valid() const
     {
@@ -436,6 +497,7 @@ private:
 /// @}
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * comparison operators
  */
@@ -460,6 +522,7 @@ operator !=(
     return !lhs.equal(rhs);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * swapping
  */
@@ -477,6 +540,7 @@ swap(
     lhs.swap(rhs);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -484,10 +548,10 @@ swap(
 #ifndef UNIXSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace unixstl */
+} // namespace unixstl
 # else
-} /* namespace unixstl_project */
-} /* namespace stlsoft */
+} // namespace unixstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
 
@@ -505,18 +569,17 @@ namespace std
         lhs.swap(rhs);
     }
 
-} /* namespace std */
+} // namespace std
 #endif /* STLSOFT_CF_std_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * inclusion
+ * inclusion control
  */
 
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
 # pragma once
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
-
-/* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* !UNIXSTL_INCL_UNIXSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE */
 

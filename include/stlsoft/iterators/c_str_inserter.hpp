@@ -1,16 +1,17 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/iterators/c_str_inserter.hpp
+ * File:    stlsoft/iterators/c_str_inserter.hpp
  *
- * Purpose:     Contains the c_str_ptr_extract_iterator template class and c_str_inserter creator function.
+ * Purpose: Contains the c_str_ptr_extract_iterator template class and
+ *          c_str_inserter creator function.
  *
- * Created:     12th October 2004
- * Updated:     29th January 2024
+ * Created: 12th October 2004
+ * Updated: 20th March 2025
  *
- * Thanks to:   Pablo Aguilar for spotting missing inclusions.
+ * Thanks:  Pablo Aguilar for spotting missing inclusions.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -57,9 +58,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_ITERATORS_HPP_C_STR_INSERTER_MAJOR     2
 # define STLSOFT_VER_STLSOFT_ITERATORS_HPP_C_STR_INSERTER_MINOR     0
-# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_C_STR_INSERTER_REVISION  7
-# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_C_STR_INSERTER_EDIT      46
+# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_C_STR_INSERTER_REVISION  10
+# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_C_STR_INSERTER_EDIT      51
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -79,6 +81,7 @@
 # include <stlsoft/util/std/iterator_helper.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -87,6 +90,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -146,11 +150,16 @@ public:
 private:
     class deref_proxy
     {
+    public: // types
+        typedef deref_proxy                                     class_type;
+
     public:
         ss_explicit_k
         deref_proxy(c_str_ptr_extract_iterator* it)
             : m_it(it)
         {}
+    private:
+        void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
     public:
         template <ss_typename_param_k S>
@@ -161,10 +170,6 @@ private:
 
     private:
         c_str_ptr_extract_iterator  *const m_it;
-
-    // Not to be implemented
-    private:
-        void operator =(deref_proxy const&);
     };
 /// @}
 
@@ -217,8 +222,9 @@ c_str_ptr_inserter(
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

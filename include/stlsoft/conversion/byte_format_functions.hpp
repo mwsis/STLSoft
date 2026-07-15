@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/conversion/byte_format_functions.hpp
+ * File:    stlsoft/conversion/byte_format_functions.hpp
  *
- * Purpose:     Byte formatting functions.
+ * Purpose: Byte formatting functions.
  *
- * Created:     23rd July 2006
- * Updated:     22nd January 2024
+ * Created: 23rd July 2006
+ * Updated: 30th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,13 +53,15 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONVERSION_HPP_BYTE_FORMAT_FUNCTIONS_MAJOR     1
 # define STLSOFT_VER_STLSOFT_CONVERSION_HPP_BYTE_FORMAT_FUNCTIONS_MINOR     1
-# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_BYTE_FORMAT_FUNCTIONS_REVISION  11
-# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_BYTE_FORMAT_FUNCTIONS_EDIT      35
+# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_BYTE_FORMAT_FUNCTIONS_REVISION  13
+# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_BYTE_FORMAT_FUNCTIONS_EDIT      41
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Auto-generation and compatibility
  */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -75,18 +77,21 @@
 #ifndef STLSOFT_INCL_STLSOFT_CONVERSION_HPP_SAP_CAST
 # include <stlsoft/conversion/sap_cast.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_CONVERSION_HPP_SAP_CAST */
-
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_STRING_H_SNPRINTF
 # include <stlsoft/util/string/snprintf.h>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STRING_H_SNPRINTF */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
+# include <stlsoft/api/internal/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
 #ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
 # include <stlsoft/api/external/string.h>
 #endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -96,6 +101,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * functions
@@ -222,9 +228,9 @@ inline void format_hex_uint256(char buff[16], ss_byte_t const* py, bool requestU
 
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace impl */
-} /* namespace conversion */
-} /* namespace format */
+} // namespace impl
+} // namespace conversion
+} // namespace format
 #endif /* STLSOFT_NO_NAMESPACE */
 
 /** Formats the contents of a contiguous block of memory into
@@ -234,12 +240,15 @@ inline void format_hex_uint256(char buff[16], ss_byte_t const* py, bool requestU
  *
  * \param pv Pointer to the block
  * \param cb Number of bytes in the block
- * \param buff Pointer to the destination character buffer to receive the formatted contents
+ * \param buff Pointer to the destination character buffer to receive the
+ *   formatted contents
  * \param cchBuff Number of character spaces available in the buffer
- * \param byteGrouping Number of bytes in a group. Must be 0, 1, 2, 4, 6, 16 or 32. If 0, is reevaluated to sizeof(int)
- * \param groupSeparator Group separator. If NULL, defaults to ""
+ * \param byteGrouping Number of bytes in a group. Must be 0, 1, 2, 4, 8, 16
+ *   or 32. If 0, is reevaluated to sizeof(int)
+ * \param groupSeparator Group separator. If \c nullptr, defaults to ""
  * \param groupsPerLine Number of groups per line
- * \param lineSeparator Line separator. If NULL, no line separation is done
+ * \param lineSeparator Line separator. If \c nullptr, no line separation is
+ *   done
  *
  * \return If sufficient space was available, then the number of characters
  *   written to the buffer. Otherwise, returns a size that is guaranteed to
@@ -258,7 +267,8 @@ format_bytes(
 ,   char const* lineSeparator   =   "\n"
 ) STLSOFT_NOEXCEPT
 /*
-                            ,   int         flags           =   format::lowercase | format::highByteFirst */
+,   int         flags           =   format::lowercase | format::highByteFirst
+ */
 {
     STLSOFT_ASSERT( 0 == byteGrouping
                 ||  1 == byteGrouping
@@ -292,21 +302,21 @@ format_bytes(
 
         if (size <= cchBuff)
         {
+            byte_t          remaining[32];
             byte_t const*   py =   static_cast<byte_t const*>(pv);
             ss_size_t       lineIndex;
             ss_size_t       groupIndex;
 
             for (lineIndex = 0, groupIndex = 0; 0 != cb; py += byteGrouping)
             {
-                byte_t  remaining[32];
 #ifdef STLSOFT_CONVERSION_BYTE_FORMAT_FUNCTIONS_USE_SPRINTF
                 int     cch;
 #endif /* STLSOFT_CONVERSION_BYTE_FORMAT_FUNCTIONS_USE_SPRINTF */
 
                 if (cb < byteGrouping)
                 {
-                    STLSOFT_API_INTERNAL_memfns_memcpy(&remaining[0], py, cb);
-                    STLSOFT_API_INTERNAL_memfns_memset(&remaining[0] + cb, 0x00, STLSOFT_NUM_ELEMENTS(remaining) - cb);
+                    STLSOFT_API_EXTERNAL_memfns_memcpy(&remaining[0], py, cb);
+                    STLSOFT_API_EXTERNAL_memfns_memset(&remaining[0] + cb, 0x00, STLSOFT_NUM_ELEMENTS(remaining) - cb);
 
                     py = &remaining[0];
                     cb = byteGrouping;  // Cause iteration to complete cleanly after this round
@@ -444,7 +454,7 @@ format_bytes(
                 {
                     if (++lineIndex < numLines)
                     {
-                        STLSOFT_API_INTERNAL_memfns_memcpy(buff, lineSeparator, cchLineSeparator * sizeof(char));
+                        STLSOFT_API_EXTERNAL_memfns_memcpy(buff, lineSeparator, cchLineSeparator * sizeof(char));
 
                         buff += cchLineSeparator;
                     }
@@ -453,7 +463,7 @@ format_bytes(
                 }
                 else if (0 != cb)
                 {
-                    STLSOFT_API_INTERNAL_memfns_memcpy(buff, groupSeparator, cchSeparator * sizeof(char));
+                    STLSOFT_API_EXTERNAL_memfns_memcpy(buff, groupSeparator, cchSeparator * sizeof(char));
 
                     buff += cchSeparator;
                 }
@@ -472,8 +482,9 @@ format_bytes(
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

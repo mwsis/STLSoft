@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/shims/access/string/std/exception.hpp
+ * File:    stlsoft/shims/access/string/std/exception.hpp
  *
- * Purpose:     Contains the string access shims for std::exception.
+ * Purpose: Contains the string access shims for std::exception.
  *
- * Created:     2nd May 2003
- * Updated:     16th February 2021
+ * Created: 2nd May 2003
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2021, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_EXCEPTION_MAJOR       2
 # define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_EXCEPTION_MINOR       2
-# define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_EXCEPTION_REVISION    14
-# define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_EXCEPTION_EDIT        57
+# define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_EXCEPTION_REVISION    15
+# define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_EXCEPTION_EDIT        61
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -87,10 +88,6 @@
 # include <stlsoft/internal/safestr.h>
 #endif /* !STLSOFT_INCL_STLSOFT_INTERNAL_H_SAFESTR */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
-# include <stlsoft/api/external/string.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
-
 #ifndef STLSOFT_INCL_EXCEPTION
 # define STLSOFT_INCL_EXCEPTION
 #  include <exception>              // for std::exception
@@ -101,6 +98,11 @@
 # include <errno.h>
 #endif /* !STLSOFT_INCL_H_ERRNO */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -109,6 +111,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helpers
@@ -247,10 +250,12 @@ public:
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a C-style
+ * \return None-\c nullptr, non-mutating pointer to a C-style
  *   string of <code>char</code>.
  */
-inline ss_char_a_t const* c_str_data_a(STLSOFT_NS_QUAL_STD(exception) const& x)
+inline
+ss_char_a_t const*
+c_str_data_a(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_data_a(x.what());
 }
@@ -260,7 +265,7 @@ inline ss_char_a_t const* c_str_data_a(STLSOFT_NS_QUAL_STD(exception) const& x)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a C-style
+ * \return None-\c nullptr, non-mutating pointer to a C-style
  *   string of <code>wchar_t</code>.
  */
 inline
@@ -317,9 +322,11 @@ c_str_data_w(STLSOFT_NS_QUAL_STD(exception) const& x)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a C-style string.
+ * \return None-\c nullptr, non-mutating pointer to a C-style string.
  */
-inline ss_char_a_t const* c_str_data(STLSOFT_NS_QUAL_STD(exception) const& x)
+inline
+ss_char_a_t const*
+c_str_data(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_data_a(x);
 }
@@ -327,8 +334,8 @@ inline ss_char_a_t const* c_str_data(STLSOFT_NS_QUAL_STD(exception) const& x)
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_len
  *
- * This can be applied to an expression, and the return value is the number of
- * characters in the character string in the expression.
+ * This can be applied to an expression, and the return value is the number
+ * of characters in the character string in the expression.
  */
 
 /** \ref group__concept__Shim__string_access__c_str_len function
@@ -338,7 +345,9 @@ inline ss_char_a_t const* c_str_data(STLSOFT_NS_QUAL_STD(exception) const& x)
  *
  * \return Length (in bytes) of the string <code>s</code>.
  */
-inline ss_size_t c_str_len_a(STLSOFT_NS_QUAL_STD(exception) const& x)
+inline
+ss_size_t
+c_str_len_a(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_len_a(x.what());
 }
@@ -374,7 +383,9 @@ c_str_len_w(STLSOFT_NS_QUAL_STD(exception) const& x)
  *
  * \return Length of the string <code>s</code>.
  */
-inline ss_size_t c_str_len(STLSOFT_NS_QUAL_STD(exception) const& x)
+inline
+ss_size_t
+c_str_len(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_len_a(x);
 }
@@ -391,10 +402,12 @@ inline ss_size_t c_str_len(STLSOFT_NS_QUAL_STD(exception) const& x)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a nul-terminated C-style
+ * \return None-\c nullptr, non-mutating pointer to a nul-terminated C-style
  *   string of <code>char</code>.
  */
-inline ss_char_a_t const* c_str_ptr_a(STLSOFT_NS_QUAL_STD(exception) const& x)
+inline
+ss_char_a_t const*
+c_str_ptr_a(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_ptr_a(x.what());
 }
@@ -404,7 +417,7 @@ inline ss_char_a_t const* c_str_ptr_a(STLSOFT_NS_QUAL_STD(exception) const& x)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a nul-terminated C-style
+ * \return None-\c nullptr, non-mutating pointer to a nul-terminated C-style
  *   string of <code>wchar_t</code>.
  */
 inline
@@ -419,10 +432,12 @@ c_str_ptr_w(STLSOFT_NS_QUAL_STD(exception) const& x)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a nul-terminated C-style
+ * \return None-\c nullptr, non-mutating pointer to a nul-terminated C-style
  *   string.
  */
-inline ss_char_a_t const* c_str_ptr(STLSOFT_NS_QUAL_STD(exception) const& x)
+inline
+ss_char_a_t const*
+c_str_ptr(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_ptr_a(x);
 }
@@ -431,7 +446,7 @@ inline ss_char_a_t const* c_str_ptr(STLSOFT_NS_QUAL_STD(exception) const& x)
  * c_str_ptr_null
  *
  * This can be applied to an expression, and the return value is either a
- * pointer to the character string or NULL.
+ * pointer to the character string or \c nullptr.
  */
 
 /** \ref group__concept__Shim__string_access__c_str_ptr_null function
@@ -439,10 +454,12 @@ inline ss_char_a_t const* c_str_ptr(STLSOFT_NS_QUAL_STD(exception) const& x)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
- *   string of <code>char</code>.
+ * \return Possibly \c nullptr, non-mutating pointer to a nul-terminated
+ *   C-style string of <code>char</code>.
  */
-inline ss_char_a_t const* c_str_ptr_null_a(STLSOFT_NS_QUAL_STD(exception) const& x)
+inline
+ss_char_a_t const*
+c_str_ptr_null_a(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_ptr_null_a(x.what());
 }
@@ -452,8 +469,8 @@ inline ss_char_a_t const* c_str_ptr_null_a(STLSOFT_NS_QUAL_STD(exception) const&
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
- *   string of <code>wchar_t</code>.
+ * \return Possibly \c nullptr, non-mutating pointer to a nul-terminated
+ *   C-style string of <code>wchar_t</code>.
  */
 inline
 basic_shim_string<ss_char_w_t, 100, true>
@@ -509,21 +526,25 @@ c_str_ptr_null_w(STLSOFT_NS_QUAL_STD(exception) const& x)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
- *   string.
+ * \return Possibly \c nullptr, non-mutating pointer to a nul-terminated
+ *   C-style string.
  */
-inline ss_char_a_t const* c_str_ptr_null(STLSOFT_NS_QUAL_STD(exception) const& x)
+inline
+ss_char_a_t const*
+c_str_ptr_null(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_ptr_null_a(x);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

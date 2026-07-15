@@ -1,17 +1,17 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/synch/spin_mutex_base.hpp (originally MWSpinMx.h, ::SynesisWin)
+ * File:    stlsoft/synch/spin_mutex_base.hpp (originally MWSpinMx.h, ::SynesisWin)
  *
- * Purpose:     stlsoft::spin_mutex_base class template.
+ * Purpose: stlsoft::spin_mutex_base class template.
  *
- * Created:     27th August 1997
- * Updated:     22nd January 2024
+ * Created: 27th August 1997
+ * Updated: 20th March 2025
  *
- * Thanks:      To Rupert Kittinger, for pointing out that the prior
- *              implementation that always yielded was not really "spinning".
+ * Thanks:  To Rupert Kittinger, for pointing out that the prior
+ *          implementation that always yielded was not really "spinning".
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1997-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,11 +55,12 @@
 #define STLSOFT_INCL_STLSOFT_SYNCH_HPP_SPIN_MUTEX_BASE
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define STLSOFT_VER_STLSOFT_SYNCH_HPP_SPIN_MUTEX_BASE_MAJOR     6
-# define STLSOFT_VER_STLSOFT_SYNCH_HPP_SPIN_MUTEX_BASE_MINOR     0
-# define STLSOFT_VER_STLSOFT_SYNCH_HPP_SPIN_MUTEX_BASE_REVISION  3
-# define STLSOFT_VER_STLSOFT_SYNCH_HPP_SPIN_MUTEX_BASE_EDIT      77
+# define STLSOFT_VER_STLSOFT_SYNCH_HPP_SPIN_MUTEX_BASE_MAJOR    6
+# define STLSOFT_VER_STLSOFT_SYNCH_HPP_SPIN_MUTEX_BASE_MINOR    0
+# define STLSOFT_VER_STLSOFT_SYNCH_HPP_SPIN_MUTEX_BASE_REVISION 5
+# define STLSOFT_VER_STLSOFT_SYNCH_HPP_SPIN_MUTEX_BASE_EDIT     82
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -76,6 +77,7 @@
 # include <stlsoft/synch/concepts.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SYNCH_HPP_CONCEPTS */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * compatibility & feature control
  */
@@ -83,6 +85,7 @@
 #if defined(_ATL_MIN_CRT)
 # define WINSTL_SPINMUTEX_CHECK_INIT
 #endif /* _ATL_MIN_CRT */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -92,6 +95,7 @@
 namespace stlsoft
 {
 #endif /* !STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -137,8 +141,8 @@ public:
 
     /// Creates an instance of the mutex
     ///
-    /// \param p Pointer to an external counter variable. May be NULL, in
-    ///  which case an internal member is used for the counter variable.
+    /// \param p Pointer to an external counter variable. May be \c nullptr,
+    ///   in which case an internal member is used for the counter variable.
     ss_explicit_k
     spin_mutex_base(atomic_int_type *p = NULL) STLSOFT_NOEXCEPT
         : m_spinCount((NULL != p) ? p : &m_internalCount)
@@ -149,8 +153,8 @@ public:
     {}
     /// Creates an instance of the mutex
     ///
-    /// \param p Pointer to an external counter variable. May be NULL, in
-    ///   which case an internal member is used for the counter variable.
+    /// \param p Pointer to an external counter variable. May be \c nullptr,
+    ///   in which case an internal member is used for the counter variable.
     /// \param yieldContext The yield context
     spin_mutex_base(atomic_int_type *p, void* yieldContext) STLSOFT_NOEXCEPT
         : m_spinCount((NULL != p) ? p : &m_internalCount)
@@ -165,14 +169,15 @@ public:
         spin_policy_::on_destroy(m_yieldContext, m_spunCount, m_cLocks);
     }
 private:
-    spin_mutex_base(class_type const&);         // copy-construction proscribed
-    class_type& operator =(class_type const&);  // copy-assignment proscribed
+    spin_mutex_base(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Operations
 /// @{
 public:
-    /// Acquires a lock on the mutex, pending the thread until the lock is acquired
+    /// Acquires a lock on the mutex, pending the thread until the lock is
+    /// acquired
     void lock() STLSOFT_NOEXCEPT
     {
 #ifdef STLSOFT_SPINMUTEX_CHECK_INIT
@@ -240,6 +245,7 @@ private:
 /// @}
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * control shims
  */
@@ -279,6 +285,7 @@ unlock_instance(
 {
     mx.unlock();
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * lock_traits
@@ -320,13 +327,15 @@ public:
     }
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* !STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/string/c_string_traits.hpp
+ * File:    stlsoft/string/c_string_traits.hpp
  *
- * Purpose:     Contains the c_string_traits class template.
+ * Purpose: Contains the c_string_traits class template.
  *
- * Created:     15th November 2002
- * Updated:     2nd January 2021
+ * Created: 15th November 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2021, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_STRING_HPP_C_STRING_TRAITS_MAJOR       6
 # define STLSOFT_VER_STLSOFT_STRING_HPP_C_STRING_TRAITS_MINOR       0
-# define STLSOFT_VER_STLSOFT_STRING_HPP_C_STRING_TRAITS_REVISION    2
-# define STLSOFT_VER_STLSOFT_STRING_HPP_C_STRING_TRAITS_EDIT        162
+# define STLSOFT_VER_STLSOFT_STRING_HPP_C_STRING_TRAITS_REVISION    3
+# define STLSOFT_VER_STLSOFT_STRING_HPP_C_STRING_TRAITS_EDIT        165
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -73,14 +74,6 @@
 # include <stlsoft/internal/safestr.h>
 #endif /* !STLSOFT_INCL_STLSOFT_INTERNAL_H_SAFESTR */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
-# include <stlsoft/api/external/string.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
-
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
-
 #if 0
 #elif defined(STLSOFT_MIN_CRT) && \
       defined(_WIN32)
@@ -91,6 +84,15 @@
 # endif /* !STLSOFT_INCL_H_WINDOWS */
 #endif /* STLSOFT_MIN_CRT */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
+# include <stlsoft/api/internal/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -99,6 +101,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -434,13 +437,15 @@ public:
 
 #endif /* STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

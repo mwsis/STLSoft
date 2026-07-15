@@ -1,20 +1,19 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/containers/pod_vector.hpp
+ * File:    stlsoft/containers/pod_vector.hpp
  *
- * Purpose:     Contains the pod_vector class.
+ * Purpose: Contains the pod_vector class.
  *
- * Created:     23rd December 2003
- * Updated:     28th January 2024
+ * Created: 23rd December 2003
+ * Updated: 20th March 2025
  *
- * Thanks to:   Chris Newcombe for requesting sufficient enhancements to
- *              auto_buffer such that pod_vector was born.
+ * Thanks:  Chris Newcombe for requesting sufficient enhancements to
+ *          auto_buffer such that pod_vector was born. Christian Roessel,
+ *          for spotting the bug in the copy ctor that fails an assert if
+ *          the copied instance is empty
  *
- *              Christian Roessel, for spotting the bug in the copy ctor that
- *              fails an assert if the copied instance is empty
+ * Home:    http://stlsoft.org/
  *
- * Home:        http://stlsoft.org/
- *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -60,9 +59,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_POD_VECTOR_MAJOR       4
 # define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_POD_VECTOR_MINOR       3
-# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_POD_VECTOR_REVISION    2
-# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_POD_VECTOR_EDIT        97
+# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_POD_VECTOR_REVISION    3
+# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_POD_VECTOR_EDIT        100
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -104,6 +104,11 @@
 # include <stdexcept>                            // for std::out_of_range
 #endif /* !STLSOFT_INCL_STDEXCEPT */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
+
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -112,6 +117,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -138,10 +144,10 @@ class pod_vector
 /// \name Typedefs
 /// @{
 private:
-    typedef auto_buffer_old<
+    typedef auto_buffer<
         T_value
-    ,   T_allocator
     ,   V_internalSize
+    ,   T_allocator
     >                                                       buffer_type_;
 public:
     /// The value type
@@ -275,6 +281,7 @@ private:
 /// @}
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * operators
  */
@@ -308,7 +315,7 @@ operator ==(
 
         return true;
 #else /* ? 0 */
-        return 0 == memcmp(&lhs[0], &rhs[0], sizeof(ss_typename_type_k pod_vector<T_value, T_allocator, V_internalSize>::size_type) * lhs.size());
+        return 0 == STLSOFT_API_EXTERNAL_memfns_memcmp(&lhs[0], &rhs[0], sizeof(ss_typename_type_k pod_vector<T_value, T_allocator, V_internalSize>::size_type) * lhs.size());
 #endif /* 0 */
     }
 }
@@ -328,6 +335,7 @@ operator !=(
     return !operator ==(lhs, rhs);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * swapping
  */
@@ -346,6 +354,7 @@ swap(
 {
     lhs.swap(rhs);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * implementation
@@ -1290,7 +1299,7 @@ pod_vector<T_value, T_allocator, V_internalSize>::erase(
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
 
 /* In the special case of Intel behaving as VC++ 7.0 or earlier on Win32, we
@@ -1316,9 +1325,10 @@ namespace std
     {
         lhs.swap(rhs);
     }
-} /* namespace std */
+} // namespace std
 # endif /* INTEL && _MSC_VER < 1310 */
 #endif /* STLSOFT_CF_std_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        unixstl/synch/sleep_functions.h
+ * File:    unixstl/synch/sleep_functions.h
  *
- * Purpose:     UNIXSTL time functions.
+ * Purpose: UNIXSTL time functions.
  *
- * Created:     2nd September 2005
- * Updated:     26th December 2020
+ * Created: 2nd September 2005
+ * Updated: 17th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define UNIXSTL_VER_UNIXSTL_SYNCH_H_SLEEP_FUNCTIONS_MAJOR      3
 # define UNIXSTL_VER_UNIXSTL_SYNCH_H_SLEEP_FUNCTIONS_MINOR      0
-# define UNIXSTL_VER_UNIXSTL_SYNCH_H_SLEEP_FUNCTIONS_REVISION   7
-# define UNIXSTL_VER_UNIXSTL_SYNCH_H_SLEEP_FUNCTIONS_EDIT       33
+# define UNIXSTL_VER_UNIXSTL_SYNCH_H_SLEEP_FUNCTIONS_REVISION   9
+# define UNIXSTL_VER_UNIXSTL_SYNCH_H_SLEEP_FUNCTIONS_EDIT       39
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -91,6 +92,7 @@
 # endif /* !WINSTL_INCL_WINSTL_API_external_h_ProcessAndThread */
 #endif
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -110,12 +112,14 @@ namespace unixstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * functions
  */
 
-/** [C, C++] Puts the calling thread to sleep for the given number of
- *   microseconds.
+/** [C, C++] Puts the calling thread to sleep for (at least) the given
+ * number of microseconds.
+ *
 \code
   unixstl_C_micro_sleep(100000);  // Sleep for 0.1 seconds
   unixstl_C_micro_sleep(100);     // Sleep for 0.1 milliseconds
@@ -124,8 +128,8 @@ namespace unixstl_project
  * \param microseconds The number of microseconds to wait
  *
  * \return A boolean value indicating whether the operation was
- *   successful. If not, <code>errno</code> will contain an error code
- *   representing the reason for failure.
+ *  successful. If not, <code>errno</code> will contain a code representing
+ *  the reason for failure.
  *
  * \see unixstl::micro_sleep
  */
@@ -135,9 +139,18 @@ unixstl_C_micro_sleep(
     us_uint_t microseconds
 ) STLSOFT_NOEXCEPT
 {
-#ifdef _WIN32
+#if 0
+#elif defined(_WIN32)
 
-    return (WINSTL_API_EXTERNAL_ProcessAndThread_Sleep(microseconds / 1000), us_true_v);
+    DWORD milliseconds = microseconds / 1000;
+
+    if (0 == milliseconds &&
+        0 != microseconds)
+    {
+        milliseconds = 1;
+    }
+
+    return (WINSTL_API_EXTERNAL_ProcessAndThread_Sleep(milliseconds), us_true_v);
 #else /* ? _WIN32 */
 
     struct timeval  ts;
@@ -149,6 +162,7 @@ unixstl_C_micro_sleep(
 #endif /* _WIN32 */
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -158,35 +172,37 @@ namespace unixstl
 {
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
  */
 
 #ifdef __cplusplus
 
-/** [C++] Puts the calling thread to sleep for the given number of
- *   microseconds.
+/** [C++] Puts the calling thread to sleep for (at least) the given
+ * number of microseconds.
+ *
 \code
-  unixstl::micro_sleep(100000); // Sleep for 0.1 seconds
-  unixstl::micro_sleep(100);    // Sleep for 0.1 milliseconds
+  unixstl::micro_sleep(100000); // Sleep for approximately 0.1 seconds
+  unixstl::micro_sleep(100);    // Sleep for approximately 0.1 milliseconds
 \endcode
  *
  * \param microseconds The number of microseconds to wait
  *
  * \return A boolean value indicating whether the operation was
- *   successful. If not, <code>errno</code> will contain an error code
- *   representing the reason for failure.
+ *  successful. If not, <code>errno</code> will contain a code representing
+ *  the reason for failure.
  */
 inline
 us_int_t
 micro_sleep(
     us_uint_t microseconds
-)
+) STLSOFT_NOEXCEPT
 {
     return unixstl_C_micro_sleep(microseconds);
 }
-
 #endif /* __cplusplus */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -201,6 +217,7 @@ micro_sleep(
 } /* namespace stlsoft */
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

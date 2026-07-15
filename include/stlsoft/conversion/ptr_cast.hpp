@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/conversion/ptr_cast.hpp
+ * File:    stlsoft/conversion/ptr_cast.hpp
  *
- * Purpose:     A cast that throws bad_cast for dynamic pointer casting, as well
- *              as references.
+ * Purpose: A cast that throws bad_cast for dynamic pointer casting, as well
+ *          as references.
  *
- * Created:     28th December 2002
- * Updated:     22nd January 2024
+ * Created: 28th December 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONVERSION_HPP_PTR_CAST_MAJOR      4
 # define STLSOFT_VER_STLSOFT_CONVERSION_HPP_PTR_CAST_MINOR      0
-# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_PTR_CAST_REVISION   13
-# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_PTR_CAST_EDIT       54
+# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_PTR_CAST_REVISION   14
+# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_PTR_CAST_EDIT       58
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -78,6 +79,7 @@
 # include <typeinfo>
 #endif /* !STLSOFT_INCL_TYPEINFO */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -86,6 +88,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -153,7 +156,7 @@ try
 
   . . . // Will never get here
 }
-catch(std::bad_cast &)
+catch (std::bad_cast &)
 {
   bCastFailed1 = true;
 }
@@ -167,7 +170,7 @@ try
 
   . . . // Will never get here
 }
-catch(std::bad_cast &)
+catch (std::bad_cast &)
 {
   bCastFailed2 = true;
 }
@@ -186,7 +189,7 @@ try
 
   . . . // Will never get here
 }
-catch(std::bad_cast &)
+catch (std::bad_cast &)
 {
   bCastFailed = true;
 }
@@ -246,8 +249,10 @@ public:
      defined(STLSOFT_COMPILER_IS_GCC) || \
      defined(STLSOFT_COMPILER_IS_MWERKS) || \
      0
+
     ptr_cast(Source*& s)
 #else /* ? compiler */
+
     ptr_cast(Source* s)
 #endif /* compiler */
         : m_p(manage_const(dynamic_cast<Target>(s)))
@@ -257,8 +262,8 @@ public:
             STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(bad_cast)());
         }
     }
-
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
     ptr_cast(pointer_type pt)
         : m_p(pt)
     {}
@@ -266,6 +271,8 @@ public:
         : m_p(&t)
     {}
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+private:
+    ptr_cast(class_type const&);
 
 public:
     /// Converts an instance of the cast class to a reference
@@ -281,17 +288,14 @@ public:
 
 private:
     pointer_type  m_p;
-
-// Not to be implemented
-private:
-    ptr_cast(class_type const&);
 };
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

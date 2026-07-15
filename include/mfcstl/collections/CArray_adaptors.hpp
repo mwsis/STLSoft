@@ -1,19 +1,19 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        mfcstl/collections/CArray_adaptors.hpp (derived from mfcstl_array_adaptor.h)
+ * File:    mfcstl/collections/CArray_adaptors.hpp (derived from mfcstl_array_adaptor.h)
  *
- * Purpose:     Contains the definition of the CArray_cadaptor and CArray_iadaptor
- *              class templates.
+ * Purpose: Contains the definition of the CArray_cadaptor and
+ *          CArray_iadaptor class templates.
  *
- * Created:     1st December 2002
- * Updated:     22nd January 2024
+ * Created: 1st December 2002
+ * Updated: 20th March 2025
  *
- * Thanks to:   Nevin Liber and Scott Meyers for kicking my lazy behind, and
- *              requiring that I implement the full complement of standard
- *              comparison operations.
+ * Thanks:  Nevin Liber and Scott Meyers for kicking my lazy behind, and
+ *          requiring that I implement the full complement of standard
+ *          comparison operations.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -59,9 +59,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_CARRAY_ADAPTORS_MAJOR    4
 # define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_CARRAY_ADAPTORS_MINOR    3
-# define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_CARRAY_ADAPTORS_REVISION 11
-# define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_CARRAY_ADAPTORS_EDIT     102
+# define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_CARRAY_ADAPTORS_REVISION 13
+# define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_CARRAY_ADAPTORS_EDIT     107
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -114,6 +115,7 @@
 # include <algorithm>
 #endif /* !STLSOFT_INCL_ALGORITHM */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -132,6 +134,7 @@ namespace mfcstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !MFCSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -315,6 +318,9 @@ protected:
     /// Destructor
     ~CArray_adaptor_base() STLSOFT_NOEXCEPT
     {}
+private:
+    CArray_adaptor_base(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 public:
     /// Returns a copy of the allocator used by the container
     allocator_type get_allocator() const
@@ -382,11 +388,11 @@ public:
             }
             CArray_swap(this->get_CArray(), ar);
         }
-        catch(CMemoryException *px)
+        catch (CMemoryException *px)
         {
             exception_translation_policy_type::handle(px);
         }
-        catch(STLSOFT_NS_QUAL_STD(bad_alloc) &x)
+        catch (STLSOFT_NS_QUAL_STD(bad_alloc) &x)
         {
             exception_translation_policy_type::handle(x);
         }
@@ -428,7 +434,7 @@ public:
             {
                 clear_and_assign_(first, last);
             }
-            catch(...)
+            catch (...)
             {
                 clear();
 
@@ -483,11 +489,11 @@ public:
         {
             get_CArray().SetSize(n, calc_increment_(n));
         }
-        catch(CMemoryException *px)
+        catch (CMemoryException *px)
         {
             exception_translation_policy_type::handle(px);
         }
-        catch(STLSOFT_NS_QUAL_STD(bad_alloc) &x)
+        catch (STLSOFT_NS_QUAL_STD(bad_alloc) &x)
         {
             exception_translation_policy_type::handle(x);
         }
@@ -502,7 +508,7 @@ public:
     ///
     /// \note Due to the limitations of the underlying CArray-family containers, the
     ///   additional elements are default constructed and then subjected to
-    ///   copy-assignment.
+    ///   operator =().
     ///
     /// \note Exception-safety is <b>weak</b>, but the size is maintained in the case
     /// where an exception is thrown by the copy assignment of any new elements.
@@ -516,7 +522,7 @@ public:
             {
                 STLSOFT_NS_QUAL_STD(fill_n)(begin() + oldSize, n - oldSize, value);
             }
-            catch(...)
+            catch (...)
             {
                 resize(oldSize);
                 throw;
@@ -751,16 +757,16 @@ public:
             {
                 get_CArray().Add(value);
             }
-            catch(CMemoryException *px)
+            catch (CMemoryException *px)
             {
                 exception_translation_policy_type::handle(px);
             }
-            catch(STLSOFT_NS_QUAL_STD(bad_alloc) &x)
+            catch (STLSOFT_NS_QUAL_STD(bad_alloc) &x)
             {
                 exception_translation_policy_type::handle(x);
             }
         }
-        catch(...)
+        catch (...)
         {
             if (size() != oldSize)
             {
@@ -813,16 +819,16 @@ public:
             {
                 get_CArray().InsertAt(static_cast<int>(index), value, 1);
             }
-            catch(CMemoryException *px)
+            catch (CMemoryException *px)
             {
                 exception_translation_policy_type::handle(px);
             }
-            catch(STLSOFT_NS_QUAL_STD(bad_alloc) &x)
+            catch (STLSOFT_NS_QUAL_STD(bad_alloc) &x)
             {
                 exception_translation_policy_type::handle(x);
             }
         }
-        catch(...)
+        catch (...)
         {
             if (size() != oldSize)
             {
@@ -878,16 +884,16 @@ public:
                         get_CArray().InsertAt(static_cast<int>(index), value, n);
                     }
                 }
-                catch(CMemoryException *px)
+                catch (CMemoryException *px)
                 {
                     exception_translation_policy_type::handle(px);
                 }
-                catch(STLSOFT_NS_QUAL_STD(bad_alloc) &x)
+                catch (STLSOFT_NS_QUAL_STD(bad_alloc) &x)
                 {
                     exception_translation_policy_type::handle(x);
                 }
             }
-            catch(...)
+            catch (...)
             {
                 if (size() != oldSize)
                 {
@@ -938,16 +944,16 @@ public:
             {
                 get_CArray().InsertAt(static_cast<int>(index), &ar);
             }
-            catch(CMemoryException *px)
+            catch (CMemoryException *px)
             {
                 exception_translation_policy_type::handle(px);
             }
-            catch(STLSOFT_NS_QUAL_STD(bad_alloc) &x)
+            catch (STLSOFT_NS_QUAL_STD(bad_alloc) &x)
             {
                 exception_translation_policy_type::handle(x);
             }
         }
-        catch(...)
+        catch (...)
         {
             if (size() != oldSize)
             {
@@ -1166,13 +1172,6 @@ protected:
         return first <= last;
     }
 #endif /* 0 */
-/// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    CArray_adaptor_base(class_type const& rhs);
-    class_type& operator =(class_type const& rhs);
 /// @}
 };
 
@@ -1469,6 +1468,9 @@ public:
 # endif /* _CPPRTTI */
 #endif /* STLSOFT_META_HAS_IS_SAME_TYPE */
     }
+private:
+    CArray_iadaptor(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Members
@@ -1476,14 +1478,8 @@ public:
 private:
     array_type  *m_pArray;
 /// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    CArray_iadaptor(class_type const& rhs);            // Only possible semantics for copy-ctor are share underlying array
-    class_type& operator =(class_type const& rhs);  // Could either repoint, or could do deep copy.
-/// @}
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * comparison
@@ -1679,12 +1675,13 @@ inline ms_bool_t operator >=(A const& lhs, CArray_adaptor_base<A, I, T> const& r
 #ifndef MFCSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace mfcstl */
+} // namespace mfcstl
 # else
-} /* namespace mfcstl_project */
-} /* namespace stlsoft */
+} // namespace mfcstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !MFCSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

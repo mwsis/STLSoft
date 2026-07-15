@@ -4,11 +4,11 @@
  * Purpose:     Contains the to_uint64 access shim.
  *
  * Created:     6th June 2008
- * Updated:     26th December 2020
+ * Updated:     20th March 2025
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2008-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,8 +54,9 @@
 # define WINSTL_VER_WINSTL_SHIMS_CONVERSION_TO_UINT64_HPP_ULARGE_INTEGER_MAJOR      1
 # define WINSTL_VER_WINSTL_SHIMS_CONVERSION_TO_UINT64_HPP_ULARGE_INTEGER_MINOR      0
 # define WINSTL_VER_WINSTL_SHIMS_CONVERSION_TO_UINT64_HPP_ULARGE_INTEGER_REVISION   6
-# define WINSTL_VER_WINSTL_SHIMS_CONVERSION_TO_UINT64_HPP_ULARGE_INTEGER_EDIT       12
+# define WINSTL_VER_WINSTL_SHIMS_CONVERSION_TO_UINT64_HPP_ULARGE_INTEGER_EDIT       14
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -72,6 +73,7 @@
 # include <stlsoft/shims/conversion/to_uint64/degenerate.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SHIMS_CONVERSION_TO_UINT64_HPP_DEGENERATE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -80,6 +82,7 @@
 namespace stlsoft
 {
 #endif /* WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * to_uint64 functions
@@ -106,8 +109,9 @@ inline STLSOFT_NS_QUAL(ss_uint64_t) to_uint64(ULARGE_INTEGER const* puli)
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef WINSTL_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

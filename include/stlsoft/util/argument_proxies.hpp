@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/util/argument_proxies.hpp (originally MLRefPrx.h, ::SynesisStd)
+ * File:     stlsoft/util/argument_proxies.hpp (originally MLRefPrx.h, ::SynesisStd)
  *
- * Purpose:     Const and non-const reference and pointer proxy classes.
+ * Purpose:  Const and non-const reference and pointer proxy classes.
  *
- * Created:     28th April 2000
- * Updated:     26th December 2020
+ * Created:  28th April 2000
+ * Updated:  20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:     http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2000-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -56,9 +56,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_UTIL_HPP_ARGUMENT_PROXIES_MAJOR     4
 # define STLSOFT_VER_STLSOFT_UTIL_HPP_ARGUMENT_PROXIES_MINOR     0
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_ARGUMENT_PROXIES_REVISION  7
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_ARGUMENT_PROXIES_EDIT      142
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_ARGUMENT_PROXIES_REVISION  9
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_ARGUMENT_PROXIES_EDIT      146
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -71,6 +72,7 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -79,6 +81,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -94,9 +97,9 @@ template <ss_typename_param_k A>
 class pointer_proxy
 {
 public:
-    typedef A                   argument_type;
-    typedef argument_type*      argument_pointer_type;
-    typedef pointer_proxy<A>    class_type;
+    typedef A                                               argument_type;
+    typedef argument_type*                                  argument_pointer_type;
+    typedef pointer_proxy<A>                                class_type;
 
 // const_ruction
 public:
@@ -106,6 +109,8 @@ public:
     pointer_proxy(class_type const& rhs)
         : m_a(rhs.m_a)
     {}
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
@@ -117,10 +122,6 @@ public:
 // Members
 private:
     argument_pointer_type   m_a;
-
-// Not to be implemented
-private:
-    class_type const& operator =(class_type const&);
 };
 
 /** Acts as a proxy for a pointer-to-const
@@ -133,9 +134,9 @@ template <ss_typename_param_k A>
 class const_pointer_proxy
 {
 public:
-    typedef A                       argument_type;
-    typedef argument_type const*    argument_pointer_type;
-    typedef const_pointer_proxy<A>  class_type;
+    typedef A                                               argument_type;
+    typedef argument_type const*                            argument_pointer_type;
+    typedef const_pointer_proxy<A>                          class_type;
 
 // const_ruction
 public:
@@ -145,6 +146,8 @@ public:
     const_pointer_proxy(class_type const& rhs)
         : m_a(rhs.m_a)
     {}
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
@@ -156,10 +159,6 @@ public:
 // Members
 private:
     argument_pointer_type   m_a;
-
-// Not to be implemented
-private:
-    class_type const& operator =(class_type const&);
 };
 
 
@@ -173,9 +172,9 @@ template <ss_typename_param_k A>
 class reference_proxy
 {
 public:
-    typedef A                   argument_type;
-    typedef argument_type&      argument_reference_type;
-    typedef reference_proxy<A>  class_type;
+    typedef A                                               argument_type;
+    typedef argument_type&                                  argument_reference_type;
+    typedef reference_proxy<A>                              class_type;
 
 // const_ruction
 public:
@@ -185,6 +184,8 @@ public:
     reference_proxy(class_type const& rhs)
         : m_a(rhs.m_a)
     {}
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
@@ -196,10 +197,6 @@ public:
 // Members
 private:
     argument_reference_type m_a;
-
-// Not to be implemented
-private:
-    class_type const& operator =(class_type const&);
 };
 
 
@@ -213,9 +210,9 @@ template <ss_typename_param_k A>
 class const_reference_proxy
 {
 public:
-    typedef A                           argument_type;
-    typedef argument_type const&        argument_reference_type;
-    typedef const_reference_proxy<A>    class_type;
+    typedef A                                               argument_type;
+    typedef argument_type const&                            argument_reference_type;
+    typedef const_reference_proxy<A>                        class_type;
 
 // const_ruction
 public:
@@ -225,6 +222,8 @@ public:
     const_reference_proxy(class_type const& rhs)
         : m_a(rhs.m_a)
     {}
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
@@ -236,10 +235,6 @@ public:
 // Members
 private:
     argument_reference_type m_a;
-
-// Not to be implemented
-private:
-    class_type const& operator =(class_type const&);
 };
 
 
@@ -253,8 +248,8 @@ template <ss_typename_param_k A>
 class value_proxy
 {
 public:
-    typedef A               argument_type;
-    typedef value_proxy<A>  class_type;
+    typedef A                                               argument_type;
+    typedef value_proxy<A>                                  class_type;
 
 // const_ruction
 public:
@@ -264,6 +259,8 @@ public:
     value_proxy(class_type const& rhs)
         : m_a(rhs.m_a)
     {}
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
@@ -275,11 +272,8 @@ public:
 // Members
 private:
     argument_type   m_a;
-
-// Not to be implemented
-private:
-    class_type const& operator =(class_type const&);
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * forwarding functions
@@ -343,8 +337,9 @@ inline value_proxy<A> val_proxy(A a)
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

@@ -1,12 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/util/streams/string_insertion.hpp
+ * File:    stlsoft/util/streams/string_insertion.hpp
  *
- * Purpose:     Contains equivalents to contents of std's <utility>.
+ * Purpose: Utility functions to assist with the full and correct
+ *          implementation of idiomatic stream insertion for arbitrary types
+ *          that act, in some fashion, as strings.
  *
- * Created:     29th January 2024
- * Updated:     16th February 2024
+ * Created: 29th January 2024
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2024, Matthew Wilson and Synesis Information Systems
  * All rights reserved.
@@ -52,13 +54,15 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_UTIL_STREAMS_HPP_STRING_INSERTION_MAJOR    1
 # define STLSOFT_VER_STLSOFT_UTIL_STREAMS_HPP_STRING_INSERTION_MINOR    0
-# define STLSOFT_VER_STLSOFT_UTIL_STREAMS_HPP_STRING_INSERTION_REVISION 2
-# define STLSOFT_VER_STLSOFT_UTIL_STREAMS_HPP_STRING_INSERTION_EDIT     2
+# define STLSOFT_VER_STLSOFT_UTIL_STREAMS_HPP_STRING_INSERTION_REVISION 1
+# define STLSOFT_VER_STLSOFT_UTIL_STREAMS_HPP_STRING_INSERTION_EDIT     7
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Auto-generation and compatibility
  */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -95,10 +99,8 @@
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-namespace stlsoft
-{
-namespace util
-{
+namespace stlsoft {
+namespace util {
 #endif /* STLSOFT_NO_NAMESPACE */
 
 
@@ -143,7 +145,7 @@ string_insert_3_common_(
 )
 {
     T_character const   c_fill  =   stm.fill();
-    ss_ptrdiff_t const  n_width =   stm.width();
+    ss_ptrdiff_t const  n_width =   static_cast<std::ptrdiff_t>(stm.width());
 
     if (0 == n_width ||
         static_cast<ss_ptrdiff_t>(cch) >= n_width ||
@@ -296,7 +298,7 @@ string_insert_4_(
 
 #ifndef STLSOFT_NO_NAMESPACE
 
-} /* namespace impl */
+} // namespace impl
 #endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
@@ -305,7 +307,8 @@ string_insert_4_(
  * functions
  */
 
-/** T.B.C.
+/** Inserts efficiently the given range of characters into the given stream,
+ * respecting standard flags (for standard streams)
  *
  * \tparam T_stream The stream type
  * \tparam T_character The character type
@@ -336,7 +339,8 @@ string_insert(
     );
 }
 
-/** T.B.C.
+/** Inserts efficiently the given range of characters into the given stream,
+ * respecting standard flags (for standard streams)
  *
  * \tparam T_stream The stream type
  *
@@ -365,7 +369,8 @@ string_insert_m(
     );
 }
 
-/** T.B.C.
+/** Inserts efficiently the given range of characters into the given stream,
+ * respecting standard flags (for standard streams)
  *
  * \tparam T_stream The stream type
  *
@@ -395,11 +400,13 @@ string_insert_w(
 }
 
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace util */
-} /* namespace stlsoft */
+} // namespace util
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
 
 

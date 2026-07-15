@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        atlstl/window/window.hpp
+ * File:    atlstl/window/window.hpp
  *
- * Purpose:     Enhancement of ATL's CWindow, supporting shims for common
- *              operations.
+ * Purpose: Enhancement of ATL's CWindow, supporting shims for common
+ *          operations.
  *
- * Created:     25th November 2006
- * Updated:     26th December 2020
+ * Created: 25th November 2006
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,9 +55,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define ATLSTL_VER_ATLSTL_WINDOW_HPP_WINDOW_MAJOR      1
 # define ATLSTL_VER_ATLSTL_WINDOW_HPP_WINDOW_MINOR      0
-# define ATLSTL_VER_ATLSTL_WINDOW_HPP_WINDOW_REVISION   8
-# define ATLSTL_VER_ATLSTL_WINDOW_HPP_WINDOW_EDIT       21
+# define ATLSTL_VER_ATLSTL_WINDOW_HPP_WINDOW_REVISION   11
+# define ATLSTL_VER_ATLSTL_WINDOW_HPP_WINDOW_EDIT       26
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -86,6 +87,7 @@
 # include <atlwin.h>
 #endif /* !STLSOFT_INCL_SYS_H_ATLWIN */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -106,6 +108,7 @@ namespace atlstl_project
 #endif /* !ATLSTL_NO_NAMESPACE */
 
 using ::ATL::CWindow;
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -137,7 +140,11 @@ public:
     Window(HWND hwnd = NULL)
         : parent_class_type(hwnd)
     {}
+private:
+    Window(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
+public:
     /// Assigns a window handle to the instance
     class_type& operator =(HWND hwnd)
     {
@@ -233,13 +240,6 @@ public:
         return parent_class_type::WinHelp(stlsoft::c_str_ptr(lpszHelp), nCmd, dwData);
     }
 /// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    Window(class_type const&);
-    class_type& operator =(class_type const&);
-/// @}
 };
 
 /* ////////////////////////////////////////////////////////////////////// */
@@ -247,12 +247,13 @@ private:
 #ifndef ATLSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace atlstl */
+} // namespace atlstl
 # else
-} /* namespace atlstl_project */
-} /* namespace stlsoft */
+} // namespace atlstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !ATLSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

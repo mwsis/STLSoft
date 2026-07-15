@@ -1,10 +1,10 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:    test.unit.stlsoft.string.shim_string.cpp
+ * File:    test.unit.stlsoft.string.shim_string/entry.cpp
  *
  * Purpose: Unit-tests for `stlsoft::basic_shim_string`.
  *
  * Created: 9th November 2008
- * Updated: 16th February 2024
+ * Updated: 20th March 2025
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -50,42 +50,41 @@
  * forward declarations
  */
 
-namespace
-{
+namespace {
 
-    static void test_sizes(void);
-    static void test_construction(void);
-    static void test_method_calls(void);
-    static void test_constructor_c_string(void);
-    static void test_constructor_range_string(void);
-    static void test_constructor_length(void);
-    static void test_write(void);
-    static void test_truncate(void);
-    static void test_swap(void);
-    static void test_1_8(void);
-    static void test_1_9(void);
-    static void test_append_c_string(void);
-    static void test_append_c_string_after_truncate(void);
-    static void test_1_12(void);
-    static void test_null_string(void);
-    static void test_reserve(void);
-    static void test_resize(void);
-    static void test_1_16(void);
-    static void test_1_17(void);
-    static void test_1_18(void);
-    static void test_1_19(void);
-    static void test_insertion_1(void);
-    static void test_insertion_2(void);
-    static void test_insertion_3(void);
-    static void test_insertion_4(void);
-
+    static void test_sizes();
+    static void test_construction();
+    static void test_method_calls();
+    static void test_constructor_c_string();
+    static void test_constructor_range_string();
+    static void test_constructor_length();
+    static void test_write();
+    static void test_truncate();
+    static void test_swap();
+    static void test_1_8();
+    static void test_1_9();
+    static void test_append_c_string();
+    static void test_append_c_string_after_truncate();
+    static void test_1_12();
+    static void test_null_string();
+    static void test_reserve();
+    static void test_resize();
+    static void test_1_16();
+    static void test_1_17();
+    static void test_1_18();
+    static void test_1_19();
+    static void test_insertion_1();
+    static void test_insertion_2();
+    static void test_insertion_3();
+    static void test_insertion_4();
 } // anonymous namespace
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * main()
  */
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
     int retCode = EXIT_SUCCESS;
     int verbosity = 2;
@@ -136,8 +135,8 @@ int main(int argc, char **argv)
  * test function implementations
  */
 
-namespace
-{
+namespace {
+
     struct SimpleStream
     {
         std::string     contents;
@@ -148,7 +147,7 @@ namespace
         ,   std::streamsize n
         )
         {
-            contents.append(s, n);
+            contents.append(s, static_cast<std::size_t>(n));
 
             return *this;
         }
@@ -550,7 +549,7 @@ static void test_1_19()
 {
 }
 
-static void test_insertion_1(void)
+static void test_insertion_1()
 {
     // char const* (for reference)
 
@@ -655,7 +654,7 @@ static void test_insertion_1(void)
     }
 }
 
-static void test_insertion_2(void)
+static void test_insertion_2()
 {
     // char const* (for reference)
 
@@ -763,7 +762,7 @@ static void test_insertion_2(void)
     }
 }
 
-static void test_insertion_3(void)
+static void test_insertion_3()
 {
     // char const* (for reference)
 
@@ -858,9 +857,15 @@ static void test_insertion_3(void)
 }
 
 
-static void test_insertion_4(void)
+static void test_insertion_4()
 {
     const std::size_t FIELD_WIDTH = 2000;
+#if defined(_MSC_VER) &&\
+    _MSC_VER == 1700
+
+    STLSOFT_SUPPRESS_UNUSED(&FIELD_WIDTH);
+# define FIELD_WIDTH (2000)
+#endif
 
     stlsoft::basic_shim_string<char> const  s1;
     stlsoft::basic_shim_string<char> const  s2("abc");
@@ -880,7 +885,7 @@ static void test_insertion_4(void)
 
 
 #if __cplusplus >= 201402L
-    std::string expected = ([&s2, &s3]() {
+    std::string expected = ([&s2, &s3, FIELD_WIDTH]() {
 #else
     struct Expected
     {
@@ -916,10 +921,13 @@ static void test_insertion_4(void)
     XTESTS_TEST_MULTIBYTE_STRING_EQUAL(
         expected
         , ss.str());
+
+#ifdef FIELD_WIDTH
+# undef FIELD_WIDTH
+#endif
 }
-
-
 } // anonymous namespace
+
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

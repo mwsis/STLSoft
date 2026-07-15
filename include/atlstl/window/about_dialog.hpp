@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        atlstl/window/about_dialog.hpp
+ * File:    atlstl/window/about_dialog.hpp
  *
- * Purpose:     Simple 'about' dialog, that shell-executes hyperlinks.
+ * Purpose: Simple 'about' dialog, that shell-executes hyperlinks.
  *
- * Created:     30th January 2000
- * Updated:     22nd January 2024
+ * Created: 30th January 2000
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2000-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,11 +53,12 @@
 #define ATLSTL_INCL_ATLSTL_WINDOW_HPP_ABOUT_DIALOG
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define ATLSTL_VER_ATLSTL_WINDOW_HPP_ABOUT_DIALOG_MAJOR      4
-# define ATLSTL_VER_ATLSTL_WINDOW_HPP_ABOUT_DIALOG_MINOR      0
-# define ATLSTL_VER_ATLSTL_WINDOW_HPP_ABOUT_DIALOG_REVISION   7
-# define ATLSTL_VER_ATLSTL_WINDOW_HPP_ABOUT_DIALOG_EDIT       68
+# define ATLSTL_VER_ATLSTL_WINDOW_HPP_ABOUT_DIALOG_MAJOR    4
+# define ATLSTL_VER_ATLSTL_WINDOW_HPP_ABOUT_DIALOG_MINOR    0
+# define ATLSTL_VER_ATLSTL_WINDOW_HPP_ABOUT_DIALOG_REVISION 9
+# define ATLSTL_VER_ATLSTL_WINDOW_HPP_ABOUT_DIALOG_EDIT     72
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -86,6 +87,11 @@
 # include <atlwin.h>                         // for CDialogImplBase
 #endif /* !STLSOFT_INCL_SYS_H_ATLWIN */
 
+#ifndef WINSTL_INCL_WINSTL_API_external_h_WindowsAndMessages
+# include <winstl/api/external/WindowsAndMessages.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_WindowsAndMessages */
+
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -104,6 +110,7 @@ namespace atlstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !ATLSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -189,20 +196,20 @@ protected:
         if (NULL != hwndCtrl)
         {
             //  2. Must be a button
-            LRESULT ctrlCode = ::SendMessage(hwndCtrl, WM_GETDLGCODE, 0, 0L);
+            LRESULT ctrlCode = WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(hwndCtrl, WM_GETDLGCODE, 0, 0L);
 
             if (DLGC_BUTTON & ctrlCode)
             {
-                typedef ::stlsoft::auto_buffer_old<
+                typedef ::stlsoft::auto_buffer<
                     TCHAR
-                ,   ::stlsoft::malloc_allocator<TCHAR>
                 ,   512
+                ,   ::stlsoft::malloc_allocator<TCHAR>
                 >                               buffer_t;
 
                 // 3. Get text
                 //
                 // Note that this uses buffer.size(), so that it does not matter, if the buffer
-                // allocation fails, whether allocator throws exceptions or returns NULL.
+                // allocation fails, whether allocator throws exceptions or returns nullptr.
                 buffer_t    buffer(1 + ::GetWindowTextLength(hwndCtrl));
                 const int   len = ::GetWindowText(hwndCtrl, &buffer[0], buffer.size());
 
@@ -262,12 +269,13 @@ class AboutDialogId
 #ifndef ATLSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace atlstl */
+} // namespace atlstl
 # else
-} /* namespace atlstl_project */
-} /* namespace stlsoft */
+} // namespace atlstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !ATLSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

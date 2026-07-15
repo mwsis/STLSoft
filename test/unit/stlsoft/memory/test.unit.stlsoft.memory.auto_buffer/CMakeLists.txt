@@ -1,24 +1,13 @@
 
-add_executable(test.unit.stlsoft.memory.auto_buffer
-	entry.cpp
-)
+if(MSVC)
 
-target_link_libraries(test.unit.stlsoft.memory.auto_buffer
-	$<IF:$<VERSION_LESS:${xTests_VERSION},"0.23">,xTests::xTests.core,xTests::core>
-)
+	if(MSVC_VERSION LESS 1930)
 
-target_compile_options(test.unit.stlsoft.memory.auto_buffer
-	PRIVATE
-		$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
-			-Werror -Wall -Wextra -pedantic
+		list(APPEND X_MSVC_CUSTOM_WARNINGS_TO_BE_SUPPRESSED
+			4702
+		)
+	endif()
+endif(MSVC)
 
-			${GCC_WARN_NO_cxx11_long_long}
-		>
-		$<$<CXX_COMPILER_ID:MSVC>:
-			/WX /W4
-		>
-)
-
-
-# ############################## end of file ############################# #
+define_automated_test_program(test.unit.stlsoft.memory.auto_buffer entry.cpp)
 

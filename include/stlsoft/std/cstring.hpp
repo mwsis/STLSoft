@@ -1,17 +1,17 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/std/cstring.hpp
+ * File:    stlsoft/std/cstring.hpp
  *
- * Purpose:     Mappings to std string functions
+ * Purpose: Mappings to std string functions
  *
- * Created:     2nd December 2004
- * Updated:     22nd January 2024
+ * Created: 2nd December 2004
+ * Updated: 20th March 2025
  *
- * Thanks:      To Anton Sekeris for providing good advice on the naming scheme
- *              for the stlsoft/std headers
+ * Thanks:  To Anton Sekeris for providing good advice on the naming scheme
+ *          for the stlsoft/std headers
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -57,9 +57,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_STD_HPP_CSTRING_MAJOR      1
 # define STLSOFT_VER_STLSOFT_STD_HPP_CSTRING_MINOR      5
-# define STLSOFT_VER_STLSOFT_STD_HPP_CSTRING_REVISION   10
-# define STLSOFT_VER_STLSOFT_STD_HPP_CSTRING_EDIT       47
+# define STLSOFT_VER_STLSOFT_STD_HPP_CSTRING_REVISION   11
+# define STLSOFT_VER_STLSOFT_STD_HPP_CSTRING_EDIT       50
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -82,13 +83,14 @@
 # include <stlsoft/string/string_traits.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_STRING_TRAITS */
 
+#if defined(STLSOFT_COMPILER_IS_BORLAND)
+# include <malloc.h>
+#endif /* compiler */
+
 #ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
 # include <stlsoft/api/external/string.h>
 #endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
 
-#if defined(STLSOFT_COMPILER_IS_BORLAND)
-# include <malloc.h>
-#endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -98,6 +100,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * functions
@@ -180,9 +183,8 @@ namespace std_impl
     {
         return strncat_w(dest, src, n);
     }
-
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace std_impl */
+} // namespace std_impl
 #endif /* STLSOFT_NO_NAMESPACE */
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
@@ -328,7 +330,7 @@ namespace std_impl
     }
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace std_impl */
+} // namespace std_impl
 #endif /* STLSOFT_NO_NAMESPACE */
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
@@ -476,7 +478,7 @@ namespace std_impl
     }
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace std_impl */
+} // namespace std_impl
 #endif /* STLSOFT_NO_NAMESPACE */
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
@@ -520,8 +522,9 @@ inline ss_char_w_t* strdup(ss_char_w_t const* s)
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

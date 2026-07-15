@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/diagnostics/output_debug_line.h
+ * File:    winstl/diagnostics/output_debug_line.h
  *
- * Purpose:     Functions to write lines to the Windows debugger.
+ * Purpose: Functions to write lines to the Windows debugger.
  *
- * Created:     5th January 2011
- * Updated:     22nd January 2024
+ * Created: 5th January 2011
+ * Updated: 15th August 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2011-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_DIAGNOSTICS_H_OUTPUT_DEBUG_LINE_MAJOR    2
 # define WINSTL_VER_WINSTL_DIAGNOSTICS_H_OUTPUT_DEBUG_LINE_MINOR    0
-# define WINSTL_VER_WINSTL_DIAGNOSTICS_H_OUTPUT_DEBUG_LINE_REVISION 2
-# define WINSTL_VER_WINSTL_DIAGNOSTICS_H_OUTPUT_DEBUG_LINE_EDIT     22
+# define WINSTL_VER_WINSTL_DIAGNOSTICS_H_OUTPUT_DEBUG_LINE_REVISION 3
+# define WINSTL_VER_WINSTL_DIAGNOSTICS_H_OUTPUT_DEBUG_LINE_EDIT     25
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -88,13 +89,14 @@
 # include <string.h>
 #endif /* !STLSOFT_INCL_H_STRING */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
+
 #ifndef WINSTL_INCL_WINSTL_API_external_h_Debugging
 # include <winstl/api/external/Debugging.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_Debugging */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
 
 /* /////////////////////////////////////////////////////////////////////////
  * helper functions
@@ -106,7 +108,7 @@
 STLSOFT_INLINE
 STLSOFT_NS_QUAL(ss_size_t)
 stlsoft_C_concatenate_N_m(
-    STLSOFT_NS_QUAL(ss_char_a_t)*           buff
+    STLSOFT_NS_QUAL(ss_char_a_t)            buff[]
 ,   STLSOFT_NS_QUAL(ss_size_t)              cchBuff
 ,   STLSOFT_NS_QUAL(ss_char_a_t) const**    psz
 ,   STLSOFT_NS_QUAL(ss_size_t)              n
@@ -166,7 +168,7 @@ stlsoft_C_concatenate_N_m(
                 ss_char_a_t const*  s   =   va_arg(args, ss_char_a_t const*);
                 ss_size_t           len =   STLSOFT_NS_QUAL(c_str_len_a)(s);
 
-                STLSOFT_API_INTERNAL_memfns_memcpy(dest, s, sizeof(ss_char_a_t) * len);
+                STLSOFT_API_EXTERNAL_memfns_memcpy(dest, s, sizeof(ss_char_a_t) * len);
                 dest += len;
             }
             *dest = '\0';
@@ -181,7 +183,7 @@ stlsoft_C_concatenate_N_m(
 STLSOFT_INLINE
 void
 stlsoft_C_concatenate_free_m(
-    STLSOFT_NS_QUAL(ss_char_a_t)*       buff
+    STLSOFT_NS_QUAL(ss_char_a_t)        buff[]
 ,   STLSOFT_NS_QUAL(ss_char_a_t) const* psz
 )
 {
@@ -223,6 +225,7 @@ winstl_C_call_OutputDebugStringA_(
 #endif /* WINSTL_DIAGNOSTICS_OUTPUT_DEBUG_LINE_SUPPRESS_ODS_ */
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * API functions
@@ -1355,6 +1358,7 @@ winstl_C_diagnostics_output_debug_line_16_m(
         }
     }
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

@@ -4,11 +4,11 @@
  * Purpose:     File-system functionals.
  *
  * Created:     19th January 2002
- * Updated:     22nd January 2024
+ * Updated:     21st March 2025
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FUNCTIONALS_MAJOR       4
 # define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FUNCTIONALS_MINOR       0
-# define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FUNCTIONALS_REVISION    11
-# define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FUNCTIONALS_EDIT        51
+# define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FUNCTIONALS_REVISION    12
+# define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FUNCTIONALS_EDIT        55
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -87,6 +88,7 @@
 # error Now need to write that std_binary_function stuff!!
 #endif /* _INETSTL_FUNCTIONALS_NO_STD */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -106,6 +108,7 @@ namespace inetstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !INETSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * classes
  */
@@ -124,31 +127,37 @@ template<   ss_typename_param_k C
         ,   ss_typename_param_k A2 = C const*
         >
 struct path_compare
+#if __cplusplus < 201103L
     : public STLSOFT_NS_QUAL_STD(binary_function)<A1, A2, is_bool_t>
+#endif
 {
 public:
     /// The character type
-    typedef C                                                           char_type;
-private:
-    typedef STLSOFT_NS_QUAL_STD(binary_function)<A1, A2, is_bool_t>     parent_class_type;
-public:
+    typedef C                                               char_type;
     /// The first argument type
-    typedef ss_typename_type_k parent_class_type::first_argument_type   first_argument_type;
+    typedef A1                                              first_argument_type;
     /// The second argument type
-    typedef ss_typename_type_k parent_class_type::second_argument_type  second_argument_type;
+    typedef A2                                              second_argument_type;
     /// The result type
-    typedef ss_typename_type_k parent_class_type::result_type           result_type;
+    typedef is_bool_t                                       result_type;
     /// The traits type
-    typedef filesystem_traits<C>                                        traits_type;
+    typedef filesystem_traits<C>                            traits_type;
     /// The current specialisation of the type
-    typedef path_compare<C, A1, A2>                                     class_type;
+    typedef path_compare<
+        C
+    ,   A1
+    ,   A2
+    >                                                       class_type;
 
 public:
     /// Function call, compares \c s1 with \c s2
     ///
     /// \note The comparison is determined by evaluation the full-paths of both \c s1 and \c s2
 #ifdef STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT
-    template<ss_typename_param_k T1, ss_typename_param_k T2>
+    template<
+        ss_typename_param_k T1
+    ,   ss_typename_param_k T2
+    >
     result_type operator ()(T1 const& s1, T2 const& s2) const
 #else /* ? STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
     result_type operator ()(first_argument_type s1, second_argument_type s2) const
@@ -193,18 +202,28 @@ template<   ss_typename_param_k C
         >
 // [[synesis:class:function-class:unary-predicate: path_exists<T<C>, T<A>>]]
 struct path_exists
+#if __cplusplus < 201103L
     : public STLSOFT_NS_QUAL_STD(unary_function)<A, is_bool_t>
+#endif
 {
 public:
     /// The character type
-    typedef C                       char_type;
+    typedef C                                               char_type;
+    /// The second argument type
+    typedef A                                               argument_type;
+    /// The result type
+    typedef is_bool_t                                       result_type;
     /// The traits type
-    typedef filesystem_traits<C>    traits_type;
+    typedef filesystem_traits<C>                            traits_type;
     /// The current specialisation of the type
-    typedef path_exists<C>          class_type;
+    typedef path_exists<
+        C
+    ,   A
+    >                                                       class_type;
 
 public:
-    ss_explicit_k path_exists(HINTERNET hConnection)
+    ss_explicit_k
+    path_exists(HINTERNET hConnection)
         : m_hConnection(hConnection)
     {}
 
@@ -241,17 +260,21 @@ private:
     HINTERNET   m_hConnection;
 };
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef INETSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace inetstl */
+} // namespace inetsl
 # else
-} /* namespace inetstl_project */
-} /* namespace stlsoft */
+} // namespace inetstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !INETSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

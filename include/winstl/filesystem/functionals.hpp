@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/filesystem/functionals.hpp
+ * File:    winstl/filesystem/functionals.hpp
  *
- * Purpose:     File-system related functions and predicates.
+ * Purpose: File-system related functions and predicates.
  *
- * Created:     19th January 2002
- * Updated:     20th January 2024
+ * Created: 19th January 2002
+ * Updated: 21st March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,9 +55,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FUNCTIONALS_MAJOR     4
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FUNCTIONALS_MINOR     2
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FUNCTIONALS_REVISION  5
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FUNCTIONALS_EDIT      104
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FUNCTIONALS_REVISION  7
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FUNCTIONALS_EDIT      108
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -88,6 +89,7 @@
 # error Now need to write that std_binary_function stuff!!
 #endif /* _WINSTL_FUNCTIONALS_NO_STD */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -106,6 +108,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * utility functions
@@ -222,9 +225,9 @@ paths_are_equal_envx_(
 
     return 0 == traits_t::str_compare_no_case(s1, s2);
 }
-
 STLSOFT_CLOSE_WORKER_NS_(ximpl_winstl_filesystem_functionals_)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -248,28 +251,35 @@ template<
 >
 // [[synesis:class:function-class:binary-predicate: path_compare<T<T_character>, T<A1>, T<A2>>]]
 struct path_compare
+#if __cplusplus < 201103L
     : public STLSOFT_NS_QUAL_STD(binary_function)<A1, A2, ws_bool_t>
+#endif
 {
-private: // types
-    typedef STLSOFT_NS_QUAL_STD(binary_function)<A1, A2, ws_bool_t>     parent_class_type;
-public:
+public: // types
     /// The character type
-    typedef T_character                                                 char_type;
+    typedef T_character                                     char_type;
     /// The first argument type
-    typedef ss_typename_type_k parent_class_type::first_argument_type   first_argument_type;
+    typedef A1                                              first_argument_type;
     /// The second argument type
-    typedef ss_typename_type_k parent_class_type::second_argument_type  second_argument_type;
+    typedef A2                                              second_argument_type;
     /// The result type
-    typedef ss_typename_type_k parent_class_type::result_type           result_type;
+    typedef ws_bool_t                                       result_type;
     /// The current specialisation of the type
-    typedef path_compare<T_character, A1, A2>                           class_type;
+    typedef path_compare<
+        T_character
+    ,   A1
+    ,   A2
+    >                                                       class_type;
 
 public: // operations
     /// Function call, compares \c s1 with \c s2
     ///
     /// \note The comparison is determined by evaluation the full-paths of both \c s1 and \c s2
 #ifdef STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT
-    template<ss_typename_param_k T1, ss_typename_param_k T2>
+    template<
+        ss_typename_param_k T1
+    ,   ss_typename_param_k T2
+    >
     result_type operator ()(T1 const& s1, T2 const& s2) const
 #else /* ? STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
     result_type operator ()(first_argument_type s1, second_argument_type s2) const
@@ -298,28 +308,35 @@ template<
 >
 // [[synesis:class:function-class:binary-predicate: path_compare_env<T<T_character>, T<A1>, T<A2>>]]
 struct path_compare_env
+#if __cplusplus < 201103L
     : public STLSOFT_NS_QUAL_STD(binary_function)<A1, A2, ws_bool_t>
+#endif
 {
-private: // types
-    typedef STLSOFT_NS_QUAL_STD(binary_function)<A1, A2, ws_bool_t>     parent_class_type;
-public:
+public: // types
     /// The character type
-    typedef T_character                                                 char_type;
+    typedef T_character                                     char_type;
     /// The first argument type
-    typedef ss_typename_type_k parent_class_type::first_argument_type   first_argument_type;
+    typedef A1                                              first_argument_type;
     /// The second argument type
-    typedef ss_typename_type_k parent_class_type::second_argument_type  second_argument_type;
+    typedef A2                                              second_argument_type;
     /// The result type
-    typedef ss_typename_type_k parent_class_type::result_type           result_type;
+    typedef ws_bool_t                                       result_type;
     /// The current specialisation of the type
-    typedef path_compare_env<T_character, A1, A2>                       class_type;
+    typedef path_compare_env<
+        T_character
+    ,   A1
+    ,   A2
+    >                                                       class_type;
 
 public: // operations
     /// Function call, compares \c s1 with \c s2
     ///
     /// \note The comparison is determined by evaluation the full-paths of both \c s1 and \c s2
 #ifdef STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT
-    template<ss_typename_param_k T1, ss_typename_param_k T2>
+    template<
+        ss_typename_param_k T1
+    ,   ss_typename_param_k T2
+    >
     result_type operator ()(T1 const& s1, T2 const& s2) const
 #else /* ? STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
     result_type operator ()(first_argument_type s1, second_argument_type s2) const
@@ -345,14 +362,11 @@ template<
 >
 // [[synesis:class:function-class:unary-predicate: path_exists<T<T_character>, T<A>>]]
 struct path_exists
+#if __cplusplus < 201103L
     : public STLSOFT_NS_QUAL_STD(unary_function)<A, ws_bool_t>
+#endif
 {
-private: // types
-    typedef STLSOFT_NS_QUAL_STD(unary_function)<
-        A
-    ,   ws_bool_t
-    >                                                       parent_class_type;
-public:
+public: // types
     /// The character type
     typedef T_character                                     char_type;
     /// The argument type
@@ -389,14 +403,11 @@ template<
 >
 // [[synesis:class:function-class:unary-predicate: path_exists_env<T<T_character>, T<A>>]]
 struct path_exists_env
+#if __cplusplus < 201103L
     : public STLSOFT_NS_QUAL_STD(unary_function)<A, ws_bool_t>
+#endif
 {
-private: // types
-    typedef STLSOFT_NS_QUAL_STD(unary_function)<
-        A
-    ,   ws_bool_t
-    >                                                       parent_class_type;
-public:
+public: // types
     /// The character type
     typedef T_character                                     char_type;
     /// The argument type
@@ -439,13 +450,17 @@ template<
 >
 // [[synesis:class:function-class:unary-predicate: directory_contains_file<T<T_character>, T<A>>]]
 struct directory_contains_file
+#if __cplusplus < 201103L
     : public STLSOFT_NS_QUAL_STD(unary_function)<A, ws_bool_t>
+#endif
 {
 private: // types
+#if __cplusplus < 201103L
     typedef STLSOFT_NS_QUAL_STD(unary_function)<
         A
     ,   ws_bool_t
     >                                                       parent_class_type;
+#endif
 public:
     /// The character type
     typedef T_character                                     char_type;
@@ -514,6 +529,7 @@ private: // fields
 typedef directory_contains_file                             path_contains_file;
 #endif // STLSOFT_OBSOLETE
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -521,12 +537,13 @@ typedef directory_contains_file                             path_contains_file;
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

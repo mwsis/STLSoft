@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/shims/access/string/std/type_info.hpp
+ * File:    stlsoft/shims/access/string/std/type_info.hpp
  *
- * Purpose:     Contains the string access shims for std::type_info.
+ * Purpose: Contains the string access shims for std::type_info.
  *
- * Created:     19th December 2011
- * Updated:     16th February 2021
+ * Created: 19th December 2011
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2021, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2011-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_TYPE_INFO_MAJOR       2
 # define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_TYPE_INFO_MINOR       3
-# define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_TYPE_INFO_REVISION    3
-# define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_TYPE_INFO_EDIT        54
+# define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_TYPE_INFO_REVISION    4
+# define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_TYPE_INFO_EDIT        58
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -94,10 +95,6 @@
 # include <stlsoft/quality/cover.h>
 #endif /* !STLSOFT_INCL_STLSOFT_QUALITY_H_COVER */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
-# include <stlsoft/api/external/string.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
-
 #ifndef STLSOFT_INCL_TYPE_INFO
 # define STLSOFT_INCL_TYPE_INFO
 #  include <typeinfo>               // for std::type_info
@@ -108,6 +105,11 @@
 # include <errno.h>
 #endif /* !STLSOFT_INCL_H_ERRNO */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -116,6 +118,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helpers
@@ -226,6 +229,7 @@ public:
 };
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_data
  *
@@ -238,7 +242,7 @@ public:
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a C-style
+ * \return None-\c nullptr, non-mutating pointer to a C-style
  *   string of <code>char</code>.
  */
 inline
@@ -255,7 +259,7 @@ c_str_data_a(
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a C-style
+ * \return None-\c nullptr, non-mutating pointer to a C-style
  *   string of <code>wchar_t</code>.
  */
 inline
@@ -300,7 +304,7 @@ c_str_data_w(STLSOFT_NS_QUAL_STD(type_info) const& ti)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a C-style string.
+ * \return None-\c nullptr, non-mutating pointer to a C-style string.
  */
 inline
 ss_char_a_t const*
@@ -310,6 +314,7 @@ c_str_data(
 {
     return c_str_data_a(ti);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_len
@@ -374,6 +379,7 @@ c_str_len(
     return c_str_len_a(ti);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_ptr
  *
@@ -386,7 +392,7 @@ c_str_len(
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a nul-terminated C-style
+ * \return None-\c nullptr, non-mutating pointer to a nul-terminated C-style
  *   string of <code>char</code>.
  */
 inline
@@ -403,7 +409,7 @@ c_str_ptr_a(
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a nul-terminated C-style
+ * \return None-\c nullptr, non-mutating pointer to a nul-terminated C-style
  *   string of <code>wchar_t</code>.
  */
 inline
@@ -418,7 +424,7 @@ c_str_ptr_w(STLSOFT_NS_QUAL_STD(type_info) const& ti)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a nul-terminated C-style
+ * \return None-\c nullptr, non-mutating pointer to a nul-terminated C-style
  *   string.
  */
 inline
@@ -430,11 +436,12 @@ c_str_ptr(
     return c_str_ptr_a(ti);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_ptr_null
  *
  * This can be applied to an expression, and the return value is either a
- * pointer to the character string or NULL.
+ * pointer to the character string or \c nullptr.
  */
 
 /** \ref group__concept__Shim__string_access__c_str_ptr_null function
@@ -442,8 +449,8 @@ c_str_ptr(
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
- *   string of <code>char</code>.
+ * \return Possibly \c nullptr, non-mutating pointer to a nul-terminated
+ *   C-style string of <code>char</code>.
  */
 inline
 ss_char_a_t const*
@@ -459,7 +466,7 @@ c_str_ptr_null_a(
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
+ * \return Possibly \c nullptr, non-mutating pointer to a nul-terminated C-style
  *   string of <code>wchar_t</code>.
  */
 inline
@@ -504,7 +511,7 @@ c_str_ptr_null_w(STLSOFT_NS_QUAL_STD(type_info) const& ti)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
+ * \return Possibly \c nullptr, non-mutating pointer to a nul-terminated C-style
  *   string.
  */
 inline
@@ -516,13 +523,15 @@ c_str_ptr_null(
     return c_str_ptr_null_a(ti);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

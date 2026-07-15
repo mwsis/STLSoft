@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/error/error_desc.hpp
+ * File:    stlsoft/error/error_desc.hpp
  *
- * Purpose:     Converts a standard rerror code (errno) to a printable string.
+ * Purpose: Converts a standard rerror code (errno) to a printable string.
  *
- * Created:     18th July 2006
- * Updated:     22nd January 2024
+ * Created: 18th July 2006
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,10 +53,11 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_ERROR_HPP_ERROR_DESC_MAJOR     1
-# define STLSOFT_VER_STLSOFT_ERROR_HPP_ERROR_DESC_MINOR     3
+# define STLSOFT_VER_STLSOFT_ERROR_HPP_ERROR_DESC_MINOR     4
 # define STLSOFT_VER_STLSOFT_ERROR_HPP_ERROR_DESC_REVISION  1
-# define STLSOFT_VER_STLSOFT_ERROR_HPP_ERROR_DESC_EDIT      45
+# define STLSOFT_VER_STLSOFT_ERROR_HPP_ERROR_DESC_EDIT      52
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -85,10 +86,6 @@
 # include <stlsoft/internal/safestr.h>
 #endif /* !STLSOFT_INCL_STLSOFT_INTERNAL_H_SAFESTR */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
-# include <stlsoft/api/external/string.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
-
 #ifndef STLSOFT_INCL_H_STDLIB
 # define STLSOFT_INCL_H_STDLIB
 # include <stdlib.h>                    // for mbstowcs()
@@ -103,6 +100,11 @@
 # define STLSOFT_INCL_H_STRING
 # include <string.h>
 #endif /* !STLSOFT_INCL_H_STRING */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * compatibility
@@ -136,6 +138,7 @@
 # include <string>
 #endif /* !STLSOFT_ERROR_DESC_wcserror_s && !STLSOFT_ERROR_DESC_wcserror */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -144,6 +147,7 @@
 namespace stlsoft
 {
 #endif /* !STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helpers
@@ -216,7 +220,7 @@ struct error_desc_traits<ss_char_w_t>
 {
     static basic_shim_string<ss_char_w_t, 64> invoke_strerror_(int code, ss_char_w_t const*)
     {
-        typedef basic_shim_string<ss_char_w_t, 64>  return_t;
+        typedef basic_shim_string<ss_char_w_t, 64>          return_t;
 
         std::string const   s(::strerror(code));
         return_t            ss(s.size());
@@ -237,6 +241,7 @@ struct error_desc_traits<ss_char_w_t>
 
 STLSOFT_CLOSE_WORKER_NS_(ximpl_stlsoft_error_desc_)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -327,9 +332,9 @@ private:
      !defined(STLSOFT_COMPILER_IS_CLANG) && \
      !defined(STLSOFT_COMPILER_IS_GCC) && \
      1
-    basic_error_desc(class_type const&);    // copy-construction proscribed
+    basic_error_desc(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
 #endif /* compiler */
-    void operator =(class_type const&);     // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 public: // attributes
     /// The error description
@@ -375,6 +380,7 @@ typedef basic_error_desc<ss_char_w_t>                       error_desc_w;
  * \ingroup group__library__error
  */
 typedef basic_error_desc<char>                              error_desc;
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * implementation
@@ -501,6 +507,7 @@ basic_error_desc<C>::size() const STLSOFT_NOEXCEPT
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * string access shims
@@ -646,10 +653,11 @@ template <ss_typename_param_k C>
 inline
 C const* get_ptr(
     STLSOFT_NS_QUAL(basic_error_desc)<C> const& e
-)
+) STLSOFT_NOEXCEPT
 {
     return e;
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * operators
@@ -725,8 +733,9 @@ operator <<(
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * global namespace shims
@@ -757,6 +766,7 @@ operator <<(
 #endif /* 0 */
 
 #endif /* library */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

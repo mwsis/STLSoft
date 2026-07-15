@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/string/tokeniser_functions.hpp
+ * File:    stlsoft/string/tokeniser_functions.hpp
  *
- * Purpose:     Restartable tokenising functions.
+ * Purpose: Restartable tokenising functions.
  *
- * Created:     6th January 2001
- * Updated:     22nd January 2024
+ * Created: 6th January 2001
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2001-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,8 +54,9 @@
 # define STLSOFT_VER_STLSOFT_STRING_HPP_TOKENISER_FUNCTIONS_MAJOR      2
 # define STLSOFT_VER_STLSOFT_STRING_HPP_TOKENISER_FUNCTIONS_MINOR      0
 # define STLSOFT_VER_STLSOFT_STRING_HPP_TOKENISER_FUNCTIONS_REVISION   6
-# define STLSOFT_VER_STLSOFT_STRING_HPP_TOKENISER_FUNCTIONS_EDIT       34
+# define STLSOFT_VER_STLSOFT_STRING_HPP_TOKENISER_FUNCTIONS_EDIT       37
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -68,6 +69,7 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -76,6 +78,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * functions
@@ -96,9 +99,9 @@ namespace stlsoft
  *
  * \return p0
  *
- * \pre NULL != p0
- * \pre NULL != p1
- * \pre NULL != end
+ * \pre nullptr != p0
+ * \pre nullptr != p1
+ * \pre nullptr != end
  * \pre p0 <= p1
  * \pre p1 <= end
  */
@@ -167,8 +170,8 @@ find_next_token(
  *
  * \return p0
  *
- * \pre NULL != p0
- * \pre NULL != p1
+ * \pre nullptr != p0
+ * \pre nullptr != p1
  * \pre p0 <= p1
  */
 template <ss_typename_param_k C>
@@ -222,8 +225,9 @@ find_next_token(
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/shims/access/string/HWND.hpp
+ * File:    winstl/shims/access/string/HWND.hpp
  *
- * Purpose:     Contains classes and functions for dealing with Win32 strings.
+ * Purpose: Contains classes and functions for dealing with Win32 strings.
  *
- * Created:     24th May 2002
- * Updated:     22nd January 2024
+ * Created: 24th May 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_HWND_MAJOR       4
 # define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_HWND_MINOR       1
-# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_HWND_REVISION    10
-# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_HWND_EDIT        129
+# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_HWND_REVISION    12
+# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_HWND_EDIT        133
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -82,6 +83,11 @@
 # include <stlsoft/string/cstring_maker.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_CSTRING_MAKER */
 
+#ifndef WINSTL_INCL_WINSTL_API_external_h_WindowsAndMessages
+# include <winstl/api/external/WindowsAndMessages.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_WindowsAndMessages */
+
+
 /* /////////////////////////////////////////////////////////////////////////
  * compatibility
  */
@@ -92,6 +98,7 @@
 #ifdef NOWINOFFSETS
 # error This file cannot be used when NOWINOFFSETS is specified (to suppress GWL_*, GCL_*, associated routines)
 #endif /* NOWINOFFSETS */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -111,6 +118,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * functions
@@ -132,9 +140,9 @@ GetWindowTextLength_T_(
     WindowIdent const   ident       =   GetWindowIdent(hwnd);
     int                 sel;
 # ifndef NOWINSTYLES
-    const long          lbsStyle    =   LBS_MULTIPLESEL | LBS_EXTENDEDSEL;
+    long const          lbsStyle    =   LBS_MULTIPLESEL | LBS_EXTENDEDSEL;
 # else /* ? NOWINSTYLES */
-    const long          lbsStyle    =   0x0008L | 0x0800L;
+    long const          lbsStyle    =   0x0008L | 0x0800L;
 # endif /* NOWINSTYLES */
 
     switch (ident)
@@ -142,11 +150,11 @@ GetWindowTextLength_T_(
         case    WindowIdent_ListBox:
             if (0 == (GetStyle(hwnd) & lbsStyle))
             {
-                sel = static_cast<int>(::SendMessage(hwnd, LB_GETCURSEL, 0, 0l));
+                sel = static_cast<int>(WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(hwnd, LB_GETCURSEL, 0, 0l));
 
                 if (LB_ERR != sel)
                 {
-                    return static_cast<ws_size_t>(::SendMessage(hwnd, LB_GETTEXTLEN, static_cast<WPARAM>(sel), 0L));
+                    return static_cast<ws_size_t>(WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(hwnd, LB_GETTEXTLEN, static_cast<WPARAM>(sel), 0L));
                 }
                 else
                 {
@@ -245,11 +253,11 @@ GetWindowText_A_(
         case    WindowIdent_ListBox:
             if (0 == (GetStyle(hwnd) & (LBS_MULTIPLESEL | LBS_EXTENDEDSEL)))
             {
-                sel = static_cast<int>(::SendMessage(hwnd, LB_GETCURSEL, 0, 0l));
+                sel = static_cast<int>(WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(hwnd, LB_GETCURSEL, 0, 0l));
 
                 if (LB_ERR != sel)
                 {
-                    cch =   static_cast<ws_size_t>(::SendMessage(hwnd, LB_GETTEXT, static_cast<WPARAM>(sel), reinterpret_cast<LPARAM>(buffer)));
+                    cch =   static_cast<ws_size_t>(WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(hwnd, LB_GETTEXT, static_cast<WPARAM>(sel), reinterpret_cast<LPARAM>(buffer)));
 
                     // Some programs using list-boxes do not null-terminate - Visual
                     // SourceSafe Explorer, anyone? - so we must do so here.
@@ -297,11 +305,11 @@ GetWindowText_W_(
             {
                 ws_size_t  cch;
 
-                sel = static_cast<int>(::SendMessage(hwnd, LB_GETCURSEL, 0, 0l));
+                sel = static_cast<int>(WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(hwnd, LB_GETCURSEL, 0, 0l));
 
                 if (LB_ERR != sel)
                 {
-                    cch =   static_cast<ws_size_t>(::SendMessage(hwnd, LB_GETTEXT, static_cast<WPARAM>(sel), reinterpret_cast<LPARAM>(buffer)));
+                    cch =   static_cast<ws_size_t>(WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(hwnd, LB_GETTEXT, static_cast<WPARAM>(sel), reinterpret_cast<LPARAM>(buffer)));
                 }
                 else
                 {
@@ -333,8 +341,8 @@ GetWindowText_W_(
 
 /* HWND */
 /** This class provides an intermediary object that may be returned by the
- * c_str_ptr_null() function, such that the window text of a given window may be
- * accessed as a null-terminated string.
+ * c_str_ptr_null() function, such that the window text of a given window
+ * may be accessed as a null-terminated string.
  *
  * \ingroup group__concept__Shim__string_access
  *
@@ -374,12 +382,12 @@ public:
         cstring_maker_type_::free(m_block);
     }
 private:
-    void operator =(class_type const&); // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
-    /// Returns a null-terminated string representing the window contents, or
-    /// the empty string "" if the window contains no text.
+    /// Returns a null-terminated string representing the window contents,
+    /// or the empty string "" if the window contains no text.
     operator char_type const* () const
     {
         if (NULL == m_block)
@@ -492,12 +500,12 @@ public:
         cstring_maker_type_::free(m_block);
     }
 private:
-    void operator =(class_type const&); // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
-    /// Returns a null-terminated string representing the window contents, or
-    /// the empty string "" if the window contains no text.
+    /// Returns a null-terminated string representing the window contents,
+    /// or the empty string "" if the window contains no text.
     operator char_type const* () const
     {
         return &m_block->data[0];
@@ -556,6 +564,7 @@ c_str_ptr_HWND_proxy<ws_char_w_t>::get_window_text(
 }
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * iostream compatibility
  */
@@ -589,6 +598,7 @@ operator <<(
 
     return s;
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_data
@@ -631,6 +641,7 @@ c_str_data(
     return c_str_ptr_HWND_proxy<TCHAR>(hwnd);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_len
  *
@@ -658,7 +669,6 @@ c_str_len_w(
 {
     return GetWindowTextLength_W_(hwnd);
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \ref group__concept__Shim__string_access__c_str_len for HWND
@@ -674,6 +684,7 @@ c_str_len(
 {
     return GetWindowTextLength_T_(hwnd);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_ptr
@@ -702,7 +713,6 @@ c_str_ptr_w(
 {
     return c_str_ptr_HWND_proxy<ws_char_w_t>(hwnd);
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \ref group__concept__Shim__string_access__c_str_ptr for HWND
@@ -723,7 +733,7 @@ c_str_ptr(
  * c_str_ptr_null
  *
  * This can be applied to an expression, and the return value is either a
- * pointer to the character string or NULL.
+ * pointer to the character string or \c nullptr.
  */
 
 /* HWND */
@@ -763,17 +773,21 @@ c_str_ptr_null(
     return c_str_ptr_null_HWND_proxy<TCHAR>(hwnd);
 }
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace stlsoft::winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -810,11 +824,12 @@ using ::winstl::c_str_ptr_null_w;
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

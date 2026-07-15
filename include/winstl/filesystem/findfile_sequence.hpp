@@ -1,32 +1,32 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/filesystem/findfile_sequence.hpp
+ * File:    winstl/filesystem/findfile_sequence.hpp
  *
- * Purpose:     Contains the basic_findfile_sequence template class, and ANSI
- *              and Unicode specialisations thereof.
+ * Purpose: Contains the basic_findfile_sequence template class, and ANSI
+ *          and Unicode specialisations thereof.
  *
- * Notes:       1. The original implementation of the class had the const_iterator
- *              and value_type as nested classes. Unfortunately, Visual C++ 5 &
- *              6 both had either compilation or linking problems so these are
- *              regretably now implemented as independent classes.
+ * Notes:   1. The original implementation of the class had the
+ *          const_iterator and value_type as nested classes. Unfortunately,
+ *          Visual C++ 5 & 6 both had either compilation or linking problems
+ *          so these are regretably now implemented as independent classes.
  *
- *              2. This class was described in detail in the article
- *              "Adapting Windows Enumeration Models to STL Iterator Concepts"
- *              (http://www.windevnet.com/documents/win0303a/), in the March
- *              2003 issue of Windows Developer Network (http://windevnet.com).
- *              Note that later implementations use a shared-enumeration
- *              context, and therefore do not suffer any of the copying/moving
- *              ownership issues described in the article.
+ *          2. This class was described in detail in the article "Adapting
+ *          Windows Enumeration Models to STL Iterator Concepts"
+ *          (http://www.windevnet.com/documents/win0303a/), in the March
+ *          2003 issue of Windows Developer Network (http://windevnet.com).
+ *          Note that later implementations use a shared-enumeration
+ *          context, and therefore do not suffer any of the copying/moving
+ *          ownership issues described in the article.
  *
- * Created:     15th January 2002
- * Updated:     22nd January 2024
+ * Created: 15th January 2002
+ * Updated: 30th April 2025
  *
- * Thanks:      To Nevin Liber for pressing upon me the need to lead by
- *              example when writing books about good design/implementation;
- *              to Florin L for DMC++ missing standard symbols.
+ * Thanks:  To Nevin Liber for pressing upon me the need to lead by example
+ *          when writing books about good design/implementation; to Florin L
+ *          for DMC++ missing standard symbols.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -71,10 +71,11 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_MAJOR       4
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_MINOR       10
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_REVISION    9
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_EDIT        266
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_MINOR       12
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_REVISION    0
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_EDIT        277
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes - 1
@@ -86,6 +87,7 @@
 #ifdef STLSOFT_TRACE_INCLUDE
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * compatibility
@@ -101,6 +103,7 @@
 
 # define WINSTL_FFS_NO_LONG_PATH_SUPPORT_
 #endif
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes - 2
@@ -141,6 +144,10 @@
 # include <stlsoft/collections/util/collections.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_COLLECTIONS_UTIL_HPP_COLLECTIONS */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
+
 #ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
 # include <winstl/api/external/ErrorHandling.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
@@ -148,9 +155,10 @@
 # include <winstl/api/external/FileManagement.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_FileManagement */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
+#ifndef WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_
+# include <winstl/api/winstl_win32_winnt_.h>
+#endif /* !WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_ */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -171,6 +179,7 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * forward declarations
  */
@@ -184,6 +193,7 @@ template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k V>
 class basic_findfile_sequence_const_input_iterator;
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -254,10 +264,10 @@ private:
     ,   1 + WINSTL_CONST_MAX_PATH
     ,   processheap_allocator<char_type>
     >                                                       buffer_type_;
-    typedef STLSOFT_NS_QUAL(auto_buffer_old)<
+    typedef STLSOFT_NS_QUAL(auto_buffer)<
         char_type
-    ,   processheap_allocator<char_type>
     ,   64
+    ,   processheap_allocator<char_type>
     >                                                       patterns_buffer_type_;
 /// @}
 
@@ -269,6 +279,10 @@ public:
             includeDots                 =   0x0008  //!< Causes the search to include the "." and ".." directories, which are elided by default
         ,   directories                 =   0x0010  //!< Causes the search to include directories
         ,   files                       =   0x0020  //!< Causes the search to include files
+#ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+        ,   devices                     =   0x0000  /*!< This has no effect on Windows, but is here for structural conformance compatibility with unixstl::glob_sequence. */
+        ,   sockets                     =   0x0000  /*!< This has no effect on Windows, but is here for structural conformance compatibility with unixstl::glob_sequence. */
+#endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
         ,   skipReparseDirs             =   0x0100  //!< Causes the search to skip directories that are reparse points
         ,   skipHiddenFiles             =   0x0200  //!< Causes the search to skip files marked hidden
         ,   skipHiddenDirs              =   0x0400  //!< Causes the search to skip directories marked hidden
@@ -314,8 +328,8 @@ public:
     ~basic_findfile_sequence() STLSOFT_NOEXCEPT;
 
 private:
-    basic_findfile_sequence(class_type const&); // copy-construction proscribed
-    void operator =(class_type const&);         // copy-assignment proscribed
+    basic_findfile_sequence(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Iteration
@@ -372,6 +386,7 @@ private:
 /// @}
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * typedefs for commonly encountered types
  */
@@ -400,6 +415,7 @@ typedef basic_findfile_sequence<
     TCHAR
 ,   filesystem_traits<TCHAR>
 >                                                           findfile_sequence;
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -630,8 +646,8 @@ private:
             }
         }
     private:
-        shared_handle(class_type const&);   // copy-construction proscribed
-        void operator =(class_type const&); // copy-assignment proscribed
+        shared_handle(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+        void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
     /// @}
 
     /// \name Operations
@@ -720,8 +736,10 @@ private:
 /// @}
 };
 
-////////////////////////////////////////////////////////////////////////////
-// Operators
+
+/* /////////////////////////////////////////////////////////////////////////
+ * operators
+ */
 
 // basic_findfile_sequence_const_input_iterator
 
@@ -815,6 +833,7 @@ operator !=(
     return !rhs.equal(lhs);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * iostream compatibility
  */
@@ -832,8 +851,10 @@ operator <<(
     return s;
 }
 
-////////////////////////////////////////////////////////////////////////////
-// Shims
+
+/* /////////////////////////////////////////////////////////////////////////
+ * shims
+ */
 
 // c_str_data
 
@@ -969,6 +990,7 @@ c_str_ptr_null(WINSTL_NS_QUAL(basic_findfile_sequence_value_type)<C, T> const& v
     return STLSOFT_NS_QUAL(c_str_ptr_null(v.get_path()));
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * deprecated shims
  */
@@ -978,17 +1000,16 @@ c_str_ptr_null(WINSTL_NS_QUAL(basic_findfile_sequence_value_type)<C, T> const& v
 template <ss_typename_param_k C, ss_typename_param_k T>
 inline
 ws_bool_t
-is_empty(
-    basic_findfile_sequence<C, T> const& s
-)
+is_empty(basic_findfile_sequence<C, T> const& s) STLSOFT_NOEXCEPT
 {
     return s.empty();
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-////////////////////////////////////////////////////////////////////////////
-// Implementation
+
+/* /////////////////////////////////////////////////////////////////////////
+ * implementation
+ */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
@@ -1043,16 +1064,14 @@ struct fff_traits_<ws_char_w_t>
         searchSpec_l[2] =   L'?';
         searchSpec_l[3] =   L'\\';
 
-        STLSOFT_API_INTERNAL_memfns_memcpy(&searchSpec_l[0] + 4, &searchSpec[0], sizeof(ws_char_w_t) * searchSpec.size());
+        STLSOFT_API_EXTERNAL_memfns_memcpy(&searchSpec_l[0] + 4, &searchSpec[0], sizeof(ws_char_w_t) * searchSpec.size());
 
         return T_fs_traits::find_first_file(searchSpec_l.data(), findData);
     }
 };
-
 #endif /* !WINSTL_FFS_NO_LONG_PATH_SUPPORT_*/
 
 STLSOFT_CLOSE_WORKER_NS_(ximpl_winstl_ffs_)
-
 
 
 // basic_findfile_sequence
@@ -1174,7 +1193,7 @@ basic_findfile_sequence<C, T>::basic_findfile_sequence(
 )
     : m_delim(0)
     , m_flags(validate_flags_(flags))
-    , m_directory()
+    , m_directory(1)
     , m_patterns(1 + traits_type::str_len(pattern))
 {
     validate_directory_(NULL, m_directory, m_flags);
@@ -1193,7 +1212,7 @@ basic_findfile_sequence<C, T>::basic_findfile_sequence(
 )
     : m_delim(delim)
     , m_flags(validate_flags_(flags))
-    , m_directory()
+    , m_directory(1)
     , m_patterns(1 + traits_type::str_len(patterns))
 {
     validate_directory_(NULL, m_directory, m_flags);
@@ -1564,8 +1583,7 @@ basic_findfile_sequence_const_input_iterator<C, T, V>::find_first_file_(
 #endif /* FILE_ATTRIBUTE_REPARSE_POINT */
     };
 
-#if defined(_WIN32_WINNT) && \
-    _WIN32_WINNT >= 0x0400
+#if WINSTL_WIN32_WINNT >= WINSTL_WIN32_WINNT_NT4
 
     if ((sequence_type::directories == (flags & (sequence_type::directories | sequence_type::files))) &&
         system_version::winnt() &&
@@ -1574,7 +1592,7 @@ basic_findfile_sequence_const_input_iterator<C, T, V>::find_first_file_(
         hSrch = traits_type::find_first_file_ex(searchSpec.data(), FindExSearchLimitToDirectories, findData);
     }
     else
-#endif /* _WIN32_WINNT >= 0x0400 */
+#endif /* _WIN32_WINNT >= _WIN32_WINNT_NT4 */
 
     if (INVALID_HANDLE_VALUE == hSrch)
     {
@@ -2043,8 +2061,8 @@ basic_findfile_sequence_const_input_iterator<C, T, V>::equal(
 
     return m_handle == rhs.m_handle;
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -2053,12 +2071,13 @@ basic_findfile_sequence_const_input_iterator<C, T, V>::equal(
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -2101,11 +2120,12 @@ using ::winstl::is_empty;
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

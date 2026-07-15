@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/api/external/DeviceContext.h
+ * File:    winstl/api/external/DeviceContext.h
  *
- * Purpose:     External preprocessor aliases for external Windows'
- *              Device Context API.
+ * Purpose: External preprocessor aliases for external Windows' Device
+ *          Context API.
  *
- * Created:     20th August 2017
- * Updated:     26th December 2020
+ * Created: 20th August 2017
+ * Updated: 27th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -49,6 +49,7 @@
 #ifndef WINSTL_INCL_WINSTL_API_external_h_DeviceContext
 #define WINSTL_INCL_WINSTL_API_external_h_DeviceContext
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * includes
  */
@@ -60,9 +61,15 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
+#ifndef STLSOFT_INCL_H_WINDOWS
+# define STLSOFT_INCL_H_WINDOWS
+# include <windows.h>   /* Windows base header */
+#endif /* !STLSOFT_INCL_H_WINDOWS */
+
 #ifndef WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_
 # include <winstl/api/winstl_win32_winnt_.h>
 #endif /* !WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_ */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Windows' Device Context Functions
@@ -71,6 +78,7 @@
 #ifndef WINSTL_API_EXTERNAL_DeviceContext_GetObject
 # define WINSTL_API_EXTERNAL_DeviceContext_GetObject        STLSOFT_NS_GLOBAL_(GetObject)
 #endif /* !WINSTL_API_EXTERNAL_DeviceContext_GetObject */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

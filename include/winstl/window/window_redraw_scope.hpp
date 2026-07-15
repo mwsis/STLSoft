@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/window/window_redraw_scope.hpp
+ * File:    winstl/window/window_redraw_scope.hpp
  *
- * Purpose:     Window redraw-state scoping class.
+ * Purpose: Window redraw-state scoping class.
  *
- * Created:     5th January 1996
- * Updated:     22nd January 2024
+ * Created: 5th January 1996
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1996-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -51,11 +51,12 @@
 #define WINSTL_INCL_WINSTL_WINDOW_HPP_WINDOW_REDRAW_SCOPE
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define WINSTL_VER_WINSTL_WINDOW_HPP_WINDOW_REDRAW_SCOPE_MAJOR      5
-# define WINSTL_VER_WINSTL_WINDOW_HPP_WINDOW_REDRAW_SCOPE_MINOR      1
-# define WINSTL_VER_WINSTL_WINDOW_HPP_WINDOW_REDRAW_SCOPE_REVISION   6
-# define WINSTL_VER_WINSTL_WINDOW_HPP_WINDOW_REDRAW_SCOPE_EDIT       91
+# define WINSTL_VER_WINSTL_WINDOW_HPP_WINDOW_REDRAW_SCOPE_MAJOR     5
+# define WINSTL_VER_WINSTL_WINDOW_HPP_WINDOW_REDRAW_SCOPE_MINOR     1
+# define WINSTL_VER_WINSTL_WINDOW_HPP_WINDOW_REDRAW_SCOPE_REVISION  9
+# define WINSTL_VER_WINSTL_WINDOW_HPP_WINDOW_REDRAW_SCOPE_EDIT      96
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -71,6 +72,11 @@
 #ifndef WINSTL_INCL_SHIMS_ATTRIBUTE_HPP_GET_HWND
 # include <winstl/shims/attribute/get_HWND.hpp>
 #endif /* !WINSTL_INCL_SHIMS_ATTRIBUTE_HPP_GET_HWND */
+
+#ifndef WINSTL_INCL_WINSTL_API_external_h_WindowsAndMessages
+# include <winstl/api/external/WindowsAndMessages.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_WindowsAndMessages */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -91,6 +97,7 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * classes
  */
@@ -107,7 +114,7 @@ class window_redraw_scope
 {
 public:
     /// This type
-    typedef window_redraw_scope class_type;
+    typedef window_redraw_scope                             class_type;
 
 // Construction
 public:
@@ -128,13 +135,13 @@ public:
 #endif /* STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT */
         , m_bInvalidateOnUnlock(bInvalidateOnUnlock)
     {
-        ::SendMessage(m_hwnd, WM_SETREDRAW, false, 0L);
+        WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(m_hwnd, WM_SETREDRAW, false, 0L);
     }
 
     /// Resets the redraw status, and invalidates the window, if requested in the constructor
     ~window_redraw_scope() STLSOFT_NOEXCEPT
     {
-        ::SendMessage(m_hwnd, WM_SETREDRAW, true, 0L);
+        WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(m_hwnd, WM_SETREDRAW, true, 0L);
 
         if (m_bInvalidateOnUnlock)
         {
@@ -142,8 +149,8 @@ public:
         }
     }
 private:
-    window_redraw_scope(class_type const&); // copy-construction proscribed
-    void operator =(class_type const&);     // copy-assignment proscribed
+    window_redraw_scope(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Members
 private:
@@ -151,17 +158,21 @@ private:
     ws_bool_t   m_bInvalidateOnUnlock;
 };
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

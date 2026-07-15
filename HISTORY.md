@@ -4,10 +4,393 @@
 ----
 
 
+23rd August 2025 - 1.11.1-rc3 released
+---------------------------------------
+
+ * Added `platformstl::pid_sequence` / `unixstl::pid_sequence`;
+ * Added `winstl_C_printf_debug_string()` in **winstl/diagnostics/printf_debug_line.h**;
+ * Added `winstl::codepage_sequence`;
+ * Added Window write-to-console functions;
+ * More examples;
+ * More tests;
+ * Corrected some minor defects around language version detection;
+ * Compatibility/corrections in string-to-integer functions;
+ * Canonicalise example programs source names;
+ * Backwards compatibility (partial) for Visual C++ back to v10;
+ * Project boilerplate;
+
+
+31st May 2025 - 1.11.1-rc2 released
+-----------------------------------
+
+ * Added `stlsoft::member_selector_view<>` (alpha version), for span-compatibility in **recls**;
+ * Change semantics of `stlsoft::auto_buffer<>#resize()` the size of external allocation is maintained such that shrinking and then regrowing may be done within the existing allocation;
+ * InetSTL / UNIXSTL / WinSTL architecture discrimination  canonicalised, expanded, and corrected;
+ * Substantial refactoring and testing of `winstl::filesystem_traits<>`;
+ * Significant improvements to compatibility with different C and C++ language versions (C90, C99, C11, C17, C23, C++98, C++11, C++14, C++17, C++20, C++23) - detailed in TODO.md;
+ * Added compatibility with latest Visual C++ (`_MSC_VER` == 1944);
+ * **test.component.inetstl.util.uds_helpers** now works correctly for both Linux and macOS;
+ * Brought over several test programs exercising C APIs;
+ * **run_all_scratch_tests.sh** now accepts '--verbosity' option;
+
+
+6th May 2025 - 1.11.1-rc1 released
+----------------------------------
+
+ * Various CMake improvements;
+ * MinGW compatibility;
+ * **UNIXem** compatibility;
+ * Windows compatibility;
+
+
+5th May 2025 - 1.11.1-beta9 released
+------------------------------------
+
+ * `stlsoft::basic_string_view` fixed defect in comparison;
+ * **example.platformstl.filesystem.readdir_sequence** minor fix;
+
+
+3rd May 2025 - 1.11.1-beta8 released
+------------------------------------
+
+ * Added skipping of hidden directories and files to `unixstl::glob_sequence` and `unixstl::readdir_sequence`;
+ * Various example improvements;
+ * Updated **TODO.md** with structure and items;
+
+
+30th April 2025 - 1.11.1-beta7 released
+---------------------------------------
+
+ * Support for searching of devices on the file system, primarily concerning `unixstl::glob_sequence` and `unixstl::readdir_sequence`;
+
+
+28th April 2025 - 1.11.1-beta6 released
+---------------------------------------
+
+ * Visual C++ compatibility (including _MSC_VER 1943);
+ * CMake / UNIXem compatibility;
+ * Refactored / enhanced retrieval of home-directory, including, for Windows, trying first for `"USERPROFILE"` and then falls back to `"HOMEDRIVE"` and `"HOMEPATH"`;
+ * **prepare_cmake.sh** / **CMakeLists.txt** : + added '--no-shwild' / `CMAKE_NO_SHWILD`;
+ * Added **test.component.winstl.system.directory_functions**;
+
+
+26th April 2025 - 1.11.1-beta5 released
+---------------------------------------
+
+ * Added `platformstl::environment_variable_scope`;
+ * Added more unit-tests;
+ * MinGW compatibility;
+ * `stlsoft::basic_static_string<>` minor fix;
+ * Miscellaneous fixes;
+
+
+22nd April 2025 - 1.11.1-beta4 released
+---------------------------------------
+
+ * `unixstl::glob_sequence` now can search for sockets, in addition to files and directories;
+ * `stlsoft::cmdargs` added missing member types;
+
+
+16th April 2025 - 1.11.1-beta3 released
+-----------------------------------------
+
+ * Added specialisations of `integral_traits<>` for integer specialisations of `true_typedef<>`;
+ * Applied `printf()` format attributes throughout;
+ * Defect fix(es) to `unixstl::path_squeeze<>()` / `winstl::path_squeeze<>()`;
+ * MinGW compatibility;
+ * Wholesale trivial/minor tidying;
+
+
+23rd February 2025 - 1.11.1-beta2 released
+-----------------------------------------
+
+ * `unixstl::readdir_sequence` now can search for sockets, in addition to files and directories;
+ * **InetSTL** newly released functionality;
+ * GCC (11) compatibility around use of `__builtin_is_constant_evaluated` (when not C++20);
+ * **InetSTL** improved compatibility with macOS / Linux;
+
+
+31st December 2024 - 1.11.1-beta1 released
+------------------------------------------
+
+ * Command-line handling components minor improvements and unit-testing;
+ * Visual C++ compatibility (including _MSC_VER 1942);
+ * MinGW compatibility;
+ * Miscellaneous backwards-compatibility fixes;
+ * Miscellaneous (near) final fixes and tidying;
+
+
+28th December 2024 - 1.11.1-alpha28 released
+--------------------------------------------
+
+ * substantial reworking of abstraction of memory functions, resulting in performance improvements across numerous components, `stlsoft::auto_buffer<>` in particular;
+ * MinGW compatibility;
+ * miscellaneous generalisation of code and dependencies;
+ * added more test programs;
+
+
+19th December 2024 - 1.11.1-alpha27 released
+--------------------------------------------
+
+ * added `stlsoft::doomgram` and `stlsoft::gram_scope` (from old research repo(s));
+ * added **include/stlsoft/diagnostics/gram_utils.hpp**, including `stlsoft::gram_to_strip()`;
+ * added `stlsoft::count_hexadecimal_digits()`, and refactored `stlsoft::count_digits()` into `stlsoft::count_decimal_digits()`;
+ * added **unixstl/time/comparison_functions.h**, including `unixstl_C_compare_timevals()` / `unixstl::compare()`;
+ * added `winstl_C_difference_in_microseconds_QPC()` and `winstl_C_absolute_difference_in_microseconds_QPC()`;
+ * `winstl::micro_sleep()` (and `winstl_C_micro_sleep()`) now implemented in terms of active methods for accurate behaviour in small durations (0 < delay_us <= 250000);
+ * added `#pause()` and `#unpause()` to stopwatch types (incl. `stlsoft::std_chrono_hrc_stopwatch`, `unixstl::stopwatch()`, `winstl::stopwatch()`);
+ * added `#get_kernel_nanoseconds()`, `#get_user_nanoseconds()`, `#get_nanoseconds()` to `unixstl::stopwatch()`;
+ * added `#cbegin()` / `#cend()` and `#crbegin()` / `#crend()` methods to `stlsoft::auto_buffer<>`;
+ * separated Windows-specific `platformstl::readdir_sequence` into `winstl::readdir_sequence`;
+ * added **test.component.platformstl.diagnostics.stopwatch**;
+ * added **test.performance.stlsoft.count_digits**;
+ * added **test.performance.stlsoft.doomgram**;
+ * added **test.performance.stlsoft.gram_utils**;
+ * added **test.scratch.winstl.micro_sleep**;
+ * added **test.unit.stlsoft.diagnostics.doomgram**;
+ * added **test.unit.stlsoft.diagnostics.gram_scope**;
+ * added **test.unit.stlsoft.util.count_decimal_digits**;
+ * added **test.unit.stlsoft.util.count_hexadecimal_digits**;
+ * added **test.unit.winstl.conversion.number.grouping_functions**;
+ * **run_all_unit_tests.sh** now respects environment variables `XTESTS_VERBOSITY` and `TEST_VERBOSITY`;
+ * miscellaneous minor/trivial improvements;
+
+
+23rd November 2024 - 1.11.1-alpha26 released
+--------------------------------------------
+
+ * added `stlsoft::integral_traits<>` (**stlsoft/traits/integral_traits.hpp**);
+ * added `stlsoft::unicode_point_map`;
+ * added **test.unit.stlsoft.limits.integral_limits**;
+ * added **test.unit.stlsoft.traits.integral_traits**;
+ * minor tidying to CMake facilities;
+
+
+18th November 2024 - 1.11.1-alpha25 released
+--------------------------------------------
+
+ * added MSVC MT support;
+ * added and applied macro `STLSOFT_IS_CONSTANT_EVALUATED()`, in particular to `stlsoft::auto_buffer<>`;
+ * include ordering (around api/internal / api/external helper headers);
+ * copy-paste typos;
+ * made consistent include ordering (around api/internal / api/external helper headers);
+
+
+4th November 2024 - 1.11.1-alpha24 released
+-------------------------------------------
+
+ * `frequency_map` : ~ now default-specialised on `frequency_map_traits_unordered` when compiling with C++11+;
+ * **test.performance.stlsoft.frequency_map** : ~ improved reporting of results ; ~ now uses `stlsoft::std_chrono_hrc_stopwatch`;
+
+
+28th October 2024 - 1.11.1-alpha23 released
+-------------------------------------------
+
+ * `platformstl::basic_file_lines<>` now supports move semantics;
+ * Fix to definition of `STLSOFT_MESSAGE_ASSERT()` (for Clang);
+ * Minor improvements of ./CMakeLists.txt;
+ * **dev/bin/batch_compile_check** now supports '--counts' flag;
+
+
+
 28th October 2024 - 1.10.12 released
 ------------------------------------
 
  * project boilerplate updated (in line with STLSoft-1.11)
+
+
+26th October 2024 - 1.11.1-alpha22 released
+-------------------------------------------
+
+ * Single fix to default definition of `STLSOFT_FALLTHROUGH()`;
+
+
+25th October 2024 - 1.11.1-alpha21 released
+-------------------------------------------
+
+ * Added and applied macro `STLSOFT_FALLTHROUGH()`;
+ * Added unit-tests for allocator types;
+
+
+23rd October 2024 - 1.11.1-alpha20 released
+-------------------------------------------
+
+ * Version change only;
+
+
+23rd October 2024 - 1.11.1-alpha19 released
+-------------------------------------------
+
+ * Fixes to (new functionality in) `stlsoft::auto_buffer<>`;
+ * Fix for (compile-time) defect in `winstl::basic_path<>`;
+ * Fix for defect in `winstl::basic_reg_key<>`;
+ * MinGW compatibility in **winstl/internal/windows_version_.h**;
+ * MinGW compatibility in **winstl/system/console_functions.h**;
+ * Necessary warning suppression in `stlsoft::basis_simple_string<>`;
+ * Trivial warning fix in `winstl::readonly_memory_mapped_file<>`;
+ * Added **test.unit.stlsoft.traits.integral_printf_format_traits**;
+ * Brought over **test.unit.winstl.registry.reg_value**;
+ * Added **test.unit.winstl.registry.reg_value_sequence**;
+ * GCC warnings;
+ * CMake build scripts minor fixes;
+
+
+15th October 2024 - 1.11.1-alpha18 released
+-------------------------------------------
+
+ * Legacy (pre VS-2022) Visual C++ compatibility;
+ * Win32 compatibity;
+
+
+13th October 2024 - 1.11.1-alpha17 released
+-------------------------------------------
+
+ * `stlsoft::frequency_map<>` enhancements;
+ * `unixstl::glob_sequence` enhancements;
+ * Fixes and enhancement to `dl_call<>()` (both UNIXSTL and WinSTL);
+ * BREAKING CHANGE: Prospective compatibility with C++20 reserved word `module` (both UNIXSTL and WinSTL) by renaming existing `module` class to `dl_module`;
+ * GCC 11 compatibility;
+ * GCC 14 compatibility;
+ * MinGW-64 compatibility;
+ * VC++ 17 compatibility;
+ * General improvements and simplification for compatibility with C++11 - C++20;
+ * CMake build files improvements;
+ * Misc. minor fixes and enhancements;
+ * Misc. code canonicalisation;
+ * Bringing into repo existing (older) test and example programs;
+
+
+1st October 2024 - 1.11.1-alpha16 released
+------------------------------------------
+
+ * `auto_buffer` improvements;
+ * `constexpr` applications;
+ * Time function enhancements;
+ * Brought over previously unreleased example and test programs;
+ * Significant simplification of CMake support;
+ * Boilerplate file improvements;
+ * Miscellaneous improvements;
+
+
+2nd September 2024 - 1.11.1-alpha15 released
+--------------------------------------------
+
+ * Windows ARM64 architecture support;
+ * Windows 10/11 operating system detection support;
+ * significant simplification of CMake support;
+ * minor additions/enhancements to scratch tests;
+ * miscellaneous fixes;
+
+
+21st August 2024 - 1.11.1-alpha14 released
+------------------------------------------
+
+* VC++ 17 latest (`_MSC_VER`==1941) compatibility
+
+
+4th August 2024 - 1.11.1-alpha13 released
+-----------------------------------------
+
+* added `platformstl::isatty()` (and `platformstl::platformstl_C_isatty_fd()` and `platformstl::platformstl_C_isatty_stm()`), `unixstl::isatty()` (and `unixstl::unixstl_C_isatty_fd()` and `unixstl::unixstl_C_isatty_stm()`), `winstl::isatty()` (and `winstlstl::winstlstl_C_isatty_fd()` and `winstlstl::winstlstl_C_isatty_stm()`)
+
+
+3rd August 2024 - 1.11.1-alpha12 released
+-----------------------------------------
+
+* `unixstl::readdir_sequence` no longer uses `stlsoft::basic_static_string<>`;
+* simplifying CMake compatibility;
+* VC++17 compatibility;
+* minor fixes;
+* now depends on xTests 0.24+
+
+
+14th July 2024 - 1.11.1-alpha10 released
+16th July 2024 - 1.11.1-alpha11 released
+----------------------------------------
+
+* CMake compatibility fixes
+
+
+14th July 2024 - 1.11.1-alpha10 released
+----------------------------------------
+
+* Fixing upper limit to **xTests** version as <0.23, in anticipation of imminent changes to **xTests**;
+* Compatibility with latest VC++ 17 (with Visual Studio 2022 version 17.10.1, _MSC_FULL_VER=194033811);
+
+
+9th July 2024 - 1.11.1-alpha9 released
+--------------------------------------
+
+* Missing fix to `stlsoft::basic_simple_string`'s `#assign()`;
+
+
+9th July 2024 - 1.11.1-alpha8 released
+--------------------------------------
+
+ * Added `platformstl::get_home_directory()` and related functions;
+ * GCC compatibility improvements;
+ * CMake improvements;
+ * Boilerplate file improvements;
+ * More examples and test programs;
+
+
+5th May 2024 - 1.11.1-alpha7 released
+-------------------------------------
+
+ * Visual C++ (17) compatibility;
+ * Windows compatibility for CMake;
+ * Miscellaneous changes;
+
+
+29th March 2024 - 1.11.1-alpha6 released
+----------------------------------------
+
+ * added unit-test projects **test.unit.stlsoft.conversion.number.group_functions** and **test.unit.stlsoft.conversion.integer_to_lc_string**;
+ * partial merge of forthcoming branch 'ss/simple_string-null_object';
+
+
+29th March 2024 - 1.11.1-alpha5 released
+----------------------------------------
+
+ * various GCC-11 compatibility fixes;
+
+
+18th March 2024 - 1.11.1-alpha4 released
+----------------------------------------
+
+ * `stlsoft::basic_simple_string<>` now has `#equal()`;
+ * added 'stlsoft::std_chrono_hrc_stopwatch' stopwatch type;
+ * various performance improvements;
+
+
+16th March 2024 - 1.11.1-alpha3 released
+----------------------------------------
+
+ * `stlsoft::basic_simple_string<>` now has `#contains()`;
+ * `stlsoft::basic_static_string<>` now has `#contains()`;
+ * wholesale automated layout canonicalisation;
+
+
+1st March 2024 - 1.11.1-alpha2 released
+---------------------------------------
+
+ * True-Typedef supports stream-insertion (`operator <<()`):
+ * added `stlsoft::write_string<>()`;
+ * miscellaneous fixes (including C++14/17/20 compatibility);
+
+
+20th February 2024 - 1.11.1-alpha1 released
+-------------------------------------------
+
+ * added `stlsoft::integer_to_base32_string<>()` integer to Base-32-string conversion
+ * added `stlsoft::integer_to_base36_string<>()` integer to Base-36-string conversion
+ * `stlsoft::basic_simple_string<>` now has `#starts_with()` and `#ends_with()`
+ * `stlsoft::basic_static_string<>` now has `#starts_with()` and `#ends_with()`
+ * `stlsoft::basic_static_string<>` now has `#substr()`
+ * `stlsoft::basic_static_string<>` now has `#front()` and `#back()`
+ * `stlsoft::basic_static_string<>` consistently and correctly throws exceptions on any operations that would cause exceeding of internal storage
+ * improvement to string insertion helper `string_insert()` to work with stream types that do and do not provide `sentry`
+ * added **test.unit.unixstl.filesystem.path** unit-test project
 
 
 16th February 2024 - 1.10.11 released

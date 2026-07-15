@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/shims/access/string/std/time.hpp
+ * File:    stlsoft/shims/access/string/std/time.hpp
  *
- * Purpose:     String shims for standard time structures.
+ * Purpose: String shims for standard time structures.
  *
- * Created:     25th July 2005
- * Updated:     22nd January 2024
+ * Created: 25th July 2005
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,8 +55,9 @@
 # define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_TIME_MAJOR     3
 # define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_TIME_MINOR     1
 # define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_TIME_REVISION  0
-# define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_TIME_EDIT      38
+# define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_TIME_EDIT      42
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -81,6 +82,7 @@
 # include <time.h>
 #endif /* !STLSOFT_INCL_H_TIME */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -89,6 +91,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * shims
@@ -103,7 +106,7 @@ namespace stlsoft
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-<code>NULL</code>, non-mutating pointer to a C-style string
+ * \return None-\c nullptr, non-mutating pointer to a C-style string
  *   of <code>char</code>.
  */
 inline
@@ -149,7 +152,7 @@ c_str_data_a(
  * \param t Pointer to time value to be converted
  * \param fmt Custom format string. Must not be \c null
  *
- * \return None-<code>NULL</code>, non-mutating pointer to a C-style string
+ * \return None-\c nullptr, non-mutating pointer to a C-style string
  *   of <code>char</code>.
  */
 inline
@@ -191,7 +194,7 @@ c_str_data_a(
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-<code>NULL</code>, non-mutating pointer to a C-style string
+ * \return None-\c nullptr, non-mutating pointer to a C-style string
  *   of <code>char</code>.
  */
 inline
@@ -294,7 +297,7 @@ c_str_len(
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-<code>NULL</code>, <code>nul</code>-terminated, non-mutating
+ * \return None-\c nullptr, <code>nul</code>-terminated, non-mutating
  *   pointer to a C-style string of <code>char</code>.
  */
 inline
@@ -313,7 +316,7 @@ c_str_ptr_a(
  * \param t Pointer to time value to be converted
  * \param fmt Custom format string. Must not be \c null
  *
- * \return None-<code>NULL</code>, <code>nul</code>-terminated, non-mutating
+ * \return None-\c nullptr, <code>nul</code>-terminated, non-mutating
  *   pointer to a C-style string of <code>char</code>.
  */
 inline
@@ -331,7 +334,7 @@ c_str_ptr_a(
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-<code>NULL</code>, <code>nul</code>-terminated, non-mutating
+ * \return None-\c nullptr, <code>nul</code>-terminated, non-mutating
  *   pointer to a C-style string of <code>char</code>.
  */
 inline
@@ -349,7 +352,7 @@ c_str_ptr(
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return Possibly <code>NULL</code>, <code>nul</code>-terminated,
+ * \return Possibly \c nullptr, <code>nul</code>-terminated,
  *   non-mutating pointer to a C-style string of <code>char</code>.
  */
 inline
@@ -366,7 +369,7 @@ c_str_ptr_null_a(
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return Possibly <code>NULL</code>, <code>nul</code>-terminated,
+ * \return Possibly \c nullptr, <code>nul</code>-terminated,
  *   non-mutating pointer to a C-style string of <code>char</code>.
  */
 inline
@@ -385,7 +388,7 @@ c_str_ptr_null(
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-<code>NULL</code>, non-mutating pointer to a C-style string
+ * \return None-\c nullptr, non-mutating pointer to a C-style string
  *   of <code>char</code>.
  */
 inline
@@ -404,7 +407,7 @@ c_str_data_a(
  * \param t Time value to be converted
  * \param fmt Custom format string. Must not be \c null
  *
- * \return None-<code>NULL</code>, non-mutating pointer to a C-style string
+ * \return None-\c nullptr, non-mutating pointer to a C-style string
  *   of <code>char</code>.
  */
 inline
@@ -422,7 +425,7 @@ c_str_data_a(
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-<code>NULL</code>, non-mutating pointer to a C-style string
+ * \return None-\c nullptr, non-mutating pointer to a C-style string
  *   of <code>char</code>.
  */
 inline
@@ -491,7 +494,7 @@ c_str_len(
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-<code>NULL</code>, <code>nul</code>-terminated, non-mutating
+ * \return None-\c nullptr, <code>nul</code>-terminated, non-mutating
  *   pointer to a C-style string of <code>char</code>.
  */
 inline
@@ -510,8 +513,8 @@ c_str_ptr_a(
  * \param t Pointer to time value to be converted
  * \param fmt Custom format string. Must not be \c null
  *
- * \return None-NULL, nul-terminated, non-mutating pointer to a C-style
- *   string of <code>char</code>.
+ * \return None-\c nullptr, nul-terminated, non-mutating pointer to a
+ *   C-style string of <code>char</code>.
  */
 inline
 basic_shim_string<ss_char_a_t>
@@ -528,7 +531,7 @@ c_str_ptr_a(
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-<code>NULL</code>, <code>nul</code>-terminated, non-mutating
+ * \return None-\c nullptr, <code>nul</code>-terminated, non-mutating
  *   pointer to a C-style string of <code>char</code>.
  */
 inline
@@ -546,7 +549,7 @@ c_str_ptr(
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return Possibly <code>NULL</code>, <code>nul</code>-terminated,
+ * \return Possibly \c nullptr, <code>nul</code>-terminated,
  *   non-mutating pointer to a C-style string of <code>char</code>.
  */
 inline
@@ -563,7 +566,7 @@ c_str_ptr_null_a(
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return Possibly <code>NULL</code>, <code>nul</code>-terminated,
+ * \return Possibly \c nullptr, <code>nul</code>-terminated,
  *   non-mutating pointer to a C-style string of <code>char</code>.
  */
 inline
@@ -575,11 +578,15 @@ c_str_ptr_null(
     return c_str_ptr_null(&t);
 }
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

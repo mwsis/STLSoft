@@ -1,15 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/internal/cccap/msvc.h
+ * File:    stlsoft/internal/cccap/msvc.h
  *
- * Purpose:     Compiler feature discrimination for Visual C++.
+ * Purpose: Compiler feature discrimination for Visual C++.
  *
- * Created:     7th February 2003
- * Updated:     12th February 2024
+ * Created: 7th February 2003
+ * Updated: 2nd September 2024
  *
- * Thanks:      To Cláudio Albuquerque for working on the
- *              Win64-compatibility.
+ * Thanks:  To Cláudio Albuquerque for working on the Win64-compatibility.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
@@ -64,13 +63,11 @@
 #endif /* compiler */
 
 
-/* ////////////////////////////////////////////////////////////////////// */
-
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_H_STLSOFT_CCCAP_MSVC_MAJOR     3
-# define STLSOFT_VER_H_STLSOFT_CCCAP_MSVC_MINOR     36
+# define STLSOFT_VER_H_STLSOFT_CCCAP_MSVC_MINOR     38
 # define STLSOFT_VER_H_STLSOFT_CCCAP_MSVC_REVISION  1
-# define STLSOFT_VER_H_STLSOFT_CCCAP_MSVC_EDIT      154
+# define STLSOFT_VER_H_STLSOFT_CCCAP_MSVC_EDIT      158
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 
@@ -385,6 +382,11 @@
 # define STLSOFT_CF_noexcept_KEYWORD_SUPPORT
 #endif /* compiler */
 
+#if _MSC_VER >= 1600
+# define STLSOFT_CF_noinline_KEYWORD_SUPPORT
+# define STLSOFT_CUSTOM_NOINLINE                            __declspec(noinline)
+#endif /* compiler */
+
 #if _MSC_VER >= 1600 && \
     defined(__cplusplus)
 # define STLSOFT_CF_nullptr_KEYWORD_SUPPORT
@@ -619,7 +621,8 @@
 
 #define STLSOFT_CF_THISCALL_SUPPORTED
 
-#if defined(_M_IX86)
+#if 0
+#elif defined(_M_IX86)
 
 # define STLSOFT_CF_CDECL_SUPPORTED
 # ifndef _MANAGED
@@ -633,8 +636,11 @@
 # endif /* !_MANAGED */
 # define STLSOFT_STDCALL                                    __stdcall
 
-#elif defined(_M_IA64) || \
-      defined(_M_X64)
+#elif 0 ||\
+      defined(_M_ARM64) ||\
+      defined(_M_IA64) ||\
+      defined(_M_X64) ||\
+      0
 
 # define STLSOFT_CF_CDECL_SUPPORTED
 

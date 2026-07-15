@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/internal/cccap/unknown.h
+ * File:    stlsoft/internal/cccap/unknown.h
  *
- * Purpose:     Compiler feature discrimination for unknown compilers.
+ * Purpose: Compiler feature discrimination for unknown compilers.
  *
- * Created:     7th February 2003
- * Updated:     22nd January 2024
+ * Created: 7th February 2003
+ * Updated: 28th May 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -56,14 +56,16 @@
 # error This file cannot be included more than once in any compilation unit
 #endif /* STLSOFT_INCL_H_STLSOFT_CCCAP_UNKNOWN */
 
+
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_H_STLSOFT_CCCAP_UNKNOWN_MAJOR      3
 # define STLSOFT_VER_H_STLSOFT_CCCAP_UNKNOWN_MINOR      18
-# define STLSOFT_VER_H_STLSOFT_CCCAP_UNKNOWN_REVISION   1
-# define STLSOFT_VER_H_STLSOFT_CCCAP_UNKNOWN_EDIT       78
+# define STLSOFT_VER_H_STLSOFT_CCCAP_UNKNOWN_REVISION   2
+# define STLSOFT_VER_H_STLSOFT_CCCAP_UNKNOWN_EDIT       81
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Auto-generation and compatibility
@@ -73,6 +75,7 @@
 [<[STLSOFT-AUTO:NO-DOCFILELABEL]>]
 [<[STLSOFT-AUTO:NO-UNITTEST]>]
 */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Pre-processing features
@@ -111,6 +114,7 @@
 #define STLSOFT_CF_PRETTY_FUNCTION_SYMBOL_SUPPORT
 */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * C/C++ Language features
  */
@@ -129,28 +133,19 @@
  */
 #define STLSOFT_CF_COMPILER_SUPPORTS_RETURN_VOID
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * types
  */
 
 /* bool */
 #ifdef __cplusplus
-# define STLSOFT_CF_NATIVE_BOOL_SUPPORT
+# define STLSOFT_CF_BUILTIN_bool_SUPPORT
 #endif /* __cplusplus */
 
 /* wchar_t */
 #define STLSOFT_CF_NATIVE_WCHAR_T_SUPPORT
 
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
 
 /* ///////////////////////////////////////////////
  * integral types
@@ -174,7 +169,8 @@
  * which indicate that a given type is not used in the size-specific types.
  */
 
-#if defined(__LP64__)
+#if 0
+#elif defined(__LP64__)
 # define _STLSOFT_SIZEOF_CHAR                               (1)
 # define _STLSOFT_SIZEOF_SHORT                              (2)
 # define _STLSOFT_SIZEOF_INT                                (4)
@@ -214,6 +210,7 @@
  * C++ Language Features
  */
 
+
 /* ///////////////////////////////////////////////
  * miscellaneous
  */
@@ -225,6 +222,7 @@
  * static array size determination
  */
 #define STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT
+
 
 /* ///////////////////////////////////////////////
  * C++-98 keywords support
@@ -244,6 +242,7 @@
 
 #define STLSOFT_CF_TYPENAME_TYPE_RET_KEYWORD_SUPPORT
 
+
 /* ///////////////////////////////////////////////
  * rtti support
  */
@@ -251,6 +250,7 @@
 #ifdef __cplusplus
 # define STLSOFT_CF_RTTI_SUPPORT
 #endif /* __cplusplus */
+
 
 /* ///////////////////////////////////////////////
  * exception support
@@ -265,6 +265,7 @@
 /* #define STLSOFT_CF_EXCEPTION_SPEC_EXPENSIVE */
 
 #define STLSOFT_CF_THROW_BAD_ALLOC
+
 
 /* ///////////////////////////////////////////////
  * namespace support
@@ -417,7 +418,7 @@
   */
 # define __STLSOFT_CF_ASSERT_SUPPORT
 # define STLSOFT_CF_ASSERT_SUPPORT
-# define STLSOFT_ASSERT(expr)                   _STLSOFT_CUSTOM_ASSERT(expr)
+# define STLSOFT_ASSERT(expr)                               _STLSOFT_CUSTOM_ASSERT(expr)
 # if defined(_STLSOFT_CUSTOM_ASSERT_INCLUDE)
 #  define   __STLSOFT_CF_ASSERT_INCLUDE_NAME                _STLSOFT_CUSTOM_ASSERT_INCLUDE
 # else
@@ -436,6 +437,7 @@
 
 /* TODO: define here whether need -1 or 0 as the static assert invalid array quantifier */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * calling convention
  */
@@ -450,12 +452,14 @@
 /* #define   STLSOFT_FASTCALL            __fastcall */
 /* #define   STLSOFT_STDCALL             __stdcall */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * inline assembler
  */
 
 /* #define STSLSOFT_INLINE_ASM_SUPPORTED */
 /* #define STSLSOFT_ASM_IN_INLINE_SUPPORTED */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inline support
@@ -471,9 +475,11 @@
 # define STLSOFT_CF_C99_INLINE
 #endif /* environment */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * compiler warning suppression
  */
+
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

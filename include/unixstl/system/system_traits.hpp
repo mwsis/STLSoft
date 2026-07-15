@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        unixstl/system/system_traits.hpp
+ * File:    unixstl/system/system_traits.hpp
  *
- * Purpose:     Contains the system_traits template class, and ANSI and
- *              Unicode specialisations thereof.
+ * Purpose: Contains the system_traits template class, and ANSI and
+ *          Unicode specialisations thereof.
  *
- * Created:     15th November 2002
- * Updated:     22nd January 2024
+ * Created: 15th November 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,9 +55,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define UNIXSTL_VER_UNIXSTL_SYSTEM_HPP_SYSTEM_TRAITS_MAJOR     6
 # define UNIXSTL_VER_UNIXSTL_SYSTEM_HPP_SYSTEM_TRAITS_MINOR     2
-# define UNIXSTL_VER_UNIXSTL_SYSTEM_HPP_SYSTEM_TRAITS_REVISION  1
-# define UNIXSTL_VER_UNIXSTL_SYSTEM_HPP_SYSTEM_TRAITS_EDIT      135
+# define UNIXSTL_VER_UNIXSTL_SYSTEM_HPP_SYSTEM_TRAITS_REVISION  2
+# define UNIXSTL_VER_UNIXSTL_SYSTEM_HPP_SYSTEM_TRAITS_EDIT      140
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -80,6 +81,10 @@
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_HPP_RESIZEABLE_BUFFER_HELPERS
 # include <stlsoft/util/resizeable_buffer_helpers.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_RESIZEABLE_BUFFER_HELPERS */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
 
 #if defined(_WIN32) || \
     defined(_WIN64)
@@ -130,12 +135,14 @@
 # include <sys/stat.h>
 #endif /* !STLSOFT_INCL_SYS_H_STAT */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
-# include <stlsoft/api/external/string.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
 #ifndef STLSOFT_INCL_STLSOFT_INTERNAL_H_SAFESTR
 # include <stlsoft/internal/safestr.h>
 #endif /* !STLSOFT_INCL_STLSOFT_INTERNAL_H_SAFESTR */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -155,6 +162,7 @@ namespace unixstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -207,9 +215,9 @@ public:
     /// path string character rules on the ambient operating system
     ///
     /// \param ps1 C-style string pointer to the first path. May not be
-    ///   \c null
+    ///   \c nullptr
     /// \param ps2 C-style string pointer to the first path. May not be
-    ///   \c null
+    ///   \c nullptr
     ///
     /// \note This function does <em>not</em> perform analysis such as
     ///   canonicalisation of dots directories
@@ -224,9 +232,9 @@ public:
     /// path string character rules on the ambient operating system
     ///
     /// \param ps1 C-style string pointer to the first path. May not be
-    ///   \c null
+    ///   \c nullptr
     /// \param ps2 C-style string pointer to the first path. May not be
-    ///   \c null
+    ///   \c nullptr
     /// \param cch Number of characters to compare
     ///
     /// \note This function does <em>not</em> perform analysis such as
@@ -321,10 +329,11 @@ public:
     /// Gets an environment variable into the given buffer
     ///
     /// \param name The name of the variable to find
-    /// \param buffer The buffer in which to write the variable. If this is NULL, then the required length is returned
+    /// \param buffer The buffer in which to write the variable. If this is
+    ///   \c nullptr, then the required length is returned
     /// \param cchBuffer The size of the buffer, in characters
     ///
-    /// \pre NULL != name
+    /// \pre nullptr != name
     /// \pre 0 == cchBuffer || nullptr != buffer
     static
     size_type
@@ -349,9 +358,10 @@ public:
     ,   T_resizeableBuffer& rb
     );
 
-    /// Expands environment strings in \c src into \c buffer, up to a maximum \c cchDest characters
+    /// Expands environment strings in \c src into \c buffer, up to a
+    /// maximum \c cchDest characters
     ///
-    /// \pre NULL != src
+    /// \pre nullptr != src
     /// \pre 0 == cchBuffer || nullptr != buffer
     static
     size_type
@@ -853,20 +863,21 @@ public:
     )
     ;
 };
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef UNIXSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace unixstl */
+} // namespace unixstl
 # else
-} /* namespace unixstl_project */
-} /* namespace stlsoft */
+} // namespace unixstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

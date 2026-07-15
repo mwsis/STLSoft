@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/api/external/MemoryManagement.h
+ * File:    winstl/api/external/MemoryManagement.h
  *
- * Purpose:     External preprocessor aliases for external Windows' Memory
- *              Management Functions API.
+ * Purpose: External preprocessor aliases for external Windows' Memory
+ *          Management Functions API.
  *
- * Created:     18th July 2014
- * Updated:     26th December 2020
+ * Created: 18th July 2014
+ * Updated: 27th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2014-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -49,6 +49,7 @@
 #ifndef WINSTL_INCL_WINSTL_API_external_h_MemoryManagement
 #define WINSTL_INCL_WINSTL_API_external_h_MemoryManagement
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * includes
  */
@@ -60,9 +61,15 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
+#ifndef STLSOFT_INCL_H_WINDOWS
+# define STLSOFT_INCL_H_WINDOWS
+# include <windows.h>   /* Windows base header */
+#endif /* !STLSOFT_INCL_H_WINDOWS */
+
 #ifndef WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_
 # include <winstl/api/winstl_win32_winnt_.h>
 #endif /* !WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_ */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Windows' Memory Management Functions
@@ -124,7 +131,7 @@
 # define WINSTL_API_EXTERNAL_MemoryManagement_CreateFileMappingW                STLSOFT_NS_GLOBAL_(CreateFileMappingW)
 #endif /* !WINSTL_API_EXTERNAL_MemoryManagement_CreateFileMappingW */
 
-#if _WIN32_WINNT >= 0x0602
+#if WINSTL_WIN32_WINNT >= WINSTL_WIN32_WINNT_WIN8
 #ifndef WINSTL_API_EXTERNAL_MemoryManagement_CreateFileMappingFromAppA
 # define WINSTL_API_EXTERNAL_MemoryManagement_CreateFileMappingFromAppA         STLSOFT_NS_GLOBAL_(CreateFileMappingFromAppA)
 #endif /* !WINSTL_API_EXTERNAL_MemoryManagement_CreateFileMappingFromAppA */
@@ -133,7 +140,7 @@
 #endif /* !WINSTL_API_EXTERNAL_MemoryManagement_CreateFileMappingFromAppW */
 #endif /* !_WIN32_WINNT */
 
-#if _WIN32_WINNT >= 0x0600
+#if WINSTL_WIN32_WINNT >= WINSTL_WIN32_WINNT_WS08
 # ifndef WINSTL_API_EXTERNAL_MemoryManagement_CreateFileMappingNumaA
 #  define WINSTL_API_EXTERNAL_MemoryManagement_CreateFileMappingNumaA           STLSOFT_NS_GLOBAL_(CreateFileMappingNumaA)
 # endif /* !WINSTL_API_EXTERNAL_MemoryManagement_CreateFileMappingNumaA */
@@ -161,13 +168,13 @@
 # define WINSTL_API_EXTERNAL_MemoryManagement_MapViewOfFileEx                   STLSOFT_NS_GLOBAL_(MapViewOfFileEx)
 #endif /* !WINSTL_API_EXTERNAL_MemoryManagement_MapViewOfFileEx */
 
-#if _WIN32_WINNT >= 0x0600
+#if WINSTL_WIN32_WINNT >= WINSTL_WIN32_WINNT_WS08
 # ifndef WINSTL_API_EXTERNAL_MemoryManagement_MapViewOfFileExNuma
 #  define WINSTL_API_EXTERNAL_MemoryManagement_MapViewOfFileExNuma              STLSOFT_NS_GLOBAL_(MapViewOfFileExNuma)
 # endif /* !WINSTL_API_EXTERNAL_MemoryManagement_MapViewOfFileExNuma */
 #endif /* !_WIN32_WINNT */
 
-#if _WIN32_WINNT >= 0x0602
+#if WINSTL_WIN32_WINNT >= WINSTL_WIN32_WINNT_WIN8
 # ifndef WINSTL_API_EXTERNAL_MemoryManagement_MapViewOfFileFromApp
 #  define WINSTL_API_EXTERNAL_MemoryManagement_MapViewOfFileFromApp             STLSOFT_NS_GLOBAL_(MapViewOfFileFromApp)
 # endif /* !WINSTL_API_EXTERNAL_MemoryManagement_MapViewOfFileFromApp */

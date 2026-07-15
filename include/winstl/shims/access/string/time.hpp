@@ -1,17 +1,16 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/shims/access/string/time.hpp
+ * File:    winstl/shims/access/string/time.hpp
  *
- * Purpose:     Helper functions for the Windows time types.
+ * Purpose: Helper functions for the Windows time types.
  *
- * Created:     2nd December 2004
- * Updated:     22nd January 2024
+ * Created: 2nd December 2004
+ * Updated: 20th March 2025
  *
- * Thanks to:   David Wang, for spotting an error in one of the shim
- *              functions.
+ * Thanks:  David Wang, for spotting an error in one of the shim functions.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -57,9 +56,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_TIME_MAJOR       2
 # define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_TIME_MINOR       3
-# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_TIME_REVISION    17
-# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_TIME_EDIT        75
+# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_TIME_REVISION    18
+# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_TIME_EDIT        78
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -97,6 +97,7 @@
 # include <winstl/api/external/ErrorHandling.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -115,6 +116,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helper classes
@@ -167,9 +169,10 @@ struct ximpl_winstl_shims_access_string_time
         // which condition (of invalid value, out-of-range, etc.)
 
         STLSOFT_THROW_X(conversion_error("failed to convert date/time", e));
-#endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
+#else /* ?STLSOFT_CF_EXCEPTION_SUPPORT */
 
         return 0;
+#endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
     }
 
     //
@@ -208,6 +211,7 @@ struct ximpl_winstl_shims_access_string_time
     }
 };
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helper functions
@@ -294,9 +298,11 @@ stream_insert(S &stm, UDATE const& ud)
 
 #endif /* WINSTL_UDATE_DEFINED */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * shims
  */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_ptr
@@ -547,6 +553,7 @@ c_str_ptr(
 
 #endif /* WINSTL_UDATE_DEFINED */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_data
  */
@@ -728,6 +735,7 @@ c_str_data(
 }
 
 #endif /* WINSTL_UDATE_DEFINED */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_ptr_null
@@ -1198,10 +1206,10 @@ operator <<(
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 
 /** An inserter function for SYSTEMTIME into output streams
@@ -1259,9 +1267,10 @@ namespace stlsoft
     using ::winstl::c_str_len_a;
     using ::winstl::c_str_len_w;
 
-} /* namespace stlsoft */
+} // namespace stlsoft
 
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -1285,6 +1294,7 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -1292,12 +1302,13 @@ namespace winstl_project
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

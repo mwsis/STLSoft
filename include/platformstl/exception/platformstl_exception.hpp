@@ -1,15 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        platformstl/exception/platformstl_exception.hpp (formerly platformstl/error/exceptions.hpp)
+ * File:    platformstl/exception/platformstl_exception.hpp (formerly platformstl/error/exceptions.hpp)
  *
- * Purpose:     Discrimination of the platformstl::platformstl_exception
- *              class.
+ * Purpose: Discrimination of the platformstl::platformstl_exception class.
  *
- * Created:     20th March 2005
- * Updated:     26th December 2020
+ * Created: 20th March 2005
+ * Updated: 3rd May 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -50,7 +49,7 @@
 # define PLATFORMSTL_VER_PLATFORMSTL_EXCEPTION_HPP_PLATFORMSTL_EXCEPTION_MAJOR      3
 # define PLATFORMSTL_VER_PLATFORMSTL_EXCEPTION_HPP_PLATFORMSTL_EXCEPTION_MINOR      0
 # define PLATFORMSTL_VER_PLATFORMSTL_EXCEPTION_HPP_PLATFORMSTL_EXCEPTION_REVISION   2
-# define PLATFORMSTL_VER_PLATFORMSTL_EXCEPTION_HPP_PLATFORMSTL_EXCEPTION_EDIT       28
+# define PLATFORMSTL_VER_PLATFORMSTL_EXCEPTION_HPP_PLATFORMSTL_EXCEPTION_EDIT       31
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \file platformstl/exception/platformstl_exception.hpp
@@ -59,6 +58,7 @@
  *   platformstl::platformstl_exception class
  *   (\ref group__library__Exception "Exception" Library).
  */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -83,6 +83,7 @@
 # error Operating system not discriminated
 #endif /* operating system */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -105,11 +106,9 @@ namespace platformstl_project
 #if defined(PLATFORMSTL_OS_IS_UNIX)
 
 typedef UNIXSTL_NS_QUAL(unixstl_exception)                  platformstl_exception;
-
 #elif defined(PLATFORMSTL_OS_IS_WINDOWS)
 
 typedef WINSTL_NS_QUAL(winstl_exception)                    platformstl_exception;
-
 #else /* ? operating system */
 
 # error Operating system not discriminated
@@ -117,17 +116,19 @@ typedef WINSTL_NS_QUAL(winstl_exception)                    platformstl_exceptio
 
 typedef platformstl_exception                               platform_exception;
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #if defined(STLSOFT_NO_NAMESPACE) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace platformstl */
+} // namespace platformstl
 #else
-} /* namespace platformstl_project */
-} /* namespace stlsoft */
+} // namespace platformstl_project
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

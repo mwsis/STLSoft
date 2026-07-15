@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/memory/auto_destructor.hpp
+ * File:    stlsoft/memory/auto_destructor.hpp
  *
- * Purpose:     Contains the auto_destructor and auto_array_destructor template
- *              classes.
+ * Purpose: Contains the auto_destructor and auto_array_destructor template
+ *          classes.
  *
- * Created:     1st November 1994
- * Updated:     20th January 2024
+ * Created: 1st November 1994
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1994-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,10 +54,11 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_MEMORY_HPP_AUTO_DESTRUCTOR_MAJOR       5
-# define STLSOFT_VER_STLSOFT_MEMORY_HPP_AUTO_DESTRUCTOR_MINOR       2
+# define STLSOFT_VER_STLSOFT_MEMORY_HPP_AUTO_DESTRUCTOR_MINOR       3
 # define STLSOFT_VER_STLSOFT_MEMORY_HPP_AUTO_DESTRUCTOR_REVISION    1
-# define STLSOFT_VER_STLSOFT_MEMORY_HPP_AUTO_DESTRUCTOR_EDIT        90
+# define STLSOFT_VER_STLSOFT_MEMORY_HPP_AUTO_DESTRUCTOR_EDIT        95
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -88,6 +89,7 @@
 # pragma warning(disable : 4284)
 #endif /* compiler */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -96,6 +98,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * forward declarations
@@ -116,6 +119,7 @@ template <ss_typename_param_k T>
 class return_value_array_destructor;
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -234,8 +238,8 @@ public:
         delete m_value;
     }
 private:
-    auto_destructor(class_type const& rhs);         // copy-construction proscribed
-    class_type& operator =(class_type const& rhs);  // copy-assignment proscribed
+    auto_destructor(class_type const& rhs) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Operations
@@ -271,12 +275,12 @@ public:
     ///
     /// \deprecated This function will be removed in a future release. Users
     ///   should instead invoke get()
-    value_type* get_ptr() const
+    value_type* get_ptr() const STLSOFT_NOEXCEPT
     {
         return get();
     }
     /// Returns the pointer
-    value_type* get() const
+    value_type* get() const STLSOFT_NOEXCEPT
     {
         return m_value;
     }
@@ -353,8 +357,8 @@ public:
         delete [] m_value;
     }
 private:
-    auto_array_destructor(class_type const& rhs);   // copy-construction proscribed
-    class_type& operator =(class_type const& rhs);  // copy-assignment proscribed
+    auto_array_destructor(class_type const& rhs) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Operations
@@ -390,12 +394,12 @@ public:
     ///
     /// \deprecated This function will be removed in a future release. Users
     ///   should instead invoke get()
-    value_type* get_ptr() const
+    value_type* get_ptr() const STLSOFT_NOEXCEPT
     {
         return get();
     }
     /// Returns the pointer
-    value_type* get() const
+    value_type* get() const STLSOFT_NOEXCEPT
     {
         return m_value;
     }
@@ -452,14 +456,14 @@ class return_value_destructor
 /// @{
 public:
     /// The value type
-    typedef T                                           value_type;
+    typedef T                                               value_type;
     /// The current specialisation of the type
-    typedef return_value_destructor<T>                  class_type;
+    typedef return_value_destructor<T>                      class_type;
     /// The auto type
-    typedef auto_destructor<T>                          auto_type;
+    typedef auto_destructor<T>                              auto_type;
 private:
     /// The proxy type
-    typedef move_proxy<T, class_type>                   proxy_type;
+    typedef move_proxy<T, class_type>                       proxy_type;
 /// @}
 
 /// \name Construction
@@ -508,7 +512,7 @@ public:
         return proxy_type(detach());
     }
 private:
-    class_type& operator =(class_type const& rhs);  // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Operations
@@ -611,7 +615,7 @@ public:
         return proxy_type(detach());
     }
 private:
-    class_type& operator =(class_type const& rhs);  // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Operations
@@ -639,6 +643,7 @@ private:
 /// @}
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * shims
  */
@@ -647,7 +652,9 @@ private:
  * \ingroup group__concept__Shim__Attribute__get_ptr
  */
 template <ss_typename_param_k T>
-inline T *get_ptr(auto_destructor<T> const& ad)
+inline
+T*
+get_ptr(auto_destructor<T> const& ad) STLSOFT_NOEXCEPT
 {
     return ad.get();
 }
@@ -656,7 +663,9 @@ inline T *get_ptr(auto_destructor<T> const& ad)
  * \ingroup group__concept__Shim__Attribute__get_ptr
  */
 template <ss_typename_param_k T>
-inline T* get_ptr(return_value_destructor<T> const& ad)
+inline
+T*
+get_ptr(return_value_destructor<T> const& ad) STLSOFT_NOEXCEPT
 {
     return ad.get();
 }
@@ -665,7 +674,9 @@ inline T* get_ptr(return_value_destructor<T> const& ad)
  * \ingroup group__concept__Shim__Attribute__get_ptr
  */
 template <ss_typename_param_k T>
-inline T* get_ptr(auto_array_destructor<T> const& ad)
+inline
+T*
+get_ptr(auto_array_destructor<T> const& ad) STLSOFT_NOEXCEPT
 {
     return ad.get();
 }
@@ -674,16 +685,22 @@ inline T* get_ptr(auto_array_destructor<T> const& ad)
  * \ingroup group__concept__Shim__Attribute__get_ptr
  */
 template <ss_typename_param_k T>
-inline T* get_ptr(return_value_array_destructor<T> const& ad)
+inline
+T*
+get_ptr(return_value_array_destructor<T> const& ad) STLSOFT_NOEXCEPT
 {
     return ad.get();
 }
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * warnings
@@ -693,6 +710,7 @@ inline T* get_ptr(return_value_array_destructor<T> const& ad)
     _MSC_VER < 1300
 # pragma warning(default: 4284)
 #endif /* compiler */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

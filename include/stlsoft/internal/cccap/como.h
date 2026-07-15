@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/internal/cccap/como.h
+ * File:    stlsoft/internal/cccap/como.h
  *
- * Purpose:     Compiler feature discrimination for Comeau C/C++.
+ * Purpose: Compiler feature discrimination for Comeau C/C++.
  *
- * Created:     7th February 2003
- * Updated:     22nd January 2024
+ * Created: 7th February 2003
+ * Updated: 28th May 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -61,9 +61,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_H_STLSOFT_CCCAP_COMO_MAJOR     3
 # define STLSOFT_VER_H_STLSOFT_CCCAP_COMO_MINOR     18
-# define STLSOFT_VER_H_STLSOFT_CCCAP_COMO_REVISION  1
-# define STLSOFT_VER_H_STLSOFT_CCCAP_COMO_EDIT      79
+# define STLSOFT_VER_H_STLSOFT_CCCAP_COMO_REVISION  2
+# define STLSOFT_VER_H_STLSOFT_CCCAP_COMO_EDIT      82
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Auto-generation and compatibility
@@ -73,6 +74,7 @@
 [<[STLSOFT-AUTO:NO-DOCFILELABEL]>]
 [<[STLSOFT-AUTO:NO-UNITTEST]>]
 */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * back end discrimination
@@ -93,6 +95,7 @@
 #else /* ? compiler */
 # error Your Comeau back-end is not recognised. Please contact admin hat stlsoft dot org
 #endif /* compiler */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * compiler features
@@ -128,7 +131,7 @@
 
 /* bool */
 #ifdef _BOOL
-# define STLSOFT_CF_NATIVE_BOOL_SUPPORT
+# define STLSOFT_CF_BUILTIN_bool_SUPPORT
 #else
  /* Not defined */
 #endif /* _BOOL_DEFINED */
@@ -140,16 +143,6 @@
  /* Not defined */
 #endif /* _WCHAR_T_DEFINED */
 
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
 
 /* /////////////////////////////////////////////////////////////////////////
  * integral types
@@ -173,7 +166,8 @@
  * which indicate that a given type is not used in the size-specific types.
  */
 
-#if defined(__LP64__)
+#if 0
+#elif defined(__LP64__)
 # define _STLSOFT_SIZEOF_CHAR                               (1)
 # define _STLSOFT_SIZEOF_SHORT                              (2)
 # define _STLSOFT_SIZEOF_INT                                (4)
@@ -332,6 +326,7 @@
 #define STLSOFT_CF_OPERATOR_BOOL_AS_OPERATOR_POINTER_TO_MEMBER_SUPPORT
 #define STLSOFT_CF_OPERATOR_NOT_VIA_OPERATOR_POINTER_TO_MEMBER_SUPPORT
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * quality assurance features
  */
@@ -361,7 +356,7 @@
   */
 # define __STLSOFT_CF_ASSERT_SUPPORT
 # define STLSOFT_CF_ASSERT_SUPPORT
-# define STLSOFT_ASSERT(expr)                   _STLSOFT_CUSTOM_ASSERT(expr)
+# define STLSOFT_ASSERT(expr)                               _STLSOFT_CUSTOM_ASSERT(expr)
 # if defined(_STLSOFT_CUSTOM_ASSERT_INCLUDE)
 #  define   __STLSOFT_CF_ASSERT_INCLUDE_NAME                _STLSOFT_CUSTOM_ASSERT_INCLUDE
 # else
@@ -370,13 +365,14 @@
 #else /* ? _STLSOFT_CUSTOM_ASSERT */
 # if defined(STLSOFT_CF_COMO_BACKEND_IS_BORLAND)
 #  define __STLSOFT_CF_ASSERT_INCLUDE_NAME                  <assert.h>
-#  define STLSOFT_ASSERT(expr)                  assert(expr)
+#  define STLSOFT_ASSERT(expr)                              assert(expr)
 # else /* compiler */
 #  define __STLSOFT_CF_ASSERT_SUPPORT
 #  define STLSOFT_CF_ASSERT_SUPPORT
 #  define __STLSOFT_CF_USE_cassert
 # endif /* compiler */
 #endif /* _STLSOFT_CUSTOM_ASSERT */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * calling convention
@@ -466,8 +462,8 @@
 # else
 #  error Unrecognised compiler
 # endif /* ? compiler */
-
 #endif /* std C */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inline assembler
@@ -478,15 +474,18 @@
 # define STSLSOFT_ASM_IN_INLINE_SUPPORTED
 #endif /* !_MSC_VER */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * inline support
  */
 
 #define STLSOFT_CF_C99_INLINE
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * compiler warning suppression
  */
+
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

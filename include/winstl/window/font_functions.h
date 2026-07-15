@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/window/font_functions.h (originally MWGdi.h / MWWinCmn, ::SynesisWin)
+ * File:    winstl/window/font_functions.h (originally MWGdi.h / MWWinCmn, ::SynesisWin)
  *
- * Purpose:     Error functions.
+ * Purpose: Error functions.
  *
- * Created:     20th October 1994
- * Updated:     26th December 2020
+ * Created: 20th October 1994
+ * Updated: 24th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1994-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -51,11 +51,12 @@
 #define WINSTL_INCL_WINSTL_WINDOW_H_FONT_FUNCTIONS
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define WINSTL_VER_WINSTL_WINDOW_H_FONT_FUNCTIONS_MAJOR       4
-# define WINSTL_VER_WINSTL_WINDOW_H_FONT_FUNCTIONS_MINOR       0
-# define WINSTL_VER_WINSTL_WINDOW_H_FONT_FUNCTIONS_REVISION    4
-# define WINSTL_VER_WINSTL_WINDOW_H_FONT_FUNCTIONS_EDIT        148
+# define WINSTL_VER_WINSTL_WINDOW_H_FONT_FUNCTIONS_MAJOR    4
+# define WINSTL_VER_WINSTL_WINDOW_H_FONT_FUNCTIONS_MINOR    0
+# define WINSTL_VER_WINSTL_WINDOW_H_FONT_FUNCTIONS_REVISION 4
+# define WINSTL_VER_WINSTL_WINDOW_H_FONT_FUNCTIONS_EDIT     150
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -71,6 +72,7 @@
 #ifndef WINSTL_INCL_WINSTL_WINDOW_H_MESSAGE_FUNCTIONS
 # include <winstl/window/message_functions.h>
 #endif /* !WINSTL_INCL_WINSTL_WINDOW_H_MESSAGE_FUNCTIONS */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -91,6 +93,7 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * functions
  */
@@ -99,7 +102,9 @@ namespace winstl_project
  *
  * \ingroup group__library__Windows_Window
  */
-STLSOFT_INLINE HFONT winstl__get_window_font(HWND hwnd)
+STLSOFT_INLINE
+HFONT
+winstl__get_window_font(HWND hwnd)
 {
     return stlsoft_reinterpret_cast(HFONT, winstl__SendMessage(hwnd, WM_GETFONT, 0, 0L));
 }
@@ -108,10 +113,17 @@ STLSOFT_INLINE HFONT winstl__get_window_font(HWND hwnd)
  *
  * \ingroup group__library__Windows_Window
  */
-STLSOFT_INLINE void winstl__set_window_font(HWND hwnd, HFONT hfont, ws_int_t bRedraw)
+STLSOFT_INLINE
+void
+winstl__set_window_font(
+    HWND        hwnd
+,   HFONT       hfont
+,   ws_int_t    bRedraw
+)
 {
     stlsoft_static_cast(void, winstl__SendMessage(hwnd, WM_SETFONT, stlsoft_reinterpret_cast(WPARAM, hfont), bRedraw));
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -121,6 +133,7 @@ STLSOFT_INLINE void winstl__set_window_font(HWND hwnd, HFONT hfont, ws_int_t bRe
 namespace winstl
 {
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
@@ -132,7 +145,9 @@ namespace winstl
  *
  * \ingroup group__library__Windows_Window
  */
-inline HFONT get_window_font(HWND hwnd)
+inline
+HFONT
+get_window_font(HWND hwnd)
 {
     return winstl__get_window_font(hwnd);
 }
@@ -141,12 +156,18 @@ inline HFONT get_window_font(HWND hwnd)
  *
  * \ingroup group__library__Windows_Window
  */
-inline void set_window_font(HWND hwnd, HFONT hfont, ws_bool_t bRedraw = true)
+inline
+void
+set_window_font(
+    HWND        hwnd
+,   HFONT       hfont
+,   ws_bool_t   bRedraw = true
+)
 {
     winstl__set_window_font(hwnd, hfont, bRedraw);
 }
-
 #endif /* __cplusplus */
+
 
 /* ////////////////////////////////////////////////////////////////////// */
 
@@ -159,6 +180,7 @@ inline void set_window_font(HWND hwnd, HFONT hfont, ws_bool_t bRedraw = true)
 } /* namespace stlsoft */
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

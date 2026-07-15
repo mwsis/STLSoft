@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/memory/allocator_base.hpp
+ * File:    stlsoft/memory/allocator_base.hpp
  *
- * Purpose:     Allocator commmon features.
+ * Purpose: Allocator commmon features.
  *
- * Created:     20th August 2003
- * Updated:     20th January 2024
+ * Created: 20th August 2003
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,8 +55,9 @@
 # define STLSOFT_VER_STLSOFT_MEMORY_HPP_ALLOCATOR_BASE_MAJOR    4
 # define STLSOFT_VER_STLSOFT_MEMORY_HPP_ALLOCATOR_BASE_MINOR    1
 # define STLSOFT_VER_STLSOFT_MEMORY_HPP_ALLOCATOR_BASE_REVISION 16
-# define STLSOFT_VER_STLSOFT_MEMORY_HPP_ALLOCATOR_BASE_EDIT     66
+# define STLSOFT_VER_STLSOFT_MEMORY_HPP_ALLOCATOR_BASE_EDIT     69
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -86,6 +87,7 @@
 # include <new>         // for placement new, std::bad_alloc
 #endif /* STLSOFT_CF_THROW_BAD_ALLOC || _MSC_VER < 1100) */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -94,6 +96,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -113,13 +116,13 @@ namespace stlsoft
  *
  * - <code>void* do_allocate(size_type n, void const* hint);</code> - allocates
  *    <code>n</code> bytes, optionally taking into account the locality
- *    <code>hint</code>. Return <code>NULL</code> or throw
+ *    <code>hint</code>. Return \c nullptr or throw
  *    <code>std::bad_alloc</code> if the allocation fails.
  * - <code>void do_deallocate(void* pv, size_type n);</code> - deallocates
  *    the memory block pointed to by <code>pv</code>, which is <code>n</code>
  *    bytes in size.
- * - <code>void do_deallocate(void* pv);</code> - deallocates the memory block
- *    pointed to by <code>pv</code>.
+ * - <code>void do_deallocate(void* pv);</code> - deallocates the memory
+ *    block pointed to by <code>pv</code>.
  *
  * \see stlsoft::malloc_allocator |
  *      stlsoft::new_allocator |
@@ -322,8 +325,9 @@ private:
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

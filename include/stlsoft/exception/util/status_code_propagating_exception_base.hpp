@@ -1,15 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/exception/util/status_code_propagating_exception_base.hpp (formerly (unix|win)stl/exception/(unix|win)stl_exception.hpp)
+ * File:    stlsoft/exception/util/status_code_propagating_exception_base.hpp (formerly (unix|win)stl/exception/(unix|win)stl_exception.hpp)
  *
- * Purpose:     stlsoft::status_code_propagating_exception_base class
- *              template
+ * Purpose: stlsoft::status_code_propagating_exception_base class template
  *
- * Created:     19th June 2004
- * Updated:     26th December 2020
+ * Created: 19th June 2004
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,11 +52,12 @@
 #define STLSOFT_INCL_STLSOFT_EXCEPTION_UTIL_HPP_STATUS_CODE_PROPAGATING_EXCEPTION_BASE
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define STLSOFT_VER_STLSOFT_EXCEPTION_UTIL_HPP_STATUS_CODE_PROPAGATING_EXCEPTION_BASE_MAJOR      6
-# define STLSOFT_VER_STLSOFT_EXCEPTION_UTIL_HPP_STATUS_CODE_PROPAGATING_EXCEPTION_BASE_MINOR      0
-# define STLSOFT_VER_STLSOFT_EXCEPTION_UTIL_HPP_STATUS_CODE_PROPAGATING_EXCEPTION_BASE_REVISION   1
-# define STLSOFT_VER_STLSOFT_EXCEPTION_UTIL_HPP_STATUS_CODE_PROPAGATING_EXCEPTION_BASE_EDIT       79
+# define STLSOFT_VER_STLSOFT_EXCEPTION_UTIL_HPP_STATUS_CODE_PROPAGATING_EXCEPTION_BASE_MAJOR    6
+# define STLSOFT_VER_STLSOFT_EXCEPTION_UTIL_HPP_STATUS_CODE_PROPAGATING_EXCEPTION_BASE_MINOR    1
+# define STLSOFT_VER_STLSOFT_EXCEPTION_UTIL_HPP_STATUS_CODE_PROPAGATING_EXCEPTION_BASE_REVISION 4
+# define STLSOFT_VER_STLSOFT_EXCEPTION_UTIL_HPP_STATUS_CODE_PROPAGATING_EXCEPTION_BASE_EDIT     86
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -74,6 +74,7 @@
 # error This file cannot be included when exception-handling is not supported
 #endif /* !STLSOFT_CF_EXCEPTION_SUPPORT */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -82,6 +83,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -107,6 +109,7 @@ protected:
     typedef ss_typename_type_k parent_class_type::string_type
                                                             string_type;
 public:
+    /// The status code type
     typedef ss_typename_type_k parent_class_type::status_code_type
                                                             status_code_type;
 #ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
@@ -140,6 +143,16 @@ public:
     )
         : parent_class_type(reason, sc)
     {}
+    /// Constructs an instance from the given message and qualifier
+    ///
+    /// \param reason The message code associated with the exception
+    /// \param qualifier The qualifier associated with the exception
+    status_code_propagating_exception_base(
+        char const*         reason
+    ,   char const*         qualifier
+    )
+        : parent_class_type(reason, qualifier)
+    {}
 protected:
     /// Contructor for derived classes
     status_code_propagating_exception_base(
@@ -147,6 +160,13 @@ protected:
     ,   status_code_type    sc
     )
         : parent_class_type(reason, sc)
+    {}
+    /// Contructor for derived classes
+    status_code_propagating_exception_base(
+        string_type const&  reason
+    ,   char const*         qualifier
+    )
+        : parent_class_type(reason, qualifier)
     {}
 public:
     /// Destructor
@@ -156,18 +176,23 @@ public:
     /// exception specifications between this class and its parent
     ~status_code_propagating_exception_base() STLSOFT_NOEXCEPT
     {}
+#ifdef STLSOFT_COMPILER_IS_GCC
+#else
 private:
-    class_type& operator =(class_type const&);  // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
+#endif
 /// @}
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control
@@ -176,8 +201,6 @@ private:
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
 # pragma once
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
-
-/* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* !STLSOFT_INCL_STLSOFT_EXCEPTION_UTIL_HPP_STATUS_CODE_PROPAGATING_EXCEPTION_BASE */
 

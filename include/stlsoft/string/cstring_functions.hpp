@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/string/cstring_functions.hpp
+ * File:    stlsoft/string/cstring_functions.hpp
  *
- * Purpose:     String duplication functions.
+ * Purpose: String duplication functions.
  *
- * Created:     26th May 2005
- * Updated:     30th January 2024
+ * Created: 26th May 2005
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -51,11 +51,12 @@
 #define STLSOFT_INCL_STLSOFT_STRING_HPP_CSTRING_FUNCTIONS
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define STLSOFT_VER_STLSOFT_STRING_HPP_CSTRING_FUNCTIONS_MAJOR    2
-# define STLSOFT_VER_STLSOFT_STRING_HPP_CSTRING_FUNCTIONS_MINOR    2
-# define STLSOFT_VER_STLSOFT_STRING_HPP_CSTRING_FUNCTIONS_REVISION 8
-# define STLSOFT_VER_STLSOFT_STRING_HPP_CSTRING_FUNCTIONS_EDIT     49
+# define STLSOFT_VER_STLSOFT_STRING_HPP_CSTRING_FUNCTIONS_MAJOR     2
+# define STLSOFT_VER_STLSOFT_STRING_HPP_CSTRING_FUNCTIONS_MINOR     2
+# define STLSOFT_VER_STLSOFT_STRING_HPP_CSTRING_FUNCTIONS_REVISION  8
+# define STLSOFT_VER_STLSOFT_STRING_HPP_CSTRING_FUNCTIONS_EDIT      52
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -78,6 +79,7 @@
 # include <stlsoft/memory/allocator_base.hpp>   // for STLSOFT_LF_ALLOCATOR_REBIND_SUPPORT
 #endif /* !STLSOFT_INCL_STLSOFT_MEMORY_HPP_ALLOCATOR_BASE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -86,6 +88,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -100,8 +103,8 @@ namespace stlsoft
  * \param cch The number of elements in str to copy
  * \param ator The allocator to use to allocate the memory
  *
- * \note The caller is responsible for the allocated memory, and should free it
- * with ator (or a compatible allocator or memory function).
+ * \note The caller is responsible for the allocated memory, and should free
+ *   it with ator (or a compatible allocator or memory function).
  *
  * \ingroup group__library__String
  */
@@ -136,8 +139,8 @@ inline C* string_dup_impl(C const* str, ss_size_t cch, A& ator)
  * \param cch The number of elements in str to copy
  * \param ator The allocator to use to allocate the memory
  *
- * \note The caller is responsible for the allocated memory, and should free it
- * with ator (or a compatible allocator or memory function).
+ * \note The caller is responsible for the allocated memory, and should free
+ *   it with ator (or a compatible allocator or memory function).
  *
  * \ingroup group__library__String
  */
@@ -166,10 +169,11 @@ inline C* string_dup(C const* str, ss_size_t cch, A& ator)
  *
  * \param str The string to copy
  * \param ator The allocator to use to allocate the memory
- * \param psize Pointer to receive the size of the allocated string. May be NULL.
+ * \param psize Pointer to receive the size of the allocated string. May be
+ *   \c nullptr.
  *
- * \note The caller is responsible for the allocated memory, and should free it
- * with ator (or a compatible allocator or memory function).
+ * \note The caller is responsible for the allocated memory, and should free
+ *   it with ator (or a compatible allocator or memory function).
  *
  * \ingroup group__library__String
  */
@@ -188,11 +192,13 @@ inline C* string_dup(C const* str, A& ator, ss_size_t* psize = NULL)
     return string_dup(str, *psize = c_str_len(str), ator);
 }
 
+
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

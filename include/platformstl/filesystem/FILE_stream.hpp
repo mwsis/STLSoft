@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        platformstl/filesystem/FILE_stream.hpp
+ * File:    platformstl/filesystem/FILE_stream.hpp
  *
- * Purpose:     Facade for the standard C Streams API.
+ * Purpose: Facade for the standard C Streams API.
  *
- * Created:     31st May 2009
- * Updated:     22nd January 2024
+ * Created: 31st May 2009
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2009-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_FILE_STREAM_MAJOR       2
 # define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_FILE_STREAM_MINOR       1
-# define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_FILE_STREAM_REVISION    4
-# define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_FILE_STREAM_EDIT        24
+# define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_FILE_STREAM_REVISION    5
+# define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_FILE_STREAM_EDIT        28
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -113,14 +114,6 @@
 # include <stlsoft/synch/refcount_policies/refcount_policy_single_threaded.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SYNCH_REFCOUNT_POLICIES_HPP_REFCOUNT_POLICY_SINGLE_THREADED */
 
-#ifndef STLSOFT_INCL_STLSOFT_INTERNAL_H_SAFESTR
-# include <stlsoft/internal/safestr.h>
-#endif /* !STLSOFT_INCL_STLSOFT_INTERNAL_H_SAFESTR */
-
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
-
 #ifndef STLSOFT_INCL_STLSOFT_QUALITY_H_CONTRACT
 # include <stlsoft/quality/contract.h>
 #endif /* !STLSOFT_INCL_STLSOFT_QUALITY_H_CONTRACT */
@@ -136,6 +129,11 @@
 # define STLSOFT_INCL_H_STDIO
 # include <stdio.h>
 #endif /* !STLSOFT_INCL_H_STDIO */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -154,6 +152,7 @@ namespace stlsoft
 namespace platformstl_project
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -367,6 +366,7 @@ private: // Implementation
     {
 #if defined(STLSOFT_USING_SAFE_STR_FUNCTIONS) && \
     defined(STLSOFT_COMPILER_IS_MSVC)
+
         FILE* handle;
         int   e = ::fopen_s(&handle, path, mode);
 
@@ -393,7 +393,7 @@ private: // Implementation
 
             return handle_adaptor_type::create(handle);
         }
-        catch(...)
+        catch (...)
         {
             handle_adaptor_type::destroy(handle);
 
@@ -436,7 +436,7 @@ private: // Implementation
 
             return handle_adaptor_type::create(handle);
         }
-        catch(...)
+        catch (...)
         {
             handle_adaptor_type::destroy(handle);
 
@@ -451,11 +451,11 @@ private: // Implementation
     ,   size_type   len
     )
     {
-        STLSOFT_NS_QUAL(auto_buffer)<char>  buff(2u + len);
+        STLSOFT_NS_QUAL(auto_buffer)<char> buff(2u + len);
 
         if (0 != len)
         {
-            STLSOFT_API_INTERNAL_memfns_memcpy(&buff[0], s, sizeof(*s) * len);
+            STLSOFT_API_EXTERNAL_memfns_memcpy(&buff[0], s, sizeof(*s) * len);
         }
         buff[len + 0] = '\n';
         buff[len + 1] = '\0';
@@ -469,11 +469,11 @@ private: // Implementation
     ,   size_type       len
     )
     {
-        STLSOFT_NS_QUAL(auto_buffer)<wchar_t>  buff(2u + len);
+        STLSOFT_NS_QUAL(auto_buffer)<wchar_t> buff(2u + len);
 
         if (0 != len)
         {
-            STLSOFT_API_INTERNAL_memfns_memcpy(&buff[0], s, sizeof(*s) * len);
+            STLSOFT_API_EXTERNAL_memfns_memcpy(&buff[0], s, sizeof(*s) * len);
         }
         buff[len + 0] = '\n';
         buff[len + 1] = '\0';
@@ -583,16 +583,20 @@ private: // Implementation
         switch (e)
         {
             case    ENOMEM:
+
                 STLSOFT_THROW_X(STLSOFT_NS_QUAL(out_of_memory_exception)(STLSoftProjectIdentifier_STLSoft, STLSoftLibraryIdentifier_FileSystem, e));
             case    ENOENT:
+
                 STLSOFT_THROW_X(file_not_found_exception(message, e));
 #if 0
 #elif defined(PLATFORMSTL_OS_IS_UNIX)
 #elif defined(PLATFORMSTL_OS_IS_WINDOWS)
             case    EACCES:
+
                 STLSOFT_THROW_X(WINSTL_NS_QUAL(access_exception)(message, e));
 #endif
             default:
+
                 STLSOFT_THROW_X(filesystem_exception(message, e));
         }
     }
@@ -608,16 +612,20 @@ private: // Implementation
         switch (e)
         {
             case    ENOMEM:
+
                 STLSOFT_THROW_X(STLSOFT_NS_QUAL(out_of_memory_exception)(STLSoftProjectIdentifier_STLSoft, STLSoftLibraryIdentifier_FileSystem, e));
             case    ENOENT:
+
                 STLSOFT_THROW_X(file_not_found_exception(message, e, path));
 #if 0
 #elif defined(PLATFORMSTL_OS_IS_UNIX)
 #elif defined(PLATFORMSTL_OS_IS_WINDOWS_)
             case    EACCES:
+
                 STLSOFT_THROW_X(WINSTL_NS_QUAL(access_exception)(message, e, path));
 #endif
             default:
+
                 STLSOFT_THROW_X(filesystem_exception(message, e, path));
         }
     }
@@ -649,6 +657,7 @@ private: // Member Variables
     Ref m_ref;
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * types
  */
@@ -665,6 +674,7 @@ typedef FILE_stream_base<
     refcount_policy_multi_threaded
 ,   atomic_int_t
 >                                                           thread_shareable_FILE_stream;
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * shims
@@ -716,16 +726,17 @@ get_FILE_stream_Ref(
     return file.get();
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #if defined(STLSOFT_NO_NAMESPACE) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace platformstl */
+} // namespace platformstl
 #else
-} /* namespace platformstl_project */
-} /* namespace stlsoft */
+} // namespace platformstl_project
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -751,11 +762,12 @@ namespace stlsoft
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
 #endif /* !PLATFORMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

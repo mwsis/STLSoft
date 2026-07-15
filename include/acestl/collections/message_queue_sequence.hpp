@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        acestl/collections/message_queue_sequence.hpp
+ * File:    acestl/collections/message_queue_sequence.hpp
  *
- * Purpose:     Sequence class for adapting ACE_Message_Queue to an STL sequence.
+ * Purpose: Sequence class for adapting ACE_Message_Queue to an STL sequence.
  *
- * Created:     15th September 2004
- * Updated:     22nd January 2024
+ * Created: 15th September 2004
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define ACESTL_VER_ACESTL_COLLECTIONS_HPP_MESSAGE_QUEUE_SEQUENCE_MAJOR     2
 # define ACESTL_VER_ACESTL_COLLECTIONS_HPP_MESSAGE_QUEUE_SEQUENCE_MINOR     1
-# define ACESTL_VER_ACESTL_COLLECTIONS_HPP_MESSAGE_QUEUE_SEQUENCE_REVISION  16
-# define ACESTL_VER_ACESTL_COLLECTIONS_HPP_MESSAGE_QUEUE_SEQUENCE_EDIT      77
+# define ACESTL_VER_ACESTL_COLLECTIONS_HPP_MESSAGE_QUEUE_SEQUENCE_REVISION  19
+# define ACESTL_VER_ACESTL_COLLECTIONS_HPP_MESSAGE_QUEUE_SEQUENCE_EDIT      82
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -109,14 +110,16 @@
 # define STLSOFT_INCL_ACE_H_MESSAGE_QUEUE_T
 # include <ace/Message_Queue_T.h>
 #endif /* !STLSOFT_INCL_ACE_H_MESSAGE_QUEUE_T */
+
 #ifndef STLSOFT_INCL_ALGORITHM
 # define STLSOFT_INCL_ALGORITHM
 # include <algorithm>                // for std::copy
 #endif /* !STLSOFT_INCL_ALGORITHM */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -136,6 +139,7 @@ namespace acestl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !ACESTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -255,6 +259,9 @@ public:
             {
                 ACESTL_MESSAGE_ASSERT("Shared search handle being destroyed with outstanding references!", 0 == m_refCount);
             }
+        private:
+            shared_handle(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+            void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
         /// Accessors
         public:
@@ -332,7 +339,7 @@ public:
                     {
                         // Terminal case
 
-                        STLSOFT_API_INTERNAL_memfns_memcpy(&m_entryIndex[m_entry->rd_ptr()], f, n);
+                        STLSOFT_API_EXTERNAL_memfns_memcpy(&m_entryIndex[m_entry->rd_ptr()], f, n);
 
                         ACESTL_ASSERT(n <= m_entryLength - m_entryIndex);
 
@@ -344,7 +351,7 @@ public:
                     {
                         // Recursive case
 
-                        STLSOFT_API_INTERNAL_memfns_memcpy(&m_entryIndex[m_entry->rd_ptr()], f, n1);
+                        STLSOFT_API_EXTERNAL_memfns_memcpy(&m_entryIndex[m_entry->rd_ptr()], f, n1);
                         f += n1;
 
                         m_entry = nextEntry();
@@ -367,13 +374,13 @@ public:
                 {
                     // Terminal case
 
-                    STLSOFT_API_INTERNAL_memfns_memcpy(o, &m_entryIndex[m_entry->rd_ptr()], n1);
+                    STLSOFT_API_EXTERNAL_memfns_memcpy(o, &m_entryIndex[m_entry->rd_ptr()], n1);
                 }
                 else
                 {
                     // Recursive case
 
-                    STLSOFT_API_INTERNAL_memfns_memcpy(o, &m_entryIndex[m_entry->rd_ptr()], n1);
+                    STLSOFT_API_EXTERNAL_memfns_memcpy(o, &m_entryIndex[m_entry->rd_ptr()], n1);
                     o += n1;
 
                     m_entry = nextEntry();
@@ -400,7 +407,7 @@ public:
                     //
                     // This is the terminating case.
 
-                    STLSOFT_API_INTERNAL_memfns_memcpy(o, &m_entryIndex[m_entry->rd_ptr()], n);
+                    STLSOFT_API_EXTERNAL_memfns_memcpy(o, &m_entryIndex[m_entry->rd_ptr()], n);
 
                     ACESTL_ASSERT(n <= m_entryLength - m_entryIndex);
 
@@ -410,7 +417,7 @@ public:
                 }
                 else
                 {
-                    STLSOFT_API_INTERNAL_memfns_memcpy(o, &m_entryIndex[m_entry->rd_ptr()], n1);
+                    STLSOFT_API_EXTERNAL_memfns_memcpy(o, &m_entryIndex[m_entry->rd_ptr()], n1);
                     o += n1;
 
                     m_entry = nextEntry();
@@ -435,11 +442,6 @@ public:
 
                 return m_mqi.advance() ? (m_mqi.next(entry), entry) : NULL;
             }
-
-        // Not to be implemented
-        private:
-            shared_handle(class_type const&);
-            class_type& operator =(class_type const&);
         };
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
@@ -616,6 +618,9 @@ public:
     ss_explicit_k message_queue_sequence(sequence_type &mq)
         : m_mq(mq)
     {}
+private:
+    message_queue_sequence(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 /// \name Iteration
 /// @{
@@ -701,13 +706,6 @@ public:
 private:
     sequence_type   &m_mq;
 /// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    message_queue_sequence(class_type const&);
-    class_type& operator =(class_type const&);
-/// @}
 };
 
 /* ////////////////////////////////////////////////////////////////////// */
@@ -715,14 +713,14 @@ private:
 #ifndef ACESTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace acestl */
+} // namespace acestl
 # else
-} /* namespace acestl_project */
-} /* namespace stlsoft */
+} // namespace acestl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !ACESTL_NO_NAMESPACE */
 
-// Define specialisations in the std namespace
+// define specialisations in the std namespace
 
 #ifdef STLSOFT_CF_std_NAMESPACE
 namespace std
@@ -869,10 +867,10 @@ inline ACESTL_NS_QUAL(message_queue_sequence)<ACE_MT_SYNCH>::iterator copy(     
 }
 
 #ifdef STLSOFT_CF_std_NAMESPACE
-} /* namespace std */
+} // namespace std
 #endif /* STLSOFT_CF_std_NAMESPACE */
 
-// Define specialisations in the stlsoft namespace
+// define specialisations in the stlsoft namespace
 
 #ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
@@ -1019,8 +1017,9 @@ inline ACESTL_NS_QUAL(message_queue_sequence)<ACE_MT_SYNCH>::iterator copy_n(   
 }
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* !STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

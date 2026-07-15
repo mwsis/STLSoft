@@ -1,16 +1,16 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/filesystem/pipe.hpp
+ * File:    winstl/filesystem/pipe.hpp
  *
- * Purpose:     pipe class, based on Windows anonymous pipe.
+ * Purpose: pipe class, based on Windows anonymous pipe.
  *
- * Created:     19th June 2004
- * Updated:     22nd January 2024
+ * Created: 19th June 2004
+ * Updated: 20th March 2025
  *
- * Thanks:      iceboy for reporting a defect in close_write()
+ * Thanks:  iceboy for reporting a defect in close_write()
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,9 +55,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_PIPE_MAJOR    4
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_PIPE_MINOR    1
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_PIPE_REVISION 11
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_PIPE_EDIT     54
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_PIPE_REVISION 14
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_PIPE_EDIT     59
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -81,6 +82,7 @@
 # include <winstl/api/external/HandleAndObject.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_HandleAndObject */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -99,6 +101,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -153,6 +156,9 @@ public:
             WINSTL_API_EXTERNAL_HandleAndObject_CloseHandle(m_hWriteHandle);
         }
     }
+private:
+    pipe(class_type const&);
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Accessors
@@ -209,27 +215,23 @@ public:
 private:
     HANDLE  m_hReadHandle;
     HANDLE  m_hWriteHandle;
-/// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    pipe(class_type const&);
-    class_type& operator =(class_type const&);
-/// @}
 };
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

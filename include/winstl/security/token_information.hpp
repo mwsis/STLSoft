@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/security/token_information.hpp
+ * File:    winstl/security/token_information.hpp
  *
- * Purpose:     Helper for accessing token information.
+ * Purpose: Helper for accessing token information.
  *
- * Created:     20th June 2003
- * Updated:     16th February 2024
+ * Created: 20th June 2003
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SECURITY_HPP_TOKEN_INFORMATION_MAJOR     4
 # define WINSTL_VER_WINSTL_SECURITY_HPP_TOKEN_INFORMATION_MINOR     4
-# define WINSTL_VER_WINSTL_SECURITY_HPP_TOKEN_INFORMATION_REVISION  6
-# define WINSTL_VER_WINSTL_SECURITY_HPP_TOKEN_INFORMATION_EDIT      78
+# define WINSTL_VER_WINSTL_SECURITY_HPP_TOKEN_INFORMATION_REVISION  8
+# define WINSTL_VER_WINSTL_SECURITY_HPP_TOKEN_INFORMATION_EDIT      82
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -97,6 +98,7 @@
 # include <winstl/api/external/ErrorHandling.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -115,6 +117,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * types
@@ -160,6 +163,7 @@ enum
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * traits
  */
@@ -171,6 +175,7 @@ enum
  */
 template <TOKEN_INFORMATION_CLASS C>
 struct token_information_traits;
+
 
 /* ///////////////////////////////////////////////
  * specialisations
@@ -213,6 +218,7 @@ WINSTL_SEC_T_I_SPECIALISE_TIT_(TokenImpersonationLevel, SECURITY_IMPERSONATION_L
 
 WINSTL_SEC_T_I_SPECIALISE_TIT_(TokenStatistics, TOKEN_STATISTICS);
 
+
 /* ///////////////////////////////////////////////
  * specialisations - XP+
  */
@@ -236,6 +242,7 @@ WINSTL_SEC_T_I_SPECIALISE_TIT_(TokenSandBoxInert, DWORD);
 
 # endif /* XP+ */
 
+
 /* ///////////////////////////////////////////////
  * specialisations - Svr03+
  */
@@ -252,6 +259,7 @@ WINSTL_SEC_T_I_SPECIALISE_TIT_(TokenOrigin, TOKEN_ORIGIN);
 #  endif
 
 # endif /* Svr03+ */
+
 
 /* ///////////////////////////////////////////////
  * specialisations - Vista+
@@ -282,6 +290,7 @@ WINSTL_SEC_T_I_SPECIALISE_TIT_(TokenMandatoryPolicy, TOKEN_MANDATORY_POLICY);
 WINSTL_SEC_T_I_SPECIALISE_TIT_(TokenLogonSid, TOKEN_GROUPS);
 
 # endif /* Vista+ */
+
 
 /* ///////////////////////////////////////////////
  * specialisations - W8+
@@ -324,6 +333,7 @@ WINSTL_SEC_T_I_SPECIALISE_TIT_(TokenIsRestricted, void);
 # endif /* W8+ */
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -461,8 +471,8 @@ public:
 #endif /* STLSOFT_LF_ALLOCATOR_DEALLOCATE_HAS_COUNT */
     }
 private:
-    token_information(class_type const&);       // copy-construction proscribed
-    class_type& operator =(class_type const&);  // copy-assignment proscribed
+    token_information(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Conversion
@@ -518,6 +528,7 @@ private:
 /// @}
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -525,12 +536,13 @@ private:
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

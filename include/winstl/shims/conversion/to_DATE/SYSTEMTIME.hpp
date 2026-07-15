@@ -4,11 +4,11 @@
  * Purpose:     winstl::to_DATE(SYSTEMTIME const&) overload.
  *
  * Created:     21st October 2007
- * Updated:     22nd January 2024
+ * Updated:     20th March 2025
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,8 +55,9 @@
 # define WINSTL_VER_WINSTL_SHIMS_CONVERSION_TO_DATE_HPP_SYSTEMTIME_MAJOR    1
 # define WINSTL_VER_WINSTL_SHIMS_CONVERSION_TO_DATE_HPP_SYSTEMTIME_MINOR    0
 # define WINSTL_VER_WINSTL_SHIMS_CONVERSION_TO_DATE_HPP_SYSTEMTIME_REVISION 7
-# define WINSTL_VER_WINSTL_SHIMS_CONVERSION_TO_DATE_HPP_SYSTEMTIME_EDIT     15
+# define WINSTL_VER_WINSTL_SHIMS_CONVERSION_TO_DATE_HPP_SYSTEMTIME_EDIT     17
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -89,6 +90,7 @@
 # include <wtypes.h>
 #endif /* !STLSOFT_INCL_H_WTYPES */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -107,6 +109,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * functions
@@ -150,6 +153,7 @@ to_DATE(
     return d;
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -157,12 +161,13 @@ to_DATE(
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace stlsoft::winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

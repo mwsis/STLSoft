@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        mfcstl/string/grab_CString_buffer.hpp (originally MFGrbStr.h: ::SynesisMfc)
+ * File:    mfcstl/string/grab_CString_buffer.hpp (originally MFGrbStr.h: ::SynesisMfc)
  *
- * Purpose:     CString Get/ReleaseBuffer scoping class.
+ * Purpose: CString Get/ReleaseBuffer scoping class.
  *
- * Created:     12th February 1999
- * Updated:     26th December 2020
+ * Created: 12th February 1999
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1999-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define MFCSTL_VER_MFCSTL_STRING_HPP_GRAB_CSTRING_BUFFER_MAJOR      5
 # define MFCSTL_VER_MFCSTL_STRING_HPP_GRAB_CSTRING_BUFFER_MINOR      0
-# define MFCSTL_VER_MFCSTL_STRING_HPP_GRAB_CSTRING_BUFFER_REVISION   1
-# define MFCSTL_VER_MFCSTL_STRING_HPP_GRAB_CSTRING_BUFFER_EDIT       72
+# define MFCSTL_VER_MFCSTL_STRING_HPP_GRAB_CSTRING_BUFFER_REVISION   3
+# define MFCSTL_VER_MFCSTL_STRING_HPP_GRAB_CSTRING_BUFFER_EDIT       76
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -67,6 +68,7 @@
 #ifdef STLSOFT_TRACE_INCLUDE
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -86,6 +88,7 @@ namespace mfcstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !MFCSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * grab_CString_buffer
@@ -145,8 +148,9 @@ private:
 // Not implemented
 private:
     grab_CString_buffer(class_type const& rhs);
-    class_type& operator =(class_type const& rhs);
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * backwards compatibility
@@ -157,10 +161,13 @@ private:
 typedef grab_CString_buffer                                 grab_cstring_buffer;
 #endif /* !STLSOFT_OBSOLETE */
 
-////////////////////////////////////////////////////////////////////////////
-// Implementation
 
-inline grab_CString_buffer::grab_CString_buffer(CString &str, int length) stlsoft_throw_1(CMemoryException *)
+/* /////////////////////////////////////////////////////////////////////////
+ * implementation
+ */
+
+inline
+grab_CString_buffer::grab_CString_buffer(CString &str, int length) stlsoft_throw_1(CMemoryException *)
     : m_str(str)
     , m_len(length)
     , m_originalLen(str.GetLength())
@@ -174,7 +181,8 @@ inline grab_CString_buffer::grab_CString_buffer(CString &str, int length) stlsof
     m_psz[m_len] = '\0';
 }
 
-inline grab_CString_buffer::~grab_CString_buffer() STLSOFT_NOEXCEPT
+inline
+grab_CString_buffer::~grab_CString_buffer() STLSOFT_NOEXCEPT
 {
     // Best to check that the end character has not been overwritten
     MFCSTL_MESSAGE_ASSERT("The client code has overwritten the managed area of the grab_CString_buffer instance", '\0' == m_psz[m_len]);
@@ -185,44 +193,53 @@ inline grab_CString_buffer::~grab_CString_buffer() STLSOFT_NOEXCEPT
     m_str.ReleaseBuffer();
 }
 
-inline LPCTSTR grab_CString_buffer::c_str() const
+inline
+LPCTSTR grab_CString_buffer::c_str() const
 {
     return m_psz;
 }
 
-inline grab_CString_buffer::operator LPTSTR()
+inline
+grab_CString_buffer::operator LPTSTR()
 {
     return m_psz;
 }
 
 #if !defined(STLSOFT_COMPILER_IS_BORLAND)
-inline grab_CString_buffer::operator LPCTSTR() const
+inline
+grab_CString_buffer::operator LPCTSTR() const
 {
     return m_psz;
 }
 #endif /* compiler */
 
-inline int grab_CString_buffer::length() const
+inline
+int grab_CString_buffer::length() const
 {
     return m_len;
 }
 
-inline int grab_CString_buffer::original_length() const
+inline
+int grab_CString_buffer::original_length() const
 {
     return m_originalLen;
 }
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * implementation
+ */
 
 #ifndef MFCSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace mfcstl */
+} // namespace mfcstl
 # else
-} /* namespace mfcstl_project */
-} /* namespace stlsoft */
+} // namespace mfcstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !MFCSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

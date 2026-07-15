@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        rangelib/rangelib.hpp
+ * File:    rangelib/rangelib.hpp
  *
- * Purpose:     Root header for the STLSoft implementation of RangeLib.
+ * Purpose: Root header for the STLSoft implementation of RangeLib.
  *
- * Created:     12th October 2004
- * Updated:     22nd January 2024
+ * Created: 12th October 2004
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -48,7 +48,7 @@
 # define RANGELIB_VER_RANGELIB_HPP_RANGELIB_MAJOR    1
 # define RANGELIB_VER_RANGELIB_HPP_RANGELIB_MINOR    4
 # define RANGELIB_VER_RANGELIB_HPP_RANGELIB_REVISION 4
-# define RANGELIB_VER_RANGELIB_HPP_RANGELIB_EDIT     39
+# define RANGELIB_VER_RANGELIB_HPP_RANGELIB_EDIT     42
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \file rangelib/rangelib.hpp
@@ -64,7 +64,7 @@
  * components.
  *
  * The major version is denoted by the _RANGELIB_VER_MAJOR preprocessor symbol.
- * A changes to the major version component implies that a dramatic change has
+ * A change to the major version component implies that a dramatic change has
  * occurred in the libraries, such that considerable changes to source dependent
  * on previous versions would need to be effected.
  *
@@ -123,12 +123,14 @@
 # define _RANGELIB_VER_1_1_1    0x00010101  /*!< Version 1.1.1 (with STLSoft 1.9.1) */
 # define _RANGELIB_VER_1_1_2    0x00010102  /*!< Version 1.1.2 (with STLSoft 1.9.25) */
 # define _RANGELIB_VER_1_1_3    0x010103ff  /*!< Version 1.1.3 (with STLSoft 1.9.113) */
+# define _RANGELIB_VER_1_1_4    0x010103ff  /*!< Version 1.1.4 (with STLSoft 1.11.1 alpha 8) */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #define _RANGELIB_VER_MAJOR     1
 #define _RANGELIB_VER_MINOR     1
-#define _RANGELIB_VER_REVISION  3
-#define _RANGELIB_VER           _RANGELIB_VER_1_1_3
+#define _RANGELIB_VER_REVISION  4
+#define _RANGELIB_VER           _RANGELIB_VER_1_1_4
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Auto-generation and compatibility
@@ -140,6 +142,7 @@ STLSOFT_COMPILER_IS_MSVC:     _MSC_VER < 1200
 [Incompatibilies-end]
  */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * includes
  */
@@ -150,6 +153,7 @@ STLSOFT_COMPILER_IS_MSVC:     _MSC_VER < 1200
 #ifdef STLSOFT_TRACE_INCLUDE
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * STLSoft version compatibility check(s)
@@ -236,6 +240,7 @@ STLSOFT_COMPILER_IS_MSVC:     _MSC_VER < 1200
 # endif /* _STLSOFT_FORCE_ANY_COMPILER */
 #endif /* compiler */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -260,13 +265,14 @@ namespace rangelib_project
 #ifndef RANGELIB_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace rangelib */
+} // namespace rangelib
 # else
-} /* namespace rangelib_project */
-} /* namespace stlsoft */
+} // namespace rangelib_project
+} // namespace stlsoft
 namespace rangelib = ::stlsoft::rangelib_project;
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !RANGELIB_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

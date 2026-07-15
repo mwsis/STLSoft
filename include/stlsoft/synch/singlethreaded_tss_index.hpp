@@ -1,16 +1,16 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/synch/singlethreaded_tss_index.hpp
+ * File:    stlsoft/synch/singlethreaded_tss_index.hpp
  *
- * Purpose:     An interface-compatible replacement for the tss_index
- *              classes defined elsewhere in the libraries, for use in
- *              single-threaded contexts.
+ * Purpose: An interface-compatible replacement for the tss_index classes
+ *          defined elsewhere in the libraries, for use in single-threaded
+ *          contexts.
  *
- * Created:     3rd February 2008
- * Updated:     26th December 2020
+ * Created: 3rd February 2008
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2008-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -57,9 +57,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_SYNCH_HPP_SINGLE_THREADED_TSS_INDEX_MAJOR      1
 # define STLSOFT_VER_STLSOFT_SYNCH_HPP_SINGLE_THREADED_TSS_INDEX_MINOR      0
-# define STLSOFT_VER_STLSOFT_SYNCH_HPP_SINGLE_THREADED_TSS_INDEX_REVISION   6
-# define STLSOFT_VER_STLSOFT_SYNCH_HPP_SINGLE_THREADED_TSS_INDEX_EDIT       14
+# define STLSOFT_VER_STLSOFT_SYNCH_HPP_SINGLE_THREADED_TSS_INDEX_REVISION   9
+# define STLSOFT_VER_STLSOFT_SYNCH_HPP_SINGLE_THREADED_TSS_INDEX_EDIT       19
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -72,6 +73,7 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -80,6 +82,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -96,11 +99,11 @@ class singlethreaded_tss_index
 /// @{
 public:
     /// This class
-    typedef singlethreaded_tss_index        class_type;
+    typedef singlethreaded_tss_index                        class_type;
     /// The type of the TSS key
-    typedef void                            key_type;
+    typedef void                                            key_type;
     /// The type of the slot values
-    typedef void*                           value_type;
+    typedef void*                                           value_type;
 /// @}
 
 /// \name Construction
@@ -113,6 +116,9 @@ public:
     /// Releases the TSS key
     ~singlethreaded_tss_index() STLSOFT_NOEXCEPT
     {}
+private:
+    singlethreaded_tss_index(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Operations
@@ -135,20 +141,15 @@ public:
 private:
     value_type  m_value;
 /// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    singlethreaded_tss_index(class_type const&);
-    class_type& operator =(class_type const&);
-/// @}
 };
+
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

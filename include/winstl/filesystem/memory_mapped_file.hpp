@@ -1,17 +1,17 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/filesystem/memory_mapped_file.hpp (based on MMFile.h, ::SynesisWin)
+ * File:    winstl/filesystem/memory_mapped_file.hpp (based on MMFile.h, ::SynesisWin)
  *
- * Purpose:     Memory mapped file class.
+ * Purpose: Memory mapped file class.
  *
- * Created:     15th December 1996
- * Updated:     22nd January 2024
+ * Created: 15th December 1996
+ * Updated: 20th March 2025
  *
- * Thanks:      To Pablo Aguilar for requesting multibyte / wide string
- *              ambivalence. To Joe Mariadassou for requesting swap().
+ * Thanks:  To Pablo Aguilar for requesting multibyte / wide string
+ *          ambivalence. To Joe Mariadassou for requesting swap().
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1996-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -56,9 +56,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE_MAJOR     4
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE_MINOR     12
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE_REVISION  8
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE_EDIT      128
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE_REVISION  10
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE_EDIT      133
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -105,11 +106,6 @@
 # include <stlsoft/util/std_swap.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_STD_SWAP */
 
-#ifndef STLSOFT_INCL_H_STRING
-# define STLSOFT_INCL_H_STRING
-# include <string.h>    // for memcmp()
-#endif /* !STLSOFT_INCL_H_STRING */
-
 #ifndef WINSTL_INCL_WINSTL_API_internal_h_MemoryManagement
 # include <winstl/api/internal/MemoryManagement.h>
 #endif /* !WINSTL_INCL_WINSTL_API_internal_h_MemoryManagement */
@@ -126,6 +122,11 @@
 #ifndef WINSTL_INCL_WINSTL_API_external_h_MemoryManagement
 # include <winstl/api/external/MemoryManagement.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_MemoryManagement */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -145,6 +146,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -588,8 +590,8 @@ public:
         WINSTL_ASSERT(is_valid());
     }
 private:
-    memory_mapped_file(class_type const&);      // copy-construction proscribed
-    class_type& operator =(class_type const&);  // copy-assignment proscribed
+    memory_mapped_file(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Accessors
@@ -660,10 +662,12 @@ public:
         {
             return false;
         }
-        if (0 != ::memcmp(lhs.memory(), rhs.memory(), lhs.size()))
+
+        if (0 != STLSOFT_API_EXTERNAL_memfns_memcmp(lhs.memory(), rhs.memory(), lhs.size()))
         {
             return false;
         }
+
         return true;
     }
 /// @}
@@ -687,12 +691,16 @@ private:
         switch (scode)
         {
         case ERROR_FILE_NOT_FOUND:
+
             STLSOFT_THROW_X(file_not_found_exception(message, scode));
         case ERROR_PATH_NOT_FOUND:
+
             STLSOFT_THROW_X(entry_not_found_exception(message, scode));
         case ERROR_ACCESS_DENIED:
+
             STLSOFT_THROW_X(access_exception(message, scode));
         default:
+
             STLSOFT_THROW_X(filesystem_exception(message, scode));
         }
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
@@ -734,6 +742,7 @@ private:
 /// @}
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * comparison operators
  */
@@ -758,6 +767,7 @@ operator !=(
     return !lhs.equal(rhs);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * swapping
  */
@@ -775,6 +785,7 @@ swap(
     lhs.swap(rhs);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -782,10 +793,10 @@ swap(
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
@@ -803,18 +814,17 @@ namespace std
         lhs.swap(rhs);
     }
 
-} /* namespace std */
+} // namespace std
 #endif /* STLSOFT_CF_std_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * inclusion
+ * inclusion control
  */
 
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
 # pragma once
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
-
-/* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* !WINSTL_INCL_WINSTL_FILESYSTEM_HPP_MEMORY_MAPPED_FILE */
 

@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/exception/status_code_provider.hpp
+ * File:    stlsoft/exception/status_code_provider.hpp
  *
- * Purpose:     Define the status_code_provider inteface.
+ * Purpose: Define the status_code_provider inteface.
  *
- * Created:     13th May 2010
- * Updated:     26th December 2020
+ * Created: 13th May 2010
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2010-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -47,10 +47,11 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_EXCEPTION_HPP_STATUS_CODE_PROVIDER_MAJOR       2
-# define STLSOFT_VER_STLSOFT_EXCEPTION_HPP_STATUS_CODE_PROVIDER_MINOR       0
-# define STLSOFT_VER_STLSOFT_EXCEPTION_HPP_STATUS_CODE_PROVIDER_REVISION    1
-# define STLSOFT_VER_STLSOFT_EXCEPTION_HPP_STATUS_CODE_PROVIDER_EDIT        19
+# define STLSOFT_VER_STLSOFT_EXCEPTION_HPP_STATUS_CODE_PROVIDER_MINOR       1
+# define STLSOFT_VER_STLSOFT_EXCEPTION_HPP_STATUS_CODE_PROVIDER_REVISION    3
+# define STLSOFT_VER_STLSOFT_EXCEPTION_HPP_STATUS_CODE_PROVIDER_EDIT        24
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -70,6 +71,7 @@
 # include <stlsoft/quality/cover.h>
 #endif /* !STLSOFT_INCL_STLSOFT_QUALITY_H_COVER */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -78,6 +80,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -90,7 +93,7 @@ template<
 >
 class status_code_provider
 {
-public:
+public: // types
 //    typedef T_implementingClass                             implementing_class_type;
     typedef T_statusCode                                    status_code_type;
     typedef status_code_provider<
@@ -99,7 +102,7 @@ public:
     >                                                       class_type;
 private:
 
-protected:
+protected: // construction
     status_code_provider()
     {}
     ~status_code_provider() STLSOFT_NOEXCEPT
@@ -107,23 +110,28 @@ protected:
     status_code_provider(class_type const& /* rhs */)
     {}
 private:
-    class_type& operator =(class_type const&);  // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
-// Interface
-public:
+public: // modifiers
+    void swap(class_type& /* rhs */) STLSOFT_NOEXCEPT
+    {}
+
+public: // overrides
     virtual status_code_type
     status_code() const = 0;
 
 private:
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

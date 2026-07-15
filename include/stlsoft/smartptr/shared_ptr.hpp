@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/smartptr/shared_ptr.hpp (originally MLShrPtr.h, ::SynesisStd)
+ * File:    stlsoft/smartptr/shared_ptr.hpp (originally MLShrPtr.h, ::SynesisStd)
  *
- * Purpose:     Contains the shared_ptr template class.
+ * Purpose: Contains the shared_ptr template class.
  *
- * Created:     17th June 2002
- * Updated:     22nd January 2024
+ * Created: 17th June 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -52,11 +52,12 @@
 #define STLSOFT_INCL_STLSOFT_SMARTPTR_HPP_SHARED_PTR
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SHARED_PTR_MAJOR       3
-# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SHARED_PTR_MINOR       5
-# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SHARED_PTR_REVISION    4
-# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SHARED_PTR_EDIT        60
+# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SHARED_PTR_MAJOR      3
+# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SHARED_PTR_MINOR      6
+# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SHARED_PTR_REVISION   1
+# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SHARED_PTR_EDIT       66
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes - 1
@@ -72,6 +73,7 @@
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_HPP_STD_SWAP
 # include <stlsoft/util/std_swap.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_STD_SWAP */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * feature detection
@@ -104,6 +106,7 @@
 # define STLSOFT_SHARED_PTR_SINGLE_THREADED
 #endif
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * includes - 2
  */
@@ -127,6 +130,7 @@
 # define STLSOFT_SHARED_PTR_USE_std_atomic
 #endif
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -136,12 +140,14 @@ namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * helpers
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -158,25 +164,31 @@ template<
 >
 class shared_ptr
 {
-/// \name Types
-/// @{
-public:
+public: // types
     /// The value type
     typedef T                                               value_type;
+    /// The pointer type
     typedef value_type*                                     pointer;
+    /// The non-mutable (const) pointer type
     typedef value_type const*                               const_pointer;
+    /// The reference type
     typedef value_type&                                     reference;
+    /// The non-mutable (const) reference type
     typedef value_type const&                               const_reference;
+    /// The current specialisation of the type
     typedef shared_ptr<T>                                   class_type;
-
+    /// The resource type
     typedef pointer                                         resource_type;
+    /// The non-mutable (const) resource type
     typedef const_pointer                                   const_resource_type;
 private:
 #if 0
 #elif defined(_WIN32) ||\
       defined(_WIN64)
+
     typedef long                                            internal_count_type_;
 #else
+
     // NOTE: for some reason yet to be tracked down, cannot use long with
     // Clang on Mac OSX (as it leads to UB insofar as atomic operations
     // produce random contents - actually appears to manipulate only the low
@@ -197,11 +209,8 @@ private:
     typedef internal_count_type_                            internal_counter_type_;
 #endif
 
-/// @}
-
-/// \name Construction
-/// @{
-public:
+public: // construction
+    /// Constructs an empty instance
     shared_ptr()
         : m_p(NULL)
         , m_pc(NULL)
@@ -212,7 +221,7 @@ public:
     ///
     /// \note If exception handling is not enabled and memory cannot be
     ///   acquired to hold the sharing resource the object represented
-    ///   by \c p will be deleted, and get() will return \c NULL
+    ///   by \c p will be deleted, and get() will return \c nullptr
     ///
     /// \exception std::bad_alloc If exception support is enabled,
     ///   an instance of <code>std::bad_alloc</code> will be thrown if
@@ -242,7 +251,7 @@ public:
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
             }
-            catch(std::bad_alloc&)
+            catch (std::bad_alloc&)
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
             if (NULL == m_pc)
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
@@ -272,10 +281,10 @@ public:
 
         STLSOFT_ASSERT(is_valid());
     }
-
 #if defined(STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT) && \
     (   !defined(STLSOFT_COMPILER_IS_MSVC) || \
         _MSC_VER > 1200)
+
     template <ss_typename_param_k T2>
     shared_ptr(shared_ptr<T2> const& rhs)
         : m_p(rhs.m_p)
@@ -293,6 +302,17 @@ public:
         STLSOFT_ASSERT(is_valid());
     }
 #endif /* member template support? */
+#ifdef STLSOFT_CF_RVALUE_REFERENCES_SUPPORT
+
+    /// Constructs an instance by taking over the state of instance `rhs`
+    shared_ptr(class_type&& rhs)
+        : m_p(rhs.m_p)
+        , m_pc(rhs.m_pc)
+    {
+        rhs.m_p = NULL;
+        rhs.m_pc = NULL;
+    }
+#endif
 
     /// Destructor
     ~shared_ptr() STLSOFT_NOEXCEPT
@@ -323,10 +343,10 @@ public:
 
         return *this;
     }
-
 #if defined(STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT) && \
     (   !defined(STLSOFT_COMPILER_IS_MSVC) || \
         _MSC_VER > 1200)
+
     template <ss_typename_param_k T2>
     class_type& operator =(shared_ptr<T2> const& rhs)
     {
@@ -343,11 +363,8 @@ public:
         return *this;
     }
 #endif /* member template support? */
-/// @}
 
-/// \name Operations
-/// @{
-public:
+public: // operations
     /// Releases any managed instance and resets the shared pointer
     /// instance to a default-constructed state
     ///
@@ -431,11 +448,8 @@ public:
 
         STLSOFT_ASSERT(is_valid());
     }
-/// @}
 
-/// \name Accessors
-/// @{
-public:
+public: // accessors
     const_pointer operator ->() const
     {
         STLSOFT_ASSERT(NULL != m_p);
@@ -472,11 +486,8 @@ public:
 
         return *m_p;
     }
-/// @}
 
-/// \name Attributes
-/// @{
-public:
+public: // attributes
     /// \see use_count()
     long count() const STLSOFT_NOEXCEPT
     {
@@ -492,11 +503,8 @@ public:
 
         return this->count();
     }
-/// @}
 
-/// \name Implementation
-/// @{
-private:
+private: // implementation
     static
     void
     increment_(
@@ -594,15 +602,12 @@ private:
 
         return true;
     }
-/// @}
 
-/// \name Members
-/// @{
-private:
+private: // fields
     pointer                 m_p;
     internal_counter_type_* m_pc;
-/// @}
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * swapping
@@ -620,6 +625,7 @@ swap(
 {
     lhs.swap(rhs);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * shims
@@ -663,7 +669,7 @@ is_null(
  *
  * \ingroup group__library__SmartPointer
  *
- * \pre NULL != p.get()
+ * \pre nullptr != p.get()
  */
 template<
     ss_typename_param_k S
@@ -680,15 +686,15 @@ operator <<(
 
     return s << *p;
 }
-
 #endif /* compiler */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
 
 /* In the special case of Intel behaving as VC++ 7.0 or earlier on Win32, we
@@ -698,6 +704,7 @@ operator <<(
 # if ( ( defined(STLSOFT_COMPILER_IS_INTEL) && \
          defined(_MSC_VER))) && \
      _MSC_VER < 1310
+
 namespace std
 {
     template<
@@ -712,9 +719,10 @@ namespace std
     {
         lhs.swap(rhs);
     }
-} /* namespace std */
+} // namespace std
 # endif /* INTEL && _MSC_VER < 1310 */
 #endif /* STLSOFT_CF_std_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control
@@ -723,8 +731,6 @@ namespace std
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
 # pragma once
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
-
-/* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* !STLSOFT_INCL_STLSOFT_SMARTPTR_HPP_SHARED_PTR */
 

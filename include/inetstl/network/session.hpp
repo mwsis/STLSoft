@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        inetstl/network/session.hpp (originally MIntSess.h)
+ * File:    inetstl/network/session.hpp (originally MIntSess.h)
  *
- * Purpose:     Contains the basic_session class.
+ * Purpose: Contains the basic_session class.
  *
- * Created:     30th April 1999
- * Updated:     16th February 2024
+ * Created: 30th April 1999
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1999-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define INETSTL_VER_INETSTL_NETWORK_HPP_SESSION_MAJOR      5
 # define INETSTL_VER_INETSTL_NETWORK_HPP_SESSION_MINOR      1
-# define INETSTL_VER_INETSTL_NETWORK_HPP_SESSION_REVISION   12
-# define INETSTL_VER_INETSTL_NETWORK_HPP_SESSION_EDIT       80
+# define INETSTL_VER_INETSTL_NETWORK_HPP_SESSION_REVISION   14
+# define INETSTL_VER_INETSTL_NETWORK_HPP_SESSION_EDIT       85
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -91,6 +92,7 @@
 # endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
 #endif /* _WIN32 */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -109,6 +111,7 @@ namespace inetstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !INETSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -153,8 +156,8 @@ public:
     ///
     /// \param pcszAgent The name of the user agent, e.g. "Acme Internet Browser"
     /// \param accessType The type of access required, e.g. INTERNET_OPEN_TYPE_DIRECT, INTERNET_OPEN_TYPE_PRECONFIG. Defaults to INTERNET_OPEN_TYPE_PRECONFIG
-    /// \param pcszProxyName The name of the proxy server to use. Defaults to NULL
-    /// \param pcszProxyBypass List of names not be routed by the proxy. Defaults to NULL
+    /// \param pcszProxyName The name of the proxy server to use. Defaults to \c nullptr
+    /// \param pcszProxyBypass List of names not be routed by the proxy. Defaults to \c nullptr
     /// \param flags Flags altering behaviour of the session initialisation.
     ///
     /// \note If the session fails to initialise, the exception_policy_type function-call operator is called. If the
@@ -171,8 +174,8 @@ public:
     /// Closes the session, if open
     ~basic_session() STLSOFT_NOEXCEPT;
 private:
-    basic_session(class_type const&);           // copy-construction proscribed
-    class_type& operator =(class_type const&);  // copy-assignment proscribed
+    basic_session(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Operations
 public:
@@ -180,8 +183,8 @@ public:
     ///
     /// \param pcszAgent The name of the user agent, e.g. "Acme Internet Browser"
     /// \param accessType The type of access required, e.g. INTERNET_OPEN_TYPE_DIRECT, INTERNET_OPEN_TYPE_PRECONFIG. Defaults to INTERNET_OPEN_TYPE_PRECONFIG
-    /// \param pcszProxyName The name of the proxy server to use. Defaults to NULL
-    /// \param pcszProxyBypass List of names not be routed by the proxy. Defaults to NULL
+    /// \param pcszProxyName The name of the proxy server to use. Defaults to \c nullptr
+    /// \param pcszProxyBypass List of names not be routed by the proxy. Defaults to \c nullptr
     /// \param flags Flags altering behaviour of the session initialisation.
     ///
     /// \note If the session fails to initialise, the exception_policy_type function-call operator is called. If the
@@ -222,6 +225,7 @@ private:
 private:
     HINTERNET   m_hConn;
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * typedefs for commonly encountered types
@@ -438,17 +442,21 @@ get_handle(
     return s;
 }
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef INETSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace inetstl */
+} // namespace inetsl
 # else
-} /* namespace inetstl_project */
-} /* namespace stlsoft */
+} // namespace inetstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !INETSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

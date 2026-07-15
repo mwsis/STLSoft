@@ -1,18 +1,18 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/system/pid_sequence.hpp
+ * File:    winstl/system/pid_sequence.hpp
  *
- * Purpose:     Process Id sequence class.
+ * Purpose: Process Id sequence class.
  *
- * Created:     24th June 2005
- * Updated:     22nd January 2024
+ * Created: 24th June 2005
+ * Updated: 18th August 2025
  *
- * Thanks to:   Adi Shavit for spotting a small inefficiency in the
- *              resize()-ing, during the review of Extended STL volume 1
- *              (see http://extendedstl.com/).
+ * Thanks:  Adi Shavit for spotting a small inefficiency in the
+ *          resize()-ing, during the review of Extended STL volume 1
+ *          (see http://extendedstl.com/).
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -56,10 +56,11 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SYSTEM_HPP_PID_SEQUENCE_MAJOR    2
-# define WINSTL_VER_WINSTL_SYSTEM_HPP_PID_SEQUENCE_MINOR    2
-# define WINSTL_VER_WINSTL_SYSTEM_HPP_PID_SEQUENCE_REVISION 10
-# define WINSTL_VER_WINSTL_SYSTEM_HPP_PID_SEQUENCE_EDIT     68
+# define WINSTL_VER_WINSTL_SYSTEM_HPP_PID_SEQUENCE_MINOR    3
+# define WINSTL_VER_WINSTL_SYSTEM_HPP_PID_SEQUENCE_REVISION 1
+# define WINSTL_VER_WINSTL_SYSTEM_HPP_PID_SEQUENCE_EDIT     77
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -106,6 +107,7 @@
 # include <winstl/api/external/ErrorHandling.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -125,6 +127,7 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * classes
  */
@@ -140,39 +143,48 @@ class pid_sequence
 /// @{
 public:
     /// The value type
-    typedef DWORD                                                           value_type;
+    typedef DWORD                                           value_type;
     /// The allocator type
-    typedef processheap_allocator<value_type>                               allocator_type;
+    typedef processheap_allocator<value_type>               allocator_type;
     /// The class type
-    typedef pid_sequence                                                    class_type;
+    typedef pid_sequence                                    class_type;
     /// The non-mutating (const) pointer type
-    typedef value_type const*                                               const_pointer;
+    typedef value_type const*                               const_pointer;
     /// The non-mutating (const) reference type
-    typedef value_type const&                                               const_reference;
+    typedef value_type const&                               const_reference;
     /// The non-mutating (const) iterator type
-    typedef STLSOFT_NS_QUAL(pointer_iterator)<  value_type
-                                            ,   const_pointer
-                                            ,   const_reference
-                                            >::type                         const_iterator;
+    typedef STLSOFT_NS_QUAL(pointer_iterator)<
+        value_type
+    ,   const_pointer
+    ,   const_reference
+    >::type                                                 const_iterator;
     /// The size type
-    typedef ws_size_t                                                       size_type;
+    typedef ws_size_t                                       size_type;
     /// The difference type
-    typedef ws_ptrdiff_t                                                    difference_type;
+    typedef ws_ptrdiff_t                                    difference_type;
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
     /// The non-mutating (const) reverse iterator type
-    typedef STLSOFT_NS_QUAL(const_reverse_bidirectional_iterator_base)< const_iterator
-                                                                    ,   value_type
-                                                                    ,   const_reference
-                                                                    ,   const_pointer
-                                                                    ,   difference_type
-                                                                    >       const_reverse_iterator;
+    typedef STLSOFT_NS_QUAL(const_reverse_bidirectional_iterator_base)<
+        const_iterator
+    ,   value_type
+    ,   const_reference
+    ,   const_pointer
+    ,   difference_type
+    >                                                       const_reverse_iterator;
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
+private:
+    typedef STLSOFT_NS_QUAL(auto_buffer)<
+        value_type
+    ,   256
+    ,   allocator_type
+    >                                                       buffer_type_;
+public:
 
     enum
     {
-            elideIdle   =   0x0001
-        ,   elideSystem =   0x0002
-        ,   sort        =   0x0004
+            elideIdle   =   0x0001  //!< causes the idle process to be elided from the list
+        ,   elideSystem =   0x0002  //!< causes the system process to be elided from the list
+        ,   sort        =   0x0004  //!< causes the process ids to be sorted
     };
 /// @}
 
@@ -185,11 +197,21 @@ public:
     pid_sequence(class_type const& rhs);
     /// Releases the storage associated with the process id list
     ~pid_sequence() STLSOFT_NOEXCEPT;
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Iteration
 /// @{
 public:
+    /// Begins the iteration
+    ///
+    /// \return An iterator representing the start of the sequence
+    const_iterator  cbegin() const;
+    /// Ends the iteration
+    ///
+    /// \return An iterator representing the end of the sequence
+    const_iterator  cend() const;
     /// Begins the iteration
     ///
     /// \return An iterator representing the start of the sequence
@@ -224,9 +246,9 @@ public:
 /// @{
 public:
     /// Indicates whether the sequence is empty
-    ws_bool_t   empty() const;
+    ws_bool_t   empty() const STLSOFT_NOEXCEPT;
     /// Returns the number of identifiers in the sequence
-    size_type   size() const;
+    size_type   size() const STLSOFT_NOEXCEPT;
 /// @}
 
 /// \name System Traits
@@ -276,20 +298,10 @@ public:
 /// \name Members
 /// @{
 private:
-    typedef STLSOFT_NS_QUAL(auto_buffer_old)<   value_type
-                                            ,   allocator_type
-                                            ,   64
-                                            >       buffer_type_;
-
     buffer_type_    m_pids;
 /// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    class_type& operator =(class_type const&);
-/// @}
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * implementation
@@ -297,7 +309,8 @@ private:
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-inline pid_sequence::pid_sequence(ws_uint32_t flags)
+inline
+pid_sequence::pid_sequence(ws_uint32_t flags)
     : m_pids(buffer_type_::internal_size())
 {
     DWORD   cbReturned;
@@ -308,7 +321,7 @@ inline pid_sequence::pid_sequence(ws_uint32_t flags)
     defined(_PSAPI_H)
         if (!::EnumProcesses(&m_pids[0], sizeof(value_type) * m_pids.size(), &cbReturned))
 #else /* ? psapi */
-        if (!dl_call<BOOL>(  "PSAPI.DLL"
+        if (!dl_call<BOOL>( "PSAPI.DLL"
                         ,   WINSTL_DL_CALL_WINx_STDCALL_LITERAL("EnumProcesses")
                         ,   &m_pids[0]
                         ,   sizeof(value_type) * m_pids.size()
@@ -387,55 +400,86 @@ inline pid_sequence::pid_sequence(ws_uint32_t flags)
     }
 }
 
-inline pid_sequence::pid_sequence(pid_sequence const& rhs)
+inline
+pid_sequence::pid_sequence(pid_sequence const& rhs)
     : m_pids(rhs.m_pids.size())
 {
     STLSOFT_NS_QUAL_STD(copy)(rhs.m_pids.begin(), rhs.m_pids.end(), m_pids.begin());
 }
 
-inline pid_sequence::~pid_sequence() STLSOFT_NOEXCEPT
+inline
+pid_sequence::~pid_sequence() STLSOFT_NOEXCEPT
 {}
 
-inline pid_sequence::const_iterator pid_sequence::begin() const
+inline
+pid_sequence::const_iterator
+pid_sequence::cbegin() const
 {
     return &*m_pids.begin();
 }
 
-inline pid_sequence::const_iterator pid_sequence::end() const
+inline
+pid_sequence::const_iterator
+pid_sequence::cend() const
 {
     return &*m_pids.end();
 }
 
+inline
+pid_sequence::const_iterator
+pid_sequence::begin() const
+{
+    return cbegin();
+}
+
+inline
+pid_sequence::const_iterator
+pid_sequence::end() const
+{
+    return cend();
+}
+
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
-inline pid_sequence::const_reverse_iterator pid_sequence::rbegin() const
+
+inline
+pid_sequence::const_reverse_iterator
+pid_sequence::rbegin() const
 {
     return const_reverse_iterator(end());
 }
 
-inline pid_sequence::const_reverse_iterator pid_sequence::rend() const
+inline
+pid_sequence::const_reverse_iterator
+pid_sequence::rend() const
 {
     return const_reverse_iterator(begin());
 }
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
 
-inline pid_sequence::const_reference pid_sequence::operator [](pid_sequence::size_type index) const
+inline
+pid_sequence::const_reference
+pid_sequence::operator [](pid_sequence::size_type index) const
 {
     WINSTL_MESSAGE_ASSERT("Index out of range", index < size());
 
     return m_pids[index];
 }
 
-inline ws_bool_t pid_sequence::empty() const
+inline
+ws_bool_t
+pid_sequence::empty() const STLSOFT_NOEXCEPT
 {
     return m_pids.empty();
 }
 
-inline pid_sequence::size_type pid_sequence::size() const
+inline
+pid_sequence::size_type
+pid_sequence::size() const STLSOFT_NOEXCEPT
 {
     return m_pids.size();
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -444,12 +488,13 @@ inline pid_sequence::size_type pid_sequence::size() const
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

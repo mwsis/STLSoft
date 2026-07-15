@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/internal/_undefs.h
+ * File:    stlsoft/internal/_undefs.h
  *
- * Purpose:     The #undefs for stlsoft/stlsoft.h.
+ * Purpose: The #undefs for stlsoft/stlsoft.h.
  *
- * Created:     1st December 2003
- * Updated:     26th December 2020
+ * Created: 1st December 2003
+ * Updated: 25th November 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -56,14 +56,16 @@
 # error This file cannot be included more than once in any compilation unit
 #endif /* STLSOFT_INCL_H_STLSOFT__UNDEFS */
 
+
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_H_STLSOFT__UNDEFS_MAJOR    2
 # define STLSOFT_VER_H_STLSOFT__UNDEFS_MINOR    9
-# define STLSOFT_VER_H_STLSOFT__UNDEFS_REVISION 1
-# define STLSOFT_VER_H_STLSOFT__UNDEFS_EDIT     33
+# define STLSOFT_VER_H_STLSOFT__UNDEFS_REVISION 2
+# define STLSOFT_VER_H_STLSOFT__UNDEFS_EDIT     35
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Auto-generation and compatibility
@@ -73,6 +75,7 @@
 [<[STLSOFT-AUTO:NO-UNITTEST]>]
 [<[STLSOFT-AUTO:NO-DOCFILELABEL]>]
 */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * #undefs
@@ -115,11 +118,15 @@
 
 /* Native bool support.
  *
- * Discriminated symbol is STLSOFT_CF_NATIVE_BOOL_SUPPORT
+ * Discriminated symbols are STLSOFT_CF_BUILTIN_bool_SUPPORT and
+ * STLSOFT_CF_NATIVE_BOOL_SUPPORT
  */
 #ifdef STLSOFT_CF_NATIVE_BOOL_SUPPORT
 # undef STLSOFT_CF_NATIVE_BOOL_SUPPORT
 #endif /* STLSOFT_CF_NATIVE_BOOL_SUPPORT */
+#ifdef STLSOFT_CF_BUILTIN_bool_SUPPORT
+# undef STLSOFT_CF_BUILTIN_bool_SUPPORT
+#endif /* STLSOFT_CF_BUILTIN_bool_SUPPORT */
 
 /* Native / typedef'd wchar_t support.
  *
@@ -487,6 +494,7 @@
 #ifdef STSLSOFT_ASM_IN_INLINE_SUPPORTED
 # undef STSLSOFT_ASM_IN_INLINE_SUPPORTED
 #endif /* STSLSOFT_ASM_IN_INLINE_SUPPORTED */
+
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

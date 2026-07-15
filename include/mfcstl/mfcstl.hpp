@@ -1,19 +1,17 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        mfcstl/mfcstl.hpp
+ * File:    mfcstl/mfcstl.hpp
  *
- * Purpose:     Root header for the MFCSTL libraries. Performs various
- *              compiler and platform discriminations, and definitions of
- *              types.
+ * Purpose: Root header for the MFCSTL libraries. Performs various compiler
+ *          and platform discriminations, and definitions of types.
  *
- * Created:     15th January 2002
- * Updated:     22nd January 2024
+ * Created: 15th January 2002
+ * Updated: 20th March 2025
  *
- * Thanks:      To Cláudio Albuquerque for suggesting the inclusion of
- *              atlstr.h.
+ * Thanks:  To Cláudio Albuquerque for suggesting the inclusion of atlstr.h.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,7 +53,7 @@
 # define MFCSTL_VER_MFCSTL_HPP_MFCSTL_MAJOR     3
 # define MFCSTL_VER_MFCSTL_HPP_MFCSTL_MINOR     5
 # define MFCSTL_VER_MFCSTL_HPP_MFCSTL_REVISION  6
-# define MFCSTL_VER_MFCSTL_HPP_MFCSTL_EDIT      108
+# define MFCSTL_VER_MFCSTL_HPP_MFCSTL_EDIT      111
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \file mfcstl/mfcstl.hpp
@@ -71,7 +69,7 @@
  * components.
  *
  * The major version is denoted by the _MFCSTL_VER_MAJOR preprocessor symbol.
- * A changes to the major version component implies that a dramatic change has
+ * A change to the major version component implies that a dramatic change has
  * occurred in the libraries, such that considerable changes to source dependent
  * on previous versions would need to be effected.
  *
@@ -134,12 +132,14 @@
 # define _MFCSTL_VER_1_5_4      0x010504ff  /*!< Version 1.5.4 (with STLSoft 1.9.113) */
 # define _MFCSTL_VER_1_6_1_B01  0x01060181  /*!< Version 1.6.1 beta 1 (with STLSoft 1.10.1 beta 1) */
 # define _MFCSTL_VER_1_6_1_B02  0x01060182  /*!< Version 1.6.1 beta 2 (with STLSoft 1.10.1 beta 26) */
+# define _MFCSTL_VER_1_6_1      0x010601ff  /*!< Version 1.6.1 (with STLSoft 1.11.1 alpha 8) */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #define _MFCSTL_VER_MAJOR       1
 #define _MFCSTL_VER_MINOR       6
 #define _MFCSTL_VER_REVISION    1
-#define _MFCSTL_VER             _MFCSTL_VER_1_6_1_B02
+#define _MFCSTL_VER             _MFCSTL_VER_1_6_1
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -170,6 +170,7 @@
 # pragma warn .8022 /* Suppresses "'f()' hides virtual function 'g()'" */
 # pragma warn .8084 /* Suppresses "Suggest parentheses to clarify precedence in function 'f()'" */
 #endif /* compiler */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * STLSoft version compatibility check(s)
@@ -312,6 +313,7 @@
  * or in the global namespace.
  */
 
+
 /* /////////////////////////////////////
  * obsolete preprocessor symbol detection
  */
@@ -333,6 +335,7 @@
 #  define MFCSTL_NO_NAMESPACE
 # endif /* !MFCSTL_NO_NAMESPACE */
 #endif /* _MFCSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////
  * namespace support discrimination
@@ -363,6 +366,7 @@
 #  endif /* !_MFCSTL_NO_NAMESPACE */
 # endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 #endif /* MFCSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////
  * declaration '*stl*' namespace
@@ -531,13 +535,14 @@ typedef STLSOFT_NS_QUAL(ss_streamoff_t)     ms_streamoff_t; //!< streamoff
 #ifndef MFCSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace mfcstl */
+} // namespace mfcstl
 # else
-} /* namespace mfcstl_project */
-} /* namespace stlsoft */
+} // namespace mfcstl_project
+} // namespace stlsoft
 namespace mfcstl = ::stlsoft::mfcstl_project;
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !MFCSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

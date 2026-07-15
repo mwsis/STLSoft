@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/util/string/vsnprintf.h
+ * File:    stlsoft/util/string/vsnprintf.h
  *
- * Purpose:     vsn(w)printf() variants.
+ * Purpose: vsn(w)printf() variants.
  *
- * Created:     15th July 2012
- * Updated:     26th December 2020
+ * Created: 15th July 2012
+ * Updated: 23rd March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2012-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_UTIL_STRING_H_VSNPRINTF_MAJOR      1
 # define STLSOFT_VER_STLSOFT_UTIL_STRING_H_VSNPRINTF_MINOR      0
-# define STLSOFT_VER_STLSOFT_UTIL_STRING_H_VSNPRINTF_REVISION   3
-# define STLSOFT_VER_STLSOFT_UTIL_STRING_H_VSNPRINTF_EDIT       9
+# define STLSOFT_VER_STLSOFT_UTIL_STRING_H_VSNPRINTF_REVISION   4
+# define STLSOFT_VER_STLSOFT_UTIL_STRING_H_VSNPRINTF_EDIT       11
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -68,12 +69,6 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
-#ifndef STLSOFT_INCL_STLSOFT_QUALITY_H_CONTRACT
-# include <stlsoft/quality/contract.h>
-#endif /* !STLSOFT_INCL_STLSOFT_QUALITY_H_CONTRACT */
-#ifndef STLSOFT_INCL_STLSOFT_QUALITY_H_COVER
-# include <stlsoft/quality/cover.h>
-#endif /* !STLSOFT_INCL_STLSOFT_QUALITY_H_COVER */
 
 #ifndef STLSOFT_INCL_H_STDARG
 # define STLSOFT_INCL_H_STDARG
@@ -84,6 +79,7 @@
 # include <stdio.h>
 #endif /* !STLSOFT_INCL_H_STDIO */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -93,19 +89,25 @@ namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * feature support detection
  */
 
 #ifndef STLSOFT_vsnwprintf_SUPPORT
-# if defined(STLSOFT_COMPILER_IS_MSVC)
+# if 0
+# elif defined(STLSOFT_COMPILER_IS_MSVC)
+
 #  if _MSC_VER >= 1400
-#   define STLSOFT_vsnwprintf_SUPPORT(b, n, f, a)       STLSOFT_NS_GLOBAL(_vsnwprintf_s)((b), (n), _TRUNCATE, (f), a);
+
+#   define STLSOFT_vsnwprintf_SUPPORT(b, n, f, a)           STLSOFT_NS_GLOBAL(_vsnwprintf_s)((b), (n), _TRUNCATE, (f), a);
 #  else /* ? _MSC_VER */
-#   define STLSOFT_vsnwprintf_SUPPORT(b, n, f, a)       STLSOFT_NS_GLOBAL(_vsnwprintf)((b), (n), (f), a);
+
+#   define STLSOFT_vsnwprintf_SUPPORT(b, n, f, a)           STLSOFT_NS_GLOBAL(_vsnwprintf)((b), (n), (f), a);
 #  endif /* _MSC_VER */
 # endif /* compiler */
-#endif
+#endif /* !STLSOFT_vsnwprintf_SUPPORT */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * functions
@@ -122,7 +124,8 @@ stlsoft_C_vsnprintf(
 ,   va_list             args
 )
 {
-#if defined(STLSOFT_COMPILER_IS_MSVC)
+#if 0
+#elif defined(STLSOFT_COMPILER_IS_MSVC)
 # if _MSC_VER >= 1400
     return STLSOFT_NS_GLOBAL(_vsnprintf_s)(buf, cchBuf, _TRUNCATE, fmt, args);
 # else /* _MSC_VER */
@@ -132,10 +135,10 @@ stlsoft_C_vsnprintf(
     return STLSOFT_NS_GLOBAL(vsnprintf)(buf, cchBuf, fmt, args);
 #endif /* compiler */
 }
-
-/* buffer-overload */
 #if defined(__cplusplus) && \
     defined(STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT)
+
+/* buffer-overload */
 template <ss_size_t N>
 inline
 int
@@ -148,8 +151,8 @@ stlsoft_C_vsnprintf(
     return stlsoft_C_vsnprintf(&buf[0], N, fmt, args);
 }
 #endif /* C++ && STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT */
-
 #ifdef STLSOFT_vsnwprintf_SUPPORT
+
 /** vsnwprintf() - equivalent
  */
 STLSOFT_INLINE
@@ -163,10 +166,10 @@ stlsoft_C_vsnwprintf(
 {
     return STLSOFT_vsnwprintf_SUPPORT(buf, cchBuf, fmt, args);
 }
-
-/* buffer-overload */
 # if defined(__cplusplus) && \
      defined(STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT)
+
+/* buffer-overload */
 template <ss_size_t N>
 inline
 int
@@ -181,11 +184,13 @@ stlsoft_C_vsnwprintf(
 # endif /* C++ && STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT */
 #endif /* STLSOFT_vsnwprintf_SUPPORT */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
+
 inline
 int
 vsnprintf(
@@ -211,8 +216,8 @@ vsnprintf(
     return stlsoft_C_vsnprintf(&buf[0], N, fmt, args);
 }
 # endif /* STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT */
-
 # ifdef STLSOFT_vsnwprintf_SUPPORT
+
 inline
 int
 vsnwprintf(
@@ -224,8 +229,8 @@ vsnwprintf(
 {
     return stlsoft_C_vsnwprintf(buf, cchBuf, fmt, args);
 }
-
 #  ifdef STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT
+
 template <ss_size_t N>
 inline
 int
@@ -241,11 +246,15 @@ vsnwprintf(
 # endif /* STLSOFT_vsnwprintf_SUPPORT */
 #endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef STLSOFT_NO_NAMESPACE
 } /* namespace stlsoft */
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control
@@ -254,8 +263,6 @@ vsnwprintf(
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
 # pragma once
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
-
-/* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STRING_H_VSNPRINTF */
 

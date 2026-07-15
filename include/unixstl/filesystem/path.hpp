@@ -1,17 +1,17 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        unixstl/filesystem/path.hpp
+ * File:    unixstl/filesystem/path.hpp
  *
- * Purpose:     Simple class that represents a path.
+ * Purpose: Simple class that represents a path.
  *
- * Created:     1st May 1993
- * Updated:     16th February 2024
+ * Created: 1st May 1993
+ * Updated: 20th March 2025
  *
- * Thanks to:   Pablo Aguilar for reporting defect in push_ext() (which
- *              doesn't work for wide-string builds).
+ * Thanks:  Pablo Aguilar for reporting defect in push_ext() (which doesn't
+ *          work for wide-string builds).
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1993-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -56,9 +56,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_PATH_MAJOR      7
 # define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_PATH_MINOR      1
-# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_PATH_REVISION   5
-# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_PATH_EDIT       275
+# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_PATH_REVISION   8
+# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_PATH_EDIT       282
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -123,7 +124,7 @@
 
 #ifdef STLSOFT_DEBUG
 # include <stlsoft/algorithms/pod.hpp>
-#endif
+#endif /* STLSOFT_DEBUG */
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -444,7 +445,7 @@ public:
     /// Copies the contents into a caller supplied buffer
     ///
     /// \param buffer Pointer to character buffer to receive the contents.
-    ///  May be NULL, in which case the method returns size().
+    ///  May be \c nullptr, in which case the method returns size().
     /// \param cchBuffer Number of characters of available space in \c buffer.
     size_type
     copy(
@@ -536,8 +537,9 @@ private:
     >::allocator_type                                       part_ator_type_;
 #endif /* STLSOFT_LF_ALLOCATOR_REBIND_SUPPORT */
 
-    typedef STLSOFT_NS_QUAL(auto_buffer_old)<
+    typedef STLSOFT_NS_QUAL(auto_buffer)<
         part_type
+    ,   stlsoft::auto_buffer_internal_size_calculator<part_type>::value
     ,   part_ator_type_
     >                                                       part_buffer_type_;
 
@@ -1075,6 +1077,7 @@ c_str_ptr_null_w(
 }
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * operators
  */
@@ -1165,6 +1168,9 @@ basic_path<C, T, A>::next_slash_or_end_(
             case    '\\':
 #endif /* _WIN32 */
                 ++p;
+
+                // fall through
+                STLSOFT_FALLTHROUGH();
             case    '\0':
 
                 return p;
@@ -2027,6 +2033,7 @@ basic_path<C, T, A>::canonicalise(
     // 3. Write out all the parts back into the new path instance
     {
 #ifdef STLSOFT_DEBUG
+
         STLSOFT_NS_QUAL(pod_fill_n)(dest, newPath.m_buffer.size() - (dest - &newPath.m_buffer[0]), static_cast<char_type>('~'));
 #endif /* STLSOFT_DEBUG */
 
@@ -2429,15 +2436,17 @@ basic_path<C, T, A>::equal(
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef UNIXSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace unixstl */
+} // namespace unixstl
 # else
-} /* namespace unixstl_project */
-} /* namespace stlsoft */
+} // namespace unixstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
 
@@ -2464,7 +2473,7 @@ namespace std
     {
         lhs.swap(rhs);
     }
-} /* namespace std */
+} // namespace std
 # endif /* INTEL && _MSC_VER < 1310 */
 #endif /* STLSOFT_CF_std_NAMESPACE */
 
@@ -2504,7 +2513,7 @@ using ::unixstl::c_str_ptr_null_w;
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */

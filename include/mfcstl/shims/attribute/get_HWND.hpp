@@ -4,11 +4,11 @@
  * Purpose:     Contains access shims for windows.
  *
  * Created:     10th January 2003
- * Updated:     26th December 2020
+ * Updated:     20th March 2025
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,8 +55,9 @@
 # define MFCSTL_VER_MFCSTL_SHIMS_ATTRIBUTE_HPP_GET_HWND_MAJOR       4
 # define MFCSTL_VER_MFCSTL_SHIMS_ATTRIBUTE_HPP_GET_HWND_MINOR       1
 # define MFCSTL_VER_MFCSTL_SHIMS_ATTRIBUTE_HPP_GET_HWND_REVISION    5
-# define MFCSTL_VER_MFCSTL_SHIMS_ATTRIBUTE_HPP_GET_HWND_EDIT        56
+# define MFCSTL_VER_MFCSTL_SHIMS_ATTRIBUTE_HPP_GET_HWND_EDIT        58
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -70,6 +71,7 @@
 #endif /* STLSOFT_TRACE_INCLUDE */
 
 # include <afxwin.h>
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -136,10 +138,10 @@ inline HWND get_HWND(CWnd const* w)
 #ifndef MFCSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace mfcstl */
+} // namespace mfcstl
 # else
-} /* namespace mfcstl_project */
-} /* namespace stlsoft */
+} // namespace mfcstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #else  /* ? MFCSTL_NO_NAMESPACE */
 # if !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
@@ -148,19 +150,20 @@ inline HWND get_HWND(CWnd const* w)
 namespace winstl
 {
     using ::mfcstl::get_HWND;
-} /* namespace winstl */
+} // namespace winstl
 #   else /* ? STLSOFT_NO_NAMESPACE */
 namespace stlsoft
 {
 namespace winstl_project
 {
     using ::mfcstl::get_HWND;
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 #   endif /* STLSOFT_NO_NAMESPACE */
 #  endif /* !WINSTL_NO_NAMESPACE */
 # endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 #endif /* !MFCSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

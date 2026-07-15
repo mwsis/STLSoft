@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/internal/cccap/clang.h
+ * File:    stlsoft/internal/cccap/clang.h
  *
- * Purpose:     Compiler feature discrimination for Clang C/C++.
+ * Purpose: Compiler feature discrimination for Clang C/C++.
  *
- * Created:     14th March 2015
- * Updated:     12th February 2024
+ * Created: 14th March 2015
+ * Updated: 31st May 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2015-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -49,7 +49,7 @@
 
 /** \file stlsoft/internal/cccap/clang.h
  *
- * Compiler feature discrimination for CLang C/C++
+ * Compiler feature discrimination for Clang C/C++
  */
 
 #ifdef STLSOFT_INCL_H_STLSOFT_CCCAP_CLANG
@@ -57,13 +57,11 @@
 #endif /* STLSOFT_INCL_H_STLSOFT_CCCAP_CLANG */
 
 
-/* ////////////////////////////////////////////////////////////////////// */
-
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_H_STLSOFT_CCCAP_CLANG_MAJOR    1
-# define STLSOFT_VER_H_STLSOFT_CCCAP_CLANG_MINOR    8
+# define STLSOFT_VER_H_STLSOFT_CCCAP_CLANG_MINOR    11
 # define STLSOFT_VER_H_STLSOFT_CCCAP_CLANG_REVISION 1
-# define STLSOFT_VER_H_STLSOFT_CCCAP_CLANG_EDIT     26
+# define STLSOFT_VER_H_STLSOFT_CCCAP_CLANG_EDIT     32
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 
@@ -165,7 +163,16 @@
 
 /* /////////////////////////////////////////////////////////////////////////
  * built-in type characteristics
+ *
+ * - char is unsigned
  */
+
+#if 0
+#elif defined(_CHAR_UNSIGNED) ||\
+      defined(__CHAR_UNSIGNED__)
+# define STLSOFT_CF_char_IS_UNSIGNED
+#endif /* __CHAR_UNSIGNED__ */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * support for C/C++ language features
@@ -221,7 +228,14 @@
 
 #ifndef __cplusplus
 
-# define STLSOFT_CUSTOM_C_INLINE                            static inline
+# if defined(__STDC_VERSION__) &&\
+     __STDC_VERSION__ >= 201112L
+
+#  define STLSOFT_CUSTOM_C_INLINE                           static inline
+# else /* ? C version */
+
+#  define STLSOFT_CUSTOM_C_INLINE                           extern inline
+# endif /* C version */
 #endif
 
 
@@ -284,6 +298,9 @@
 #if __has_feature(cxx_noexcept)
 # define STLSOFT_CF_noexcept_KEYWORD_SUPPORT
 #endif /* compiler */
+
+#define STLSOFT_CF_noinline_KEYWORD_SUPPORT
+#define STLSOFT_CUSTOM_NOINLINE                             __attribute__((noinline))
 
 #if __has_feature(cxx_override_control)
 # define STLSOFT_CF_override_KEYWORD_SUPPORT
@@ -401,7 +418,7 @@
  * calling convention
  *
  * As far as is currently known, there is only a single calling convention
- * for CLang - cdecl. If that's not so, update in a similar vein to that
+ * for Clang - cdecl. If that's not so, update in a similar vein to that
  * shown in stlsoft/internal/cccap/msvc.h
  */
 
@@ -456,10 +473,36 @@
 #define STLSOFT_CF_LONG_DISTINCT_INT_TYPE
 
 /* 64-bit integer */
-#define STLSOFT_CF_64BIT_INT_SUPPORT
-#define STLSOFT_CF_64BIT_INT_IS_long_long
-#define STLSOFT_SI64_T_BASE_TYPE                            __INT64_TYPE__
-#define STLSOFT_UI64_T_BASE_TYPE                            __UINT64_TYPE__
+#if 0
+#elif 0 ||\
+      defined(STLSOFT_LONGLONG_SUPPORT) ||\
+      0 ||\
+      defined(__aarch64__) ||\
+      defined(_M_ARM64) ||\
+      0 ||\
+      defined(__ia64__) ||\
+      defined(__ia64) ||\
+      defined(_IA64_) ||\
+      defined(_M_IA64) ||\
+      0 ||\
+      defined(__amd64__) ||\
+      defined(__amd64) ||\
+      defined(__x86_64__) ||\
+      defined(__x86_64) ||\
+      defined(_AMD64_) ||\
+      defined(_M_AMD64) ||\
+      defined(_M_X64) ||\
+      0 ||\
+      0
+
+# define STLSOFT_CF_64BIT_INT_SUPPORT
+# ifdef STLSOFT_LONGLONG_SUPPORT
+#  define STLSOFT_CF_64BIT_INT_IS_long_long
+# endif /* STLSOFT_LONGLONG_SUPPORT */
+
+# define STLSOFT_SI64_T_BASE_TYPE                           __INT64_TYPE__
+# define STLSOFT_UI64_T_BASE_TYPE                           __UINT64_TYPE__
+#endif /* STLSOFT_LONGLONG_SUPPORT */
 
 /* ptr-bit integer */
 #define STLSOFT_SPTR_T_BASE_TYPE                            __INTPTR_TYPE__

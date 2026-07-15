@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        comstl/shims/access/string/GUID.hpp
+ * File:    comstl/shims/access/string/GUID.hpp
  *
- * Purpose:     Contains classes and functions for dealing with OLE/COM strings.
+ * Purpose: Contains classes and functions for dealing with OLE/COM strings.
  *
- * Created:     24th May 2002
- * Updated:     22nd January 2024
+ * Created: 24th May 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define COMSTL_VER_COMSTL_SHIMS_ACCESS_STRING_HPP_GUID_MAJOR       5
 # define COMSTL_VER_COMSTL_SHIMS_ACCESS_STRING_HPP_GUID_MINOR       1
-# define COMSTL_VER_COMSTL_SHIMS_ACCESS_STRING_HPP_GUID_REVISION    10
-# define COMSTL_VER_COMSTL_SHIMS_ACCESS_STRING_HPP_GUID_EDIT        130
+# define COMSTL_VER_COMSTL_SHIMS_ACCESS_STRING_HPP_GUID_REVISION    12
+# define COMSTL_VER_COMSTL_SHIMS_ACCESS_STRING_HPP_GUID_EDIT        135
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -85,6 +86,7 @@
 # include <wchar.h>
 #endif /* !STLSOFT_INCL_H_WCHAR */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -103,6 +105,7 @@ namespace comstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -132,7 +135,7 @@ public: // fields
 public: // construction
     c_str_ptr_GUID_proxy(GUID const& guid);
 private:
-    void operator =(class_type const& rhs); // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 public: // operators
     /// Implicit conversion to pointer to the character buffer
@@ -186,6 +189,7 @@ c_str_ptr_GUID_proxy<cs_char_w_t>::c_str_ptr_GUID_proxy(
     comstl_C_GUID_to_string_w(guid, &data);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * equivalence testing
  */
@@ -234,6 +238,7 @@ operator !=(
 {
     return !operator ==(lhs, rhs);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * iostream compatibility
@@ -401,8 +406,8 @@ c_str_ptr_o(
 {
     return c_str_data_o(guid);
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /** Returns the corresponding C-string pointer of the GUID \c guid
  *
@@ -422,11 +427,12 @@ c_str_ptr(
 #endif /* UNICODE */
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_ptr_null
  *
  * This can be applied to an expression, and the return value is either a
- * pointer to the character string or NULL.
+ * pointer to the character string or \c nullptr.
  */
 
 /* GUID */
@@ -459,8 +465,8 @@ c_str_ptr_null_o(
 {
     return c_str_data_o(guid);
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /** Returns the corresponding C-string pointer of the GUID \c guid
  *
@@ -480,6 +486,7 @@ c_str_ptr_null(
 #endif /* UNICODE */
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -487,12 +494,13 @@ c_str_ptr_null(
 #ifndef COMSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace comstl */
+} // namespace comstl
 # else
-} /* namespace stlsoft::comstl_project */
-} /* namespace stlsoft */
+} // namespace comstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -533,11 +541,12 @@ using ::comstl::c_str_ptr_null;
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

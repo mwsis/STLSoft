@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/util/string/snprintf.h
+ * File:    stlsoft/util/string/snprintf.h
  *
- * Purpose:     sn(w)printf() variants.
+ * Purpose: sn(w)printf() variants.
  *
- * Created:     15th July 2012
- * Updated:     26th December 2020
+ * Created: 15th July 2012
+ * Updated: 24th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2012-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_UTIL_STRING_H_SNPRINTF_MAJOR       1
 # define STLSOFT_VER_STLSOFT_UTIL_STRING_H_SNPRINTF_MINOR       0
-# define STLSOFT_VER_STLSOFT_UTIL_STRING_H_SNPRINTF_REVISION    4
-# define STLSOFT_VER_STLSOFT_UTIL_STRING_H_SNPRINTF_EDIT        10
+# define STLSOFT_VER_STLSOFT_UTIL_STRING_H_SNPRINTF_REVISION    5
+# define STLSOFT_VER_STLSOFT_UTIL_STRING_H_SNPRINTF_EDIT        13
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -72,13 +73,6 @@
 # include <stlsoft/util/string/vsnprintf.h>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STRING_H_VSNPRINTF */
 
-#ifndef STLSOFT_INCL_STLSOFT_QUALITY_H_CONTRACT
-# include <stlsoft/quality/contract.h>
-#endif /* !STLSOFT_INCL_STLSOFT_QUALITY_H_CONTRACT */
-#ifndef STLSOFT_INCL_STLSOFT_QUALITY_H_COVER
-# include <stlsoft/quality/cover.h>
-#endif /* !STLSOFT_INCL_STLSOFT_QUALITY_H_COVER */
-
 #ifndef STLSOFT_INCL_H_STDARG
 # define STLSOFT_INCL_H_STDARG
 # include <stdarg.h>
@@ -87,6 +81,7 @@
 # define STLSOFT_INCL_H_STDIO
 # include <stdio.h>
 #endif /* !STLSOFT_INCL_H_STDIO */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -97,6 +92,7 @@ namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * functions
  */
@@ -106,11 +102,25 @@ namespace stlsoft
 STLSOFT_INLINE
 int
 stlsoft_C_snprintf(
-    ss_char_a_t*        buf
+    ss_char_a_t         buf[]
 ,   ss_size_t           cchBuf
 ,   ss_char_a_t const*  fmt
 ,   ...
 )
+#if 0
+#elif defined(__GNUC__)
+__attribute__((format(printf, 3, 4)))
+;
+
+STLSOFT_INLINE
+int
+stlsoft_C_snprintf(
+    ss_char_a_t         buf[]
+,   ss_size_t           cchBuf
+,   ss_char_a_t const*  fmt
+,   ...
+)
+#endif
 {
     int     r;
     va_list args;
@@ -123,18 +133,32 @@ stlsoft_C_snprintf(
 
     return r;
 }
-
-/* buffer-overload */
 #if defined(__cplusplus) && \
     defined(STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT)
+
+/* buffer-overload */
 template <ss_size_t N>
 inline
 int
 stlsoft_C_snprintf(
     ss_char_a_t       (&buf)[N]
 ,   ss_char_a_t const*  fmt
-,  ...
+,   ...
 )
+#if 0
+#elif defined(__GNUC__)
+__attribute__((format(printf, 2, 3)))
+;
+
+template <ss_size_t N>
+inline
+int
+stlsoft_C_snprintf(
+    ss_char_a_t       (&buf)[N]
+,   ss_char_a_t const*  fmt
+,   ...
+)
+#endif
 {
     int     r;
     va_list args;
@@ -148,12 +172,12 @@ stlsoft_C_snprintf(
     return r;
 }
 #endif /* C++ && STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT */
-
 #ifdef STLSOFT_vsnwprintf_SUPPORT
+
 STLSOFT_INLINE
 int
 stlsoft_C_snwprintf(
-    ss_char_w_t*        buf
+    ss_char_w_t         buf[]
 ,   ss_size_t           cchBuf
 ,   ss_char_w_t const*  fmt
 ,   ...
@@ -170,10 +194,10 @@ stlsoft_C_snwprintf(
 
     return r;
 }
-
-/* buffer-overload */
 # if defined(__cplusplus) && \
      defined(STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT)
+
+/* buffer-overload */
 template <ss_size_t N>
 inline
 int
@@ -197,19 +221,35 @@ stlsoft_C_snwprintf(
 # endif /* C++ && STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT */
 #endif /* STLSOFT_vsnwprintf_SUPPORT */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
+
 inline
 int
 snprintf(
-    ss_char_a_t*        buf
+    ss_char_a_t         buf[]
 ,   ss_size_t           cchBuf
 ,   ss_char_a_t const*  fmt
 ,   ...
 )
+#if 0
+#elif defined(__GNUC__)
+__attribute__((format(printf, 3, 4)))
+;
+
+inline
+int
+snprintf(
+    ss_char_a_t         buf[]
+,   ss_size_t           cchBuf
+,   ss_char_a_t const*  fmt
+,   ...
+)
+#endif
 {
     int     r;
     va_list args;
@@ -222,8 +262,8 @@ snprintf(
 
     return r;
 }
-
 # ifdef STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT
+
 template <ss_size_t N>
 inline
 int
@@ -232,6 +272,20 @@ snprintf(
 ,   ss_char_a_t const*  fmt
 ,   ...
 )
+#if 0
+#elif defined(__GNUC__)
+__attribute__((format(printf, 2, 3)))
+;
+
+template <ss_size_t N>
+inline
+int
+snprintf(
+    ss_char_a_t       (&buf)[N]
+,   ss_char_a_t const*  fmt
+,   ...
+)
+#endif
 {
     int     r;
     va_list args;
@@ -245,12 +299,12 @@ snprintf(
     return r;
 }
 # endif /* STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT */
-
 # ifdef STLSOFT_vsnwprintf_SUPPORT
+
 inline
 int
 snwprintf(
-    ss_char_w_t*        buf
+    ss_char_w_t         buf[]
 ,   ss_size_t           cchBuf
 ,   ss_char_w_t const*  fmt
 ,   ...
@@ -267,8 +321,8 @@ snwprintf(
 
     return r;
 }
-
 #  ifdef STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT
+
 template <ss_size_t N>
 inline
 int
@@ -293,11 +347,15 @@ snwprintf(
 # endif /* STLSOFT_vsnwprintf_SUPPORT */
 #endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef STLSOFT_NO_NAMESPACE
 } /* namespace stlsoft */
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control
@@ -306,8 +364,6 @@ snwprintf(
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
 # pragma once
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
-
-/* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STRING_H_SNPRINTF */
 

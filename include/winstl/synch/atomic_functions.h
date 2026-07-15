@@ -1,12 +1,12 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/synch/atomic_functions.h (originally MLAtomic.cpp, ::SynesisStd)
+ * File:    winstl/synch/atomic_functions.h (originally MLAtomic.cpp, ::SynesisStd)
  *
- * Purpose:     WinSTL atomic functions.
+ * Purpose: WinSTL atomic functions.
  *
- * Created:     23rd October 1997
- * Updated:     22nd January 2024
+ * Created: 23rd October 1997
+ * Updated: 31st December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1997-2019, Matthew Wilson and Synesis Software
@@ -51,11 +51,12 @@
 #define WINSTL_INCL_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define WINSTL_VER_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS_MAJOR     4
-# define WINSTL_VER_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS_MINOR     8
-# define WINSTL_VER_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS_REVISION  3
-# define WINSTL_VER_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS_EDIT      231
+# define WINSTL_VER_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS_MAJOR       4
+# define WINSTL_VER_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS_MINOR       8
+# define WINSTL_VER_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS_REVISION    6
+# define WINSTL_VER_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS_EDIT        238
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -76,15 +77,20 @@
 # include <winstl/api/external/Synchronization.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_Synchronization */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * compatibility
  */
 
-#if !defined(WINSTL_ARCH_IS_X86) && \
-    !defined(WINSTL_ARCH_IS_IA64) && \
-    !defined(WINSTL_ARCH_IS_X64)
-# error Not valid for processors other than Intel
-#endif /* Win32 || Win64 */
+#if 0
+#elif defined(WINSTL_ARCH_IS_ARM64)
+#elif defined(WINSTL_ARCH_IS_IA64)
+#elif defined(WINSTL_ARCH_IS_X64)
+#elif defined(WINSTL_ARCH_IS_X86)
+#else
+
+# error Not valid for processors other than ARM64, IA64, x64, x86
+#endif /* arch */
 
 #ifdef STLSOFT_ATOMIC_CALLCONV
 # undef STLSOFT_ATOMIC_CALLCONV
@@ -97,35 +103,47 @@
 #endif /* WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL */
 
 #ifndef STLSOFT_NO_FASTCALL
-# if defined(STLSOFT_COMPILER_IS_BORLAND) || \
-     defined(STLSOFT_COMPILER_IS_DMC) || \
-     defined(STLSOFT_COMPILER_IS_WATCOM)
+
+# if 0 ||\
+     defined(STLSOFT_COMPILER_IS_BORLAND) ||\
+     defined(STLSOFT_COMPILER_IS_DMC) ||\
+     defined(STLSOFT_COMPILER_IS_WATCOM) ||\
+     0
+
 #  define STLSOFT_NO_FASTCALL
 # endif /* compiler */
 #endif /* STLSOFT_NO_FASTCALL */
 
-#if defined(WINSTL_ARCH_IS_X86)
+#if 0
+#elif defined(WINSTL_ARCH_IS_X86)
 
-# if defined(STLSOFT_CF_FASTCALL_SUPPORTED) && \
-     !defined(STLSOFT_NO_FASTCALL)
+# if 0
+# elif defined(STLSOFT_CF_FASTCALL_SUPPORTED) && \
+       !defined(STLSOFT_NO_FASTCALL)
+
 #  define WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL
 #  define WINSTL_ATOMIC_FNS_CALLCONV                        __fastcall
 # elif defined(STLSOFT_CF_STDCALL_SUPPORTED)
+
 #  define WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL
 #  define WINSTL_ATOMIC_FNS_CALLCONV                        __stdcall
 # else
+
 #  error Need to define calling convention
 # endif /* call-conv */
-
-#elif defined(WINSTL_ARCH_IS_IA64) || \
-      defined(WINSTL_ARCH_IS_X64)
+#elif 0 ||\
+      defined(WINSTL_ARCH_IS_ARM64) ||\
+      defined(WINSTL_ARCH_IS_IA64) ||\
+      defined(WINSTL_ARCH_IS_X64) ||\
+      0
 
 #  define WINSTL_ATOMIC_FNS_CALLCONV_IS_CDECL
 #  define WINSTL_ATOMIC_FNS_CALLCONV                        __cdecl
-
 #else /* ? arch */
-# error Only defined for the Intel x86 and IA64 architectures
+
+# error Only defined for the ARM64, IA64, x64, and x86 architectures
 #endif /* arch */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * macros
@@ -162,7 +180,6 @@ winstl_C_internal_synch_atomic_ptrconv64_(
 
     return STLSOFT_C_CAST(LONGLONG*, STLSOFT_CONST_CAST(WINSTL_NS_QUAL(atomic_int64_t*), pv));
 }
-#  else
 #  endif
 # else
 
@@ -174,6 +191,7 @@ winstl_C_internal_synch_atomic_ptrconv32_(
 {
     return STLSOFT_C_CAST(LONG volatile*, pv);
 }
+
 #  if 0
 #  elif defined(WINSTL_OS_IS_WIN64)
 STLSOFT_INLINE
@@ -186,10 +204,10 @@ winstl_C_internal_synch_atomic_ptrconv64_(
 
     return STLSOFT_C_CAST(LONGLONG volatile*, pv);
 }
-#  else
 #  endif
 # endif
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -229,7 +247,8 @@ namespace winstl_project
 #endif /* WINSTL_ATOMIC_FNS_IMPL_ */
 
 
-#if defined(WINSTL_ATOMIC_FNS_DECLARATION_ONLY)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_DECLARATION_ONLY)
 
 /* Only the function declarations are included */
 # define WINSTL_ATOMIC_FNS_DECL_(type)              type WINSTL_ATOMIC_FNS_CALLCONV
@@ -237,44 +256,54 @@ namespace winstl_project
 
 /* Only the function definitions are included */
 # ifdef STSLSOFT_INLINE_ASM_SUPPORTED
+
 #  define WINSTL_ATOMIC_FNS_IMPL_(type)             __declspec(naked) type WINSTL_ATOMIC_FNS_CALLCONV
 # else /* ? STSLSOFT_INLINE_ASM_SUPPORTED */
+
 #  define WINSTL_ATOMIC_FNS_IMPL_(type)             type WINSTL_ATOMIC_FNS_CALLCONV
 # endif /* STSLSOFT_INLINE_ASM_SUPPORTED */
 #else /* ? declaration / definition */
 
 # if defined(STLSOFT_COMPILER_IS_MWERKS) && \
      (__MWERKS__ & 0xFF00) < 0x3000
+
 #  error CodeWarrior 7 and earlier does not generate correct code when inline naked functions are used
 # endif /* compiler */
 
-
 #if !defined(__cplusplus) && \
     defined(STSLSOFT_INLINE_ASM_SUPPORTED)
+
  /* Not currently supporting inline assembler for C compilation. It's perfectly possible, but need more work to sort out. */
 # undef STSLSOFT_INLINE_ASM_SUPPORTED
 #endif /* !__cplusplus && STSLSOFT_INLINE_ASM_SUPPORTED */
 
 # ifdef STSLSOFT_INLINE_ASM_SUPPORTED
+
   /* The default is to define them inline */
 #  ifdef STSLSOFT_ASM_IN_INLINE_SUPPORTED
+
 #   define WINSTL_ATOMIC_FNS_DECL_(type)             STLSOFT_INLINE type WINSTL_ATOMIC_FNS_CALLCONV
 #   define WINSTL_ATOMIC_FNS_IMPL_(type)             STLSOFT_INLINE __declspec(naked) type WINSTL_ATOMIC_FNS_CALLCONV
 #  else /* ? STSLSOFT_ASM_IN_INLINE_SUPPORTED */
+
 #   define WINSTL_ATOMIC_FNS_DECL_(type)             type WINSTL_ATOMIC_FNS_CALLCONV
 #   define WINSTL_ATOMIC_FNS_IMPL_(type)             static __declspec(naked) type WINSTL_ATOMIC_FNS_CALLCONV
 #  endif /* STSLSOFT_ASM_IN_INLINE_SUPPORTED */
 # else /* ? STSLSOFT_INLINE_ASM_SUPPORTED */
+
   /* ASM not supported, so we're using the Win32 functions */
 #  if defined(__cplusplus)
+
 #   define WINSTL_ATOMIC_FNS_DECL_(type)             STLSOFT_INLINE type WINSTL_ATOMIC_FNS_CALLCONV
 #   define WINSTL_ATOMIC_FNS_IMPL_(type)             STLSOFT_INLINE type WINSTL_ATOMIC_FNS_CALLCONV
 #  else /* ? __cplusplus */
+
 #   define WINSTL_ATOMIC_FNS_DECL_(type)             STLSOFT_INLINE type WINSTL_ATOMIC_FNS_CALLCONV
 #   define WINSTL_ATOMIC_FNS_IMPL_(type)             STLSOFT_INLINE type WINSTL_ATOMIC_FNS_CALLCONV
 #  endif /* __cplusplus */
 # endif /* STSLSOFT_INLINE_ASM_SUPPORTED */
 #endif /* declaration / definition */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * atomic function declarations
@@ -299,17 +328,15 @@ WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_write_up(atomic_int_t volatile* pl,
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_read_up(atomic_int_t volatile const* pl);
 
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postadd_up(atomic_int_t volatile* pl, atomic_int_t n);
-atomic_int_t atomic_preadd_up(atomic_int_t volatile* pl, atomic_int_t n);
-
-
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_preadd_up(atomic_int_t volatile* pl, atomic_int_t n);
 
 /* SMP variants */
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_preincrement_smp(atomic_int_t volatile* pl);
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_predecrement_smp(atomic_int_t volatile* pl);
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postincrement_smp(atomic_int_t volatile* pl);
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postdecrement_smp(atomic_int_t volatile* pl);
-void atomic_increment_smp(atomic_int_t volatile* pl);
-void atomic_decrement_smp(atomic_int_t volatile* pl);
+WINSTL_ATOMIC_FNS_DECL_(void) atomic_increment_smp(atomic_int_t volatile* pl);
+WINSTL_ATOMIC_FNS_DECL_(void) atomic_decrement_smp(atomic_int_t volatile* pl);
 
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_exchange_smp(atomic_int_t volatile* pl, atomic_int_t n);
 
@@ -317,9 +344,7 @@ WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_write_smp(atomic_int_t volatile* pl
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_read_smp(atomic_int_t volatile const* pl);
 
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postadd_smp(atomic_int_t volatile* pl, atomic_int_t n);
-atomic_int_t atomic_preadd_smp(atomic_int_t volatile* pl, atomic_int_t n);
-
-
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_preadd_smp(atomic_int_t volatile* pl, atomic_int_t n);
 # endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 
@@ -330,108 +355,130 @@ atomic_int_t atomic_preadd_smp(atomic_int_t volatile* pl, atomic_int_t n);
  *
  * \ingroup group__library__Synch
  */
-WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_preincrement(atomic_int_t volatile* pl);
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t)
+atomic_preincrement(atomic_int_t volatile* pl);
 /** Increments the (32-bit) variable atomically, and returns the result of
  * the operation
  *
  * \ingroup group__library__Synch
  */
-atomic_int32_t atomic_preincrement32(atomic_int32_t volatile* pv);
+WINSTL_ATOMIC_FNS_DECL_(atomic_int32_t) atomic_preincrement32(atomic_int32_t volatile* pv);
 
 /** Decrements the variable atomically, and returns the result of the
  * operation
  *
  * \ingroup group__library__Synch
  */
-WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_predecrement(atomic_int_t volatile* pl);
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t)
+atomic_predecrement(atomic_int_t volatile* pl);
 /** Decrements the (32-bit) variable atomically, and returns the result of
  * the operation
  *
  * \ingroup group__library__Synch
  */
-atomic_int32_t atomic_predecrement32(atomic_int32_t volatile* pv);
+WINSTL_ATOMIC_FNS_DECL_(atomic_int32_t) atomic_predecrement32(atomic_int32_t volatile* pv);
 
 /** Increments the variable atomically, and returns the value prior to the
  * operation
  *
  * \ingroup group__library__Synch
  */
-WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postincrement(atomic_int_t volatile* pl);
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t)
+atomic_postincrement(atomic_int_t volatile* pl);
 /** Increments the (32-bit) variable atomically, and returns the value prior
  * to the operation
  *
  * \ingroup group__library__Synch
  */
-atomic_int32_t atomic_postincrement32(atomic_int32_t volatile* pl);
+WINSTL_ATOMIC_FNS_DECL_(atomic_int32_t) atomic_postincrement32(atomic_int32_t volatile* pl);
 
 /** Decrements the variable atomically, and returns the value prior to the
  * operation
  *
  * \ingroup group__library__Synch
  */
-WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postdecrement(atomic_int_t volatile* pl);
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t)
+atomic_postdecrement(atomic_int_t volatile* pl);
 /** Decrements the (32-bit) variable atomically, and returns the value prior
  * to the operation
  *
  * \ingroup group__library__Synch
  */
-atomic_int32_t atomic_postdecrement32(atomic_int32_t volatile* pl);
+WINSTL_ATOMIC_FNS_DECL_(atomic_int32_t) atomic_postdecrement32(atomic_int32_t volatile* pl);
 
 /** Increments the variable atomically
  *
  * \ingroup group__library__Synch
  */
-WINSTL_ATOMIC_FNS_DECL_(void) atomic_increment(atomic_int_t volatile* pl);
+WINSTL_ATOMIC_FNS_DECL_(void)
+atomic_increment(atomic_int_t volatile* pl);
 /** Increments the (32-bit) variable atomically
  *
  * \ingroup group__library__Synch
  */
-void atomic_increment32(atomic_int32_t volatile* pl);
+WINSTL_ATOMIC_FNS_DECL_(void) atomic_increment32(atomic_int32_t volatile* pl);
 
 /** Decrements the variable atomically
  *
  * \ingroup group__library__Synch
  */
-WINSTL_ATOMIC_FNS_DECL_(void) atomic_decrement(atomic_int_t volatile* pl);
+WINSTL_ATOMIC_FNS_DECL_(void)
+atomic_decrement(atomic_int_t volatile* pl);
 /** Decrements the (32-bit) variable atomically
  *
  * \ingroup group__library__Synch
  */
-void atomic_decrement32(atomic_int32_t volatile* pl);
+WINSTL_ATOMIC_FNS_DECL_(void) atomic_decrement32(atomic_int32_t volatile* pl);
 
 /** Exchanges atomically a value with the variable
  *
  * \ingroup group__library__Synch
  */
-WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_exchange(atomic_int_t volatile* pl, atomic_int_t n);
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t)
+atomic_exchange(
+    atomic_int_t volatile*  pl
+,   atomic_int_t            n
+);
 
 /** Writes to the variable atomically
  *
  * \ingroup group__library__Synch
  */
-WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_write(atomic_int_t volatile* pl, atomic_int_t n);
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t)
+atomic_write(
+    atomic_int_t volatile*  pl
+,   atomic_int_t            n
+);
 
 /** Reads from the variable atomically
  *
  * \ingroup group__library__Synch
  */
-WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_read(atomic_int_t volatile const* pl);
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t)
+atomic_read(atomic_int_t volatile const* pl);
 
 /** Add to the variable atomically, and returns the value prior to the
  * operation
  *
  * \ingroup group__library__Synch
  */
-WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postadd(atomic_int_t volatile* pl, atomic_int_t n);
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t)
+atomic_postadd(
+    atomic_int_t volatile*  pl
+,   atomic_int_t            n
+);
 
 /** Add to the variable atomically, and returns the result of the operation
  *
  * \ingroup group__library__Synch
  */
-atomic_int_t atomic_preadd(atomic_int_t volatile* pl, atomic_int_t n);
-
-
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t)
+atomic_preadd(
+    atomic_int_t volatile*  pl
+,   atomic_int_t            n
+);
 #endif /* !WINSTL_ATOMIC_FNS_DEFINITION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * atomic function definitions
@@ -445,6 +492,7 @@ atomic_int_t atomic_preadd(atomic_int_t volatile* pl, atomic_int_t n);
 /* Inline assembler versions */
 
 #ifdef STLSOFT_COMPILER_IS_BORLAND
+
 # pragma warn -8002     /* Suppresses: "Restarting compile using assembly" */
 # pragma warn -8070     /* Suppresses: "Function should return a value" */
 #endif /* compiler */
@@ -464,13 +512,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement_up(atomic_int_t volati
          */
         mov eax, 1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack */
 
         mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -481,9 +533,12 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement_up(atomic_int_t volati
          */
         inc eax
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         ret 4
 #endif /* call-conv */
     }
@@ -502,13 +557,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement_up(atomic_int_t volati
          */
         mov eax, -1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack */
 
         mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -519,9 +578,12 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement_up(atomic_int_t volati
          */
         dec eax
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         ret 4
 #endif /* call-conv */
     }
@@ -540,13 +602,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement_up(atomic_int_t volat
          */
         mov eax, 1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack */
 
         mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -556,9 +622,12 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement_up(atomic_int_t volat
          * value is in eax
          */
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         ret 4
 #endif /* call-conv */
     }
@@ -577,13 +646,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement_up(atomic_int_t volat
          */
         mov eax, -1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack */
 
         mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -593,9 +666,12 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement_up(atomic_int_t volat
          * value is in eax
          */
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         ret 4
 #endif /* call-conv */
     }
@@ -609,21 +685,28 @@ WINSTL_ATOMIC_FNS_IMPL_(void) atomic_increment_up(atomic_int_t volatile* /* pl *
 {
     _asm
     {
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack */
 
         mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
         add dword ptr [ecx], 1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         ret 4
 #endif /* call-conv */
     }
@@ -637,21 +720,28 @@ WINSTL_ATOMIC_FNS_IMPL_(void) atomic_decrement_up(atomic_int_t volatile* /* pl *
 {
     _asm
     {
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack */
 
         mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
         sub dword ptr [ecx], 1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         ret 4
 #endif /* call-conv */
     }
@@ -665,7 +755,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange_up(atomic_int_t volatile* 
 {
     _asm
     {
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl, edx is n */
 
         /* Just exchange *pl and n */
@@ -676,6 +768,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange_up(atomic_int_t volatile* 
 
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack: pl in esp+4, pl in esp+8 */
         mov ecx, dword ptr [esp + 4]    /* Load the address of pl into ecx */
         mov eax, dword ptr [esp + 8]    /* Load the value into eax, so the return value will be there waiting */
@@ -684,6 +777,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange_up(atomic_int_t volatile* 
 
         ret 8
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
     }
@@ -699,13 +793,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read_up(atomic_int_t volatile const
     _asm
     {
         mov eax, 0
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl */
 
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack */
         mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -718,9 +816,12 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read_up(atomic_int_t volatile const
          * is exactly what's required
          */
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         ret 4
 #endif /* call-conv */
     }
@@ -734,7 +835,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write_up(atomic_int_t volatile* /* 
 {
     _asm
     {
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl, edx is n */
 
         /* Just exchange *pl and n */
@@ -745,6 +848,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write_up(atomic_int_t volatile* /* 
 
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack: pl in esp+4, pl in esp+8 */
         mov ecx, dword ptr [esp + 4]    /* Load the address of pl into ecx */
         mov eax, dword ptr [esp + 8]    /* Load the value into eax, so the return value will be there waiting */
@@ -753,6 +857,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write_up(atomic_int_t volatile* /* 
 
         ret 8
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
     }
@@ -768,7 +873,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_up(atomic_int_t volatile* /
     /* Thanks to Eugene Gershnik for the fast-call implementation */
     __asm
     {
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl, edx is n */
 
         /* Simply atomically add them, which will leave the previous value
@@ -781,6 +888,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_up(atomic_int_t volatile* /
 
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack: pl in esp+4, pl in esp+8 */
 
         /* Simply atomically add them, which will leave the previous value
@@ -795,6 +903,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_up(atomic_int_t volatile* /
 
         ret 8
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
     }
@@ -815,13 +924,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement_smp(atomic_int_t volat
          */
         mov eax, 1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack */
 
         mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -832,9 +945,12 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement_smp(atomic_int_t volat
          */
         inc eax
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         ret 4
 #endif /* call-conv */
     }
@@ -853,13 +969,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement_smp(atomic_int_t volat
          */
         mov eax, -1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack */
 
         mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -870,9 +990,12 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement_smp(atomic_int_t volat
          */
         dec eax
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         ret 4
 #endif /* call-conv */
     }
@@ -891,7 +1014,8 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement_smp(atomic_int_t vola
          */
         mov eax, 1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
         /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
         /* __stdcall: arguments are on the stack */
@@ -907,9 +1031,12 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement_smp(atomic_int_t vola
          * value is in eax
          */
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         ret 4
 #endif /* call-conv */
     }
@@ -928,13 +1055,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement_smp(atomic_int_t vola
          */
         mov eax, -1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack */
 
         mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -944,9 +1075,12 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement_smp(atomic_int_t vola
          * value is in eax
          */
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         ret 4
 #endif /* call-conv */
     }
@@ -960,7 +1094,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange_smp(atomic_int_t volatile*
 {
     _asm
     {
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl, edx is n */
 
         /* Just exchange *pl and n */
@@ -971,6 +1107,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange_smp(atomic_int_t volatile*
 
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack: pl in esp+4, pl in esp+8 */
         mov ecx, dword ptr [esp + 4]    /* Load the address of pl into ecx */
         mov eax, dword ptr [esp + 8]    /* Load the value into eax, so the return value will be there waiting */
@@ -979,6 +1116,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange_smp(atomic_int_t volatile*
 
         ret 8
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
     }
@@ -993,13 +1131,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read_smp(atomic_int_t volatile cons
     _asm
     {
         mov eax, 0
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl */
 
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack */
         mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -1012,9 +1154,12 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read_smp(atomic_int_t volatile cons
          * is exactly what's required
          */
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         ret 4
 #endif /* call-conv */
     }
@@ -1028,7 +1173,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write_smp(atomic_int_t volatile* /*
 {
     _asm
     {
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl, edx is n */
 
         /* Just exchange *pl and n */
@@ -1039,6 +1186,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write_smp(atomic_int_t volatile* /*
 
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack: pl in esp+4, pl in esp+8 */
         mov ecx, dword ptr [esp + 4]    /* Load the address of pl into ecx */
         mov eax, dword ptr [esp + 8]    /* Load the value into eax, so the return value will be there waiting */
@@ -1047,6 +1195,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write_smp(atomic_int_t volatile* /*
 
         ret 8
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
     }
@@ -1062,7 +1211,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_smp(atomic_int_t volatile* 
     /* Thanks to Eugene Gershnik for the fast-call implementation */
     __asm
     {
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl, edx is n */
 
         /* Simply atomically add them, which will leave the previous value
@@ -1075,6 +1226,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_smp(atomic_int_t volatile* 
 
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack: pl in esp+4, pl in esp+8 */
 
         /* Simply atomically add them, which will leave the previous value
@@ -1089,6 +1241,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_smp(atomic_int_t volatile* 
 
         ret 8
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
     }
@@ -1098,7 +1251,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_smp(atomic_int_t volatile* 
 
 namespace ximpl
 {
-    inline ws_bool_t is_host_up()
+    inline
+    ws_bool_t
+    is_host_up()
     {
         /* All these statics are guaranteed to be zero by static initialisation */
         static atomic_int_t s_spin; /* The spin variable */
@@ -1122,6 +1277,7 @@ namespace ximpl
 
                 s_up = 1 == sys_info.dwNumberOfProcessors;
             }
+
             atomic_write_smp(&s_spin, 0);
         }
 
@@ -1160,13 +1316,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement(atomic_int_t volatile*
              */
             mov eax, 1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             /* __stdcall: arguments are on the stack */
 
             mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -1177,9 +1337,12 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement(atomic_int_t volatile*
              */
             inc eax
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             ret 4
 #endif /* call-conv */
         }
@@ -1193,13 +1356,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement(atomic_int_t volatile*
              */
             mov eax, 1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             /* __stdcall: arguments are on the stack */
 
             mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -1210,15 +1377,22 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement(atomic_int_t volatile*
              */
             inc eax
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             ret 4
 #endif /* call-conv */
         }
     }
 }
-STLSOFT_INLINE atomic_int32_t atomic_preincrement32(atomic_int32_t volatile* pv)
+
+STLSOFT_INLINE
+atomic_int32_t
+WINSTL_ATOMIC_FNS_CALLCONV
+atomic_preincrement32(atomic_int32_t volatile* pv)
 {
     return atomic_preincrement(pv);
 }
@@ -1240,13 +1414,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement(atomic_int_t volatile*
              */
             mov eax, -1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             /* __stdcall: arguments are on the stack */
 
             mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -1257,9 +1435,12 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement(atomic_int_t volatile*
              */
             dec eax
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             ret 4
 #endif /* call-conv */
         }
@@ -1273,13 +1454,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement(atomic_int_t volatile*
              */
             mov eax, -1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             /* __stdcall: arguments are on the stack */
 
             mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -1290,15 +1475,22 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement(atomic_int_t volatile*
              */
             dec eax
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             ret 4
 #endif /* call-conv */
         }
     }
 }
-STLSOFT_INLINE atomic_int32_t atomic_predecrement32(atomic_int32_t volatile* pv)
+
+STLSOFT_INLINE
+atomic_int32_t
+WINSTL_ATOMIC_FNS_CALLCONV
+atomic_predecrement32(atomic_int32_t volatile* pv)
 {
     return atomic_predecrement(pv);
 }
@@ -1320,13 +1512,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement(atomic_int_t volatile
              */
             mov eax, 1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             /* __stdcall: arguments are on the stack */
 
             mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -1336,9 +1532,12 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement(atomic_int_t volatile
              * value is in eax
              */
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             ret 4
 #endif /* call-conv */
         }
@@ -1352,13 +1551,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement(atomic_int_t volatile
              */
             mov eax, 1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             /* __stdcall: arguments are on the stack */
 
             mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -1368,15 +1571,22 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement(atomic_int_t volatile
              * value is in eax
              */
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             ret 4
 #endif /* call-conv */
         }
     }
 }
-STLSOFT_INLINE atomic_int32_t atomic_postincrement32(atomic_int32_t volatile* pv)
+
+STLSOFT_INLINE
+atomic_int32_t
+WINSTL_ATOMIC_FNS_CALLCONV
+atomic_postincrement32(atomic_int32_t volatile* pv)
 {
     return atomic_postincrement(pv);
 }
@@ -1398,13 +1608,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement(atomic_int_t volatile
              */
             mov eax, -1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             /* __stdcall: arguments are on the stack */
 
             mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -1414,9 +1628,12 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement(atomic_int_t volatile
              * value is in eax
              */
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             ret 4
 #endif /* call-conv */
         }
@@ -1430,13 +1647,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement(atomic_int_t volatile
              */
             mov eax, -1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             /* __stdcall: arguments are on the stack */
 
             mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -1446,15 +1667,22 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement(atomic_int_t volatile
              * value is in eax
              */
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             ret 4
 #endif /* call-conv */
         }
     }
 }
-STLSOFT_INLINE atomic_int32_t atomic_postdecrement32(atomic_int32_t volatile* pv)
+
+STLSOFT_INLINE
+atomic_int32_t
+WINSTL_ATOMIC_FNS_CALLCONV
+atomic_postdecrement32(atomic_int32_t volatile* pv)
 {
     return atomic_postdecrement(pv);
 }
@@ -1471,21 +1699,28 @@ WINSTL_ATOMIC_FNS_IMPL_(void) atomic_increment(atomic_int_t volatile* /* pl */)
     {
         _asm
         {
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             /* __stdcall: arguments are on the stack */
 
             mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
             add dword ptr [ecx], 1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             ret 4
 #endif /* call-conv */
         }
@@ -1494,13 +1729,17 @@ WINSTL_ATOMIC_FNS_IMPL_(void) atomic_increment(atomic_int_t volatile* /* pl */)
     {
         _asm
         {
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             /* __stdcall: arguments are on the stack */
 
             mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -1508,23 +1747,33 @@ WINSTL_ATOMIC_FNS_IMPL_(void) atomic_increment(atomic_int_t volatile* /* pl */)
              * states that a LOCK can be prefixed to ADD, but CodePlay VectorC
              * has a problem with it.
              */
-#if defined(STLSOFT_COMPILER_IS_VECTORC)
+#if 0
+#elif defined(STLSOFT_COMPILER_IS_VECTORC)
+
             mov eax, 1
             lock xadd dword ptr [ecx], eax
 #else /* ? compiler */
+
             lock add dword ptr [ecx], 1
 #endif /* compiler */
 
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             ret 4
 #endif /* call-conv */
         }
     }
 }
-STLSOFT_INLINE void atomic_increment32(atomic_int32_t volatile* pv)
+
+STLSOFT_INLINE
+void
+WINSTL_ATOMIC_FNS_CALLCONV
+atomic_increment32(atomic_int32_t volatile* pv)
 {
     atomic_increment(pv);
 }
@@ -1541,21 +1790,28 @@ WINSTL_ATOMIC_FNS_IMPL_(void) atomic_decrement(atomic_int_t volatile* /* pl */)
     {
         _asm
         {
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             /* __stdcall: arguments are on the stack */
 
             mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
             add dword ptr [ecx], -1
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             ret 4
 #endif /* call-conv */
         }
@@ -1564,33 +1820,47 @@ WINSTL_ATOMIC_FNS_IMPL_(void) atomic_decrement(atomic_int_t volatile* /* pl */)
     {
         _asm
         {
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             /* __fastcall: ecx is pl */
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             /* __stdcall: arguments are on the stack */
 
             mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
-#if defined(STLSOFT_COMPILER_IS_VECTORC)
+#if 0
+#elif defined(STLSOFT_COMPILER_IS_VECTORC)
+
             mov eax, -1
             lock xadd dword ptr [ecx], eax
 #else /* ? compiler */
+
             /* This might be wrong */
             lock sub dword ptr [ecx], 1
 #endif /* compiler */
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             ret 4
 #endif /* call-conv */
         }
     }
 }
-STLSOFT_INLINE void atomic_decrement32(atomic_int32_t volatile* pv)
+
+STLSOFT_INLINE
+void
+WINSTL_ATOMIC_FNS_CALLCONV
+atomic_decrement32(atomic_int32_t volatile* pv)
 {
     atomic_decrement(pv);
 }
@@ -1603,7 +1873,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange(atomic_int_t volatile* /* 
 {
     _asm
     {
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl, edx is n */
 
         /* Just exchange *pl and n */
@@ -1614,6 +1886,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange(atomic_int_t volatile* /* 
 
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack: pl in esp+4, pl in esp+8 */
         mov ecx, dword ptr [esp + 4]    /* Load the address of pl into ecx */
         mov eax, dword ptr [esp + 8]    /* Load the value into eax, so the return value will be there waiting */
@@ -1622,11 +1895,15 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange(atomic_int_t volatile* /* 
 
         ret 8
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
     }
 }
-STLSOFT_INLINE atomic_int32_t atomic_exchange32(atomic_int32_t volatile* pv, atomic_int32_t n)
+
+STLSOFT_INLINE
+atomic_int32_t
+atomic_exchange32(atomic_int32_t volatile* pv, atomic_int32_t n)
 {
     return atomic_exchange(pv, n);
 }
@@ -1644,13 +1921,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read(atomic_int_t volatile const* /
         _asm
         {
             mov eax, 0
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             /* __fastcall: ecx is pl */
 
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             /* __stdcall: arguments are on the stack */
             mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -1663,9 +1944,12 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read(atomic_int_t volatile const* /
              * is exactly what's required
              */
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             ret 4
 #endif /* call-conv */
         }
@@ -1675,13 +1959,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read(atomic_int_t volatile const* /
         _asm
         {
             mov eax, 0
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             /* __fastcall: ecx is pl */
 
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             /* __stdcall: arguments are on the stack */
             mov ecx, dword ptr [esp + 4]
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
 
@@ -1694,15 +1982,21 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read(atomic_int_t volatile const* /
              * is exactly what's required
              */
 
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             ret 4
 #endif /* call-conv */
         }
     }
 }
-STLSOFT_INLINE atomic_int32_t atomic_read32(atomic_int32_t volatile* pv)
+
+STLSOFT_INLINE
+atomic_int32_t
+atomic_read32(atomic_int32_t volatile* pv)
 {
     return atomic_read(pv);
 }
@@ -1715,7 +2009,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write(atomic_int_t volatile* /* pl 
 {
     _asm
     {
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
         /* __fastcall: ecx is pl, edx is n */
 
         /* Just exchange *pl and n */
@@ -1726,6 +2022,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write(atomic_int_t volatile* /* pl 
 
         ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
         /* __stdcall: arguments are on the stack: pl in esp+4, pl in esp+8 */
         mov ecx, dword ptr [esp + 4]    /* Load the address of pl into ecx */
         mov eax, dword ptr [esp + 8]    /* Load the value into eax, so the return value will be there waiting */
@@ -1734,11 +2031,15 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write(atomic_int_t volatile* /* pl 
 
         ret 8
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
     }
 }
-STLSOFT_INLINE atomic_int32_t atomic_write32(atomic_int32_t volatile* pv, atomic_int32_t n)
+
+STLSOFT_INLINE
+atomic_int32_t
+atomic_write32(atomic_int32_t volatile* pv, atomic_int32_t n)
 {
     return atomic_write(pv, n);
 }
@@ -1756,7 +2057,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd(atomic_int_t volatile* /* p
     {
         __asm
         {
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             /* __fastcall: ecx is pl, edx is n */
 
             /* Simply atomically add them, which will leave the previous value
@@ -1769,6 +2072,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd(atomic_int_t volatile* /* p
 
             ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             /* __stdcall: arguments are on the stack: pl in esp+4, pl in esp+8 */
 
             /* Simply atomically add them, which will leave the previous value
@@ -1783,6 +2087,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd(atomic_int_t volatile* /* p
 
             ret 8
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
         }
@@ -1791,7 +2096,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd(atomic_int_t volatile* /* p
     {
         __asm
         {
-#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+#if 0
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+
             /* __fastcall: ecx is pl, edx is n */
 
             /* Simply atomically add them, which will leave the previous value
@@ -1804,6 +2111,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd(atomic_int_t volatile* /* p
 
             ret
 #elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+
             /* __stdcall: arguments are on the stack: pl in esp+4, pl in esp+8 */
 
             /* Simply atomically add them, which will leave the previous value
@@ -1818,12 +2126,16 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd(atomic_int_t volatile* /* p
 
             ret 8
 #else
+
 # error Need to define calling convention
 #endif /* call-conv */
         }
     }
 }
-STLSOFT_INLINE atomic_int32_t atomic_postadd32(atomic_int32_t volatile* pv, atomic_int32_t n)
+
+STLSOFT_INLINE
+atomic_int32_t
+atomic_postadd32(atomic_int32_t volatile* pv, atomic_int32_t n)
 {
     return atomic_postadd(pv, n);
 }
@@ -1832,7 +2144,6 @@ STLSOFT_INLINE atomic_int32_t atomic_postadd32(atomic_int32_t volatile* pv, atom
 # pragma warn .8070     /* Suppresses: "Function should return a value" */
 # pragma warn .8002     /* Suppresses: "Restarting compile using assembly" */
 #endif /* compiler */
-
 #  else /* STSLSOFT_INLINE_ASM_SUPPORTED */
 
 /* Non-assembler versions
@@ -1847,7 +2158,9 @@ STLSOFT_INLINE atomic_int32_t atomic_postadd32(atomic_int32_t volatile* pv, atom
  *
  * \ingroup group__library__Synch
  */
-STLSOFT_INLINE atomic_int32_t atomic_preincrement32(atomic_int32_t volatile* pv)
+STLSOFT_INLINE
+atomic_int32_t
+atomic_preincrement32(atomic_int32_t volatile* pv)
 {
     return WINSTL_API_EXTERNAL_Synchronization_InterlockedIncrement(winstl_C_internal_synch_atomic_ptrconv32_(pv));
 }
@@ -1871,7 +2184,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement(atomic_int_t volatile*
  *
  * \ingroup group__library__Synch
  */
-STLSOFT_INLINE atomic_int32_t atomic_predecrement32(atomic_int32_t volatile* pv)
+STLSOFT_INLINE
+atomic_int32_t
+atomic_predecrement32(atomic_int32_t volatile* pv)
 {
     return WINSTL_API_EXTERNAL_Synchronization_InterlockedDecrement(winstl_C_internal_synch_atomic_ptrconv32_(pv));
 }
@@ -1895,7 +2210,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement(atomic_int_t volatile*
  *
  * \ingroup group__library__Synch
  */
-STLSOFT_INLINE atomic_int32_t atomic_postincrement32(atomic_int32_t volatile* pv)
+STLSOFT_INLINE
+atomic_int32_t
+atomic_postincrement32(atomic_int32_t volatile* pv)
 {
     return WINSTL_API_EXTERNAL_Synchronization_InterlockedIncrement(winstl_C_internal_synch_atomic_ptrconv32_(pv)) - 1;
 }
@@ -1919,7 +2236,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement(atomic_int_t volatile
  *
  * \ingroup group__library__Synch
  */
-STLSOFT_INLINE atomic_int32_t atomic_postdecrement32(atomic_int32_t volatile* pv)
+STLSOFT_INLINE
+atomic_int32_t
+atomic_postdecrement32(atomic_int32_t volatile* pv)
 {
     return WINSTL_API_EXTERNAL_Synchronization_InterlockedDecrement(winstl_C_internal_synch_atomic_ptrconv32_(pv)) + 1;
 }
@@ -1943,7 +2262,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement(atomic_int_t volatile
  *
  * \ingroup group__library__Synch
  */
-STLSOFT_INLINE void atomic_increment32(atomic_int32_t volatile* pv)
+STLSOFT_INLINE
+void
+atomic_increment32(atomic_int32_t volatile* pv)
 {
     WINSTL_API_EXTERNAL_Synchronization_InterlockedIncrement(winstl_C_internal_synch_atomic_ptrconv32_(pv));
 }
@@ -1967,7 +2288,9 @@ WINSTL_ATOMIC_FNS_IMPL_(void) atomic_increment(atomic_int_t volatile* pl)
  *
  * \ingroup group__library__Synch
  */
-STLSOFT_INLINE void atomic_decrement32(atomic_int32_t volatile* pv)
+STLSOFT_INLINE
+void
+atomic_decrement32(atomic_int32_t volatile* pv)
 {
     WINSTL_API_EXTERNAL_Synchronization_InterlockedDecrement(winstl_C_internal_synch_atomic_ptrconv32_(pv));
 }
@@ -1991,12 +2314,17 @@ WINSTL_ATOMIC_FNS_IMPL_(void) atomic_decrement(atomic_int_t volatile* pl)
  *
  * \ingroup group__library__Synch
  */
-STLSOFT_INLINE atomic_int32_t atomic_exchange32(atomic_int32_t volatile* pv, atomic_int32_t n)
+STLSOFT_INLINE
+atomic_int32_t
+atomic_exchange32(atomic_int32_t volatile* pv, atomic_int32_t n)
 {
     return WINSTL_API_EXTERNAL_Synchronization_InterlockedExchange(winstl_C_internal_synch_atomic_ptrconv32_(pv), n);
 }
 
-WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange(atomic_int_t volatile* pl, atomic_int_t n)
+WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange(
+    atomic_int_t volatile*  pl
+,   atomic_int_t            n
+)
 {
 #if 0
 #elif defined(WINSTL_OS_IS_WIN32)
@@ -2015,12 +2343,17 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange(atomic_int_t volatile* pl,
  *
  * \ingroup group__library__Synch
  */
-STLSOFT_INLINE atomic_int32_t atomic_write32(atomic_int32_t volatile* pv, atomic_int32_t n)
+STLSOFT_INLINE
+atomic_int32_t
+atomic_write32(atomic_int32_t volatile* pv, atomic_int32_t n)
 {
     return WINSTL_API_EXTERNAL_Synchronization_InterlockedExchange(winstl_C_internal_synch_atomic_ptrconv32_(pv), n);
 }
 
-WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write(atomic_int_t volatile* pl, atomic_int_t n)
+WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write(
+    atomic_int_t volatile*  pl
+,   atomic_int_t            n
+)
 {
 #if 0
 #elif defined(WINSTL_OS_IS_WIN32)
@@ -2053,11 +2386,16 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int32_t) atomic_read32(atomic_int32_t volatile co
  *
  * \ingroup group__library__Synch
  */
-STLSOFT_INLINE atomic_int32_t atomic_postadd32(atomic_int32_t volatile* pv, atomic_int32_t n)
+STLSOFT_INLINE
+atomic_int32_t
+atomic_postadd32(atomic_int32_t volatile* pv, atomic_int32_t n)
 {
     return WINSTL_API_EXTERNAL_Synchronization_InterlockedExchangeAdd(winstl_C_internal_synch_atomic_ptrconv32_(pv), n);
 }
-WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd(atomic_int_t volatile* pl, atomic_int_t n)
+WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd(
+    atomic_int_t volatile*  pl
+,   atomic_int_t            n
+)
 {
 #if 0
 #elif defined(WINSTL_OS_IS_WIN32)
@@ -2133,7 +2471,10 @@ WINSTL_ATOMIC_FNS_IMPL_(void) atomic_decrement_up(atomic_int_t volatile* pl)
  *
  * \ingroup group__library__Synch
  */
-WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange_up(atomic_int_t volatile* pl, atomic_int_t n)
+WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange_up(
+    atomic_int_t volatile*  pl
+,   atomic_int_t            n
+)
 {
     return atomic_exchange(pl, n);
 }
@@ -2142,7 +2483,10 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange_up(atomic_int_t volatile* 
  *
  * \ingroup group__library__Synch
  */
-WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write_up(atomic_int_t volatile* pl, atomic_int_t n)
+WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write_up(
+    atomic_int_t volatile*  pl
+,   atomic_int_t            n
+)
 {
     return atomic_write(pl, n);
 }
@@ -2160,7 +2504,10 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read_up(atomic_int_t volatile const
  *
  * \ingroup group__library__Synch
  */
-WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_up(atomic_int_t volatile* pl, atomic_int_t n)
+WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_up(
+    atomic_int_t volatile*  pl
+,   atomic_int_t            n
+)
 {
 #if 0
 #elif defined(WINSTL_OS_IS_WIN32)
@@ -2217,7 +2564,10 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement_smp(atomic_int_t vola
  *
  * \ingroup group__library__Synch
  */
-WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange_smp(atomic_int_t volatile* pl, atomic_int_t n)
+WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange_smp(
+    atomic_int_t volatile*  pl
+,   atomic_int_t            n
+)
 {
     return atomic_exchange(pl, n);
 }
@@ -2226,7 +2576,10 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange_smp(atomic_int_t volatile*
  *
  * \ingroup group__library__Synch
  */
-WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write_smp(atomic_int_t volatile* pl, atomic_int_t n)
+WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write_smp(
+    atomic_int_t volatile*  pl
+,   atomic_int_t            n
+)
 {
     return atomic_write(pl, n);
 }
@@ -2244,7 +2597,10 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read_smp(atomic_int_t volatile cons
  *
  * \ingroup group__library__Synch
  */
-WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_smp(atomic_int_t volatile* pl, atomic_int_t n)
+WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_smp(
+    atomic_int_t volatile*  pl
+,   atomic_int_t            n
+)
 {
 #if 0
 #elif defined(WINSTL_OS_IS_WIN32)
@@ -2263,6 +2619,7 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_smp(atomic_int_t volatile* 
 
 # endif /* !WINSTL_ATOMIC_FNS_DECLARATION_ONLY */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * other inline atomic function
  */
@@ -2271,7 +2628,13 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_smp(atomic_int_t volatile* 
  *
  * \ingroup group__library__Synch
  */
-STLSOFT_INLINE atomic_int_t atomic_preadd_up(atomic_int_t volatile* pl, atomic_int_t n)
+STLSOFT_INLINE
+atomic_int_t
+WINSTL_ATOMIC_FNS_CALLCONV
+atomic_preadd_up(
+    atomic_int_t volatile*  pl
+,   atomic_int_t            n
+)
 {
     return n + atomic_postadd_up(pl, n);
 }
@@ -2280,7 +2643,10 @@ STLSOFT_INLINE atomic_int_t atomic_preadd_up(atomic_int_t volatile* pl, atomic_i
  *
  * \ingroup group__library__Synch
  */
-STLSOFT_INLINE void atomic_increment_smp(atomic_int_t volatile* pl)
+STLSOFT_INLINE
+void
+WINSTL_ATOMIC_FNS_CALLCONV
+atomic_increment_smp(atomic_int_t volatile* pl)
 {
     atomic_postincrement_smp(pl);
 }
@@ -2289,7 +2655,10 @@ STLSOFT_INLINE void atomic_increment_smp(atomic_int_t volatile* pl)
  *
  * \ingroup group__library__Synch
  */
-STLSOFT_INLINE void atomic_decrement_smp(atomic_int_t volatile* pl)
+STLSOFT_INLINE
+void
+WINSTL_ATOMIC_FNS_CALLCONV
+atomic_decrement_smp(atomic_int_t volatile* pl)
 {
     atomic_postdecrement_smp(pl);
 }
@@ -2298,7 +2667,13 @@ STLSOFT_INLINE void atomic_decrement_smp(atomic_int_t volatile* pl)
  *
  * \ingroup group__library__Synch
  */
-STLSOFT_INLINE atomic_int_t atomic_preadd_smp(atomic_int_t volatile* pl, atomic_int_t n)
+STLSOFT_INLINE
+atomic_int_t
+WINSTL_ATOMIC_FNS_CALLCONV
+atomic_preadd_smp(
+    atomic_int_t volatile*  pl
+,   atomic_int_t            n
+)
 {
     return n + atomic_postadd_smp(pl, n);
 }
@@ -2307,12 +2682,23 @@ STLSOFT_INLINE atomic_int_t atomic_preadd_smp(atomic_int_t volatile* pl, atomic_
  *
  * \ingroup group__library__Synch
  */
-STLSOFT_INLINE atomic_int_t atomic_preadd(atomic_int_t volatile* pl, atomic_int_t n)
+STLSOFT_INLINE
+atomic_int_t
+WINSTL_ATOMIC_FNS_CALLCONV
+atomic_preadd(
+    atomic_int_t volatile*  pl
+,   atomic_int_t            n
+)
 {
     return n + atomic_postadd(pl, n);
 }
 
-STLSOFT_INLINE atomic_int32_t atomic_preadd32(atomic_int32_t volatile* pl, atomic_int32_t n)
+STLSOFT_INLINE
+atomic_int32_t
+atomic_preadd32(
+    atomic_int32_t volatile*    pl
+,   atomic_int32_t              n
+)
 {
     return n + atomic_postadd32(pl, n);
 }
@@ -2321,59 +2707,78 @@ STLSOFT_INLINE atomic_int32_t atomic_preadd32(atomic_int32_t volatile* pl, atomi
 #  if 0
 #  elif defined(WINSTL_OS_IS_WIN64)
 
-inline atomic_int_t atomic_postdecrement(atomic_int32_t volatile* pv)
+inline
+atomic_int_t
+atomic_postdecrement(atomic_int32_t volatile* pv)
 {
     return atomic_postdecrement32(pv);
 }
 
-inline atomic_int32_t atomic_postincrement(atomic_int32_t volatile* pv)
+inline
+atomic_int32_t
+atomic_postincrement(atomic_int32_t volatile* pv)
 {
     return atomic_postincrement32(pv);
 }
 
-inline atomic_int32_t atomic_predecrement(atomic_int32_t volatile* pv)
+inline
+atomic_int32_t
+atomic_predecrement(atomic_int32_t volatile* pv)
 {
     return atomic_predecrement32(pv);
 }
 
-inline atomic_int32_t atomic_preincrement(atomic_int32_t volatile* pv)
+inline
+atomic_int32_t
+atomic_preincrement(atomic_int32_t volatile* pv)
 {
     return atomic_preincrement32(pv);
 }
 
-inline void atomic_increment(atomic_int32_t volatile* pv)
+inline
+void
+atomic_increment(atomic_int32_t volatile* pv)
 {
     atomic_increment32(pv);
 }
-inline void atomic_decrement(atomic_int32_t volatile* pv)
+inline
+void
+atomic_decrement(atomic_int32_t volatile* pv)
 {
     atomic_decrement32(pv);
 }
 
-inline atomic_int32_t atomic_exchange(atomic_int32_t volatile* pv, atomic_int32_t n)
+inline
+atomic_int32_t
+atomic_exchange(atomic_int32_t volatile* pv, atomic_int32_t n)
 {
     return atomic_exchange32(pv, n);
 }
 
-inline atomic_int32_t atomic_read(atomic_int32_t volatile* pv)
+inline
+atomic_int32_t
+atomic_read(atomic_int32_t volatile* pv)
 {
     return atomic_read32(pv);
 }
 
-inline atomic_int32_t atomic_write(atomic_int32_t volatile* pv, atomic_int32_t n)
+inline
+atomic_int32_t
+atomic_write(atomic_int32_t volatile* pv, atomic_int32_t n)
 {
     return atomic_write32(pv, n);
 }
 
-inline atomic_int32_t atomic_postadd(atomic_int32_t volatile* pv, atomic_int32_t n)
+inline
+atomic_int32_t
+atomic_postadd(atomic_int32_t volatile* pv, atomic_int32_t n)
 {
     return atomic_postadd32(pv, n);
 }
-
 #  endif
 # endif /* __cplusplus */
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -2388,6 +2793,7 @@ inline atomic_int32_t atomic_postadd(atomic_int32_t volatile* pv, atomic_int32_t
 } /* namespace stlsoft */
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

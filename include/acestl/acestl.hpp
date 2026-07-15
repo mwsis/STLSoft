@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        acestl/acestl.hpp
+ * File:    acestl/acestl.hpp
  *
- * Purpose:     Root header for the ACESTL libraries. Performs compiler
- *              and platform discriminations, and definitions of types.
+ * Purpose: Root header for the ACESTL libraries. Performs compiler and
+ *          platform discriminations, and definitions of types.
  *
- * Created:     15th September 2004
- * Updated:     22nd January 2024
+ * Created: 15th September 2004
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -50,7 +50,7 @@
 # define ACESTL_VER_ACESTL_HPP_ACESTL_MAJOR     1
 # define ACESTL_VER_ACESTL_HPP_ACESTL_MINOR     8
 # define ACESTL_VER_ACESTL_HPP_ACESTL_REVISION  2
-# define ACESTL_VER_ACESTL_HPP_ACESTL_EDIT      54
+# define ACESTL_VER_ACESTL_HPP_ACESTL_EDIT      57
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \file acestl/acestl.hpp
@@ -111,12 +111,14 @@
 # define _ACESTL_VER_1_1_2     0x00010102  /*!< Version 1.1.2 (STLSoft 1.9.25) */
 # define _ACESTL_VER_1_2_1_B01 0x01020181  /*!< Version 1.2.1 beta 1 (STLSoft 1.10.1 b1) */
 # define _ACESTL_VER_1_2_1_B02 0x01020182  /*!< Version 1.2.1 beta 2 (STLSoft 1.10.1 beta 26) */
+# define _ACESTL_VER_1_2_1     0x010201ff  /*!< Version 1.2.1 (with STLSoft 1.11.1 alpha 8) */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #define _ACESTL_VER_MAJOR      1
 #define _ACESTL_VER_MINOR      2
 #define _ACESTL_VER_REVISION   1
-#define _ACESTL_VER            _ACESTL_VER_1_2_1_B02
+#define _ACESTL_VER            _ACESTL_VER_1_2_1
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -145,6 +147,7 @@
 # endif /* !STLSOFT_INCL_STLSOFT_CONVERSION_HPP_UNION_CAST */
 #endif /* compiler */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * STLSoft version compatibility check(s)
  */
@@ -152,6 +155,7 @@
 #if _STLSOFT_VER < 0x010a019a
 # error This version of the ACESTL libraries requires STLSoft version 1.10.1 beta 26, or later
 #endif /* _STLSOFT_VER */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * ACE version
@@ -164,6 +168,7 @@
  * correspond to ACE_MINOR_VERSION.
  */
 #define ACESTL_ACE_VERSION  ((ACE_MAJOR_VERSION << 16) | ACE_MINOR_VERSION)
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Proper C++ casting
@@ -266,6 +271,7 @@
  * or in the global namespace.
  */
 
+
 /* /////////////////////////////////////
  * obsolete preprocessor symbol detection
  */
@@ -287,6 +293,7 @@
 #  define ACESTL_NO_NAMESPACE
 # endif /* !ACESTL_NO_NAMESPACE */
 #endif /* _ACESTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////
  * namespace support discrimination
@@ -317,6 +324,7 @@
 #  endif /* !_ACESTL_NO_NAMESPACE */
 # endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 #endif /* ACESTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////
  * declaration '*stl*' namespace
@@ -514,13 +522,14 @@ typedef as_streamoff_t      streamoff_t;        //!< streamoff
 #ifndef ACESTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace acestl */
+} // namespace acestl
 # else
-} /* namespace acestl_project */
-} /* namespace stlsoft */
+} // namespace acestl_project
+} // namespace stlsoft
 namespace acestl = ::stlsoft::acestl_project;
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !ACESTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

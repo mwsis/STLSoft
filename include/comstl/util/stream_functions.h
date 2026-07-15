@@ -1,12 +1,12 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        comstl/util/stream_functions.h
+ * File:    comstl/util/stream_functions.h
  *
- * Purpose:     Stream functions.
+ * Purpose: Stream functions.
  *
- * Created:     22nd October 2005
- * Updated:     22nd January 2024
+ * Created: 22nd October 2005
+ * Updated: 24th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
@@ -54,8 +54,9 @@
 # define COMSTL_VER_COMSTL_UTIL_H_STREAM_FUNCTIONS_MAJOR    2
 # define COMSTL_VER_COMSTL_UTIL_H_STREAM_FUNCTIONS_MINOR    1
 # define COMSTL_VER_COMSTL_UTIL_H_STREAM_FUNCTIONS_REVISION 7
-# define COMSTL_VER_COMSTL_UTIL_H_STREAM_FUNCTIONS_EDIT     28
+# define COMSTL_VER_COMSTL_UTIL_H_STREAM_FUNCTIONS_EDIT     30
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -67,6 +68,7 @@
 #ifdef STLSOFT_TRACE_INCLUDE
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -87,6 +89,7 @@ namespace comstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * C functions
  */
@@ -97,7 +100,12 @@ namespace comstl_project
  *
  * \see comstl::get_stream_size
  */
-STLSOFT_INLINE HRESULT comstl__get_stream_size(LPSTREAM pstm, ULARGE_INTEGER *psize)
+STLSOFT_INLINE
+HRESULT
+comstl__get_stream_size(
+    LPSTREAM        pstm
+,   ULARGE_INTEGER* psize
+)
 {
     STATSTG statstg;
     HRESULT hr  =   COMSTL_ITF_CALL(pstm)->Stat(COMSTL_ITF_THIS(pstm) &statstg, STATFLAG_NONAME);
@@ -110,6 +118,7 @@ STLSOFT_INLINE HRESULT comstl__get_stream_size(LPSTREAM pstm, ULARGE_INTEGER *ps
     return hr;
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -119,16 +128,23 @@ namespace comstl
 {
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
  */
 
 #ifdef __cplusplus
+
 /** Gets the size of a stream
  *
  * \ingroup group__library__COM_Utility
  */
-inline HRESULT get_stream_size(LPSTREAM pstm, ULARGE_INTEGER *psize)
+inline
+HRESULT
+get_stream_size(
+    LPSTREAM        pstm
+,   ULARGE_INTEGER* psize
+)
 {
     return comstl__get_stream_size(pstm, psize);
 }
@@ -137,7 +153,12 @@ inline HRESULT get_stream_size(LPSTREAM pstm, ULARGE_INTEGER *psize)
  *
  * \ingroup group__library__COM_Utility
  */
-inline HRESULT get_stream_size(LPSTREAM pstm, ULARGE_INTEGER &size)
+inline
+HRESULT
+get_stream_size(
+    LPSTREAM        pstm
+,   ULARGE_INTEGER& size
+)
 {
     return comstl__get_stream_size(pstm, &size);
 }
@@ -146,7 +167,12 @@ inline HRESULT get_stream_size(LPSTREAM pstm, ULARGE_INTEGER &size)
  *
  * \ingroup group__library__COM_Utility
  */
-inline HRESULT get_stream_size(LPSTREAM pstm, cs_uint64_t &size)
+inline
+HRESULT
+get_stream_size(
+    LPSTREAM        pstm
+,   cs_uint64_t&    size
+)
 {
     ULARGE_INTEGER  uli;
     HRESULT         hr  =   comstl__get_stream_size(pstm, &uli);
@@ -160,6 +186,7 @@ inline HRESULT get_stream_size(LPSTREAM pstm, cs_uint64_t &size)
 }
 #endif /* __cplusplus */
 
+
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef COMSTL_NO_NAMESPACE
@@ -171,6 +198,7 @@ inline HRESULT get_stream_size(LPSTREAM pstm, cs_uint64_t &size)
 } /* namespace stlsoft */
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

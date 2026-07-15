@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/window/hdc_scope.hpp (originally MWGdi.h, ::SynesisWin)
+ * File:    winstl/window/hdc_scope.hpp (originally MWGdi.h, ::SynesisWin)
  *
- * Purpose:     GDI scope class.
+ * Purpose: GDI scope class.
  *
- * Created:     20th October 1994
- * Updated:     22nd January 2024
+ * Created: 20th October 1994
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1994-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_WINDOW_HPP_HDC_SCOPE_MAJOR      3
 # define WINSTL_VER_WINSTL_WINDOW_HPP_HDC_SCOPE_MINOR      0
-# define WINSTL_VER_WINSTL_WINDOW_HPP_HDC_SCOPE_REVISION   5
-# define WINSTL_VER_WINSTL_WINDOW_HPP_HDC_SCOPE_EDIT       56
+# define WINSTL_VER_WINSTL_WINDOW_HPP_HDC_SCOPE_REVISION   8
+# define WINSTL_VER_WINSTL_WINDOW_HPP_HDC_SCOPE_EDIT       61
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -67,6 +68,7 @@
 #ifdef STLSOFT_TRACE_INCLUDE
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -86,6 +88,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -135,6 +138,9 @@ public:
             ::ReleaseDC(m_hwnd, m_hdc);
         }
     }
+private:
+    HDC_scope(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Accessors
@@ -158,24 +164,21 @@ private:
     HDC     m_hdc;
     HWND    m_hwnd;
 /// @}
-
-// Not to be implemented
-private:
-    HDC_scope(class_type const&);
-    class_type& operator =(class_type const&);
 };
+
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

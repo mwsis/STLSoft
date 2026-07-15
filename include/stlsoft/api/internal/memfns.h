@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/api/internal/memfns.h
+ * File:    stlsoft/api/internal/memfns.h
  *
- * Purpose:     Internal adaptations for memXXX() functions.
+ * Purpose: Internal adaptations for memXXX() functions.
  *
- * Created:     2nd January 2021
- * Updated:     2nd January 2021
+ * Created: 2nd January 2021
+ * Updated: 24th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2021, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2021-2024, Matthew Wilson and Synesis Information Systems
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,6 +47,7 @@
 #ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
 #define STLSOFT_INCL_STLSOFT_API_internal_h_memfns
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * includes
  */
@@ -58,34 +59,21 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
-#if 0
-#elif 0 || \
-      defined(STLSOFT_COMPILER_IS_BORLAND) || \
-      (   defined(STLSOFT_COMPILER_IS_INTEL) && \
-          defined(_WIN32))|| \
-      defined(STLSOFT_COMPILER_IS_MSVC) || \
-      0
-# ifndef STLSOFT_INCL_H_MEMORY
-#  define STLSOFT_INCL_H_MEMORY
-#  include <memory.h>
-# endif /* !STLSOFT_INCL_H_MEMORY */
-#else /* ? compiler */
-# ifndef STLSOFT_INCL_H_STRING
-#  define STLSOFT_INCL_H_STRING
-#  include <string.h>
-# endif /* !STLSOFT_INCL_H_STRING */
-#endif /* compiler */
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
+
 
 /* /////////////////////////////////////////////////////////////////////////
- * time functions
+ * memory functions
  */
 
-/* The C standard function memcpy() requires that its pointer parameters are
- * non-NULL even in the case where the copy byte-count is 0. GCC warns about
- * this and appears to be really aggressive in its analysis (in later
- * versions, anyway), so this adaptation function is required to ensure that
- * passing NULL when count is 0 - WHICH IS THE SENSIBLE SEMANTIC - are
- * available throughout the STLSoft libs.
+/** The C standard function memcpy() requires that its pointer parameters
+ * are non-\c nullptr even in the case where the copy byte-count is 0. GCC
+ * warns about this and appears to be really aggressive in its analysis (in
+ * later versions, anyway), so this adaptation function is required to
+ * ensure that passing \c nullptr when count is 0 - WHICH IS THE SENSIBLE
+ * SEMANTIC - are available throughout the STLSoft libs.
  */
 STLSOFT_INLINE
 void*
@@ -124,7 +112,7 @@ STLSOFT_API_INTERNAL_memfns_memcpy(
         }
 #endif
 
-        STLSOFT_NS_GLOBAL(memcpy)(dest, src, count);
+        STLSOFT_API_EXTERNAL_memfns_memcpy(dest, src, count);
     }
 
     return r;
@@ -159,11 +147,90 @@ STLSOFT_API_INTERNAL_memfns_memset(
         }
 #endif
 
-        STLSOFT_NS_GLOBAL(memset)(dest, value, count);
+        STLSOFT_API_EXTERNAL_memfns_memset(dest, value, count);
     }
 
     return r;
 }
+
+STLSOFT_INLINE
+wchar_t*
+STLSOFT_API_INTERNAL_memfns_wmemcpy(
+    wchar_t*        dest
+,   wchar_t  const* src
+,   size_t          count
+)
+{
+    wchar_t* const r = dest;
+
+    STLSOFT_ASSERT(0 == count || (NULL != dest && NULL != src));
+
+    if (0 != count)
+    {
+#if 1 && \
+    defined(__GNUC__) && \
+    1
+
+        wchar_t dummyDest[1];
+        wchar_t dummySrc[1];
+
+        if (NULL == dest)
+        {
+            STLSOFT_ASSERT(0 == count);
+
+            dest    =   &dummyDest[0];
+            count   =   0;
+        }
+        if (NULL == src)
+        {
+            STLSOFT_ASSERT(0 == count);
+
+            src     =   &dummySrc[0];
+            count   =   0;
+        }
+#endif
+
+        STLSOFT_API_EXTERNAL_memfns_wmemcpy(dest, src, count);
+    }
+
+    return r;
+}
+
+STLSOFT_INLINE
+wchar_t*
+STLSOFT_API_INTERNAL_memfns_wmemset(
+    wchar_t*    dest
+,   wchar_t     value
+,   size_t      count
+)
+{
+    wchar_t* const r = dest;
+
+    STLSOFT_ASSERT(0 == count || NULL != dest);
+
+    if (0 != count)
+    {
+#if 1 && \
+    defined(__GNUC__) && \
+    1
+
+        wchar_t dummyDest[1];
+
+        if (NULL == dest)
+        {
+            STLSOFT_ASSERT(0 == count);
+
+            dest    =   &dummyDest[0];
+            count   =   0;
+        }
+#endif
+
+        STLSOFT_API_EXTERNAL_memfns_wmemset(dest, value, count);
+    }
+
+    return r;
+}
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

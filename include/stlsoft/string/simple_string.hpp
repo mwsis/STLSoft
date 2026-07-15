@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/string/simple_string.hpp (originally MSString.h, ::SynesisDev)
+ * File:    stlsoft/string/simple_string.hpp (originally MSString.h, ::SynesisDev)
  *
- * Purpose:     basic_simple_string class template.
+ * Purpose: basic_simple_string class template.
  *
- * Created:     19th March 1993
- * Updated:     30th January 2024
+ * Created: 19th March 1993
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1993-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -52,11 +52,12 @@
 #define STLSOFT_INCL_STLSOFT_STRING_HPP_SIMPLE_STRING
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define STLSOFT_VER_STLSOFT_STRING_HPP_SIMPLE_STRING_MAJOR    4
-# define STLSOFT_VER_STLSOFT_STRING_HPP_SIMPLE_STRING_MINOR    4
-# define STLSOFT_VER_STLSOFT_STRING_HPP_SIMPLE_STRING_REVISION 1
-# define STLSOFT_VER_STLSOFT_STRING_HPP_SIMPLE_STRING_EDIT     271
+# define STLSOFT_VER_STLSOFT_STRING_HPP_SIMPLE_STRING_MAJOR     4
+# define STLSOFT_VER_STLSOFT_STRING_HPP_SIMPLE_STRING_MINOR     8
+# define STLSOFT_VER_STLSOFT_STRING_HPP_SIMPLE_STRING_REVISION  3
+# define STLSOFT_VER_STLSOFT_STRING_HPP_SIMPLE_STRING_EDIT      284
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -109,10 +110,6 @@
 # include <stlsoft/util/streams/string_insertion.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STREAMS_HPP_STRING_INSERTION */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
-
 #if defined(__BORLANDC__) && \
     __BORLANDC__ > 0x0580 && \
     defined(STLSOFT_DEBUG)
@@ -123,14 +120,20 @@
 # include <stdexcept>                       // for std::out_of_range
 #endif /* !STLSOFT_CF_EXCEPTION_SUPPORT */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
+
+
 /* /////////////////////////////////////////////////////////////////////////
- *
+ * compatibility
  */
 
 #if defined(STLSOFT_COMPILER_IS_MSVC) && \
     _MSC_VER < 1200
 # define STLSOFT_SIMPLE_STRING_ITERATOR_METHODS_INLINE
 #endif /* compiler */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -140,6 +143,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -153,15 +157,16 @@ namespace stlsoft
  *
  * \ingroup group__library__String
  */
-template<   ss_typename_param_k C
+template<
+    ss_typename_param_k C
 #ifdef STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT
-        ,   ss_typename_param_k T = stlsoft_char_traits<C>
-        ,   ss_typename_param_k A = ss_typename_type_def_k allocator_selector<C>::allocator_type
+,   ss_typename_param_k T = stlsoft_char_traits<C>
+,   ss_typename_param_k A = ss_typename_type_def_k allocator_selector<C>::allocator_type
 #else /* ? STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
-        ,   ss_typename_param_k T /* = stlsoft_char_traits<C> */
-        ,   ss_typename_param_k A /* = allocator_selector<C>::allocator_type */
+,   ss_typename_param_k T /* = stlsoft_char_traits<C> */
+,   ss_typename_param_k A /* = allocator_selector<C>::allocator_type */
 #endif /* STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
-        >
+>
 // class basic_simple_string
 class basic_simple_string
     : public stl_collection_tag
@@ -176,7 +181,11 @@ public:
     /// The allocator type
     typedef A                                               allocator_type;
     /// The current specialisation of the type
-    typedef basic_simple_string<C, T, A>                    class_type;
+    typedef basic_simple_string<
+        C
+    ,   T
+    ,   A
+    >                                                       class_type;
     /// The character type
     typedef value_type                                      char_type;
     /// The pointer type
@@ -191,29 +200,28 @@ public:
     typedef ss_size_t                                       size_type;
     /// The difference type
     typedef ss_ptrdiff_t                                    difference_type;
-
     /// The iterator type
     typedef
 #if !defined(STLSOFT_COMPILER_IS_BORLAND)
            ss_typename_type_k
 #endif /* compiler */
                        pointer_iterator<
-                            value_type
-                        ,   pointer
-                        ,   reference
-                        >::type                             iterator;
+        value_type
+    ,   pointer
+    ,   reference
+    >::type                                                 iterator;
     /// The non-mutating (const) iterator type
     typedef
 #if !defined(STLSOFT_COMPILER_IS_BORLAND)
          ss_typename_type_k
 #endif /* compiler */
                        pointer_iterator<
-                            value_type const
-                        ,   const_pointer
-                        ,   const_reference
-                        >::type                             const_iterator;
-
+        value_type const
+    ,   const_pointer
+    ,   const_reference
+    >::type                                                 const_iterator;
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
+
     /// The mutating (non-const) reverse iterator type
     typedef ss_typename_type_k reverse_iterator_generator<
         iterator
@@ -222,7 +230,6 @@ public:
     ,   pointer
     ,   difference_type
     >::type                                                 reverse_iterator;
-
     /// The non-mutating (const) reverse iterator type
     typedef ss_typename_type_k const_reverse_iterator_generator<
         const_iterator
@@ -232,17 +239,18 @@ public:
     ,   difference_type
     >::type                                                 const_reverse_iterator;
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
-
 private:
     /// The allocator type for allocating bytes
     ///
     /// \note This has to be defined here, rather than on a use-by-use basis, because
     /// Borland gets very upset.
 #ifdef STLSOFT_LF_ALLOCATOR_REBIND_SUPPORT
+
     typedef ss_typename_type_k A::ss_template_qual_k rebind<
         ss_byte_t
     >::other                                                byte_ator_type;
 #else /* ? STLSOFT_LF_ALLOCATOR_REBIND_SUPPORT */
+
     typedef ss_typename_type_k allocator_selector<
         ss_byte_t
     >::allocator_type                                       byte_ator_type;
@@ -253,7 +261,8 @@ private:
 /// @{
 public:
     /// Default constructor
-    basic_simple_string();
+    ss_constexpr_2014_k
+    basic_simple_string() STLSOFT_NOEXCEPT;
     /// Copy constructor
     basic_simple_string(class_type const& rhs);
     /// Construct from the given string at the specified position
@@ -272,7 +281,7 @@ public:
 #else /* ? STLSOFT_CF_MEMBER_TEMPLATE_RANGE_METHOD_SUPPORT */
     template <ss_typename_param_k II>
     basic_simple_string(II first, II last)
-        : m_buffer(NULL)
+        : m_buffer(ss_nullptr_k)
     {
         assign(first, last);
     }
@@ -285,6 +294,7 @@ public:
 #endif /* STLSOFT_CF_RVALUE_REFERENCES_SUPPORT */
 
     /// Destructor
+    ss_constexpr_2020_k
     ~basic_simple_string() STLSOFT_NOEXCEPT;
 /// @}
 
@@ -377,15 +387,17 @@ public:
 
     /// Appends a single character
     void push_back(char_type ch);
+    /// Removes the last character
+    void pop_back() STLSOFT_NOEXCEPT;
 /// @}
 
-/// \name Operations
+/// \name Modifiers
 /// @{
 public:
     /// Reserves at least cch characters
     void reserve(size_type cch);
     /// Swaps the contents between \c this and \c other
-    void swap(class_type& other);
+    void swap(class_type& other) STLSOFT_NOEXCEPT;
 
     /// Resizes the string
     ///
@@ -394,63 +406,82 @@ public:
     void resize(size_type cch, value_type ch = value_type());
 
     /// Empties the string
-    void clear();
+    void clear() STLSOFT_NOEXCEPT;
 /// @}
 
 /// \name Attributes
 /// @{
 public:
     /// The number of elements in the string
-    size_type size() const;
+    size_type size() const STLSOFT_NOEXCEPT;
     /// The maximum number of elements that can be stored in the string
-    size_type max_size() const;
+    size_type max_size() const STLSOFT_NOEXCEPT;
     /// The number of elements in the string
-    size_type length() const;
+    size_type length() const STLSOFT_NOEXCEPT;
     /// The storage currently allocated by the string
-    size_type capacity() const;
+    size_type capacity() const STLSOFT_NOEXCEPT;
     /// Indicates whether the string is empty
-    ss_bool_t empty() const;
+    ss_bool_t empty() const STLSOFT_NOEXCEPT;
 /// @}
 
 /// \name Comparison
 /// @{
 public:
-#if 0
-    /// Compares \c this with the given string
-    ss_sint_t equal(size_type pos, size_type cch, value_type const* s, size_type cchRhs) const;
-    /// Compares \c this with the given string
-    ss_sint_t equal(size_type pos, size_type cch, value_type const* s) const;
-    /// Compares \c this with the given string
-    ss_sint_t equal(value_type const* s) const;
-    /// Compares \c this with the given string
-    ss_sint_t equal(size_type pos, size_type cch, class_type const& rhs, size_type posRhs, size_type cchRhs) const;
-    /// Compares \c this with the given string
-    ss_sint_t equal(size_type pos, size_type cch, class_type const& rhs) const;
-    /// Compares \c this with the given string
-    ss_sint_t equal(class_type const& rhs) const;
-#endif /* 0 */
+    /// Equates the substring [pos, pos+cch) of \c this with the substring [0, cchRhs) of the given C-style string \c s
+    ss_bool_t equal(size_type pos, size_type cch, value_type const* s, size_type cchRhs) const STLSOFT_NOEXCEPT;
+    /// Equates the substring [pos, pos+cch) of \c this with the given C-style string \c s
+    ss_bool_t equal(size_type pos, size_type cch, value_type const* s) const STLSOFT_NOEXCEPT;
+    /// Equates \c this with the given C-style string \c s
+    ss_bool_t equal(value_type const* s) const STLSOFT_NOEXCEPT;
+    /// Equates the substring [pos, pos+cch) of \c this with the substring [posRhs, posRhs+cchRhs) of the given string \c rhs
+    ss_bool_t equal(size_type pos, size_type cch, class_type const& rhs, size_type posRhs, size_type cchRhs) const STLSOFT_NOEXCEPT;
+    /// Equates the substring [pos, pos+cch) of \c this with the given string
+    ss_bool_t equal(size_type pos, size_type cch, class_type const& rhs) const STLSOFT_NOEXCEPT;
+    /// Equates \c this with the given string \c rhs
+    ss_bool_t equal(class_type const& rhs) const STLSOFT_NOEXCEPT;
 
-    /// Compares \c this with the given string
-    ss_sint_t compare(size_type pos, size_type cch, value_type const* s, size_type cchRhs) const;
-    /// Compares \c this with the given string
-    ss_sint_t compare(size_type pos, size_type cch, value_type const* s) const;
-    /// Compares \c this with the given string
-    ss_sint_t compare(value_type const* s) const;
-    /// Compares \c this with the given string
-    ss_sint_t compare(size_type pos, size_type cch, class_type const& rhs, size_type posRhs, size_type cchRhs) const;
-    /// Compares \c this with the given string
-    ss_sint_t compare(size_type pos, size_type cch, class_type const& rhs) const;
-    /// Compares \c this with the given string
-    ss_sint_t compare(class_type const& rhs) const;
+    /// Compares the substring [pos, pos+cch) of \c this with the substring [0, cchRhs) of the given C-style string \c s
+    ss_sint_t compare(size_type pos, size_type cch, value_type const* s, size_type cchRhs) const STLSOFT_NOEXCEPT;
+    /// Compares the substring [pos, pos+cch) of \c this with the given C-style string \c s
+    ss_sint_t compare(size_type pos, size_type cch, value_type const* s) const STLSOFT_NOEXCEPT;
+    /// Compares \c this with the given C-style string \c s
+    ss_sint_t compare(value_type const* s) const STLSOFT_NOEXCEPT;
+    /// Compares the substring [pos, pos+cch) of \c this with the substring [posRhs, posRhs+cchRhs) of the given string \c rhs
+    ss_sint_t compare(size_type pos, size_type cch, class_type const& rhs, size_type posRhs, size_type cchRhs) const STLSOFT_NOEXCEPT;
+    /// Compares the substring [pos, pos+cch) of \c this with the given string \c rhs
+    ss_sint_t compare(size_type pos, size_type cch, class_type const& rhs) const STLSOFT_NOEXCEPT;
+    /// Compares \c this with the given string \c rhs
+    ss_sint_t compare(class_type const& rhs) const STLSOFT_NOEXCEPT;
+
+    /// Indicates whether the string contains the string \c s
+    bool contains(class_type const& s) const STLSOFT_NOEXCEPT;
+    /// Indicates whether the string contains the C-style string \c s
+    bool contains(char_type const* s) const STLSOFT_NOEXCEPT;
+    /// Indicates whether the string contains the character \c ch
+    bool contains(char_type ch) const STLSOFT_NOEXCEPT;
+
+    /// Indicates whether the string starts with the string \c s
+    bool starts_with(class_type const& s) const STLSOFT_NOEXCEPT;
+    /// Indicates whether the string starts with the C-style string \c s
+    bool starts_with(char_type const* s) const STLSOFT_NOEXCEPT;
+    /// Indicates whether the string starts with the character \c ch
+    bool starts_with(char_type ch) const STLSOFT_NOEXCEPT;
+
+    /// Indicates whether the string ends with the string \c s
+    bool ends_with(class_type const& s) const STLSOFT_NOEXCEPT;
+    /// Indicates whether the string ends with the C-style string \c s
+    bool ends_with(char_type const* s) const STLSOFT_NOEXCEPT;
+    /// Indicates whether the string ends with the character \c ch
+    bool ends_with(char_type ch) const STLSOFT_NOEXCEPT;
 /// @}
 
 /// \name Accessors
 /// @{
 public:
     /// Returns mutable reference at the given index
-    reference       operator [](size_type index);
+    reference       operator [](size_type index) STLSOFT_NOEXCEPT;
     /// Returns non-mutable (const) reference at the given index
-    const_reference operator [](size_type index) const;
+    const_reference operator [](size_type index) const STLSOFT_NOEXCEPT;
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
     /// Returns mutable (non-const) reference at the given index
@@ -469,29 +500,33 @@ public:
 #endif /* !STLSOFT_CF_EXCEPTION_SUPPORT */
 
     /// Returns null-terminated non-mutable (const) pointer to string data
-    value_type const*       c_str() const;
+    value_type const*       c_str() const STLSOFT_NOEXCEPT;
     /// Returns non-mutable (const) pointer to string data
-    value_type const*       data() const;
+    value_type const*       data() const STLSOFT_NOEXCEPT;
 
     /// Returns the first character in the string
     ///
     /// \note It is us to the user to ensure that the string is not empty
-    reference               front();
+    reference               front() STLSOFT_NOEXCEPT;
     /// Returns the last character in the string
     ///
     /// \note It is us to the user to ensure that the string is not empty
-    reference               back();
+    reference               back() STLSOFT_NOEXCEPT;
     /// Returns the first character in the string
     ///
     /// \note It is us to the user to ensure that the string is not empty
-    const_reference         front() const;
+    const_reference         front() const STLSOFT_NOEXCEPT;
     /// Returns the last character in the string
     ///
     /// \note It is us to the user to ensure that the string is not empty
-    const_reference         back() const;
+    const_reference         back() const STLSOFT_NOEXCEPT;
 
     /// Copies elements into the given destination
-    size_type copy(value_type* dest, size_type cch, size_type pos = 0) const;
+    size_type copy(
+        value_type* dest
+    ,   size_type   cch
+    ,   size_type   pos = 0
+    ) const STLSOFT_NOEXCEPT;
 /// @}
 
 /// \name Iteration
@@ -501,50 +536,50 @@ public:
     ///
     /// \return A non-mutable (const) iterator representing the start of the sequence
 #ifdef STLSOFT_SIMPLE_STRING_ITERATOR_METHODS_INLINE
-    const_iterator          begin() const
+    const_iterator          begin() const STLSOFT_NOEXCEPT
     {
         return const_cast<class_type*>(this)->begin_();
     }
 #else /* ? STLSOFT_SIMPLE_STRING_ITERATOR_METHODS_INLINE */
-    const_iterator          begin() const;
+    const_iterator          begin() const STLSOFT_NOEXCEPT;
 #endif /* STLSOFT_SIMPLE_STRING_ITERATOR_METHODS_INLINE */
     /// Ends the iteration
     ///
     /// \return A non-mutable (const) iterator representing the end of the sequence
 #ifdef STLSOFT_SIMPLE_STRING_ITERATOR_METHODS_INLINE
-    const_iterator          end() const
+    const_iterator          end() const STLSOFT_NOEXCEPT
     {
         return const_cast<class_type*>(this)->end_();
     }
 #else /* ? STLSOFT_SIMPLE_STRING_ITERATOR_METHODS_INLINE */
-    const_iterator          end() const;
+    const_iterator          end() const STLSOFT_NOEXCEPT;
 #endif /* STLSOFT_SIMPLE_STRING_ITERATOR_METHODS_INLINE */
     /// Begins the iteration
     ///
     /// \return An iterator representing the start of the sequence
-    iterator                begin();
+    iterator                begin() STLSOFT_NOEXCEPT;
     /// Ends the iteration
     ///
     /// \return An iterator representing the end of the sequence
-    iterator                end();
+    iterator                end() STLSOFT_NOEXCEPT;
 
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
     /// Begins the reverse iteration
     ///
     /// \return A non-mutable (const) iterator representing the start of the reverse sequence
-    const_reverse_iterator  rbegin() const;
+    const_reverse_iterator  rbegin() const STLSOFT_NOEXCEPT;
     /// Ends the reverse iteration
     ///
     /// \return A non-mutable (const) iterator representing the end of the reverse sequence
-    const_reverse_iterator  rend() const;
+    const_reverse_iterator  rend() const STLSOFT_NOEXCEPT;
     /// Begins the reverse iteration
     ///
     /// \return An iterator representing the start of the reverse sequence
-    reverse_iterator        rbegin();
+    reverse_iterator        rbegin() STLSOFT_NOEXCEPT;
     /// Ends the reverse iteration
     ///
     /// \return An iterator representing the end of the reverse sequence
-    reverse_iterator        rend();
+    reverse_iterator        rend() STLSOFT_NOEXCEPT;
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
 /// @}
 
@@ -560,8 +595,9 @@ private:
         char_type   contents[1];    // The first element in the array
     };
 
-    typedef auto_buffer_old<
+    typedef auto_buffer<
         char_type
+    ,   auto_buffer_internal_size_calculator<char_type>::value
     ,   allocator_type
     >                                                       buffer_type_;
 
@@ -574,14 +610,14 @@ private:
 #endif /* STLSOFT_SIMPLE_STRING_NO_PTR_ADJUST */
 
     // Conversion between member pointer and character pointer
-    static char_type*           char_pointer_from_member_pointer_(member_pointer );
+    static char_type*           char_pointer_from_member_pointer_(member_pointer ) STLSOFT_NOEXCEPT;
 
     // Conversion between pointer and buffer
-    static string_buffer*       string_buffer_from_member_pointer_(member_pointer );
-    static string_buffer const* string_buffer_from_member_pointer_(member_const_pointer );
+    static ss_constexpr_2014_k string_buffer*       string_buffer_from_member_pointer_(member_pointer ) STLSOFT_NOEXCEPT;
+    static ss_constexpr_2014_k string_buffer const* string_buffer_from_member_pointer_(member_const_pointer ) STLSOFT_NOEXCEPT;
 
     // Conversion between buffer and pointer
-    static member_pointer       member_pointer_from_string_buffer_(string_buffer*);
+    static member_pointer       member_pointer_from_string_buffer_(string_buffer*) STLSOFT_NOEXCEPT;
 
     // Creating buffer
     static member_pointer       alloc_buffer_(char_type const* s, size_type capacity, size_type length);
@@ -592,21 +628,54 @@ private:
     static member_pointer       copy_buffer_(member_pointer );
 
     // Destroying buffer
-    static void                 destroy_buffer_(string_buffer*);
-    static void                 destroy_buffer_(char_type*);
+    static void                 destroy_buffer_(string_buffer*) STLSOFT_NOEXCEPT;
+    static void                 destroy_buffer_(char_type*) STLSOFT_NOEXCEPT;
 
     // Iteration
-    pointer                     begin_();
-    pointer                     end_();
+    pointer                     begin_() STLSOFT_NOEXCEPT;
+    pointer                     end_() STLSOFT_NOEXCEPT;
 
     // Invariance
-    ss_bool_t is_valid() const;
+    ss_constexpr_2014_k
+    ss_bool_t is_valid() const STLSOFT_NOEXCEPT;
 
     // Empty string
-    static char_type const* empty_string_();
+    static char_type const* empty_string_() STLSOFT_NOEXCEPT;
 
     // Comparison
-    static ss_sint_t compare_(char_type const* lhs, size_type lhs_len, char_type const* rhs, size_type rhs_len);
+    static ss_sint_t compare_(
+        char_type const*    lhs
+    ,   size_type           lhs_len
+    ,   char_type const*    rhs
+    ,   size_type           rhs_len
+    ) STLSOFT_NOEXCEPT;
+
+    // testing known-length lhs against css rhs
+    static ss_bool_t equal_(
+        char_type const*    lhs
+    ,   size_type           lhs_len
+    ,   char_type const*    rhs
+    ) STLSOFT_NOEXCEPT;
+    // testing same-known-length lhs and rhs
+    static ss_bool_t equal_(
+        char_type const*    lhs
+    ,   char_type const*    rhs
+    ,   size_type           len
+    ) STLSOFT_NOEXCEPT;
+
+    bool contains_(
+        char_type const*    s
+    ,   size_type           n
+    ) const STLSOFT_NOEXCEPT;
+    bool starts_with_(
+        char_type const*    s
+    ,   size_type           n
+    ) const STLSOFT_NOEXCEPT;
+    bool ends_with_(
+        char_type const*    s
+    ,   size_type           n
+    ) const STLSOFT_NOEXCEPT;
+
 
     // Assignment
 #if defined(STLSOFT_CF_MEMBER_TEMPLATE_RANGE_METHOD_SUPPORT)
@@ -686,6 +755,7 @@ private:
 /// @}
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * typedefs
  */
@@ -705,6 +775,7 @@ typedef basic_simple_string<
 ,   allocator_selector<ss_char_w_t>::allocator_type
 >                                                           simple_wstring;
 #endif /* STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * traits
@@ -745,7 +816,7 @@ struct string_traits<
         ,   char_type_size      =   sizeof(char_type)
     };
 
-    static string_type empty_string()
+    static string_type empty_string() STLSOFT_NOEXCEPT
     {
         return string_type();
     }
@@ -755,9 +826,9 @@ struct string_traits<
     }
 # ifdef STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT
     template <ss_typename_param_k I>
-    static string_type &assign_inplace(string_type &str, I first, I last)
+    static string_type& assign_inplace(string_type& str, I first, I last)
 # else /* ? STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
-    static string_type &assign_inplace(string_type &str, const_iterator first, const_iterator last)
+    static string_type& assign_inplace(string_type& str, const_iterator first, const_iterator last)
 # endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
     {
         // simple_string can assign in-place
@@ -798,9 +869,9 @@ struct string_traits<simple_string>
     }
 # ifdef STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT
     template <ss_typename_param_k I>
-    static string_type &assign_inplace(string_type &str, I first, I last)
+    static string_type& assign_inplace(string_type& str, I first, I last)
 # else /* ? STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
-    static string_type &assign_inplace(string_type &str, const_iterator first, const_iterator last)
+    static string_type& assign_inplace(string_type& str, const_iterator first, const_iterator last)
 # endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
     {
         // simple_string can assign in-place
@@ -841,9 +912,9 @@ struct string_traits<simple_wstring>
     }
 # ifdef STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT
     template <ss_typename_param_k I>
-    static string_type &assign_inplace(string_type &str, I first, I last)
+    static string_type& assign_inplace(string_type& str, I first, I last)
 # else /* ? STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
-    static string_type &assign_inplace(string_type &str, const_iterator first, const_iterator last)
+    static string_type& assign_inplace(string_type& str, const_iterator first, const_iterator last)
 # endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
     {
         // simple_string can assign in-place
@@ -851,6 +922,7 @@ struct string_traits<simple_wstring>
     }
 };
 # endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * operators
@@ -860,36 +932,60 @@ struct string_traits<simple_wstring>
 
 // operator ==
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_bool_t operator ==(basic_simple_string<C, T, A> const& lhs, basic_simple_string<C, T, A> const& rhs)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+operator ==(
+    basic_simple_string<C, T, A> const& lhs
+,   basic_simple_string<C, T, A> const& rhs
+)
 {
     return 0 == lhs.compare(rhs);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
 #ifdef STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT
-inline ss_bool_t operator ==(basic_simple_string<C, T, A> const& lhs, ss_typename_type_k basic_simple_string<C, T, A>::char_type const* rhs)
+operator ==(
+    basic_simple_string<C, T, A> const&                                 lhs
+,   ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   rhs
+)
 #else /* ? STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
-inline ss_bool_t operator ==(basic_simple_string<C, T, A> const& lhs, C const* rhs)
+operator ==(
+    basic_simple_string<C, T, A> const& lhs
+,   C const*                            rhs
+)
 #endif /* STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
 {
     return 0 == lhs.compare(rhs);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
 #ifdef STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT
-inline ss_bool_t operator ==(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* lhs, basic_simple_string<C, T, A> const& rhs)
+operator ==(
+    ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   lhs
+,   basic_simple_string<C, T, A> const&                                 rhs
+)
 #else /* ? STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
-inline ss_bool_t operator ==(C *lhs, basic_simple_string<C, T, A> const& rhs)
+operator ==(
+    C const*                            lhs
+,   basic_simple_string<C, T, A> const& rhs
+)
 #endif /* STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
 {
     return 0 == rhs.compare(lhs);
@@ -897,34 +993,60 @@ inline ss_bool_t operator ==(C *lhs, basic_simple_string<C, T, A> const& rhs)
 
 // operator !=
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_bool_t operator !=(basic_simple_string<C, T, A> const& lhs, basic_simple_string<C, T, A> const& rhs)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+operator !=(
+    basic_simple_string<C, T, A> const& lhs
+,   basic_simple_string<C, T, A> const& rhs
+)
 {
     return 0 != lhs.compare(rhs);
 }
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
 #ifdef STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT
-inline ss_bool_t operator !=(basic_simple_string<C, T, A> const& lhs, ss_typename_type_k basic_simple_string<C, T, A>::char_type const* rhs)
+operator !=(
+    basic_simple_string<C, T, A> const&                                 lhs
+,   ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   rhs
+)
 #else /* ? STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
-inline ss_bool_t operator !=(basic_simple_string<C, T, A> const& lhs, C const* rhs)
+operator !=(
+    basic_simple_string<C, T, A> const& lhs
+,   C const*                            rhs
+)
 #endif /* STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
 {
     return 0 != lhs.compare(rhs);
 }
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
 #ifdef STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT
-inline ss_bool_t operator !=(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* lhs, basic_simple_string<C, T, A> const& rhs)
+operator !=(
+    ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   lhs
+,   basic_simple_string<C, T, A> const&                                 rhs
+)
 #else /* ? STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
-inline ss_bool_t operator !=(C const* lhs, basic_simple_string<C, T, A> const& rhs)
+operator !=(
+    C const*                            lhs
+,   basic_simple_string<C, T, A> const& rhs
+)
 #endif /* STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
 {
     return 0 != rhs.compare(lhs);
@@ -932,36 +1054,60 @@ inline ss_bool_t operator !=(C const* lhs, basic_simple_string<C, T, A> const& r
 
 // operator <
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_bool_t operator <(basic_simple_string<C, T, A> const& lhs, basic_simple_string<C, T, A> const& rhs)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+operator <(
+    basic_simple_string<C, T, A> const& lhs
+,   basic_simple_string<C, T, A> const& rhs
+)
 {
     return lhs.compare(rhs) < 0;
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
 #ifdef STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT
-inline ss_bool_t operator <(basic_simple_string<C, T, A> const& lhs, ss_typename_type_k basic_simple_string<C, T, A>::char_type const* rhs)
+operator <(
+    basic_simple_string<C, T, A> const&                                 lhs
+,   ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   rhs
+)
 #else /* ? STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
-inline ss_bool_t operator <(basic_simple_string<C, T, A> const& lhs, C const* rhs)
+operator <(
+    basic_simple_string<C, T, A> const& lhs
+,   C const*                            rhs
+)
 #endif /* STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
 {
     return lhs.compare(rhs) < 0;
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
 #ifdef STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT
-inline ss_bool_t operator <(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* lhs, basic_simple_string<C, T, A> const& rhs)
+operator <(
+    ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   lhs
+,   basic_simple_string<C, T, A> const&                                 rhs
+)
 #else /* ? STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
-inline ss_bool_t operator <(C const* lhs, basic_simple_string<C, T, A> const& rhs)
+operator <(
+    C const*                            lhs
+,   basic_simple_string<C, T, A> const& rhs
+)
 #endif /* STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
 {
     return rhs.compare(lhs) > 0;
@@ -969,34 +1115,60 @@ inline ss_bool_t operator <(C const* lhs, basic_simple_string<C, T, A> const& rh
 
 // operator <=
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_bool_t operator <=(basic_simple_string<C, T, A> const& lhs, basic_simple_string<C, T, A> const& rhs)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+operator <=(
+    basic_simple_string<C, T, A> const& lhs
+,   basic_simple_string<C, T, A> const& rhs
+)
 {
     return lhs.compare(rhs) <= 0;
 }
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
 #ifdef STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT
-inline ss_bool_t operator <=(basic_simple_string<C, T, A> const& lhs, ss_typename_type_k basic_simple_string<C, T, A>::char_type const* rhs)
+operator <=(
+    basic_simple_string<C, T, A> const&                                 lhs
+,   ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   rhs
+)
 #else /* ? STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
-inline ss_bool_t operator <=(basic_simple_string<C, T, A> const& lhs, C const* rhs)
+operator <=(
+    basic_simple_string<C, T, A> const& lhs
+,   C const*                            rhs
+)
 #endif /* STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
 {
     return lhs.compare(rhs) <= 0;
 }
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
 #ifdef STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT
-inline ss_bool_t operator <=(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* lhs, basic_simple_string<C, T, A> const& rhs)
+operator <=(
+    ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   lhs
+,   basic_simple_string<C, T, A> const&                                 rhs
+)
 #else /* ? STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
-inline ss_bool_t operator <=(C const* lhs, basic_simple_string<C, T, A> const& rhs)
+operator <=(
+    C const*                            lhs
+,   basic_simple_string<C, T, A> const& rhs
+)
 #endif /* STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
 {
     return rhs.compare(lhs) >= 0;
@@ -1004,34 +1176,60 @@ inline ss_bool_t operator <=(C const* lhs, basic_simple_string<C, T, A> const& r
 
 // operator >
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_bool_t operator >(basic_simple_string<C, T, A> const& lhs, basic_simple_string<C, T, A> const& rhs)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+operator >(
+    basic_simple_string<C, T, A> const& lhs
+,   basic_simple_string<C, T, A> const& rhs
+)
 {
     return lhs.compare(rhs) > 0;
 }
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
 #ifdef STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT
-inline ss_bool_t operator >(basic_simple_string<C, T, A> const& lhs, ss_typename_type_k basic_simple_string<C, T, A>::char_type const* rhs)
+operator >(
+    basic_simple_string<C, T, A> const&                                 lhs
+,   ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   rhs
+)
 #else /* ? STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
-inline ss_bool_t operator >(basic_simple_string<C, T, A> const& lhs, C const* rhs)
+operator >(
+    basic_simple_string<C, T, A> const& lhs
+,   C const*                            rhs
+)
 #endif /* STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
 {
     return lhs.compare(rhs) > 0;
 }
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
 #ifdef STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT
-inline ss_bool_t operator >(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* lhs, basic_simple_string<C, T, A> const& rhs)
+operator >(
+    ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   lhs
+,   basic_simple_string<C, T, A> const&                                 rhs
+)
 #else /* ? STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
-inline ss_bool_t operator >(C const* lhs, basic_simple_string<C, T, A> const& rhs)
+operator >(
+    C const*                            lhs
+,   basic_simple_string<C, T, A> const& rhs
+)
 #endif /* STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
 {
     return rhs.compare(lhs) < 0;
@@ -1039,34 +1237,60 @@ inline ss_bool_t operator >(C const* lhs, basic_simple_string<C, T, A> const& rh
 
 // operator >=
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_bool_t operator >=(basic_simple_string<C, T, A> const& lhs, basic_simple_string<C, T, A> const& rhs)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+operator >=(
+    basic_simple_string<C, T, A> const& lhs
+,   basic_simple_string<C, T, A> const& rhs
+)
 {
     return lhs.compare(rhs) >= 0;
 }
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
 #ifdef STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT
-inline ss_bool_t operator >=(basic_simple_string<C, T, A> const& lhs, ss_typename_type_k basic_simple_string<C, T, A>::char_type const* rhs)
+operator >=(
+    basic_simple_string<C, T, A> const&                                 lhs
+,   ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   rhs
+)
 #else /* ? STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
-inline ss_bool_t operator >=(basic_simple_string<C, T, A> const& lhs, C const* rhs)
+operator >=(
+    basic_simple_string<C, T, A> const& lhs
+,   C const*                            rhs
+)
 #endif /* STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
 {
     return lhs.compare(rhs) >= 0;
 }
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
 #ifdef STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT
-inline ss_bool_t operator >=(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* lhs, basic_simple_string<C, T, A> const& rhs)
+operator >=(
+    ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   lhs
+,   basic_simple_string<C, T, A> const&                                 rhs
+)
 #else /* ? STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
-inline ss_bool_t operator >=(C const* lhs, basic_simple_string<C, T, A> const& rhs)
+operator >=(
+    C const*                            lhs
+,   basic_simple_string<C, T, A> const& rhs
+)
 #endif /* STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
 {
     return rhs.compare(lhs) <= 0;
@@ -1074,64 +1298,111 @@ inline ss_bool_t operator >=(C const* lhs, basic_simple_string<C, T, A> const& r
 
 // operator +
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline basic_simple_string<C, T, A> operator +(basic_simple_string<C, T, A> const& lhs, basic_simple_string<C, T, A> const& rhs)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+basic_simple_string<C, T, A>
+operator +(
+    basic_simple_string<C, T, A> const& lhs
+,   basic_simple_string<C, T, A> const& rhs
+)
 {
     return basic_simple_string<C, T, A>(lhs) += rhs;
 }
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+basic_simple_string<C, T, A>
 #ifdef STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT
-inline basic_simple_string<C, T, A> operator +(basic_simple_string<C, T, A> const& lhs, ss_typename_type_k basic_simple_string<C, T, A>::char_type const* rhs)
+operator +(
+    basic_simple_string<C, T, A> const&                                 lhs
+,   ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   rhs
+)
 #else /* ? STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
-inline basic_simple_string<C, T, A> operator +(basic_simple_string<C, T, A> const& lhs, C const* rhs)
+operator +(
+    basic_simple_string<C, T, A> const& lhs
+,   C const*                            rhs
+)
 #endif /* STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
 {
     return basic_simple_string<C, T, A>(lhs) += rhs;
 }
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+basic_simple_string<C, T, A>
 #ifdef STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT
-inline basic_simple_string<C, T, A> operator +(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* lhs, basic_simple_string<C, T, A> const& rhs)
+operator +(
+    ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   lhs
+,   basic_simple_string<C, T, A> const&                                 rhs
+)
 #else /* ? STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
-inline basic_simple_string<C, T, A> operator +(C const* lhs, basic_simple_string<C, T, A> const& rhs)
+operator +(
+    C const*                            lhs
+,   basic_simple_string<C, T, A> const& rhs
+)
 #endif /* STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
 {
     return basic_simple_string<C, T, A>(lhs) += rhs;
 }
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+basic_simple_string<C, T, A>
 #ifdef STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT
-inline basic_simple_string<C, T, A> operator +(basic_simple_string<C, T, A> const& lhs, ss_typename_type_k basic_simple_string<C, T, A>::char_type rhs)
+operator +(
+    basic_simple_string<C, T, A> const&                         lhs
+,   ss_typename_type_k basic_simple_string<C, T, A>::char_type  rhs
+)
 #else /* ? STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
-inline basic_simple_string<C, T, A> operator +(basic_simple_string<C, T, A> const& lhs, C rhs)
+operator +(
+    basic_simple_string<C, T, A> const& lhs
+,   C                                   rhs
+)
 #endif /* STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
 {
     return basic_simple_string<C, T, A>(lhs) += rhs;
 }
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+basic_simple_string<C, T, A>
 #ifdef STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT
-inline basic_simple_string<C, T, A> operator +(ss_typename_type_k basic_simple_string<C, T, A>::char_type lhs, basic_simple_string<C, T, A> const& rhs)
+operator +(
+    ss_typename_type_k basic_simple_string<C, T, A>::char_type  lhs
+,   basic_simple_string<C, T, A> const&                         rhs
+)
 #else /* ? STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
-inline basic_simple_string<C, T, A> operator +(C lhs, basic_simple_string<C, T, A> const& rhs)
+operator +(
+    C                                   lhs
+,   basic_simple_string<C, T, A> const& rhs
+)
 #endif /* STLSOFT_CF_TEMPLATE_OUTOFCLASSFN_QUALIFIED_TYPE_SUPPORT */
 {
     return basic_simple_string<C, T, A>(1, lhs) += rhs;
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * shims
@@ -1143,20 +1414,28 @@ inline basic_simple_string<C, T, A> operator +(C lhs, basic_simple_string<C, T, 
  *
  * \ingroup group__library__String
  */
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline C const* c_str_ptr_null(basic_simple_string<C, T, A> const& s)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+C const*
+c_str_ptr_null(basic_simple_string<C, T, A> const& s)
 {
-    return (0 == s.length()) ? NULL : s.c_str();
+    return (0 == s.length()) ? ss_nullptr_k : s.c_str();
 }
 /** char variant of c_str_ptr_null for basic_simple_string specialisations
  *
  * \ingroup group__library__String
  */
-template<ss_typename_param_k T, ss_typename_param_k A>
-inline ss_char_a_t const* c_str_ptr_null_a(basic_simple_string<ss_char_a_t, T, A> const& s)
+template <
+    ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_char_a_t const*
+c_str_ptr_null_a(basic_simple_string<ss_char_a_t, T, A> const& s)
 {
     return c_str_ptr_null(s);
 }
@@ -1164,8 +1443,13 @@ inline ss_char_a_t const* c_str_ptr_null_a(basic_simple_string<ss_char_a_t, T, A
  *
  * \ingroup group__library__String
  */
-template<ss_typename_param_k T, ss_typename_param_k A>
-inline ss_char_w_t const* c_str_ptr_null_w(basic_simple_string<ss_char_w_t, T, A> const& s)
+template <
+    ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_char_w_t const*
+c_str_ptr_null_w(basic_simple_string<ss_char_w_t, T, A> const& s)
 {
     return c_str_ptr_null(s);
 }
@@ -1176,11 +1460,14 @@ inline ss_char_w_t const* c_str_ptr_null_w(basic_simple_string<ss_char_w_t, T, A
  *
  * \ingroup group__library__String
  */
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline C const* c_str_ptr(basic_simple_string<C, T, A> const& s)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+C const*
+c_str_ptr(basic_simple_string<C, T, A> const& s)
 {
     return s.c_str();
 }
@@ -1188,8 +1475,13 @@ inline C const* c_str_ptr(basic_simple_string<C, T, A> const& s)
  *
  * \ingroup group__library__String
  */
-template<ss_typename_param_k T, ss_typename_param_k A>
-inline ss_char_a_t const* c_str_ptr_a(basic_simple_string<ss_char_a_t, T, A> const& s)
+template <
+    ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_char_a_t const*
+c_str_ptr_a(basic_simple_string<ss_char_a_t, T, A> const& s)
 {
     return c_str_ptr(s);
 }
@@ -1197,8 +1489,13 @@ inline ss_char_a_t const* c_str_ptr_a(basic_simple_string<ss_char_a_t, T, A> con
  *
  * \ingroup group__library__String
  */
-template<ss_typename_param_k T, ss_typename_param_k A>
-inline ss_char_w_t const* c_str_ptr_w(basic_simple_string<ss_char_w_t, T, A> const& s)
+template <
+    ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_char_w_t const*
+c_str_ptr_w(basic_simple_string<ss_char_w_t, T, A> const& s)
 {
     return c_str_ptr(s);
 }
@@ -1209,11 +1506,14 @@ inline ss_char_w_t const* c_str_ptr_w(basic_simple_string<ss_char_w_t, T, A> con
  *
  * \ingroup group__library__String
  */
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline C const* c_str_data(basic_simple_string<C, T, A> const& s)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+C const*
+c_str_data(basic_simple_string<C, T, A> const& s)
 {
     return s.data();
 }
@@ -1221,8 +1521,13 @@ inline C const* c_str_data(basic_simple_string<C, T, A> const& s)
  *
  * \ingroup group__library__String
  */
-template<ss_typename_param_k T, ss_typename_param_k A>
-inline ss_char_a_t const* c_str_data_a(basic_simple_string<ss_char_a_t, T, A> const& s)
+template <
+    ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_char_a_t const*
+c_str_data_a(basic_simple_string<ss_char_a_t, T, A> const& s)
 {
     return c_str_data(s);
 }
@@ -1230,8 +1535,13 @@ inline ss_char_a_t const* c_str_data_a(basic_simple_string<ss_char_a_t, T, A> co
  *
  * \ingroup group__library__String
  */
-template<ss_typename_param_k T, ss_typename_param_k A>
-inline ss_char_w_t const* c_str_data_w(basic_simple_string<ss_char_w_t, T, A> const& s)
+template <
+    ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_char_w_t const*
+c_str_data_w(basic_simple_string<ss_char_w_t, T, A> const& s)
 {
     return c_str_data(s);
 }
@@ -1242,11 +1552,14 @@ inline ss_char_w_t const* c_str_data_w(basic_simple_string<ss_char_w_t, T, A> co
  *
  * \ingroup group__library__String
  */
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_size_t c_str_len(basic_simple_string<C, T, A> const& s)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_size_t
+c_str_len(basic_simple_string<C, T, A> const& s)
 {
     return s.length();
 }
@@ -1254,8 +1567,13 @@ inline ss_size_t c_str_len(basic_simple_string<C, T, A> const& s)
  *
  * \ingroup group__library__String
  */
-template<ss_typename_param_k T, ss_typename_param_k A>
-inline ss_size_t c_str_len_a(basic_simple_string<ss_char_a_t, T, A> const& s)
+template <
+    ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_size_t
+c_str_len_a(basic_simple_string<ss_char_a_t, T, A> const& s)
 {
     return c_str_len(s);
 }
@@ -1263,12 +1581,16 @@ inline ss_size_t c_str_len_a(basic_simple_string<ss_char_a_t, T, A> const& s)
  *
  * \ingroup group__library__String
  */
-template<ss_typename_param_k T, ss_typename_param_k A>
-inline ss_size_t c_str_len_w(basic_simple_string<ss_char_w_t, T, A> const& s)
+template <
+    ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_size_t
+c_str_len_w(basic_simple_string<ss_char_w_t, T, A> const& s)
 {
     return c_str_len(s);
 }
-
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -1300,14 +1622,21 @@ operator <<(
  * swapping
  */
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline void swap(basic_simple_string<C, T, A>& lhs, basic_simple_string<C, T, A>& rhs)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+void
+swap(
+    basic_simple_string<C, T, A>& lhs
+,   basic_simple_string<C, T, A>& rhs
+)
 {
     lhs.swap(rhs);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * implementation
@@ -1317,68 +1646,96 @@ inline void swap(basic_simple_string<C, T, A>& lhs, basic_simple_string<C, T, A>
 
 // Implementation
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline /* static */ ss_typename_type_ret_k basic_simple_string<C, T, A>::char_type* basic_simple_string<C, T, A>::char_pointer_from_member_pointer_(ss_typename_type_k basic_simple_string<C, T, A>::member_pointer m)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+/* static */
+ss_typename_type_ret_k basic_simple_string<C, T, A>::char_type*
+basic_simple_string<C, T, A>::char_pointer_from_member_pointer_(ss_typename_type_k basic_simple_string<C, T, A>::member_pointer m) STLSOFT_NOEXCEPT
 {
 #ifdef STLSOFT_SIMPLE_STRING_NO_PTR_ADJUST
-    return (NULL == m) ? NULL : m->contents;
+
+    return (ss_nullptr_k == m) ? ss_nullptr_k : m->contents;
 #else /* ? STLSOFT_SIMPLE_STRING_NO_PTR_ADJUST */
+
     return m;
 #endif /* STLSOFT_SIMPLE_STRING_NO_PTR_ADJUST */
 }
 
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline /* static */ ss_typename_type_ret_k basic_simple_string<C, T, A>::string_buffer* basic_simple_string<C, T, A>::string_buffer_from_member_pointer_(ss_typename_type_k basic_simple_string<C, T, A>::member_pointer m)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+/* static */
+ss_constexpr_2014_k
+ss_typename_type_ret_k basic_simple_string<C, T, A>::string_buffer*
+basic_simple_string<C, T, A>::string_buffer_from_member_pointer_(ss_typename_type_k basic_simple_string<C, T, A>::member_pointer m) STLSOFT_NOEXCEPT
 {
-    STLSOFT_MESSAGE_ASSERT("Attempt to convert a null string_buffer in basic_simple_string", NULL != m);
+    STLSOFT_MESSAGE_ASSERT("Attempt to convert a null string_buffer in basic_simple_string", ss_nullptr_k != m);
 
 #ifdef STLSOFT_SIMPLE_STRING_NO_PTR_ADJUST
+
     return m;
 #else /* ? STLSOFT_SIMPLE_STRING_NO_PTR_ADJUST */
+
     return reinterpret_cast<string_buffer*>(const_cast<void*>(ptr_byte_offset(m, -static_cast<ss_ptrdiff_t>(STLSOFT_RAW_OFFSETOF(string_buffer, contents)))));
 #endif /* STLSOFT_SIMPLE_STRING_NO_PTR_ADJUST */
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline /* static */ ss_typename_type_ret_k basic_simple_string<C, T, A>::string_buffer const* basic_simple_string<C, T, A>::string_buffer_from_member_pointer_(ss_typename_type_k basic_simple_string<C, T, A>::member_const_pointer m)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+/* static */
+ss_constexpr_2014_k
+ss_typename_type_ret_k basic_simple_string<C, T, A>::string_buffer const*
+basic_simple_string<C, T, A>::string_buffer_from_member_pointer_(ss_typename_type_k basic_simple_string<C, T, A>::member_const_pointer m) STLSOFT_NOEXCEPT
 {
-    STLSOFT_MESSAGE_ASSERT("Attempt to convert a null string_buffer in basic_simple_string", NULL != m);
+    STLSOFT_MESSAGE_ASSERT("Attempt to convert a null string_buffer in basic_simple_string", ss_nullptr_k != m);
 
 #ifdef STLSOFT_SIMPLE_STRING_NO_PTR_ADJUST
     return m;
 #else /* ? STLSOFT_SIMPLE_STRING_NO_PTR_ADJUST */
+
     return reinterpret_cast<string_buffer const*>(ptr_byte_offset(m, -static_cast<ss_ptrdiff_t>(STLSOFT_RAW_OFFSETOF(string_buffer, contents))));
 #endif /* STLSOFT_SIMPLE_STRING_NO_PTR_ADJUST */
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline /* static */ ss_typename_type_ret_k basic_simple_string<C, T, A>::member_pointer basic_simple_string<C, T, A>::member_pointer_from_string_buffer_(ss_typename_type_k basic_simple_string<C, T, A>::string_buffer* b)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+/* static */
+ss_typename_type_ret_k basic_simple_string<C, T, A>::member_pointer
+basic_simple_string<C, T, A>::member_pointer_from_string_buffer_(ss_typename_type_k basic_simple_string<C, T, A>::string_buffer* b) STLSOFT_NOEXCEPT
 {
 #ifdef STLSOFT_SIMPLE_STRING_NO_PTR_ADJUST
     return b;
 #else /* ? STLSOFT_SIMPLE_STRING_NO_PTR_ADJUST */
+
     return b->contents;
 #endif /* STLSOFT_SIMPLE_STRING_NO_PTR_ADJUST */
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline /* static */ ss_typename_type_ret_k basic_simple_string<C, T, A>::member_pointer basic_simple_string<C, T, A>::alloc_buffer_(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+/* static */
+ss_typename_type_ret_k basic_simple_string<C, T, A>::member_pointer
+basic_simple_string<C, T, A>::alloc_buffer_(
     ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   s
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          capacity
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          length
@@ -1396,15 +1753,17 @@ inline /* static */ ss_typename_type_ret_k basic_simple_string<C, T, A>::member_
 
     byte_ator_type          byte_ator;
 # ifdef STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT
-    void* const             raw_buffer  =   byte_ator.allocate(capacity * sizeof(char_type), NULL);
+
+    void* const             raw_buffer  =   byte_ator.allocate(capacity * sizeof(char_type), ss_nullptr_k);
 # else /* ? STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT */
+
     void* const             raw_buffer  =   byte_ator.allocate(capacity * sizeof(char_type));
 # endif /* STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT */
     string_buffer* const    buffer      =   sap_cast<string_buffer*>(raw_buffer);
 
-    if (NULL != buffer)
+    if (ss_nullptr_k != buffer)
     {
-        if (NULL == s)
+        if (ss_nullptr_k == s)
         {
             STLSOFT_ASSERT(0 == length);
 
@@ -1413,6 +1772,7 @@ inline /* static */ ss_typename_type_ret_k basic_simple_string<C, T, A>::member_
         else
         {
             traits_type::copy(buffer->contents, s, length);
+
             buffer->contents[length] = traits_type::to_char_type(0);
         }
 
@@ -1422,14 +1782,18 @@ inline /* static */ ss_typename_type_ret_k basic_simple_string<C, T, A>::member_
         return member_pointer_from_string_buffer_(buffer);
     }
 
-    return NULL;
+    return ss_nullptr_k;
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline /* static */ ss_typename_type_ret_k basic_simple_string<C, T, A>::member_pointer basic_simple_string<C, T, A>::alloc_buffer_(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+/* static */
+ss_typename_type_ret_k basic_simple_string<C, T, A>::member_pointer
+basic_simple_string<C, T, A>::alloc_buffer_(
     ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   s
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          cch
 )
@@ -1445,17 +1809,21 @@ inline /* static */ ss_typename_type_ret_k basic_simple_string<C, T, A>::member_
     return alloc_buffer_(s, capacity, length);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline /* static */ ss_typename_type_ret_k basic_simple_string<C, T, A>::member_pointer basic_simple_string<C, T, A>::alloc_buffer_(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* s)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+/* static */
+ss_typename_type_ret_k basic_simple_string<C, T, A>::member_pointer
+basic_simple_string<C, T, A>::alloc_buffer_(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* s)
 {
     member_pointer res;
 
-    if (NULL == s)
+    if (ss_nullptr_k == s)
     {
-        res = NULL;
+        res = ss_nullptr_k;
     }
     else
     {
@@ -1467,80 +1835,124 @@ inline /* static */ ss_typename_type_ret_k basic_simple_string<C, T, A>::member_
     return res;
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline /* static */ ss_typename_type_ret_k basic_simple_string<C, T, A>::member_pointer basic_simple_string<C, T, A>::copy_buffer_(ss_typename_type_k basic_simple_string<C, T, A>::member_pointer m)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+/* static */
+ss_typename_type_ret_k basic_simple_string<C, T, A>::member_pointer
+basic_simple_string<C, T, A>::copy_buffer_(ss_typename_type_k basic_simple_string<C, T, A>::member_pointer m)
 {
-    if (NULL != m)
+    if (ss_nullptr_k != m)
     {
         byte_ator_type          byte_ator;
         string_buffer* const    buffer      =   string_buffer_from_member_pointer_(m);
         ss_size_t const         cb          =   buffer->capacity * sizeof(char_type) + STLSOFT_RAW_OFFSETOF(string_buffer, contents);
 # ifdef STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT
-        void* const             raw_buffer  =   byte_ator.allocate(cb, NULL);
+
+        void* const             raw_buffer  =   byte_ator.allocate(cb, ss_nullptr_k);
 # else /* ? STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT */
+
         void* const             raw_buffer  =   byte_ator.allocate(cb);
 # endif /* STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT */
         string_buffer* const    new_buffer  =   sap_cast<string_buffer*>(raw_buffer);
 
-        if (NULL != new_buffer)
+        if (ss_nullptr_k != new_buffer)
         {
-            STLSOFT_API_INTERNAL_memfns_memcpy(new_buffer, buffer, cb);
+            STLSOFT_API_EXTERNAL_memfns_memcpy(new_buffer, buffer, cb);
 
             return member_pointer_from_string_buffer_(new_buffer);
         }
     }
 
-    return NULL;
+    return ss_nullptr_k;
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline /* static */ void basic_simple_string<C, T, A>::destroy_buffer_(ss_typename_type_k basic_simple_string<C, T, A>::string_buffer* buffer)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+/* static */
+void
+basic_simple_string<C, T, A>::destroy_buffer_(ss_typename_type_k basic_simple_string<C, T, A>::string_buffer* buffer) STLSOFT_NOEXCEPT
 {
+#ifndef STLSOFT_SIMPLE_STRING_NO_PTR_ADJUST
+
+    // NOTE: the GCC warning "free-nonheap-object" is a very important one,
+    // and only suppressed here with confidence that it is being issued in
+    // error by (later versions of) GCC C++ compiler
+# ifdef __GNUC__
+
+#  pragma GCC diagnostic push
+#  pragma GCC diagnostic ignored "-Wfree-nonheap-object"
+# endif
+#endif
+
     byte_ator_type byte_ator;
 
     byte_ator.deallocate(sap_cast<ss_byte_t*>(buffer), 0);
+
+#ifndef STLSOFT_SIMPLE_STRING_NO_PTR_ADJUST
+
+# ifdef __GNUC__
+
+#  pragma GCC diagnostic pop
+# endif
+#endif
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline /* static */ void basic_simple_string<C, T, A>::destroy_buffer_(ss_typename_type_k basic_simple_string<C, T, A>::char_type* s)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+/* static */
+void
+basic_simple_string<C, T, A>::destroy_buffer_(ss_typename_type_k basic_simple_string<C, T, A>::char_type* s) STLSOFT_NOEXCEPT
 {
     destroy_buffer_(string_buffer_from_member_pointer_(s));
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::pointer basic_simple_string<C, T, A>::begin_()
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::pointer
+basic_simple_string<C, T, A>::begin_() STLSOFT_NOEXCEPT
 {
     return char_pointer_from_member_pointer_(m_buffer);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::pointer basic_simple_string<C, T, A>::end_()
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::pointer
+basic_simple_string<C, T, A>::end_() STLSOFT_NOEXCEPT
 {
     return begin_() + length();
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_bool_t basic_simple_string<C, T, A>::is_valid() const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_constexpr_2014_k
+ss_bool_t
+basic_simple_string<C, T, A>::is_valid() const STLSOFT_NOEXCEPT
 {
-    if (NULL != m_buffer)
+    if (ss_nullptr_k != m_buffer)
     {
         string_buffer const* buffer = string_buffer_from_member_pointer_(m_buffer);
 
@@ -1566,11 +1978,15 @@ inline ss_bool_t basic_simple_string<C, T, A>::is_valid() const
     return true;
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline /* static */ ss_typename_type_ret_k basic_simple_string<C, T, A>::char_type const* basic_simple_string<C, T, A>::empty_string_()
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+/* static */
+ss_typename_type_ret_k basic_simple_string<C, T, A>::char_type const*
+basic_simple_string<C, T, A>::empty_string_() STLSOFT_NOEXCEPT
 {
     // This character array is initialised to 0, which conveniently happens to
     // be the empty string, by the module/application load, so it is
@@ -1584,69 +2000,83 @@ inline /* static */ ss_typename_type_ret_k basic_simple_string<C, T, A>::char_ty
 
 // Construction
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline basic_simple_string<C, T, A>::basic_simple_string()
-    : m_buffer(NULL)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_constexpr_2014_k
+basic_simple_string<C, T, A>::basic_simple_string() STLSOFT_NOEXCEPT
+    : m_buffer(ss_nullptr_k)
 {
     STLSOFT_ASSERT(is_valid());
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline basic_simple_string<C, T, A>::basic_simple_string(class_type const& rhs)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+basic_simple_string<C, T, A>::basic_simple_string(class_type const& rhs)
     : m_buffer(copy_buffer_(rhs.m_buffer))
 {
     STLSOFT_ASSERT(rhs.is_valid());
     STLSOFT_ASSERT(is_valid());
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline basic_simple_string<C, T, A>::basic_simple_string(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+basic_simple_string<C, T, A>::basic_simple_string(
     ss_typename_type_k basic_simple_string<C, T, A>::class_type const&  rhs
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          pos
 )
-    : m_buffer(alloc_buffer_(&rhs[pos]))
+    : m_buffer(alloc_buffer_(&rhs[pos], rhs.size() - pos))
 {
+
     STLSOFT_ASSERT(is_valid());
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline basic_simple_string<C, T, A>::basic_simple_string(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+basic_simple_string<C, T, A>::basic_simple_string(
     ss_typename_type_k basic_simple_string<C, T, A>::class_type const&  rhs
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          pos
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          cch
 )
-    : m_buffer(alloc_buffer_(&rhs[pos], cch, minimum(cch, rhs.length() - pos)))
+    : m_buffer(alloc_buffer_(&rhs[pos], cch, minimum(cch, rhs.size() - pos)))
 {
     STLSOFT_ASSERT(is_valid());
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline basic_simple_string<C, T, A>::basic_simple_string(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* s) // No, not explicit. Sigh
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+basic_simple_string<C, T, A>::basic_simple_string(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* s)
     : m_buffer(alloc_buffer_(s))
 {
     STLSOFT_ASSERT(is_valid());
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline basic_simple_string<C, T, A>::basic_simple_string(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+basic_simple_string<C, T, A>::basic_simple_string(
     ss_typename_type_k basic_simple_string<C, T, A>::char_type const* s
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type cch
 )
@@ -1655,15 +2085,17 @@ inline basic_simple_string<C, T, A>::basic_simple_string(
     STLSOFT_ASSERT(is_valid());
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline basic_simple_string<C, T, A>::basic_simple_string(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+basic_simple_string<C, T, A>::basic_simple_string(
     ss_typename_type_k basic_simple_string<C, T, A>::size_type  cch
 ,   ss_typename_type_k basic_simple_string<C, T, A>::char_type  ch
 )
-    : m_buffer(NULL)
+    : m_buffer(ss_nullptr_k)
 {
     STLSOFT_ASSERT(is_valid());
 
@@ -1671,11 +2103,13 @@ inline basic_simple_string<C, T, A>::basic_simple_string(
 }
 
 #if !defined(STLSOFT_CF_MEMBER_TEMPLATE_RANGE_METHOD_SUPPORT)
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline basic_simple_string<C, T, A>::basic_simple_string(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+basic_simple_string<C, T, A>::basic_simple_string(
     ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   first
 ,   ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   last
 )
@@ -1687,10 +2121,11 @@ inline basic_simple_string<C, T, A>::basic_simple_string(
 
 #ifdef STLSOFT_CF_RVALUE_REFERENCES_SUPPORT
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
 inline
 basic_simple_string<C, T, A>::basic_simple_string(class_type&& rhs) STLSOFT_NOEXCEPT
     : m_buffer(rhs.m_buffer)
@@ -1699,11 +2134,14 @@ basic_simple_string<C, T, A>::basic_simple_string(class_type&& rhs) STLSOFT_NOEX
 }
 #endif /* STLSOFT_CF_RVALUE_REFERENCES_SUPPORT */
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline basic_simple_string<C, T, A>::~basic_simple_string() STLSOFT_NOEXCEPT
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_constexpr_2020_k
+basic_simple_string<C, T, A>::~basic_simple_string() STLSOFT_NOEXCEPT
 {
 #if defined(__BORLANDC__) && \
     __BORLANDC__ > 0x0580 && \
@@ -1728,7 +2166,7 @@ inline basic_simple_string<C, T, A>::~basic_simple_string() STLSOFT_NOEXCEPT
 
     STLSOFT_ASSERT(is_valid());
 
-    if (NULL != m_buffer)
+    if (ss_nullptr_k != m_buffer)
     {
         destroy_buffer_(m_buffer);
     }
@@ -1736,16 +2174,20 @@ inline basic_simple_string<C, T, A>::~basic_simple_string() STLSOFT_NOEXCEPT
 
 // Comparison
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline /* static */ ss_sint_t basic_simple_string<C, T, A>::compare_(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+/* static */
+ss_sint_t
+basic_simple_string<C, T, A>::compare_(
     ss_typename_type_k basic_simple_string<C, T, A>::value_type const*  lhs
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          lhs_len
 ,   ss_typename_type_k basic_simple_string<C, T, A>::value_type const*  rhs
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          rhs_len
-)
+) STLSOFT_NOEXCEPT
 {
     size_type   cmp_len =   (lhs_len < rhs_len) ? lhs_len : rhs_len;
     ss_int_t    result  =   traits_type::compare(lhs, rhs, cmp_len);
@@ -1758,18 +2200,21 @@ inline /* static */ ss_sint_t basic_simple_string<C, T, A>::compare_(
     return result;
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_sint_t basic_simple_string<C, T, A>::compare(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_sint_t
+basic_simple_string<C, T, A>::compare(
     ss_typename_type_k basic_simple_string<C, T, A>::size_type          pos
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          cch
 ,   ss_typename_type_k basic_simple_string<C, T, A>::value_type const*  rhs
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          cchRhs
-) const
+) const STLSOFT_NOEXCEPT
 {
-    size_type lhs_len = length();
+    size_type lhs_len = size();
 
     if (!(pos < lhs_len))
     {
@@ -1785,7 +2230,7 @@ inline ss_sint_t basic_simple_string<C, T, A>::compare(
         lhs_len = cch;
     }
 
-    size_type rhs_len = (NULL == rhs) ? 0 : traits_type::length(rhs);
+    size_type rhs_len = (ss_nullptr_k == rhs) ? 0 : traits_type::length(rhs);
 
     if (cchRhs < rhs_len)
     {
@@ -1795,17 +2240,20 @@ inline ss_sint_t basic_simple_string<C, T, A>::compare(
     return compare_(char_pointer_from_member_pointer_(m_buffer) + pos, lhs_len, rhs, rhs_len);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_sint_t basic_simple_string<C, T, A>::compare(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_sint_t
+basic_simple_string<C, T, A>::compare(
     ss_typename_type_k basic_simple_string<C, T, A>::size_type          pos
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          cch
 ,   ss_typename_type_k basic_simple_string<C, T, A>::value_type const*  rhs
-) const
+) const STLSOFT_NOEXCEPT
 {
-    size_type lhs_len = length();
+    size_type lhs_len = size();
 
     if (!(pos < lhs_len))
     {
@@ -1821,36 +2269,44 @@ inline ss_sint_t basic_simple_string<C, T, A>::compare(
         lhs_len = cch;
     }
 
-    size_type rhs_len = (NULL == rhs) ? 0 : traits_type::length(rhs);
+    size_type rhs_len = (ss_nullptr_k == rhs) ? 0 : traits_type::length(rhs);
 
     return compare_(char_pointer_from_member_pointer_(m_buffer) + pos, lhs_len, rhs, rhs_len);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_sint_t basic_simple_string<C, T, A>::compare(ss_typename_type_k basic_simple_string<C, T, A>::value_type const* rhs) const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_sint_t
+basic_simple_string<C, T, A>::compare(
+    ss_typename_type_k basic_simple_string<C, T, A>::value_type const* rhs
+) const STLSOFT_NOEXCEPT
 {
-    size_type   lhs_len =   length();
-    size_type   rhs_len =   (NULL == rhs) ? 0 : traits_type::length(rhs);
+    size_type   lhs_len =   size();
+    size_type   rhs_len =   (ss_nullptr_k == rhs) ? 0 : traits_type::length(rhs);
 
     return compare_(char_pointer_from_member_pointer_(m_buffer), lhs_len, rhs, rhs_len);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_sint_t basic_simple_string<C, T, A>::compare(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_sint_t
+basic_simple_string<C, T, A>::compare(
     ss_typename_type_k basic_simple_string<C, T, A>::size_type          pos
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          cch
 ,   ss_typename_type_k basic_simple_string<C, T, A>::class_type const&  rhs
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          posRhs
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          cchRhs
-) const
+) const STLSOFT_NOEXCEPT
 {
-    size_type lhs_len = length();
+    size_type lhs_len = size();
 
     if (pos == lhs_len)
     {
@@ -1866,7 +2322,7 @@ inline ss_sint_t basic_simple_string<C, T, A>::compare(
         lhs_len = cch;
     }
 
-    size_type rhs_len = rhs.length();
+    size_type rhs_len = rhs.size();
 
     if (posRhs == rhs_len)
     {
@@ -1885,17 +2341,20 @@ inline ss_sint_t basic_simple_string<C, T, A>::compare(
     return compare_(char_pointer_from_member_pointer_(m_buffer) + pos, lhs_len, char_pointer_from_member_pointer_(rhs.m_buffer) + posRhs, rhs_len);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_sint_t basic_simple_string<C, T, A>::compare(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_sint_t
+basic_simple_string<C, T, A>::compare(
     ss_typename_type_k basic_simple_string<C, T, A>::size_type          pos
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          cch
 ,   ss_typename_type_k basic_simple_string<C, T, A>::class_type const&  rhs
-) const
+) const STLSOFT_NOEXCEPT
 {
-    size_type lhs_len = length();
+    size_type lhs_len = size();
 
     if (!(pos < lhs_len))
     {
@@ -1911,44 +2370,680 @@ inline ss_sint_t basic_simple_string<C, T, A>::compare(
         lhs_len = cch;
     }
 
-    size_type rhs_len = rhs.length();
+    size_type rhs_len = rhs.size();
 
     return compare_(char_pointer_from_member_pointer_(m_buffer) + pos, lhs_len, char_pointer_from_member_pointer_(rhs.m_buffer), rhs_len);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_sint_t basic_simple_string<C, T, A>::compare(ss_typename_type_k basic_simple_string<C, T, A>::class_type const& rhs) const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_sint_t
+basic_simple_string<C, T, A>::compare(
+    ss_typename_type_k basic_simple_string<C, T, A>::class_type const& rhs
+) const STLSOFT_NOEXCEPT
 {
-    size_type   lhs_len =   length();
-    size_type   rhs_len =   rhs.length();
+    size_type   lhs_len =   size();
+    size_type   rhs_len =   rhs.size();
 
     return compare_(char_pointer_from_member_pointer_(m_buffer), lhs_len, char_pointer_from_member_pointer_(rhs.m_buffer), rhs_len);
 }
 
-// Accessors
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::reference basic_simple_string<C, T, A>::operator [](ss_typename_type_k basic_simple_string<C, T, A>::size_type index)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+/* static */
+ss_bool_t
+basic_simple_string<C, T, A>::equal_(
+    ss_typename_type_k basic_simple_string<C, T, A>::value_type const*  lhs
+,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          lhs_len
+,   ss_typename_type_k basic_simple_string<C, T, A>::value_type const*  rhs
+) STLSOFT_NOEXCEPT
 {
-    STLSOFT_MESSAGE_ASSERT("index access out of range in simple_string", index < length());
+    for (size_type i = 0; i != lhs_len; ++i, ++rhs, ++lhs)
+    {
+        if (*rhs == '\0')
+        {
+            return false;
+        }
+
+        if (*lhs != *rhs)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+/* static */
+ss_bool_t
+basic_simple_string<C, T, A>::equal_(
+    ss_typename_type_k basic_simple_string<C, T, A>::value_type const*  lhs
+,   ss_typename_type_k basic_simple_string<C, T, A>::value_type const*  rhs
+,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          len
+) STLSOFT_NOEXCEPT
+{
+    for (size_type i = 0; i != len; ++i, ++rhs, ++lhs)
+    {
+        if (*lhs != *rhs)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::equal(
+    size_type           pos
+,   size_type           cch
+,   value_type const*   s
+,   size_type           cchRhs
+) const STLSOFT_NOEXCEPT
+{
+    STLSOFT_ASSERT(0 == cchRhs || ss_nullptr_k != s);
+
+    if (0 == cchRhs)
+    {
+        return true;
+    }
+
+    if (cch != cchRhs)
+    {
+        return false;
+    }
+
+    if (ss_nullptr_k == m_buffer)
+    {
+        if (0 != pos)
+        {
+            STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("`basic_simple_string#equal()` index out of range"));
+        }
+
+        return false;
+    }
+    else
+    {
+        string_buffer const* const  buffer  =   string_buffer_from_member_pointer_(m_buffer);
+        size_type const             lhs_n   =   minimum(buffer->length - pos, cch);
+        size_type const             rhs_len =   traits_type::length(s);
+        size_type const             rhs_n   =   minimum(rhs_len, cchRhs);
+
+        if (lhs_n != rhs_n)
+        {
+            return false;
+        }
+        else
+        {
+            return 0 == traits_type::compare(buffer->contents + pos, s, lhs_n);
+        }
+    }
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::equal(
+    size_type           pos
+,   size_type           cch
+,   value_type const*   s
+) const STLSOFT_NOEXCEPT
+{
+    if (ss_nullptr_k == m_buffer)
+    {
+        if (ss_nullptr_k == s)
+        {
+            return true;
+        }
+        else
+        {
+            return '\0' == *s;
+        }
+    }
+    else
+    {
+        string_buffer const* buffer = string_buffer_from_member_pointer_(m_buffer);
+
+        if (ss_nullptr_k == s)
+        {
+            return 0 == buffer->length;
+        }
+        else
+        {
+            char_type const* const  lhs_ptr =   buffer->contents + pos;
+            size_type const         lhs_n   =   minimum(buffer->length - pos, cch);
+
+            if (pos >= buffer->length)
+            {
+                if (pos > buffer->length ||
+                    0 != lhs_n)
+                {
+                    STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("`basic_simple_string#equal()` index out of range"));
+                }
+            }
+
+            size_type const         rhs_len =   traits_type::length(s);
+
+            if (rhs_len != lhs_n)
+            {
+                return false;
+            }
+            else
+            {
+                return 0 == compare_(lhs_ptr, lhs_n, s, rhs_len);
+            }
+        }
+    }
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::equal(
+    ss_typename_type_k basic_simple_string<C, T, A>::value_type const* s
+) const STLSOFT_NOEXCEPT
+{
+    if (ss_nullptr_k == m_buffer)
+    {
+        if (ss_nullptr_k == s)
+        {
+            return true;
+        }
+        else
+        {
+            return '\0' == *s;
+        }
+    }
+    else
+    {
+        string_buffer const* buffer = string_buffer_from_member_pointer_(m_buffer);
+
+        return class_type::equal_(buffer->contents, buffer->length, s);
+    }
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::equal(
+    size_type                                                           pos
+,   size_type                                                           cch
+,   ss_typename_type_k basic_simple_string<C, T, A>::class_type const&  rhs
+,   size_type                                                           posRhs
+,   size_type                                                           cchRhs
+) const STLSOFT_NOEXCEPT
+{
+    // find if such a range exists within both
+    //
+    // if either `pos` out of range then throw
+
+    if (ss_nullptr_k == m_buffer)
+    {
+        if (0 != pos)
+        {
+            STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("`basic_simple_string#equal()` index out of range"));
+        }
+
+        if (ss_nullptr_k == rhs.m_buffer)
+        {
+            if (0 != posRhs)
+            {
+                STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("`basic_simple_string#equal()` index out of range"));
+            }
+        }
+
+        return 0 == cchRhs;
+    }
+    else
+    {
+        string_buffer const* const  lhs_buffer  =   string_buffer_from_member_pointer_(m_buffer);
+        char_type const* const      lhs_ptr     =   lhs_buffer->contents + pos;
+        size_type const             lhs_n       =   minimum(lhs_buffer->length - pos, cch);
+
+        if (ss_nullptr_k == rhs.m_buffer)
+        {
+            if (0 != posRhs)
+            {
+                STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("`basic_simple_string#equal()` index out of range"));
+            }
+
+            return 0 == cchRhs;
+        }
+        else
+        {
+            string_buffer const* const  rhs_buffer  =   string_buffer_from_member_pointer_(rhs.m_buffer);
+            char_type const* const      rhs_ptr     =   rhs_buffer->contents + posRhs;
+            size_type const             rhs_n       =   minimum(rhs_buffer->length - posRhs, cchRhs);
+
+            if (lhs_n != rhs_n)
+            {
+                return false;
+            }
+            else
+            {
+                return 0 == traits_type::compare(lhs_ptr, rhs_ptr, lhs_n);
+            }
+        }
+    }
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::equal(
+    size_type                                                           pos
+,   size_type                                                           cch
+,   ss_typename_type_k basic_simple_string<C, T, A>::class_type const&  rhs
+) const STLSOFT_NOEXCEPT
+{
+    if (ss_nullptr_k == rhs.m_buffer)
+    {
+        return true;
+    }
+    else
+    {
+        string_buffer const* const  lhs_buffer  =   string_buffer_from_member_pointer_(m_buffer);
+        char_type const* const      lhs_ptr     =   lhs_buffer->contents + pos;
+        size_type const             lhs_n       =   minimum(lhs_buffer->length - pos, cch);
+
+        if (pos >= lhs_buffer->length)
+        {
+            if (pos > lhs_buffer->length ||
+                0 != lhs_n)
+            {
+                STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("`basic_simple_string#equal()` index out of range"));
+            }
+        }
+
+        string_buffer const* const  rhs_buffer  =   string_buffer_from_member_pointer_(rhs.m_buffer);
+
+        if (0 == rhs_buffer->length)
+        {
+            return true;
+        }
+        else
+        {
+            if (lhs_n != rhs_buffer->length)
+            {
+                return false;
+            }
+            else
+            {
+                return 0 == traits_type::compare(lhs_ptr, rhs_buffer->contents, rhs_buffer->length);
+            }
+        }
+    }
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::equal(
+    ss_typename_type_k basic_simple_string<C, T, A>::class_type const& rhs
+) const STLSOFT_NOEXCEPT
+{
+    if (ss_nullptr_k == m_buffer)
+    {
+        if (ss_nullptr_k == rhs.m_buffer)
+        {
+            return true;
+        }
+        else
+        {
+            string_buffer const* const rhs_buffer = string_buffer_from_member_pointer_(rhs.m_buffer);
+
+            return 0 == rhs_buffer->length;
+        }
+    }
+    else
+    {
+        string_buffer const* const lhs_buffer = string_buffer_from_member_pointer_(m_buffer);
+
+        if (ss_nullptr_k == rhs.m_buffer)
+        {
+            return 0 == lhs_buffer->length;
+        }
+        else
+        {
+            string_buffer const* const rhs_buffer = string_buffer_from_member_pointer_(rhs.m_buffer);
+
+            if (lhs_buffer->length != rhs_buffer->length)
+            {
+                return false;
+            }
+            else
+            {
+                return 0 == traits_type::compare(lhs_buffer->contents, rhs_buffer->contents, lhs_buffer->length);
+            }
+        }
+    }
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::contains_(
+    ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   s
+,   size_type                                                           n
+) const STLSOFT_NOEXCEPT
+{
+    if (n > length())
+    {
+        return false;
+    }
+
+    if (0 == n)
+    {
+        return true;
+    }
+
+    char_type first_char = s[0];
+
+    // search for each occurrence of `s[0]` in `this` using `traits_type::find()`, then
+    // testing each remaining part of `this` (if long enought) for all of `s`, using
+    // `traits::compare()`
+
+    char_type const*    in = data();
+    size_type           num_remaining = length();
+
+    for (;;)
+    {
+        if (ss_nullptr_k == traits_type::find(in, num_remaining, first_char))
+        {
+            return false;
+        }
+        else
+        {
+            size_type remaining_length = length() - (in - data());
+
+            if (n > remaining_length)
+            {
+                return false;
+            }
+
+            if (0 == traits_type::compare(s, in, n))
+            {
+                return true;
+            }
+            else
+            {
+                ++in;
+                --num_remaining;
+            }
+        }
+    }
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::starts_with_(
+    ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   s
+,   size_type                                                           n
+) const STLSOFT_NOEXCEPT
+{
+    if (ss_nullptr_k == m_buffer)
+    {
+        if (0 == n)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    string_buffer const* buffer = string_buffer_from_member_pointer_(m_buffer);
+
+    if (buffer->length < n)
+    {
+        return false;
+    }
+    else
+    {
+        return class_type::equal_(
+            buffer->contents
+        ,   s
+        ,   n
+        );
+    }
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::ends_with_(
+    ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   s
+,   size_type                                                           n
+) const STLSOFT_NOEXCEPT
+{
+    if (ss_nullptr_k == m_buffer)
+    {
+        if (0 == n)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    string_buffer const* buffer = string_buffer_from_member_pointer_(m_buffer);
+
+    if (buffer->length < n)
+    {
+        return false;
+    }
+    else
+    {
+        return class_type::equal_(
+            buffer->contents + (buffer->length - n)
+        ,   s
+        ,   n
+        );
+    }
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::contains(ss_typename_type_k basic_simple_string<C, T, A>::class_type const& s) const STLSOFT_NOEXCEPT
+{
+    return contains_(s.data(), s.length());
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::contains(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* s) const STLSOFT_NOEXCEPT
+{
+    size_type const n = (ss_nullptr_k == s) ? 0 : traits_type::length(s);
+
+    return contains_(s, n);
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::contains(ss_typename_type_k basic_simple_string<C, T, A>::char_type ch) const STLSOFT_NOEXCEPT
+{
+    if (empty())
+    {
+        return false;
+    }
+
+    return ss_nullptr_k != traits_type::find(data(), length(), ch);
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::starts_with(ss_typename_type_k basic_simple_string<C, T, A>::class_type const& s) const STLSOFT_NOEXCEPT
+{
+    return starts_with_(s.data(), s.size());
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::starts_with(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* s) const STLSOFT_NOEXCEPT
+{
+    size_type const n = (ss_nullptr_k == s) ? 0 : traits_type::length(s);
+
+    return starts_with_(s, n);
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::starts_with(ss_typename_type_k basic_simple_string<C, T, A>::char_type ch) const STLSOFT_NOEXCEPT
+{
+    return empty() ? false : (front() == ch);
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::ends_with(ss_typename_type_k basic_simple_string<C, T, A>::class_type const& s) const STLSOFT_NOEXCEPT
+{
+    return ends_with_(s.data(), s.size());
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::ends_with(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* s) const STLSOFT_NOEXCEPT
+{
+    size_type const n = (ss_nullptr_k == s) ? 0 : traits_type::length(s);
+
+    return ends_with_(s, n);
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::ends_with(ss_typename_type_k basic_simple_string<C, T, A>::char_type ch) const STLSOFT_NOEXCEPT
+{
+    return empty() ? false : (back() == ch);
+}
+
+// Accessors
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::reference
+basic_simple_string<C, T, A>::operator [](ss_typename_type_k basic_simple_string<C, T, A>::size_type index) STLSOFT_NOEXCEPT
+{
+    STLSOFT_MESSAGE_ASSERT("index access out of range in simple_string", index < size());
 
     STLSOFT_ASSERT(is_valid());
 
     return char_pointer_from_member_pointer_(m_buffer)[index];
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::const_reference basic_simple_string<C, T, A>::operator [](ss_typename_type_k basic_simple_string<C, T, A>::size_type index) const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::const_reference
+basic_simple_string<C, T, A>::operator [](ss_typename_type_k basic_simple_string<C, T, A>::size_type index) const STLSOFT_NOEXCEPT
 {
-    STLSOFT_MESSAGE_ASSERT("index access out of range in simple_string", index < length() + 1); // Valid to return (const) reference to nul-terminator
+    STLSOFT_MESSAGE_ASSERT("index access out of range in simple_string", index < size() + 1); // Valid to return (const) reference to nul-terminator
 
     STLSOFT_ASSERT(is_valid());
 
@@ -1956,11 +3051,14 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::const_reference basi
 }
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::reference basic_simple_string<C, T, A>::at(ss_typename_type_k basic_simple_string<C, T, A>::size_type index)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::reference
+basic_simple_string<C, T, A>::at(ss_typename_type_k basic_simple_string<C, T, A>::size_type index)
 {
     STLSOFT_ASSERT(is_valid());
 
@@ -1974,11 +3072,14 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::reference basic_simp
     return char_pointer_from_member_pointer_(m_buffer)[index];
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::const_reference basic_simple_string<C, T, A>::at(ss_typename_type_k basic_simple_string<C, T, A>::size_type index) const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::const_reference
+basic_simple_string<C, T, A>::at(ss_typename_type_k basic_simple_string<C, T, A>::size_type index) const
 {
     STLSOFT_ASSERT(is_valid());
 
@@ -1992,11 +3093,17 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::const_reference basi
     return char_pointer_from_member_pointer_(m_buffer)[index];
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type basic_simple_string<C, T, A>::substr(ss_typename_type_k basic_simple_string<C, T, A>::size_type pos, ss_typename_type_k basic_simple_string<C, T, A>::size_type cch) const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type
+basic_simple_string<C, T, A>::substr(
+    ss_typename_type_k basic_simple_string<C, T, A>::size_type  pos
+,   ss_typename_type_k basic_simple_string<C, T, A>::size_type  cch
+) const
 {
     STLSOFT_ASSERT(is_valid());
 
@@ -2007,19 +3114,24 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type basic_sim
 
     STLSOFT_ASSERT(is_valid());
 
-    if (cch > (this->length() - pos))
+    if (cch > (this->size() - pos))
     {
-        cch = this->length() - pos;
+        cch = this->size() - pos;
     }
 
     return class_type(this->data() + pos, cch);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type basic_simple_string<C, T, A>::substr(ss_typename_type_k basic_simple_string<C, T, A>::size_type pos) const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type
+basic_simple_string<C, T, A>::substr(
+    ss_typename_type_k basic_simple_string<C, T, A>::size_type pos
+) const
 {
     STLSOFT_ASSERT(is_valid());
 
@@ -2030,84 +3142,108 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type basic_sim
 
     STLSOFT_ASSERT(is_valid());
 
-    return class_type(this->data() + pos, this->length() - pos);
+    return class_type(this->data() + pos, this->size() - pos);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type basic_simple_string<C, T, A>::substr() const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type
+basic_simple_string<C, T, A>::substr() const
 {
     return *this;
 }
 #endif /* !STLSOFT_CF_EXCEPTION_SUPPORT */
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::value_type const* basic_simple_string<C, T, A>::c_str() const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::value_type const*
+basic_simple_string<C, T, A>::c_str() const STLSOFT_NOEXCEPT
 {
-    return (NULL == m_buffer) ? empty_string_() : char_pointer_from_member_pointer_(m_buffer);
+    return (ss_nullptr_k == m_buffer) ? empty_string_() : char_pointer_from_member_pointer_(m_buffer);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::value_type const* basic_simple_string<C, T, A>::data() const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::value_type const*
+basic_simple_string<C, T, A>::data() const STLSOFT_NOEXCEPT
 {
-    return (NULL == m_buffer) ? empty_string_() : char_pointer_from_member_pointer_(m_buffer);
+    return (ss_nullptr_k == m_buffer) ? empty_string_() : char_pointer_from_member_pointer_(m_buffer);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::reference basic_simple_string<C, T, A>::front()
-{
-    return (*this)[0];
-}
-
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::reference basic_simple_string<C, T, A>::back()
-{
-    return (*this)[length() - 1];
-}
-
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::const_reference basic_simple_string<C, T, A>::front() const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::reference
+basic_simple_string<C, T, A>::front() STLSOFT_NOEXCEPT
 {
     return (*this)[0];
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::const_reference basic_simple_string<C, T, A>::back() const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::reference
+basic_simple_string<C, T, A>::back() STLSOFT_NOEXCEPT
 {
-    return (*this)[length() - 1];
+    return (*this)[size() - 1];
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::size_type basic_simple_string<C, T, A>::copy(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::const_reference
+basic_simple_string<C, T, A>::front() const STLSOFT_NOEXCEPT
+{
+    return (*this)[0];
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::const_reference
+basic_simple_string<C, T, A>::back() const STLSOFT_NOEXCEPT
+{
+    return (*this)[size() - 1];
+}
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::size_type
+basic_simple_string<C, T, A>::copy(
     ss_typename_type_k basic_simple_string<C, T, A>::value_type*    dest
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type      cch
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type      pos /* = 0 */
-) const
+) const STLSOFT_NOEXCEPT
 {
-    size_type len = length();
+    size_type len = size();
 
     if (pos < len)
     {
@@ -2129,96 +3265,124 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::size_type basic_simp
 // Iteration
 
 #ifndef STLSOFT_SIMPLE_STRING_ITERATOR_METHODS_INLINE
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::const_iterator basic_simple_string<C, T, A>::begin() const
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::const_iterator
+basic_simple_string<C, T, A>::begin() const STLSOFT_NOEXCEPT
 {
     return const_cast<class_type*>(this)->begin_();
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::const_iterator basic_simple_string<C, T, A>::end() const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::const_iterator
+basic_simple_string<C, T, A>::end() const STLSOFT_NOEXCEPT
 {
     return const_cast<class_type*>(this)->end_();
 }
 #endif /* !STLSOFT_SIMPLE_STRING_ITERATOR_METHODS_INLINE */
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::iterator basic_simple_string<C, T, A>::begin()
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::iterator
+basic_simple_string<C, T, A>::begin() STLSOFT_NOEXCEPT
 {
     return begin_();
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::iterator basic_simple_string<C, T, A>::end()
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::iterator
+basic_simple_string<C, T, A>::end() STLSOFT_NOEXCEPT
 {
     return end_();
 }
 
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::const_reverse_iterator basic_simple_string<C, T, A>::rbegin() const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::const_reverse_iterator
+basic_simple_string<C, T, A>::rbegin() const STLSOFT_NOEXCEPT
 {
     return const_reverse_iterator(end());
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::const_reverse_iterator basic_simple_string<C, T, A>::rend() const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::const_reverse_iterator
+basic_simple_string<C, T, A>::rend() const STLSOFT_NOEXCEPT
 {
     return const_reverse_iterator(begin());
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::reverse_iterator basic_simple_string<C, T, A>::rbegin()
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::reverse_iterator
+basic_simple_string<C, T, A>::rbegin() STLSOFT_NOEXCEPT
 {
     return reverse_iterator(end());
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::reverse_iterator basic_simple_string<C, T, A>::rend()
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::reverse_iterator
+basic_simple_string<C, T, A>::rend() STLSOFT_NOEXCEPT
 {
     return reverse_iterator(begin());
 }
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
 
 // Assignment
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_simple_string<C, T, A>::assign(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type&
+basic_simple_string<C, T, A>::assign(
     ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   s
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          cch
 )
 {
     STLSOFT_ASSERT(is_valid());
 
-    if (NULL == m_buffer)
+    if (ss_nullptr_k == m_buffer)
     {
-        if (cch == 0)
+        if (0 == cch)
         {
             // Nothing to do
         }
@@ -2229,11 +3393,11 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_si
     }
     else
     {
-        if (NULL == s)
+        if (ss_nullptr_k == s)
         {
             destroy_buffer_(m_buffer);
 
-            m_buffer = NULL;
+            m_buffer = ss_nullptr_k;
         }
         else
         {
@@ -2252,7 +3416,7 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_si
                 (   s < &buffer->contents[0] ||
                     s > &buffer->contents[cch]))
             {
-                traits_type::copy(buffer->contents, s, cch);
+                traits_type::move(buffer->contents, s, cch);
                 buffer->contents[cch] = 0;
                 buffer->length = cch;
             }
@@ -2261,6 +3425,7 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_si
                 member_pointer const new_buffer = alloc_buffer_(s, cch, cch);
 
                 destroy_buffer_(m_buffer);
+
                 m_buffer = new_buffer;
             }
         }
@@ -2270,27 +3435,33 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_si
     return *this;
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_simple_string<C, T, A>::assign(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* s)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type&
+basic_simple_string<C, T, A>::assign(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* s)
 {
-    return assign(s, (NULL == s) ? 0 : traits_type::length(s));
+    return assign(s, (ss_nullptr_k == s) ? 0 : traits_type::length(s));
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_simple_string<C, T, A>::assign(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type&
+basic_simple_string<C, T, A>::assign(
     ss_typename_type_k basic_simple_string<C, T, A>::class_type const&  rhs
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          pos
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          cch
 )
 {
     char_type*  s   =   char_pointer_from_member_pointer_(rhs.m_buffer);
-    size_type   len =   rhs.length();
+    size_type   len =   rhs.size();
 
     if (len < pos)
     {
@@ -2302,7 +3473,7 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_si
         cch = len - pos;
     }
 
-    if (NULL != s)
+    if (ss_nullptr_k != s)
     {
         s += pos;
     }
@@ -2314,20 +3485,26 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_si
     return assign(s, cch);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_simple_string<C, T, A>::assign(ss_typename_type_k basic_simple_string<C, T, A>::class_type const& rhs)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type&
+basic_simple_string<C, T, A>::assign(ss_typename_type_k basic_simple_string<C, T, A>::class_type const& rhs)
 {
-    return assign(char_pointer_from_member_pointer_(rhs.m_buffer), rhs.length());
+    return assign(char_pointer_from_member_pointer_(rhs.m_buffer), rhs.size());
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_simple_string<C, T, A>::assign(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type&
+basic_simple_string<C, T, A>::assign(
     ss_typename_type_k basic_simple_string<C, T, A>::size_type  cch
 ,   ss_typename_type_k basic_simple_string<C, T, A>::char_type  ch
 )
@@ -2340,11 +3517,14 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_si
 }
 
 #if !defined(STLSOFT_CF_MEMBER_TEMPLATE_RANGE_METHOD_SUPPORT)
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_simple_string<C, T, A>::assign(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type&
+basic_simple_string<C, T, A>::assign(
     ss_typename_type_k basic_simple_string<C, T, A>::const_iterator first
 ,   ss_typename_type_k basic_simple_string<C, T, A>::const_iterator last
 )
@@ -2355,29 +3535,38 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_si
 }
 #endif /* !STLSOFT_CF_MEMBER_TEMPLATE_RANGE_METHOD_SUPPORT */
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type const& basic_simple_string<C, T, A>::operator =(ss_typename_type_k basic_simple_string<C, T, A>::class_type const& rhs)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type const&
+basic_simple_string<C, T, A>::operator =(ss_typename_type_k basic_simple_string<C, T, A>::class_type const& rhs)
 {
     return assign(rhs);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type const& basic_simple_string<C, T, A>::operator =(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* s)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type const&
+basic_simple_string<C, T, A>::operator =(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* s)
 {
     return assign(s);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type const& basic_simple_string<C, T, A>::operator =(ss_typename_type_k basic_simple_string<C, T, A>::char_type ch)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type const&
+basic_simple_string<C, T, A>::operator =(ss_typename_type_k basic_simple_string<C, T, A>::char_type ch)
 {
     char_type   sz[2] = { ch, traits_type::to_char_type(0) };
 
@@ -2386,24 +3575,27 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type const& ba
 
 
 // Appending
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_simple_string<C, T, A>::append(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type&
+basic_simple_string<C, T, A>::append(
     ss_typename_type_k basic_simple_string<C, T, A>::char_type const*   s
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          cch
 )
 {
     STLSOFT_ASSERT(is_valid());
 
-    if (NULL == m_buffer)
+    if (ss_nullptr_k == m_buffer)
     {
         assign(s, cch);
     }
     else
     {
-        if (NULL == s ||
+        if (ss_nullptr_k == s ||
             0 == cch)
         {
             // Nothing to do
@@ -2421,7 +3613,7 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_si
             }
 #endif /* 0 */
 
-            string_buffer*  old_buffer  =   NULL;
+            string_buffer*  old_buffer  =   ss_nullptr_k;
             string_buffer*  buffer      =   string_buffer_from_member_pointer_(m_buffer);
             size_type const buf_len     =   buffer->length;
 
@@ -2430,7 +3622,7 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_si
                 // Allocate a new buffer of sufficient size
                 member_pointer const new_buffer = alloc_buffer_(buffer->contents, buf_len + cch);
 
-                if (NULL == new_buffer) // Some allocators do not throw on failure!
+                if (ss_nullptr_k == new_buffer) // Some allocators do not throw on failure!
                 {
                     cch = 0;
                 }
@@ -2446,7 +3638,7 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_si
             buffer->length += cch;
             buffer->contents[buffer->length] = traits_type::to_char_type(0);
 
-            if (NULL != old_buffer)
+            if (ss_nullptr_k != old_buffer)
             {
                 destroy_buffer_(old_buffer);
             }
@@ -2457,27 +3649,33 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_si
     return *this;
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_simple_string<C, T, A>::append(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* s)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type&
+basic_simple_string<C, T, A>::append(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* s)
 {
-    return append(s, (NULL == s) ? 0 : traits_type::length(s));
+    return append(s, (ss_nullptr_k == s) ? 0 : traits_type::length(s));
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_simple_string<C, T, A>::append(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type&
+basic_simple_string<C, T, A>::append(
     ss_typename_type_k basic_simple_string<C, T, A>::class_type const&  rhs
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          pos
 ,   ss_typename_type_k basic_simple_string<C, T, A>::size_type          cch
 )
 {
     char_type*  s   =   char_pointer_from_member_pointer_(rhs.m_buffer);
-    size_type   len =   rhs.length();
+    size_type   len =   rhs.size();
 
     if (len < pos)
     {
@@ -2493,7 +3691,7 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_si
         cch = len - pos;
     }
 
-    if (NULL != s)
+    if (ss_nullptr_k != s)
     {
         s += pos;
     }
@@ -2505,25 +3703,31 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_si
     return append(s, cch);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_simple_string<C, T, A>::append(ss_typename_type_k basic_simple_string<C, T, A>::class_type const& s)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type&
+basic_simple_string<C, T, A>::append(ss_typename_type_k basic_simple_string<C, T, A>::class_type const& s)
 {
-    return append(char_pointer_from_member_pointer_(s.m_buffer), s.length());
+    return append(char_pointer_from_member_pointer_(s.m_buffer), s.size());
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_simple_string<C, T, A>::append(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type&
+basic_simple_string<C, T, A>::append(
     ss_typename_type_k basic_simple_string<C, T, A>::size_type  cch
 ,   ss_typename_type_k basic_simple_string<C, T, A>::char_type  ch
 )
 {
-    if (NULL == m_buffer)
+    if (ss_nullptr_k == m_buffer)
     {
         assign(cch, ch);
     }
@@ -2540,11 +3744,14 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_si
 }
 
 #if !defined(STLSOFT_CF_MEMBER_TEMPLATE_RANGE_METHOD_SUPPORT)
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_simple_string<C, T, A>::append(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type&
+basic_simple_string<C, T, A>::append(
     ss_typename_type_k basic_simple_string<C, T, A>::const_iterator first
 ,   ss_typename_type_k basic_simple_string<C, T, A>::const_iterator last
 )
@@ -2555,54 +3762,89 @@ inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_si
 }
 #endif /* !STLSOFT_CF_MEMBER_TEMPLATE_RANGE_METHOD_SUPPORT */
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_simple_string<C, T, A>::operator +=(ss_typename_type_k basic_simple_string<C, T, A>::char_type ch)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type&
+basic_simple_string<C, T, A>::operator +=(ss_typename_type_k basic_simple_string<C, T, A>::char_type ch)
 {
     return append(1, ch);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_simple_string<C, T, A>::operator +=(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* s)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type&
+basic_simple_string<C, T, A>::operator +=(ss_typename_type_k basic_simple_string<C, T, A>::char_type const* s)
 {
     return append(s);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type& basic_simple_string<C, T, A>::operator +=(ss_typename_type_k basic_simple_string<C, T, A>::class_type const& rhs)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::class_type&
+basic_simple_string<C, T, A>::operator +=(ss_typename_type_k basic_simple_string<C, T, A>::class_type const& rhs)
 {
     return append(rhs);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline void basic_simple_string<C, T, A>::push_back(ss_typename_type_k basic_simple_string<C, T, A>::char_type ch)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+void
+basic_simple_string<C, T, A>::push_back(ss_typename_type_k basic_simple_string<C, T, A>::char_type ch)
 {
     append(1, ch);
 }
 
-// Operations
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline void basic_simple_string<C, T, A>::reserve(ss_typename_type_k basic_simple_string<C, T, A>::size_type cch)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+void
+basic_simple_string<C, T, A>::pop_back() STLSOFT_NOEXCEPT
 {
-    if (length() < cch)
+    STLSOFT_ASSERT(is_valid());
+
+    if (0 != size())
     {
-        if (NULL == m_buffer)
+        string_buffer* const buffer = string_buffer_from_member_pointer_(m_buffer);
+
+        buffer->contents[--buffer->length] = '\0';
+    }
+}
+
+// Modifiers
+
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+void
+basic_simple_string<C, T, A>::reserve(ss_typename_type_k basic_simple_string<C, T, A>::size_type cch)
+{
+    if (size() < cch)
+    {
+        if (ss_nullptr_k == m_buffer)
         {
-            m_buffer = alloc_buffer_(NULL, cch, 0);
+            m_buffer = alloc_buffer_(ss_nullptr_k, cch, 0);
         }
         else
         {
@@ -2613,9 +3855,9 @@ inline void basic_simple_string<C, T, A>::reserve(ss_typename_type_k basic_simpl
             else
             {
                 // Allocate a new buffer of sufficient size
-                member_pointer const new_buffer = alloc_buffer_(c_str(), cch, length());
+                member_pointer const new_buffer = alloc_buffer_(c_str(), cch, size());
 
-                if (NULL != new_buffer) // Some allocators do not throw on failure!
+                if (ss_nullptr_k != new_buffer) // Some allocators do not throw on failure!
                 {
                     destroy_buffer_(m_buffer);
                     m_buffer = new_buffer;
@@ -2625,11 +3867,14 @@ inline void basic_simple_string<C, T, A>::reserve(ss_typename_type_k basic_simpl
     }
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline void basic_simple_string<C, T, A>::swap(ss_typename_type_k basic_simple_string<C, T, A>::class_type& other)
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+void
+basic_simple_string<C, T, A>::swap(ss_typename_type_k basic_simple_string<C, T, A>::class_type& other) STLSOFT_NOEXCEPT
 {
     STLSOFT_ASSERT(is_valid());
     STLSOFT_ASSERT(other.is_valid());
@@ -2637,18 +3882,21 @@ inline void basic_simple_string<C, T, A>::swap(ss_typename_type_k basic_simple_s
     std_swap(m_buffer, other.m_buffer);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline void basic_simple_string<C, T, A>::resize(
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+void
+basic_simple_string<C, T, A>::resize(
     ss_typename_type_k basic_simple_string<C, T, A>::size_type  cch
 ,   ss_typename_type_k basic_simple_string<C, T, A>::value_type ch
 )
 {
     STLSOFT_ASSERT(is_valid());
 
-    size_type const len = length();
+    size_type const len = size();
 
     if (len != cch)
     {
@@ -2669,13 +3917,16 @@ inline void basic_simple_string<C, T, A>::resize(
     STLSOFT_ASSERT(is_valid());
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline void basic_simple_string<C, T, A>::clear()
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+void
+basic_simple_string<C, T, A>::clear() STLSOFT_NOEXCEPT
 {
-    if (NULL != m_buffer)
+    if (ss_nullptr_k != m_buffer)
     {
         string_buffer* buffer = string_buffer_from_member_pointer_(m_buffer);
 
@@ -2685,67 +3936,85 @@ inline void basic_simple_string<C, T, A>::clear()
 }
 
 // Attributes
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::size_type basic_simple_string<C, T, A>::size() const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::size_type
+basic_simple_string<C, T, A>::size() const STLSOFT_NOEXCEPT
 {
     STLSOFT_ASSERT(is_valid());
 
-    return (NULL == m_buffer) ? 0 : string_buffer_from_member_pointer_(m_buffer)->length;
+    return (ss_nullptr_k == m_buffer) ? 0 : string_buffer_from_member_pointer_(m_buffer)->length;
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::size_type basic_simple_string<C, T, A>::max_size() const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::size_type
+basic_simple_string<C, T, A>::max_size() const STLSOFT_NOEXCEPT
 {
     STLSOFT_ASSERT(is_valid());
 
     return static_cast<size_type>(-1) / sizeof(char_type);
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::size_type basic_simple_string<C, T, A>::length() const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::size_type
+basic_simple_string<C, T, A>::length() const STLSOFT_NOEXCEPT
 {
     STLSOFT_ASSERT(is_valid());
 
     return size();
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_typename_type_ret_k basic_simple_string<C, T, A>::size_type basic_simple_string<C, T, A>::capacity() const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_typename_type_ret_k basic_simple_string<C, T, A>::size_type
+basic_simple_string<C, T, A>::capacity() const STLSOFT_NOEXCEPT
 {
     STLSOFT_ASSERT(is_valid());
 
-    return (NULL == m_buffer) ? 0 : string_buffer_from_member_pointer_(m_buffer)->capacity;
+    return (ss_nullptr_k == m_buffer) ? 0 : string_buffer_from_member_pointer_(m_buffer)->capacity;
 }
 
-template<   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline ss_bool_t basic_simple_string<C, T, A>::empty() const
+template <
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+ss_bool_t
+basic_simple_string<C, T, A>::empty() const STLSOFT_NOEXCEPT
 {
     STLSOFT_ASSERT(is_valid());
 
-    return 0 == length();
+    return 0 == size();
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
 
 /* In the special case of Intel behaving as VC++ 7.0 or earlier on Win32, we
@@ -2757,17 +4026,24 @@ inline ss_bool_t basic_simple_string<C, T, A>::empty() const
      _MSC_VER < 1310
 namespace std
 {
-    template<   ss_typename_param_k C
-            ,   ss_typename_param_k T
-            ,   ss_typename_param_k A
-            >
-    inline void swap(STLSOFT_NS_QUAL(basic_simple_string)<C, T, A>& lhs, STLSOFT_NS_QUAL(basic_simple_string)<C, T, A>& rhs)
+    template <
+        ss_typename_param_k C
+    ,   ss_typename_param_k T
+    ,   ss_typename_param_k A
+    >
+    inline
+    void
+    swap(
+        STLSOFT_NS_QUAL(basic_simple_string)<C, T, A>&  lhs
+    ,   STLSOFT_NS_QUAL(basic_simple_string)<C, T, A>&  rhs
+    )
     {
         lhs.swap(rhs);
     }
-} /* namespace std */
+} // namespace std
 # endif /* INTEL && _MSC_VER < 1310 */
 #endif /* STLSOFT_CF_std_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

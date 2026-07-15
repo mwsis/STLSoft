@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        atlstl/shims/access/string/CWindow.hpp
+ * File:    atlstl/shims/access/string/CWindow.hpp
  *
- * Purpose:     String access shims for CWindow
+ * Purpose: String access shims for CWindow
  *
- * Created:     27th May 2002
- * Updated:     28th November 2020
+ * Created: 27th May 2002
+ * Updated: 21st March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define ATLSTL_VER_ATLSTL_SHIMS_ACCESS_STRING_HPP_CWINDOW_MAJOR    4
 # define ATLSTL_VER_ATLSTL_SHIMS_ACCESS_STRING_HPP_CWINDOW_MINOR    0
-# define ATLSTL_VER_ATLSTL_SHIMS_ACCESS_STRING_HPP_CWINDOW_REVISION 12
-# define ATLSTL_VER_ATLSTL_SHIMS_ACCESS_STRING_HPP_CWINDOW_EDIT     117
+# define ATLSTL_VER_ATLSTL_SHIMS_ACCESS_STRING_HPP_CWINDOW_REVISION 14
+# define ATLSTL_VER_ATLSTL_SHIMS_ACCESS_STRING_HPP_CWINDOW_EDIT     123
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -84,6 +85,7 @@
 # include <atlwin.h>
 #endif /* !STLSOFT_INCL_SYS_H_ATLWIN */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -102,6 +104,7 @@ namespace atlstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !ATLSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -145,12 +148,12 @@ public:
     }
 
 private:
-    void operator =(class_type const& rhs); // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
-    /// Returns a null-terminated string representing the window contents, or
-    /// NULL if the window contains no text.
+    /// Returns a null-terminated string representing the window contents,
+    /// or \c nullptr if the window contains no text.
     operator LPCTSTR () const
     {
         if (NULL == m_block)
@@ -224,12 +227,12 @@ public:
         cstring_maker_type_::free(m_block);
     }
 private:
-    void operator =(class_type const&); // copy-assignment operator proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
-    /// Returns a null-terminated string representing the window contents, or
-    /// the empty string "" if the window contains no text.
+    /// Returns a null-terminated string representing the window contents,
+    /// or the empty string "" if the window contains no text.
     operator LPCTSTR () const
     {
         return &m_block->data[0];
@@ -257,36 +260,63 @@ private: // fields
     block_type_* const  m_block;
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * equivalence testing
  */
 
-inline as_bool_t operator ==(LPCTSTR lhs, c_str_ptr_null_CWindow_proxy const& rhs)
+inline
+as_bool_t
+operator ==(
+    LPCTSTR                             lhs
+,   c_str_ptr_null_CWindow_proxy const& rhs
+)
 {
     return lhs == static_cast<LPCTSTR>(rhs);
 }
 
-inline as_bool_t operator ==(c_str_ptr_null_CWindow_proxy const& lhs, LPCTSTR rhs)
+inline
+as_bool_t
+operator ==(
+    c_str_ptr_null_CWindow_proxy const& lhs
+,   LPCTSTR                             rhs
+)
 {
     return static_cast<LPCTSTR>(lhs) == rhs;
 }
 
-inline as_bool_t operator !=(LPCTSTR lhs, c_str_ptr_null_CWindow_proxy const& rhs)
+inline
+as_bool_t
+operator !=(
+    LPCTSTR                             lhs
+,   c_str_ptr_null_CWindow_proxy const& rhs
+)
 {
     return lhs != static_cast<LPCTSTR>(rhs);
 }
 
-inline as_bool_t operator !=(c_str_ptr_null_CWindow_proxy const& lhs, LPCTSTR rhs)
+inline
+as_bool_t
+operator !=(
+    c_str_ptr_null_CWindow_proxy const& lhs
+,   LPCTSTR                             rhs
+)
 {
     return static_cast<LPCTSTR>(lhs) != rhs;
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * iostream compatibility
  */
 
-template<ss_typename_param_k S>
-inline S& operator <<(S& s, c_str_ptr_null_CWindow_proxy const& shim)
+template <ss_typename_param_k S>
+inline
+S&
+operator <<(
+    S&                                  s
+,   c_str_ptr_null_CWindow_proxy const& shim
+)
 {
     s << static_cast<LPCTSTR>(shim);
 
@@ -294,12 +324,18 @@ inline S& operator <<(S& s, c_str_ptr_null_CWindow_proxy const& shim)
 }
 
 template <ss_typename_param_k S>
-inline S& operator <<(S& s, c_str_ptr_CWindow_proxy const& shim)
+inline
+S&
+operator <<(
+    S&                              s
+,   c_str_ptr_CWindow_proxy const&  shim
+)
 {
     s << static_cast<LPCTSTR>(shim);
 
     return s;
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_data
@@ -326,14 +362,19 @@ c_str_data(
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # ifdef UNICODE
-inline c_str_ptr_CWindow_proxy c_str_data_w(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
+inline
+c_str_ptr_CWindow_proxy
+c_str_data_w(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
 # else /* ? UNICODE */
-inline c_str_ptr_CWindow_proxy c_str_data_a(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
+inline
+c_str_ptr_CWindow_proxy
+c_str_data_a(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
 # endif /* UNICODE */
 {
     return c_str_data(w);
 }
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_len
@@ -349,21 +390,28 @@ inline c_str_ptr_CWindow_proxy c_str_data_a(ATLSTL_NS_QUAL_ATL(CWindow) const& w
  * \ingroup group__concept__Shim__string_access
  *
  */
-inline as_size_t c_str_len(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
+inline
+as_size_t
+c_str_len(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
 {
     return static_cast<as_size_t>(w.GetWindowTextLength());
 }
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # ifdef UNICODE
-inline as_size_t c_str_len_w(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
+inline
+as_size_t
+c_str_len_w(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
 # else /* ? UNICODE */
-inline as_size_t c_str_len_a(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
+inline
+as_size_t
+c_str_len_a(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
 # endif /* UNICODE */
 {
     return c_str_len(w);
 }
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_ptr
@@ -379,27 +427,34 @@ inline as_size_t c_str_len_a(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
  * \ingroup group__concept__Shim__string_access
  *
  */
-inline c_str_ptr_CWindow_proxy c_str_ptr(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
+inline
+c_str_ptr_CWindow_proxy
+c_str_ptr(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
 {
     return c_str_ptr_CWindow_proxy(w);
 }
 
 # ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 #  ifdef UNICODE
-inline c_str_ptr_CWindow_proxy c_str_ptr_w(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
+inline
+c_str_ptr_CWindow_proxy
+c_str_ptr_w(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
 #  else /* ? UNICODE */
-inline c_str_ptr_CWindow_proxy c_str_ptr_a(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
+inline
+c_str_ptr_CWindow_proxy
+c_str_ptr_a(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
 #  endif /* UNICODE */
 {
     return c_str_ptr(w);
 }
 # endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_ptr_null
  *
  * This can be applied to an expression, and the return value is either a
- * pointer to the character string or NULL.
+ * pointer to the character string or \c nullptr.
  */
 
 /* CWindow */
@@ -409,33 +464,43 @@ inline c_str_ptr_CWindow_proxy c_str_ptr_a(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
  * \ingroup group__concept__Shim__string_access
  *
  */
-inline c_str_ptr_null_CWindow_proxy c_str_ptr_null(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
+inline
+c_str_ptr_null_CWindow_proxy
+c_str_ptr_null(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
 {
     return c_str_ptr_null_CWindow_proxy(w);
 }
 
 # ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 #  ifdef UNICODE
-inline c_str_ptr_null_CWindow_proxy c_str_ptr_null_w(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
+inline
+c_str_ptr_null_CWindow_proxy
+c_str_ptr_null_w(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
 #  else /* ? UNICODE */
-inline c_str_ptr_null_CWindow_proxy c_str_ptr_null_a(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
+inline
+c_str_ptr_null_CWindow_proxy
+c_str_ptr_null_a(ATLSTL_NS_QUAL_ATL(CWindow) const& w)
 #  endif /* UNICODE */
 {
     return c_str_ptr_null(w);
 }
 # endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef ATLSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace atlstl */
+} // namespace atlstl
 # else
-} /* namespace stlsoft::atlstl_project */
-} /* namespace stlsoft */
+} // namespace atlstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !ATLSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -484,11 +549,12 @@ using ::atlstl::c_str_ptr_null_a;
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
 #endif /* !ATLSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

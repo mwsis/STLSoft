@@ -4,11 +4,11 @@
  * Purpose:     Contains the CArray_swap utility function.
  *
  * Created:     4th August 2005
- * Updated:     28th November 2020
+ * Updated:     20th March 2025
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,8 +54,9 @@
 # define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_ARRAY_SWAP_MAJOR     2
 # define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_ARRAY_SWAP_MINOR     0
 # define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_ARRAY_SWAP_REVISION  6
-# define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_ARRAY_SWAP_EDIT      26
+# define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_ARRAY_SWAP_EDIT      28
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -72,6 +73,7 @@
 # include <stlsoft/util/std_swap.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_STD_SWAP */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * version compatibility
  */
@@ -81,6 +83,7 @@
     !defined(MFCSTL_CARRAY_SWAP_MEMBERS_SUPPORT)
 # define MFCSTL_CARRAY_SWAP_MEMBERS_SUPPORT
 #endif /* _MFC_VER <= 0x0800 && !MFCSTL_CARRAY_SWAP_MEMBERS_SUPPORT */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -137,7 +140,7 @@ public:
 };
 
 #ifdef STLSOFT_CF_NAMESPACE_SUPPORT
-} /* namespace array_impl */
+} // namespace array_impl
 #endif /* STLSOFT_CF_NAMESPACE_SUPPORT */
 
 
@@ -165,12 +168,13 @@ void CArray_swap(A& lhs, A& rhs)
 #ifndef MFCSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace mfcstl */
+} // namespace mfcstl
 # else
-} /* namespace mfcstl_project */
-} /* namespace stlsoft */
+} // namespace mfcstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !MFCSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

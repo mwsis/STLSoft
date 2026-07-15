@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/window/zorder_sequences.hpp
+ * File:    winstl/window/zorder_sequences.hpp
  *
- * Purpose:     Collection of the peers of a given window.
+ * Purpose: Collection of the peers of a given window.
  *
- * Created:     11th July 2005
- * Updated:     26th December 2020
+ * Created: 11th July 2005
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_WINDOW_HPP_ZORDER_SEQUENCES_MAJOR    2
 # define WINSTL_VER_WINSTL_WINDOW_HPP_ZORDER_SEQUENCES_MINOR    0
-# define WINSTL_VER_WINSTL_WINDOW_HPP_ZORDER_SEQUENCES_REVISION 7
-# define WINSTL_VER_WINSTL_WINDOW_HPP_ZORDER_SEQUENCES_EDIT     28
+# define WINSTL_VER_WINSTL_WINDOW_HPP_ZORDER_SEQUENCES_REVISION 10
+# define WINSTL_VER_WINSTL_WINDOW_HPP_ZORDER_SEQUENCES_EDIT     34
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -79,6 +80,7 @@
 # include <stlsoft/collections/util/collections.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_COLLECTIONS_UTIL_HPP_COLLECTIONS */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -98,6 +100,7 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * classes
  */
@@ -106,43 +109,39 @@ namespace winstl_project
  *
  * \ingroup group__library__Windows_Window
  */
-template<   zorder_iterator_base::search    B
-        ,   zorder_iterator_base::search    E
-        >
+template<
+    zorder_iterator_base::search    B
+,   zorder_iterator_base::search    E
+>
 class zorder_sequence_base
     : public STLSOFT_NS_QUAL(stl_collection_tag)
 {
-/// \name Member Types
-/// @{
-public:
+public: // types
     /// The mutating (non-const) iterator type
-    typedef zorder_iterator                             iterator;
+    typedef zorder_iterator                                 iterator;
     /// The value type
-    typedef iterator::value_type                        value_type;
+    typedef iterator::value_type                            value_type;
     /// The size type
-    typedef iterator::size_type                         size_type;
+    typedef iterator::size_type                             size_type;
     /// The difference type
-    typedef iterator::difference_type                   difference_type;
+    typedef iterator::difference_type                       difference_type;
     /// The non-mutating (const) iterator type
-    typedef zorder_iterator                             const_iterator;
+    typedef zorder_iterator                                 const_iterator;
     /// The mutating (non-const) reverse iterator type
-    typedef iterator::base_iterator_type                reverse_iterator;
+    typedef iterator::base_iterator_type                    reverse_iterator;
     /// The non-mutating (const) reverse iterator type
-    typedef const_iterator::base_iterator_type          const_reverse_iterator;
+    typedef const_iterator::base_iterator_type              const_reverse_iterator;
     /// This class
-    typedef zorder_sequence_base<B, E>                  class_type;
-/// @}
+    typedef zorder_sequence_base<B, E>                      class_type;
 
-/// \name Construction
-/// @{
-public:
+public: // construction
     /// Constructs a sequence of peers of the given window
     ss_explicit_k zorder_sequence_base(HWND hwndRoot);
-/// @}
+private:
+    zorder_sequence_base(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
-/// \name Iteration
-/// @{
-public:
+public: // iteration
     iterator                begin();
     iterator                end();
     const_iterator          begin() const;
@@ -151,27 +150,14 @@ public:
     reverse_iterator        rend();
     const_reverse_iterator  rbegin() const;
     const_reverse_iterator  rend() const;
-/// @}
 
-/// \name State
-/// @{
-public:
+public: // state
     ws_bool_t   empty() const;
-/// @}
 
-/// \name Members
-/// @{
-private:
+private: // fields
     HWND    m_hwnd;
-/// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    zorder_sequence_base(class_type const&);
-    class_type& operator =(class_type const&);
-/// @}
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * typedefs
@@ -182,18 +168,21 @@ private:
  *
  * \ingroup group__library__Windows_Window
  */
-typedef zorder_sequence_base<   zorder_iterator_base::fromFirstChild
-                            ,   zorder_iterator_base::atLastChild
-                            >                                       child_window_sequence;
+typedef zorder_sequence_base<
+    zorder_iterator_base::fromFirstChild
+,   zorder_iterator_base::atLastChild
+>                                                           child_window_sequence;
 
 /** Specialisation of \link winstl::zorder_sequence_base zorder_sequence_base\endlink
  *    that searches the peers of a given window.
  *
  * \ingroup group__library__Windows_Window
  */
-typedef zorder_sequence_base<   zorder_iterator_base::fromFirstPeer
-                            ,   zorder_iterator_base::atLastPeer
-                            >                                       window_peer_sequence;
+typedef zorder_sequence_base<
+    zorder_iterator_base::fromFirstPeer
+,   zorder_iterator_base::atLastPeer
+>                                                           window_peer_sequence;
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * implementation
@@ -201,86 +190,116 @@ typedef zorder_sequence_base<   zorder_iterator_base::fromFirstPeer
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-template<   zorder_iterator_base::search    B
-        ,   zorder_iterator_base::search    E
-        >
-inline /* ss_explicit_k */ zorder_sequence_base<B, E>::zorder_sequence_base(HWND hwndRoot)
+template<
+    zorder_iterator_base::search    B
+,   zorder_iterator_base::search    E
+>
+inline
+/* ss_explicit_k */
+zorder_sequence_base<B, E>::zorder_sequence_base(HWND hwndRoot)
     : m_hwnd(hwndRoot)
 {}
 
-template<   zorder_iterator_base::search    B
-        ,   zorder_iterator_base::search    E
-        >
-inline ss_typename_type_ret_k zorder_sequence_base<B, E>::iterator zorder_sequence_base<B, E>::begin()
+template<
+    zorder_iterator_base::search    B
+,   zorder_iterator_base::search    E
+>
+inline
+ss_typename_type_ret_k zorder_sequence_base<B, E>::iterator
+zorder_sequence_base<B, E>::begin()
 {
     return iterator::create(m_hwnd, B);
 }
 
-template<   zorder_iterator_base::search    B
-        ,   zorder_iterator_base::search    E
-        >
-inline ss_typename_type_ret_k zorder_sequence_base<B, E>::iterator zorder_sequence_base<B, E>::end()
+template<
+    zorder_iterator_base::search    B
+,   zorder_iterator_base::search    E
+>
+inline
+ss_typename_type_ret_k zorder_sequence_base<B, E>::iterator
+zorder_sequence_base<B, E>::end()
 {
     return iterator::create(m_hwnd, E);
 }
 
-template<   zorder_iterator_base::search    B
-        ,   zorder_iterator_base::search    E
-        >
-inline ss_typename_type_ret_k zorder_sequence_base<B, E>::const_iterator zorder_sequence_base<B, E>::begin() const
+template<
+    zorder_iterator_base::search    B
+,   zorder_iterator_base::search    E
+>
+inline
+ss_typename_type_ret_k zorder_sequence_base<B, E>::const_iterator
+zorder_sequence_base<B, E>::begin() const
 {
     return const_iterator::create(m_hwnd, B);
 }
 
-template<   zorder_iterator_base::search    B
-        ,   zorder_iterator_base::search    E
-        >
-inline ss_typename_type_ret_k zorder_sequence_base<B, E>::const_iterator zorder_sequence_base<B, E>::end() const
+template<
+    zorder_iterator_base::search    B
+,   zorder_iterator_base::search    E
+>
+inline
+ss_typename_type_ret_k zorder_sequence_base<B, E>::const_iterator
+zorder_sequence_base<B, E>::end() const
 {
     return const_iterator::create(m_hwnd, E);
 }
 
-template<   zorder_iterator_base::search    B
-        ,   zorder_iterator_base::search    E
-        >
-inline ss_typename_type_ret_k zorder_sequence_base<B, E>::reverse_iterator zorder_sequence_base<B, E>::rbegin()
+template<
+    zorder_iterator_base::search    B
+,   zorder_iterator_base::search    E
+>
+inline
+ss_typename_type_ret_k zorder_sequence_base<B, E>::reverse_iterator
+zorder_sequence_base<B, E>::rbegin()
 {
     return reverse_iterator::create(m_hwnd, B);
 }
 
-template<   zorder_iterator_base::search    B
-        ,   zorder_iterator_base::search    E
-        >
-inline ss_typename_type_ret_k zorder_sequence_base<B, E>::reverse_iterator zorder_sequence_base<B, E>::rend()
+template<
+    zorder_iterator_base::search    B
+,   zorder_iterator_base::search    E
+>
+inline
+ss_typename_type_ret_k zorder_sequence_base<B, E>::reverse_iterator
+zorder_sequence_base<B, E>::rend()
 {
     return reverse_iterator::create(m_hwnd, E);
 }
 
-template<   zorder_iterator_base::search    B
-        ,   zorder_iterator_base::search    E
-        >
-inline ss_typename_type_ret_k zorder_sequence_base<B, E>::const_reverse_iterator zorder_sequence_base<B, E>::rbegin() const
+template<
+    zorder_iterator_base::search    B
+,   zorder_iterator_base::search    E
+>
+inline
+ss_typename_type_ret_k zorder_sequence_base<B, E>::const_reverse_iterator
+zorder_sequence_base<B, E>::rbegin() const
 {
     return const_reverse_iterator::create(m_hwnd, B);
 }
 
-template<   zorder_iterator_base::search    B
-        ,   zorder_iterator_base::search    E
-        >
-inline ss_typename_type_ret_k zorder_sequence_base<B, E>::const_reverse_iterator zorder_sequence_base<B, E>::rend() const
+template<
+    zorder_iterator_base::search    B
+,   zorder_iterator_base::search    E
+>
+inline
+ss_typename_type_ret_k zorder_sequence_base<B, E>::const_reverse_iterator
+zorder_sequence_base<B, E>::rend() const
 {
     return const_reverse_iterator::create(m_hwnd, E);
 }
 
-template<   zorder_iterator_base::search    B
-        ,   zorder_iterator_base::search    E
-        >
-inline ws_bool_t zorder_sequence_base<B, E>::empty() const
+template<
+    zorder_iterator_base::search    B
+,   zorder_iterator_base::search    E
+>
+inline
+ws_bool_t
+zorder_sequence_base<B, E>::empty() const
 {
     return end() == begin();
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -289,12 +308,13 @@ inline ws_bool_t zorder_sequence_base<B, E>::empty() const
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

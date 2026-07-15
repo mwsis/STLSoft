@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        comstl/shims/access/string/VARIANT.hpp
+ * File:    comstl/shims/access/string/VARIANT.hpp
  *
- * Purpose:     Definition of the string access shims for the VARIANT type.
+ * Purpose: Definition of the string access shims for the VARIANT type.
  *
- * Created:     24th May 2002
- * Updated:     22nd January 2024
+ * Created: 24th May 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define COMSTL_VER_COMSTL_SHIMS_ACCESS_STRING_HPP_VARIANT_MAJOR    5
 # define COMSTL_VER_COMSTL_SHIMS_ACCESS_STRING_HPP_VARIANT_MINOR    4
-# define COMSTL_VER_COMSTL_SHIMS_ACCESS_STRING_HPP_VARIANT_REVISION 8
-# define COMSTL_VER_COMSTL_SHIMS_ACCESS_STRING_HPP_VARIANT_EDIT     149
+# define COMSTL_VER_COMSTL_SHIMS_ACCESS_STRING_HPP_VARIANT_REVISION 11
+# define COMSTL_VER_COMSTL_SHIMS_ACCESS_STRING_HPP_VARIANT_EDIT     156
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -93,13 +94,13 @@
 # include <winstl/api/external/UnicodeAndCharacterSet.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_UnicodeAndCharacterSet */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
 #ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
 # include <stlsoft/api/external/string.h>
 #endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -119,6 +120,7 @@ namespace comstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helper classes & functions
@@ -154,13 +156,15 @@ public:
             WCHAR   code[23];
             LPWSTR  msg     =   NULL;
             DWORD   cchCode =   static_cast<DWORD>(::wsprintfW(&code[0], L"%d\00x%08x" + ((0x8000000 & scode) ? 3 : 0), scode));
-            DWORD   cchMsg  =   ::FormatMessageW(   FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS
-                                                ,   NULL
-                                                ,   DWORD(scode)
-                                                ,   MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT)
-                                                ,   (LPWSTR)&msg
-                                                ,   0
-                                                ,   NULL);
+            DWORD   cchMsg  =   ::FormatMessageW(
+                                    FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS
+                                ,   NULL
+                                ,   DWORD(scode)
+                                ,   MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT)
+                                ,   (LPWSTR)&msg
+                                ,   0
+                                ,   NULL
+                                );
             DWORD   cchAll  =   cchCode;
 
             if (0 == cchMsg)
@@ -214,11 +218,11 @@ public:
             }
             else
             {
-                STLSOFT_API_INTERNAL_memfns_memcpy(result + 0, code, cchCode * sizeof(WCHAR));
+                STLSOFT_API_EXTERNAL_memfns_memcpy(result + 0, code, cchCode * sizeof(WCHAR));
                 if (0 != cchMsg)
                 {
-                    STLSOFT_API_INTERNAL_memfns_memcpy(result + cchCode, L", ", 2 * sizeof(WCHAR));
-                    STLSOFT_API_INTERNAL_memfns_memcpy(result + cchCode + 2, msg, cchMsg * sizeof(WCHAR));
+                    STLSOFT_API_EXTERNAL_memfns_memcpy(result + cchCode, L", ", 2 * sizeof(WCHAR));
+                    STLSOFT_API_EXTERNAL_memfns_memcpy(result + cchCode + 2, msg, cchMsg * sizeof(WCHAR));
                 }
             }
 
@@ -347,6 +351,7 @@ public:
 };
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * classes
  */
@@ -410,7 +415,7 @@ public:
         ::SysFreeString(m_bstr);
     }
 private:
-    void operator =(class_type const& rhs); // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
@@ -508,7 +513,7 @@ public:
         }
     }
 private:
-    void operator =(class_type const& rhs); // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
@@ -652,7 +657,7 @@ public:
         ::SysFreeString(m_bstr);
     }
 private:
-    void operator =(class_type const& rhs); // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
@@ -749,7 +754,7 @@ public:
         }
     }
 private:
-    void operator =(class_type const& rhs); // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
@@ -832,6 +837,7 @@ private:
     char_type*      m_buffer;
     VARTYPE const   m_vt;
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * equivalence testing
@@ -1000,6 +1006,7 @@ operator !=(
 {
     return !lhs.equal(rhs);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * iostream compatibility
@@ -1256,7 +1263,7 @@ c_str_ptr(
  * c_str_ptr_null
  *
  * This can be applied to an expression, and the return value is either a
- * pointer to the character string or NULL.
+ * pointer to the character string or \c nullptr.
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -1320,6 +1327,7 @@ c_str_ptr_null(
 #endif /* UNICODE */
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -1327,10 +1335,10 @@ c_str_ptr_null(
 #ifndef COMSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace comstl */
+} // namespace comstl
 # else
-} /* namespace stlsoft::comstl_project */
-} /* namespace stlsoft */
+} // namespace comstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
 
@@ -1369,11 +1377,12 @@ using ::comstl::c_str_ptr_null;
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * global namespace shims
@@ -1408,8 +1417,8 @@ operator <<(
 {
     return stm << static_cast<wchar_t const*>(v);
 }
-
 #endif /* library */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

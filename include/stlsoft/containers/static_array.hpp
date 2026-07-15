@@ -1,16 +1,16 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/containers/static_array.hpp
+ * File:    stlsoft/containers/static_array.hpp
  *
- * Purpose:     Statically sized multidimensional class template.
+ * Purpose: Statically sized multidimensional class template.
  *
- * Created:     4th August 1998
- * Updated:     22nd January 2024
+ * Created: 4th August 1998
+ * Updated: 20th March 2025
  *
- * Thanks to:   Neal Becker for suggesting the uninitialised mode.
+ * Thanks:  Neal Becker for suggesting the uninitialised mode.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1998-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -57,9 +57,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_STATIC_ARRAY_MAJOR     4
 # define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_STATIC_ARRAY_MINOR     4
-# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_STATIC_ARRAY_REVISION  7
-# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_STATIC_ARRAY_EDIT      202
+# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_STATIC_ARRAY_REVISION  9
+# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_STATIC_ARRAY_EDIT      206
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -111,6 +112,7 @@
 # include <stdexcept>                    // for std::out_of_range
 #endif /* !STLSOFT_INCL_STDEXCEPT */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -119,6 +121,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * forward declarations
@@ -173,8 +176,10 @@ class static_array_5d;
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-////////////////////////////////////////////////////////////////////////////
-// Classes
+
+/* /////////////////////////////////////////////////////////////////////////
+ * classes
+ */
 
 // class static_array_1d
 /** 1 dimensional static array
@@ -255,6 +260,8 @@ public:
     static_array_1d(value_type const& t);
     static_array_1d(class_type const& rhs);
     ~static_array_1d() STLSOFT_NOEXCEPT;
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Access
 public:
@@ -306,10 +313,6 @@ protected:
 // Members
 private:
     M   m_data;
-
-// Not to be implemented
-private:
-    class_type const& operator =(class_type const& rhs);
 };
 
 // class static_array_2d
@@ -394,6 +397,8 @@ public:
     static_array_2d(value_type const& t);
     static_array_2d(class_type const& rhs);
     ~static_array_2d() STLSOFT_NOEXCEPT;
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Operations
 public:
@@ -453,10 +458,6 @@ protected:
 // Members
 private:
     M   m_data;
-
-// Not to be implemented
-private:
-    class_type const& operator =(class_type const& rhs);
 };
 
 // class static_array_3d
@@ -543,6 +544,8 @@ public:
     static_array_3d(value_type const& t);
     static_array_3d(class_type const& rhs);
     ~static_array_3d() STLSOFT_NOEXCEPT;
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Operations
 public:
@@ -603,10 +606,6 @@ protected:
 // Members
 private:
     M   m_data;
-
-// Not to be implemented
-private:
-    class_type const& operator =(class_type const& rhs);
 };
 
 
@@ -695,6 +694,8 @@ public:
     static_array_4d(value_type const& t);
     static_array_4d(class_type const& rhs);
     ~static_array_4d() STLSOFT_NOEXCEPT;
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Operations
 public:
@@ -757,11 +758,8 @@ protected:
 // Members
 private:
     M   m_data;
-
-// Not to be implemented
-private:
-    class_type const& operator =(class_type const& rhs);
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * implementation
@@ -1786,6 +1784,7 @@ inline ss_typename_type_ret_k static_array_4d<T, N0, N1, N2, N3, P, M>::value_ty
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * shims
  */
@@ -1870,8 +1869,9 @@ inline ss_size_t array_size(static_array_5d<T, N0, N1, N2, N3, N4, P, M> const& 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

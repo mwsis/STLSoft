@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/filesystem/filesystem_traits.hpp
+ * File:    winstl/filesystem/filesystem_traits.hpp
  *
- * Purpose:     Contains the filesystem_traits template class, and ANSI and
- *              Unicode specialisations thereof.
+ * Purpose: Contains the filesystem_traits template class, and ANSI and
+ *          Unicode specialisations thereof.
  *
- * Created:     15th November 2002
- * Updated:     20th December 2023
+ * Created: 15th November 2002
+ * Updated: 28th May 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,10 +54,11 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS_MAJOR       4
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS_MINOR       21
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS_REVISION    8
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS_EDIT        186
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS_MINOR       22
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS_REVISION    11
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS_EDIT        194
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -131,13 +132,17 @@
 # include <winstl/internal/windows_version_.h>
 #endif /* !WINSTL_INCL_WINSTL_INTERNAL_H_WINDOWS_VERSION_ */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
 #ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
 # include <stlsoft/api/external/string.h>
 #endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
+#ifndef WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_
+# include <winstl/api/winstl_win32_winnt_.h>
+#endif /* !WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_ */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -157,6 +162,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -528,6 +534,10 @@ public:
     );
 
     /// Returns \c true if dir is \c "." or \c ".."
+    static bool_type    basename_is_dots(char_type const* dir);
+    /// [DEPRECATED] Returns \c true if dir is \c "." or \c ".."
+    ///
+    /// \deprecated Users should use basename_is_dots()
     static bool_type    is_dots(char_type const* dir);
 
     /// Returns \c true if the path begins with a dots directory
@@ -609,6 +619,13 @@ public:
     ///
     /// \note On Win32 it is '*.*'
     static char_type const* pattern_all();
+    /// Returns the wildcard patterns that represent collectively all
+    /// possible matches
+    ///
+    /// \note On Win32 it is { '*.*', nullptr }
+    static char_type const*[] patterns_all(
+        size_type*          pNumElements    =   NULL
+    );
     /// The maximum length of a path on the file-system
     ///
     /// \note Because not all systems support fixed maximum path lengths, the value of this function is notionally dynamic
@@ -648,7 +665,7 @@ public:
     ,   T_resizeableBuffer& rb
     );
 
-    /// Gets the full path name into the given buffer
+    /// [DEPRECATED] Gets the full path name into the given buffer
     ///
     /// \deprecated The other overload is now the preferred form
     static
@@ -659,7 +676,7 @@ public:
     ,   char_type           buffer[]
     );
 
-    /// Gets the short path name into the given buffer
+    /// [DEPRECATED] Gets the short path name into the given buffer
     ///
     /// \deprecated The other overload is now the preferred form
     static
@@ -704,10 +721,11 @@ public:
 
     /// Initiate a file-system search
     static HANDLE       find_first_file(char_type const* spec, find_data_type* findData);
-#if _WIN32_WINNT >= 0x0400
+#if WINSTL_WIN32_WINNT >= WINSTL_WIN32_WINNT_NT4
+
     /// Initiate a file-system search - NT4+-only
     static HANDLE       find_first_file_ex(char_type const* spec, FINDEX_SEARCH_OPS flags, find_data_type* findData);
-#endif /* _WIN32_WINNT >= 0x0400 */
+#endif /* _WIN32_WINNT >= _WIN32_WINNT_NT4 */
     /// Advance a given file-system search
     static bool_type    find_next_file(HANDLE h, find_data_type* findData);
     /// Closes the handle of the file-system search
@@ -735,7 +753,8 @@ public:
     set_current_directory(
         char_type const*    dir
     );
-    /// Retrieves the name of the current directory into \c buffer up to a maximum of \c cchBuffer characters
+    /// [DEPRECATED] Retrieves the name of the current directory into the
+    ///  given \c buffer up to a maximum of \c cchBuffer characters
     ///
     /// \deprecated The other overload is now the preferred form
     static
@@ -744,7 +763,8 @@ public:
         size_type   cchBuffer
     ,   char_type   buffer[]
     );
-    /// Retrieves the name of the current directory into \c buffer up to a maximum of \c cchBuffer characters
+    /// Retrieves the name of the current directory into the given \c buffer
+    ///  up to a maximum of \c cchBuffer characters
     static
     size_type
     get_current_directory(
@@ -783,12 +803,12 @@ public:
     static bool_type    fstat(file_handle_type fd, fstat_data_type* fstat_data);
     /// Gets the file attributes for the given path
     ///
-    /// \pre (NULL != path);
-    /// \pre (NULL != attr);
+    /// \pre (nullptr != path);
+    /// \pre (nullptr != attr);
     static bool_type    get_file_attributes(char_type const* path, file_attributes_type* attr);
     /// Sets the file attributes for the given path
     ///
-    /// \pre (NULL != path);
+    /// \pre (nullptr != path);
     /// \pre (INVALID_FILE_ATTRIBUTES != attr);
     static bool_type    set_file_attributes(char_type const* path, file_attributes_type const attr);
 
@@ -825,7 +845,7 @@ public:
 
     /// Delete a file
     static bool_type    unlink_file(char_type const* file);
-    /// Delete a file
+    /// [DEPRECATED] Delete a file
     ///
     /// \deprecated Users should use unlink_file()
     static bool_type    delete_file(char_type const* file);
@@ -848,7 +868,7 @@ public:
     static large_size_type  get_file_size(stat_data_type const& sd);
     /// Gets the size of the file
     ///
-    /// \pre (NULL != psd)
+    /// \pre (nullptr != psd)
     static large_size_type  get_file_size(stat_data_type const* psd);
 #else /* ? STLSOFT_CF_64BIT_INT_SUPPORT */
 private:
@@ -859,7 +879,6 @@ private:
 #endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
 /// @}
 };
-
 #else /* ? STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 template <ss_typename_param_k C>
@@ -1059,7 +1078,7 @@ public: // directory-end
         {
             size_type const n = rb.size();
 
-            if (0 != n)
+            if (n > 1)
             {
                 if (!resizeable_buffer_resize(rb, n + 1))
                 {
@@ -1174,7 +1193,7 @@ public: // directory-end
             pLenToDecrease = &dummy;
         }
 
-        if (0 != len)
+        for (; 0 != len; )
         {
             char_type& last = dir[len - 1];
 
@@ -1183,6 +1202,11 @@ public: // directory-end
                 last = char_type(0);
 
                 --*pLenToDecrease;
+                --len;
+            }
+            else
+            {
+                break;
             }
         }
 
@@ -1198,19 +1222,20 @@ public: // directory-end
         T_resizeableBuffer& rb
     )
     {
-        if (has_dir_end(rb))
+        size_type len = rb.size();
+
+        if (0 == len)
         {
-            size_type const n = rb.size();
-
-            if (!resizeable_buffer_resize(rb, n - 1))
-            {
-                return 0;
-            }
-
-            rb[n - 2] = char_type(0);
+            return 0;
         }
+        else
+        {
+            size_type lenToDecrease = len - 1;
 
-        return rb.empty() ? 0 : rb.size() - 1;
+            remove_dir_end(rb.data(), len - 1, &lenToDecrease);
+
+            return lenToDecrease;
+        }
     }
 
 public: // path classification and analysis
@@ -1304,6 +1329,11 @@ public: // path classification and analysis
 
     static bool_type is_dots(char_type const* dir)
     {
+        return basename_is_dots(dir);
+    }
+
+    static bool_type basename_is_dots(char_type const* dir)
+    {
         WINSTL_ASSERT(NULL != dir);
 
         if ('.' == dir[0])
@@ -1362,6 +1392,11 @@ public: // path classification and analysis
 
     static bool_type is_path_rooted(char_type const* path)
     {
+        return path_is_rooted(path);
+    }
+
+    static bool_type path_is_rooted(char_type const* path)
+    {
         WINSTL_ASSERT(NULL != path);
 
         return is_path_name_separator(*path) || is_path_absolute(path);
@@ -1372,10 +1407,23 @@ public: // path classification and analysis
     ,   size_t              len
     )
     {
+        return path_is_rooted(path, len);
+    }
+
+    static bool_type path_is_rooted(
+        char_type const*    path
+    ,   size_t              len
+    )
+    {
         return (0 != len && is_path_name_separator(*path)) || is_path_absolute(path, len);
     }
 
     static bool_type is_path_absolute(char_type const* path)
+    {
+        return path_is_absolute(path);
+    }
+
+    static bool_type path_is_absolute(char_type const* path)
     {
         WINSTL_ASSERT(NULL != path);
 
@@ -1383,6 +1431,14 @@ public: // path classification and analysis
     }
 
     static bool_type is_path_absolute(
+        char_type const*    path
+    ,   size_t              len
+    )
+    {
+        return path_is_absolute(path, len);
+    }
+
+    static bool_type path_is_absolute(
         char_type const*    path
     ,   size_t              len
     )
@@ -1618,6 +1674,24 @@ public:
         return "*.*";
     }
 
+    static char_type const** patterns_all(
+        size_type*          pNumElements    =   NULL
+    )
+    {
+        static char_type const* pa[] =
+        {
+            "*.*",
+            NULL
+        };
+
+        if (NULL != pNumElements)
+        {
+            *pNumElements = STLSOFT_NUM_ELEMENTS(pa) - 1;
+        }
+
+        return pa;
+    }
+
     static size_type path_max()
     {
         return WINSTL_CONST_MAX_PATH;
@@ -1712,7 +1786,7 @@ private:
                         r2 = cchBuffer;
                     }
 
-                    STLSOFT_API_INTERNAL_memfns_memcpy(&buffer[0], &buffer_[0], sizeof(char_type) * r2);
+                    STLSOFT_API_EXTERNAL_memfns_memcpy(&buffer[0], &buffer_[0], sizeof(char_type) * r2);
                     if (NULL != pFile2 &&
                         r2 == (r - 1) &&
                         static_cast<size_type>(pFile2 - &buffer_[0]) < r2)
@@ -1777,7 +1851,7 @@ private:
                 fileName_[len] = '\0';
 
                 return get_full_path_name_impl(
-                    static_cast<char_type*>(STLSOFT_API_INTERNAL_memfns_memcpy(&fileName_[0], fileName, sizeof(char_type) * len))
+                    static_cast<char_type*>(STLSOFT_API_EXTERNAL_memfns_memcpy(&fileName_[0], fileName, sizeof(char_type) * len))
                 ,   len
                 ,   buffer
                 ,   cchBuffer
@@ -2008,13 +2082,12 @@ public: // file-system enumeration
         return WINSTL_API_EXTERNAL_FileManagement_FindFirstFileA(spec, findData);
     }
 
-#if defined(_WIN32_WINNT) && \
-    _WIN32_WINNT >= 0x0400
+#if WINSTL_WIN32_WINNT >= WINSTL_WIN32_WINNT_NT4
     static HANDLE find_first_file_ex(char_type const* spec, FINDEX_SEARCH_OPS flags, find_data_type* findData)
     {
         return WINSTL_API_EXTERNAL_FileManagement_FindFirstFileExA(spec, FindExInfoStandard, findData, flags, NULL, 0);
     }
-#endif /* _WIN32_WINNT >= 0x0400 */
+#endif /* _WIN32_WINNT >= _WIN32_WINNT_NT4 */
 
     static bool_type find_next_file(HANDLE h, find_data_type* findData)
     {
@@ -2205,7 +2278,7 @@ public:
             {
                 WINSTL_ASSERT(len > 0);
 
-                STLSOFT_API_INTERNAL_memfns_memcpy(&buffer[0], path, sizeof(char_type) * (len - 1));
+                STLSOFT_API_EXTERNAL_memfns_memcpy(&buffer[0], path, sizeof(char_type) * (len - 1));
 
                 buffer[len - 1] = '\0';
 
@@ -2242,7 +2315,7 @@ public:
     }
 
 #if 0
-    /// \pre (NULL != path);
+    /// \pre (nullptr != path);
     /// \pre (INVALID_FILE_ATTRIBUTES != attr);
 #endif
 
@@ -2621,7 +2694,7 @@ public: // directory-end
         {
             size_type const n = rb.size();
 
-            if (0 != n)
+            if (n > 1)
             {
                 if (!resizeable_buffer_resize(rb, n + 1))
                 {
@@ -2736,7 +2809,7 @@ public: // directory-end
             pLenToDecrease = &dummy;
         }
 
-        if (0 != len)
+        for (; 0 != len; )
         {
             char_type& last = dir[len - 1];
 
@@ -2745,6 +2818,11 @@ public: // directory-end
                 last = char_type(0);
 
                 --*pLenToDecrease;
+                --len;
+            }
+            else
+            {
+                break;
             }
         }
 
@@ -2760,19 +2838,20 @@ public: // directory-end
         T_resizeableBuffer& rb
     )
     {
-        if (has_dir_end(rb))
+        size_type len = rb.size();
+
+        if (0 == len)
         {
-            size_type const n = rb.size();
-
-            if (!resizeable_buffer_resize(rb, n - 1))
-            {
-                return 0;
-            }
-
-            rb[n - 2] = char_type(0);
+            return 0;
         }
+        else
+        {
+            size_type lenToDecrease = len - 1;
 
-        return rb.empty() ? 0 : rb.size() - 1;
+            remove_dir_end(rb.data(), len - 1, &lenToDecrease);
+
+            return lenToDecrease;
+        }
     }
 
 public: // path classification and analysis
@@ -2866,6 +2945,11 @@ public: // path classification and analysis
 
     static bool_type is_dots(char_type const* dir)
     {
+        return basename_is_dots(dir);
+    }
+
+    static bool_type basename_is_dots(char_type const* dir)
+    {
         WINSTL_ASSERT(NULL != dir);
 
         if (L'.' == dir[0])
@@ -2939,12 +3023,25 @@ public: // path classification and analysis
 
     static bool_type is_path_absolute(char_type const* path)
     {
+        return path_is_absolute(path);
+    }
+
+    static bool_type path_is_absolute(char_type const* path)
+    {
         WINSTL_ASSERT(NULL != path);
 
         return is_path_absolute(path, str_len(path));
     }
 
     static bool_type is_path_absolute(
+        char_type const*    path
+    ,   size_t              len
+    )
+    {
+        return path_is_absolute(path, len);
+    }
+
+    static bool_type path_is_absolute(
         char_type const*    path
     ,   size_t              len
     )
@@ -3216,6 +3313,24 @@ public:
         return L"*.*";
     }
 
+    static char_type const** patterns_all(
+        size_type*          pNumElements    =   NULL
+    )
+    {
+        static char_type const* pa[] =
+        {
+            L"*.*",
+            NULL
+        };
+
+        if (NULL != pNumElements)
+        {
+            *pNumElements = STLSOFT_NUM_ELEMENTS(pa) - 1;
+        }
+
+        return pa;
+    }
+
     static size_type path_max()
     {
         return winstl_C_internal_IsWindows9x(NULL, NULL, NULL) ? WINSTL_CONST_MAX_PATH : CONST_NT_MAX_PATH;
@@ -3325,14 +3440,13 @@ public: // file-system enumeration
     {
         return WINSTL_API_EXTERNAL_FileManagement_FindFirstFileW(spec, findData);
     }
+#if WINSTL_WIN32_WINNT >= WINSTL_WIN32_WINNT_NT4
 
-#if defined(_WIN32_WINNT) && \
-    _WIN32_WINNT >= 0x0400
     static HANDLE find_first_file_ex(char_type const* spec, FINDEX_SEARCH_OPS flags, find_data_type* findData)
     {
         return WINSTL_API_EXTERNAL_FileManagement_FindFirstFileExW(spec, FindExInfoStandard, findData, flags, NULL, 0);
     }
-#endif /* _WIN32_WINNT >= 0x0400 */
+#endif /* _WIN32_WINNT >= _WIN32_WINNT_NT4 */
 
     static bool_type find_next_file(HANDLE h, find_data_type* findData)
     {
@@ -3524,7 +3638,7 @@ public:
             {
                 WINSTL_ASSERT(len > 0);
 
-                STLSOFT_API_INTERNAL_memfns_memcpy(&buffer[0], path, sizeof(char_type) * (len - 1));
+                STLSOFT_API_EXTERNAL_memfns_memcpy(&buffer[0], path, sizeof(char_type) * (len - 1));
 
                 buffer[len - 1] = L'\0';
 
@@ -3811,20 +3925,23 @@ private:
 #endif /* _WINSTL_FILESYSTEM_TRAITS_USE_TRUNCATION_TESTING */
     }
 };
-
 #endif /* STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

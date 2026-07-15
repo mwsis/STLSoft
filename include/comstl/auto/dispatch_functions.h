@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        comstl/auto/dispatch_functions.h (formerly comstl/auto/functions.h)
+ * File:    comstl/auto/dispatch_functions.h (formerly comstl/auto/functions.h)
  *
- * Purpose:     Automation (IDispatch) helper functions.
+ * Purpose: Automation (IDispatch) helper functions.
  *
- * Created:     24th May 2002
- * Updated:     26th December 2020
+ * Created: 24th May 2002
+ * Updated: 30th May 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,8 +54,9 @@
 # define COMSTL_VER_COMSTL_AUTO_H_DISPATCH_FUNCTIONS_MAJOR      2
 # define COMSTL_VER_COMSTL_AUTO_H_DISPATCH_FUNCTIONS_MINOR      0
 # define COMSTL_VER_COMSTL_AUTO_H_DISPATCH_FUNCTIONS_REVISION   1
-# define COMSTL_VER_COMSTL_AUTO_H_DISPATCH_FUNCTIONS_EDIT       14
+# define COMSTL_VER_COMSTL_AUTO_H_DISPATCH_FUNCTIONS_EDIT       16
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -75,6 +76,7 @@
 # include <stlsoft/quality/cover.h>
 #endif /* !STLSOFT_INCL_STLSOFT_QUALITY_H_COVER */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -93,6 +95,7 @@ namespace comstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * functions
@@ -148,6 +151,7 @@ comstl_C_IDispatch_get_property(
     return COMSTL_ITF_CALL(pobj)->Invoke(COMSTL_ITF_THIS(pobj) dispid, COMSTL_IID_2_REF(IID_NULL), lcid, DISPATCH_PROPERTYGET, &params, presult, xi, NULL);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
  */
@@ -195,8 +199,8 @@ IDispatch_get_property(
 {
     return comstl_C_IDispatch_get_property(pobj, dispid, presult, xi, lcid);
 }
-
 #endif /* __cplusplus */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -212,6 +216,7 @@ IDispatch_get_property(
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control
  */
@@ -219,8 +224,6 @@ IDispatch_get_property(
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
 # pragma once
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
-
-/* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* !COMSTL_INCL_COMSTL_AUTO_H_DISPATCH_FUNCTIONS */
 

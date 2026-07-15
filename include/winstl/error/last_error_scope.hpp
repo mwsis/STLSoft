@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/error/last_error_scope.hpp (originally MWTErrScp.h, ::SynesisWin)
+ * File:    winstl/error/last_error_scope.hpp (originally MWTErrScp.h, ::SynesisWin)
  *
- * Purpose:     Win32 last error scoping class.
+ * Purpose: Win32 last error scoping class.
  *
- * Created:     27th November 1998
- * Updated:     26th December 2020
+ * Created: 27th November 1998
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1998-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_ERROR_HPP_LAST_ERROR_SCOPE_MAJOR       4
 # define WINSTL_VER_WINSTL_ERROR_HPP_LAST_ERROR_SCOPE_MINOR       0
-# define WINSTL_VER_WINSTL_ERROR_HPP_LAST_ERROR_SCOPE_REVISION    7
-# define WINSTL_VER_WINSTL_ERROR_HPP_LAST_ERROR_SCOPE_EDIT        58
+# define WINSTL_VER_WINSTL_ERROR_HPP_LAST_ERROR_SCOPE_REVISION    9
+# define WINSTL_VER_WINSTL_ERROR_HPP_LAST_ERROR_SCOPE_EDIT        62
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -72,6 +73,7 @@
 #ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
 # include <winstl/api/external/ErrorHandling.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -91,6 +93,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -117,15 +120,10 @@ namespace winstl_project
  */
 class last_error_scope
 {
-/// \name Types
-/// @{
-public:
-    typedef last_error_scope    class_type;
-/// @}
+public: // types
+    typedef last_error_scope                                class_type;
 
-/// \name Operations
-/// @{
-public:
+public: // construction
     /// Takes a copy of the current thread error, which will be reset
     /// on destruction of this instance
     last_error_scope() STLSOFT_NOEXCEPT
@@ -147,27 +145,20 @@ public:
     {
         WINSTL_API_EXTERNAL_ErrorHandling_SetLastError(m_dwErr);
     }
-/// @}
+private:
+    last_error_scope(last_error_scope const&);
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
-/// \name Operations
-/// @{
-public:
+public: // attributes
     /// Returns the value of the recorded thread error, which will be
     /// reset on destruction of this instance
     operator ws_dword_t() const
     {
         return m_dwErr;
     }
-/// @}
 
-// Members
-private:
-    ws_dword_t  m_dwErr;
-
-// Not to be implemented
-private:
-    last_error_scope(last_error_scope const&);
-    last_error_scope& operator =(last_error_scope const&);
+private: // fields
+    ws_dword_t const m_dwErr;
 };
 
 /* ////////////////////////////////////////////////////////////////////// */
@@ -175,12 +166,13 @@ private:
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

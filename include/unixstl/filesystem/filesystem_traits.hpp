@@ -1,20 +1,20 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        unixstl/filesystem/filesystem_traits.hpp
+ * File:    unixstl/filesystem/filesystem_traits.hpp
  *
- * Purpose:     Contains the filesystem_traits template class, and ANSI and
- *              Unicode specialisations thereof.
+ * Purpose: Contains the filesystem_traits template class, and ANSI and
+ *          Unicode specialisations thereof.
  *
- * Created:     15th November 2002
- * Updated:     22nd January 2024
+ * Created: 15th November 2002
+ * Updated: 6th May 2025
  *
- * Thanks:      To Sergey Nikulov, for spotting a preprocessor typo that
- *              broke GCC -pedantic; to Michal Makowski and Zar Eindl for
- *              reporting GCC 4.5+ problem with use of NULL in return
- *              of invalid_file_handle_value().
+ * Thanks:  To Sergey Nikulov, for spotting a preprocessor typo that broke
+ *          GCC -pedantic; to Michal Makowski and Zar Eindl for reporting
+ *          GCC 4.5+ problem with use of NULL in return of
+ *          invalid_file_handle_value().
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -59,10 +59,11 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS_MAJOR     4
-# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS_MINOR     15
-# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS_REVISION  5
-# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS_EDIT      181
+# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS_MINOR     16
+# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS_REVISION  1
+# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS_EDIT      188
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -163,13 +164,13 @@
 # endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
 #endif /* _WIN32 */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
 #ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
 # include <stlsoft/api/external/string.h>
 #endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -189,6 +190,7 @@ namespace unixstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -785,6 +787,8 @@ public:
     /// Returns whether the given path represents a directory
     static bool_type    is_directory(char_type const* path);
 #ifndef _WIN32
+    /// Returns whether the given path represents a device
+    static bool_type    is_device(char_type const* path);
     /// Returns whether the given path represents a socket
     static bool_type    is_socket(char_type const* path);
 #endif /* OS */
@@ -803,6 +807,8 @@ public:
     /// Returns whether the given stat info represents a directory
     static bool_type    is_directory(stat_data_type const* stat_data);
 #ifndef _WIN32
+    /// Returns whether the given stat info represents a device
+    static bool_type    is_device(stat_data_type const* stat_data);
     /// Returns whether the given stat info represents a socket
     static bool_type    is_socket(stat_data_type const* stat_data);
 #endif /* OS */
@@ -857,7 +863,7 @@ public:
     static large_size_type  get_file_size(stat_data_type const& sd);
     /// Gets the size of the file
     ///
-    /// \pre (NULL != psd)
+    /// \pre (nullptr != psd)
     static large_size_type  get_file_size(stat_data_type const* psd);
 #else /* ? STLSOFT_CF_64BIT_INT_SUPPORT */
 private:
@@ -1508,11 +1514,13 @@ public: // path classification and analysis
 
         switch (len)
         {
-            case    0:
-            case    1:
-                return false;
-            default:
-                return '\\' == path[0] && '\\' == path[1];
+        case    0:
+        case    1:
+
+            return false;
+        default:
+
+            return '\\' == path[0] && '\\' == path[1];
         }
 #else /* ? _WIN32 */
 
@@ -1718,7 +1726,7 @@ public:
     }
 
 private:
-#if _STLSOFT_VER >= 0x010b0000
+#if _STLSOFT_VER >= 0x010b01ff
 
 # error Sort get_root_len_() properly
 #endif
@@ -1815,7 +1823,7 @@ private:
                 return 0;
             }
 
-            STLSOFT_API_INTERNAL_memfns_memcpy(&cwd[0] + n2, fileName, sizeof(char_type) * len);
+            STLSOFT_API_EXTERNAL_memfns_memcpy(&cwd[0] + n2, fileName, sizeof(char_type) * len);
             cwd[n2 + len] = '\0';
 
             return get_full_path_name_impl2(cwd.data(), n2 + len, buffer, cchBuffer);
@@ -2296,6 +2304,7 @@ public:
             size_type   n;
             char_type*  p;
         };
+
         path_max_buffer         local;
         size_type const         cchLocal = local.size();
 #endif /* _WIN32 */
@@ -2341,21 +2350,28 @@ public: // file-system state
     {
         stat_data_type sd;
 
-        return class_type::stat(path, &sd) && S_IFREG == (sd.st_mode & S_IFMT);
+        return class_type::stat(path, &sd) && class_type::is_file(&sd);
     }
     static bool_type is_directory(char_type const* path)
     {
         stat_data_type sd;
 
-        return class_type::stat(path, &sd) && S_IFDIR == (sd.st_mode & S_IFMT);
+        return class_type::stat(path, &sd) && class_type::is_directory(&sd);
     }
 #ifndef _WIN32
+
+    static bool_type is_device(char_type const* path)
+    {
+        stat_data_type sd;
+
+        return class_type::stat(path, &sd) && class_type::is_device(&sd);
+    }
 
     static bool_type is_socket(char_type const* path)
     {
         stat_data_type sd;
 
-        return class_type::stat(path, &sd) && S_IFSOCK == (sd.st_mode & S_IFMT);
+        return class_type::stat(path, &sd) && class_type::is_socket(&sd);
     }
 #endif /* OS */
     static bool_type is_link(char_type const* path)
@@ -2459,6 +2475,35 @@ public: // file-system state
     }
 #ifndef _WIN32
 
+    static bool_type is_device(stat_data_type const* stat_data)
+    {
+#if 1
+        switch (stat_data->st_mode & S_IFMT)
+        {
+#ifdef S_IFBLK
+        case S_IFBLK:
+#endif // S_IFBLK
+#ifdef S_IFCHR
+        case S_IFCHR:
+#endif // S_IFCHR
+#ifdef S_IFIFO
+        case S_IFIFO:
+#endif // S_IFIFO
+#ifdef S_IFWHT
+        case S_IFWHT:
+#endif // S_IFWHT
+            return true;
+
+        default:
+
+            return false;
+        }
+#else /* ? 0 */
+
+        return false;
+#endif /* 0 */
+    }
+
     static bool_type is_socket(stat_data_type const* stat_data)
     {
 #if 1
@@ -2520,7 +2565,13 @@ public: // file-system state
 
         STLSOFT_SUPPRESS_UNUSED(permissions);
 
+# ifdef STLSOFT_MINGW
+
+        return 0 == ::mkdir(dir);
+# else // ? STLSOFT_MINGW
+
         return 0 == ::_mkdir(dir);
+# endif // STLSOFT_MINGW
 #else /* ? _WIN32 */
 
         return 0 == ::mkdir(dir, permissions);
@@ -3140,20 +3191,23 @@ public: // file-system control
     )
     ;
 };
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef UNIXSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace unixstl */
+} // namespace unixstl
 # else
-} /* namespace unixstl_project */
-} /* namespace stlsoft */
+} // namespace unixstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

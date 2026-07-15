@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/system/environment_block.hpp
+ * File:    winstl/system/environment_block.hpp
  *
- * Purpose:     Contains the basic_environment_block class.
+ * Purpose: Contains the basic_environment_block class.
  *
- * Created:     25th June 2004
- * Updated:     22nd January 2024
+ * Created: 25th June 2004
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SYSTEM_HPP_ENVIRONMENT_BLOCK_MAJOR       4
 # define WINSTL_VER_WINSTL_SYSTEM_HPP_ENVIRONMENT_BLOCK_MINOR       0
-# define WINSTL_VER_WINSTL_SYSTEM_HPP_ENVIRONMENT_BLOCK_REVISION    8
-# define WINSTL_VER_WINSTL_SYSTEM_HPP_ENVIRONMENT_BLOCK_EDIT        72
+# define WINSTL_VER_WINSTL_SYSTEM_HPP_ENVIRONMENT_BLOCK_REVISION    9
+# define WINSTL_VER_WINSTL_SYSTEM_HPP_ENVIRONMENT_BLOCK_EDIT        75
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -82,6 +83,7 @@
 # include <winstl/shims/access/string.hpp>
 #endif /* !WINSTL_INCL_WINSTL_SHIMS_ACCESS_HPP_STRING */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -100,6 +102,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -145,17 +148,17 @@ class basic_environment_block
 /// @{
 public:
     /// The value type
-    typedef C                                   value_type;
+    typedef C                                               value_type;
     /// The char type
-    typedef C                                   char_type;
+    typedef C                                               char_type;
     /// The traits type
-    typedef T                                   traits_type;
+    typedef T                                               traits_type;
     /// The allocator type
-    typedef A                                   allocator_type;
+    typedef A                                               allocator_type;
     /// The current specialisation of the type
-    typedef basic_environment_block<C, T, A>    class_type;
+    typedef basic_environment_block<C, T, A>                class_type;
     /// The size type
-    typedef ws_size_t                           size_type;
+    typedef ws_size_t                                       size_type;
 /// @}
 
 /// \name Construction
@@ -366,13 +369,15 @@ public:
  * \ingroup group__library__System
  */
 private:
-    typedef STLSOFT_NS_QUAL(auto_buffer_old)<   char_type
-                                            ,   allocator_type
-                                            ,   1024
-                                            >       buffer_type_;
+    typedef STLSOFT_NS_QUAL(auto_buffer)<
+        char_type
+    ,   1024
+    ,   allocator_type
+    >                                                       buffer_type_;
 
     buffer_type_    m_buffer;
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * typedefs for commonly encountered types
@@ -395,6 +400,7 @@ typedef basic_environment_block<TCHAR>          environment_block;
 
 #endif /* STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * implementation
  */
@@ -404,12 +410,13 @@ typedef basic_environment_block<TCHAR>          environment_block;
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

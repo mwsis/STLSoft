@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/error/errno_scope.hpp (originally MLTErrScp.h, ::SynesisStd)
+ * File:    stlsoft/error/errno_scope.hpp (originally MLTErrScp.h, ::SynesisStd)
  *
- * Purpose:     errno scoping class.
+ * Purpose: errno scoping class.
  *
- * Created:     28th November 1998
- * Updated:     26th December 2020
+ * Created: 28th November 1998
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1998-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_ERROR_HPP_ERRNO_SCOPE_MAJOR      3
 # define STLSOFT_VER_STLSOFT_ERROR_HPP_ERRNO_SCOPE_MINOR      0
-# define STLSOFT_VER_STLSOFT_ERROR_HPP_ERRNO_SCOPE_REVISION   7
-# define STLSOFT_VER_STLSOFT_ERROR_HPP_ERRNO_SCOPE_EDIT       51
+# define STLSOFT_VER_STLSOFT_ERROR_HPP_ERRNO_SCOPE_REVISION   9
+# define STLSOFT_VER_STLSOFT_ERROR_HPP_ERRNO_SCOPE_EDIT       55
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -73,6 +74,7 @@
 # include <errno.h>
 #endif /* !STLSOFT_INCL_H_ERRNO */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -81,6 +83,7 @@
 namespace stlsoft
 {
 #endif /* !STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -107,12 +110,10 @@ namespace stlsoft
  */
 class errno_scope
 {
-public:
-    typedef errno_scope    class_type;
+public: // types
+    typedef errno_scope                                     class_type;
 
-/// \name Operations
-/// @{
-public:
+public: // construction
     /// Remembers the current value of <code>errno</code>.
     errno_scope() STLSOFT_NOEXCEPT
         : m_errno(errno)
@@ -128,39 +129,27 @@ public:
     {
         errno = m_errno;
     }
+private:
+    errno_scope(errno_scope const&);
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
-/// @}
-
-/// \name Operations
-/// @{
-public:
+public: // operations
     /// The remembered value of <code>errno</code>.
     operator int () const
     {
         return m_errno;
     }
 
-/// @}
-
-/// \name Members
-/// @{
-private:
+private: // fields
     int m_errno;
-/// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    errno_scope(errno_scope const&);
-    errno_scope& operator =(errno_scope const&);
-/// @}
 };
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* !STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

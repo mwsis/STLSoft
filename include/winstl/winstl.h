@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/winstl.h
+ * File:    winstl/winstl.h
  *
- * Purpose:     Root header for the WinSTL libraries. Performs compiler
- *              and platform discriminations, and definitions of types.
+ * Purpose: Root header for the WinSTL libraries. Performs compiler and
+ *          platform discriminations, and definitions of types.
  *
- * Created:     15th January 2002
- * Updated:     22nd January 2024
+ * Created: 15th January 2002
+ * Updated: 22nd August 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -49,9 +49,9 @@
 /* File version */
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_H_WINSTL_MAJOR       3
-# define WINSTL_VER_WINSTL_H_WINSTL_MINOR       17
-# define WINSTL_VER_WINSTL_H_WINSTL_REVISION    6
-# define WINSTL_VER_WINSTL_H_WINSTL_EDIT        221
+# define WINSTL_VER_WINSTL_H_WINSTL_MINOR       18
+# define WINSTL_VER_WINSTL_H_WINSTL_REVISION    11
+# define WINSTL_VER_WINSTL_H_WINSTL_EDIT        241
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \file winstl/winstl.h
@@ -63,32 +63,34 @@
 /* /////////////////////////////////////////////////////////////////////////
  * WinSTL version
  *
- * The libraries version information is comprised of major, minor and revision
- * components.
+ * The libraries version information is comprised of major, minor and
+ * revision components.
  *
- * The major version is denoted by the _WINSTL_VER_MAJOR preprocessor symbol.
- * A changes to the major version component implies that a dramatic change has
- * occurred in the libraries, such that considerable changes to source dependent
- * on previous versions would need to be effected.
+ * The major version is denoted by the _WINSTL_VER_MAJOR preprocessor
+ * symbol. A change to the major version component implies that a dramatic
+ * change has occurred in the libraries, such that considerable changes to
+ * source dependent on previous versions would need to be effected.
  *
- * The minor version is denoted by the _WINSTL_VER_MINOR preprocessor symbol.
- * Changes to the minor version component imply that a significant change has
- * occurred to the libraries, either in the addition of new functionality or in
- * the destructive change to one or more components such that recomplilation and
- * code change may be necessitated.
+ * The minor version is denoted by the _WINSTL_VER_MINOR preprocessor
+ * symbol. Changes to the minor version component imply that a significant
+ * change has occurred to the libraries, either in the addition of new
+ * functionality or in the destructive change to one or more components such
+ * that recomplilation and code change may be necessitated.
  *
  * The revision version is denoted by the _WINSTL_VER_REVISION preprocessor
- * symbol. Changes to the revision version component imply that a bug has been
- * fixed. Dependent code should be recompiled in order to pick up the changes.
+ * symbol. Changes to the revision version component imply that a bug has
+ * been fixed. Dependent code should be recompiled in order to pick up the
+ * changes.
  *
  * In addition to the individual version symbols - _WINSTL_VER_MAJOR,
- * _WINSTL_VER_MINOR and _WINSTL_VER_REVISION - a composite symbol _WINSTL_VER
- * is defined, where the upper 8 bits are 0, bits 16-23 represent the major
- * component,  bits 8-15 represent the minor component, and bits 0-7 represent
- * the revision component.
+ * _WINSTL_VER_MINOR and _WINSTL_VER_REVISION - a composite symbol
+ * _WINSTL_VER is defined, where the upper 8 bits are 0, bits 16-23
+ * represent the major component,  bits 8-15 represent the minor component,
+ * and bits 0-7 represent the revision component.
  *
- * Each release of the libraries will bear a different version, and that version
- * will also have its own symbol: Version 1.0.1 specifies _WINSTL_VER_1_0_1.
+ * Each release of the libraries will bear a different version, and that
+ * version will also have its own symbol: Version 1.0.1 specifies
+ * _WINSTL_VER_1_0_1.
  *
  * Thus the symbol _WINSTL_VER may be compared meaningfully with a specific
  * version symbol, e.g. #if _WINSTL_VER >= _WINSTL_VER_1_0_1
@@ -164,12 +166,22 @@
 # define _WINSTL_VER_1_12_1_B04 0x010c0184  /*!< Version 1.12.1 beta 4 (with STLSoft 1.10.1 beta 14) */
 # define _WINSTL_VER_1_12_1_B05 0x010c0185  /*!< Version 1.12.1 beta 5 (with STLSoft 1.10.1 beta 26) */
 # define _WINSTL_VER_1_12_1     0x010c01ff  /*!< Version 1.12.1 (with STLSoft 1.10.3) */
+# define _WINSTL_VER_1_12_2     0x010c02ff  /*!< Version 1.12.2 (with STLSoft 1.11.1 alpha 7) */
+# define _WINSTL_VER_1_12_3     0x010c03ff  /*!< Version 1.12.3 (with STLSoft 1.11.1 alpha 8) */
+# define _WINSTL_VER_1_13_0_A01 0x010d0041  /*!< Version 1.13.0 alpha 1 (with STLSoft 1.11.1 alpha 15) */
+# define _WINSTL_VER_1_13_0_A02 0x010d0042  /*!< Version 1.13.0 alpha 2 (with STLSoft 1.11.1 alpha 17) */
+# define _WINSTL_VER_1_13_0_A03 0x010d0043  /*!< Version 1.13.0 alpha 3 (with STLSoft 1.11.1 alpha 18) */
+# define _WINSTL_VER_1_13_0_A04 0x010d0044  /*!< Version 1.13.0 alpha 4 (with STLSoft 1.11.1 alpha 28) */
+# define _WINSTL_VER_1_13_0_A05 0x010d0045  /*!< Version 1.13.0 alpha 5 (with STLSoft 1.11.1 beta 3) */
+# define _WINSTL_VER_1_13_0_A06 0x010d0046  /*!< Version 1.13.0 alpha 6 (with STLSoft 1.11.1 rc 2) */
+# define _WINSTL_VER_1_13_0_B01 0x010d0081  /*!< Version 1.13.0 beta 1 (with STLSoft 1.11.1 rc 3) */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #define _WINSTL_VER_MAJOR       1
-#define _WINSTL_VER_MINOR       12
-#define _WINSTL_VER_REVISION    1
-#define _WINSTL_VER             _WINSTL_VER_1_12_1
+#define _WINSTL_VER_MINOR       13
+#define _WINSTL_VER_REVISION    0
+#define _WINSTL_VER             _WINSTL_VER_1_13_0_B01
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -178,9 +190,9 @@
 /* Strict */
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # if 1 &&\
-     !defined(STRICT) &&\
      !defined(_WINSTL_NO_STRICT) &&\
      !defined(NO_STRICT) &&\
+     !defined(STRICT) &&\
      1
 #  ifdef _WINSTL_STRICT
 #   define STRICT                                           1
@@ -195,15 +207,19 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
-#if defined(STLSOFT_COMPILER_IS_MSVC) && \
-    _MSC_VER == 1100
+#if 0
+#elif defined(STLSOFT_COMPILER_IS_MSVC) && \
+      _MSC_VER == 1100
 # include <wtypes.h>    /* This is here to fix a thoroughly inexplicable VC 5 bug */
 #endif /* compiler */
 
-#if defined(STLSOFT_COMPILER_IS_GCC) && \
-    defined(_WIN32) && \
-    (   defined(WIN32) || \
-        defined(WIN64))
+#if 0
+#elif 1 &&\
+      defined(_WIN32) &&\
+      defined(STLSOFT_COMPILER_IS_GCC) &&\
+      (   defined(WIN32) ||\
+          defined(WIN64)) &&\
+      1
 
 # ifndef STLSOFT_INCL_H_BASETYPS
 #  define STLSOFT_INCL_H_BASETYPS
@@ -241,19 +257,22 @@
 # include <stdlib.h> /* for MAX_PATH (CygWin) */
 #endif /* !STLSOFT_INCL_H_STDLIB */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * windows version compatibility check(s)
  */
 
 #include <winstl/api/winstl_win32_winnt_.h>
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * STLSoft version compatibility check(s)
  */
 
-#if _STLSOFT_VER < 0x010a019a
-# error This version of the WinSTL libraries requires STLSoft version 1.10.1 beta 26, or later
+#if _STLSOFT_VER < 0x010b0151
+# error This version of the WinSTL libraries requires STLSoft version 1.11.1 alpha 17, or later
 #endif /* _STLSOFT_VER */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * operating system
@@ -267,9 +286,14 @@
 # undef WINSTL_OS_IS_WIN64
 #endif /* WINSTL_OS_IS_WIN64 */
 
-#if defined(WIN64) || \
-    defined(_WIN64)
+#if 0
+#elif 0 ||\
+      defined(_WIN64) ||\
+      defined(WIN64) ||\
+      0
+
 # if !defined(WIN64)
+
 #  ifdef STLSOFT_COMPILE_VERBOSE
 #   pragma message("Win64 platform targeted, as indicated by definition of _WIN64, but WIN64 is not defined: adjust your project/make settings to define WIN64")
 #  endif /* STLSOFT_COMPILE_VERBOSE */
@@ -279,37 +303,83 @@
 #  error Compiling with WIN64 defined and _WIN64 not defined. Are you using the wrong makefile?
 # endif /* !_WIN64 */
 #elif defined(WIN32)
+
 # define WINSTL_OS_IS_WIN32
 #else /* ? WIN?? */
+
 # error WinSTL is only compatible with Win32 and Win64
 #endif /* WIN?? */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * architecture
  */
 
+#ifdef WINSTL_ARCH_IS_ARM64
+# undef WINSTL_ARCH_IS_ARM64
+#endif /* WINSTL_ARCH_IS_ARM64 */
+#ifdef WINSTL_ARCH_IS_IA64
+# undef WINSTL_ARCH_IS_IA64
+#endif /* WINSTL_ARCH_IS_IA64 */
+#ifdef WINSTL_ARCH_IS_X64
+# undef WINSTL_ARCH_IS_X64
+#endif /* WINSTL_ARCH_IS_X64 */
 #ifdef WINSTL_ARCH_IS_X86
 # undef WINSTL_ARCH_IS_X86
 #endif /* WINSTL_ARCH_IS_X86 */
 
-#ifdef WINSTL_ARCH_IS_IA64
-# undef WINSTL_ARCH_IS_IA64
-#endif /* WINSTL_ARCH_IS_IA64 */
+/*
+ARM64
+IA-64
+x86-64
 
-#ifdef WINSTL_ARCH_IS_X64
-# undef WINSTL_ARCH_IS_X64
-#endif /* WINSTL_ARCH_IS_X64 */
+80x86
+*/
 
-#if defined(_M_IA64)
+#if 0
+#elif 0 ||\
+      defined(__aarch64__) ||\
+      defined(_M_ARM64) ||\
+      0
+
+# define WINSTL_ARCH_IS_ARM64
+# define WINSTL_ARCH_LABEL_STRING                           "ARM64"
+#elif 0 ||\
+      defined(__ia64__) ||\
+      defined(__ia64) ||\
+      defined(_IA64_) ||\
+      defined(_M_IA64) ||\
+      0
+
 # define WINSTL_ARCH_IS_IA64
-#elif defined(_M_X64) || \
-      defined(_M_AMD64)
+# define WINSTL_ARCH_LABEL_STRING                           "IA-64"
+#elif 0 ||\
+      defined(__amd64__) ||\
+      defined(__amd64) ||\
+      defined(__x86_64__) ||\
+      defined(__x86_64) ||\
+      defined(_AMD64_) ||\
+      defined(_M_AMD64) ||\
+      defined(_M_X64) ||\
+      0
+
 # define WINSTL_ARCH_IS_X64
-#elif defined(_M_IX86)
+# define WINSTL_ARCH_LABEL_STRING                           "x86-64"
+#elif 0 ||\
+      defined(__i386__) ||\
+      defined(__i386) ||\
+      defined(__X86__) ||\
+      defined(_M_IX86) ||\
+      defined(_X86_) ||\
+      0
+
 # define WINSTL_ARCH_IS_X86
+# define WINSTL_ARCH_LABEL_STRING                           "80x86"
 #else /* ? _M_?? */
-# error WinSTL is only compatible with x86, IA64 and x64 architectures
+
+# error WinSTL is only compatible with ARM64, IA64, x64, and x86 architectures
 #endif /* _M_?? */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * proper C++ casting
@@ -334,9 +404,9 @@
 # undef     MAKEINTRESOURCEA
 # if defined(_WIN64) || \
      defined(_Wp64)
-#  define   MAKEINTRESOURCEA(i)         reinterpret_cast<LPSTR>(static_cast<ULONG_PTR>(static_cast<WORD>(i)))
+#  define   MAKEINTRESOURCEA(i)                             reinterpret_cast<LPSTR>(static_cast<ULONG_PTR>(static_cast<WORD>(i)))
 # else /* ? width */
-#  define   MAKEINTRESOURCEA(i)         reinterpret_cast<LPSTR>(static_cast<ULONG>(static_cast<WORD>(i)))
+#  define   MAKEINTRESOURCEA(i)                             reinterpret_cast<LPSTR>(static_cast<ULONG>(static_cast<WORD>(i)))
 # endif /* width */
 
 /** \def MAKEINTRESOURCEW
@@ -346,9 +416,9 @@
 # undef     MAKEINTRESOURCEW
 # if defined(_WIN64) || \
      defined(_Wp64)
-#  define   MAKEINTRESOURCEW(i)         reinterpret_cast<LPWSTR>(static_cast<ULONG_PTR>(static_cast<WORD>(i)))
+#  define   MAKEINTRESOURCEW(i)                             reinterpret_cast<LPWSTR>(static_cast<ULONG_PTR>(static_cast<WORD>(i)))
 # else /* ? width */
-#  define   MAKEINTRESOURCEW(i)         reinterpret_cast<LPWSTR>(static_cast<ULONG>(static_cast<WORD>(i)))
+#  define   MAKEINTRESOURCEW(i)                             reinterpret_cast<LPWSTR>(static_cast<ULONG>(static_cast<WORD>(i)))
 # endif /* width */
 
 /** \def MAKEINTRESOURCE
@@ -358,9 +428,9 @@
 # undef     MAKEINTRESOURCE
 # if defined(_WIN64) || \
      defined(_Wp64)
-#  define   MAKEINTRESOURCE(i)          reinterpret_cast<LPTSTR>(static_cast<ULONG_PTR>(static_cast<WORD>(i)))
+#  define   MAKEINTRESOURCE(i)                              reinterpret_cast<LPTSTR>(static_cast<ULONG_PTR>(static_cast<WORD>(i)))
 # else /* ? width */
-#  define   MAKEINTRESOURCE(i)          reinterpret_cast<LPTSTR>(static_cast<ULONG>(static_cast<WORD>(i)))
+#  define   MAKEINTRESOURCE(i)                              reinterpret_cast<LPTSTR>(static_cast<ULONG>(static_cast<WORD>(i)))
 # endif /* width */
 
 /** \def MAKELANGID
@@ -368,11 +438,11 @@
  *  avoid C-style cast warnings.
  */
 # undef     MAKELANGID
-# define    MAKELANGID(p, s)            ((static_cast<DWORD>(static_cast<WORD>(s)) << 10) | static_cast<WORD>(p))
+# define    MAKELANGID(p, s)                                ((static_cast<DWORD>(static_cast<WORD>(s)) << 10) | static_cast<WORD>(p))
 
 
 /* # undef     LOWORD */
-/* # define    LOWORD(l)                   static_cast<WORD>(static_cast<DWORD>(l) & 0xffff) */
+/* # define    LOWORD(l)                                    static_cast<WORD>(static_cast<DWORD>(l) & 0xffff) */
 
 /** \def INVALID_FILE_SIZE
  * A C++-only redefinition of this \#define which uses C++ cast operators to
@@ -397,7 +467,6 @@
 #  undef INVALID_FILE_ATTRIBUTES
 # endif /* INVALID_FILE_ATTRIBUTES */
 # define INVALID_FILE_ATTRIBUTES                            static_cast<DWORD>(0xFFFFFFFF)
-
 #else /* ? __cplusplus */
 
 # ifndef INVALID_SET_FILE_POINTER
@@ -407,8 +476,8 @@
 # ifndef INVALID_FILE_ATTRIBUTES
 #  define INVALID_FILE_ATTRIBUTES                           stlsoft_c_cast(DWORD, -1)
 # endif /* !INVALID_FILE_ATTRIBUTES */
-
 #endif /* __cplusplus */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * sanity checks
@@ -421,6 +490,7 @@
     !defined(_WIN32)
 # error The WinSTL libraries is currently only compatible with the Win32 API
 #endif /* !WIN32 && !_WIN32 */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * compiler compatibility
@@ -498,6 +568,7 @@
 # endif /* _STLSOFT_FORCE_ANY_COMPILER */
 #endif /* compiler */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * features
  */
@@ -506,19 +577,27 @@
 # undef WINSTL_UDATE_DEFINED
 #endif /* WINSTL_UDATE_DEFINED */
 
-#if defined(WINSTL_FORCE_UDATE) || \
-    defined(STLSOFT_COMPILER_IS_BORLAND) || \
-    (   defined(STLSOFT_COMPILER_IS_COMO) && \
-        defined(_MSC_VER)) || \
-    defined(STLSOFT_COMPILER_IS_DMC) || \
-    (   defined(STLSOFT_COMPILER_IS_GCC) && \
-        (   defined(__MINGW32__) || \
-            defined(__MINGW64__))) || \
-    defined(STLSOFT_COMPILER_IS_INTEL) || \
-    defined(STLSOFT_COMPILER_IS_MWERKS) || \
-    defined(STLSOFT_COMPILER_IS_MSVC)
+#if 0
+#elif defined(WINSTL_FORCE_UDATE)
+
+# define WINSTL_UDATE_DEFINED
+#elif 0 ||\
+      defined(STLSOFT_COMPILER_IS_BORLAND) ||\
+      ( defined(STLSOFT_COMPILER_IS_COMO) &&\
+        defined(_MSC_VER)) ||\
+      defined(STLSOFT_COMPILER_IS_DMC) ||\
+      ( 1 &&\
+        defined(STLSOFT_COMPILER_IS_GCC) &&\
+        defined(STLSOFT_MINGW) &&\
+        1) ||\
+      defined(STLSOFT_COMPILER_IS_INTEL) ||\
+      defined(STLSOFT_COMPILER_IS_MWERKS) ||\
+      defined(STLSOFT_COMPILER_IS_MSVC) ||\
+      0
+
 # define WINSTL_UDATE_DEFINED
 #endif /* WINSTL_FORCE_UDATE || compiler */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * contract enforcement
@@ -536,7 +615,7 @@
  *  those in the other \ref group__projects "projects".
  */
 #ifndef WINSTL_ASSERT
-# define WINSTL_ASSERT(expr)                STLSOFT_ASSERT(expr)
+# define WINSTL_ASSERT(expr)                                STLSOFT_ASSERT(expr)
 #endif /* !WINSTL_ASSERT */
 
 /** Defines a runtime assertion, with message
@@ -544,7 +623,7 @@
  * \param expr Must be non-zero, or an assertion will be fired
  * \param msg The literal character string message to be included in the assertion
  */
-#define WINSTL_MESSAGE_ASSERT(msg, expr)    STLSOFT_MESSAGE_ASSERT(msg, expr)
+#define WINSTL_MESSAGE_ASSERT(msg, expr)                    STLSOFT_MESSAGE_ASSERT(msg, expr)
 
 /** \def WINSTL_STATIC_ASSERT(expr)
  *
@@ -554,14 +633,16 @@
  *
  * \remarks This is defined to \ref STLSOFT_STATIC_ASSERT.
  */
-#define WINSTL_STATIC_ASSERT(expr)          STLSOFT_STATIC_ASSERT(expr)
+#define WINSTL_STATIC_ASSERT(expr)                          STLSOFT_STATIC_ASSERT(expr)
 
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define winstl_assert(expr)                WINSTL_ASSERT(expr)
-# define winstl_message_assert(msg, expr)   WINSTL_MESSAGE_ASSERT(msg, expr)
-# define winstl_static_assert(expr)         WINSTL_STATIC_ASSERT(expr)
+
+# define winstl_assert(expr)                                WINSTL_ASSERT(expr)
+# define winstl_message_assert(msg, expr)                   WINSTL_MESSAGE_ASSERT(msg, expr)
+# define winstl_static_assert(expr)                         WINSTL_STATIC_ASSERT(expr)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -603,6 +684,7 @@
  * or in the global namespace.
  */
 
+
 /* /////////////////////////////////////
  * obsolete preprocessor symbol detection
  */
@@ -624,6 +706,7 @@
 #  define WINSTL_NO_NAMESPACE
 # endif /* !WINSTL_NO_NAMESPACE */
 #endif /* _WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////
  * namespace support discrimination
@@ -654,6 +737,7 @@
 #  endif /* !_WINSTL_NO_NAMESPACE */
 # endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 #endif /* WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////
  * declaration '*stl*' namespace
@@ -764,6 +848,7 @@ int main()
 # define winstl_ns_using_std(x)                             STLSOFT_NS_USING_STD(x)
 #endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * Language agnostic macros.
  */
@@ -778,9 +863,9 @@ int main()
  */
 
 #if defined(__cplusplus)
-# define WINSTL_ITF_CALL(p)         (p)
+# define WINSTL_ITF_CALL(p)                                 (p)
 #else /* ? __cplusplus */
-# define WINSTL_ITF_CALL(p)         (p)->lpVtbl
+# define WINSTL_ITF_CALL(p)                                 (p)->lpVtbl
 #endif /* __cplusplus */
 
 /** \def WINSTL_ITF_THIS(p)
@@ -795,7 +880,7 @@ int main()
 #if defined(__cplusplus)
 # define WINSTL_ITF_THIS(p)
 #else /* ? __cplusplus */
-# define WINSTL_ITF_THIS(p)         (p),
+# define WINSTL_ITF_THIS(p)                                 (p),
 #endif /* __cplusplus */
 
 /** \def WINSTL_ITF_THIS0(p)
@@ -810,7 +895,7 @@ int main()
 #if defined(__cplusplus)
 # define WINSTL_ITF_THIS0(p)
 #else /* ? __cplusplus */
-# define WINSTL_ITF_THIS0(p)        (p)
+# define WINSTL_ITF_THIS0(p)                                (p)
 #endif /* __cplusplus */
 
 /** \def WINSTL_IID_2_REF(iid)
@@ -823,9 +908,9 @@ int main()
  */
 
 #if defined(__cplusplus)
-# define WINSTL_IID_2_REF(iid)        (iid)
+# define WINSTL_IID_2_REF(iid)                              (iid)
 #else /* ? __cplusplus */
-# define WINSTL_IID_2_REF(iid)        (&(iid))
+# define WINSTL_IID_2_REF(iid)                              (&(iid))
 #endif /* __cplusplus */
 
 /** \def WINSTL_REF_2_PTR(iid)
@@ -838,10 +923,11 @@ int main()
  */
 
 #if defined(__cplusplus)
-# define WINSTL_REF_2_PTR(iid)        (&(iid))
+# define WINSTL_REF_2_PTR(iid)                              (&(iid))
 #else /* ? __cplusplus */
-# define WINSTL_REF_2_PTR(iid)        (iid)
+# define WINSTL_REF_2_PTR(iid)                              (iid)
 #endif /* __cplusplus */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * typedefs
@@ -851,88 +937,87 @@ int main()
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-
-typedef STLSOFT_NS_QUAL(ss_char_a_t)        ws_char_a_t;    /*!< Ansi char type */
-typedef STLSOFT_NS_QUAL(ss_char_w_t)        ws_char_w_t;    /*!< Unicode char type */
-typedef STLSOFT_NS_QUAL(ss_sint8_t)         ws_sint8_t;     /*!< 8-bit signed integer */
-typedef STLSOFT_NS_QUAL(ss_uint8_t)         ws_uint8_t;     /*!< 8-bit unsigned integer */
-typedef STLSOFT_NS_QUAL(ss_int16_t)         ws_int16_t;     /*!< 16-bit integer */
-typedef STLSOFT_NS_QUAL(ss_sint16_t)        ws_sint16_t;    /*!< 16-bit signed integer */
-typedef STLSOFT_NS_QUAL(ss_uint16_t)        ws_uint16_t;    /*!< 16-bit unsigned integer */
-typedef STLSOFT_NS_QUAL(ss_int32_t)         ws_int32_t;     /*!< 32-bit integer */
-typedef STLSOFT_NS_QUAL(ss_sint32_t)        ws_sint32_t;    /*!< 32-bit signed integer */
-typedef STLSOFT_NS_QUAL(ss_uint32_t)        ws_uint32_t;    /*!< 32-bit unsigned integer */
-#ifdef STLSOFT_CF_64BIT_INT_SUPPORT
-typedef STLSOFT_NS_QUAL(ss_int64_t)         ws_int64_t;     /*!< 64-bit integer */
-typedef STLSOFT_NS_QUAL(ss_sint64_t)        ws_sint64_t;    /*!< 64-bit signed integer */
-typedef STLSOFT_NS_QUAL(ss_uint64_t)        ws_uint64_t;    /*!< 64-bit unsigned integer */
-#endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
+typedef STLSOFT_NS_QUAL(ss_char_a_t)                        ws_char_a_t;    /*!< Ansi char type */
+typedef STLSOFT_NS_QUAL(ss_char_w_t)                        ws_char_w_t;    /*!< Unicode char type */
+typedef STLSOFT_NS_QUAL(ss_sint8_t)                         ws_sint8_t;     /*!< 8-bit signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint8_t)                         ws_uint8_t;     /*!< 8-bit unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_int16_t)                         ws_int16_t;     /*!< 16-bit integer */
+typedef STLSOFT_NS_QUAL(ss_sint16_t)                        ws_sint16_t;    /*!< 16-bit signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint16_t)                        ws_uint16_t;    /*!< 16-bit unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_int32_t)                         ws_int32_t;     /*!< 32-bit integer */
+typedef STLSOFT_NS_QUAL(ss_sint32_t)                        ws_sint32_t;    /*!< 32-bit signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint32_t)                        ws_uint32_t;    /*!< 32-bit unsigned integer */
+# ifdef STLSOFT_CF_64BIT_INT_SUPPORT
+typedef STLSOFT_NS_QUAL(ss_int64_t)                         ws_int64_t;     /*!< 64-bit integer */
+typedef STLSOFT_NS_QUAL(ss_sint64_t)                        ws_sint64_t;    /*!< 64-bit signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint64_t)                        ws_uint64_t;    /*!< 64-bit unsigned integer */
+# endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
 # ifdef _WIN64
-typedef LONG_PTR                            ws_intptr_t;    /*!< integer capable of holding pointer without loss */
-typedef LONG_PTR                            ws_sintptr_t;   /*!< signed integer capable of holding pointer without loss */
-typedef ULONG_PTR                           ws_uintptr_t;   /*!< unsigned integer capable of holding pointer without loss */
+typedef LONG_PTR                                            ws_intptr_t;    /*!< integer capable of holding pointer without loss */
+typedef LONG_PTR                                            ws_sintptr_t;   /*!< signed integer capable of holding pointer without loss */
+typedef ULONG_PTR                                           ws_uintptr_t;   /*!< unsigned integer capable of holding pointer without loss */
 # else /* ? _WIN64 */
-typedef LONG                                ws_intptr_t;    /*!< integer capable of holding pointer without loss */
-typedef LONG                                ws_sintptr_t;   /*!< signed integer capable of holding pointer without loss */
-typedef ULONG                               ws_uintptr_t;   /*!< unsigned integer capable of holding pointer without loss */
+typedef LONG                                                ws_intptr_t;    /*!< integer capable of holding pointer without loss */
+typedef LONG                                                ws_sintptr_t;   /*!< signed integer capable of holding pointer without loss */
+typedef ULONG                                               ws_uintptr_t;   /*!< unsigned integer capable of holding pointer without loss */
 # endif /* _WIN64 */
-typedef STLSOFT_NS_QUAL(ss_int_t)           ws_int_t;       /*!< integer */
-typedef STLSOFT_NS_QUAL(ss_sint_t)          ws_sint_t;      /*!< signed integer */
-typedef STLSOFT_NS_QUAL(ss_uint_t)          ws_uint_t;      /*!< unsigned integer */
-typedef STLSOFT_NS_QUAL(ss_long_t)          ws_long_t;      /*!< long */
-typedef STLSOFT_NS_QUAL(ss_byte_t)          ws_byte_t;      /*!< Byte */
-#if defined(__cplusplus)
-typedef STLSOFT_NS_QUAL(ss_bool_t)          ws_bool_t;      /*!< bool */
-#endif /* __cplusplus */
-typedef DWORD                               ws_dword_t;     /*!< dword */
-typedef STLSOFT_NS_QUAL(ss_size_t)          ws_size_t;      /*!< size */
-typedef STLSOFT_NS_QUAL(ss_ptrdiff_t)       ws_ptrdiff_t;   /*!< ptr diff */
-typedef STLSOFT_NS_QUAL(ss_streampos_t)     ws_streampos_t; /*!< streampos */
-typedef STLSOFT_NS_QUAL(ss_streamoff_t)     ws_streamoff_t; /*!< streamoff */
-#ifdef WINSTL_OS_IS_WIN64
-typedef STLSOFT_NS_QUAL(ss_sint64_t)        ws_sptrint_t;
-typedef STLSOFT_NS_QUAL(ss_uint64_t)        ws_uptrint_t;
-#else /* ? WINSTL_OS_IS_WIN64 */
-typedef STLSOFT_NS_QUAL(ss_sint32_t)        ws_sptrint_t;
-typedef STLSOFT_NS_QUAL(ss_uint32_t)        ws_uptrint_t;
-#endif /* WINSTL_OS_IS_WIN64 */
-
+typedef STLSOFT_NS_QUAL(ss_int_t)                           ws_int_t;       /*!< integer */
+typedef STLSOFT_NS_QUAL(ss_sint_t)                          ws_sint_t;      /*!< signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint_t)                          ws_uint_t;      /*!< unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_long_t)                          ws_long_t;      /*!< long */
+typedef STLSOFT_NS_QUAL(ss_byte_t)                          ws_byte_t;      /*!< Byte */
+# if defined(__cplusplus)
+typedef STLSOFT_NS_QUAL(ss_bool_t)                          ws_bool_t;      /*!< bool */
+# endif /* __cplusplus */
+typedef DWORD                                               ws_dword_t;     /*!< dword */
+typedef STLSOFT_NS_QUAL(ss_size_t)                          ws_size_t;      /*!< size */
+typedef STLSOFT_NS_QUAL(ss_ptrdiff_t)                       ws_ptrdiff_t;   /*!< ptr diff */
+typedef STLSOFT_NS_QUAL(ss_streampos_t)                     ws_streampos_t; /*!< streampos */
+typedef STLSOFT_NS_QUAL(ss_streamoff_t)                     ws_streamoff_t; /*!< streamoff */
+# ifdef WINSTL_OS_IS_WIN64
+typedef STLSOFT_NS_QUAL(ss_sint64_t)                        ws_sptrint_t;
+typedef STLSOFT_NS_QUAL(ss_uint64_t)                        ws_uptrint_t;
+# else /* ? WINSTL_OS_IS_WIN64 */
+typedef STLSOFT_NS_QUAL(ss_sint32_t)                        ws_sptrint_t;
+typedef STLSOFT_NS_QUAL(ss_uint32_t)                        ws_uptrint_t;
+# endif /* WINSTL_OS_IS_WIN64 */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #ifndef WINSTL_NO_NAMESPACE
-typedef ws_char_a_t         char_a_t;           /*!< Ansi char type */
-typedef ws_char_w_t         char_w_t;           /*!< Unicode char type */
-/* typedef ws_int8_t           int8_t; */             /*!< 8-bit integer */
-typedef ws_sint8_t          sint8_t;            /*!< 8-bit signed integer */
-typedef ws_uint8_t          uint8_t;            /*!< 8-bit unsigned integer */
-typedef ws_int16_t          int16_t;            /*!< 16-bit integer */
-typedef ws_sint16_t         sint16_t;           /*!< 16-bit signed integer */
-typedef ws_uint16_t         uint16_t;           /*!< 16-bit unsigned integer */
-typedef ws_int32_t          int32_t;            /*!< 32-bit integer */
-typedef ws_sint32_t         sint32_t;           /*!< 32-bit signed integer */
-typedef ws_uint32_t         uint32_t;           /*!< 32-bit unsigned integer */
+typedef ws_char_a_t                                         char_a_t;       /*!< Ansi char type */
+typedef ws_char_w_t                                         char_w_t;       /*!< Unicode char type */
+/* typedef ws_int8_t                                           int8_t; */         /*!< 8-bit integer */
+typedef ws_sint8_t                                          sint8_t;        /*!< 8-bit signed integer */
+typedef ws_uint8_t                                          uint8_t;        /*!< 8-bit unsigned integer */
+typedef ws_int16_t                                          int16_t;        /*!< 16-bit integer */
+typedef ws_sint16_t                                         sint16_t;       /*!< 16-bit signed integer */
+typedef ws_uint16_t                                         uint16_t;       /*!< 16-bit unsigned integer */
+typedef ws_int32_t                                          int32_t;        /*!< 32-bit integer */
+typedef ws_sint32_t                                         sint32_t;       /*!< 32-bit signed integer */
+typedef ws_uint32_t                                         uint32_t;       /*!< 32-bit unsigned integer */
 # ifdef STLSOFT_CF_64BIT_INT_SUPPORT
-typedef ws_int64_t          int64_t;            /*!< 64-bit integer */
-typedef ws_sint64_t         sint64_t;           /*!< 64-bit signed integer */
-typedef ws_uint64_t         uint64_t;           /*!< 64-bit unsigned integer */
+typedef ws_int64_t                                          int64_t;        /*!< 64-bit integer */
+typedef ws_sint64_t                                         sint64_t;       /*!< 64-bit signed integer */
+typedef ws_uint64_t                                         uint64_t;       /*!< 64-bit unsigned integer */
 # endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
-/* typedef ws_short_t          short_t; */            /*!< short integer */
-typedef ws_int_t            int_t;              /*!< integer */
-typedef ws_sint_t           sint_t;             /*!< signed integer */
-typedef ws_uint_t           uint_t;             /*!< unsigned integer */
-typedef ws_long_t           long_t;             /*!< long integer */
-typedef ws_byte_t           byte_t;             /*!< Byte */
+/* typedef ws_short_t                                          short_t; */        /*!< short integer */
+typedef ws_int_t                                            int_t;          /*!< integer */
+typedef ws_sint_t                                           sint_t;         /*!< signed integer */
+typedef ws_uint_t                                           uint_t;         /*!< unsigned integer */
+typedef ws_long_t                                           long_t;         /*!< long integer */
+typedef ws_byte_t                                           byte_t;         /*!< Byte */
 #if defined(__cplusplus)
-typedef ws_bool_t           bool_t;             /*!< bool */
+typedef ws_bool_t                                           bool_t;         /*!< bool */
 #endif /* __cplusplus */
-typedef ws_dword_t          dword_t;            /*!< dword */
+typedef ws_dword_t                                          dword_t;        /*!< dword */
 # if !defined(STLSOFT_COMPILER_IS_DMC)
-typedef ws_streampos_t      streampos_t;        /*!< streampos */
-typedef ws_streamoff_t      streamoff_t;        /*!< streamoff */
+typedef ws_streampos_t                                      streampos_t;    /*!< streampos */
+typedef ws_streamoff_t                                      streamoff_t;    /*!< streamoff */
 # endif /* compiler */
-typedef ws_sptrint_t        sptrint_t;
-typedef ws_uptrint_t        uptrint_t;
+typedef ws_sptrint_t                                        sptrint_t;
+typedef ws_uptrint_t                                        uptrint_t;
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * constants
@@ -962,9 +1047,10 @@ typedef ws_uptrint_t        uptrint_t;
 #elif defined(_MAX_PATH)
 
 # define WINSTL_CONST_MAX_PATH                              _MAX_PATH
-#elif defined(__CYGWIN__) || \
-      defined(__MINGW32__) || \
-      defined(__MINGW64__)
+#elif 0 ||\
+      defined(__CYGWIN__) || \
+      defined(STLSOFT_MINGW) || \
+      0
 
 # define WINSTL_CONST_MAX_PATH                              (260)
 #else
@@ -981,8 +1067,8 @@ const ws_size_t CONST_NT_MAX_PATH       =   WINSTL_CONST_NT_MAX_PATH;
 /** C++ constant equivalent to \ref WINSTL_CONST_MAX_PATH.
  */
 const ws_size_t CONST_MAX_PATH          =   WINSTL_CONST_MAX_PATH;
-
 #endif /* __cplusplus */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * values
@@ -996,53 +1082,56 @@ const ws_size_t CONST_MAX_PATH          =   WINSTL_CONST_MAX_PATH;
 
 #define ws_true_v                                           ss_true_v
 #define ws_false_v                                          ss_false_v
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
+
 /* /////////////////////////////////////////////////////////////////////////
  * code modification macros
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 /* Exception signatures. */
-# define winstl_throw_0()                               stlsoft_throw_0()
-# define winstl_throw_1(x1)                             stlsoft_throw_1(x1)
-# define winstl_throw_2(x1, x2)                         stlsoft_throw_2(x1, x2)
-# define winstl_throw_3(x1, x2, x3)                     stlsoft_throw_3(x1, x2, x3)
-# define winstl_throw_4(x1, x2, x3, x4)                 stlsoft_throw_4(x1, x2, x3, x4)
-# define winstl_throw_5(x1, x2, x3, x4, x5)             stlsoft_throw_5(x1, x2, x3, x4, x5)
-# define winstl_throw_6(x1, x2, x3, x4, x5, x6)         stlsoft_throw_6(x1, x2, x3, x4, x5, x6)
-# define winstl_throw_7(x1, x2, x3, x4, x5, x6, x7)     stlsoft_throw_7(x1, x2, x3, x4, x5, x6, x7)
-# define winstl_throw_8(x1, x2, x3, x4, x5, x6, x7, x8) stlsoft_throw_8(x1, x2, x3, x4, x5, x6, x7, x8)
+# define winstl_throw_0()                                   stlsoft_throw_0()
+# define winstl_throw_1(x1)                                 stlsoft_throw_1(x1)
+# define winstl_throw_2(x1, x2)                             stlsoft_throw_2(x1, x2)
+# define winstl_throw_3(x1, x2, x3)                         stlsoft_throw_3(x1, x2, x3)
+# define winstl_throw_4(x1, x2, x3, x4)                     stlsoft_throw_4(x1, x2, x3, x4)
+# define winstl_throw_5(x1, x2, x3, x4, x5)                 stlsoft_throw_5(x1, x2, x3, x4, x5)
+# define winstl_throw_6(x1, x2, x3, x4, x5, x6)             stlsoft_throw_6(x1, x2, x3, x4, x5, x6)
+# define winstl_throw_7(x1, x2, x3, x4, x5, x6, x7)         stlsoft_throw_7(x1, x2, x3, x4, x5, x6, x7)
+# define winstl_throw_8(x1, x2, x3, x4, x5, x6, x7, x8)     stlsoft_throw_8(x1, x2, x3, x4, x5, x6, x7, x8)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define WINSTL_NUM_ELEMENTS(ar)                        STLSOFT_NUM_ELEMENTS(ar)
-# define winstl_num_elements(ar)                        WINSTL_NUM_ELEMENTS(ar)
+# define WINSTL_NUM_ELEMENTS(ar)                            STLSOFT_NUM_ELEMENTS(ar)
+# define winstl_num_elements(ar)                            WINSTL_NUM_ELEMENTS(ar)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_DESTROY_INSTANCE().
  */
-#define winstl_destroy_instance(t, type, p)             STLSOFT_DESTROY_INSTANCE(t, type, p)
+#define winstl_destroy_instance(t, type, p)                 STLSOFT_DESTROY_INSTANCE(t, type, p)
 
 /** [DEPRECATED] Generates an opaque type with the name \c _htype
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_GEN_OPAQUE().
  */
-#define winstl_gen_opaque(htype)                        STLSOFT_GEN_OPAQUE(htype)
+#define winstl_gen_opaque(htype)                            STLSOFT_GEN_OPAQUE(htype)
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * macros
  */
 
 #ifdef __cplusplus
+
 /** Safely converts a \c BOOL to a \c bool.
  *
- * \param bVal The instance of \c BOOL to be converted to \c bool.
+ * \param value The instance of \c BOOL to be converted to \c bool.
  *
- * \retval false If \c bVal is 0.
- * \retval true If \c bVal is non-0.
+ * \retval false If \c value is 0.
+ * \retval true If \c value is non-0.
  *
  * \note In C compilation, this is defined as a functionally equivalent macro.
  *
@@ -1056,20 +1145,23 @@ const ws_size_t CONST_MAX_PATH          =   WINSTL_CONST_MAX_PATH;
  *  of <a href = "http://www.imperfectcplusplus.com/" target="blank">Imperfect C++</a>
  *  for a discussion of these issues.)
  */
-#ifdef _Wp64
-inline bool BOOL2bool(ws_int_t bVal)
-#else /* ? _Wp64 */
-inline bool BOOL2bool(BOOL bVal)
-#endif /* _Wp64 */
+inline
+bool
+# ifdef _Wp64
+BOOL2bool(ws_int_t value)
+# else /* ? _Wp64 */
+BOOL2bool(BOOL value)
+# endif /* _Wp64 */
 {
-    return bVal != FALSE;
+    return value != FALSE;
 }
+
 /** Safely converts a \c bool to a \c BOOL.
  *
- * \param bVal The instance of \c bool to be converted to \c BOOL.
+ * \param value The instance of \c bool to be converted to \c BOOL.
  *
- * \retval 0 If \c bVal is \c false.
- * \retval 1 If \c bVal is \c true.
+ * \retval 0 If \c value is \c false.
+ * \retval 1 If \c value is \c true.
  *
  * \note In C compilation, this is defined as a functionally equivalent macro.
  *
@@ -1085,16 +1177,19 @@ inline bool BOOL2bool(BOOL bVal)
  *  <a href = "http://www.imperfectcplusplus.com/" target="blank">Imperfect C++</a>
  *  for a discussion of these issues.)
  */
-inline BOOL bool2BOOL(bool bVal)
+inline
+BOOL
+bool2BOOL(bool value)
 {
-    return bVal != false;
+    return value != false;
 }
 #else
-# define BOOL2bool(bVal)            stlsoft_static_cast(bool, ((bVal) != FALSE))
-# define bool2BOOL(bVal)            stlsoft_static_cast(BOOL, ((bVal) != false))
+
+# define BOOL2bool(value)                                   STLSOFT_STATIC_CAST(bool, ((value) != FALSE))
+# define bool2BOOL(value)                                   STLSOFT_STATIC_CAST(BOOL, ((value) != false))
 #endif /* __cplusplus */
 
-/**
+/** Indicates that the given Windows API code pertains to memory failure
  */
 STLSOFT_INLINE
 ss_truthy_t
@@ -1104,14 +1199,92 @@ winstl_C_is_memory_status_code(
 {
     switch (sc)
     {
+#ifdef ERROR_HV_INSUFFICIENT_CONTIGUOUS_MEMORY
+    case ERROR_HV_INSUFFICIENT_CONTIGUOUS_MEMORY:
+#endif
+#ifdef ERROR_HV_INSUFFICIENT_CONTIGUOUS_ROOT_MEMORY
+    case ERROR_HV_INSUFFICIENT_CONTIGUOUS_ROOT_MEMORY:
+#endif
+#ifdef ERROR_HV_INSUFFICIENT_CONTIGUOUS_ROOT_MEMORY_MIRRORING
+    case ERROR_HV_INSUFFICIENT_CONTIGUOUS_ROOT_MEMORY_MIRRORING:
+#endif
+#ifdef ERROR_HV_INSUFFICIENT_MEMORY
+    case ERROR_HV_INSUFFICIENT_MEMORY:
+#endif
+#ifdef ERROR_HV_INSUFFICIENT_ROOT_MEMORY
+    case ERROR_HV_INSUFFICIENT_ROOT_MEMORY:
+#endif
+#ifdef ERROR_HV_INSUFFICIENT_ROOT_MEMORY_MIRRORING
+    case ERROR_HV_INSUFFICIENT_ROOT_MEMORY_MIRRORING:
+#endif
+#ifdef ERROR_IPSEC_IKE_OUT_OF_MEMORY
+    case ERROR_IPSEC_IKE_OUT_OF_MEMORY:
+#endif
     case ERROR_NOT_ENOUGH_MEMORY:
+#ifdef ERROR_NOT_ENOUGH_SERVER_MEMORY
+    case ERROR_NOT_ENOUGH_SERVER_MEMORY:
+#endif
     case ERROR_OUTOFMEMORY:
-    case E_OUTOFMEMORY:
+#ifdef CO_E_INIT_MEMORY_ALLOCATOR
+    case STLSOFT_C_CAST(DWORD, CO_E_INIT_MEMORY_ALLOCATOR):
+#endif
+#ifdef CRYPT_E_ASN1_MEMORY
+    case STLSOFT_C_CAST(DWORD, CRYPT_E_ASN1_MEMORY):
+#endif
+#ifdef DXGI_ERROR_HW_PROTECTION_OUTOFMEMORY
+    case STLSOFT_C_CAST(DWORD, DXGI_ERROR_HW_PROTECTION_OUTOFMEMORY):
+#endif
+#ifdef DXGI_ERROR_REMOTE_OUTOFMEMORY
+    case STLSOFT_C_CAST(DWORD, DXGI_ERROR_REMOTE_OUTOFMEMORY):
+#endif
+#ifdef E_MBN_SMS_MEMORY_FAILURE
+    case STLSOFT_C_CAST(DWORD, E_MBN_SMS_MEMORY_FAILURE):
+#endif
+    case STLSOFT_C_CAST(DWORD, E_OUTOFMEMORY):
+#ifdef HSP_KSP_NO_MEMORY
+    case STLSOFT_C_CAST(DWORD, HSP_KSP_NO_MEMORY):
+#endif
+#ifdef NTE_NO_MEMORY
+    case STLSOFT_C_CAST(DWORD, NTE_NO_MEMORY):
+#endif
+#ifdef OSS_OUT_MEMORY
+    case STLSOFT_C_CAST(DWORD, OSS_OUT_MEMORY):
+#endif
+#ifdef SCARD_E_NO_MEMORY
+    case STLSOFT_C_CAST(DWORD, SCARD_E_NO_MEMORY):
+#endif
+#ifdef SEC_E_INSUFFICIENT_MEMORY
+    case STLSOFT_C_CAST(DWORD, SEC_E_INSUFFICIENT_MEMORY):
+#endif
+#ifdef SQLITE_E_NOMEM
+    case STLSOFT_C_CAST(DWORD, SQLITE_E_NOMEM):
+#endif
+#ifdef STG_E_INSUFFICIENTMEMORY
+    case STLSOFT_C_CAST(DWORD, STG_E_INSUFFICIENTMEMORY):
+#endif
+#ifdef TBSIMP_E_OUT_OF_MEMORY
+    case STLSOFT_C_CAST(DWORD, TBSIMP_E_OUT_OF_MEMORY):
+#endif
+#ifdef TPM_20_E_MEMORY
+    case STLSOFT_C_CAST(DWORD, TPM_20_E_MEMORY):
+#endif
+#ifdef TPM_20_E_OBJECT_MEMORY
+    case STLSOFT_C_CAST(DWORD, TPM_20_E_OBJECT_MEMORY):
+#endif
+#ifdef TPM_20_E_SESSION_MEMORY
+    case STLSOFT_C_CAST(DWORD, TPM_20_E_SESSION_MEMORY):
+#endif
+#ifdef TPMAPI_E_OUT_OF_MEMORY
+    case STLSOFT_C_CAST(DWORD, TPMAPI_E_OUT_OF_MEMORY):
+#endif
+
         return 1;
     default:
+
         return 0;
     }
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -1127,6 +1300,7 @@ winstl_C_is_memory_status_code(
 namespace winstl = ::stlsoft::winstl_project;
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

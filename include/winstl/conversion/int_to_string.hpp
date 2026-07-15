@@ -4,11 +4,11 @@
  * Purpose:     WinSTL integer to string conversions.
  *
  * Created:     31st July 2002
- * Updated:     29th January 2024
+ * Updated:     21st March 2025
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,8 +55,9 @@
 # define _WINSTL_VER_WINSTL_CONVERSION_HPP_INT_TO_STRING_MAJOR      2
 # define _WINSTL_VER_WINSTL_CONVERSION_HPP_INT_TO_STRING_MINOR      1
 # define _WINSTL_VER_WINSTL_CONVERSION_HPP_INT_TO_STRING_REVISION   15
-# define _WINSTL_VER_WINSTL_CONVERSION_HPP_INT_TO_STRING_EDIT       61
+# define _WINSTL_VER_WINSTL_CONVERSION_HPP_INT_TO_STRING_EDIT       64
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -92,6 +93,7 @@
 # include <winstl/api/external/Synchronization.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_Synchronization */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -111,6 +113,7 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * Pre-processor options
  */
@@ -125,6 +128,7 @@ namespace winstl_project
 # endif /* dll */
 #endif /* _WINSTL_INT_TO_STRING_USE_DECLSPECTHREAD_FOR_EXES */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * functions
  */
@@ -132,8 +136,7 @@ namespace winstl_project
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 #ifdef STLSOFT_CF_NAMESPACE_SUPPORT
-namespace int_to_string_tls
-{
+namespace int_to_string_tls {
 #endif /* STLSOFT_CF_NAMESPACE_SUPPORT */
 
 // NOTE: This class had to be moved out of line to prevent VC++
@@ -335,7 +338,7 @@ private:
 };
 
 #ifdef STLSOFT_CF_NAMESPACE_SUPPORT
-} /* namespace int_to_string_tls */
+} // namespace int_to_string_tls
 #endif /* STLSOFT_CF_NAMESPACE_SUPPORT */
 
 
@@ -388,7 +391,7 @@ assert(0 == ::wcscmp(winstl::int_to_string<wchar_t>(v), L"13"));
  *   it is only invoked once in a statement. This includes possible
  *   invocations by other functions in the same statement.
  */
-template<ss_typename_param_k C>
+template <ss_typename_param_k C>
 inline C const* int_to_string(ws_sint8_t value)
 {
     const ws_size_t CCH     = 21; // 5 fits 8-bit + sign
@@ -413,7 +416,7 @@ assert(0 == ::wcscmp(winstl::int_to_string<wchar_t>(v), L"14"));
  *   it is only invoked once in a statement. This includes possible
  *   invocations by other functions in the same statement.
  */
-template<ss_typename_param_k C>
+template <ss_typename_param_k C>
 inline C const* int_to_string(ws_uint8_t value)
 {
     const ws_size_t CCH     = 21; // 4 fits 8-bit
@@ -438,7 +441,7 @@ assert(0 == ::wcscmp(winstl::int_to_string<wchar_t>(v), L"15"));
  *   it is only invoked once in a statement. This includes possible
  *   invocations by other functions in the same statement.
  */
-template<ss_typename_param_k C>
+template <ss_typename_param_k C>
 inline C const* int_to_string(ws_sint16_t value)
 {
     const ws_size_t CCH     = 21; // 7 fits 16-bit + sign
@@ -463,7 +466,7 @@ assert(0 == ::wcscmp(winstl::int_to_string<wchar_t>(v), L"16"));
  *   it is only invoked once in a statement. This includes possible
  *   invocations by other functions in the same statement.
  */
-template<ss_typename_param_k C>
+template <ss_typename_param_k C>
 inline C const* int_to_string(ws_uint16_t value)
 {
     const ws_size_t CCH     = 21; // 6 fits 16-bit
@@ -488,7 +491,7 @@ assert(0 == ::wcscmp(winstl::int_to_string<wchar_t>(v), L"17"));
  *   it is only invoked once in a statement. This includes possible
  *   invocations by other functions in the same statement.
  */
-template<ss_typename_param_k C>
+template <ss_typename_param_k C>
 inline C const* int_to_string(ws_sint32_t value)
 {
     const ws_size_t CCH     = 21; // 12 fits 32-bit + sign
@@ -513,7 +516,7 @@ assert(0 == ::wcscmp(winstl::int_to_string<wchar_t>(v), L"18"));
  *   it is only invoked once in a statement. This includes possible
  *   invocations by other functions in the same statement.
  */
-template<ss_typename_param_k C>
+template <ss_typename_param_k C>
 inline C const* int_to_string(ws_uint32_t value)
 {
     const ws_size_t CCH     = 21; // 11 fits 32-bit
@@ -538,7 +541,7 @@ assert(0 == ::wcscmp(winstl::int_to_string<wchar_t>(v), L"19"));
  *   it is only invoked once in a statement. This includes possible
  *   invocations by other functions in the same statement.
  */
-template<ss_typename_param_k C>
+template <ss_typename_param_k C>
 inline C const* int_to_string(ws_sint64_t const& value)
 {
     const ws_size_t CCH     = 21; // fits 64-bit + sign
@@ -563,7 +566,7 @@ assert(0 == ::wcscmp(winstl::int_to_string<wchar_t>(v), L"20"));
  *   it is only invoked once in a statement. This includes possible
  *   invocations by other functions in the same statement.
  */
-template<ss_typename_param_k C>
+template <ss_typename_param_k C>
 inline C const* int_to_string(ws_uint64_t const& value)
 {
     const ws_size_t CCH     = 21; // fits 64-bit
@@ -575,7 +578,7 @@ inline C const* int_to_string(ws_uint64_t const& value)
 
 #ifdef STLSOFT_CF_INT_DISTINCT_INT_TYPE
 
-template<ss_typename_param_k C>
+template <ss_typename_param_k C>
 inline C const* int_to_string(int const& value)
 {
     const ws_size_t CCH     = 21; // fits 64-bit
@@ -584,7 +587,7 @@ inline C const* int_to_string(int const& value)
     return stlsoft::integer_to_decimal_string(buffer, CCH, value);
 }
 
-template<ss_typename_param_k C>
+template <ss_typename_param_k C>
 inline C const* int_to_string(unsigned int const& value)
 {
     const ws_size_t CCH     = 21; // fits 64-bit
@@ -597,7 +600,7 @@ inline C const* int_to_string(unsigned int const& value)
 
 #ifdef STLSOFT_CF_LONG_DISTINCT_INT_TYPE
 
-template<ss_typename_param_k C>
+template <ss_typename_param_k C>
 inline C const* int_to_string(long const& value)
 {
     const ws_size_t CCH     = 21; // fits 64-bit
@@ -606,7 +609,7 @@ inline C const* int_to_string(long const& value)
     return stlsoft::integer_to_decimal_string(buffer, CCH, value);
 }
 
-template<ss_typename_param_k C>
+template <ss_typename_param_k C>
 inline C const* int_to_string(unsigned long const& value)
 {
     const ws_size_t CCH     = 21; // fits 64-bit
@@ -622,12 +625,13 @@ inline C const* int_to_string(unsigned long const& value)
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

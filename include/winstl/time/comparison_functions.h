@@ -1,12 +1,12 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/time/comparison_functions.h
+ * File:    winstl/time/comparison_functions.h
  *
- * Purpose:     Comparison functions for Windows time structures.
+ * Purpose: Comparison functions for Windows time structures.
  *
- * Created:     21st November 2003
- * Updated:     22nd January 2024
+ * Created: 21st November 2003
+ * Updated: 17th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
@@ -52,10 +52,11 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_TIME_H_COMPARISON_FUNCTIONS_MAJOR    4
-# define WINSTL_VER_WINSTL_TIME_H_COMPARISON_FUNCTIONS_MINOR    2
-# define WINSTL_VER_WINSTL_TIME_H_COMPARISON_FUNCTIONS_REVISION 2
-# define WINSTL_VER_WINSTL_TIME_H_COMPARISON_FUNCTIONS_EDIT     63
+# define WINSTL_VER_WINSTL_TIME_H_COMPARISON_FUNCTIONS_MINOR    3
+# define WINSTL_VER_WINSTL_TIME_H_COMPARISON_FUNCTIONS_REVISION 1
+# define WINSTL_VER_WINSTL_TIME_H_COMPARISON_FUNCTIONS_EDIT     67
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -84,6 +85,11 @@
 # include <winstl/api/external/Time.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_Time */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
+
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -103,11 +109,13 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * C functions
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
 STLSOFT_INLINE
 ws_sint_t
 winstl_C_compare_SYSTEMTIMEs(
@@ -225,7 +233,7 @@ winstl_C_compare_SYSTEMTIMEs(
     WINSTL_ASSERT(NULL != lhs);
     WINSTL_ASSERT(NULL != rhs);
 
-    if (0 == STLSOFT_NS_GLOBAL(memcmp(lhs, rhs, sizeof(SYSTEMTIME))))
+    if (0 == STLSOFT_API_EXTERNAL_memfns_memcmp(lhs, rhs, sizeof(SYSTEMTIME)))
     {
         return 0;
     }
@@ -356,7 +364,7 @@ winstl_C_absolute_difference_in_microseconds_SYSTEMTIMEs(
     WINSTL_ASSERT(NULL != t1);
     WINSTL_ASSERT(NULL != t2);
 
-    if (0 == STLSOFT_NS_GLOBAL(memcmp(t1, t2, sizeof(SYSTEMTIME))))
+    if (0 == STLSOFT_API_EXTERNAL_memfns_memcmp(t1, t2, sizeof(SYSTEMTIME)))
     {
         return 0;
     }
@@ -459,6 +467,58 @@ winstl_C_absolute_difference_in_seconds_SYSTEMTIMEs(
     return winstl_C_absolute_difference_in_milliseconds_SYSTEMTIMEs(t1, t2) / 1000;
 }
 
+
+STLSOFT_INLINE
+ss_sint64_t
+winstl_C_difference_in_microseconds_QPC(
+    LARGE_INTEGER const*    counter1
+,   LARGE_INTEGER const*    counter2
+,   LARGE_INTEGER const*    frequency
+)
+{
+    ss_sint64_t const   difference  =   counter1->QuadPart - counter2->QuadPart;
+
+    ss_sint64_t const   quotient    =   frequency->QuadPart / 1000000;
+    ss_sint64_t const   remainder   =   frequency->QuadPart % 1000000;
+
+    // STLSOFT_SUPPRESS_UNUSED(quotient);
+
+    if (0 != quotient &&
+        0 == remainder)
+    {
+        /* the frequency is a multiple of 1M, so we can simplify and reduce
+         * the likelihood of trucation
+         */
+
+        return difference / quotient;
+    }
+    else
+    {
+        return (difference * 1000 * 1000) / frequency->QuadPart;
+    }
+}
+
+STLSOFT_INLINE
+ss_uint64_t
+winstl_C_absolute_difference_in_microseconds_QPC(
+    LARGE_INTEGER const*    counter1
+,   LARGE_INTEGER const*    counter2
+,   LARGE_INTEGER const*    frequency
+)
+{
+    ss_sint64_t const   difference  =   winstl_C_difference_in_microseconds_QPC(counter1, counter2, frequency);
+
+    if (difference < 0)
+    {
+        return -difference;
+    }
+    else
+    {
+        return difference;
+    }
+}
+
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -467,6 +527,7 @@ winstl_C_absolute_difference_in_seconds_SYSTEMTIMEs(
 namespace winstl
 {
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
@@ -696,8 +757,8 @@ absolute_difference_in_seconds(
 {
     return winstl_C_absolute_difference_in_seconds_FILETIMEs(&t1, &t2);
 }
-
 #endif /* __cplusplus */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * backwards compatibility
@@ -705,24 +766,44 @@ absolute_difference_in_seconds(
 
 #ifdef STLSOFT_OBSOLETE
 
-STLSOFT_INLINE ws_sint_t winstl__compare_FILETIMEs(FILETIME const* lhs, FILETIME const* rhs)
+STLSOFT_INLINE
+ws_sint_t
+winstl__compare_FILETIMEs(
+    FILETIME const* lhs
+,   FILETIME const* rhs
+)
 {
     return winstl_C_compare_FILETIMEs(lhs, rhs);
 }
-STLSOFT_INLINE ws_sint_t winstl__compare_FILETIME_with_SYSTEMTIME(FILETIME const* lhs, SYSTEMTIME const* rhs)
+STLSOFT_INLINE
+ws_sint_t
+winstl__compare_FILETIME_with_SYSTEMTIME(
+    FILETIME const*     lhs
+,   SYSTEMTIME const*   rhs
+)
 {
     return winstl_C_compare_FILETIME_with_SYSTEMTIME(lhs, rhs);
 }
-STLSOFT_INLINE ws_sint_t winstl__compare_SYSTEMTIME_with_FILETIME(SYSTEMTIME const* lhs, FILETIME const* rhs)
+STLSOFT_INLINE
+ws_sint_t
+winstl__compare_SYSTEMTIME_with_FILETIME(
+    SYSTEMTIME const*   lhs
+,   FILETIME const*     rhs
+)
 {
     return winstl_C_compare_SYSTEMTIME_with_FILETIME(lhs, rhs);
 }
-STLSOFT_INLINE ws_sint_t winstl__compare_SYSTEMTIMEs(SYSTEMTIME const* lhs, SYSTEMTIME const* rhs)
+STLSOFT_INLINE
+ws_sint_t
+winstl__compare_SYSTEMTIMEs(
+    SYSTEMTIME const*   lhs
+,   SYSTEMTIME const*   rhs
+)
 {
     return winstl_C_compare_SYSTEMTIMEs(lhs, rhs);
 }
-
 #endif /* !STLSOFT_OBSOLETE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -738,6 +819,7 @@ STLSOFT_INLINE ws_sint_t winstl__compare_SYSTEMTIMEs(SYSTEMTIME const* lhs, SYST
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control
  */
@@ -745,8 +827,6 @@ STLSOFT_INLINE ws_sint_t winstl__compare_SYSTEMTIMEs(SYSTEMTIME const* lhs, SYST
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
 # pragma once
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
-
-/* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* !WINSTL_INCL_WINSTL_TIME_H_COMPARISON_FUNCTIONS */
 

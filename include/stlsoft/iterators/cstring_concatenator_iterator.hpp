@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/iterators/cstring_concatenator_iterator.hpp
+ * File:    stlsoft/iterators/cstring_concatenator_iterator.hpp
  *
- * Purpose:     cstring_concatenator_iterator class template.
+ * Purpose: cstring_concatenator_iterator class template.
  *
- * Created:     20th June 2005
- * Updated:     26th December 2020
+ * Created: 20th June 2005
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_ITERATORS_HPP_CSTRING_CONCATENATOR_ITERATOR_MAJOR      2
 # define STLSOFT_VER_STLSOFT_ITERATORS_HPP_CSTRING_CONCATENATOR_ITERATOR_MINOR      1
-# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_CSTRING_CONCATENATOR_ITERATOR_REVISION   7
-# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_CSTRING_CONCATENATOR_ITERATOR_EDIT       42
+# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_CSTRING_CONCATENATOR_ITERATOR_REVISION   10
+# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_CSTRING_CONCATENATOR_ITERATOR_EDIT       48
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -79,6 +80,7 @@
 # include <stlsoft/shims/access/string.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_HPP_STRING */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -87,6 +89,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -121,23 +124,27 @@ private:
 /// \name Construction
 /// @{
 public:
-    /// Creates an instance of the cstring_concatenator_iterator from the given
-    /// c-string pointer
+    /// Creates an instance of the cstring_concatenator_iterator from the
+    /// given c-string pointer
     ///
-    /// \param dest The C-string which in which will be written the results of the
-    /// application of the iterator's dereference. May not be NULL
-    /// \param pNumWritten An optional paramter to receive a count of how many
-    /// bytes were written by the iterator. <b>Note</b>: the variable pointed to
-    /// by this parameter is <i>not</i> set to 0 by the concatenator class. It
-    /// must be initialised by the caller.
-    /// \param pNumWritten Pointer to an unsigned integer that receives the number
-    /// of characters written by the iterator, or NULL if not required
-    ss_explicit_k cstring_concatenator_iterator(char_type *dest, size_type *pNumWritten = NULL)
+    /// \param dest The C-string which in which will be written the results
+    ///  of the application of the iterator's dereference. May not be
+    ///  \c nullptr
+    /// \param pNumWritten An optional paramter to receive a count of how
+    ///   many bytes were written by the iterator. <b>Note</b>: the variable
+    ///   pointed to by this parameter is <i>not</i> set to 0 by the
+    ///   concatenator class. It must be initialised by the caller.
+    /// \param pNumWritten Pointer to an unsigned integer that receives the
+    ///   number of characters written by the iterator, or \c nullptr if not
+    ///   required
+    ss_explicit_k
+    cstring_concatenator_iterator(
+        char_type*  dest
+    ,   size_type*  pNumWritten = NULL
+    )
         : m_dest(dest)
         , m_numWritten((NULL != pNumWritten) ? pNumWritten : dummy_())
     {
-//      *m_numWritten = 0;
-
         STLSOFT_ASSERT(NULL != m_dest);
     }
 /// @}
@@ -168,10 +175,15 @@ public:
 private:
     class deref_proxy
     {
+    public: // types
+        typedef deref_proxy                                     class_type;
+
     public:
         deref_proxy(concatenator_iterator_type *it)
             : m_it(it)
         {}
+    private:
+        void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
     public:
         template <ss_typename_param_k S>
@@ -182,10 +194,6 @@ private:
 
     private:
         concatenator_iterator_type  *const m_it;
-
-    // Not to be implemented
-    private:
-        void operator =(deref_proxy const&);
     };
 /// @}
 
@@ -229,7 +237,7 @@ private:
  * \ingroup group__library__Iterator
  *
  * \param s The C-string which in which will be written the results of the
- * application of the iterator's dereference. May not be NULL
+ *  application of the iterator's dereference. May not be \c nullptr
  * \param numWritten An optional paramter to receive a count of how many
  * bytes were written by the iterator. <b>Note</b>: the variable pointed to
  * by this parameter is <i>not</i> set to 0 by the concatenator class. It
@@ -247,7 +255,7 @@ inline cstring_concatenator_iterator<C> cstring_concatenator(C *s, ss_size_t &nu
  * \ingroup group__library__Iterator
  *
  * \param s The C-string which in which will be written the results of the
- * application of the iterator's dereference. May not be NULL
+ * application of the iterator's dereference. May not be \c nullptr
  */
 template <ss_typename_param_k C>
 inline cstring_concatenator_iterator<C> cstring_concatenator(C *s)
@@ -278,7 +286,7 @@ inline cstring_concatenator_iterator<C> make_cstring_concatenator_iterator(C *s,
  * \ingroup group__library__Iterator
  *
  * \param s The C-string which in which will be written the results of the
- * application of the iterator's dereference. May not be NULL
+ * application of the iterator's dereference. May not be \c nullptr
  * \param pNumWritten An optional paramter to receive a count of how many
  * bytes were written by the iterator. <b>Note</b>: the variable pointed to
  * by this parameter is <i>not</i> set to 0 by the concatenator class. It
@@ -291,14 +299,15 @@ inline cstring_concatenator_iterator<C> cstring_concatenator(C *s, ss_size_t *pN
 {
     return make_cstring_concatenator_iterator(s, pNumWritten);
 }
-
 #endif /* 0 */
+
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

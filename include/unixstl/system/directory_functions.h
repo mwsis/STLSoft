@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        unixstl/system/directory_functions.h
+ * File:    unixstl/system/directory_functions.h
  *
- * Purpose:     Directory functions.
+ * Purpose: Directory functions.
  *
- * Created:     1st October 2016
- * Updated:     22nd January 2024
+ * Created: 1st October 2016
+ * Updated: 26th April 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define UNIXSTL_VER_UNIXSTL_SYSTEM_H_DIRECTORY_FUNCTIONS_MAJOR       1
 # define UNIXSTL_VER_UNIXSTL_SYSTEM_H_DIRECTORY_FUNCTIONS_MINOR       0
-# define UNIXSTL_VER_UNIXSTL_SYSTEM_H_DIRECTORY_FUNCTIONS_REVISION    9
-# define UNIXSTL_VER_UNIXSTL_SYSTEM_H_DIRECTORY_FUNCTIONS_EDIT        19
+# define UNIXSTL_VER_UNIXSTL_SYSTEM_H_DIRECTORY_FUNCTIONS_REVISION    13
+# define UNIXSTL_VER_UNIXSTL_SYSTEM_H_DIRECTORY_FUNCTIONS_EDIT        23
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -75,14 +76,19 @@
 # include <stlsoft/string/copy_functions.h>
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_H_COPY_FUNCTIONS */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
-# include <stlsoft/api/external/string.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
-
 #ifndef STLSOFT_INCL_H_ERRNO
 # define STLSOFT_INCL_H_ERRNO
 # include <errno.h>
 #endif /* !STLSOFT_INCL_H_ERRNO */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
+#ifdef _WIN32
+# include <windows.h>
+#endif /* _WIN32 */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -102,6 +108,7 @@ namespace unixstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helpers functions
@@ -199,6 +206,7 @@ unixstl_C_get_home_directory_invoke_getenv_a_(
 # define unixstl_C_get_home_directory_invoke_getenv_a_      STLSOFT_NS_GLOBAL(getenv)
 #endif
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * API functions
  */
@@ -206,8 +214,8 @@ unixstl_C_get_home_directory_invoke_getenv_a_(
 STLSOFT_INLINE
 us_size_t
 unixstl_C_get_home_directory_a(
-    us_char_a_t*    buffer
-,   us_size_t       cchBuffer
+    us_char_a_t buffer[]
+,   us_size_t   cchBuffer
 )
 {
     us_char_a_t const* const home = unixstl_C_get_home_directory_invoke_getenv_a_("HOME");
@@ -234,12 +242,13 @@ STLSOFT_INLINE
 #endif
 us_size_t
 unixstl_C_get_home_directory_w(
-    us_char_w_t*    buffer
-,   us_size_t       cchBuffer
+    us_char_w_t buffer[]
+,   us_size_t   cchBuffer
 );
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * C++ functions
+ * API functions (C++)
  */
 
 #if defined(__cplusplus)
@@ -247,8 +256,8 @@ unixstl_C_get_home_directory_w(
 inline
 us_size_t
 get_home_directory(
-    us_char_a_t*    buffer
-,   us_size_t       cchBuffer
+    us_char_a_t buffer[]
+,   us_size_t   cchBuffer
 )
 {
     return unixstl_C_get_home_directory_a(buffer, cchBuffer);
@@ -257,13 +266,12 @@ get_home_directory(
 inline
 us_size_t
 get_home_directory(
-    us_char_w_t*    buffer
-,   us_size_t       cchBuffer
+    us_char_w_t buffer[]
+,   us_size_t   cchBuffer
 )
 {
     return unixstl_C_get_home_directory_w(buffer, cchBuffer);
 }
-
 #endif /* __cplusplus */
 
 /* ////////////////////////////////////////////////////////////////////// */
@@ -277,6 +285,7 @@ get_home_directory(
 } /* namespace stlsoft */
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

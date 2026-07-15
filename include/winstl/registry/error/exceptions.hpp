@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/registry/error/exceptions.hpp
+ * File:    winstl/registry/error/exceptions.hpp
  *
- * Purpose:     Exceptions used by the Registry library.
+ * Purpose: Exceptions used by the Registry library.
  *
- * Created:     8th February 2006
- * Updated:     26th December 2020
+ * Created: 8th February 2006
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_REGISTRY_ERROR_HPP_EXCEPTIONS_MAJOR      2
 # define WINSTL_VER_WINSTL_REGISTRY_ERROR_HPP_EXCEPTIONS_MINOR      1
-# define WINSTL_VER_WINSTL_REGISTRY_ERROR_HPP_EXCEPTIONS_REVISION   6
-# define WINSTL_VER_WINSTL_REGISTRY_ERROR_HPP_EXCEPTIONS_EDIT       31
+# define WINSTL_VER_WINSTL_REGISTRY_ERROR_HPP_EXCEPTIONS_REVISION   9
+# define WINSTL_VER_WINSTL_REGISTRY_ERROR_HPP_EXCEPTIONS_EDIT       36
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -74,6 +75,7 @@
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_HPP_SIGN_TRAITS
 # include <stlsoft/util/sign_traits.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_SIGN_TRAITS */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -94,7 +96,10 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * classes
+ */
 
 /** Root exception thrown by
  *   the \ref group__library__Windows_Registry "Windows Registry" Library.
@@ -138,8 +143,15 @@ public:
     registry_exception(char const* reason, status_code_alt_type sc)
         : parent_class_type(reason, static_cast<status_code_type>(sc))
     {}
+#if __cplusplus >= 201103L
+public:
+    registry_exception(class_type const&) = default;
+#endif
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 };
+
 
 /** Indicates that a registry key could not be duplicated.
  *
@@ -151,8 +163,8 @@ class key_not_duplicated_exception
 /// \name Member Types
 /// @{
 public:
-    typedef registry_exception              parent_class_type;
-    typedef key_not_duplicated_exception    class_type;
+    typedef registry_exception                              parent_class_type;
+    typedef key_not_duplicated_exception                    class_type;
 /// @}
 
 /// \name Construction
@@ -164,14 +176,15 @@ public:
     key_not_duplicated_exception(char const* reason, status_code_alt_type sc)
         : parent_class_type(reason, sc)
     {}
-/// @}
-
-/// \name Not to be implemented
-/// @{
+#if __cplusplus >= 201103L
+public:
+    key_not_duplicated_exception(class_type const&) = default;
+#endif
 private:
-    class_type& operator =(class_type const&);
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 };
+
 
 /** Indicates a registry value type mismatch.
  *
@@ -200,8 +213,12 @@ public:
         : parent_class_type(reason, sc)
         , m_valueType(type)
     {}
+#if __cplusplus >= 201103L
+public:
+    wrong_value_type_exception(class_type const&) = default;
+#endif
 private:
-    class_type& operator =(class_type const&);  // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Accessors
@@ -221,6 +238,7 @@ private:
 /// @}
 };
 
+
 /** Indicates insufficient rights to access a registry key.
  *
  * \ingroup group__library__Windows_Registry
@@ -231,8 +249,8 @@ class access_denied_exception
 /// \name Member Types
 /// @{
 public:
-    typedef registry_exception          parent_class_type;
-    typedef access_denied_exception     class_type;
+    typedef registry_exception                              parent_class_type;
+    typedef access_denied_exception                         class_type;
 /// @}
 
 /// \name Construction
@@ -244,22 +262,30 @@ public:
     access_denied_exception(char const* reason, status_code_alt_type sc)
         : parent_class_type(reason, sc)
     {}
+#if __cplusplus >= 201103L
+public:
+    access_denied_exception(class_type const&) = default;
+#endif
 private:
-    class_type& operator =(class_type const&);  // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 };
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

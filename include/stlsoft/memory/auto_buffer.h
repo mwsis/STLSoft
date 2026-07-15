@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/memory/auto_buffer.h
+ * File:    stlsoft/memory/auto_buffer.h
  *
- * Purpose:     auto_buffer functionality for C.
+ * Purpose: auto_buffer functionality for C.
  *
- * Created:     5th August 2011
- * Updated:     29th March 2021
+ * Created: 5th August 2011
+ * Updated: 19th November 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2021, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2011-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,8 +54,9 @@
 # define STLSOFT_VER_STLSOFT_MEMORY_H_AUTO_BUFFER_MAJOR     2
 # define STLSOFT_VER_STLSOFT_MEMORY_H_AUTO_BUFFER_MINOR     0
 # define STLSOFT_VER_STLSOFT_MEMORY_H_AUTO_BUFFER_REVISION  3
-# define STLSOFT_VER_STLSOFT_MEMORY_H_AUTO_BUFFER_EDIT      19
+# define STLSOFT_VER_STLSOFT_MEMORY_H_AUTO_BUFFER_EDIT      22
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -80,6 +81,7 @@
 # include <stdlib.h>                     /* for malloc(), free() */
 #endif /* !STLSOFT_INCL_H_STDLIB */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -88,6 +90,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * macros
@@ -306,6 +309,7 @@ stlsoft_C_auto_buffer_std_free_(
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * functions
  */
@@ -444,6 +448,7 @@ stlsoft_C_auto_buffer_free_ex(
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * API functions
  */
@@ -462,9 +467,9 @@ stlsoft_C_auto_buffer_free_ex(
  * \retval 0 the allocation is successful
  * \retval !0 the allocation failed
  *
- * \pre NULL != psize
- * \pre NULL != pptr
- * \pre NULL != pfnAlloc
+ * \pre nullptr != psize
+ * \pre nullptr != pptr
+ * \pre nullptr != pfnAlloc
  *
  * \see STLSOFT_C_AUTO_BUFFER_INITIALISE, stlsoft_C_auto_buffer_initialise_ex
  */
@@ -509,9 +514,9 @@ stlsoft_C_auto_buffer_initialise(
  * \retval 0 the allocation is successful
  * \retval !0 the allocation failed
  *
- * \pre NULL != psize
- * \pre NULL != pptr
- * \pre NULL != pfnAlloc
+ * \pre nullptr != psize
+ * \pre nullptr != pptr
+ * \pre nullptr != pfnAlloc
  * \pre *psize is a valid value, arising from a prior initialisation/allocation
  * \pre *pptr is a valid value, arising from a prior initialisation/allocation
  *
@@ -555,7 +560,7 @@ stlsoft_C_auto_buffer_resize(
  * \param cAllocated Number of elements allocated in the usable memory
  * \param ptr Pointer to the usable memory
  *
- * \pre NULL != ptr
+ * \pre nullptr != ptr
  *
  * \see STLSOFT_C_AUTO_BUFFER_FREE, stlsoft_C_auto_buffer_free_ex
  */
@@ -584,6 +589,7 @@ stlsoft_C_auto_buffer_free(
     );
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -591,6 +597,7 @@ stlsoft_C_auto_buffer_free(
 #ifndef STLSOFT_NO_NAMESPACE
 } /* namespace stlsoft */
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

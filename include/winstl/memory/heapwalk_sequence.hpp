@@ -1,20 +1,20 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/memory/heapwalk_sequence.hpp (originally MWHeapWk.h; ::SynesisWin)
+ * File:    winstl/memory/heapwalk_sequence.hpp (originally MWHeapWk.h; ::SynesisWin)
  *
- * Purpose:     Contains the heapwalk_sequence template class, and ANSI
- *              and Unicode specialisations thereof.
+ * Purpose: Contains the heapwalk_sequence template class, and ANSI and
+ *          Unicode specialisations thereof.
  *
- * Notes:       The original implementation of the class had the const_iterator
- *              and value_type as nested classes. Unfortunately, Visual C++ 5 &
- *              6 both had either compilation or linking problems so these are
- *              regretably now implemented as independent classes.
+ * Notes:   The original implementation of the class had the const_iterator
+ *          and value_type as nested classes. Unfortunately, Visual C++ 5 &
+ *          6 both had either compilation or linking problems so these are
+ *          regretably now implemented as independent classes.
  *
- * Created:     15th January 2002
- * Updated:     22nd January 2024
+ * Created: 15th January 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -59,9 +59,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_MEMORY_HPP_HEAPWALK_SEQUENCE_MAJOR       4
 # define WINSTL_VER_WINSTL_MEMORY_HPP_HEAPWALK_SEQUENCE_MINOR       0
-# define WINSTL_VER_WINSTL_MEMORY_HPP_HEAPWALK_SEQUENCE_REVISION    12
-# define WINSTL_VER_WINSTL_MEMORY_HPP_HEAPWALK_SEQUENCE_EDIT        81
+# define WINSTL_VER_WINSTL_MEMORY_HPP_HEAPWALK_SEQUENCE_REVISION    14
+# define WINSTL_VER_WINSTL_MEMORY_HPP_HEAPWALK_SEQUENCE_EDIT        85
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -85,6 +86,7 @@
 # include <winstl/api/external/MemoryManagement.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_MemoryManagement */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -104,11 +106,13 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * forward declarations
  */
 
 class heapwalk_sequence_const_iterator;
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -178,6 +182,9 @@ public:
     ss_explicit_k heapwalk_sequence(HANDLE hHeap);
     /// Destructor
     ~heapwalk_sequence() STLSOFT_NOEXCEPT;
+private:
+    heapwalk_sequence(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Iteration
@@ -203,13 +210,6 @@ private:
 /// @{
 private:
     HANDLE  m_hHeap;
-/// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    heapwalk_sequence(class_type const&);
-    heapwalk_sequence const& operator =(class_type const&);
 /// @}
 };
 
@@ -286,7 +286,10 @@ private:
 /// @}
 };
 
-////////////////////////////////////////////////////////////////////////////
+
+/* /////////////////////////////////////////////////////////////////////////
+ * implementation
+ */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
@@ -403,20 +406,23 @@ inline ws_bool_t heapwalk_sequence_const_iterator::operator !=(class_type const&
 {
     return ! operator ==(rhs);
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

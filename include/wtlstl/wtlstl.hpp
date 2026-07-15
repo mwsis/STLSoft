@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        wtlstl/wtlstl.hpp
+ * File:    wtlstl/wtlstl.hpp
  *
- * Purpose:     Root header for the WTLSTL libraries. Performs compiler
- *              and platform discriminations, and definitions of types.
+ * Purpose: Root header for the WTLSTL libraries. Performs compiler and
+ *          platform discriminations, and definitions of types.
  *
- * Created:     12th May 2003
- * Updated:     22nd January 2024
+ * Created: 12th May 2003
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -51,7 +51,7 @@
 # define _WTLSTL_VER_WTLSTL_HPP_WTLSTL_MAJOR    2
 # define _WTLSTL_VER_WTLSTL_HPP_WTLSTL_MINOR    4
 # define _WTLSTL_VER_WTLSTL_HPP_WTLSTL_REVISION 3
-# define _WTLSTL_VER_WTLSTL_HPP_WTLSTL_EDIT     60
+# define _WTLSTL_VER_WTLSTL_HPP_WTLSTL_EDIT     63
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \file wtlstl/wtlstl.hpp
@@ -67,7 +67,7 @@
  * components.
  *
  * The major version is denoted by the _WTLSTL_VER_MAJOR preprocessor symbol.
- * A changes to the major version component implies that a dramatic change has
+ * A change to the major version component implies that a dramatic change has
  * occurred in the libraries, such that considerable changes to source dependent
  * on previous versions would need to be effected.
  *
@@ -117,11 +117,13 @@
 #define _WTLSTL_VER_1_2_2       0x00010202  /*!< Version 1.2.2 (with STLSoft 1.9.25) */
 #define _WTLSTL_VER_1_2_3       0x00010203  /*!< Version 1.2.3 (with STLSoft 1.10.1 b1) */
 #define _WTLSTL_VER_1_2_4       0x00010204  /*!< Version 1.2.4 (with STLSoft 1.10.1 b 26) */
+#define _WTLSTL_VER_1_2_5       0x00010205  /*!< Version 1.2.5 (with STLSoft 1.11.1 alpha 8) */
 
 #define _WTLSTL_VER_MAJOR       1
 #define _WTLSTL_VER_MINOR       2
-#define _WTLSTL_VER_REVISION    3
-#define _WTLSTL_VER             _WTLSTL_VER_1_2_4
+#define _WTLSTL_VER_REVISION    5
+#define _WTLSTL_VER             _WTLSTL_VER_1_2_5
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -188,6 +190,7 @@
     _WTL_VER < 0x0310
 # error WTLSTL supports WTL version 3.1 and above only
 #endif /* _WTL_VER < 0x0310 */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * STLSoft version compatibility check(s)
@@ -328,6 +331,7 @@
  * or in the global namespace.
  */
 
+
 /* /////////////////////////////////////
  * obsolete preprocessor symbol detection
  */
@@ -349,6 +353,7 @@
 #  define WTLSTL_NO_NAMESPACE
 # endif /* !WTLSTL_NO_NAMESPACE */
 #endif /* _WTLSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////
  * namespace support discrimination
@@ -379,6 +384,7 @@
 #  endif /* !_WTLSTL_NO_NAMESPACE */
 # endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 #endif /* WTLSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////
  * declaration '*stl*' namespace
@@ -575,13 +581,14 @@ typedef STLSOFT_NS_QUAL(ss_streamoff_t)     ws_streamoff_t; //!< streamoff
 #ifndef WTLSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace wtlstl */
+} // namespace wtlstl
 # else
-} /* namespace wtlstl_project */
-} /* namespace stlsoft */
+} // namespace wtlstl_project
+} // namespace stlsoft
 namespace wtlstl = ::stlsoft::wtlstl_project;
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WTLSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

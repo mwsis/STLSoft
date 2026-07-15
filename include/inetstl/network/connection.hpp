@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        inetstl/network/connection.hpp (originally MIntConn.h)
+ * File:    inetstl/network/connection.hpp (originally MIntConn.h)
  *
- * Purpose:     Contains the basic_connection class.
+ * Purpose: Contains the basic_connection class.
  *
- * Created:     30th April 1999
- * Updated:     16th February 2024
+ * Created: 30th April 1999
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1999-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,8 +55,9 @@
 # define INETSTL_VER_INETSTL_NETWORK_HPP_CONNECTION_MAJOR       5
 # define INETSTL_VER_INETSTL_NETWORK_HPP_CONNECTION_MINOR       1
 # define INETSTL_VER_INETSTL_NETWORK_HPP_CONNECTION_REVISION    12
-# define INETSTL_VER_INETSTL_NETWORK_HPP_CONNECTION_EDIT        86
+# define INETSTL_VER_INETSTL_NETWORK_HPP_CONNECTION_EDIT        89
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -94,6 +95,7 @@
 # endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
 #endif /* _WIN32 */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -112,6 +114,7 @@ namespace inetstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !INETSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -151,10 +154,10 @@ public:
     /// Create a connection with the given arguments
     ///
     /// \param hsess A WinInet handle to the current session, obtained via \c InternetOpen() or the basic_session class
-    /// \param server The name of the server to which to connect. May not be NULL
+    /// \param server The name of the server to which to connect. May not be \c nullptr
     /// \param port The number of the port to connect on
-    /// \param userName The username for the connection. May be NULL
-    /// \param password The password for the connection. May be NULL
+    /// \param userName The username for the connection. May be \c nullptr
+    /// \param password The password for the connection. May be \c nullptr
     /// \param service The service to access. Either INTERNET_SERVICE_FTP or INTERNET_SERVICE_HTTP
     /// \param flags Service specific flags, e.g. INTERNET_FLAG_PASSIVE
     /// \param context Context used for callback functions
@@ -181,10 +184,10 @@ public:
     /// Opens a connection with the given arguments
     ///
     /// \param hsess A WinInet handle to the current session, obtained via \c InternetOpen() or the basic_session class
-    /// \param server The name of the server to which to connect. May not be NULL
+    /// \param server The name of the server to which to connect. May not be \c nullptr
     /// \param port The number of the port to connect on
-    /// \param userName The username for the connection. May be NULL
-    /// \param password The password for the connection. May be NULL
+    /// \param userName The username for the connection. May be \c nullptr
+    /// \param password The password for the connection. May be \c nullptr
     /// \param service The service to access. Either INTERNET_SERVICE_FTP or INTERNET_SERVICE_HTTP
     /// \param flags Service specific flags, e.g. INTERNET_FLAG_PASSIVE
     /// \param context Context used for callback functions
@@ -235,6 +238,7 @@ private:
     HINTERNET   m_hConn;
     is_dword_t  m_lastError;
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * typedefs for commonly encountered types
@@ -470,12 +474,13 @@ get_handle(basic_connection<C, X, T> &s)
 #ifndef INETSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace inetstl */
+} // namespace inetsl
 # else
-} /* namespace inetstl_project */
-} /* namespace stlsoft */
+} // namespace inetstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !INETSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

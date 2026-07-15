@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/functional/message.hpp
+ * File:    winstl/functional/message.hpp
  *
- * Purpose:     Window messaging function classes and predicates.
+ * Purpose: Window messaging function classes and predicates.
  *
- * Created:     19th January 2001
- * Updated:     26th December 2020
+ * Created: 19th January 2001
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2001-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_FUNCTIONAL_HPP_MESSAGE_MAJOR     4
 # define WINSTL_VER_WINSTL_FUNCTIONAL_HPP_MESSAGE_MINOR     1
-# define WINSTL_VER_WINSTL_FUNCTIONAL_HPP_MESSAGE_REVISION  5
-# define WINSTL_VER_WINSTL_FUNCTIONAL_HPP_MESSAGE_EDIT      52
+# define WINSTL_VER_WINSTL_FUNCTIONAL_HPP_MESSAGE_REVISION  9
+# define WINSTL_VER_WINSTL_FUNCTIONAL_HPP_MESSAGE_EDIT      57
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -77,6 +78,11 @@
 # error Now need to write that std_binary_function stuff!!
 #endif /* _WINSTL_WINDOW_FUNCTIONALS_NO_STD */
 
+#ifndef WINSTL_INCL_WINSTL_API_external_h_WindowsAndMessages
+# include <winstl/api/external/WindowsAndMessages.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_WindowsAndMessages */
+
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -96,6 +102,7 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * functor classes
  */
@@ -109,19 +116,28 @@ namespace winstl_project
  */
 // [[synesis:class:unary-functor: message_send]]
 struct message_send
-    : public std::unary_function<HWND, void>
+#if __cplusplus < 201103L
+    : public STLSOFT_NS_QUAL_STD(unary_function)<HWND, void>
+#endif
 {
 public:
+    typedef HWND                                            argument_type;
+    typedef void                                            result_type;
     /// This type
-    typedef message_send        class_type;
-public:
-    message_send(   UINT    msg
-                ,   WPARAM  wparam
-                ,   LPARAM  lparam)
+    typedef message_send                                    class_type;
+
+public: // construction
+    message_send(
+        UINT    msg
+    ,   WPARAM  wparam
+    ,   LPARAM  lparam
+    )
         : m_msg(msg)
         , m_wparam(wparam)
         , m_lparam(lparam)
     {}
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 public:
     void operator ()(HWND hwnd) const
@@ -137,16 +153,13 @@ public:
 private:
     void send_(HWND hwnd) const
     {
-        ::SendMessage(hwnd, m_msg, m_wparam, m_lparam);
+        WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(hwnd, m_msg, m_wparam, m_lparam);
     }
 
 private:
-    const UINT      m_msg;
-    const WPARAM    m_wparam;
-    const LPARAM    m_lparam;
-
-private:
-    class_type& operator =(class_type const&);
+    UINT const      m_msg;
+    WPARAM const    m_wparam;
+    LPARAM const    m_lparam;
 };
 
 /** Functor used to post a message to windows
@@ -158,19 +171,25 @@ private:
  */
 // [[synesis:class:unary-functor: message_post]]
 struct message_post
-    : public std::unary_function<HWND, void>
+#if __cplusplus < 201103L
+    : public STLSOFT_NS_QUAL_STD(unary_function)<HWND, void>
+#endif
 {
 public:
     /// This type
     typedef message_post        class_type;
 public:
-    message_post(   UINT    msg
-                ,   WPARAM  wparam
-                ,   LPARAM  lparam)
+    message_post(
+        UINT    msg
+    ,   WPARAM  wparam
+    ,   LPARAM  lparam
+    )
         : m_msg(msg)
         , m_wparam(wparam)
         , m_lparam(lparam)
     {}
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 public:
     void operator ()(HWND hwnd) const
@@ -190,25 +209,26 @@ private:
     }
 
 private:
-    const UINT      m_msg;
-    const WPARAM    m_wparam;
-    const LPARAM    m_lparam;
-
-private:
-    class_type& operator =(class_type const&);
+    UINT const      m_msg;
+    WPARAM const    m_wparam;
+    LPARAM const    m_lparam;
 };
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

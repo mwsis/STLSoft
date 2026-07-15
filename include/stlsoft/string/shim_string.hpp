@@ -1,17 +1,16 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/string/shim_string.hpp
+ * File:    stlsoft/string/shim_string.hpp
  *
- * Purpose:     Contains the basic_shim_string template class.
+ * Purpose: Contains the basic_shim_string template class.
  *
- * Created:     9th July 2004
- * Updated:     30th January 2024
+ * Created: 9th July 2004
+ * Updated: 20th March 2025
  *
- * Thanks to:   Dimitri Kaparis, for spotting a typo in the string access
- *              shims.
+ * Thanks:  Dimitri Kaparis, for spotting a typo in the string access shims.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -57,9 +56,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_STRING_HPP_SHIM_STRING_MAJOR       3
 # define STLSOFT_VER_STLSOFT_STRING_HPP_SHIM_STRING_MINOR       7
-# define STLSOFT_VER_STLSOFT_STRING_HPP_SHIM_STRING_REVISION    1
-# define STLSOFT_VER_STLSOFT_STRING_HPP_SHIM_STRING_EDIT        68
+# define STLSOFT_VER_STLSOFT_STRING_HPP_SHIM_STRING_REVISION    4
+# define STLSOFT_VER_STLSOFT_STRING_HPP_SHIM_STRING_EDIT        74
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -108,6 +108,7 @@
 # include <iosfwd>
 #endif /* compiler */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -116,6 +117,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * code coverage
@@ -136,6 +138,7 @@ namespace
 }
 #endif
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * classes
  */
@@ -146,7 +149,8 @@ namespace
  * \param C The character type
  * \param N The number of characters in the internal auto_buffer
  * \param U The nUll indicator. If true, the implicit conversion operator
- *   returns NULL for an empty string, otherwise it returns the empty string
+ *   returns \c nullptr for an empty string, otherwise it returns the empty
+ *   string
  * \param A The allocator
  * \param T The char traits type
  *
@@ -165,19 +169,29 @@ class basic_shim_string
 /// @{
 public:
     /// The value type
-    typedef C                                                   char_type;
+    typedef C                                               char_type;
     /// The allocator type
-    typedef A                                                   allocator_type;
+    typedef A                                               allocator_type;
     /// The traits type
-    typedef T                                                   traits_type;
+    typedef T                                               traits_type;
     /// The current specialisation of the type
-    typedef basic_shim_string<C, N, U, A, T>                    class_type;
+    typedef basic_shim_string<
+        C
+    ,   N
+    ,   U
+    ,   A
+    ,   T
+    >                                                       class_type;
     /// The size type
-    typedef ss_size_t                                           size_type;
+    typedef ss_size_t                                       size_type;
     /// The buffer type
-    typedef auto_buffer_old<char_type, allocator_type, N + 1>   buffer_type;
+    typedef auto_buffer<
+        char_type
+    ,   N + 1
+    ,   allocator_type
+    >                                                       buffer_type;
     /// The boolean type
-    typedef ss_bool_t                                           bool_type;
+    typedef ss_bool_t                                       bool_type;
 /// @}
 
 /// \name Construction
@@ -276,7 +290,7 @@ public:
       m_buffer.swap(rhs.m_buffer);
     }
 private:
-    class_type& operator =(class_type const&);  // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Operations
@@ -596,6 +610,7 @@ private:
 /// @}
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * shims
  */
@@ -609,7 +624,9 @@ template <
 ,   ss_typename_param_k A
 ,   ss_typename_param_k T
 >
-inline C const* c_str_data(basic_shim_string<C, N, U, A, T> const& ss)
+inline
+C const*
+c_str_data(basic_shim_string<C, N, U, A, T> const& ss)
 {
     STLSOFT_COVER_MARK_LINE();
 
@@ -623,7 +640,9 @@ template <
 ,   ss_typename_param_k A
 ,   ss_typename_param_k T
 >
-inline ss_size_t c_str_len(basic_shim_string<C, N, U, A, T> const& ss)
+inline
+ss_size_t
+c_str_len(basic_shim_string<C, N, U, A, T> const& ss)
 {
     STLSOFT_COVER_MARK_LINE();
 
@@ -637,7 +656,9 @@ template <
 ,   ss_typename_param_k A
 ,   ss_typename_param_k T
 >
-inline C const* c_str_ptr(basic_shim_string<C, N, U, A, T> const& ss)
+inline
+C const*
+c_str_ptr(basic_shim_string<C, N, U, A, T> const& ss)
 {
     STLSOFT_COVER_MARK_LINE();
 
@@ -651,7 +672,9 @@ template <
 ,   ss_typename_param_k A
 ,   ss_typename_param_k T
 >
-inline C const* c_str_ptr_null(basic_shim_string<C, N, U, A, T> const& ss)
+inline
+C const*
+c_str_ptr_null(basic_shim_string<C, N, U, A, T> const& ss)
 {
     STLSOFT_COVER_MARK_LINE();
 
@@ -666,7 +689,9 @@ template <
 ,   ss_typename_param_k A
 ,   ss_typename_param_k T
 >
-inline ss_char_a_t const* c_str_data_a(basic_shim_string<ss_char_a_t, N, U, A, T> const& ss)
+inline
+ss_char_a_t const*
+c_str_data_a(basic_shim_string<ss_char_a_t, N, U, A, T> const& ss)
 {
     STLSOFT_COVER_MARK_LINE();
 
@@ -679,7 +704,9 @@ template <
 ,   ss_typename_param_k A
 ,   ss_typename_param_k T
 >
-inline ss_size_t c_str_len_a(basic_shim_string<ss_char_a_t, N, U, A, T> const& ss)
+inline
+ss_size_t
+c_str_len_a(basic_shim_string<ss_char_a_t, N, U, A, T> const& ss)
 {
     STLSOFT_COVER_MARK_LINE();
 
@@ -692,7 +719,9 @@ template <
 ,   ss_typename_param_k A
 ,   ss_typename_param_k T
 >
-inline ss_char_a_t const* c_str_ptr_a(basic_shim_string<ss_char_a_t, N, U, A, T> const& ss)
+inline
+ss_char_a_t const*
+c_str_ptr_a(basic_shim_string<ss_char_a_t, N, U, A, T> const& ss)
 {
     STLSOFT_COVER_MARK_LINE();
 
@@ -705,7 +734,9 @@ template <
 ,   ss_typename_param_k A
 ,   ss_typename_param_k T
 >
-inline ss_char_a_t const* c_str_ptr_null_a(basic_shim_string<ss_char_a_t, N, U, A, T> const& ss)
+inline
+ss_char_a_t const*
+c_str_ptr_null_a(basic_shim_string<ss_char_a_t, N, U, A, T> const& ss)
 {
     STLSOFT_COVER_MARK_LINE();
 
@@ -720,7 +751,9 @@ template <
 ,   ss_typename_param_k A
 ,   ss_typename_param_k T
 >
-inline ss_char_w_t const* c_str_data_w(basic_shim_string<ss_char_w_t, N, U, A, T> const& ss)
+inline
+ss_char_w_t const*
+c_str_data_w(basic_shim_string<ss_char_w_t, N, U, A, T> const& ss)
 {
     STLSOFT_COVER_MARK_LINE();
 
@@ -733,7 +766,9 @@ template <
 ,   ss_typename_param_k A
 ,   ss_typename_param_k T
 >
-inline ss_size_t c_str_len_w(basic_shim_string<ss_char_w_t, N, U, A, T> const& ss)
+inline
+ss_size_t
+c_str_len_w(basic_shim_string<ss_char_w_t, N, U, A, T> const& ss)
 {
     STLSOFT_COVER_MARK_LINE();
 
@@ -746,7 +781,9 @@ template <
 ,   ss_typename_param_k A
 ,   ss_typename_param_k T
 >
-inline ss_char_w_t const* c_str_ptr_w(basic_shim_string<ss_char_w_t, N, U, A, T> const& ss)
+inline
+ss_char_w_t const*
+c_str_ptr_w(basic_shim_string<ss_char_w_t, N, U, A, T> const& ss)
 {
     STLSOFT_COVER_MARK_LINE();
 
@@ -759,7 +796,9 @@ template <
 ,   ss_typename_param_k A
 ,   ss_typename_param_k T
 >
-inline ss_char_w_t const* c_str_ptr_null_w(basic_shim_string<ss_char_w_t, N, U, A, T> const& ss)
+inline
+ss_char_w_t const*
+c_str_ptr_null_w(basic_shim_string<ss_char_w_t, N, U, A, T> const& ss)
 {
     STLSOFT_COVER_MARK_LINE();
 
@@ -792,10 +831,11 @@ operator <<(
 }
 #endif /* compiler */
 
+
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 
 # if defined(STLSOFT_COMPILER_IS_MSVC) && \
      _MSC_VER < 1310
@@ -807,7 +847,12 @@ template <
 ,   ss_typename_param_k         A
 ,   ss_typename_param_k         T
 >
-inline std::basic_ostream<C>& operator <<(std::basic_ostream<C> &s, stlsoft::basic_shim_string<C, N, U, A, T> const& ss)
+inline
+std::basic_ostream<C>&
+operator <<(
+    std::basic_ostream<C>&                              s
+,   stlsoft::basic_shim_string<C, N, U, A, T> const&    ss
+)
 {
     STLSOFT_COVER_MARK_LINE();
 
@@ -815,14 +860,14 @@ inline std::basic_ostream<C>& operator <<(std::basic_ostream<C> &s, stlsoft::bas
 
     return s;
 }
-
 # endif /* compiler */
-
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* ? compiler */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

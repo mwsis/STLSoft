@@ -1,12 +1,12 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        comstl/util/refcount_functions.h
+ * File:    comstl/util/refcount_functions.h
  *
- * Purpose:     Reference-counting helper functions.
+ * Purpose: Reference-counting helper functions.
  *
- * Created:     25th June 2002
- * Updated:     22nd January 2024
+ * Created: 25th June 2002
+ * Updated: 24th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
@@ -54,8 +54,9 @@
 # define COMSTL_VER_COMSTL_UTIL_H_REFCOUNT_FUNCTIONS_MAJOR      4
 # define COMSTL_VER_COMSTL_UTIL_H_REFCOUNT_FUNCTIONS_MINOR      1
 # define COMSTL_VER_COMSTL_UTIL_H_REFCOUNT_FUNCTIONS_REVISION   6
-# define COMSTL_VER_COMSTL_UTIL_H_REFCOUNT_FUNCTIONS_EDIT       72
+# define COMSTL_VER_COMSTL_UTIL_H_REFCOUNT_FUNCTIONS_EDIT       74
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -67,6 +68,7 @@
 #ifdef STLSOFT_TRACE_INCLUDE
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -87,6 +89,7 @@ namespace comstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * C functions
  */
@@ -97,9 +100,11 @@ namespace comstl_project
  *
  * \param punk The interface pointer on which to add the reference. Cannot be null
  *
- * \pre \c punk must not be NULL.
+ * \pre \c punk must not be \c nullptr.
  */
-STLSOFT_INLINE void comstl__addref(LPUNKNOWN punk)
+STLSOFT_INLINE
+void
+comstl__addref(LPUNKNOWN punk)
 {
     COMSTL_MESSAGE_ASSERT("Cannot call AddRef() on NULL interface pointer", NULL != punk);
 
@@ -112,7 +117,9 @@ STLSOFT_INLINE void comstl__addref(LPUNKNOWN punk)
  *
  * \param punk The interface pointer on which to release the reference. Cannot be null
  */
-STLSOFT_INLINE void comstl__release(LPUNKNOWN punk)
+STLSOFT_INLINE
+void
+comstl__release(LPUNKNOWN punk)
 {
     COMSTL_ITF_CALL(punk)->Release(COMSTL_ITF_THIS0(punk));
 }
@@ -123,7 +130,9 @@ STLSOFT_INLINE void comstl__release(LPUNKNOWN punk)
  *
  * \param punk The interface pointer on which to add the reference. Can be null
  */
-STLSOFT_INLINE void comstl__safe_addref(LPUNKNOWN punk)
+STLSOFT_INLINE
+void
+comstl__safe_addref(LPUNKNOWN punk)
 {
     if (NULL != punk)
     {
@@ -137,13 +146,16 @@ STLSOFT_INLINE void comstl__safe_addref(LPUNKNOWN punk)
  *
  * \param punk The interface pointer on which to release the reference. Can be null
  */
-STLSOFT_INLINE void comstl__safe_release(LPUNKNOWN punk)
+STLSOFT_INLINE
+void
+comstl__safe_release(LPUNKNOWN punk)
 {
     if (NULL != punk)
     {
         comstl__release(punk);
     }
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -153,6 +165,7 @@ STLSOFT_INLINE void comstl__safe_release(LPUNKNOWN punk)
 namespace comstl
 {
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
@@ -166,9 +179,11 @@ namespace comstl
  *
  * \param punk The interface pointer on which to add the reference. Cannot be null
  *
- * \pre \c punk must not be NULL.
+ * \pre \c punk must not be \c nullptr.
  */
-inline void addref(LPUNKNOWN punk)
+inline
+void
+addref(LPUNKNOWN punk)
 {
     comstl__addref(punk);
 }
@@ -179,7 +194,9 @@ inline void addref(LPUNKNOWN punk)
  *
  * \param punk The interface pointer on which to release the reference. Cannot be null
  */
-inline void release(LPUNKNOWN punk)
+inline
+void
+release(LPUNKNOWN punk)
 {
     comstl__release(punk);
 }
@@ -190,7 +207,9 @@ inline void release(LPUNKNOWN punk)
  *
  * \param punk The interface pointer on which to add the reference. Can be null
  */
-inline void safe_addref(LPUNKNOWN punk)
+inline
+void
+safe_addref(LPUNKNOWN punk)
 {
     comstl__safe_addref(punk);
 }
@@ -201,7 +220,9 @@ inline void safe_addref(LPUNKNOWN punk)
  *
  * \param punk The interface pointer on which to release the reference. Can be null
  */
-inline void safe_release(LPUNKNOWN punk)
+inline
+void
+safe_release(LPUNKNOWN punk)
 {
     comstl__safe_release(punk);
 }
@@ -213,7 +234,9 @@ inline void safe_release(LPUNKNOWN punk)
  * \param pt The interface pointer on which to release the reference. Can be null
  */
 template <ss_typename_param_k T>
-inline void release_set_null(T *&pt)
+inline
+void
+release_set_null(T*& pt)
 {
     if (NULL != pt)
     {
@@ -221,10 +244,12 @@ inline void release_set_null(T *&pt)
         pt = NULL;
     }
 }
-
 #endif /* __cplusplus */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef COMSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
@@ -235,6 +260,7 @@ inline void release_set_null(T *&pt)
 } /* namespace stlsoft */
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

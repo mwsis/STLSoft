@@ -1,18 +1,17 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/clipboard/clipboard_format_sequence.hpp
+ * File:    winstl/clipboard/clipboard_format_sequence.hpp
  *
- * Purpose:     Enumerates clipboard formats.
+ * Purpose: Enumerates clipboard formats.
  *
- * Created:     11th May 2003
- * Updated:     22nd January 2024
+ * Created: 11th May 2003
+ * Updated: 20th March 2025
  *
- * Thanks:      To Martin Moene for reporting the lack of iterator traits
- *              of the const_iterator nested class; wiluite for a defect
- *              report.
+ * Thanks:  To Martin Moene for reporting the lack of iterator traits of the
+ *          const_iterator nested class; wiluite for a defect report.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -58,9 +57,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_CLIPBOARD_HPP_CLIPBOARD_FORMAT_SEQUENCE_MAJOR    4
 # define WINSTL_VER_WINSTL_CLIPBOARD_HPP_CLIPBOARD_FORMAT_SEQUENCE_MINOR    0
-# define WINSTL_VER_WINSTL_CLIPBOARD_HPP_CLIPBOARD_FORMAT_SEQUENCE_REVISION 10
-# define WINSTL_VER_WINSTL_CLIPBOARD_HPP_CLIPBOARD_FORMAT_SEQUENCE_EDIT     49
+# define WINSTL_VER_WINSTL_CLIPBOARD_HPP_CLIPBOARD_FORMAT_SEQUENCE_REVISION 12
+# define WINSTL_VER_WINSTL_CLIPBOARD_HPP_CLIPBOARD_FORMAT_SEQUENCE_EDIT     53
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -80,6 +80,7 @@
 # include <stlsoft/util/std/iterator_helper.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -98,6 +99,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -141,13 +143,13 @@ class clipboard_format_sequence
 /// @{
 public:
     /// The type
-    typedef clipboard_format_sequence       class_type;
+    typedef clipboard_format_sequence                       class_type;
     /// The value type
-    typedef UINT                            value_type;
+    typedef UINT                                            value_type;
     /// The size type
-    typedef ws_size_t                       size_type;
+    typedef ws_size_t                                       size_type;
     /// The difference type
-    typedef ws_ptrdiff_t                    difference_type;
+    typedef ws_ptrdiff_t                                    difference_type;
 /// @}
 
 /// \name Construction
@@ -166,6 +168,9 @@ public:
             ::CloseClipboard();
         }
     }
+private:
+    clipboard_format_sequence(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Iteration
@@ -308,13 +313,6 @@ public:
 private:
     ws_bool_t   m_bOpen;
 /// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    clipboard_format_sequence(clipboard_format_sequence const&);
-    clipboard_format_sequence& operator =(clipboard_format_sequence const&);
-/// @}
 };
 
 /* ////////////////////////////////////////////////////////////////////// */
@@ -322,12 +320,13 @@ private:
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

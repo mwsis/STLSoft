@@ -1,18 +1,18 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/conversion/string_to_integer.hpp
+ * File:    stlsoft/conversion/string_to_integer.hpp
  *
- * Purpose:     String to integer conversions.
+ * Purpose: String to integer conversions.
  *
- * Created:     18th November 2008
- * Updated:     22nd January 2024
+ * Created: 18th November 2008
+ * Updated: 22nd August 2025
  *
- * Thanks to:   Chris Oldwood for righteous criticism of one of my hastily-
- *              written articles, which led to the creation of the
- *              try_parse_to<>() functions.
+ * Thanks:  Chris Oldwood for righteous criticism of one of my hastily-
+ *          written articles, which led to the creation of the
+ *          try_parse_to<>() functions.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2008-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -58,9 +58,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONVERSION_HPP_STRING_TO_INTEGER_MAJOR     3
 # define STLSOFT_VER_STLSOFT_CONVERSION_HPP_STRING_TO_INTEGER_MINOR     0
-# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_STRING_TO_INTEGER_REVISION  1
-# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_STRING_TO_INTEGER_EDIT      72
+# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_STRING_TO_INTEGER_REVISION  3
+# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_STRING_TO_INTEGER_EDIT      78
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -73,9 +74,6 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
-#ifndef STLSOFT_INCL_STLSOFT_UTIL_HPP_MINMAX
-# include <stlsoft/util/minmax.hpp>
-#endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_MINMAX */
 #ifndef STLSOFT_INCL_STLSOFT_META_HPP_IS_SIGNED_TYPE
 # include <stlsoft/meta/is_signed_type.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_META_HPP_IS_SIGNED_TYPE */
@@ -98,6 +96,7 @@
 # include <ctype.h>
 #endif /* !STLSOFT_INCL_H_CTYPE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -106,6 +105,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * code coverage
@@ -127,6 +127,7 @@ namespace
 }
 #endif
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * functions
  */
@@ -147,16 +148,12 @@ struct ximpl_string_to_integer_util_
     ,   I
     )
     {
-        STLSOFT_COVER_MARK_LINE();
-
         STLSOFT_ASSERT(NULL != endptr);
 
         I result = 0;
 
         for (;; ++s)
         {
-            STLSOFT_COVER_MARK_LINE();
-
             switch (*s)
             {
                 case    '0':
@@ -169,11 +166,11 @@ struct ximpl_string_to_integer_util_
                 case    '7':
                 case    '8':
                 case    '9':
-                    STLSOFT_COVER_MARK_LINE();
+
                     result = 10 * result + (*s - '0');
                     continue;
                 default:
-                    STLSOFT_COVER_MARK_LINE();
+
                     *endptr = s;
                     break;
             }
@@ -197,8 +194,6 @@ struct ximpl_string_to_integer_util_
     ,   I        /* fail_value */
     )
     {
-        STLSOFT_COVER_MARK_LINE();
-
         STLSOFT_ASSERT(0 != len);
         STLSOFT_ASSERT(NULL != endptr);
 
@@ -206,34 +201,38 @@ struct ximpl_string_to_integer_util_
 
         for (; 0 != len; ++s, --len)
         {
-            STLSOFT_COVER_MARK_LINE();
-
             C c = *s;
 
             switch (c)
             {
                 case    'a':
                 case    'A':
+
                     c = 10;
                     goto calc;
                 case    'b':
                 case    'B':
+
                     c = 11;
                     goto calc;
                 case    'c':
                 case    'C':
+
                     c = 12;
                     goto calc;
                 case    'd':
                 case    'D':
+
                     c = 13;
                     goto calc;
                 case    'e':
                 case    'E':
+
                     c = 14;
                     goto calc;
                 case    'f':
                 case    'F':
+
                     c = 15;
                     goto calc;
 
@@ -247,13 +246,13 @@ struct ximpl_string_to_integer_util_
                 case    '7':
                 case    '8':
                 case    '9':
+
                     c = c - '0';
 calc:
-                    STLSOFT_COVER_MARK_LINE();
                     *result = I(16 * *result + c);
                     continue;
                 default:
-                    STLSOFT_COVER_MARK_LINE();
+
                     break;
             }
             break;
@@ -278,19 +277,13 @@ calc:
     ,   I           fail_value
     )
     {
-        STLSOFT_COVER_MARK_LINE();
-
         STLSOFT_ASSERT(0 != len);
         STLSOFT_ASSERT(NULL != endptr);
 
         if ('0' == s[0])
         {
-            STLSOFT_COVER_MARK_LINE();
-
             if (1 == len)
             {
-                STLSOFT_COVER_MARK_LINE();
-
                 *result = 0;
 
                 *endptr = s + 1;
@@ -301,35 +294,25 @@ calc:
             if ('x' == s[1] ||
                 'X' == s[1])
             {
-                STLSOFT_COVER_MARK_LINE();
-
                 if (2 == len)
                 {
-                    STLSOFT_COVER_MARK_LINE();
-
                     *endptr = s + 1;
 
                     return false;
                 }
                 else
                 {
-                    STLSOFT_COVER_MARK_LINE();
-
                     return hex_string_to_integer_len_raw_4_(s + 2, len - 2, endptr, result, fail_value);
                 }
             }
 
             // fall through
-
-            STLSOFT_COVER_MARK_LINE();
         }
 
         *result = 0;
 
         for (; 0 != len; ++s, --len)
         {
-            STLSOFT_COVER_MARK_LINE();
-
             switch (*s)
             {
                 case    '0':
@@ -342,11 +325,11 @@ calc:
                 case    '7':
                 case    '8':
                 case    '9':
-                    STLSOFT_COVER_MARK_LINE();
+
                     *result = I(10 * *result + (*s - '0'));
                     continue;
                 default:
-                    STLSOFT_COVER_MARK_LINE();
+
                     break;
             }
             break;
@@ -444,8 +427,6 @@ calc:
     ,   I
     )
     {
-        STLSOFT_COVER_MARK_LINE();
-
         enum { I_IS_SIGNED = is_signed_type<I>::value };
 
         typedef ss_typename_type_k value_to_yesno_type<I_IS_SIGNED>::type   I_is_signed_type_;
@@ -455,16 +436,12 @@ calc:
 
         if (NULL == endptr)
         {
-            STLSOFT_COVER_MARK_LINE();
-
             endptr = &endptr_;
         }
 
         // skip whitespace
         for (;; ++s)
         {
-            STLSOFT_COVER_MARK_LINE();
-
             switch (*s)
             {
                 case    ' ':
@@ -473,10 +450,10 @@ calc:
                 case    '\r':
                 case    '\n':
                 case    '\v':
-                    STLSOFT_COVER_MARK_LINE();
+
                     continue;
                 default:
-                    STLSOFT_COVER_MARK_LINE();
+
                     break;
             }
             break;
@@ -485,9 +462,11 @@ calc:
         switch (*s)
         {
             case    '+':
-                STLSOFT_COVER_MARK_LINE();
+
                 ++s;
-                // Fall through
+
+                // fall through
+                STLSOFT_FALLTHROUGH();
             case    '0':
             case    '1':
             case    '2':
@@ -498,23 +477,22 @@ calc:
             case    '7':
             case    '8':
             case    '9':
-                STLSOFT_COVER_MARK_LINE();
+
                 return string_to_integer_raw_2_(s, endptr, I());
             case    '-':
-                STLSOFT_COVER_MARK_LINE();
-                {
-                    STLSOFT_COVER_MARK_LINE();
 
+                {
                     I   v;
                     if (try_read_minus_(s + 1, endptr, &v, I_is_signed_type_()))
                     {
                         return v;
                     }
                 }
-                // Fall through
-                STLSOFT_COVER_MARK_LINE();
+
+                // fall through
+                STLSOFT_FALLTHROUGH();
             default:
-                STLSOFT_COVER_MARK_LINE();
+
                 *endptr = s;
                 return 0;
         }
@@ -534,8 +512,6 @@ calc:
     ,   I           fail_value
     )
     {
-        STLSOFT_COVER_MARK_LINE();
-
         enum { I_IS_SIGNED = is_signed_type<I>::value };
 
         typedef ss_typename_type_k value_to_yesno_type<I_IS_SIGNED>::type   I_is_signed_type_;
@@ -545,8 +521,6 @@ calc:
 
         if (NULL == endptr)
         {
-            STLSOFT_COVER_MARK_LINE();
-
             endptr = &endptr_;
         }
 
@@ -554,8 +528,6 @@ calc:
 
         if (0 == len)
         {
-            STLSOFT_COVER_MARK_LINE();
-
             *endptr = NULL;
 
             return false;
@@ -564,8 +536,6 @@ calc:
         // skip whitespace
         for (; 0 != len; ++s, --len)
         {
-            STLSOFT_COVER_MARK_LINE();
-
             switch (*s)
             {
                 case    ' ':
@@ -574,10 +544,10 @@ calc:
                 case    '\r':
                 case    '\n':
                 case    '\v':
-                    STLSOFT_COVER_MARK_LINE();
+
                     continue;
                 default:
-                    STLSOFT_COVER_MARK_LINE();
+
                     break;
             }
             break;
@@ -585,8 +555,6 @@ calc:
 
         if (0 == len)
         {
-            STLSOFT_COVER_MARK_LINE();
-
             *endptr = s;
 
             return false;
@@ -595,7 +563,7 @@ calc:
         switch (*s)
         {
             case    '+':
-                STLSOFT_COVER_MARK_LINE();
+
                 if (len < 2 || !isdigit(char(s[1])))
                 {
                     *endptr = s;
@@ -604,7 +572,9 @@ calc:
                 }
                 ++s;
                 --len;
+
                 // fall through
+                STLSOFT_FALLTHROUGH();
             case    '0':
             case    '1':
             case    '2':
@@ -615,9 +585,10 @@ calc:
             case    '7':
             case    '8':
             case    '9':
-                STLSOFT_COVER_MARK_LINE();
+
                 return string_to_integer_len_raw_5_(s, len, endptr, result, fail_value);
             case    '-':
+
                 if (len < 2 || !isdigit(char(s[1])))
                 {
                     *endptr = s;
@@ -625,24 +596,35 @@ calc:
                     return false;
                 }
 
-                STLSOFT_COVER_MARK_LINE();
                 {
-                    STLSOFT_COVER_MARK_LINE();
-
                     if (try_read_minus_len_(s + 1, len - 1, endptr, result, I_is_signed_type_()))
                     {
                         return true;
                     }
                 }
-                // Fall through
-                STLSOFT_COVER_MARK_LINE();
+
+                // fall through
+                STLSOFT_FALLTHROUGH();
             default:
-                STLSOFT_COVER_MARK_LINE();
+
                 *endptr = s;
                 return false;
         }
     }
 
+    /**
+     *
+     * \param s Pointer to first character in string to be interpreted;
+     * \param len Number of characters in string to be interpreted;
+     * \param pi Pointer to variable into which to write the result;
+     * \param validEndChars Pointer to the first character the string
+     *   defining valid end characters;
+     * \param validEndCharsLen Number of characters in string defining valid
+     *   end characters;
+     * \param ep Optional pointer to variable that receives the position of
+     *   the character the caused the translation to fail; set to NULL
+     *   otherwise;
+     */
     template<
         ss_typename_param_k I
     ,   ss_typename_param_k C1
@@ -651,7 +633,7 @@ calc:
     >
     static
     bool
-    try_string_to_integer_len_6_(
+    try_string_to_integer_6slrvme_(
         C1 const*   s
     ,   ss_size_t   len
     ,   I*          pi
@@ -699,13 +681,22 @@ calc:
         }
     }
 
+    /**
+     *
+     * \param s Pointer to first character in string to be interpreted;
+     * \param len Number of characters in string to be interpreted;
+     * \param pi Pointer to variable into which to write the result;
+     * \param ep Optional pointer to variable that receives the position of
+     *   the character the caused the translation to fail; set to NULL
+     *   otherwise;
+     */
     template<
         ss_typename_param_k I
     ,   ss_typename_param_k C
     >
     static
     bool
-    try_string_to_integer_len_4_(
+    try_string_to_integer_4slre_(
         C const*    s
     ,   ss_size_t   len
     ,   I*          pi
@@ -745,13 +736,19 @@ calc:
         }
     }
 
+    /**
+     *
+     * \param s Pointer to first character in string to be interpreted;
+     * \param len Number of characters in string to be interpreted;
+     * \param pi Pointer to variable into which to write the result;
+     */
     template<
         ss_typename_param_k I
     ,   ss_typename_param_k C
     >
     static
     bool
-    try_string_to_integer_len_3n_(
+    try_string_to_integer_3slr_(
         C const*    s
     ,   ss_size_t   len
     ,   I*          pi
@@ -781,13 +778,21 @@ calc:
         }
     }
 
+    /**
+     *
+     * \param s Pointer to first character in string to be interpreted;
+     * \param pi Pointer to variable into which to write the result;
+     * \param ep Optional pointer to variable that receives the position of
+     *   the character the caused the translation to fail; set to NULL
+     *   otherwise;
+     */
     template<
         ss_typename_param_k I
     ,   ss_typename_param_k C
     >
     static
     bool
-    try_string_to_integer_len_3e_(
+    try_string_to_integer_3sre_(
         C const*    s
     ,   I*          pi
     ,   C const**   ep
@@ -824,13 +829,18 @@ calc:
         }
     }
 
+    /**
+     *
+     * \param s Pointer to first character in string to be interpreted;
+     * \param pi Pointer to variable into which to write the result;
+     */
     template<
         ss_typename_param_k I
     ,   ss_typename_param_k C
     >
     static
     bool
-    try_string_to_integer_len_2_(
+    try_string_to_integer_2sr_(
         C const*    s
     ,   I*          pi
     )
@@ -865,6 +875,11 @@ calc:
 
 /** Converts a decimal numeric string to an integer
  *
+ * \param s Pointer to first character in string to be interpreted;
+ * \param endptr Optional pointer to variable that receives the position of
+ *   the character the caused the translation to fail; set to NULL
+ *   otherwise;
+ *
  * Some examples:
 <pre>
   const char*  endptr;
@@ -887,11 +902,14 @@ string_to_integer(
 ,   char const**    endptr
 )
 {
-    STLSOFT_COVER_MARK_LINE();
-
     return ximpl_string_to_integer_util_::string_to_integer_2_(s, endptr, int());
 }
 /** Converts a decimal numeric string to an integer
+ *
+ * \param s Pointer to first character in string to be interpreted;
+ * \param endptr Optional pointer to variable that receives the position of
+ *   the character the caused the translation to fail; set to NULL
+ *   otherwise;
  */
 inline
 int
@@ -900,15 +918,19 @@ string_to_integer(
 ,   wchar_t const** endptr
 )
 {
-    STLSOFT_COVER_MARK_LINE();
-
     return ximpl_string_to_integer_util_::string_to_integer_2_(s, endptr, int());
 }
 
 
 /** Converts a decimal numeric string to an integer
  *
- * \note If the length is exhaused, *endptr will be NULL
+ * \param s Pointer to first character in string to be interpreted;
+ * \param len Number of characters in string to be interpreted;
+ * \param ep Optional pointer to variable that receives the position of
+ *   the character the caused the translation to fail; set to NULL
+ *   otherwise;
+ *
+ * \note If the length is exhaused, *endptr will be \c nullptr
  */
 inline
 int
@@ -918,8 +940,6 @@ string_to_integer(
 ,   char const**    endptr
 )
 {
-    STLSOFT_COVER_MARK_LINE();
-
     int r;
 
     if (!ximpl_string_to_integer_util_::string_to_integer_len_5_(s, len, endptr, &r, int()))
@@ -931,7 +951,13 @@ string_to_integer(
 }
 /** Converts a decimal numeric string to an integer
  *
- * \note If the length is exhaused, *endptr will be NULL
+ * \param s Pointer to first character in string to be interpreted;
+ * \param len Number of characters in string to be interpreted;
+ * \param ep Optional pointer to variable that receives the position of
+ *   the character the caused the translation to fail; set to NULL
+ *   otherwise;
+ *
+ * \note If the length is exhaused, *endptr will be \c nullptr
  */
 inline
 int
@@ -941,8 +967,6 @@ string_to_integer(
 ,   wchar_t const** endptr
 )
 {
-    STLSOFT_COVER_MARK_LINE();
-
     int r;
 
     if (!ximpl_string_to_integer_util_::string_to_integer_len_5_(s, len, endptr, &r, int()))
@@ -959,6 +983,9 @@ string_to_integer(
 
 /** Attempts to converts a decimal numeric string to an integer
  *
+ * \param s Pointer to first character in string to be interpreted;
+ * \param pi Pointer to variable into which to write the result;
+ *
  * \retval true The string \c s contains a decimal number and ends with
  * \retval false
  */
@@ -973,50 +1000,50 @@ try_parse_to(
 ,   I*          pi
 )
 {
-    return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(STLSOFT_NS_QUAL(c_str_data)(s), STLSOFT_NS_QUAL(c_str_len)(s), pi);
+    return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(STLSOFT_NS_QUAL(c_str_data)(s), STLSOFT_NS_QUAL(c_str_len)(s), pi);
 }
 
 #ifdef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 #else /* ? STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-inline bool try_parse_to(char    const* s, ss_sint8_t*    pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(char    const* s, ss_uint8_t*    pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_sint8_t*    pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_uint8_t*    pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
+inline bool try_parse_to(char    const* s, ss_sint8_t*    pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(char    const* s, ss_uint8_t*    pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_sint8_t*    pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_uint8_t*    pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
 
-inline bool try_parse_to(char    const* s, ss_sint16_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(char    const* s, ss_uint16_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_sint16_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_uint16_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
+inline bool try_parse_to(char    const* s, ss_sint16_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(char    const* s, ss_uint16_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_sint16_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_uint16_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
 
-inline bool try_parse_to(char    const* s, ss_sint32_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(char    const* s, ss_uint32_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_sint32_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_uint32_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
+inline bool try_parse_to(char    const* s, ss_sint32_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(char    const* s, ss_uint32_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_sint32_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_uint32_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
 
 # ifdef STLSOFT_CF_64BIT_INT_SUPPORT
 
-inline bool try_parse_to(char    const* s, ss_sint64_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(char    const* s, ss_uint64_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_sint64_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_uint64_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
+inline bool try_parse_to(char    const* s, ss_sint64_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(char    const* s, ss_uint64_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_sint64_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_uint64_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
 # endif /* !STLSOFT_CF_64BIT_INT_SUPPORT */
 
 # ifdef STLSOFT_CF_INT_DISTINCT_INT_TYPE
 
-inline bool try_parse_to(char    const* s,   signed int*  pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(char    const* s, unsigned int*  pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(wchar_t const* s,   signed int*  pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(wchar_t const* s, unsigned int*  pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
+inline bool try_parse_to(char    const* s,   signed int*  pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(char    const* s, unsigned int*  pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(wchar_t const* s,   signed int*  pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(wchar_t const* s, unsigned int*  pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
 # endif /* STLSOFT_CF_INT_DISTINCT_INT_TYPE */
 
 # ifdef STLSOFT_CF_LONG_DISTINCT_INT_TYPE
 
-inline bool try_parse_to(char    const* s,   signed long* pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(char    const* s, unsigned long* pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(wchar_t const* s,   signed long* pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
-inline bool try_parse_to(wchar_t const* s, unsigned long* pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_2_(s, pi); }
+inline bool try_parse_to(char    const* s,   signed long* pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(char    const* s, unsigned long* pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(wchar_t const* s,   signed long* pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
+inline bool try_parse_to(wchar_t const* s, unsigned long* pi) { return ximpl_string_to_integer_util_::try_string_to_integer_2sr_(s, pi); }
 # endif /* STLSOFT_CF_LONG_DISTINCT_INT_TYPE */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
@@ -1042,46 +1069,48 @@ try_parse_to(
 ,   ss_size_t   cch
 ,   I*          pi
 )
-;
+{
+    return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi);
+}
 #else /* ? STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-inline bool try_parse_to(char    const* s, ss_size_t cch, ss_sint8_t*    pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(char    const* s, ss_size_t cch, ss_uint8_t*    pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_size_t cch, ss_sint8_t*    pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_size_t cch, ss_uint8_t*    pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
+inline bool try_parse_to(char    const* s, ss_size_t cch, ss_sint8_t*    pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(char    const* s, ss_size_t cch, ss_uint8_t*    pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_size_t cch, ss_sint8_t*    pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_size_t cch, ss_uint8_t*    pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
 
-inline bool try_parse_to(char    const* s, ss_size_t cch, ss_sint16_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(char    const* s, ss_size_t cch, ss_uint16_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_size_t cch, ss_sint16_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_size_t cch, ss_uint16_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
+inline bool try_parse_to(char    const* s, ss_size_t cch, ss_sint16_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(char    const* s, ss_size_t cch, ss_uint16_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_size_t cch, ss_sint16_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_size_t cch, ss_uint16_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
 
-inline bool try_parse_to(char    const* s, ss_size_t cch, ss_sint32_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(char    const* s, ss_size_t cch, ss_uint32_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_size_t cch, ss_sint32_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_size_t cch, ss_uint32_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
+inline bool try_parse_to(char    const* s, ss_size_t cch, ss_sint32_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(char    const* s, ss_size_t cch, ss_uint32_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_size_t cch, ss_sint32_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_size_t cch, ss_uint32_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
 
 # ifdef STLSOFT_CF_64BIT_INT_SUPPORT
 
-inline bool try_parse_to(char    const* s, ss_size_t cch, ss_sint64_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(char    const* s, ss_size_t cch, ss_uint64_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_size_t cch, ss_sint64_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_size_t cch, ss_uint64_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
+inline bool try_parse_to(char    const* s, ss_size_t cch, ss_sint64_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(char    const* s, ss_size_t cch, ss_uint64_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_size_t cch, ss_sint64_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_size_t cch, ss_uint64_t*   pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
 # endif /* !STLSOFT_CF_64BIT_INT_SUPPORT */
 
 # ifdef STLSOFT_CF_INT_DISTINCT_INT_TYPE
 
-inline bool try_parse_to(char    const* s, ss_size_t cch,   signed int*  pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(char    const* s, ss_size_t cch, unsigned int*  pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_size_t cch,   signed int*  pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_size_t cch, unsigned int*  pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
+inline bool try_parse_to(char    const* s, ss_size_t cch,   signed int*  pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(char    const* s, ss_size_t cch, unsigned int*  pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_size_t cch,   signed int*  pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_size_t cch, unsigned int*  pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
 # endif /* STLSOFT_CF_INT_DISTINCT_INT_TYPE */
 
 # ifdef STLSOFT_CF_LONG_DISTINCT_INT_TYPE
 
-inline bool try_parse_to(char    const* s, ss_size_t cch,   signed long* pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(char    const* s, ss_size_t cch, unsigned long* pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_size_t cch,   signed long* pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
-inline bool try_parse_to(wchar_t const* s, ss_size_t cch, unsigned long* pi) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3n_(s, cch, pi); }
+inline bool try_parse_to(char    const* s, ss_size_t cch,   signed long* pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(char    const* s, ss_size_t cch, unsigned long* pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_size_t cch,   signed long* pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
+inline bool try_parse_to(wchar_t const* s, ss_size_t cch, unsigned long* pi) { return ximpl_string_to_integer_util_::try_string_to_integer_3slr_(s, cch, pi); }
 # endif /* STLSOFT_CF_LONG_DISTINCT_INT_TYPE */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
@@ -1089,8 +1118,6 @@ inline bool try_parse_to(wchar_t const* s, ss_size_t cch, unsigned long* pi) { r
 
 /* try_parse_to(C const*, I*, C const**) */
 
-#ifdef STLSOFT_DOCUMENTATION_SKIP_SECTION
-
 /** Attempts to converts a decimal numeric string to an integer
  *
  * \retval true The string \c s contains a decimal number and ends with
@@ -1107,54 +1134,55 @@ try_parse_to(
 ,   I*          pi
 ,   C const**   endptr
 )
-;
+{
+    return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr);
+}
+#ifdef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
 #else /* ? STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-inline bool try_parse_to(char    const* s, ss_sint8_t*    pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(char    const* s, ss_uint8_t*    pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, ss_sint8_t*    pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, ss_uint8_t*    pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
+inline bool try_parse_to(char    const* s, ss_sint8_t*    pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(char    const* s, ss_uint8_t*    pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, ss_sint8_t*    pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, ss_uint8_t*    pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
 
-inline bool try_parse_to(char    const* s, ss_sint16_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(char    const* s, ss_uint16_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, ss_sint16_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, ss_uint16_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
+inline bool try_parse_to(char    const* s, ss_sint16_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(char    const* s, ss_uint16_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, ss_sint16_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, ss_uint16_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
 
-inline bool try_parse_to(char    const* s, ss_sint32_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(char    const* s, ss_uint32_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, ss_sint32_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, ss_uint32_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
+inline bool try_parse_to(char    const* s, ss_sint32_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(char    const* s, ss_uint32_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, ss_sint32_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, ss_uint32_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
 
 # ifdef STLSOFT_CF_64BIT_INT_SUPPORT
 
-inline bool try_parse_to(char    const* s, ss_sint64_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(char    const* s, ss_uint64_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, ss_sint64_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, ss_uint64_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
+inline bool try_parse_to(char    const* s, ss_sint64_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(char    const* s, ss_uint64_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, ss_sint64_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, ss_uint64_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
 # endif /* !STLSOFT_CF_64BIT_INT_SUPPORT */
 
 # ifdef STLSOFT_CF_INT_DISTINCT_INT_TYPE
 
-inline bool try_parse_to(char    const* s,   signed int*  pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(char    const* s, unsigned int*  pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s,   signed int*  pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, unsigned int*  pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
+inline bool try_parse_to(char    const* s,   signed int*  pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(char    const* s, unsigned int*  pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s,   signed int*  pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, unsigned int*  pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
 # endif /* STLSOFT_CF_INT_DISTINCT_INT_TYPE */
 
 # ifdef STLSOFT_CF_LONG_DISTINCT_INT_TYPE
 
-inline bool try_parse_to(char    const* s,   signed long* pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(char    const* s, unsigned long* pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s,   signed long* pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, unsigned long* pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_3e_(s, pi, endptr); }
+inline bool try_parse_to(char    const* s,   signed long* pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(char    const* s, unsigned long* pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s,   signed long* pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, unsigned long* pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_3sre_(s, pi, endptr); }
 # endif /* STLSOFT_CF_LONG_DISTINCT_INT_TYPE */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 
-
 /* try_parse_to(C const*, size_t, I*, C const**) */
-
-#ifdef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 /** Attempts to converts a decimal numeric string to an integer
  *
@@ -1169,49 +1197,52 @@ inline
 bool
 try_parse_to(
     C const*    s
+,   ss_size_t   cch
 ,   I*          pi
 ,   C const**   endptr
 )
 ;
+#ifdef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
 #else /* ? STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-inline bool try_parse_to(char    const* s, size_t n, ss_sint8_t*    pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(char    const* s, size_t n, ss_uint8_t*    pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, size_t n, ss_sint8_t*    pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, size_t n, ss_uint8_t*    pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
+inline bool try_parse_to(char    const* s, size_t n, ss_sint8_t*    pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(char    const* s, size_t n, ss_uint8_t*    pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, size_t n, ss_sint8_t*    pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, size_t n, ss_uint8_t*    pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
 
-inline bool try_parse_to(char    const* s, size_t n, ss_sint16_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(char    const* s, size_t n, ss_uint16_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, size_t n, ss_sint16_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, size_t n, ss_uint16_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
+inline bool try_parse_to(char    const* s, size_t n, ss_sint16_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(char    const* s, size_t n, ss_uint16_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, size_t n, ss_sint16_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, size_t n, ss_uint16_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
 
-inline bool try_parse_to(char    const* s, size_t n, ss_sint32_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(char    const* s, size_t n, ss_uint32_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, size_t n, ss_sint32_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, size_t n, ss_uint32_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
+inline bool try_parse_to(char    const* s, size_t n, ss_sint32_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(char    const* s, size_t n, ss_uint32_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, size_t n, ss_sint32_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, size_t n, ss_uint32_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
 
 # ifdef STLSOFT_CF_64BIT_INT_SUPPORT
 
-inline bool try_parse_to(char    const* s, size_t n, ss_sint64_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(char    const* s, size_t n, ss_uint64_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, size_t n, ss_sint64_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, size_t n, ss_uint64_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
+inline bool try_parse_to(char    const* s, size_t n, ss_sint64_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(char    const* s, size_t n, ss_uint64_t*   pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, size_t n, ss_sint64_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, size_t n, ss_uint64_t*   pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
 # endif /* !STLSOFT_CF_64BIT_INT_SUPPORT */
 
 # ifdef STLSOFT_CF_INT_DISTINCT_INT_TYPE
 
-inline bool try_parse_to(char    const* s, size_t n,   signed int*  pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(char    const* s, size_t n, unsigned int*  pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, size_t n,   signed int*  pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, size_t n, unsigned int*  pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
+inline bool try_parse_to(char    const* s, size_t n,   signed int*  pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(char    const* s, size_t n, unsigned int*  pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, size_t n,   signed int*  pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, size_t n, unsigned int*  pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
 # endif /* STLSOFT_CF_INT_DISTINCT_INT_TYPE */
 
 # ifdef STLSOFT_CF_LONG_DISTINCT_INT_TYPE
 
-inline bool try_parse_to(char    const* s, size_t n,   signed long* pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(char    const* s, size_t n, unsigned long* pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, size_t n,   signed long* pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
-inline bool try_parse_to(wchar_t const* s, size_t n, unsigned long* pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_len_4_(s, n, pi, endptr); }
+inline bool try_parse_to(char    const* s, size_t n,   signed long* pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(char    const* s, size_t n, unsigned long* pi,  char   const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, size_t n,   signed long* pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
+inline bool try_parse_to(wchar_t const* s, size_t n, unsigned long* pi, wchar_t const** endptr) { return ximpl_string_to_integer_util_::try_string_to_integer_4slre_(s, n, pi, endptr); }
 # endif /* STLSOFT_CF_LONG_DISTINCT_INT_TYPE */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
@@ -1221,8 +1252,14 @@ inline bool try_parse_to(wchar_t const* s, size_t n, unsigned long* pi, wchar_t 
 
 /** Attempts to convert a decimal numeric string to an integer, against the
  *
- * \param s
-
+ * \param s Pointer to first character in string to be interpreted;
+ * \param len Number of characters in string to be interpreted;
+ * \param validEndChars Pointer to the first character the string defining
+ *   valid end characters;
+ * \param pi Pointer to variable into which to write the result;
+ * \param endptr Optional pointer to variable that receives the position of
+ *   the character the caused the translation to fail; set to NULL
+ *   otherwise;
  */
 template <
     ss_typename_param_k I
@@ -1238,8 +1275,9 @@ try_parse_to(
 ,   C const**       endptr
 )
 {
-    return ximpl_string_to_integer_util_::try_string_to_integer_len_6_(s, len, pi, STLSOFT_NS_QUAL(c_str_data)(validEndChars), STLSOFT_NS_QUAL(c_str_len)(validEndChars), endptr);
+    return ximpl_string_to_integer_util_::try_string_to_integer_6slrvme_(s, len, pi, STLSOFT_NS_QUAL(c_str_data)(validEndChars), STLSOFT_NS_QUAL(c_str_len)(validEndChars), endptr);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * code coverage
@@ -1260,13 +1298,15 @@ namespace
 }
 #endif
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

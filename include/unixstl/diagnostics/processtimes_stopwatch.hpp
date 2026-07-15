@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        unixstl/diagnostics/processtimes_stopwatch.hpp (formerly unixstl::processtimes_counter, unixstl/performance/processtimes_counter.hpp)
+ * File:    unixstl/diagnostics/processtimes_stopwatch.hpp (formerly unixstl::processtimes_counter, unixstl/performance/processtimes_counter.hpp)
  *
- * Purpose:     UNIXSTL process-time stopwatch class.
+ * Purpose: UNIXSTL process-time stopwatch class.
  *
- * Created:     9th June 2006
- * Updated:     24th December 2020
+ * Created: 9th June 2006
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,10 +53,11 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define UNIXSTL_VER_UNIXSTL_DIAGNOSTICS_HPP_PROCESSTIMES_STOPWATCH_MAJOR       2
-# define UNIXSTL_VER_UNIXSTL_DIAGNOSTICS_HPP_PROCESSTIMES_STOPWATCH_MINOR       0
-# define UNIXSTL_VER_UNIXSTL_DIAGNOSTICS_HPP_PROCESSTIMES_STOPWATCH_REVISION    2
-# define UNIXSTL_VER_UNIXSTL_DIAGNOSTICS_HPP_PROCESSTIMES_STOPWATCH_EDIT        24
+# define UNIXSTL_VER_UNIXSTL_DIAGNOSTICS_HPP_PROCESSTIMES_STOPWATCH_MINOR       1
+# define UNIXSTL_VER_UNIXSTL_DIAGNOSTICS_HPP_PROCESSTIMES_STOPWATCH_REVISION    4
+# define UNIXSTL_VER_UNIXSTL_DIAGNOSTICS_HPP_PROCESSTIMES_STOPWATCH_EDIT        29
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -78,6 +79,7 @@
 # include <sys/resource.h>
 #endif /* !STLSOFT_INCL_SYS_H_RESOURCE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -97,6 +99,7 @@ namespace unixstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * classes
  */
@@ -113,33 +116,32 @@ namespace unixstl_project
  */
 class processtimes_stopwatch
 {
-public:
-    typedef processtimes_stopwatch    class_type;
-    typedef us_sint64_t             epoch_type;
-
-public:
+public: // types
+    /// The class type
+    typedef processtimes_stopwatch                          class_type;
+    /// The epoch type
+    ///
+    /// The type of the epoch measurement
+    typedef us_sint64_t                                     epoch_type;
     /// The interval type
     ///
     /// The type of the interval measurement, a 64-bit signed integer
-    typedef us_sint64_t             interval_type;
+    typedef us_sint64_t                                     interval_type;
 
-// Construction
-public:
+public: // construction
     processtimes_stopwatch();
 
-// Operations
-public:
+public: // operations
     /// Starts measurement
     ///
     /// Begins the measurement period
-    void        start();
+    void    start();
     /// Ends measurement
     ///
     /// Ends the measurement period
-    void        stop();
+    void    stop();
 
-// Attributes
-public:
+public: // attributes
     // Kernel
 
     /// The elapsed count in the measurement period for kernel mode activity
@@ -158,6 +160,10 @@ public:
     ///
     /// This represents the extent, in whole microseconds, of the measurement period for kernel mode activity
     interval_type   get_kernel_microseconds() const;
+    /// The number of whole nanoseconds in the measurement period for kernel mode activity
+    ///
+    /// This represents the extent, in whole nanoseconds, of the measurement period for kernel mode activity
+    interval_type   get_kernel_nanoseconds() const;
 
     // User
 
@@ -177,6 +183,10 @@ public:
     ///
     /// This represents the extent, in whole microseconds, of the measurement period for user mode activity
     interval_type   get_user_microseconds() const;
+    /// The number of whole nanoseconds in the measurement period for user mode activity
+    ///
+    /// This represents the extent, in whole nanoseconds, of the measurement period for user mode activity
+    interval_type   get_user_nanoseconds() const;
 
     // Total
 
@@ -196,9 +206,12 @@ public:
     ///
     /// This represents the extent, in whole microseconds, of the measurement period
     interval_type   get_microseconds() const;
+    /// The number of whole nanoseconds in the measurement period
+    ///
+    /// This represents the extent, in whole nanoseconds, of the measurement period
+    interval_type   get_nanoseconds() const;
 
-// Members
-private:
+private: // fields
     typedef struct timeval timeval_t;
 
     timeval_t   m_kernelStart;
@@ -207,7 +220,10 @@ private:
     timeval_t   m_userEnd;
 };
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * implementation
+ */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
@@ -217,6 +233,13 @@ processtimes_stopwatch::processtimes_stopwatch()
     // Note that the constructor does nothing, for performance reasons. Calling
     // any of the Attribute methods before having gone through a start()-stop()
     // cycle will yield undefined results.
+
+    static const timeval_t defaultValue = { 0, 0 };
+
+    m_kernelStart = defaultValue;
+    m_kernelEnd = defaultValue;
+    m_userStart = defaultValue;
+    m_userEnd = defaultValue;
 }
 
 // Operations
@@ -224,7 +247,7 @@ inline
 void
 processtimes_stopwatch::start()
 {
-    struct rusage   r_usage;
+    struct rusage r_usage;
 
     ::getrusage(RUSAGE_SELF, &r_usage);
 
@@ -236,7 +259,7 @@ inline
 void
 processtimes_stopwatch::stop()
 {
-    struct rusage   r_usage;
+    struct rusage r_usage;
 
     ::getrusage(RUSAGE_SELF, &r_usage);
 
@@ -294,6 +317,13 @@ processtimes_stopwatch::get_kernel_microseconds() const
     return secs * (1000 * 1000) + usecs;
 }
 
+inline
+processtimes_stopwatch::interval_type
+processtimes_stopwatch::get_kernel_nanoseconds() const
+{
+    return 1000 * get_kernel_microseconds();
+}
+
 // User
 inline
 processtimes_stopwatch::interval_type
@@ -344,6 +374,13 @@ processtimes_stopwatch::get_user_microseconds() const
     return secs * (1000 * 1000) + usecs;
 }
 
+inline
+processtimes_stopwatch::interval_type
+processtimes_stopwatch::get_user_nanoseconds() const
+{
+    return 1000 * get_user_microseconds();
+}
+
 // Total
 inline
 processtimes_stopwatch::interval_type
@@ -373,19 +410,29 @@ processtimes_stopwatch::get_microseconds() const
     return get_period_count() / interval_type(10);
 }
 
+inline
+processtimes_stopwatch::interval_type
+processtimes_stopwatch::get_nanoseconds() const
+{
+    return 1000 * get_microseconds();
+}
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef UNIXSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace unixstl */
+} // namespace unixstl
 # else
-} /* namespace unixstl_project */
-} /* namespace stlsoft */
+} // namespace unixstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

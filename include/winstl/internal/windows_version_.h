@@ -1,12 +1,12 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/internal/windows_version_.h
+ * File:    winstl/internal/windows_version_.h
  *
- * Purpose:     Windows version discrimination.
+ * Purpose: Windows version discrimination.
  *
- * Created:     4th August 2015
- * Updated:     22nd January 2024
+ * Created: 4th August 2015
+ * Updated: 20th October 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2015-2019, Matthew Wilson and Synesis Software
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 #define WINSTL_VER_WINSTL_INTERNAL_H_WINDOWS_VERSION__MAJOR     1
 #define WINSTL_VER_WINSTL_INTERNAL_H_WINDOWS_VERSION__MINOR     0
-#define WINSTL_VER_WINSTL_INTERNAL_H_WINDOWS_VERSION__REVISION  3
-#define WINSTL_VER_WINSTL_INTERNAL_H_WINDOWS_VERSION__EDIT      14
+#define WINSTL_VER_WINSTL_INTERNAL_H_WINDOWS_VERSION__REVISION  4
+#define WINSTL_VER_WINSTL_INTERNAL_H_WINDOWS_VERSION__EDIT      16
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -71,6 +72,7 @@
 #ifndef WINSTL_INCL_WINSTL_API_external_h_DynamicLinkLibrary
 # include <winstl/api/external/DynamicLinkLibrary.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_DynamicLinkLibrary */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -90,6 +92,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helper functions
@@ -193,9 +196,66 @@ winstl_C_internal_GetWkstaVersionInfo_(
     return r;
 }
 
+STLSOFT_INLINE
+BOOL
+winstl_C_internal_RtlGetVersion_(
+    OSVERSIONINFO* osvi
+)
+{
+    BOOL            r   =   FALSE;
+    HMODULE const   hm  =   WINSTL_API_EXTERNAL_DynamicLinkLibrary_LoadLibraryA("NtosKrnl.exe");
+
+    WINSTL_ASSERT(NULL != osvi);
+
+    if (NULL != hm)
+    {
+        union u_aq_
+        {
+            FARPROC                     fp;
+#ifdef STLSOFT_CF_STDCALL_SUPPORTED
+            LONG      (STLSOFT_STDCALL *fn)(OSVERSIONINFOW*);
+#else
+            LONG                      (*fn)(OSVERSIONINFOW*);
+#endif
+        } u_aq;
+
+        u_aq.fp =   WINSTL_API_EXTERNAL_DynamicLinkLibrary_GetProcAddress(hm, "RtlGetVersion");
+
+        if (NULL != u_aq.fp)
+        {
+            OSVERSIONINFOW osviw;
+
+            osviw.dwOSVersionInfoSize = sizeof(osviw);
+
+            if (0 == (*u_aq.fn)(&osviw))
+            {
+                osvi->dwMajorVersion = osviw.dwMajorVersion;
+                osvi->dwMinorVersion = osviw.dwMinorVersion;
+                osvi->dwBuildNumber = osviw.dwBuildNumber;
+                osvi->dwPlatformId = osviw.dwPlatformId;
+
+                r = TRUE;
+            }
+            else
+            {
+                osvi->dwMajorVersion = 0;
+                osvi->dwMinorVersion = 0;
+                osvi->dwBuildNumber = 0;
+                osvi->dwPlatformId = 0;
+            }
+            osvi->szCSDVersion[0] = 0;
+        }
+
+        WINSTL_API_EXTERNAL_DynamicLinkLibrary_FreeLibrary(hm);
+    }
+
+    return r;
+}
+
 #ifdef __cplusplus
 } /* namespace ximpl_ */
 #endif /* __cplusplus */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * functions
@@ -253,18 +313,33 @@ winstl_C_internal_GetVersionEx(
     using namespace ximpl_;
 #endif /* __cplusplus */
 
-    if (winstl_C_internal_GetVersionEx_(osvi))
+    if (!winstl_C_internal_GetVersionEx_(osvi))
+    {
+        if (winstl_C_internal_RtlGetVersion_(osvi))
+        {
+            return TRUE;
+        }
+    }
+    else
     {
         if (6 == osvi->dwMajorVersion &&
             2 == osvi->dwMinorVersion)
         {
-            DWORD   verMajor;
-            DWORD   verMinor;
-
-            if (winstl_C_internal_GetWkstaVersionInfo_(&verMajor, &verMinor))
+            if (winstl_C_internal_RtlGetVersion_(osvi))
             {
-                osvi->dwMajorVersion    =   verMajor;
-                osvi->dwMinorVersion    =   verMinor;
+
+                return TRUE;
+            }
+            else
+            {
+                DWORD   verMajor;
+                DWORD   verMinor;
+
+                if (winstl_C_internal_GetWkstaVersionInfo_(&verMajor, &verMinor))
+                {
+                    osvi->dwMajorVersion    =   verMajor;
+                    osvi->dwMinorVersion    =   verMinor;
+                }
             }
         }
 
@@ -285,6 +360,7 @@ winstl_C_internal_GetVersionEx(
 } /* namespace stlsoft */
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

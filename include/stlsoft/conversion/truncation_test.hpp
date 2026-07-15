@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/conversion/truncation_test.hpp
+ * File:    stlsoft/conversion/truncation_test.hpp
  *
- * Purpose:     Runtime checking for numeric conversions.
+ * Purpose: Runtime checking for numeric conversions.
  *
- * Created:     10th August 2006
- * Updated:     16th February 2024
+ * Created: 10th August 2006
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONVERSION_HPP_TRUNCATION_TEST_MAJOR      1
 # define STLSOFT_VER_STLSOFT_CONVERSION_HPP_TRUNCATION_TEST_MINOR      1
-# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_TRUNCATION_TEST_REVISION   11
-# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_TRUNCATION_TEST_EDIT       68
+# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_TRUNCATION_TEST_REVISION   13
+# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_TRUNCATION_TEST_EDIT       73
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -95,6 +96,7 @@
 #  include <crtdbg.h>
 #endif
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -104,6 +106,7 @@ namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * helper classes
  */
@@ -112,9 +115,13 @@ namespace stlsoft
 
 class stlsoft_INTERNAL_truncation_test_CrtDbg_scoper
 {
+public: // types
+    typedef stlsoft_INTERNAL_truncation_test_CrtDbg_scoper  class_type;
+
+public: // construction
 # if defined(STLSOFT_DEBUG) && \
      defined(_MSC_VER)
-public:
+
     stlsoft_INTERNAL_truncation_test_CrtDbg_scoper()
         : flags(_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG))
     {
@@ -125,16 +132,20 @@ public:
         _CrtSetDbgFlag(flags);
     }
 private:
-    stlsoft_INTERNAL_truncation_test_CrtDbg_scoper(stlsoft_INTERNAL_truncation_test_CrtDbg_scoper const&);
-    void operator =(stlsoft_INTERNAL_truncation_test_CrtDbg_scoper const&);
-
-private:
-    int const   flags;
+    stlsoft_INTERNAL_truncation_test_CrtDbg_scoper(class_type const&);
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 #else
-public:
+
     stlsoft_INTERNAL_truncation_test_CrtDbg_scoper()
     {}
 # endif
+
+private: // fields
+# if defined(STLSOFT_DEBUG) && \
+     defined(_MSC_VER)
+
+    int const   flags;
+#endif
 };
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
@@ -214,6 +225,7 @@ truncation_test_helper_runtime_test_different_sign_FROM_is_signed_FROM_largertha
 )
 {
 #ifdef STLSOFT_DEBUG
+
     stlsoft_INTERNAL_truncation_test_CrtDbg_scoper  scoper;
 
     char const* const   TO_     =   typeid(T_to).name();
@@ -255,6 +267,7 @@ truncation_test_helper_runtime_test_different_sign_FROM_is_signed_FROM_largertha
 )
 {
 #ifdef STLSOFT_DEBUG
+
     stlsoft_INTERNAL_truncation_test_CrtDbg_scoper  scoper;
 
     char const* const   TO_     =   typeid(T_to).name();
@@ -296,6 +309,7 @@ truncation_test_helper_runtime_test_different_sign_FROM_is_signed_FROM_smallerth
 )
 {
 #ifdef STLSOFT_DEBUG
+
     stlsoft_INTERNAL_truncation_test_CrtDbg_scoper  scoper;
 
     char const* const   TO_     =   typeid(T_to).name();
@@ -328,6 +342,7 @@ truncation_test_helper_runtime_test_different_sign_FROM_is_signed_FROM_smallerth
 )
 {
 #ifdef STLSOFT_DEBUG
+
     stlsoft_INTERNAL_truncation_test_CrtDbg_scoper  scoper;
 
     char const* const   TO_     =   typeid(T_to).name();
@@ -368,6 +383,7 @@ truncation_test_helper_runtime_test_different_sign_FROM_is_signed(
 )
 {
 #ifdef STLSOFT_DEBUG
+
     stlsoft_INTERNAL_truncation_test_CrtDbg_scoper  scoper;
 
     char const* const   TO_     =   typeid(T_to).name();
@@ -422,6 +438,7 @@ truncation_test_helper_runtime_test_different_sign_FROM_is_signed(
 )
 {
 #ifdef STLSOFT_DEBUG
+
     stlsoft_INTERNAL_truncation_test_CrtDbg_scoper  scoper;
 
     char const* const   TO_     =   typeid(T_to).name();
@@ -474,6 +491,7 @@ truncation_test_helper_runtime_test_same_sign(
 )
 {
 #ifdef STLSOFT_DEBUG
+
     stlsoft_INTERNAL_truncation_test_CrtDbg_scoper  scoper;
 
     char const* const   TO_     =   typeid(T_to).name();
@@ -522,6 +540,7 @@ truncation_test_helper_runtime_test_same_sign(
 )
 {
 #ifdef STLSOFT_DEBUG
+
     stlsoft_INTERNAL_truncation_test_CrtDbg_scoper  scoper;
 
     char const* const   TO_     =   typeid(T_to).name();
@@ -562,6 +581,7 @@ truncation_test_helper_runtime_test(
 )
 {
 #ifdef STLSOFT_DEBUG
+
     stlsoft_INTERNAL_truncation_test_CrtDbg_scoper  scoper;
 
     char const* const   TO_     =   typeid(T_to).name();
@@ -617,6 +637,7 @@ truncation_test_(
 )
 {
 #ifdef STLSOFT_DEBUG
+
     stlsoft_INTERNAL_truncation_test_CrtDbg_scoper  scoper;
 
     char const* const   TO_     =   typeid(T_to).name();
@@ -710,6 +731,7 @@ private:
 };
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * API functions
  */
@@ -748,13 +770,15 @@ truncation_test(
 
 #endif /* 0 */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

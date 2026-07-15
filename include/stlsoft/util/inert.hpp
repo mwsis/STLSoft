@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/util/inert.hpp
+ * File:    stlsoft/util/inert.hpp
  *
- * Purpose:     Contains the inert class.
+ * Purpose: Contains the inert class.
  *
- * Created:     16th January 2002
- * Updated:     30th November 2020
+ * Created: 16th January 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -51,11 +51,12 @@
 #define STLSOFT_INCL_STLSOFT_UTIL_HPP_INERT
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_INERT_MAJOR      4
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_INERT_MINOR      0
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_INERT_REVISION   9
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_INERT_EDIT       54
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_INERT_MAJOR       4
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_INERT_MINOR       0
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_INERT_REVISION    12
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_INERT_EDIT        59
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -68,6 +69,7 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -76,6 +78,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -89,19 +92,19 @@ namespace stlsoft
 // class inert
 class inert
 {
-// Construction
-public:
+public: // types
+    typedef inert                                           class_type;
+
+public: // construction
     /// Default constructor
     inert()
     {}
     /// Destructor
     ~inert() STLSOFT_NOEXCEPT
     {}
-
-// Not to be implemented
 private:
-    inert(inert const& rhs);
-    inert const& operator =(inert const& rhs);
+    inert(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 #ifndef new
     void* operator new(ss_size_t ) STLSOFT_NOEXCEPT
@@ -113,9 +116,9 @@ private:
 #endif /* !new */
 
     int operator !() const;
-#ifdef STLSOFT_CF_NATIVE_BOOL_SUPPORT
+#ifdef STLSOFT_CF_BUILTIN_bool_SUPPORT
     operator bool() const;
-#endif /* STLSOFT_CF_NATIVE_BOOL_SUPPORT */
+#endif /* STLSOFT_CF_BUILTIN_bool_SUPPORT */
     operator void* () const;
     void* operator &() const;
 #if 0 || \
@@ -137,11 +140,15 @@ private:
 #endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
 };
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

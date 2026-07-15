@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/internal/cccap/mwerks.h
+ * File:    stlsoft/internal/cccap/mwerks.h
  *
- * Purpose:     Compiler feature discrimination for Metrowerks CodeWarrior.
+ * Purpose: Compiler feature discrimination for Metrowerks CodeWarrior.
  *
- * Created:     7th February 2003
- * Updated:     22nd January 2024
+ * Created: 7th February 2003
+ * Updated: 28th May 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -61,9 +61,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_H_STLSOFT_CCCAP_MWERKS_MAJOR       3
 # define STLSOFT_VER_H_STLSOFT_CCCAP_MWERKS_MINOR       20
-# define STLSOFT_VER_H_STLSOFT_CCCAP_MWERKS_REVISION    1
-# define STLSOFT_VER_H_STLSOFT_CCCAP_MWERKS_EDIT        84
+# define STLSOFT_VER_H_STLSOFT_CCCAP_MWERKS_REVISION    2
+# define STLSOFT_VER_H_STLSOFT_CCCAP_MWERKS_EDIT        87
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Auto-generation and compatibility
@@ -73,6 +74,7 @@
 [<[STLSOFT-AUTO:NO-DOCFILELABEL]>]
 [<[STLSOFT-AUTO:NO-UNITTEST]>]
 */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * compiler features
@@ -116,7 +118,7 @@
 
 /* bool */
 #if __option(bool)
-# define STLSOFT_CF_NATIVE_BOOL_SUPPORT
+# define STLSOFT_CF_BUILTIN_bool_SUPPORT
 #else
   /* Not defined */
 #endif /* __option(bool) */
@@ -124,7 +126,7 @@
 /* char (sign) */
 #if 0 /* Does not seem to work ?? */
 #if __option(chars_unsigned)
-# define STLSOFT_CF_CHAR_IS_UNSIGNED
+# define STLSOFT_CF_char_IS_UNSIGNED
 #endif /* _CHAR_UNSIGNED */
 #endif /* 0 */
 
@@ -135,16 +137,6 @@
   /* Not defined */
 # endif /* __option(wchar_type) */
 
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
 
 /* /////////////////////////////////////////////////////////////////////////
  * integral types
@@ -168,7 +160,8 @@
  * which indicate that a given type is not used in the size-specific types.
  */
 
-#if defined(__LP64__)
+#if 0
+#elif defined(__LP64__)
 # define _STLSOFT_SIZEOF_CHAR                               (1)
 # define _STLSOFT_SIZEOF_SHORT                              (2)
 # define _STLSOFT_SIZEOF_INT                                (4)
@@ -336,6 +329,7 @@
 #define STLSOFT_CF_OPERATOR_BOOL_AS_OPERATOR_POINTER_TO_MEMBER_SUPPORT
 #define STLSOFT_CF_OPERATOR_NOT_VIA_OPERATOR_POINTER_TO_MEMBER_SUPPORT
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * quality assurance features
  */
@@ -377,6 +371,7 @@
 # define __STLSOFT_CF_USE_cassert
 #endif /* _STLSOFT_CUSTOM_ASSERT */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * calling convention
  */
@@ -407,6 +402,7 @@
 
 #endif /* !unix && !__unix__ */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * inline assembler
  */
@@ -418,11 +414,13 @@
  /* Not defined */
 #endif /* compiler */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * inline support
  */
 
 #define STLSOFT_CF_C99_INLINE
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * compiler warning suppression

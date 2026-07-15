@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/conversion/char_conversions.hpp (originally MLStrCnv.h, ::SynesisStd)
+ * File:    stlsoft/conversion/char_conversions.hpp (originally MLStrCnv.h, ::SynesisStd)
  *
- * Purpose:     Character-encoding scheme interconversion components.
+ * Purpose: Character-encoding scheme interconversion components.
  *
- * Created:     31st May 2003
- * Updated:     29th January 2024
+ * Created: 31st May 2003
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONVERSION_HPP_CHAR_CONVERSIONS_MAJOR      5
 # define STLSOFT_VER_STLSOFT_CONVERSION_HPP_CHAR_CONVERSIONS_MINOR      3
-# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_CHAR_CONVERSIONS_REVISION   4
-# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_CHAR_CONVERSIONS_EDIT       120
+# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_CHAR_CONVERSIONS_REVISION   5
+# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_CHAR_CONVERSIONS_EDIT       123
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -95,9 +96,10 @@
 # include <stlsoft/internal/safestr.h>
 #endif /* !STLSOFT_INCL_STLSOFT_INTERNAL_H_SAFESTR */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -107,6 +109,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * implementation
@@ -199,6 +202,7 @@ protected: // helpers
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * classes
  */
@@ -240,7 +244,8 @@ public:
 #ifdef STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT
 
     template <ss_typename_param_k S>
-    ss_explicit_k multibyte2wide(S const& s)
+    ss_explicit_k
+    multibyte2wide(S const& s)
         : parent_class_type(calc_length_(s) + 1)
     {
         prepare_(STLSOFT_NS_QUAL(c_str_data_a)(s), parent_class_type::estimated_length_());
@@ -337,7 +342,7 @@ public:
     multibyte2wide(multibyte2wide const& rhs)
         : parent_class_type(rhs.parent_class_type::size())
     {
-        STLSOFT_API_INTERNAL_memfns_memcpy(this->parent_class_type::data_(), rhs.parent_class_type::data(), this->parent_class_type::size());
+        STLSOFT_API_EXTERNAL_memfns_memcpy(this->parent_class_type::data_(), rhs.parent_class_type::data(), this->parent_class_type::size());
     }
 private:
 # else /* compiler */
@@ -481,7 +486,7 @@ public:
     wide2multibyte(wide2multibyte const& rhs)
         : parent_class_type(rhs.parent_class_type::size())
     {
-        STLSOFT_API_INTERNAL_memfns_memcpy(this->parent_class_type::data_(), rhs.parent_class_type::data(), this->parent_class_type::size());
+        STLSOFT_API_EXTERNAL_memfns_memcpy(this->parent_class_type::data_(), rhs.parent_class_type::data(), this->parent_class_type::size());
     }
 private:
 # else /* compiler */
@@ -564,6 +569,7 @@ typedef encoding2encoding<ss_char_a_t>                      a2t;
 typedef a2w                                                 t2w;
 typedef w2a                                                 w2t;
 #endif /* UNICODE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * shims
@@ -811,13 +817,15 @@ operator <<(
     return stm;
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * global namespace shims
@@ -858,6 +866,7 @@ operator <<(
     return stm << c.c_str();
 }
 #endif /* library */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

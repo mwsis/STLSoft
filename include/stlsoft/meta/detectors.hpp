@@ -157,6 +157,5 @@ STLSOFT_COMPILER_IS_MSVC: _MSC_VER < 1310
 
 #endif /* !STLSOFT_INCL_STLSOFT_META_HPP_DETECTORS */
 
-
 /* ///////////////////////////// end of file //////////////////////////// */
 

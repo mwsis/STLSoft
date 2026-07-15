@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/controls/commctrl_functionals.hpp
+ * File:    winstl/controls/commctrl_functionals.hpp
  *
- * Purpose:     Functionals for application to common controls.
+ * Purpose: Functionals for application to common controls.
  *
- * Created:     8th October 2002
- * Updated:     22nd January 2024
+ * Created: 8th October 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_CONTROLS_HPP_COMMCTRL_FUNCTIONALS_MAJOR      4
 # define WINSTL_VER_WINSTL_CONTROLS_HPP_COMMCTRL_FUNCTIONALS_MINOR      1
-# define WINSTL_VER_WINSTL_CONTROLS_HPP_COMMCTRL_FUNCTIONALS_REVISION   9
-# define WINSTL_VER_WINSTL_CONTROLS_HPP_COMMCTRL_FUNCTIONALS_EDIT       90
+# define WINSTL_VER_WINSTL_CONTROLS_HPP_COMMCTRL_FUNCTIONALS_REVISION   10
+# define WINSTL_VER_WINSTL_CONTROLS_HPP_COMMCTRL_FUNCTIONALS_EDIT       93
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -88,6 +89,11 @@
 # include <commctrl.h>
 #endif /* !STLSOFT_INCL_H_COMMCTRL */
 
+#ifndef WINSTL_INCL_WINSTL_API_external_h_WindowsAndMessages
+# include <winstl/api/external/WindowsAndMessages.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_WindowsAndMessages */
+
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -106,6 +112,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -191,7 +198,7 @@ private:
             item.iImage = m_iImage;
         }
 
-        return (int)::SendMessage(m_hwndListview, LVM_INSERTITEMA, 0, reinterpret_cast<LPARAM>(&item));
+        return (int)WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(m_hwndListview, LVM_INSERTITEMA, 0, reinterpret_cast<LPARAM>(&item));
     }
 
     ws_int_t insert_item(ws_char_w_t const* s)
@@ -209,7 +216,7 @@ private:
             item.iImage = m_iImage;
         }
 
-        return (int)::SendMessage(m_hwndListview, LVM_INSERTITEMW, 0, reinterpret_cast<LPARAM>(&item));
+        return (int)WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(m_hwndListview, LVM_INSERTITEMW, 0, reinterpret_cast<LPARAM>(&item));
     }
 
 private:
@@ -218,15 +225,19 @@ private:
 };
 
 STLSOFT_TEMPLATE_SPECIALISATION
-inline ws_int_t listview_inserter<false>::insert_index() const
+inline
+ws_int_t
+listview_inserter<false>::insert_index() const
 {
     return 0;   // Front insertion
 }
 
 STLSOFT_TEMPLATE_SPECIALISATION
-inline ws_int_t listview_inserter<true>::insert_index() const
+inline
+ws_int_t
+listview_inserter<true>::insert_index() const
 {
-    return static_cast<ws_int_t>(::SendMessage(m_hwndListview, LVM_GETITEMCOUNT, 0, 0L));   // Back insertion
+    return static_cast<ws_int_t>(WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(m_hwndListview, LVM_GETITEMCOUNT, 0, 0L));   // Back insertion
 }
 
 /** A function class used to insert items at the front of list-views
@@ -319,7 +330,7 @@ private:
             tvis.item.iImage = m_iImage;
         }
 
-        return (HTREEITEM)::SendMessage(m_hwndTree, TVM_INSERTITEMA, 0, (LPARAM)&tvis);
+        return (HTREEITEM)WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(m_hwndTree, TVM_INSERTITEMA, 0, (LPARAM)&tvis);
     }
 
     HTREEITEM insert_item(wchar_t const* s)
@@ -338,7 +349,7 @@ private:
             tvis.item.iImage = m_iImage;
         }
 
-        return (HTREEITEM)::SendMessage(m_hwndTree, TVM_INSERTITEMW, 0, (LPARAM)&tvis);
+        return (HTREEITEM)WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(m_hwndTree, TVM_INSERTITEMW, 0, (LPARAM)&tvis);
     }
 
 private:
@@ -348,17 +359,21 @@ private:
     int         m_iImage;
 };
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

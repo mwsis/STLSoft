@@ -1,24 +1,24 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/registry/reg_value_sequence.hpp
+ * File:    winstl/registry/reg_value_sequence.hpp
  *
- * Purpose:     Contains the basic_reg_value_sequence class template, and ANSI
- *              and Unicode specialisations thereof.
+ * Purpose: Contains the basic_reg_value_sequence class template, and ANSI
+ *          and Unicode specialisations thereof.
  *
- * Notes:       The original implementation of the class had the iterator
- *              and value_type as nested classes. Unfortunately, Visual C++ 5 &
- *              6 both had either compilation or linking problems so these are
- *              regretably now implemented as independent classes.
+ * Notes:   The original implementation of the class had the iterator and
+ *          value_type as nested classes. Unfortunately, Visual C++ 5 & 6
+ *          both had either compilation or linking problems so these are
+ *          regretably now implemented as independent classes.
  *
- * Thanks:      To Allan McLellan, for pointing out some inadequacies in the
- *              basic_reg_key_sequence class interface (that equally applied to.
- *              basic_reg_value_sequence).
+ * Thanks:  To Allan McLellan, for pointing out some inadequacies in the
+ *          basic_reg_key_sequence class interface (that equally applied to
+ *          basic_reg_value_sequence).
  *
- * Created:     19th January 2002
- * Updated:     22nd January 2024
+ * Created: 19th January 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -64,9 +64,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_SEQUENCE_MAJOR    3
 # define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_SEQUENCE_MINOR    7
-# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_SEQUENCE_REVISION 12
-# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_SEQUENCE_EDIT     146
+# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_SEQUENCE_REVISION 16
+# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_SEQUENCE_EDIT     153
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -120,6 +121,7 @@
 # include <winstl/api/external/Registry.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_Registry */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -139,7 +141,10 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * classes
+ */
 
 // class basic_reg_value_sequence
 /** Presents an STL-like sequence interface over the values of a given registry key
@@ -166,60 +171,67 @@ class basic_reg_value_sequence
 /// @{
 public:
     /// The character type
-    typedef C                                                                   char_type;
+    typedef C                                               char_type;
     /// The traits type
-    typedef T                                                                   traits_type;
+    typedef T                                               traits_type;
     /// The allocator type
-    typedef A                                                                   allocator_type;
+    typedef A                                               allocator_type;
     /// The current specialisation of the type
-    typedef basic_reg_value_sequence<C, T, A>                                   class_type;
+    typedef basic_reg_value_sequence<C, T, A>               class_type;
     /// The value type
-    typedef basic_reg_value<C, T, A>                                            value_type;
+    typedef basic_reg_value<C, T, A>                        value_type;
     /// The size type
-    typedef ss_typename_type_k traits_type::size_type                           size_type;
+    typedef ss_typename_type_k traits_type::size_type       size_type;
     /// The get key type
-    typedef basic_reg_key<C, T, A>                                              reg_key_type;
+    typedef basic_reg_key<C, T, A>                          reg_key_type;
     /// The non-mutating (const) iterator type
-    typedef basic_reg_value_sequence_iterator<C, T, value_type, A>              iterator;
+    typedef basic_reg_value_sequence_iterator<
+        C
+    ,   T
+    ,   value_type
+    ,   A
+    >                                                       iterator;
     /// The non-mutating (const) iterator type
     ///
     /// \note This is retained for backwards compatibility
-    typedef iterator                                                            const_iterator;
+    typedef iterator                                        const_iterator;
     /// The reference type
-    typedef value_type&                                                         reference;
+    typedef value_type&                                     reference;
     /// The non-mutable (const) reference type
-    typedef value_type const&                                                   const_reference;
+    typedef value_type const&                               const_reference;
     /// The hkey type
 #if defined(STLSOFT_COMPILER_IS_MSVC) && \
     _MSC_VER == 1100
     /* WSCB: VC5 has an unresolved external linker error if use traits_type::hkey_type */
-    typedef HKEY                                                                hkey_type;
+    typedef HKEY                                            hkey_type;
 #else /* ? compiler */
-    typedef ss_typename_type_k traits_type::hkey_type                           hkey_type;
+    typedef ss_typename_type_k traits_type::hkey_type       hkey_type;
 #endif /* compiler */
     /// The difference type
-    typedef ws_ptrdiff_t                                                        difference_type;
+    typedef ws_ptrdiff_t                                    difference_type;
     /// The non-mutating (const) reverse iterator type
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
-    typedef STLSOFT_NS_QUAL(reverse_bidirectional_iterator_base)  <   iterator
-                                                                  ,   value_type
-                                                                  ,   value_type  // By-Value Temporary reference category
-                                                                  ,   void        // By-Value Temporary reference category
-                                                                  ,   difference_type
-                                                                  >             reverse_iterator;
+    typedef STLSOFT_NS_QUAL(reverse_bidirectional_iterator_base)<
+        iterator
+    ,   value_type
+    ,   value_type  // By-Value Temporary reference category
+    ,   void        // By-Value Temporary reference category
+    ,   difference_type
+    >                                                       reverse_iterator;
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
     /// The Boolean type
-    typedef ws_bool_t                                                           bool_type;
+    typedef ws_bool_t                                       bool_type;
 private:
     /// The results type of the Registry API
-    typedef ss_typename_type_k traits_type::result_type                         result_type;
+    typedef ss_typename_type_k traits_type::result_type     result_type;
 private:
-    typedef STLSOFT_NS_QUAL(auto_buffer_old)<   char_type
-                                            ,   allocator_type
-                                            ,   CCH_REG_API_AUTO_BUFFER
-                                            >                                   buffer_type_;
+    typedef STLSOFT_NS_QUAL(auto_buffer)<
+        char_type
+    ,   CCH_REG_API_AUTO_BUFFER
+    ,   allocator_type
+    >                                                       buffer_type_;
 public:
-    typedef hkey_type                                                           resource_type;
+    typedef hkey_type                                       resource_type;
 /// @}
 
 /// \name Construction
@@ -228,7 +240,7 @@ public:
     /// Creates an instance which provides access to the values of the named sub-key of \c hkey
     ///
     /// \param hkey A registry key handle representing the parent of \c subKeyName
-    /// \param subKeyName The name of the sub-key whose values will be enumerated. If subKeyName is NULL or the empty string, then
+    /// \param subKeyName The name of the sub-key whose values will be enumerated. If subKeyName is \c nullptr or the empty string, then
     /// the values of \c hkey will be enumerated
     /// \param accessMask The security access mask with which the key (hkey + subKeyName) will be opened. Defaults to KEY_READ.
     ///
@@ -240,7 +252,7 @@ public:
     /// Creates an instance which provides access to the values of the named sub-key of \c hkey
     ///
     /// \param hkey A registry key handle representing the parent of \c subKeyName
-    /// \param subKeyName The name of the sub-key whose values will be enumerated. If subKeyName is NULL or the empty string, then
+    /// \param subKeyName The name of the sub-key whose values will be enumerated. If subKeyName is \c nullptr or the empty string, then
     /// the values of \c hkey will be enumerated
     /// \param accessMask The security access mask with which the key (hkey + subKeyName) will be opened. Defaults to KEY_READ
     /// \param bMonitorExternalInvalidation If non-zero, the iterators will monitor for external iterator invalidation, throwing
@@ -282,6 +294,9 @@ public:
                             ,   bool_type           bMonitorExternalInvalidation);
     /// Destructor
     ~basic_reg_value_sequence() STLSOFT_NOEXCEPT;
+private:
+    basic_reg_value_sequence(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Iteration
@@ -344,31 +359,39 @@ private:
     const REGSAM    m_accessMask;
     const bool_type m_bMonitorExternalInvalidation;
 /// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    basic_reg_value_sequence(class_type const&);
-    class_type& operator =(class_type const&);
-/// @}
 };
+
 
 /* Typedefs to commonly encountered types. */
 /** Specialisation of the basic_reg_value_sequence template for the ANSI character type \c char
  *
  * \ingroup group__library__Windows_Registry
  */
-typedef basic_reg_value_sequence<ws_char_a_t, reg_traits<ws_char_a_t>, processheap_allocator<ws_char_a_t> >     reg_value_sequence_a;
+typedef basic_reg_value_sequence<
+    ws_char_a_t
+,   reg_traits<ws_char_a_t>
+,   processheap_allocator<ws_char_a_t>
+>                                                           reg_value_sequence_a;
+
 /** Specialisation of the basic_reg_value_sequence template for the Unicode character type \c wchar_t
  *
  * \ingroup group__library__Windows_Registry
  */
-typedef basic_reg_value_sequence<ws_char_w_t, reg_traits<ws_char_w_t>, processheap_allocator<ws_char_w_t> >     reg_value_sequence_w;
+typedef basic_reg_value_sequence<
+    ws_char_w_t
+,   reg_traits<ws_char_w_t>
+,   processheap_allocator<ws_char_w_t>
+>                                                           reg_value_sequence_w;
+
 /** Specialisation of the basic_reg_value_sequence template for the Win32 character type \c TCHAR
  *
  * \ingroup group__library__Windows_Registry
  */
-typedef basic_reg_value_sequence<TCHAR, reg_traits<TCHAR>, processheap_allocator<TCHAR> >                       reg_value_sequence;
+typedef basic_reg_value_sequence<
+    TCHAR
+,   reg_traits<TCHAR>
+,   processheap_allocator<TCHAR>
+>                                                           reg_value_sequence;
 
 // class basic_reg_value_sequence_iterator
 /** Iterator for the basic_reg_value_sequence class
@@ -397,35 +420,36 @@ class basic_reg_value_sequence_iterator
 /// @{
 public:
     /// The character type
-    typedef C                                                           char_type;
+    typedef C                                               char_type;
     /// The traits type
-    typedef T                                                           traits_type;
+    typedef T                                               traits_type;
     /// The value type
-    typedef V                                                           value_type;
+    typedef V                                               value_type;
     /// The allocator type
-    typedef A                                                           allocator_type;
+    typedef A                                               allocator_type;
     /// The current specialisation of the type
-    typedef basic_reg_value_sequence_iterator<C, T, V, A>               class_type;
+    typedef basic_reg_value_sequence_iterator<C, T, V, A>   class_type;
     /// The size type
-    typedef ss_typename_type_k traits_type::size_type                   size_type;
+    typedef ss_typename_type_k traits_type::size_type       size_type;
     /// The difference type
-    typedef ss_typename_type_k traits_type::difference_type             difference_type;
+    typedef ss_typename_type_k traits_type::difference_type difference_type;
     /// The string type
-    typedef ss_typename_type_k traits_type::string_type                 string_type;
+    typedef ss_typename_type_k traits_type::string_type     string_type;
     /// The index type
-    typedef ws_sint32_t                                                 index_type;
+    typedef ws_sint32_t                                     index_type;
     /// The hkey type
-    typedef ss_typename_type_k traits_type::hkey_type                   hkey_type;
+    typedef ss_typename_type_k traits_type::hkey_type       hkey_type;
 private:
     /// The results type of the Registry API
-    typedef ss_typename_type_k traits_type::result_type                 result_type;
+    typedef ss_typename_type_k traits_type::result_type     result_type;
     /// The Boolean type
-    typedef ws_bool_t                                                   bool_type;
+    typedef ws_bool_t                                       bool_type;
 private:
-    typedef STLSOFT_NS_QUAL(auto_buffer_old)<   char_type
-                                            ,   allocator_type
-                                            ,   CCH_REG_API_AUTO_BUFFER
-                                            >                           buffer_type_;
+    typedef STLSOFT_NS_QUAL(auto_buffer)<
+        char_type
+    ,   CCH_REG_API_AUTO_BUFFER
+    ,   allocator_type
+    >                                                       buffer_type_;
 /// @}
 
 /// \name Construction
@@ -434,7 +458,13 @@ private:
     friend class basic_reg_value_sequence<C, T, A>;
 
     /// \note Eats the key, rather than taking a copy
-    basic_reg_value_sequence_iterator(registry_util::shared_handle *handle, char_type const* name, size_type cchName, index_type index, REGSAM accessMask)
+    basic_reg_value_sequence_iterator(
+        registry_util::shared_handle*   handle
+    ,   char_type const*                name
+    ,   size_type                       cchName
+    ,   index_type                      index
+    ,   REGSAM                          accessMask
+    )
         : m_handle(handle)
         , m_index(index)
         , m_name(name, cchName)
@@ -492,15 +522,17 @@ private:
 /// \name Members
 /// @{
 private:
-    registry_util::shared_handle    *m_handle;      // Shared context for registry key and event object
+    registry_util::shared_handle*   m_handle;       // Shared context for registry key and event object
     index_type                      m_index;        // Current iteration index
     string_type                     m_name;         // The value name
     REGSAM                          m_accessMask;   // Security access mask
 /// @}
 };
 
-////////////////////////////////////////////////////////////////////////////
-// Implementation
+
+/* /////////////////////////////////////////////////////////////////////////
+ * implementation
+ */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
@@ -570,7 +602,12 @@ basic_reg_value_sequence<C, T, A>::create_shared_handle_(
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline /* static */ REGSAM basic_reg_value_sequence<C, T, A>::validate_access_mask_(REGSAM accessMask, ss_typename_type_k basic_reg_value_sequence<C, T, A>::bool_type bMonitorExternalInvalidation)
+inline
+/* static */
+REGSAM basic_reg_value_sequence<C, T, A>::validate_access_mask_(
+    REGSAM                                                          accessMask
+,   ss_typename_type_k basic_reg_value_sequence<C, T, A>::bool_type bMonitorExternalInvalidation
+)
 {
     if (bMonitorExternalInvalidation)
     {
@@ -583,7 +620,16 @@ inline /* static */ REGSAM basic_reg_value_sequence<C, T, A>::validate_access_ma
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline /* static */ ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::hkey_type basic_reg_value_sequence<C, T, A>::dup_key_(ss_typename_type_k basic_reg_value_sequence<C, T, A>::hkey_type hkey, REGSAM accessMask/* , ss_typename_type_k basic_reg_value_sequence<C, T, A>::result_type *result */)
+inline
+/* static */
+ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::hkey_type
+basic_reg_value_sequence<C, T, A>::dup_key_(
+    ss_typename_type_k basic_reg_value_sequence<C, T, A>::hkey_type     hkey
+,   REGSAM                                                              accessMask
+/*
+, ss_typename_type_k basic_reg_value_sequence<C, T, A>::result_type*    result
+ */
+)
 {
     result_type res;
     HKEY        hkeyDup =   traits_type::key_dup(hkey, accessMask, &res);
@@ -610,9 +656,12 @@ inline /* static */ ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::hk
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence( ss_typename_type_k basic_reg_value_sequence<C, T, A>::hkey_type         hkey
-                                                                ,   ss_typename_type_k basic_reg_value_sequence<C, T, A>::char_type const   *subKeyName
-                                                                ,   REGSAM                                                                  accessMask /* = KEY_READ */)
+inline
+basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence(
+    ss_typename_type_k basic_reg_value_sequence<C, T, A>::hkey_type         hkey
+,   ss_typename_type_k basic_reg_value_sequence<C, T, A>::char_type const*  subKeyName
+,   REGSAM                                                                  accessMask /* = KEY_READ */
+)
     : m_hkey(NULL)
     , m_accessMask(accessMask)
     , m_bMonitorExternalInvalidation(0 != (KEY_NOTIFY & accessMask))
@@ -639,10 +688,13 @@ inline basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence( ss_typename_
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence( ss_typename_type_k basic_reg_value_sequence<C, T, A>::hkey_type         hkey
-                                                                ,   ss_typename_type_k basic_reg_value_sequence<C, T, A>::char_type const   *subKeyName
-                                                                ,   REGSAM                                                                  accessMask
-                                                                ,   ss_typename_type_k basic_reg_value_sequence<C, T, A>::bool_type         bMonitorExternalInvalidation)
+inline
+basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence(
+    ss_typename_type_k basic_reg_value_sequence<C, T, A>::hkey_type         hkey
+,   ss_typename_type_k basic_reg_value_sequence<C, T, A>::char_type const*  subKeyName
+,   REGSAM                                                                  accessMask
+,   ss_typename_type_k basic_reg_value_sequence<C, T, A>::bool_type         bMonitorExternalInvalidation
+)
     : m_hkey(NULL)
     , m_accessMask(validate_access_mask_(accessMask, bMonitorExternalInvalidation))
     , m_bMonitorExternalInvalidation(bMonitorExternalInvalidation)
@@ -669,7 +721,8 @@ inline basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence( ss_typename_
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence(ss_typename_type_k basic_reg_value_sequence<C, T, A>::reg_key_type const& key)
+inline
+basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence(ss_typename_type_k basic_reg_value_sequence<C, T, A>::reg_key_type const& key)
     : m_hkey(dup_key_(key.m_hkey, key.get_access_mask()))
     , m_accessMask(key.get_access_mask())
     , m_bMonitorExternalInvalidation(0 != (KEY_NOTIFY & key.get_access_mask()))
@@ -683,8 +736,11 @@ inline basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence(ss_typename_t
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence( ss_typename_type_k basic_reg_value_sequence<C, T, A>::reg_key_type const&   key
-                                                                ,   REGSAM                                                                      accessMask)
+inline
+basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence(
+    ss_typename_type_k basic_reg_value_sequence<C, T, A>::reg_key_type const&   key
+,   REGSAM                                                                      accessMask
+)
     : m_hkey(dup_key_(key.m_hkey, accessMask))
     , m_accessMask(accessMask)
     , m_bMonitorExternalInvalidation(0 != (KEY_NOTIFY & accessMask))
@@ -698,9 +754,12 @@ inline basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence( ss_typename_
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence( ss_typename_type_k basic_reg_value_sequence<C, T, A>::reg_key_type const&   key
-                                                                ,   REGSAM                                                                      accessMask
-                                                                ,   bool_type                                                                   bMonitorExternalInvalidation)
+inline
+basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence(
+    ss_typename_type_k basic_reg_value_sequence<C, T, A>::reg_key_type const&   key
+,   REGSAM                                                                      accessMask
+,   bool_type                                                                   bMonitorExternalInvalidation
+)
     : m_hkey(dup_key_(key.m_hkey, validate_access_mask_(accessMask, bMonitorExternalInvalidation)))
     , m_accessMask(validate_access_mask_(accessMask, bMonitorExternalInvalidation))
     , m_bMonitorExternalInvalidation(bMonitorExternalInvalidation)
@@ -714,7 +773,8 @@ inline basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence( ss_typename_
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline basic_reg_value_sequence<C, T, A>::~basic_reg_value_sequence() STLSOFT_NOEXCEPT
+inline
+basic_reg_value_sequence<C, T, A>::~basic_reg_value_sequence() STLSOFT_NOEXCEPT
 {
     if (m_hkey != NULL)
     {
@@ -723,7 +783,9 @@ inline basic_reg_value_sequence<C, T, A>::~basic_reg_value_sequence() STLSOFT_NO
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::iterator basic_reg_value_sequence<C, T, A>::begin()
+inline
+ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::iterator
+basic_reg_value_sequence<C, T, A>::begin()
 {
     // 1. Check that there are some items
     //
@@ -842,7 +904,9 @@ inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::iterator basic_
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::iterator basic_reg_value_sequence<C, T, A>::end()
+inline
+ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::iterator
+basic_reg_value_sequence<C, T, A>::end()
 {
     result_type                             res;
     registry_util::shared_handle            *handle =   create_shared_handle_(res);
@@ -863,26 +927,34 @@ inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::iterator basic_
 
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::reverse_iterator basic_reg_value_sequence<C, T, A>::rbegin()
+inline
+ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::reverse_iterator
+basic_reg_value_sequence<C, T, A>::rbegin()
 {
     return reverse_iterator(end());
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::reverse_iterator basic_reg_value_sequence<C, T, A>::rend()
+inline
+ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::reverse_iterator
+basic_reg_value_sequence<C, T, A>::rend()
 {
     return reverse_iterator(begin());
 }
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::size_type basic_reg_value_sequence<C, T, A>::size() const
+inline
+ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::size_type
+basic_reg_value_sequence<C, T, A>::size() const
 {
     return current_size();
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::size_type basic_reg_value_sequence<C, T, A>::current_size() const
+inline
+ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::size_type
+basic_reg_value_sequence<C, T, A>::current_size() const
 {
     ws_uint32_t numEntries;
     result_type res         =   traits_type::reg_query_info(m_hkey, NULL, NULL, NULL, NULL, NULL, &numEntries, NULL, NULL, NULL, NULL);
@@ -909,19 +981,25 @@ inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::size_type basic
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline ws_bool_t basic_reg_value_sequence<C, T, A>::empty() const
+inline
+ws_bool_t
+basic_reg_value_sequence<C, T, A>::empty() const
 {
     return 0 == size();
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::hkey_type basic_reg_value_sequence<C, T, A>::get_key_handle() const
+inline
+ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::hkey_type
+basic_reg_value_sequence<C, T, A>::get_key_handle() const
 {
     return m_hkey;
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::hkey_type basic_reg_value_sequence<C, T, A>::get() const
+inline
+ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::hkey_type
+basic_reg_value_sequence<C, T, A>::get() const
 {
     return get_key_handle();
 }
@@ -929,13 +1007,17 @@ inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::hkey_type basic
 // basic_reg_value_sequence_iterator
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k V, ss_typename_param_k A>
-inline /* static */ ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::index_type basic_reg_value_sequence_iterator<C, T, V, A>::sentinel_() STLSOFT_NOEXCEPT
+inline
+/* static */
+ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::index_type
+basic_reg_value_sequence_iterator<C, T, V, A>::sentinel_() STLSOFT_NOEXCEPT
 {
     return 0x7fffffff;
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k V, ss_typename_param_k A>
-inline basic_reg_value_sequence_iterator<C, T, V, A>::basic_reg_value_sequence_iterator()
+inline
+basic_reg_value_sequence_iterator<C, T, V, A>::basic_reg_value_sequence_iterator()
     : m_handle(NULL)
     , m_index(sentinel_())
     , m_name()
@@ -943,7 +1025,8 @@ inline basic_reg_value_sequence_iterator<C, T, V, A>::basic_reg_value_sequence_i
 {}
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k V, ss_typename_param_k A>
-inline basic_reg_value_sequence_iterator<C, T, V, A>::basic_reg_value_sequence_iterator(class_type const& rhs)
+inline
+basic_reg_value_sequence_iterator<C, T, V, A>::basic_reg_value_sequence_iterator(class_type const& rhs)
     : m_handle(rhs.m_handle)
     , m_index(rhs.m_index)
     , m_name(rhs.m_name)
@@ -956,7 +1039,9 @@ inline basic_reg_value_sequence_iterator<C, T, V, A>::basic_reg_value_sequence_i
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k V, ss_typename_param_k A>
-inline ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::class_type& basic_reg_value_sequence_iterator<C, T, V, A>::operator =(ss_typename_type_k basic_reg_value_sequence_iterator<C, T, V, A>::class_type const& rhs)
+inline
+ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::class_type&
+basic_reg_value_sequence_iterator<C, T, V, A>::operator =(ss_typename_type_k basic_reg_value_sequence_iterator<C, T, V, A>::class_type const& rhs)
 {
     registry_util::shared_handle   *this_handle;
 
@@ -981,7 +1066,8 @@ inline ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::cla
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k V, ss_typename_param_k A>
-inline basic_reg_value_sequence_iterator<C, T, V, A>::~basic_reg_value_sequence_iterator() STLSOFT_NOEXCEPT
+inline
+basic_reg_value_sequence_iterator<C, T, V, A>::~basic_reg_value_sequence_iterator() STLSOFT_NOEXCEPT
 {
     if (NULL != m_handle)
     {
@@ -990,13 +1076,17 @@ inline basic_reg_value_sequence_iterator<C, T, V, A>::~basic_reg_value_sequence_
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k V, ss_typename_param_k A>
-inline const ss_typename_type_k basic_reg_value_sequence_iterator<C, T, V, A>::string_type& basic_reg_value_sequence_iterator<C, T, V, A>::get_key_name() const
+inline
+const ss_typename_type_k basic_reg_value_sequence_iterator<C, T, V, A>::string_type&
+basic_reg_value_sequence_iterator<C, T, V, A>::get_key_name() const
 {
     return m_name;
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k V, ss_typename_param_k A>
-inline ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::class_type& basic_reg_value_sequence_iterator<C, T, V, A>::operator ++()
+inline
+ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::class_type&
+basic_reg_value_sequence_iterator<C, T, V, A>::operator ++()
 {
     WINSTL_MESSAGE_ASSERT("Attempting to increment an invalid iterator!", NULL != m_handle);
     WINSTL_MESSAGE_ASSERT("Attempting to increment an invalid iterator!", sentinel_() != m_index);
@@ -1076,7 +1166,9 @@ inline ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::cla
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k V, ss_typename_param_k A>
-inline ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::class_type& basic_reg_value_sequence_iterator<C, T, V, A>::operator --()
+inline
+ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::class_type&
+basic_reg_value_sequence_iterator<C, T, V, A>::operator --()
 {
     WINSTL_MESSAGE_ASSERT("Attempting to decrement an invalid iterator", NULL != m_handle);
 
@@ -1163,7 +1255,9 @@ inline ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::cla
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k V, ss_typename_param_k A>
-inline const ss_typename_type_k basic_reg_value_sequence_iterator<C, T, V, A>::class_type basic_reg_value_sequence_iterator<C, T, V, A>::operator ++(int)
+inline
+const ss_typename_type_k basic_reg_value_sequence_iterator<C, T, V, A>::class_type
+basic_reg_value_sequence_iterator<C, T, V, A>::operator ++(int)
 {
     class_type  ret(*this);
 
@@ -1173,7 +1267,9 @@ inline const ss_typename_type_k basic_reg_value_sequence_iterator<C, T, V, A>::c
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k V, ss_typename_param_k A>
-inline const ss_typename_type_k basic_reg_value_sequence_iterator<C, T, V, A>::class_type basic_reg_value_sequence_iterator<C, T, V, A>::operator --(int)
+inline
+const ss_typename_type_k basic_reg_value_sequence_iterator<C, T, V, A>::class_type
+basic_reg_value_sequence_iterator<C, T, V, A>::operator --(int)
 {
     class_type  ret(*this);
 
@@ -1183,7 +1279,9 @@ inline const ss_typename_type_k basic_reg_value_sequence_iterator<C, T, V, A>::c
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k V, ss_typename_param_k A>
-inline const ss_typename_type_k basic_reg_value_sequence_iterator<C, T, V, A>::value_type basic_reg_value_sequence_iterator<C, T, V, A>::operator *() const
+inline
+const ss_typename_type_k basic_reg_value_sequence_iterator<C, T, V, A>::value_type
+basic_reg_value_sequence_iterator<C, T, V, A>::operator *() const
 {
     WINSTL_MESSAGE_ASSERT("Attempting to dereference an invalid iterator", NULL != m_handle);
 
@@ -1193,36 +1291,45 @@ inline const ss_typename_type_k basic_reg_value_sequence_iterator<C, T, V, A>::v
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k V, ss_typename_param_k A>
-inline ws_bool_t basic_reg_value_sequence_iterator<C, T, V, A>::equal(class_type const& rhs) const
+inline
+ws_bool_t
+basic_reg_value_sequence_iterator<C, T, V, A>::equal(class_type const& rhs) const
 {
     return m_index == rhs.m_index;
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k V, ss_typename_param_k A>
-inline ws_bool_t basic_reg_value_sequence_iterator<C, T, V, A>::operator ==(class_type const& rhs) const
+inline
+ws_bool_t
+basic_reg_value_sequence_iterator<C, T, V, A>::operator ==(class_type const& rhs) const
 {
     return equal(rhs);
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k V, ss_typename_param_k A>
-inline ws_bool_t basic_reg_value_sequence_iterator<C, T, V, A>::operator !=(class_type const& rhs) const
+inline
+ws_bool_t
+basic_reg_value_sequence_iterator<C, T, V, A>::operator !=(class_type const& rhs) const
 {
     return !equal(rhs);
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

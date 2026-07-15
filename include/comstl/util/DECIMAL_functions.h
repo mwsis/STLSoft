@@ -1,12 +1,12 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        comstl/util/DECIMAL_functions.h
+ * File:    comstl/util/DECIMAL_functions.h
  *
- * Purpose:     DECIMAL helper functions.
+ * Purpose: DECIMAL helper functions.
  *
- * Created:     23rd August 2008
- * Updated:     22nd January 2024
+ * Created: 23rd August 2008
+ * Updated: 24th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2008-2019, Matthew Wilson and Synesis Software
@@ -54,8 +54,9 @@
 # define COMSTL_VER_COMSTL_UTIL_H_DECIMAL_FUNCTIONS_MAJOR       1
 # define COMSTL_VER_COMSTL_UTIL_H_DECIMAL_FUNCTIONS_MINOR       0
 # define COMSTL_VER_COMSTL_UTIL_H_DECIMAL_FUNCTIONS_REVISION    7
-# define COMSTL_VER_COMSTL_UTIL_H_DECIMAL_FUNCTIONS_EDIT        17
+# define COMSTL_VER_COMSTL_UTIL_H_DECIMAL_FUNCTIONS_EDIT        19
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -77,6 +78,7 @@
 # include <wtypes.h>
 #endif /* !STLSOFT_INCL_H_WTYPES */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -96,6 +98,7 @@ namespace comstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * C functions
  */
@@ -107,8 +110,8 @@ namespace comstl_project
  * \param lhs Pointer to the left-hand instances to compare
  * \param rhs Pointer to the right-hand instances to compare
  *
- * \pre \c lhs must not be NULL.
- * \pre \c rhs must not be NULL.
+ * \pre \c lhs must not be \c nullptr.
+ * \pre \c rhs must not be \c nullptr.
  */
 STLSOFT_INLINE
 int
@@ -218,6 +221,7 @@ comstl_C_DECIMAL_compare(
     }
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * backwards compatibility
  */
@@ -237,6 +241,7 @@ comstl__DECIMAL_compare(
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -245,6 +250,7 @@ comstl__DECIMAL_compare(
 namespace comstl
 {
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
@@ -259,8 +265,8 @@ namespace comstl
  * \param lhs Pointer to the left-hand instances to compare
  * \param rhs Pointer to the right-hand instances to compare
  *
- * \pre \c lhs must not be NULL.
- * \pre \c rhs must not be NULL.
+ * \pre \c lhs must not be \c nullptr.
+ * \pre \c rhs must not be \c nullptr.
  */
 inline
 int
@@ -302,6 +308,7 @@ DECIMAL_compare(
 } /* namespace stlsoft */
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

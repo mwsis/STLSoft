@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/filesystem/current_directory_scope.hpp
+ * File:    winstl/filesystem/current_directory_scope.hpp
  *
- * Purpose:     Current working directory scoping class.
+ * Purpose: Current working directory scoping class.
  *
- * Created:     12th November 1998
- * Updated:     15th January 2021
+ * Created: 12th November 1998
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2021, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1998-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_CURRENT_DIRECTORY_SCOPE_MAJOR     5
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_CURRENT_DIRECTORY_SCOPE_MINOR     2
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_CURRENT_DIRECTORY_SCOPE_REVISION  17
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_CURRENT_DIRECTORY_SCOPE_EDIT      143
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_CURRENT_DIRECTORY_SCOPE_REVISION  20
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_CURRENT_DIRECTORY_SCOPE_EDIT      148
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -95,6 +96,7 @@
 #ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
 # include <winstl/api/external/ErrorHandling.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -177,9 +179,9 @@ public: // construction
     /// Returns the current directory to its original location
     ~basic_current_directory_scope() STLSOFT_NOEXCEPT;
 private:
-    basic_current_directory_scope();                    // default-construction proscribed
-    basic_current_directory_scope(class_type const&);   // copy-construction proscribed
-    class_type const& operator =(class_type const&);    // copy-assignment proscribed
+    basic_current_directory_scope() STLSOFT_DEFAULT_CONSTRUCTION_PROSCRIBED;
+    basic_current_directory_scope(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 public: // accessors
     /// Returns a C-string pointer to the original directory
@@ -207,6 +209,7 @@ private: // fields
     buffer_type_    m_previous;
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * typedefs for commonly encountered types
  */
@@ -226,6 +229,7 @@ typedef basic_current_directory_scope<ws_char_w_t, filesystem_traits<ws_char_w_t
  * \ingroup group__library__FileSystem
  */
 typedef basic_current_directory_scope<TCHAR, filesystem_traits<TCHAR> >                 current_directory_scope;
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * shims
@@ -283,6 +287,7 @@ c_str_len(
     return STLSOFT_NS_QUAL(c_str_len)(b.get_previous());
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * operators
  */
@@ -303,6 +308,7 @@ operator <<(
 
     return s;
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * implementation
@@ -401,10 +407,10 @@ basic_current_directory_scope<C, T>::operator ss_typename_type_k basic_current_d
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
@@ -435,11 +441,12 @@ using ::winstl::c_str_len;
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

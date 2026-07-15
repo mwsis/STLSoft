@@ -4,11 +4,11 @@
  * Purpose:     Stopwatch initialising class.
  *
  * Created:     30th July 2002
- * Updated:     26th December 2020
+ * Updated:     20th March 2025
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,8 +55,9 @@
 # define STLSOFT_VER_STLSOFT_DIAGNOSTICS_HPP_STOPWATCH_INITIALISER_MAJOR    5
 # define STLSOFT_VER_STLSOFT_DIAGNOSTICS_HPP_STOPWATCH_INITIALISER_MINOR    0
 # define STLSOFT_VER_STLSOFT_DIAGNOSTICS_HPP_STOPWATCH_INITIALISER_REVISION 1
-# define STLSOFT_VER_STLSOFT_DIAGNOSTICS_HPP_STOPWATCH_INITIALISER_EDIT     46
+# define STLSOFT_VER_STLSOFT_DIAGNOSTICS_HPP_STOPWATCH_INITIALISER_EDIT     48
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -69,6 +70,7 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -77,6 +79,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -134,8 +137,9 @@ public: // Operations
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

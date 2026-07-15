@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        platformstl/system/console_functions.h
+ * File:    platformstl/system/console_functions.h
  *
- * Purpose:     Console functions.
+ * Purpose: Console functions.
  *
- * Created:     6th August 2015
- * Updated:     26th December 2020
+ * Created: 6th August 2015
+ * Updated: 4th August 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2015-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -52,10 +52,11 @@
 
 #ifndef PLATFORMSTL_DOCUMENTATION_SKIP_SECTION
 # define PLATFORMSTL_VER_PLATFORMSTL_SYSTEM_H_CONSOLE_FUNCTIONS_MAJOR       1
-# define PLATFORMSTL_VER_PLATFORMSTL_SYSTEM_H_CONSOLE_FUNCTIONS_MINOR       1
-# define PLATFORMSTL_VER_PLATFORMSTL_SYSTEM_H_CONSOLE_FUNCTIONS_REVISION    3
-# define PLATFORMSTL_VER_PLATFORMSTL_SYSTEM_H_CONSOLE_FUNCTIONS_EDIT        8
+# define PLATFORMSTL_VER_PLATFORMSTL_SYSTEM_H_CONSOLE_FUNCTIONS_MINOR       2
+# define PLATFORMSTL_VER_PLATFORMSTL_SYSTEM_H_CONSOLE_FUNCTIONS_REVISION    1
+# define PLATFORMSTL_VER_PLATFORMSTL_SYSTEM_H_CONSOLE_FUNCTIONS_EDIT        11
 #endif /* !PLATFORMSTL_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -71,18 +72,17 @@
 #if defined(PLATFORMSTL_OS_IS_UNIX)
 
 #  include <unixstl/system/console_functions.h>
-
 #elif defined(PLATFORMSTL_OS_IS_WINDOWS)
 
 #  include <winstl/system/console_functions.h>
-
 #else /* ? operating system */
+
 # error Operating system not discriminated
 #endif /* operating system */
 
 # include <stlsoft/quality/contract.h>
-
 # include <stlsoft/quality/cover.h>
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -103,6 +103,7 @@ namespace platformstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !PLATFORMSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * functions (C++)
  */
@@ -113,13 +114,55 @@ platformstl_C_get_console_width(void)
 {
 #if 0
 #elif defined(PLATFORMSTL_OS_IS_UNIX)
+
     return UNIXSTL_NS_QUAL(unixstl_C_get_console_width)();
 #elif defined(PLATFORMSTL_OS_IS_WINDOWS)
+
     return WINSTL_NS_QUAL(winstl_C_get_console_width)();
 #else
+
 # error Platform not discriminated
 #endif
 }
+
+STLSOFT_INLINE
+ss_truthy_t
+platformstl_C_isatty_fd(
+    int fd
+)
+{
+#if 0
+#elif defined(PLATFORMSTL_OS_IS_UNIX)
+
+    return UNIXSTL_NS_QUAL(unixstl_C_isatty_fd)(fd);
+#elif defined(PLATFORMSTL_OS_IS_WINDOWS)
+
+    return WINSTL_NS_QUAL(winstl_C_isatty_fd)(fd);
+#else
+
+# error Platform not discriminated
+#endif
+}
+
+STLSOFT_INLINE
+ss_truthy_t
+platformstl_C_isatty_stm(
+    FILE* stm
+)
+{
+#if 0
+#elif defined(PLATFORMSTL_OS_IS_UNIX)
+
+    return UNIXSTL_NS_QUAL(unixstl_C_isatty_stm)(stm);
+#elif defined(PLATFORMSTL_OS_IS_WINDOWS)
+
+    return WINSTL_NS_QUAL(winstl_C_isatty_stm)(stm);
+#else
+
+# error Platform not discriminated
+#endif
+}
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * API functions (C++)
@@ -134,7 +177,25 @@ get_console_width()
     return platformstl_C_get_console_width();
 }
 
+inline
+bool
+isatty(
+    int fd
+)
+{
+    return 0 != platformstl_C_isatty_fd(fd);
+}
+
+inline
+bool
+isatty(
+    FILE* stm
+)
+{
+    return 0 != platformstl_C_isatty_stm(stm);
+}
 #endif /* __cplusplus */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -150,6 +211,7 @@ get_console_width()
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !PLATFORMSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control
  */
@@ -157,8 +219,6 @@ get_console_width()
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
 # pragma once
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
-
-/* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* !PLATFORMSTL_INCL_PLATFORMSTL_SYSTEM_H_CONSOLE_FUNCTIONS */
 

@@ -1,18 +1,18 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/filesystem/file_path_buffer.hpp
+ * File:    winstl/filesystem/file_path_buffer.hpp
  *
- * Purpose:     Contains the basic_file_path_buffer template class, and ANSI
- *              and Unicode specialisations thereof.
+ * Purpose: Contains the basic_file_path_buffer template class, and ANSI and
+ *          Unicode specialisations thereof.
  *
- * Created:     7th February 2002
- * Updated:     20th January 2024
+ * Created: 7th February 2002
+ * Updated: 20th March 2025
  *
- * Thanks to:   Pablo Aguilar for discovering the Borland weirdness which is now
- *              addressed with the calc_path_max_() method.
+ * Thanks:  Pablo Aguilar for discovering the Borland weirdness which is now
+ *          addressed with the calc_path_max_() method.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -58,9 +58,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER_MAJOR    4
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER_MINOR    6
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER_REVISION 15
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER_EDIT     150
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER_REVISION 16
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER_EDIT     155
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -113,11 +114,12 @@
 
 #ifdef STLSOFT_DEBUG
 # include <stlsoft/algorithms/pod.hpp>
-#endif
+#endif /* STLSOFT_DEBUG */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -137,6 +139,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -242,6 +245,7 @@ public:
         : m_buffer(1 + calc_path_max_internal_())
     {
 #ifdef STLSOFT_DEBUG
+
         STLSOFT_NS_QUAL(pod_fill_n)(&m_buffer[0], external_size_(), static_cast<char_type>('?'));
         m_buffer[external_size_() - 1] = '\0';
 
@@ -257,6 +261,7 @@ public:
         WINSTL_ASSERT(rhs.is_valid_());
 
 #ifdef STLSOFT_DEBUG
+
         set_eyecatcher_();
 #endif /* STLSOFT_DEBUG */
 
@@ -379,7 +384,7 @@ public:
     /// Copies the contents into a caller supplied buffer
     ///
     /// \param buffer Pointer to character buffer to receive the contents.
-    ///  May be NULL, in which case the method returns size().
+    ///  May be \c nullptr, in which case the method returns size().
     /// \param cchBuffer Number of characters of available space in \c buffer.
     size_type copy(char_type *buffer, size_type cchBuffer) const
     {
@@ -403,6 +408,7 @@ public:
 /// @{
 private:
 #ifdef STLSOFT_DEBUG
+
     static
     char_type const*
     get_eyecatcher_(
@@ -424,7 +430,7 @@ private:
         size_type const         n   =   m_buffer.size() - ecs;
         char_type *             p   =   &m_buffer[0] + n;
 
-        STLSOFT_API_INTERNAL_memfns_memcpy(p, ec, sizeof(char_type) * ecs);
+        STLSOFT_API_EXTERNAL_memfns_memcpy(p, ec, sizeof(char_type) * ecs);
     }
 
     static
@@ -442,13 +448,14 @@ private:
     bool is_valid_() const
     {
 #ifdef STLSOFT_DEBUG
+
         {
             size_type               ecs;
             char_type const* const  ec  =   get_eyecatcher_(&ecs);
             size_type const         n   =   m_buffer.size() - ecs;
             char_type const*        p   =   &m_buffer[0] + n;
 
-            if (0 != ::memcmp(p, ec, sizeof(char_type) * ecs))
+            if (0 != STLSOFT_API_EXTERNAL_memfns_memcmp(p, ec, sizeof(char_type) * ecs))
             {
                 return false;
             }
@@ -482,6 +489,7 @@ private:
         size_type n = calc_path_max_external_();
 
 #ifdef STLSOFT_DEBUG
+
         // add bytes for eye catcher
         n += get_eyecatcher_size_();
 #endif
@@ -501,6 +509,7 @@ private:
         size_type n = internal_size_();
 
 #ifdef STLSOFT_DEBUG
+
         // add bytes for eye catcher
         n -= get_eyecatcher_size_();
 #endif
@@ -571,6 +580,7 @@ typedef basic_file_path_buffer<
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * swapping
  */
@@ -582,6 +592,7 @@ inline void swap(basic_file_path_buffer<C, A>& lhs, basic_file_path_buffer<C, A>
 {
     lhs.swap(rhs);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * shims
@@ -722,10 +733,10 @@ inline S& operator <<(S& s, WINSTL_NS_QUAL(basic_file_path_buffer)<C, A> const& 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
@@ -745,9 +756,10 @@ namespace std
     {
         lhs.swap(rhs);
     }
-} /* namespace std */
+} // namespace std
 # endif /* INTEL && _MSC_VER < 1310 */
 #endif /* STLSOFT_CF_std_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -782,11 +794,12 @@ using ::winstl::c_str_len;
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

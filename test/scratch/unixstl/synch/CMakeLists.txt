@@ -1,6 +1,7 @@
+if(X_CMAKE_CXX_FULLSTANDARD GREATER_EQUAL 2011)
 
-add_subdirectory(semaphore)
+	if(UNIX)
 
-
-# ############################## end of file ############################# #
-
+		add_subdirectory(semaphore)
+	endif(UNIX)
+endif()

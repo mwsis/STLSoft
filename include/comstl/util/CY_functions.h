@@ -1,12 +1,12 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        comstl/util/CY_functions.h
+ * File:    comstl/util/CY_functions.h
  *
- * Purpose:     CY helper functions.
+ * Purpose: CY helper functions.
  *
- * Created:     23rd August 2008
- * Updated:     22nd January 2024
+ * Created: 23rd August 2008
+ * Updated: 24th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2008-2019, Matthew Wilson and Synesis Software
@@ -51,11 +51,12 @@
 #define COMSTL_INCL_COMSTL_UTIL_H_CY_FUNCTIONS
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define COMSTL_VER_COMSTL_UTIL_H_CY_FUNCTIONS_MAJOR       1
-# define COMSTL_VER_COMSTL_UTIL_H_CY_FUNCTIONS_MINOR       1
-# define COMSTL_VER_COMSTL_UTIL_H_CY_FUNCTIONS_REVISION    2
-# define COMSTL_VER_COMSTL_UTIL_H_CY_FUNCTIONS_EDIT        16
+# define COMSTL_VER_COMSTL_UTIL_H_CY_FUNCTIONS_MAJOR    1
+# define COMSTL_VER_COMSTL_UTIL_H_CY_FUNCTIONS_MINOR    1
+# define COMSTL_VER_COMSTL_UTIL_H_CY_FUNCTIONS_REVISION 2
+# define COMSTL_VER_COMSTL_UTIL_H_CY_FUNCTIONS_EDIT     18
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -67,6 +68,7 @@
 #ifdef STLSOFT_TRACE_INCLUDE
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -87,6 +89,7 @@ namespace comstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * C functions
  */
@@ -98,8 +101,8 @@ namespace comstl_project
  * \param lhs Pointer to the left-hand instances to compare
  * \param rhs Pointer to the right-hand instances to compare
  *
- * \pre \c lhs must not be NULL.
- * \pre \c rhs must not be NULL.
+ * \pre \c lhs must not be \c nullptr.
+ * \pre \c rhs must not be \c nullptr.
  */
 STLSOFT_INLINE
 int
@@ -134,6 +137,7 @@ comstl_C_CY_compare(
     }
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * backwards compatibility
  */
@@ -153,6 +157,7 @@ comstl__CY_compare(
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -161,6 +166,7 @@ comstl__CY_compare(
 namespace comstl
 {
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
@@ -175,8 +181,8 @@ namespace comstl
  * \param lhs Pointer to the left-hand instances to compare
  * \param rhs Pointer to the right-hand instances to compare
  *
- * \pre \c lhs must not be NULL.
- * \pre \c rhs must not be NULL.
+ * \pre \c lhs must not be \c nullptr.
+ * \pre \c rhs must not be \c nullptr.
  */
 inline
 int
@@ -218,6 +224,7 @@ CY_compare(
 } /* namespace stlsoft */
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

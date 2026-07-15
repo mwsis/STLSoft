@@ -1,12 +1,12 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/system/os_version.h
+ * File:    winstl/system/os_version.h
  *
- * Purpose:     winstl_C_identify_operating_system() function.
+ * Purpose: winstl_C_identify_operating_system() function.
  *
- * Created:     18th May 1995
- * Updated:     22nd January 2024
+ * Created: 18th May 1995
+ * Updated: 15th October 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1995-2019, Matthew Wilson and Synesis Software
@@ -52,10 +52,11 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SYSTEM_H_OS_VERSION_MAJOR    1
-# define WINSTL_VER_WINSTL_SYSTEM_H_OS_VERSION_MINOR    0
-# define WINSTL_VER_WINSTL_SYSTEM_H_OS_VERSION_REVISION 8
-# define WINSTL_VER_WINSTL_SYSTEM_H_OS_VERSION_EDIT     15
+# define WINSTL_VER_WINSTL_SYSTEM_H_OS_VERSION_MINOR    1
+# define WINSTL_VER_WINSTL_SYSTEM_H_OS_VERSION_REVISION 3
+# define WINSTL_VER_WINSTL_SYSTEM_H_OS_VERSION_EDIT     20
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -68,13 +69,21 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
+#ifndef WINSTL_INCL_WINSTL_INTERNAL_H_WINDOWS_VERSION_
+# include <winstl/internal/windows_version_.h>
+#endif /* !WINSTL_INCL_WINSTL_INTERNAL_H_WINDOWS_VERSION_ */
+
 #ifndef WINSTL_INCL_WINSTL_API_external_h_DynamicLinkLibrary
 # include <winstl/api/external/DynamicLinkLibrary.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_DynamicLinkLibrary */
-
 #ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
 # include <stlsoft/api/external/string.h>
 #endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
+#ifndef WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_
+# include <winstl/api/winstl_win32_winnt_.h>
+#endif /* !WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_ */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -91,12 +100,11 @@ namespace winstl
 
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * constants
@@ -116,7 +124,6 @@ enum WinSTL_OperatingSystemIdentifier_t
     ,   WinSTL_OperatingSystemIdentifier_Windows_98
     ,   WinSTL_OperatingSystemIdentifier_Windows_ME
     ,   WinSTL_OperatingSystemIdentifier_Windows_NT4
-
     ,   WinSTL_OperatingSystemIdentifier_Windows_2000
     ,   WinSTL_OperatingSystemIdentifier_Windows_XP
     ,   WinSTL_OperatingSystemIdentifier_Windows_XP_Professional_x64
@@ -131,23 +138,20 @@ enum WinSTL_OperatingSystemIdentifier_t
     ,   WinSTL_OperatingSystemIdentifier_Windows_8
     ,   WinSTL_OperatingSystemIdentifier_Windows_Server_2012_R2
     ,   WinSTL_OperatingSystemIdentifier_Windows_8_1
-
+    ,   WinSTL_OperatingSystemIdentifier_Windows_10
+    ,   WinSTL_OperatingSystemIdentifier_Windows_Server_2016
+    ,   WinSTL_OperatingSystemIdentifier_Windows_Server_2019
+    ,   WinSTL_OperatingSystemIdentifier_Windows_Server_2022
+    ,   WinSTL_OperatingSystemIdentifier_Windows_11
+    ,   WinSTL_OperatingSystemIdentifier_Windows_Server_2025
 #if 0
-    ,   WinSTL_OperatingSystemIdentifier_Windows_
-    ,   WinSTL_OperatingSystemIdentifier_Windows_
-    ,   WinSTL_OperatingSystemIdentifier_Windows_
-    ,   WinSTL_OperatingSystemIdentifier_Windows_
-    ,   WinSTL_OperatingSystemIdentifier_Windows_
-    ,   WinSTL_OperatingSystemIdentifier_Windows_
     ,   WinSTL_OperatingSystemIdentifier_Windows_
     ,   WinSTL_OperatingSystemIdentifier_Windows_
 #endif /* 0 */
 };
 
 #ifdef __cplusplus
-
 } /* namespace os_version_constants */
-/* typedef os_version_constants::WinSTL_OperatingSystemIdentifier_t      WinSTL_OperatingSystemIdentifier_t; */
     using namespace ::winstl::os_version_constants;
 # ifndef WINSTL_NO_NAMESPACE
 
@@ -157,9 +161,6 @@ typedef WinSTL_OperatingSystemIdentifier_t                            OperatingS
 
 typedef enum WinSTL_OperatingSystemIdentifier_t                       WinSTL_OperatingSystemIdentifier_t;
 #endif /* __cplusplus */
-
-
-
 
 
 STLSOFT_INLINE
@@ -198,16 +199,16 @@ winstl_C_identify_operating_system(
     int const VER_SUITE_WH_SERVER =   0x00008000;
 #endif
 
-    int const       smsvrr2     =   STLSOFT_NS_GLOBAL(GetSystemMetrics(SM_SERVERR2));
-    SYSTEM_INFO     si          =   { 0 };
-    OSVERSIONINFOEX ovix        =   { 0 };
+    int const       smsvrr2     =   STLSOFT_NS_GLOBAL(GetSystemMetrics)(SM_SERVERR2);
+
+    SYSTEM_INFO     si;
+    OSVERSIONINFOEX ovix;
     WORD const*     suiteMask   =   (sizeof(ovix.wReserved) == sizeof(WORD[2])) ? (WORD const*)(&ovix.wServicePackMinor + 1) : (WORD const*)(&ovix.wReserved - 3);
     BYTE const*     productType =   (sizeof(ovix.wReserved) == sizeof(WORD[2])) ? (BYTE const*)(&ovix.wServicePackMinor + 2) : (BYTE const*)(&ovix.wReserved - 1);
 
     if (NULL == pfn)
     {
-#if defined(_WIN32_WINNT) && \
-    _WIN32_WINNT >= 0x0501
+#if WINSTL_WIN32_WINNT >= 0x0501
 
         STLSOFT_NS_GLOBAL(GetNativeSystemInfo)(&si);
 #else /* ? XP+ */
@@ -239,8 +240,9 @@ winstl_C_identify_operating_system(
         (*pfn)(&si);
     }
 
+
     ovix.dwOSVersionInfoSize  = sizeof(ovix);
-    if (!STLSOFT_NS_GLOBAL(GetVersionEx)((LPOSVERSIONINFO)&ovix))
+    if (!winstl_C_internal_GetVersionEx((LPOSVERSIONINFO)&ovix))
     {
         return WinSTL_OperatingSystemIdentifier_Invalid;
     }
@@ -248,122 +250,170 @@ winstl_C_identify_operating_system(
     {
         switch (ovix.dwMajorVersion)
         {
-            case    4:
-                switch (ovix.dwPlatformId)
-                {
-                    case    1:
-                        switch (ovix.dwMinorVersion)
-                        {
-                            case    0:
-                                return WinSTL_OperatingSystemIdentifier_Windows_95;
-                            case    10:
-                                return WinSTL_OperatingSystemIdentifier_Windows_98;
-                            case    90:
-                                return WinSTL_OperatingSystemIdentifier_Windows_ME;
-                            default:
-                                return WinSTL_OperatingSystemIdentifier_Unknown;
-                        }
-                        break;
-                    case    2:
-                        switch (ovix.dwMinorVersion)
-                        {
-                            case    0:
-                                return WinSTL_OperatingSystemIdentifier_Windows_NT4;
-                            default:
-                                return WinSTL_OperatingSystemIdentifier_Unknown;
-                        }
-                        break;
-                    default:
-                        return WinSTL_OperatingSystemIdentifier_Unknown;
-                }
-                break;
-            case    5:
-                switch (ovix.dwMinorVersion)
-                {
-                    case    0:
-                        return WinSTL_OperatingSystemIdentifier_Windows_2000;
-                    case    1:
-                        return WinSTL_OperatingSystemIdentifier_Windows_XP;
-                    case    2:
-                        if (VER_NT_WORKSTATION == *productType &&
-                            PROCESSOR_ARCHITECTURE_AMD64 == si.wProcessorArchitecture)
-                        {
-                            return WinSTL_OperatingSystemIdentifier_Windows_XP_Professional_x64;
-                        }
-                        else if (VER_SUITE_WH_SERVER == *suiteMask)
-                        {
-                            return WinSTL_OperatingSystemIdentifier_Windows_Home_Server;
-                        }
-                        else
-                        {
-                            if (0 != smsvrr2)
-                            {
-                                return WinSTL_OperatingSystemIdentifier_Windows_Server_2003_R2;
-                            }
-                            else
-                            {
-                                return WinSTL_OperatingSystemIdentifier_Windows_Server_2003;
-                            }
-                        }
-                        break;
-                    default:
-                        return WinSTL_OperatingSystemIdentifier_Unknown;
-                }
-                break;
-            case    6:
-                switch (ovix.dwMinorVersion)
-                {
-                    case    0:
-                        if (VER_NT_WORKSTATION == *productType)
-                        {
-                            return WinSTL_OperatingSystemIdentifier_Windows_Vista;
-                        }
-                        else
-                        {
-                            return WinSTL_OperatingSystemIdentifier_Windows_Server_2008;
-                        }
-                        break;
-                    case    1:
-                        if (VER_NT_WORKSTATION == *productType)
-                        {
-                            return WinSTL_OperatingSystemIdentifier_Windows_7;
-                        }
-                        else
-                        {
-                            return WinSTL_OperatingSystemIdentifier_Windows_Server_2008_R2;
-                        }
-                        break;
-                    case    2:
-                        if (VER_NT_WORKSTATION == *productType)
-                        {
-                            return WinSTL_OperatingSystemIdentifier_Windows_8;
-                        }
-                        else
-                        {
-                            return WinSTL_OperatingSystemIdentifier_Windows_Server_2012;
-                        }
-                        break;
-                    case    3:
-                        if (VER_NT_WORKSTATION == *productType)
-                        {
-                            return WinSTL_OperatingSystemIdentifier_Windows_8_1;
-                        }
-                        else
-                        {
-                            return WinSTL_OperatingSystemIdentifier_Windows_Server_2012_R2;
-                        }
-                        break;
+        case 4:
 
-                    default:
-                        return WinSTL_OperatingSystemIdentifier_Unknown;
+            switch (ovix.dwPlatformId)
+            {
+            case 1:
+
+                switch (ovix.dwMinorVersion)
+                {
+                case 0:
+
+                    return WinSTL_OperatingSystemIdentifier_Windows_95;
+                case 10:
+
+                    return WinSTL_OperatingSystemIdentifier_Windows_98;
+                case 90:
+
+                    return WinSTL_OperatingSystemIdentifier_Windows_ME;
+                default:
+
+                    return WinSTL_OperatingSystemIdentifier_Unknown;
+                }
+                break;
+            case 2:
+                switch (ovix.dwMinorVersion)
+                {
+                case 0:
+
+                    return WinSTL_OperatingSystemIdentifier_Windows_NT4;
+                default:
+
+                    return WinSTL_OperatingSystemIdentifier_Unknown;
                 }
                 break;
             default:
+
                 return WinSTL_OperatingSystemIdentifier_Unknown;
+            }
+            break;
+        case 5:
+
+            switch (ovix.dwMinorVersion)
+            {
+            case 0:
+
+                return WinSTL_OperatingSystemIdentifier_Windows_2000;
+            case 1:
+
+                return WinSTL_OperatingSystemIdentifier_Windows_XP;
+            case 2:
+
+                if (VER_NT_WORKSTATION == *productType &&
+                    PROCESSOR_ARCHITECTURE_AMD64 == si.wProcessorArchitecture)
+                {
+                    return WinSTL_OperatingSystemIdentifier_Windows_XP_Professional_x64;
+                }
+                else if (VER_SUITE_WH_SERVER == *suiteMask)
+                {
+                    return WinSTL_OperatingSystemIdentifier_Windows_Home_Server;
+                }
+                else
+                {
+                    if (0 != smsvrr2)
+                    {
+                        return WinSTL_OperatingSystemIdentifier_Windows_Server_2003_R2;
+                    }
+                    else
+                    {
+                        return WinSTL_OperatingSystemIdentifier_Windows_Server_2003;
+                    }
+                }
+                break;
+            default:
+
+                return WinSTL_OperatingSystemIdentifier_Unknown;
+            }
+            break;
+        case 6:
+            switch (ovix.dwMinorVersion)
+            {
+            case 0:
+
+                if (VER_NT_WORKSTATION == *productType)
+                {
+                    return WinSTL_OperatingSystemIdentifier_Windows_Vista;
+                }
+                else
+                {
+                    return WinSTL_OperatingSystemIdentifier_Windows_Server_2008;
+                }
+                break;
+            case 1:
+
+                if (VER_NT_WORKSTATION == *productType)
+                {
+                    return WinSTL_OperatingSystemIdentifier_Windows_7;
+                }
+                else
+                {
+                    return WinSTL_OperatingSystemIdentifier_Windows_Server_2008_R2;
+                }
+                break;
+            case 2:
+
+                if (VER_NT_WORKSTATION == *productType)
+                {
+                    return WinSTL_OperatingSystemIdentifier_Windows_8;
+                }
+                else
+                {
+                    return WinSTL_OperatingSystemIdentifier_Windows_Server_2012;
+                }
+                break;
+            case 3:
+
+                if (VER_NT_WORKSTATION == *productType)
+                {
+                    return WinSTL_OperatingSystemIdentifier_Windows_8_1;
+                }
+                else
+                {
+                    return WinSTL_OperatingSystemIdentifier_Windows_Server_2012_R2;
+                }
+                break;
+            default:
+
+                return WinSTL_OperatingSystemIdentifier_Unknown;
+            }
+            break;
+        case 10:
+
+            if (VER_NT_WORKSTATION == *productType)
+            {
+                if (ovix.dwBuildNumber < 22000)
+                {
+                    return WinSTL_OperatingSystemIdentifier_Windows_10;
+                }
+
+                return WinSTL_OperatingSystemIdentifier_Windows_11;
+            }
+            else
+            {
+                if (ovix.dwBuildNumber < 17763)
+                {
+                    return WinSTL_OperatingSystemIdentifier_Windows_Server_2016;
+                }
+
+                if (ovix.dwBuildNumber < 20348)
+                {
+                    return WinSTL_OperatingSystemIdentifier_Windows_Server_2019;
+                }
+
+                if (ovix.dwBuildNumber < 26100)
+                {
+                    return WinSTL_OperatingSystemIdentifier_Windows_Server_2022;
+                }
+
+                return WinSTL_OperatingSystemIdentifier_Windows_Server_2025;
+            }
+        default:
+
+            return WinSTL_OperatingSystemIdentifier_Unknown;
         }
     }
 }
-
 
 
 #ifdef __cplusplus
@@ -427,6 +477,13 @@ WINSTL_SYSTEM_OS_VERSION_c_str_data_a_ITEM_(Windows_8);
 WINSTL_SYSTEM_OS_VERSION_c_str_data_a_ITEM_(Windows_Server_2012_R2);
 WINSTL_SYSTEM_OS_VERSION_c_str_data_a_ITEM_(Windows_8_1);
 
+WINSTL_SYSTEM_OS_VERSION_c_str_data_a_ITEM_(Windows_10);
+WINSTL_SYSTEM_OS_VERSION_c_str_data_a_ITEM_(Windows_Server_2016);
+WINSTL_SYSTEM_OS_VERSION_c_str_data_a_ITEM_(Windows_Server_2019);
+WINSTL_SYSTEM_OS_VERSION_c_str_data_a_ITEM_(Windows_Server_2022);
+WINSTL_SYSTEM_OS_VERSION_c_str_data_a_ITEM_(Windows_11);
+WINSTL_SYSTEM_OS_VERSION_c_str_data_a_ITEM_(Windows_Server_2025);
+
     case WinSTL_OperatingSystemIdentifier_Invalid:
 
         break;
@@ -445,8 +502,8 @@ c_str_len_a(
 {
     return STLSOFT_NS_GLOBAL(strlen)(c_str_data_a(osid));
 }
-
 #endif /* __cplusplus && !STLSOFT_CF_TEMPLATE_SHIMS_NOT_SUPPORTED */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -467,6 +524,7 @@ c_str_len_a(
 #ifdef __cplusplus
 #else /* ? __cplusplus */
 #endif /* __cplusplus */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

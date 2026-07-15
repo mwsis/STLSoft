@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/util/integral_printf_traits.hpp (formerly stlsoft/util/printf_traits.hpp)
+ * File:    stlsoft/util/integral_printf_traits.hpp (formerly stlsoft/util/printf_traits.hpp)
  *
- * Purpose:     integral_printf_traits classes.
+ * Purpose: integral_printf_traits classes.
  *
- * Created:     16th January 2002
- * Updated:     22nd January 2024
+ * Created: 16th January 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_UTIL_HPP_INTEGRAL_PRINTF_TRAITS_MAJOR      6
 # define STLSOFT_VER_STLSOFT_UTIL_HPP_INTEGRAL_PRINTF_TRAITS_MINOR      0
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_INTEGRAL_PRINTF_TRAITS_REVISION   8
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_INTEGRAL_PRINTF_TRAITS_EDIT       85
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_INTEGRAL_PRINTF_TRAITS_REVISION   9
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_INTEGRAL_PRINTF_TRAITS_EDIT       88
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -91,6 +92,7 @@
 # include <stlsoft/quality/cover.h>
 #endif /* !STLSOFT_INCL_STLSOFT_QUALITY_H_COVER */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -99,6 +101,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Constants & definitions
@@ -141,13 +144,13 @@ namespace stlsoft
 #  define STLSOFT_INTEGRAL_PRINTF_TRAITS_UCHAR_MIN          STLSOFT_INTEGRAL_PRINTF_TRAITS_UINT8_MIN
 #  define STLSOFT_INTEGRAL_PRINTF_TRAITS_UCHAR_MAX          STLSOFT_INTEGRAL_PRINTF_TRAITS_UINT8_MAX
 
-#  ifdef STLSOFT_CF_CHAR_IS_UNSIGNED
+#  ifdef STLSOFT_CF_char_IS_UNSIGNED
 #   define STLSOFT_INTEGRAL_PRINTF_TRAITS_CHAR_MIN          STLSOFT_INTEGRAL_PRINTF_TRAITS_UCHAR_MIN
 #   define STLSOFT_INTEGRAL_PRINTF_TRAITS_CHAR_MAX          STLSOFT_INTEGRAL_PRINTF_TRAITS_UCHAR_MAX
-#  else /* ? STLSOFT_CF_CHAR_IS_UNSIGNED */
+#  else /* ? STLSOFT_CF_char_IS_UNSIGNED */
 #   define STLSOFT_INTEGRAL_PRINTF_TRAITS_CHAR_MIN          STLSOFT_INTEGRAL_PRINTF_TRAITS_SCHAR_MIN
 #   define STLSOFT_INTEGRAL_PRINTF_TRAITS_CHAR_MAX          STLSOFT_INTEGRAL_PRINTF_TRAITS_SCHAR_MAX
-#  endif /* STLSOFT_CF_CHAR_IS_UNSIGNED */
+#  endif /* STLSOFT_CF_char_IS_UNSIGNED */
 
 # else /* ? _STLSOFT_SIZEOF_CHAR */
 #  error Cannot operate with a compiler for which sizeof(char) != 1
@@ -253,6 +256,7 @@ namespace stlsoft
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * classes
  */
@@ -305,14 +309,15 @@ struct integral_printf_traits<char>
     : public integral_printf_traits<signed char>
 #endif /* STLSOFT_CF_char_IS_UNSIGNED */
 {};
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

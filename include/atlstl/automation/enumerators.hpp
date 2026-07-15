@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        atlstl/automation/enumerators.hpp (originally MAEnum.h)
+ * File:    atlstl/automation/enumerators.hpp (originally MAEnum.h)
  *
- * Purpose:     Enumerator classes.
+ * Purpose: Enumerator classes.
  *
- * Created:     11th November 1998
- * Updated:     22nd January 2024
+ * Created: 11th November 1998
+ * Updated: 21st March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1998-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -56,12 +56,14 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_ENUMERATORS_MAJOR    4
 # define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_ENUMERATORS_MINOR    0
-# define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_ENUMERATORS_REVISION 9
-# define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_ENUMERATORS_EDIT     81
+# define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_ENUMERATORS_REVISION 12
+# define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_ENUMERATORS_EDIT     88
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-////////////////////////////////////////////////////////////////////////////
-// Includes
+
+/* /////////////////////////////////////////////////////////////////////////
+ * includes
+ */
 
 #ifndef ATLSTL_INCL_ATLSTL_HPP_ATLSTL
 # include <atlstl/atlstl.hpp>
@@ -90,6 +92,7 @@
 # include <list>
 #endif /* !STLSOFT_INCL_LIST */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -108,6 +111,7 @@ namespace atlstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !ATLSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -149,9 +153,10 @@ public:
 #endif /* 0 */
 };
 
-////////////////////////////////////////////////////////////////////////////
-// Classes
 
+/* /////////////////////////////////////////////////////////////////////////
+ * classes
+ */
 
 /** Modifiable, copying enumerator class template
  *
@@ -222,6 +227,9 @@ public:
 public:
     copy_enumerator_impl();
     ~copy_enumerator_impl() STLSOFT_NOEXCEPT;
+private:
+    copy_enumerator_impl(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Enumeration
@@ -236,7 +244,10 @@ public:
 /// \name Operations
 /// @{
 public:
-    template<ss_typename_param_k I, ss_typename_param_k F>
+    template<
+        ss_typename_param_k I
+    ,   ss_typename_param_k F
+    >
     HRESULT Init(I begin, I end, F fn)
     {
 # ifdef STLSOFT_CF_EXCEPTION_SUPPORT
@@ -255,17 +266,17 @@ public:
             return S_OK;
 # ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         }
-        catch(std::bad_alloc &)
+        catch (std::bad_alloc &)
         {
             return E_OUTOFMEMORY;
         }
-        catch(std::exception &)
+        catch (std::exception &)
         {
             return E_UNEXPECTED;
         }
 # endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
     }
-    template<ss_typename_param_k I>
+    template <ss_typename_param_k I>
     HRESULT Init(I begin, I end)
     {
 # ifdef STLSOFT_CF_EXCEPTION_SUPPORT
@@ -284,11 +295,11 @@ public:
             return S_OK;
 # ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         }
-        catch(std::bad_alloc &)
+        catch (std::bad_alloc &)
         {
             return E_OUTOFMEMORY;
         }
-        catch(std::exception &)
+        catch (std::exception &)
         {
             return E_UNEXPECTED;
         }
@@ -307,7 +318,7 @@ public:
 /// \name Implementation
 /// @{
 private:
-    virtual class_type  *CreateEmptyClone() const = 0;
+    virtual class_type* CreateEmptyClone() const = 0;
 
     template <typename T>
     static difference_type count_all(T const& b, T const& e)
@@ -341,13 +352,6 @@ private:
 private:
     values_type     m_values;
     const_iterator  m_current;
-/// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    copy_enumerator_impl(class_type const&);
-    class_type& operator =(class_type const&);
 /// @}
 };
 
@@ -384,7 +388,7 @@ public:
     END_COM_MAP()
 
 protected:
-    virtual impl_type_ *CreateEmptyClone() const
+    virtual impl_type_* CreateEmptyClone() const
     {
         return new CComObject<class_type>;
     }
@@ -399,8 +403,10 @@ protected:
 # endif /* _MSC_VER */
 #endif /* compiler */
 
-////////////////////////////////////////////////////////////////////////////
-// Implementation
+
+/* /////////////////////////////////////////////////////////////////////////
+ * implementation
+ */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
@@ -554,11 +560,11 @@ inline STDMETHODIMP copy_enumerator_impl<I, piid, V, IV, I2ETx>::Clone(I** ppEnu
         }
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
     }
-    catch(std::bad_alloc &)
+    catch (std::bad_alloc &)
     {
         return E_OUTOFMEMORY;
     }
-    catch(std::exception &)
+    catch (std::exception &)
     {
         return E_UNEXPECTED;
     }
@@ -619,20 +625,23 @@ inline ss_typename_type_ret_k copy_enumerator_impl<I, piid, V, IV, I2ETx>::itera
 {
     return m_values.end();
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef ATLSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace atlstl */
+} // namespace atlstl
 # else
-} /* namespace atlstl_project */
-} /* namespace stlsoft */
+} // namespace atlstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !ATLSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

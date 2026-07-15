@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/controls/functionals.hpp
+ * File:    winstl/controls/functionals.hpp
  *
- * Purpose:     Functionals for application to controls.
+ * Purpose: Functionals for application to controls.
  *
- * Created:     8th October 2002
- * Updated:     22nd January 2024
+ * Created: 8th October 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_CONTROL_HPP_FUNCTIONALS_MAJOR    4
 # define WINSTL_VER_WINSTL_CONTROL_HPP_FUNCTIONALS_MINOR    2
-# define WINSTL_VER_WINSTL_CONTROL_HPP_FUNCTIONALS_REVISION 9
-# define WINSTL_VER_WINSTL_CONTROL_HPP_FUNCTIONALS_EDIT     94
+# define WINSTL_VER_WINSTL_CONTROL_HPP_FUNCTIONALS_REVISION 15
+# define WINSTL_VER_WINSTL_CONTROL_HPP_FUNCTIONALS_EDIT     102
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -99,19 +100,23 @@
 # include <winstl/system/system_traits.hpp>
 #endif /* !WINSTL_INCL_WINSTL_SYSTEM_HPP_SYSTEM_TRAITS */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
-# include <stlsoft/api/external/string.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
-
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
-
 #ifndef _WINSTL_CONTROL_FUNCTIONALS_NO_STD
 # include <functional>
 #else /* ? _WINSTL_CONTROL_FUNCTIONALS_NO_STD */
 # error Now need to write that std_binary_function stuff!!
 #endif /* _WINSTL_CONTROL_FUNCTIONALS_NO_STD */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
+#ifndef WINSTL_INCL_WINSTL_API_external_h_WindowsAndMessages
+# include <winstl/api/external/WindowsAndMessages.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_WindowsAndMessages */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -132,6 +137,7 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * workarounds
  */
@@ -139,6 +145,7 @@ namespace winstl_project
 #if defined(STLSOFT_COMPILER_IS_DMC)
 
 #endif /* STLSOFT_COMPILER_IS_DMC */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -150,13 +157,19 @@ namespace winstl_project
  */
 // [[synesis:class:unary-functor: button_check]]
 class button_check
+#if __cplusplus < 201103L
     : public STLSOFT_NS_QUAL_STD(unary_function)<HWND, void>
+#endif
 {
 public:
+    typedef HWND                                            argument_type;
+    typedef void                                            result_type;
     /// This type
-    typedef button_check    class_type;
+    typedef button_check                                    class_type;
+
 public:
-    ss_explicit_k button_check(int nCheck = BST_CHECKED)
+    ss_explicit_k
+    button_check(int nCheck = BST_CHECKED)
         : m_nCheck(nCheck)
     {}
     button_check(button_check const& rhs)
@@ -176,14 +189,14 @@ public:
 private:
     static void check_(HWND hwnd, int nCheck)
     {
-        ::SendMessage(hwnd, BM_SETCHECK, static_cast<WPARAM>(nCheck), 0L);
+        WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(hwnd, BM_SETCHECK, static_cast<WPARAM>(nCheck), 0L);
     }
 
 private:
     const int   m_nCheck;
 
 private:
-    class_type& operator =(class_type const&);
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 };
 
 
@@ -193,11 +206,15 @@ private:
  */
 // [[synesis:class:unary-predicate: is_checked]]
 class is_checked
+#if __cplusplus < 201103L
     : public STLSOFT_NS_QUAL_STD(unary_function)<HWND, BOOL>
+#endif
 {
 public:
+    typedef HWND                                            argument_type;
+    typedef BOOL                                            result_type;
     /// This type
-    typedef is_checked  class_type;
+    typedef is_checked                                      class_type;
 
 public:
     is_checked(int nCheckType = -1)
@@ -205,6 +222,8 @@ public:
     {
         WINSTL_ASSERT((-1 == nCheckType) || (BST_UNCHECKED == nCheckType) || (BST_CHECKED == nCheckType) || (BST_INDETERMINATE == nCheckType));
     }
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 public:
     BOOL operator ()(HWND hwnd) const
@@ -219,7 +238,7 @@ public:
 private:
     BOOL is_checked_(HWND hwnd) const
     {
-        int nCheck  =   static_cast<int>(::SendMessage(hwnd, BM_GETCHECK, 0, 0L));
+        int nCheck  =   static_cast<int>(WINSTL_API_EXTERNAL_WindowsAndMessages_SendMessage(hwnd, BM_GETCHECK, 0, 0L));
 
         if (-1 == m_nCheckType)
         {
@@ -232,10 +251,7 @@ private:
     }
 
 private:
-    class_type& operator =(class_type const&);
-
-private:
-    const int   m_nCheckType;
+    int const   m_nCheckType;
 };
 
 
@@ -245,14 +261,19 @@ private:
  */
 // [[synesis:class:unary-predicate: is_class]]
 class is_class
+#if __cplusplus < 201103L
     : public STLSOFT_NS_QUAL_STD(unary_function)<HWND, BOOL>
+#endif
 {
 public:
+    typedef HWND                                            argument_type;
+    typedef BOOL                                            result_type;
     /// This type
-    typedef is_class  class_type;
+    typedef is_class                                        class_type;
 
 public:
-    ss_explicit_k is_class(ws_char_a_t const* windowClass)
+    ss_explicit_k
+    is_class(ws_char_a_t const* windowClass)
         : m_bUnicode(false)
     {
         typedef system_traits<ws_char_a_t>  traits_t;
@@ -263,10 +284,11 @@ public:
 
         WINSTL_ASSERT(cchClass < STLSOFT_NUM_ELEMENTS(m_name.sza));
 
-        STLSOFT_API_INTERNAL_memfns_memcpy(&m_name.sza[0], windowClass, cchClass);
+        STLSOFT_API_EXTERNAL_memfns_memcpy(&m_name.sza[0], windowClass, cchClass);
         m_name.sza[cchClass] = '\0';
     }
-    ss_explicit_k is_class(ws_char_w_t const* windowClass)
+    ss_explicit_k
+    is_class(ws_char_w_t const* windowClass)
         : m_bUnicode(true)
     {
         typedef system_traits<ws_char_w_t>  traits_t;
@@ -277,9 +299,11 @@ public:
 
         WINSTL_ASSERT(cchClass < STLSOFT_NUM_ELEMENTS(m_name.szw));
 
-        STLSOFT_API_INTERNAL_memfns_memcpy(&m_name.szw[0], windowClass, cchClass);
+        STLSOFT_API_EXTERNAL_memfns_memcpy(&m_name.szw[0], windowClass, cchClass);
         m_name.szw[cchClass] = '\0';
     }
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 public:
     BOOL operator ()(HWND hwnd) const
@@ -318,10 +342,6 @@ private:
         ws_char_w_t szw[256];
     }           m_name;
     const int   m_bUnicode;
-
-// Not to be implemented
-private:
-    class_type& operator =(class_type const&);
 };
 
 /** A function class used to insert items at the front of list-box
@@ -341,7 +361,8 @@ public:
 
 public:
     /// Construct with the target list-box window
-    ss_explicit_k listbox_front_inserter(HWND hwndListbox)
+    ss_explicit_k
+    listbox_front_inserter(HWND hwndListbox)
         : m_hwndListbox(hwndListbox)
         , m_bUnicode(::IsWindowUnicode(hwndListbox))
     {}
@@ -417,7 +438,8 @@ public:
 
 public:
     /// Construct with the target list-box window
-    ss_explicit_k listbox_add_inserter(HWND hwndListbox)
+    ss_explicit_k
+    listbox_add_inserter(HWND hwndListbox)
         : m_hwndListbox(hwndListbox)
         , m_bUnicode(::IsWindowUnicode(hwndListbox))
     {}
@@ -493,7 +515,8 @@ public:
 
 public:
     /// Construct with the target list-box window
-    ss_explicit_k listbox_back_inserter(HWND hwndListbox)
+    ss_explicit_k
+    listbox_back_inserter(HWND hwndListbox)
         : m_hwndListbox(hwndListbox)
         , m_bUnicode(::IsWindowUnicode(hwndListbox))
     {}
@@ -571,7 +594,8 @@ public:
 
 public:
     /// Construct with the target combo-box window
-    ss_explicit_k combobox_front_inserter(HWND hwndListbox)
+    ss_explicit_k
+    combobox_front_inserter(HWND hwndListbox)
         : m_hwndListbox(hwndListbox)
         , m_bUnicode(::IsWindowUnicode(hwndListbox))
     {}
@@ -647,7 +671,8 @@ public:
 
 public:
     /// Construct with the target combo-box window
-    ss_explicit_k combobox_add_inserter(HWND hwndListbox)
+    ss_explicit_k
+    combobox_add_inserter(HWND hwndListbox)
         : m_hwndListbox(hwndListbox)
         , m_bUnicode(::IsWindowUnicode(hwndListbox))
     {}
@@ -723,7 +748,8 @@ public:
 
 public:
     /// Construct with the target combo-box window
-    ss_explicit_k combobox_back_inserter(HWND hwndListbox)
+    ss_explicit_k
+    combobox_back_inserter(HWND hwndListbox)
         : m_hwndListbox(hwndListbox)
         , m_bUnicode(::IsWindowUnicode(hwndListbox))
     {}
@@ -782,17 +808,21 @@ private:
     ws_int32_t  m_bUnicode;
 };
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

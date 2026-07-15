@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        mfcstl/collections/CList_adaptors.hpp
+ * File:    mfcstl/collections/CList_adaptors.hpp
  *
- * Purpose:     Contains the definition of the CList_cadaptor and CList_iadaptor
- *              class templates.
+ * Purpose: Contains the definition of the CList_cadaptor and CList_iadaptor
+ *          class templates.
  *
- * Created:     1st December 2002
- * Updated:     22nd January 2024
+ * Created: 1st December 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,9 +55,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_CLIST_ADAPTORS_MAJOR     3
 # define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_CLIST_ADAPTORS_MINOR     0
-# define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_CLIST_ADAPTORS_REVISION  15
-# define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_CLIST_ADAPTORS_EDIT      81
+# define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_CLIST_ADAPTORS_REVISION  17
+# define MFCSTL_VER_MFCSTL_COLLECTIONS_HPP_CLIST_ADAPTORS_EDIT      85
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -101,6 +102,7 @@
 # include <afxtempl.h>
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT && !MFCSTL_NO_INCLUDE_AFXTEMPL_BY_DEFAULT */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -138,6 +140,7 @@ namespace mfcstl_project
  * classes will implement copy semantics, rather than the default move
  * semantics.
  */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -600,19 +603,15 @@ public:
 # endif /* _CPPRTTI */
 #endif /* STLSOFT_META_HAS_IS_SAME_TYPE */
     }
+private:
+    CList_iadaptor(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Members
 /// @{
 private:
     list_type  *m_pList;
-/// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    CList_iadaptor(class_type const& rhs);            // Only possible semantics for copy-ctor are share underlying list
-    class_type& operator =(class_type const& rhs);  // Could either repoint, or could do deep copy.
 /// @}
 };
 
@@ -621,12 +620,13 @@ private:
 #ifndef MFCSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace mfcstl */
+} // namespace mfcstl
 # else
-} /* namespace mfcstl_project */
-} /* namespace stlsoft */
+} // namespace mfcstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !MFCSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        platformstl/platformstl.h
+ * File:    platformstl/platformstl.h
  *
- * Purpose:     Root header for the PlatformSTL C/C++ libraries. Performs
- *              platform discriminations, and definitions of types.
+ * Purpose: Root header for the PlatformSTL C/C++ libraries. Performs
+ *          platform discriminations, and definitions of types.
  *
- * Created:     20th March 2005
- * Updated:     22nd January 2024
+ * Created: 20th March 2005
+ * Updated: 22nd August 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -49,8 +49,8 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define PLATFORMSTL_VER_PLATFORMSTL_H_PLATFORMSTL_MAJOR    1
 # define PLATFORMSTL_VER_PLATFORMSTL_H_PLATFORMSTL_MINOR    15
-# define PLATFORMSTL_VER_PLATFORMSTL_H_PLATFORMSTL_REVISION 6
-# define PLATFORMSTL_VER_PLATFORMSTL_H_PLATFORMSTL_EDIT     58
+# define PLATFORMSTL_VER_PLATFORMSTL_H_PLATFORMSTL_REVISION 7
+# define PLATFORMSTL_VER_PLATFORMSTL_H_PLATFORMSTL_EDIT     62
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \file platformstl/platformstl.h
@@ -67,7 +67,7 @@
  * components.
  *
  * The major version is denoted by the _PLATFORMSTL_VER_MAJOR preprocessor symbol.
- * A changes to the major version component implies that a dramatic change has
+ * A change to the major version component implies that a dramatic change has
  * occurred in the libraries, such that considerable changes to source dependent
  * on previous versions would need to be effected.
  *
@@ -111,33 +111,37 @@
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define _PLATFORMSTL_VER_1_0_1     0x00010001  /*!< Version 1.0.1 */
-# define _PLATFORMSTL_VER_1_1_1     0x00010101  /*!< Version 1.1.1 */
-# define _PLATFORMSTL_VER_1_1_2     0x00010102  /*!< Version 1.1.2 */
-# define _PLATFORMSTL_VER_1_2_1     0x00010201  /*!< Version 1.2.1 */
-# define _PLATFORMSTL_VER_1_3_1     0x00010301  /*!< Version 1.3.1 */
-# define _PLATFORMSTL_VER_1_4_1     0x00010401  /*!< Version 1.4.1 */
-# define _PLATFORMSTL_VER_1_4_2     0x00010402  /*!< Version 1.4.2 */
-# define _PLATFORMSTL_VER_1_5_1     0x00010501  /*!< Version 1.5.1 (with STLSoft 1.9.1) */
-# define _PLATFORMSTL_VER_1_6_1     0x00010601  /*!< Version 1.6.1 (with STLSoft 1.9.16) */
-# define _PLATFORMSTL_VER_1_6_2     0x00010602  /*!< Version 1.6.2 (with STLSoft 1.9.25) */
-# define _PLATFORMSTL_VER_1_7_1     0x00010701  /*!< Version 1.7.1 (with STLSoft 1.9.38) */
-# define _PLATFORMSTL_VER_1_7_2     0x010702ff  /*!< Version 1.7.2 (with STLSoft 1.9.64) */
-# define _PLATFORMSTL_VER_1_8_1     0x010801ff  /*!< Version 1.8.1 (with STLSoft 1.9.86) */
-# define _PLATFORMSTL_VER_1_8_2     0x010802ff  /*!< Version 1.8.2 (with STLSoft 1.9.90) */
-# define _PLATFORMSTL_VER_1_8_3     0x010803ff  /*!< Version 1.8.3 (with STLSoft 1.9.110) */
-# define _PLATFORMSTL_VER_1_8_4     0x010804ff  /*!< Version 1.8.4 (with STLSoft 1.9.119) */
-# define _PLATFORMSTL_VER_1_9_1_B01 0x01090181  /*!< Version 1.9.1 beta 1 (with STLSoft 1.10.1 beta 1) */
-# define _PLATFORMSTL_VER_1_9_1_B02 0x01090182  /*!< Version 1.9.1 beta 2 (with STLSoft 1.10.1 beta 16) */
-# define _PLATFORMSTL_VER_1_9_1_B03 0x01090183  /*!< Version 1.9.1 beta 3 (with STLSoft 1.10.1 beta 23) */
-# define _PLATFORMSTL_VER_1_9_1_B04 0x01090184  /*!< Version 1.9.1 beta 4 (with STLSoft 1.10.1 beta 26) */
-# define _PLATFORMSTL_VER_1_9_2     0x010902ff  /*!< Version 1.9.2 (with STLSoft 1.10.5) */
+# define _PLATFORMSTL_VER_1_0_1         0x00010001  /*!< Version 1.0.1 */
+# define _PLATFORMSTL_VER_1_1_1         0x00010101  /*!< Version 1.1.1 */
+# define _PLATFORMSTL_VER_1_1_2         0x00010102  /*!< Version 1.1.2 */
+# define _PLATFORMSTL_VER_1_2_1         0x00010201  /*!< Version 1.2.1 */
+# define _PLATFORMSTL_VER_1_3_1         0x00010301  /*!< Version 1.3.1 */
+# define _PLATFORMSTL_VER_1_4_1         0x00010401  /*!< Version 1.4.1 */
+# define _PLATFORMSTL_VER_1_4_2         0x00010402  /*!< Version 1.4.2 */
+# define _PLATFORMSTL_VER_1_5_1         0x00010501  /*!< Version 1.5.1 (with STLSoft 1.9.1) */
+# define _PLATFORMSTL_VER_1_6_1         0x00010601  /*!< Version 1.6.1 (with STLSoft 1.9.16) */
+# define _PLATFORMSTL_VER_1_6_2         0x00010602  /*!< Version 1.6.2 (with STLSoft 1.9.25) */
+# define _PLATFORMSTL_VER_1_7_1         0x00010701  /*!< Version 1.7.1 (with STLSoft 1.9.38) */
+# define _PLATFORMSTL_VER_1_7_2         0x010702ff  /*!< Version 1.7.2 (with STLSoft 1.9.64) */
+# define _PLATFORMSTL_VER_1_8_1         0x010801ff  /*!< Version 1.8.1 (with STLSoft 1.9.86) */
+# define _PLATFORMSTL_VER_1_8_2         0x010802ff  /*!< Version 1.8.2 (with STLSoft 1.9.90) */
+# define _PLATFORMSTL_VER_1_8_3         0x010803ff  /*!< Version 1.8.3 (with STLSoft 1.9.110) */
+# define _PLATFORMSTL_VER_1_8_4         0x010804ff  /*!< Version 1.8.4 (with STLSoft 1.9.119) */
+# define _PLATFORMSTL_VER_1_9_1_B01     0x01090181  /*!< Version 1.9.1 beta 1 (with STLSoft 1.10.1 beta 1) */
+# define _PLATFORMSTL_VER_1_9_1_B02     0x01090182  /*!< Version 1.9.1 beta 2 (with STLSoft 1.10.1 beta 16) */
+# define _PLATFORMSTL_VER_1_9_1_B03     0x01090183  /*!< Version 1.9.1 beta 3 (with STLSoft 1.10.1 beta 23) */
+# define _PLATFORMSTL_VER_1_9_1_B04     0x01090184  /*!< Version 1.9.1 beta 4 (with STLSoft 1.10.1 beta 26) */
+# define _PLATFORMSTL_VER_1_9_2         0x010902ff  /*!< Version 1.9.2 (with STLSoft 1.10.5) */
+# define _PLATFORMSTL_VER_1_9_3         0x010903ff  /*!< Version 1.9.3 (with STLSoft 1.11.1 alpha 8) */
+# define _PLATFORMSTL_VER_1_10_0_A01    0x010a0041  /*!< Version 1.10.0 alpha 1 (with STLSoft 1.11.1 alpha 15) */
+# define _PLATFORMSTL_VER_1_10_0_B01    0x010a0081  /*!< Version 1.10.0 alpha 2 (with STLSoft 1.11.1 rc 3) */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #define _PLATFORMSTL_VER_MAJOR      1
-#define _PLATFORMSTL_VER_MINOR      9
-#define _PLATFORMSTL_VER_REVISION   2
-#define _PLATFORMSTL_VER            _PLATFORMSTL_VER_1_9_2
+#define _PLATFORMSTL_VER_MINOR      10
+#define _PLATFORMSTL_VER_REVISION   0
+#define _PLATFORMSTL_VER            _PLATFORMSTL_VER_1_10_0_B01
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -150,6 +154,7 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * STLSoft version compatibility check(s)
  */
@@ -157,6 +162,7 @@
 #if _STLSOFT_VER < 0x010a019a
 # error This version of the PlatformSTL libraries requires STLSoft version 1.10.1 beta 26, or later
 #endif /* _STLSOFT_VER */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * operating system identification
@@ -192,6 +198,7 @@
 # define PLATFORMSTL_OS_IS_WINDOWS
 #endif /* PLATFORMSTL_OS_IS_WIN32 || PLATFORMSTL_OS_IS_WIN64 */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * Platform-specific includes
  */
@@ -204,32 +211,36 @@
 # error Operating system not discriminated. Only UNIX and Windows are currently recognised by PlatformSTL
 #endif /* operating system */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * architecture
  */
 
-#ifdef PLATFORMSTL_ARCH_IS_X86
-# undef PLATFORMSTL_ARCH_IS_X86
-#endif /* PLATFORMSTL_ARCH_IS_X86 */
+#ifdef PLATFORMSTL_ARCH_IS_ARM64
+# undef PLATFORMSTL_ARCH_IS_ARM64
+#endif /* PLATFORMSTL_ARCH_IS_ARM64 */
 #ifdef PLATFORMSTL_ARCH_IS_IA64
 # undef PLATFORMSTL_ARCH_IS_IA64
 #endif /* PLATFORMSTL_ARCH_IS_IA64 */
 #ifdef PLATFORMSTL_ARCH_IS_X64
 # undef PLATFORMSTL_ARCH_IS_X64
 #endif /* PLATFORMSTL_ARCH_IS_X64 */
+#ifdef PLATFORMSTL_ARCH_IS_X86
+# undef PLATFORMSTL_ARCH_IS_X86
+#endif /* PLATFORMSTL_ARCH_IS_X86 */
 
-#ifdef PLATFORMSTL_ARCH_IS_INTEL
-# undef PLATFORMSTL_ARCH_IS_INTEL
-#endif /* PLATFORMSTL_ARCH_IS_INTEL */
-#ifdef PLATFORMSTL_ARCH_IS_POWERPC
-# undef PLATFORMSTL_ARCH_IS_POWERPC
-#endif /* PLATFORMSTL_ARCH_IS_POWERPC */
 #ifdef PLATFORMSTL_ARCH_IS_ALPHA
 # undef PLATFORMSTL_ARCH_IS_ALPHA
 #endif /* PLATFORMSTL_ARCH_IS_ALPHA */
 #ifdef PLATFORMSTL_ARCH_IS_HPPA
 # undef PLATFORMSTL_ARCH_IS_HPPA
 #endif /* PLATFORMSTL_ARCH_IS_HPPA */
+#ifdef PLATFORMSTL_ARCH_IS_INTEL
+# undef PLATFORMSTL_ARCH_IS_INTEL
+#endif /* PLATFORMSTL_ARCH_IS_INTEL */
+#ifdef PLATFORMSTL_ARCH_IS_POWERPC
+# undef PLATFORMSTL_ARCH_IS_POWERPC
+#endif /* PLATFORMSTL_ARCH_IS_POWERPC */
 #ifdef PLATFORMSTL_ARCH_IS_SPARC
 # undef PLATFORMSTL_ARCH_IS_SPARC
 #endif /* PLATFORMSTL_ARCH_IS_SPARC */
@@ -239,27 +250,30 @@
 
 
 #if defined(PLATFORMSTL_OS_IS_UNIX)
-# ifdef UNIXSTL_ARCH_IS_X86
-#  define PLATFORMSTL_ARCH_IS_X86
-# endif /* UNIXSTL_ARCH_IS_X86 */
+# ifdef UNIXSTL_ARCH_IS_ARM64
+#  define PLATFORMSTL_ARCH_IS_ARM64
+# endif /* UNIXSTL_ARCH_IS_ARM64 */
 # ifdef UNIXSTL_ARCH_IS_IA64
 #  define PLATFORMSTL_ARCH_IS_IA64
 # endif /* UNIXSTL_ARCH_IS_IA64 */
 # ifdef UNIXSTL_ARCH_IS_X64
 #  define PLATFORMSTL_ARCH_IS_X64
 # endif /* UNIXSTL_ARCH_IS_X64 */
-# ifdef UNIXSTL_ARCH_IS_INTEL
-#  define PLATFORMSTL_ARCH_IS_INTEL
-# endif /* UNIXSTL_ARCH_IS_INTEL */
-# ifdef UNIXSTL_ARCH_IS_POWERPC
-#  define PLATFORMSTL_ARCH_IS_POWERPC
-# endif /* UNIXSTL_ARCH_IS_POWERPC */
+# ifdef UNIXSTL_ARCH_IS_X86
+#  define PLATFORMSTL_ARCH_IS_X86
+# endif /* UNIXSTL_ARCH_IS_X86 */
 # ifdef UNIXSTL_ARCH_IS_ALPHA
 #  define PLATFORMSTL_ARCH_IS_ALPHA
 # endif /* UNIXSTL_ARCH_IS_ALPHA */
 # ifdef UNIXSTL_ARCH_IS_HPPA
 #  define PLATFORMSTL_ARCH_IS_HPPA
 # endif /* UNIXSTL_ARCH_IS_HPPA */
+# ifdef UNIXSTL_ARCH_IS_INTEL
+#  define PLATFORMSTL_ARCH_IS_INTEL
+# endif /* UNIXSTL_ARCH_IS_INTEL */
+# ifdef UNIXSTL_ARCH_IS_POWERPC
+#  define PLATFORMSTL_ARCH_IS_POWERPC
+# endif /* UNIXSTL_ARCH_IS_POWERPC */
 # ifdef UNIXSTL_ARCH_IS_SPARC
 #  define PLATFORMSTL_ARCH_IS_SPARC
 # endif /* UNIXSTL_ARCH_IS_SPARC */
@@ -267,15 +281,18 @@
 #  define PLATFORMSTL_ARCH_IS_UNKNOWN
 # endif /* UNIXSTL_ARCH_IS_UNKNOWN */
 #elif defined(PLATFORMSTL_OS_IS_WINDOWS)
-# ifdef WINSTL_ARCH_IS_X86
-#  define PLATFORMSTL_ARCH_IS_X86
-# endif /* WINSTL_ARCH_IS_X86 */
+# ifdef WINSTL_ARCH_IS_ARM64
+#  define PLATFORMSTL_ARCH_IS_ARM64
+# endif /* WINSTL_ARCH_IS_ARM64 */
 # ifdef WINSTL_ARCH_IS_IA64
 #  define PLATFORMSTL_ARCH_IS_IA64
 # endif /* WINSTL_ARCH_IS_IA64 */
 # ifdef WINSTL_ARCH_IS_X64
 #  define PLATFORMSTL_ARCH_IS_X64
 # endif /* WINSTL_ARCH_IS_X64 */
+# ifdef WINSTL_ARCH_IS_X86
+#  define PLATFORMSTL_ARCH_IS_X86
+# endif /* WINSTL_ARCH_IS_X86 */
 #else /* ? operating system */
 #endif /* operating system */
 
@@ -503,6 +520,7 @@ typedef WINSTL_NS_QUAL(ws_streamoff_t)      streamoff_t; /*!< streamoff */
 } /* namespace stlsoft */
 namespace platformstl = ::stlsoft::platformstl_project;
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

@@ -18,7 +18,7 @@ We're very keen to hear of any problems you have in using the libraries.
 
 Please submit an issue at:
 
-  https://github.com/synesissoftware/STLSoft-1.10/issues
+  https://github.com/synesissoftware/STLSoft-1.11/issues
 
 Please help us to help you by submitting as much information about the
 problem as you think is relevant, including:
@@ -38,11 +38,11 @@ feel free to share your ideas.
 
 You can either submit an issue:
 
-  https://github.com/synesissoftware/STLSoft-1.10/issues
+  https://github.com/synesissoftware/STLSoft-1.11/issues
 
 Or provide your suggested work via a pull-request:
 
-  https://github.com/synesissoftware/STLSoft-1.10/pulls
+  https://github.com/synesissoftware/STLSoft-1.11/pulls
 
 
 ## Volunteer your help

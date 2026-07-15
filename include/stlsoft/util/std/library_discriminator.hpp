@@ -1,19 +1,19 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/util/std/library_discriminator.hpp
+ * File:    stlsoft/util/std/library_discriminator.hpp
  *
- * Purpose:     Discriminates between standard library implementations
+ * Purpose: Discriminates between standard library implementations
  *
- * Created:     2nd January 2000
- * Updated:     22nd January 2024
+ * Created: 2nd January 2000
+ * Updated: 20th March 2025
  *
- * Thanks:      To Cláudio Albuquerque for assisting with VC++ 12 & 14
- *              support. To Gabor Fischer for reporting problems with VC++
- *              9/10 compatibility, and persisting in (re-)reporting it even
- *              when I was being a thickie and unable to reproduce it.
+ * Thanks:  To Cláudio Albuquerque for assisting with VC++ 12 & 14 support.
+ *          To Gabor Fischer for reporting problems with VC++ 9/10
+ *          compatibility, and persisting in (re-)reporting it even when I
+ *          was being a thickie and unable to reproduce it.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2000-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -59,9 +59,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_UTIL_STD_LIBRARY_DISCRIMINATOR_MAJOR       4
 # define STLSOFT_VER_STLSOFT_UTIL_STD_LIBRARY_DISCRIMINATOR_MINOR       11
-# define STLSOFT_VER_STLSOFT_UTIL_STD_LIBRARY_DISCRIMINATOR_REVISION    3
-# define STLSOFT_VER_STLSOFT_UTIL_STD_LIBRARY_DISCRIMINATOR_EDIT        124
+# define STLSOFT_VER_STLSOFT_UTIL_STD_LIBRARY_DISCRIMINATOR_REVISION    4
+# define STLSOFT_VER_STLSOFT_UTIL_STD_LIBRARY_DISCRIMINATOR_EDIT        127
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -82,6 +83,7 @@
 # include <functional>
 #endif /* compiler */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * warnings
  */
@@ -90,6 +92,7 @@
 #ifdef STLSOFT_COMPILER_IS_MSVC
 # pragma warning(disable : 4097)    // suppresses: typedef-name 'identifier1' used as synonym for class-name 'identifier2'
 #endif /* compiler */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -195,9 +198,15 @@ namespace stlsoft
 # endif /* STLSOFT_COMPILE_VERBOSE */
 # define STLSOFT_CF_STD_LIBRARY_IS_STLPORT
 # define STLSOFT_CF_STD_LIBRARY_NAME_STRING                 "STLport"
-#elif defined(_ITERATOR_) && \
-      defined(_UTILITY_) && \
-      defined(_XSTDDEF_)
+#elif 1 && \
+      defined(_ITERATOR_) && \
+      ((1 && \
+        defined(_UTILITY_) && \
+        defined(_XSTDDEF_) && \
+      1) || (1 && \
+        defined(_YVALS_CORE_H_) && \
+      1)) && \
+      1
  /* Dinkumware */
 # define STLSOFT_CF_STD_LIBRARY_IS_DINKUMWARE
 # if defined(STLSOFT_COMPILER_IS_INTEL) || \
@@ -418,7 +427,7 @@ namespace stlsoft
 #   endif /* 1100 <= _MSC_VER < = 1200 */
 
 #   ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #   endif /* STLSOFT_NO_NAMESPACE */
 #   include <xtree>
 #   if defined(_XTREE_)
@@ -449,6 +458,7 @@ namespace stlsoft
 # endif /* _CPPLIB_VER */
 #endif /* STLSOFT_CF_STD_LIBRARY_IS_DINKUMWARE_VC */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * tested compatibilities
  */
@@ -459,6 +469,7 @@ namespace stlsoft
 #  error STLSOFT_CF_STD_LIBRARY_IS_DINKUMWARE should be defined if one of the STLSOFT_CF_STD_LIBRARY_IS_DINKUMWARE_xxxx symbols is defined
 # endif /* !STLSOFT_CF_STD_LIBRARY_IS_DINKUMWARE */
 #endif /* STLSOFT_CF_STD_LIBRARY_IS_DINKUMWARE_xxxx */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * random access iterator support
@@ -493,13 +504,15 @@ namespace stlsoft
 # define _STLSOFT_CF_MIGHT_BE_DINKUMWARE_MS_NAUGHTIES_1300
 #endif /*  */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

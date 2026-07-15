@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/conversion/any_cast.hpp
+ * File:    stlsoft/conversion/any_cast.hpp
  *
- * Purpose:     A dangerous, but sometimes necessary, tool for handling bad
- *              libraries.
+ * Purpose: A dangerous, but sometimes necessary, tool for handling bad
+ *          libraries.
  *
- * Created:     12th May 2004
- * Updated:     26th December 2020
+ * Created: 12th May 2004
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONVERSION_HPP_ANY_CAST_MAJOR      4
 # define STLSOFT_VER_STLSOFT_CONVERSION_HPP_ANY_CAST_MINOR      0
-# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_ANY_CAST_REVISION   5
-# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_ANY_CAST_EDIT       44
+# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_ANY_CAST_REVISION   8
+# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_ANY_CAST_EDIT       49
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -69,6 +70,7 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -77,6 +79,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -96,7 +99,7 @@ public:
     typedef any_caster_invalid_type<N>  class_type;
 /// @}
 
-/// \name Not to be implemented
+/// \name Construction
 /// @{
 #if defined(STLSOFT_CF_COMPILER_WARNS_NO_PUBLIC_DTOR)
 protected:
@@ -146,8 +149,8 @@ public:
         this->t = t_;
     }
 private:
-    any_caster(class_type const& rhs);              // copy-construction proscribed
-    class_type& operator =(class_type const& rhs);  // copy-assignment proscribed
+    any_caster(class_type const& rhs) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Conversion
@@ -205,8 +208,9 @@ private:
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

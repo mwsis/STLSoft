@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        acestl/shims/access/string/inet_addr.hpp
+ * File:    acestl/shims/access/string/inet_addr.hpp
  *
- * Purpose:     Helper functions for ACE strings.
+ * Purpose: Helper functions for ACE strings.
  *
- * Created:     23rd September 2004
- * Updated:     22nd January 2024
+ * Created: 23rd September 2004
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define ACESTL_VER_ACESTL_SHIMS_ACCESS_STRING_HPP_INET_ADDR_MAJOR      2
 # define ACESTL_VER_ACESTL_SHIMS_ACCESS_STRING_HPP_INET_ADDR_MINOR      0
-# define ACESTL_VER_ACESTL_SHIMS_ACCESS_STRING_HPP_INET_ADDR_REVISION   12
-# define ACESTL_VER_ACESTL_SHIMS_ACCESS_STRING_HPP_INET_ADDR_EDIT       59
+# define ACESTL_VER_ACESTL_SHIMS_ACCESS_STRING_HPP_INET_ADDR_REVISION   13
+# define ACESTL_VER_ACESTL_SHIMS_ACCESS_STRING_HPP_INET_ADDR_EDIT       62
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -95,6 +96,7 @@
 # include <stlsoft/api/external/string.h>
 #endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -114,6 +116,7 @@ namespace acestl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !ACESTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * functions
  */
@@ -128,9 +131,11 @@ namespace acestl_inet_addr_access_string_util
     ,   ACE_INET_Addr const&    addr
     )
     {
-        typedef ::stlsoft::auto_buffer_old< ACE_TCHAR
-                                        ,   ::stlsoft::allocator_selector<ACE_TCHAR>::allocator_type
-                                        >       buffer_t;
+        typedef ::stlsoft::auto_buffer<
+            ACE_TCHAR
+        ,   ::stlsoft::auto_buffer_internal_size_calculator<ACE_TCHAR>::value
+        ,   ::stlsoft::allocator_selector<ACE_TCHAR>::allocator_type
+        >                                                   buffer_t;
 
         buffer_t    buffer(buffer_t::internal_size());
 
@@ -254,8 +259,9 @@ namespace acestl_inet_addr_access_string_util
         return retVal;
     }
 
-} /* namespace acestl_inet_addr_access_string_util */
+} // namespace acestl_inet_addr_access_string_util
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * string access shims
@@ -409,6 +415,7 @@ ACE_INET_Addr const& addr
     return acestl_inet_addr_access_string_util::c_str_ptr_<ACE_TCHAR>(addr);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * stream insertion shims
  */
@@ -436,10 +443,10 @@ operator <<(
 #ifndef ACESTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace acestl */
+} // namespace acestl
 # else
-} /* namespace acestl_project */
-} /* namespace stlsoft */
+} // namespace acestl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 
 /** The \ref group__concept__Shim__stream_insertion "stream insertion shim" for ACE_INET_Addr.
@@ -480,9 +487,10 @@ namespace stlsoft
     using ::acestl::c_str_ptr_null_a;
     using ::acestl::c_str_ptr_null_w;
 
-} /* namespace stlsoft */
+} // namespace stlsoft
 
 #endif /* !ACESTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

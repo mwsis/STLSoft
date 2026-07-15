@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/shims/access/string/LSA_UNICODE_STRING.hpp
+ * File:    winstl/shims/access/string/LSA_UNICODE_STRING.hpp
  *
- * Purpose:     String access shims for LSA strings.
+ * Purpose: String access shims for LSA strings.
  *
- * Created:     24th May 2002
- * Updated:     23rd November 2020
+ * Created: 24th May 2002
+ * Updated: 21st March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_LSA_UNICODE_STRING_MAJOR     4
 # define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_LSA_UNICODE_STRING_MINOR     2
-# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_LSA_UNICODE_STRING_REVISION  1
-# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_LSA_UNICODE_STRING_EDIT      130
+# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_LSA_UNICODE_STRING_REVISION  3
+# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_LSA_UNICODE_STRING_EDIT      136
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -90,6 +91,7 @@
 # include <stlsoft/api/external/string.h>
 #endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -108,6 +110,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -149,7 +152,7 @@ public: // construction
         cstring_maker_type_::free(m_block);
     }
 private:
-    void operator =(class_type const& rhs); // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 public: // accessors
     /// Returns a null-terminated string representing the string contents, or
@@ -198,11 +201,11 @@ public: // construction
         cstring_maker_type_::free(m_block);
     }
 private:
-    void operator =(class_type const& rhs); // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 public: // accessors
-    /// Returns a null-terminated string representing the string contents, or
-    /// NULL if the string has no contents.
+    /// Returns a null-terminated string representing the string contents,
+    /// or \c nullptr if the string has no contents.
     operator LPCWSTR () const
     {
         if (NULL == m_block)
@@ -217,20 +220,31 @@ private: // fields
     block_type_* const  m_block;
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * iostream compatibility
  */
 
-template<ss_typename_param_k S>
-inline S& operator <<(S& s, c_str_ptr_LSA_UNICODE_STRING_proxy const& shim)
+template <ss_typename_param_k S>
+inline
+S&
+operator <<(
+    S&                                          s
+,   c_str_ptr_LSA_UNICODE_STRING_proxy const&   shim
+)
 {
     s << static_cast<LPCWSTR>(shim);
 
     return s;
 }
 
-template<ss_typename_param_k S>
-inline S& operator <<(S& s, c_str_ptr_null_LSA_UNICODE_STRING_proxy const& shim)
+template <ss_typename_param_k S>
+inline
+S&
+operator <<(
+    S&                                              s
+,   c_str_ptr_null_LSA_UNICODE_STRING_proxy const&  shim
+)
 {
     s << static_cast<LPCWSTR>(shim);
 
@@ -246,7 +260,10 @@ inline S& operator <<(S& s, c_str_ptr_null_LSA_UNICODE_STRING_proxy const& shim)
 
 /* LSA_UNICODE_STRING */
 # ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-inline LPCWSTR c_str_data_w(LSA_UNICODE_STRING const& s)
+
+inline
+LPCWSTR
+c_str_data_w(LSA_UNICODE_STRING const& s)
 {
     return s.Buffer;
 }
@@ -257,10 +274,13 @@ inline LPCWSTR c_str_data_w(LSA_UNICODE_STRING const& s)
  * \ingroup group__concept__Shim__string_access
  *
  */
-inline LPCWSTR c_str_data(LSA_UNICODE_STRING const& s)
+inline
+LPCWSTR
+c_str_data(LSA_UNICODE_STRING const& s)
 {
     return s.Buffer;
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_len
@@ -271,7 +291,10 @@ inline LPCWSTR c_str_data(LSA_UNICODE_STRING const& s)
 
 /* LSA_UNICODE_STRING */
 # ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-inline ws_size_t c_str_len_w(LSA_UNICODE_STRING const& s)
+
+inline
+ws_size_t
+c_str_len_w(LSA_UNICODE_STRING const& s)
 {
     return s.Length;
 }
@@ -282,10 +305,13 @@ inline ws_size_t c_str_len_w(LSA_UNICODE_STRING const& s)
  * \ingroup group__concept__Shim__string_access
  *
  */
-inline ws_size_t c_str_len(LSA_UNICODE_STRING const& s)
+inline
+ws_size_t
+c_str_len(LSA_UNICODE_STRING const& s)
 {
     return s.Length;
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_ptr
@@ -296,7 +322,10 @@ inline ws_size_t c_str_len(LSA_UNICODE_STRING const& s)
 
 /* LSA_UNICODE_STRING */
 # ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-inline c_str_ptr_LSA_UNICODE_STRING_proxy c_str_ptr_w(LSA_UNICODE_STRING const& s)
+
+inline
+c_str_ptr_LSA_UNICODE_STRING_proxy
+c_str_ptr_w(LSA_UNICODE_STRING const& s)
 {
     return c_str_ptr_LSA_UNICODE_STRING_proxy(s);
 }
@@ -307,21 +336,27 @@ inline c_str_ptr_LSA_UNICODE_STRING_proxy c_str_ptr_w(LSA_UNICODE_STRING const& 
  * \ingroup group__concept__Shim__string_access
  *
  */
-inline c_str_ptr_LSA_UNICODE_STRING_proxy c_str_ptr(LSA_UNICODE_STRING const& s)
+inline
+c_str_ptr_LSA_UNICODE_STRING_proxy
+c_str_ptr(LSA_UNICODE_STRING const& s)
 {
     return c_str_ptr_LSA_UNICODE_STRING_proxy(s);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_ptr_null
  *
  * This can be applied to an expression, and the return value is either a
- * pointer to the character string or NULL.
+ * pointer to the character string or \c nullptr.
  */
 
 /* LSA_UNICODE_STRING */
 # ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-inline c_str_ptr_null_LSA_UNICODE_STRING_proxy c_str_ptr_null_w(LSA_UNICODE_STRING const& s)
+
+inline
+c_str_ptr_null_LSA_UNICODE_STRING_proxy
+c_str_ptr_null_w(LSA_UNICODE_STRING const& s)
 {
     return c_str_ptr_null_LSA_UNICODE_STRING_proxy(s);
 }
@@ -332,22 +367,28 @@ inline c_str_ptr_null_LSA_UNICODE_STRING_proxy c_str_ptr_null_w(LSA_UNICODE_STRI
  * \ingroup group__concept__Shim__string_access
  *
  */
-inline c_str_ptr_null_LSA_UNICODE_STRING_proxy c_str_ptr_null(LSA_UNICODE_STRING const& s)
+inline
+c_str_ptr_null_LSA_UNICODE_STRING_proxy
+c_str_ptr_null(LSA_UNICODE_STRING const& s)
 {
     return c_str_ptr_null_LSA_UNICODE_STRING_proxy(s);
 }
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace stlsoft::winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -380,11 +421,12 @@ using ::winstl::c_str_ptr_null_w;
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

@@ -1,12 +1,12 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/internal/cccap/dmc.h
+ * File:    stlsoft/internal/cccap/dmc.h
  *
- * Purpose:     Compiler feature discrimination for Digital Mars C/C++.
+ * Purpose: Compiler feature discrimination for Digital Mars C/C++.
  *
- * Created:     7th February 2003
- * Updated:     22nd January 2024
+ * Created: 7th February 2003
+ * Updated: 25th November 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
@@ -56,14 +56,16 @@
 # error This file cannot be included more than once in any compilation unit
 #endif /* STLSOFT_INCL_H_STLSOFT_CCCAP_DMC */
 
+
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_H_STLSOFT_CCCAP_DMC_MAJOR      3
 # define STLSOFT_VER_H_STLSOFT_CCCAP_DMC_MINOR      21
-# define STLSOFT_VER_H_STLSOFT_CCCAP_DMC_REVISION   1
-# define STLSOFT_VER_H_STLSOFT_CCCAP_DMC_EDIT       105
+# define STLSOFT_VER_H_STLSOFT_CCCAP_DMC_REVISION   2
+# define STLSOFT_VER_H_STLSOFT_CCCAP_DMC_EDIT       107
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Auto-generation and compatibility
@@ -74,9 +76,11 @@
 [<[STLSOFT-AUTO:NO-UNITTEST]>]
 */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * compiler features
  */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -95,6 +99,7 @@
 #  error STLSoft is compatible with only STLport and the SGI STL, when used with the Digital Mars compiler
 # endif /* STL */
 #endif /* __cplusplus */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * features
@@ -134,14 +139,14 @@
 
 /* bool */
 #ifdef _BOOL_DEFINED
-# define STLSOFT_CF_NATIVE_BOOL_SUPPORT
+# define STLSOFT_CF_BUILTIN_bool_SUPPORT
 #else
  /* Not defined */
 #endif /* _BOOL_DEFINED */
 
 /* char (sign) */
 #ifdef _CHAR_UNSIGNED
-# define STLSOFT_CF_CHAR_IS_UNSIGNED
+# define STLSOFT_CF_char_IS_UNSIGNED
 #endif /* _CHAR_UNSIGNED */
 
 /* wchar_t */
@@ -151,16 +156,6 @@
  /* Not defined */
 #endif /* _WCHAR_T_DEFINED */
 
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
 
 /* /////////////////////////////////////////////////////////////////////////
  * integral types
@@ -429,7 +424,7 @@
   */
 # define __STLSOFT_CF_ASSERT_SUPPORT
 # define STLSOFT_CF_ASSERT_SUPPORT
-# define STLSOFT_ASSERT(expr)                   _STLSOFT_CUSTOM_ASSERT(expr)
+# define STLSOFT_ASSERT(expr)                               _STLSOFT_CUSTOM_ASSERT(expr)
 # if defined(_STLSOFT_CUSTOM_ASSERT_INCLUDE)
 #  define   __STLSOFT_CF_ASSERT_INCLUDE_NAME                _STLSOFT_CUSTOM_ASSERT_INCLUDE
 # else
@@ -440,8 +435,9 @@
 # define STLSOFT_CF_ASSERT_SUPPORT
  //#define   __STLSOFT_CF_USE_cassert
 # define __STLSOFT_CF_ASSERT_INCLUDE_NAME                   <assert.h>
-# define STLSOFT_ASSERT(expr)                   assert(expr)
+# define STLSOFT_ASSERT(expr)                               assert(expr)
 #endif /* _STLSOFT_CUSTOM_ASSERT */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * calling convention
@@ -458,6 +454,7 @@
 # define STLSOFT_STDCALL                                    __stdcall
 #endif /* STLSOFT_CF_STDCALL_SUPPORTED */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * inline assembler
  */
@@ -465,11 +462,13 @@
 #define STSLSOFT_INLINE_ASM_SUPPORTED
 #define STSLSOFT_ASM_IN_INLINE_SUPPORTED
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * inline support
  */
 
 #define STLSOFT_CF_C99_INLINE
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * compiler warning suppression

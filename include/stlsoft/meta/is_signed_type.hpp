@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/meta/is_signed_type.hpp (originally MTBase.h, ::SynesisStl)
+ * File:    stlsoft/meta/is_signed_type.hpp (originally MTBase.h, ::SynesisStl)
  *
- * Purpose:     is_signed_type meta class.
+ * Purpose: is_signed_type meta class.
  *
- * Created:     19th November 1998
- * Updated:     26th December 2020
+ * Created: 19th November 1998
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_META_HPP_IS_SIGNED_TYPE_MAJOR      1
 # define STLSOFT_VER_STLSOFT_META_HPP_IS_SIGNED_TYPE_MINOR      1
-# define STLSOFT_VER_STLSOFT_META_HPP_IS_SIGNED_TYPE_REVISION   6
-# define STLSOFT_VER_STLSOFT_META_HPP_IS_SIGNED_TYPE_EDIT       21
+# define STLSOFT_VER_STLSOFT_META_HPP_IS_SIGNED_TYPE_REVISION   7
+# define STLSOFT_VER_STLSOFT_META_HPP_IS_SIGNED_TYPE_EDIT       24
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -76,6 +77,7 @@
 # include <stlsoft/meta/util/meta_.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_META_UTIL_HPP_META_ */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -84,6 +86,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -110,9 +113,9 @@ STLSOFT_GEN_TRAIT_SPECIALISATION_WITH_TYPE(is_signed_type, ss_sint32_t, 1, yes_t
 #ifdef STLSOFT_CF_64BIT_INT_SUPPORT
 STLSOFT_GEN_TRAIT_SPECIALISATION_WITH_TYPE(is_signed_type, ss_sint64_t, 1, yes_type)
 #endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
-#ifndef STLSOFT_CF_CHAR_IS_UNSIGNED
+#ifndef STLSOFT_CF_char_IS_UNSIGNED
 STLSOFT_GEN_TRAIT_SPECIALISATION_WITH_TYPE(is_signed_type, char, 1, yes_type)
-#endif /* !STLSOFT_CF_CHAR_IS_UNSIGNED */
+#endif /* !STLSOFT_CF_char_IS_UNSIGNED */
 
 #ifdef STLSOFT_CF_CHAR_DISTINCT_INT_TYPE
 STLSOFT_GEN_TRAIT_SPECIALISATION_WITH_TYPE(is_signed_type, signed char, 1, yes_type)
@@ -130,14 +133,17 @@ STLSOFT_GEN_TRAIT_SPECIALISATION_WITH_TYPE(is_signed_type, signed long, 1, yes_t
 STLSOFT_GEN_TRAIT_SPECIALISATION_WITH_TYPE(is_signed_type, float, 1, yes_type)
 STLSOFT_GEN_TRAIT_SPECIALISATION_WITH_TYPE(is_signed_type, double, 1, yes_type)
 STLSOFT_GEN_TRAIT_SPECIALISATION_WITH_TYPE(is_signed_type, long double, 1, yes_type)
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

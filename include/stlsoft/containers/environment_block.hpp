@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/containers/environment_block.hpp (stlsoft_environment_block.h)
+ * File:    stlsoft/containers/environment_block.hpp (stlsoft_environment_block.h)
  *
- * Purpose:     Contains the basic_environment_block class.
+ * Purpose: Contains the basic_environment_block class.
  *
- * Created:     25th June 2004
- * Updated:     22nd January 2024
+ * Created: 25th June 2004
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_ENVIRONMENT_BLOCK_MAJOR     4
 # define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_ENVIRONMENT_BLOCK_MINOR     2
-# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_ENVIRONMENT_BLOCK_REVISION  10
-# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_ENVIRONMENT_BLOCK_EDIT      61
+# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_ENVIRONMENT_BLOCK_REVISION  11
+# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_ENVIRONMENT_BLOCK_EDIT      64
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -85,6 +86,7 @@
 # include <stlsoft/shims/access/string.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_HPP_STRING */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -93,6 +95,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -107,15 +110,16 @@ namespace stlsoft
  * \param T The traits type. Defaults to char_traits<C>. On translators that do not support default template parameters, this must be explicitly specified.
  * \param A The allocator type. Defaults to stlsoft::allocator_selector<C>::allocator_type. On translators that do not support default template parameters, this must be explicitly specified.
  */
-template<   ss_typename_param_k C
+template<
+    ss_typename_param_k C
 #ifdef STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT
-        ,   ss_typename_param_k T = char_traits<C>
-        ,   ss_typename_param_k A = ss_typename_type_def_k allocator_selector<C>::allocator_type
+,   ss_typename_param_k T = char_traits<C>
+,   ss_typename_param_k A = ss_typename_type_def_k allocator_selector<C>::allocator_type
 #else /* ? STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
-        ,   ss_typename_param_k T /* = char_traits<C> */
-        ,   ss_typename_param_k A /* = ss_typename_type_def_k allocator_selector<C>::allocator_type */
+,   ss_typename_param_k T /* = char_traits<C> */
+,   ss_typename_param_k A /* = ss_typename_type_def_k allocator_selector<C>::allocator_type */
 #endif /* STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
-        >
+>
 class basic_environment_block
 {
 /// \name Types
@@ -185,11 +189,15 @@ public:
 
         STLSOFT_ASSERT('\0' == m_chars[m_chars.size() - 1]);
     }
+
+    /// Append a full NAME=VALUE environment pair
     template <ss_typename_param_k S>
     void push_back(S const& s)
     {
         push_back(STLSOFT_NS_QUAL(c_str_data)(s), STLSOFT_NS_QUAL(c_str_len)(s));
     }
+
+    /// Append a full NAME=VALUE environment pair
     void push_back(char_type const* name, ss_size_t cchName, char_type const* value, ss_size_t cchValue)
     {
         STLSOFT_ASSERT(NULL != name);
@@ -224,9 +232,12 @@ public:
 
         STLSOFT_ASSERT('\0' == m_chars[m_chars.size() - 1]);
     }
-    template<   ss_typename_param_k S1
-            ,   ss_typename_param_k S2
-            >
+
+    /// Append a full NAME=VALUE environment pair
+    template<
+        ss_typename_param_k S1
+    ,   ss_typename_param_k S2
+    >
     void push_back(S1 const& name, S2 const& value)
     {
         push_back(STLSOFT_NS_QUAL(c_str_data)(name), STLSOFT_NS_QUAL(c_str_len)(name), STLSOFT_NS_QUAL(c_str_data)(value), STLSOFT_NS_QUAL(c_str_len)(value));
@@ -283,36 +294,37 @@ private:
 
 // Members
 private:
-    typedef STLSOFT_NS_QUAL(auto_buffer_old)<
+    typedef STLSOFT_NS_QUAL(auto_buffer)<
         char_type
-    ,   allocator_type
     ,   1024
-    >                                                       char_buffer_type;
+    ,   allocator_type
+    >                                                       char_buffer_type_;
 
-    typedef STLSOFT_NS_QUAL(auto_buffer_old)<
+    typedef STLSOFT_NS_QUAL(auto_buffer)<
         size_type
+    ,   32
 #if defined(STLSOFT_LF_ALLOCATOR_REBIND_SUPPORT)
     ,   ss_typename_type_k allocator_type::ss_template_qual_k rebind<size_type>::other
 #else /* ? STLSOFT_LF_ALLOCATOR_REBIND_SUPPORT */
     ,   ss_typename_type_k allocator_selector<size_type>::allocator_type
 #endif /* STLSOFT_LF_ALLOCATOR_REBIND_SUPPORT */
-    ,   32
-    >                                                       offset_buffer_type;
+    >                                                       offset_buffer_type_;
 
-    typedef STLSOFT_NS_QUAL(auto_buffer_old)<
+    typedef STLSOFT_NS_QUAL(auto_buffer)<
         const_pointer
+    ,   32
 #if defined(STLSOFT_LF_ALLOCATOR_REBIND_SUPPORT)
     ,   ss_typename_type_k allocator_type::ss_template_qual_k rebind<pointer>::other
 #else /* ? STLSOFT_LF_ALLOCATOR_REBIND_SUPPORT */
     ,   ss_typename_type_k allocator_selector<pointer>::allocator_type
 #endif /* STLSOFT_LF_ALLOCATOR_REBIND_SUPPORT */
-    ,   32
-    >                                                       pointer_buffer_type;
+    >                                                       pointer_buffer_type_;
 
-    char_buffer_type        m_chars;
-    offset_buffer_type      m_offsets;
-    pointer_buffer_type     m_pointers;
+    char_buffer_type_       m_chars;
+    offset_buffer_type_     m_offsets;
+    pointer_buffer_type_    m_pointers;
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * typedefs for commonly encountered types
@@ -321,24 +333,23 @@ private:
 #ifdef STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT
 
  /// Specialisation of the basic_path template for the ANSI character type \c char
-typedef basic_environment_block<ss_char_a_t>    environment_block_a;
+typedef basic_environment_block<ss_char_a_t>                environment_block_a;
 /** Specialisation of the basic_environment_block template for the Unicode character type \c wchar_t
  *
  * \ingroup group__library__Container
  */
-typedef basic_environment_block<ss_char_w_t>    environment_block_w;
-
+typedef basic_environment_block<ss_char_w_t>                environment_block_w;
 #endif /* STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * implementation
+ * namespace
  */
 
-/* ////////////////////////////////////////////////////////////////////// */
-
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

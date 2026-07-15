@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/api/external/SystemInformation.h
+ * File:    winstl/api/external/SystemInformation.h
  *
- * Purpose:     External preprocessor aliases for external Windows' System
- *              Information Functions API.
+ * Purpose: External preprocessor aliases for external Windows' System
+ *          Information Functions API.
  *
- * Created:     24th December 2016
- * Updated:     30th November 2020
+ * Created: 24th December 2016
+ * Updated: 25th May 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -49,6 +49,7 @@
 #ifndef WINSTL_INCL_WINSTL_API_external_h_SystemInformation
 #define WINSTL_INCL_WINSTL_API_external_h_SystemInformation
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * includes
  */
@@ -60,9 +61,15 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
+#ifndef STLSOFT_INCL_H_WINDOWS
+# define STLSOFT_INCL_H_WINDOWS
+# include <windows.h>   /* Windows base header */
+#endif /* !STLSOFT_INCL_H_WINDOWS */
+
 #ifndef WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_
 # include <winstl/api/winstl_win32_winnt_.h>
 #endif /* !WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_ */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Windows' System Information Functions
@@ -107,7 +114,6 @@
 /* *************************************
  * XXXX functions
  */
-
 
 #ifndef WINSTL_API_EXTERNAL_SystemInformation_GetComputerNameA
 # define WINSTL_API_EXTERNAL_SystemInformation_GetComputerNameA             STLSOFT_NS_GLOBAL_(GetComputerNameA)

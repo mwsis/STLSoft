@@ -1,12 +1,12 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/filesystem/path_classify_functions.h
+ * File:    winstl/filesystem/path_classify_functions.h
  *
- * Purpose:     Path classification functions
+ * Purpose: Path classification functions
  *
- * Created:     28th November 2020
- * Updated:     22nd January 2024
+ * Created: 28th November 2020
+ * Updated: 27th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2020-2024, Matthew Wilson and Synesis Information Systems
  * All rights reserved.
@@ -52,9 +52,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_FILESYSTEM_H_PATH_CLASSIFY_FUNCTIONS_MAJOR       1
 # define WINSTL_VER_WINSTL_FILESYSTEM_H_PATH_CLASSIFY_FUNCTIONS_MINOR       3
-# define WINSTL_VER_WINSTL_FILESYSTEM_H_PATH_CLASSIFY_FUNCTIONS_REVISION    3
-# define WINSTL_VER_WINSTL_FILESYSTEM_H_PATH_CLASSIFY_FUNCTIONS_EDIT        11
+# define WINSTL_VER_WINSTL_FILESYSTEM_H_PATH_CLASSIFY_FUNCTIONS_REVISION    4
+# define WINSTL_VER_WINSTL_FILESYSTEM_H_PATH_CLASSIFY_FUNCTIONS_EDIT        14
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -84,6 +85,7 @@
 # define STLSOFT_INCL_H_CTYPE
 # include <ctype.h>
 #endif /* !STLSOFT_INCL_H_CTYPE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * types
@@ -151,6 +153,7 @@ struct winstl_C_path_classification_results_w_t
 typedef struct winstl_C_path_classification_results_w_t     winstl_C_path_classification_results_w_t;
 #endif /* !__cplusplus */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * constants
  */
@@ -163,6 +166,7 @@ typedef struct winstl_C_path_classification_results_w_t     winstl_C_path_classi
 #define WINSTL_PATH_CLASSIFY_F_IGNOREINVALIDCHARSINLONGPATH (0x00000008)
 
 #define WINSTL_PATH_CLASSIFY_F_MASK_                        (0x0000000f)
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * implementation
@@ -225,8 +229,8 @@ typedef struct winstl_C_path_classification_results_w_t     winstl_C_path_classi
 # undef winstl_C_path_classify_root_X_
 # undef winstl_C_path_classify_impl_X_
 # undef winstl_C_path_classify_root_impl_X_
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * API functions
@@ -337,10 +341,10 @@ winstl_C_path_is_rooted(
     case WinSTL_C_PathType_UncRooted:
     case WinSTL_C_PathType_HomeRooted:
 
-        return true;
+        return ws_true_v;
     default:
 
-        return false;
+        return ws_false_v;
     }
 }
 
@@ -356,10 +360,10 @@ winstl_C_path_is_absolute(
     case WinSTL_C_PathType_UncRooted:
     case WinSTL_C_PathType_HomeRooted:
 
-        return true;
+        return ws_true_v;
     default:
 
-        return false;
+        return ws_false_v;
     }
 }
 
@@ -414,6 +418,7 @@ winstl_C_path_classify_root(
 }
 #endif /* __cplusplus */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -436,6 +441,7 @@ namespace winstl_project
 # error
 #endif /* !__cplusplus */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * C++ types
  */
@@ -443,6 +449,7 @@ namespace winstl_project
 typedef winstl_C_path_classification_t                      path_classification_t;
 typedef winstl_C_path_classification_results_m_t            path_classification_results_m_t;
 typedef winstl_C_path_classification_results_w_t            path_classification_results_w_t;
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * C++ API functions
@@ -508,6 +515,7 @@ path_is_absolute(
     return 0 != winstl_C_path_is_absolute(pc);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -520,6 +528,7 @@ path_is_absolute(
 } /* namespace stlsoft */
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
  * File:        stlsoft/exception/policy/errno_to_string_translation_policy.hpp (formerly unixstl/error/exceptions.hpp)
  *
- * Purpose:     stlsoft::errno_to_string_translation_policy policy class
+ * Purpose: stlsoft::errno_to_string_translation_policy policy class
  *
- * Created:     19th June 2004
- * Updated:     22nd January 2024
+ * Created: 19th June 2004
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,10 +53,11 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_EXCEPTION_POLICY_HPP_ERRNO_TO_STRING_TRANSLATION_POLICY_MAJOR      5
-# define STLSOFT_VER_STLSOFT_EXCEPTION_POLICY_HPP_ERRNO_TO_STRING_TRANSLATION_POLICY_MINOR      0
+# define STLSOFT_VER_STLSOFT_EXCEPTION_POLICY_HPP_ERRNO_TO_STRING_TRANSLATION_POLICY_MINOR      1
 # define STLSOFT_VER_STLSOFT_EXCEPTION_POLICY_HPP_ERRNO_TO_STRING_TRANSLATION_POLICY_REVISION   1
-# define STLSOFT_VER_STLSOFT_EXCEPTION_POLICY_HPP_ERRNO_TO_STRING_TRANSLATION_POLICY_EDIT       67
+# define STLSOFT_VER_STLSOFT_EXCEPTION_POLICY_HPP_ERRNO_TO_STRING_TRANSLATION_POLICY_EDIT       70
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -88,6 +89,7 @@
 # include <errno.h>
 #endif /* !STLSOFT_INCL_H_ERRNO */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -96,6 +98,7 @@
 namespace stlsoft
 {
 #endif /* !STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -153,6 +156,31 @@ public:
         return creator.create();
     }
 
+    /// Creates a message from the given status code and qualifier
+    static
+    string_type
+    create_message(
+        char const*         message
+    ,   char const*         qualifier
+    )
+    {
+        size_type const                             cchMessage      =   STLSOFT_NS_QUAL(c_str_len)(message);
+        size_type const                             cchQualifier    =   STLSOFT_NS_QUAL(c_str_len)(qualifier);
+        STLSOFT_NS_QUAL(exception_string_creator)   creator(cchMessage + 2 + cchQualifier);
+
+        creator.append(message, cchMessage);
+
+        if (0 != cchMessage &&
+            0 != cchQualifier)
+        {
+            creator.append(": ", 2);
+        }
+
+        creator.append(qualifier, cchQualifier);
+
+        return creator.create();
+    }
+
 private:
     static char const* strerror_(int code)
     {
@@ -164,13 +192,15 @@ private:
     }
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* !STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control
@@ -179,8 +209,6 @@ private:
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
 # pragma once
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
-
-/* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* !STLSOFT_INCL_STLSOFT_EXCEPTION_POLICY_HPP_ERRNO_TO_STRING_TRANSLATION_POLICY */
 

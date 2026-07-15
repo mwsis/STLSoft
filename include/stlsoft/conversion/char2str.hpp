@@ -4,7 +4,7 @@
  * Purpose:     Conversion from character(s) to string.
  *
  * Created:     12th November 2020
- * Updated:     12th November 2020
+ * Updated:     20th March 2025
  *
  * Home:        http://stlsoft.org/
  *
@@ -53,8 +53,9 @@
 # define STLSOFT_VER_INCL_STLSOFT_CONVERSION_HPP_CHAR2STR_MAJOR     1
 # define STLSOFT_VER_INCL_STLSOFT_CONVERSION_HPP_CHAR2STR_MINOR     0
 # define STLSOFT_VER_INCL_STLSOFT_CONVERSION_HPP_CHAR2STR_REVISION  1
-# define STLSOFT_VER_INCL_STLSOFT_CONVERSION_HPP_CHAR2STR_EDIT      1
+# define STLSOFT_VER_INCL_STLSOFT_CONVERSION_HPP_CHAR2STR_EDIT      3
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -72,6 +73,7 @@
 # include <string>
 #endif /* !STLSOFT_INCL_STRING */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -80,6 +82,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helper functions
@@ -91,6 +94,7 @@ STLSOFT_OPEN_WORKER_NS_(ximpl_conversion_char2str_)
 
 STLSOFT_CLOSE_WORKER_NS_(ximpl_conversion_char2str_)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * functions
@@ -142,13 +146,15 @@ char2str(
     return std::string(1u, ch);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

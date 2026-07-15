@@ -1,10 +1,10 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:    test.unit.stlsoft.container.pod_vector.cpp
+ * File:    test.unit.stlsoft.container.pod_vector/entry.cpp
  *
- * Purpose: Unit-tests for `stlsoft::pod_vector`.
+ * Purpose: Unit-tests for `stlsoft::pod_vector`
  *
  * Created: 1st December 2008
- * Updated: 28th January 2024
+ * Updated: 29th May 2025
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -16,6 +16,7 @@
 #include <stlsoft/containers/pod_vector.hpp>
 // #include <stlsoft/container/pod_vector.hpp>
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * includes
  */
@@ -25,7 +26,6 @@
 
 /* STLSoft header files */
 #include <stlsoft/stlsoft.h>
-#include <platformstl/performance/performance_counter.hpp>
 
 /* Standard C++ header files */
 #include <numeric>
@@ -41,30 +41,28 @@
  * forward declarations
  */
 
-namespace
-{
+namespace {
 
-    static void test_default_ctor(void);
-    static void test_ctor_size(void);
-    static void test_ctor_size_and_value(void);
-    static void test_ctor_begin_end(void);
-    static void test_copy_ctor(void);
-    static void test_copy_assign(void);
+    static void test_default_ctor();
+    static void test_ctor_size();
+    static void test_ctor_size_and_value();
+    static void test_ctor_begin_end();
+    static void test_copy_ctor();
+    static void test_copy_assign();
 
-    static void test_assign(void);
-    static void test_at_1(void);
-    static void test_at_2(void);
-    static void test_clear(void);
-    static void test_erase(void);
-    static void test_front_and_back(void);
-    static void test_insert(void);
-    static void test_pop_back(void);
-    static void test_push_back(void);
-    static void test_reserve(void);
-    static void test_resize(void);
-    static void test_subscript_operator(void);
-    static void test_swap(void);
-
+    static void test_assign();
+    static void test_at_1();
+    static void test_at_2();
+    static void test_clear();
+    static void test_erase();
+    static void test_front_and_back();
+    static void test_insert();
+    static void test_pop_back();
+    static void test_push_back();
+    static void test_reserve();
+    static void test_resize();
+    static void test_subscript_operator();
+    static void test_swap();
 } // anonymous namespace
 
 
@@ -72,7 +70,7 @@ namespace
  * main()
  */
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
     int retCode = EXIT_SUCCESS;
     int verbosity = 2;
@@ -115,8 +113,7 @@ int main(int argc, char **argv)
  * test function implementations
  */
 
-namespace
-{
+namespace {
 
     typedef stlsoft::pod_vector<int>    int_vector_t;
 
@@ -221,7 +218,13 @@ static void test_assign()
     XTESTS_TEST_INTEGER_EQUAL(7u, v.size());
     XTESTS_TEST_INTEGER_EQUAL(-7, std::accumulate(v.begin(), v.end(), 0));
 
+#if __cplusplus >= 201103L
+
     v.assign(std::begin(ints), std::end(ints));
+#else
+
+    v.assign(&ints[0], &ints[0] + STLSOFT_NUM_ELEMENTS(ints));
+#endif
 
     XTESTS_TEST_BOOLEAN_FALSE(v.empty());
     XTESTS_TEST_INTEGER_EQUAL(10u, v.size());
@@ -279,7 +282,13 @@ static void test_erase()
 
     // { -4, -3, -2, -1, 0, 1, 2, 3, 4, 5 }
 
+#if __cplusplus >= 201103L
+
     int_vector_t v(std::begin(ints), std::end(ints));
+#else
+
+    int_vector_t v(&ints[0], &ints[0] + STLSOFT_NUM_ELEMENTS(ints));
+#endif
 
     XTESTS_TEST_BOOLEAN_FALSE(v.empty());
     XTESTS_TEST_INTEGER_EQUAL(10u, v.size());
@@ -403,7 +412,14 @@ static void test_insert()
 
     // { -8, -7, -6, -5, 0, 1, 2 }
 
+#if __cplusplus >= 201103L
+
     v.insert(v.begin(), std::begin(ints_neg8_to_neg5), std::end(ints_neg8_to_neg5));
+#else
+
+    v.insert(v.begin(), &ints_neg8_to_neg5[0], &ints_neg8_to_neg5[0] + STLSOFT_NUM_ELEMENTS(ints_neg8_to_neg5));
+#endif
+
 
     XTESTS_TEST_INTEGER_EQUAL(7u, v.size());
     XTESTS_TEST_INTEGER_EQUAL(-23, std::accumulate(v.begin(), v.end(), 0));
@@ -425,7 +441,14 @@ static void test_insert()
 
     // { -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2 }
 
+#if __cplusplus >= 201103L
+
     v.insert(v.begin() + 5, std::begin(ints_neg3_to_neg1), std::end(ints_neg3_to_neg1));
+#else
+
+    v.insert(v.begin() + 5, &ints_neg3_to_neg1[0], &ints_neg3_to_neg1[0] + STLSOFT_NUM_ELEMENTS(ints_neg3_to_neg1));
+#endif
+
 
     XTESTS_TEST_INTEGER_EQUAL(11u, v.size());
     XTESTS_TEST_INTEGER_EQUAL(-33, std::accumulate(v.begin(), v.end(), 0));
@@ -593,7 +616,6 @@ static void test_swap()
     XTESTS_TEST_BOOLEAN_FALSE(v2.empty());
     XTESTS_TEST_INTEGER_EQUAL(-10, std::accumulate(v2.begin(), v2.end(), 0));
 }
-
 } // anonymous namespace
 
 

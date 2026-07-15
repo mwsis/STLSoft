@@ -1,17 +1,17 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        unixstl/shims/access/string/dirent.hpp
+ * File:    unixstl/shims/access/string/dirent.hpp
  *
- * Purpose:     Support for the STLSoft string access shims for UNIX types.
+ * Purpose: Support for the STLSoft string access shims for UNIX types.
  *
- * Created:     11th January 2003
- * Updated:     26th December 2020
+ * Created: 11th January 2003
+ * Updated: 20th March 2025
  *
- * Thanks:      To Carlos Santander Bernal, for providing feedback for Mac
- *              builds
+ * Thanks:  To Carlos Santander Bernal, for providing feedback for Mac
+ *          builds
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -58,8 +58,9 @@
 # define UNIXSTL_VER_UNIXSTL_SHIMS_ACCESS_STRING_HPP_DIRENT_MAJOR       4
 # define UNIXSTL_VER_UNIXSTL_SHIMS_ACCESS_STRING_HPP_DIRENT_MINOR       0
 # define UNIXSTL_VER_UNIXSTL_SHIMS_ACCESS_STRING_HPP_DIRENT_REVISION    6
-# define UNIXSTL_VER_UNIXSTL_SHIMS_ACCESS_STRING_HPP_DIRENT_EDIT        64
+# define UNIXSTL_VER_UNIXSTL_SHIMS_ACCESS_STRING_HPP_DIRENT_EDIT        67
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -83,6 +84,7 @@
 # define STLSOFT_INCL_H_DIRENT
 # include <dirent.h>
 #endif /* !STLSOFT_INCL_H_DIRENT */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -115,10 +117,12 @@ namespace unixstl_project
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a C-style
+ * \return None-\c nullptr, non-mutating pointer to a C-style
  *   string of <code>char</code>.
  */
-inline us_char_a_t const* c_str_data_a(struct dirent const* d)
+inline
+us_char_a_t const*
+c_str_data_a(struct dirent const* d)
 {
     return (NULL == d) ? "" : d->d_name;
 }
@@ -128,9 +132,11 @@ inline us_char_a_t const* c_str_data_a(struct dirent const* d)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a C-style string.
+ * \return None-\c nullptr, non-mutating pointer to a C-style string.
  */
-inline us_char_a_t const* c_str_data(struct dirent const* d)
+inline
+us_char_a_t const*
+c_str_data(struct dirent const* d)
 {
     return (NULL == d) ? "" : d->d_name;
 }
@@ -141,10 +147,12 @@ inline us_char_a_t const* c_str_data(struct dirent const* d)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a C-style
+ * \return None-\c nullptr, non-mutating pointer to a C-style
  *   string of <code>char</code>.
  */
-inline us_char_a_t const* c_str_data_a(struct dirent const& d)
+inline
+us_char_a_t const*
+c_str_data_a(struct dirent const& d)
 {
     return d.d_name;
 }
@@ -154,18 +162,21 @@ inline us_char_a_t const* c_str_data_a(struct dirent const& d)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a C-style string.
+ * \return None-\c nullptr, non-mutating pointer to a C-style string.
  */
-inline us_char_a_t const* c_str_data(struct dirent const& d)
+inline
+us_char_a_t const*
+c_str_data(struct dirent const& d)
 {
     return d.d_name;
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_len
  *
- * This can be applied to an expression, and the return value is the number of
- * characters in the character string in the expression.
+ * This can be applied to an expression, and the return value is the number
+ * of characters in the character string in the expression.
  */
 
 /** \ref group__concept__Shim__string_access__c_str_len function
@@ -175,7 +186,9 @@ inline us_char_a_t const* c_str_data(struct dirent const& d)
  *
  * \return Length (in bytes) of the string form of <code>d</code>.
  */
-inline us_size_t c_str_len_a(struct dirent const* d)
+inline
+us_size_t
+c_str_len_a(struct dirent const* d)
 {
     return STLSOFT_NS_QUAL(c_str_len)(c_str_data(d));
 }
@@ -187,7 +200,9 @@ inline us_size_t c_str_len_a(struct dirent const* d)
  *
  * \return Length of the string form of <code>d</code>.
  */
-inline us_size_t c_str_len(struct dirent const* d)
+inline
+us_size_t
+c_str_len(struct dirent const* d)
 {
     return c_str_len_a(d);
 }
@@ -200,7 +215,9 @@ inline us_size_t c_str_len(struct dirent const* d)
  *
  * \return Length (in bytes) of the string form of <code>d</code>.
  */
-inline us_size_t c_str_len_a(struct dirent const& d)
+inline
+us_size_t
+c_str_len_a(struct dirent const& d)
 {
     return c_str_len_a(&d);
 }
@@ -212,10 +229,13 @@ inline us_size_t c_str_len_a(struct dirent const& d)
  *
  * \return Length of the string form of <code>d</code>.
  */
-inline us_size_t c_str_len(struct dirent const& d)
+inline
+us_size_t
+c_str_len(struct dirent const& d)
 {
     return c_str_len(&d);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_ptr
@@ -229,10 +249,12 @@ inline us_size_t c_str_len(struct dirent const& d)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a nul-terminated C-style
+ * \return None-\c nullptr, non-mutating pointer to a nul-terminated C-style
  *   string of <code>char</code>.
  */
-inline us_char_a_t const* c_str_ptr_a(struct dirent const* d)
+inline
+us_char_a_t const*
+c_str_ptr_a(struct dirent const* d)
 {
     return (NULL == d) ? "" : d->d_name;
 }
@@ -242,10 +264,12 @@ inline us_char_a_t const* c_str_ptr_a(struct dirent const* d)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a nul-terminated C-style
+ * \return None-\c nullptr, non-mutating pointer to a nul-terminated C-style
  *   string.
  */
-inline us_char_a_t const* c_str_ptr(struct dirent const* d)
+inline
+us_char_a_t const*
+c_str_ptr(struct dirent const* d)
 {
     return (NULL == d) ? "" : d->d_name;
 }
@@ -256,10 +280,12 @@ inline us_char_a_t const* c_str_ptr(struct dirent const* d)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a nul-terminated C-style
+ * \return None-\c nullptr, non-mutating pointer to a nul-terminated C-style
  *   string of <code>char</code>.
  */
-inline us_char_a_t const* c_str_ptr_a(struct dirent const& d)
+inline
+us_char_a_t const*
+c_str_ptr_a(struct dirent const& d)
 {
     return d.d_name;
 }
@@ -269,19 +295,22 @@ inline us_char_a_t const* c_str_ptr_a(struct dirent const& d)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return None-NULL, non-mutating pointer to a nul-terminated C-style
+ * \return None-\c nullptr, non-mutating pointer to a nul-terminated C-style
  *   string.
  */
-inline us_char_a_t const* c_str_ptr(struct dirent const& d)
+inline
+us_char_a_t const*
+c_str_ptr(struct dirent const& d)
 {
     return d.d_name;
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_ptr_null
  *
  * This can be applied to an expression, and the return value is either a
- * pointer to the character string or NULL.
+ * pointer to the character string or \c nullptr.
  */
 
 /** \ref group__concept__Shim__string_access__c_str_ptr_null function
@@ -289,10 +318,12 @@ inline us_char_a_t const* c_str_ptr(struct dirent const& d)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
- *   string of <code>char</code>.
+ * \return Possibly \c nullptr, non-mutating pointer to a nul-terminated
+ *   C-style string of <code>char</code>.
  */
-inline us_char_a_t const* c_str_ptr_null_a(struct dirent const* d)
+inline
+us_char_a_t const*
+c_str_ptr_null_a(struct dirent const* d)
 {
     return (NULL == d || 0 == d->d_name[0]) ? static_cast<us_char_a_t const*>(NULL) : d->d_name;
 }
@@ -302,10 +333,12 @@ inline us_char_a_t const* c_str_ptr_null_a(struct dirent const* d)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
- *   string.
+ * \return Possibly \c nullptr, non-mutating pointer to a nul-terminated
+ *   C-style string.
  */
-inline us_char_a_t const* c_str_ptr_null(struct dirent const* d)
+inline
+us_char_a_t const*
+c_str_ptr_null(struct dirent const* d)
 {
     return (NULL == d || 0 == d->d_name[0]) ? static_cast<us_char_a_t const*>(NULL) : d->d_name;
 }
@@ -316,10 +349,12 @@ inline us_char_a_t const* c_str_ptr_null(struct dirent const* d)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
- *   string.
+ * \return Possibly \c nullptr, non-mutating pointer to a nul-terminated
+ *   C-style string.
  */
-inline us_char_a_t const* c_str_ptr_null_a(struct dirent const& d)
+inline
+us_char_a_t const*
+c_str_ptr_null_a(struct dirent const& d)
 {
     return 0 == d.d_name[0] ? static_cast<us_char_a_t const*>(NULL) : d.d_name;
 }
@@ -329,13 +364,16 @@ inline us_char_a_t const* c_str_ptr_null_a(struct dirent const& d)
  *
  * \ingroup group__concept__Shim__string_access
  *
- * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
- *   string.
+ * \return Possibly \c nullptr, non-mutating pointer to a nul-terminated
+ *   C-style string.
  */
-inline us_char_a_t const* c_str_ptr_null(struct dirent const& d)
+inline
+us_char_a_t const*
+c_str_ptr_null(struct dirent const& d)
 {
     return 0 == d.d_name[0] ? static_cast<us_char_a_t const*>(NULL) : d.d_name;
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -344,12 +382,13 @@ inline us_char_a_t const* c_str_ptr_null(struct dirent const& d)
 #ifndef UNIXSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace unixstl */
+} // namespace unixstl
 # else
-} /* namespace stlsoft::unixstl_project */
-} /* namespace stlsoft */
+} // namespace unixstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -386,11 +425,12 @@ using ::unixstl::c_str_ptr_null_a;
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control
@@ -399,8 +439,6 @@ using ::unixstl::c_str_ptr_null_a;
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
 # pragma once
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
-
-/* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* !UNIXSTL_INCL_UNIXSTL_SHIMS_ACCESS_STRING_HPP_DIRENT */
 

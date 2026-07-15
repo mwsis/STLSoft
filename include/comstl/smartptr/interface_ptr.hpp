@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        comstl/smartptr/interface_ptr.hpp (originally MLRelItf.h; ::SynesisCom)
+ * File:    comstl/smartptr/interface_ptr.hpp (originally MLRelItf.h; ::SynesisCom)
  *
- * Purpose:     Interface management helper classes.
+ * Purpose: Interface management helper classes.
  *
- * Created:     2nd November 1994
- * Updated:     3rd December 2020
+ * Created: 2nd November 1994
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1994-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -52,11 +52,12 @@
 #define COMSTL_INCL_COMSTL_SMARTPTR_HPP_INTERFACE_PTR
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define COMSTL_VER_COMSTL_SMARTPTR_HPP_INTERFACE_PTR_MAJOR      7
-# define COMSTL_VER_COMSTL_SMARTPTR_HPP_INTERFACE_PTR_MINOR      2
-# define COMSTL_VER_COMSTL_SMARTPTR_HPP_INTERFACE_PTR_REVISION   9
-# define COMSTL_VER_COMSTL_SMARTPTR_HPP_INTERFACE_PTR_EDIT       512
+# define COMSTL_VER_COMSTL_SMARTPTR_HPP_INTERFACE_PTR_MAJOR     7
+# define COMSTL_VER_COMSTL_SMARTPTR_HPP_INTERFACE_PTR_MINOR     4
+# define COMSTL_VER_COMSTL_SMARTPTR_HPP_INTERFACE_PTR_REVISION  1
+# define COMSTL_VER_COMSTL_SMARTPTR_HPP_INTERFACE_PTR_EDIT      517
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -80,6 +81,7 @@
 # include <stlsoft/smartptr/ref_ptr.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SMARTPTR_HPP_REF_PTR */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -99,6 +101,7 @@ namespace comstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * classes
  */
@@ -116,15 +119,15 @@ class interface_ptr
 /// \name Types
 /// @{
 private:
-    typedef STLSOFT_NS_QUAL(ref_ptr)<T> parent_class_type;
+    typedef STLSOFT_NS_QUAL(ref_ptr)<T>                     parent_class_type;
 public:
-    typedef interface_ptr<T>            class_type;
+    typedef interface_ptr<T>                                class_type;
 
-    typedef T                           value_type;
-    typedef value_type*                 pointer;
-    typedef value_type const*           const_pointer;
-    typedef value_type&                 reference;
-    typedef value_type const&           const_reference;
+    typedef T                                               value_type;
+    typedef value_type*                                     pointer;
+    typedef value_type const*                               const_pointer;
+    typedef value_type&                                     reference;
+    typedef value_type const&                               const_reference;
 /// @}
 
 /// \name Construction
@@ -174,6 +177,7 @@ public:
 /// @}
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * swapping
  */
@@ -184,6 +188,7 @@ inline void swap(interface_ptr<T>& lhs, interface_ptr<T>& rhs)
     lhs.swap(rhs);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * deprecated shims
  */
@@ -191,12 +196,14 @@ inline void swap(interface_ptr<T>& lhs, interface_ptr<T>& rhs)
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 template <ss_typename_param_k T>
-inline cs_bool_t is_empty(interface_ptr<T> const& p)
+inline
+cs_bool_t
+is_empty(interface_ptr<T> const& p) STLSOFT_NOEXCEPT
 {
     return NULL == p.get_interface_ptr();
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * shims
@@ -206,10 +213,13 @@ inline cs_bool_t is_empty(interface_ptr<T> const& p)
  * \ingroup group__concept__Shim__Attribute__get_ptr
  */
 template <ss_typename_param_k T>
-inline T* get_ptr(interface_ptr<T> const& p)
+inline
+T*
+get_ptr(interface_ptr<T> const& p) STLSOFT_NOEXCEPT
 {
     return p.get_interface_ptr();
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * implementation
@@ -320,20 +330,23 @@ inline ss_typename_type_ret_k interface_ptr<T>::pointer interface_ptr<T>::get_in
 {
     return parent_class_type::get();
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef COMSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace comstl */
+} // namespace comstl
 # else
-} /* namespace comstl_project */
-} /* namespace stlsoft */
+} // namespace comstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -362,7 +375,7 @@ using ::comstl::is_empty;
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
@@ -387,9 +400,10 @@ namespace std
     {
         lhs.swap(rhs);
     }
-} /* namespace std */
+} // namespace std
 # endif /* INTEL && _MSC_VER < 1310 */
 #endif /* STLSOFT_CF_std_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

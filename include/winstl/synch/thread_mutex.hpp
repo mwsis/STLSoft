@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/synch/thread_mutex.hpp
+ * File:    winstl/synch/thread_mutex.hpp
  *
- * Purpose:     Intra-process mutex, based on Windows CRITICAL_SECTION.
+ * Purpose: Intra-process mutex, based on Windows CRITICAL_SECTION.
  *
- * Created:     17th December 1996
- * Updated:     23rd November 2020
+ * Created: 17th December 1996
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1996-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SYNCH_HPP_THREAD_MUTEX_MAJOR     4
 # define WINSTL_VER_WINSTL_SYNCH_HPP_THREAD_MUTEX_MINOR     0
-# define WINSTL_VER_WINSTL_SYNCH_HPP_THREAD_MUTEX_REVISION  12
-# define WINSTL_VER_WINSTL_SYNCH_HPP_THREAD_MUTEX_EDIT      69
+# define WINSTL_VER_WINSTL_SYNCH_HPP_THREAD_MUTEX_REVISION  16
+# define WINSTL_VER_WINSTL_SYNCH_HPP_THREAD_MUTEX_EDIT      75
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -71,6 +72,11 @@
 #ifndef WINSTL_INCL_WINSTL_SYNCH_HPP_COMMON
 # include <winstl/synch/common.hpp>
 #endif /* !WINSTL_INCL_WINSTL_SYNCH_HPP_COMMON */
+
+#ifndef WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_
+# include <winstl/api/winstl_win32_winnt_.h>
+#endif /* !WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_ */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -91,6 +97,7 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * spin-count support
  */
@@ -103,15 +110,14 @@ namespace winstl_project
 # undef __WINSTL_THREAD_MUTEX_TRY_LOCK_SUPPORT
 #endif /* __WINSTL_THREAD_MUTEX_TRY_LOCK_SUPPORT */
 
-#if defined(_WIN32_WINNT) && \
-    _WIN32_WINNT >= 0x0403
+#if WINSTL_WIN32_WINNT >= 0x0403
 # define __WINSTL_THREAD_MUTEX_SPIN_COUNT_SUPPORT
 #endif /* _WIN32_WINNT >= 0x0403 */
 
-#if defined(_WIN32_WINNT) && \
-    _WIN32_WINNT >= 0x0400
+#if WINSTL_WIN32_WINNT >= 0x0400
 # define __WINSTL_THREAD_MUTEX_TRY_LOCK_SUPPORT
 #endif /* _WIN32_WINNT >= 0x0400 */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -158,8 +164,8 @@ public:
         WINSTL_API_EXTERNAL_Synchronization_DeleteCriticalSection(&m_cs);
     }
 private:
-    thread_mutex(class_type const&);            // copy-construction proscribed
-    class_type& operator =(class_type const&);  // copy-assignment proscribed
+    thread_mutex(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Operations
 public:
@@ -201,6 +207,7 @@ private:
     CRITICAL_SECTION    m_cs;   // critical section
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -208,11 +215,12 @@ private:
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
+} // namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * control shims
@@ -248,6 +256,7 @@ unlock_instance(
     mx.unlock();
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -264,6 +273,7 @@ using ::stlsoft::unlock_instance;
 #  endif /* compiler */
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * lock_traits
@@ -297,6 +307,7 @@ public:
     }
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -304,12 +315,13 @@ public:
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

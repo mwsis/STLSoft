@@ -1,7 +1,7 @@
 # STLSoft - FAQ <!-- omit in toc -->
 
 The FAQ list is under (constant) development. If you post a question on the
-Issues forum (https://github.com/synesissoftware/STLSoft-1.10/issues)
+Issues forum (https://github.com/synesissoftware/STLSoft-1.11/issues)
 it will be used to create one.
 
 

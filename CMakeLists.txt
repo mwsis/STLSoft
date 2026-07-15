@@ -5,7 +5,7 @@
 # Purpose:  Top-level CMake lists file for STLSoft
 #
 # Created:  31st March 2021
-# Updated:  28th October 2024
+# Updated:  23rd August 2025
 #
 # ######################################################################## #
 
@@ -19,7 +19,7 @@ cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 file(TO_CMAKE_PATH "${CMAKE_CURRENT_BINARY_DIR}/CMakeLists.txt" LOC_PATH)
 if(EXISTS "${LOC_PATH}")
 
-    message(FATAL_ERROR "You cannot build in a source directory (or any directory with a CMakeLists.txt file). Please make a build subdirectory. Feel free to remove CMakeCache.txt and CMakeFiles.")
+	message(FATAL_ERROR "You cannot build in a source directory (or any directory with a CMakeLists.txt file). Please make a build subdirectory. Feel free to remove CMakeCache.txt and CMakeFiles.")
 endif()
 
 # directory for CMake specific extensions and source files.
@@ -30,9 +30,9 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 # project
 
 project(STLSoft
-    DESCRIPTION "STLSoft is a suite of libraries that provide STL extensions and facades over operating-system and technology-specific APIs."
-    HOMEPAGE_URL "https://github.com/synesissoftware/STLSoft-1.10"
-    LANGUAGES C CXX
+	DESCRIPTION "STLSoft is a suite of libraries that provide STL extensions and facades over operating-system and technology-specific APIs."
+	HOMEPAGE_URL "https://github.com/synesissoftware/STLSoft-1.11"
+	LANGUAGES C CXX
 )
 
 string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
@@ -46,7 +46,7 @@ string(REGEX MATCH "#${RX_WS}*define${RX_WS}+_?${RX_PROJ_TAG}_VER_MAJOR${RX_WS}+
 set(_VERSION_MAJOR ${CMAKE_MATCH_1})
 string(REGEX MATCH "#${RX_WS}*define${RX_WS}+_?${RX_PROJ_TAG}_VER_MINOR${RX_WS}+([0-9]+)" MINOR_DUMMY ${_header_file})
 set(_VERSION_MINOR ${CMAKE_MATCH_1})
-string(REGEX MATCH "#${RX_WS}*define${RX_WS}+_?${RX_PROJ_TAG}_VER_REVISION${RX_WS}+([0-9]+)" PATCH_DUMMY ${_header_file})
+string(REGEX MATCH "#${RX_WS}*define${RX_WS}+_?${RX_PROJ_TAG}_VER_PATCH${RX_WS}+([0-9]+)" PATCH_DUMMY ${_header_file})
 set(_VERSION_PATCH ${CMAKE_MATCH_1})
 
 # set project version number here
@@ -57,22 +57,51 @@ set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT
 
 # adhere strictly to C and C++ standards plus extensions. These are actually
 # useless since we do not compile anything; they merely state our intention.
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON) # GNU extensions and POSIX standard
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 
-
 if(MSVC)
+
+	if(MSVC_VERSION LESS 1800)
+
+		add_compile_options("/wd4996")
+	endif()
 
 	if(MSVC_VERSION LESS 1930)
 
 		set(CMAKE_C_STANDARD 90)
 		set(CMAKE_CXX_STANDARD 98)
 	endif()
+
+	if(MSVC_USE_MT)
+
+		set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+	endif(MSVC_USE_MT)
+else(MSVC)
+
+	if(MSVC_USE_MT)
+
+		# this here just to absorb warning about not using `MSVC_USE_MT` (to
+		# enable **prepare_cmake.sh** to be simple)
+	endif(MSVC_USE_MT)
 endif(MSVC)
+
+if(WIN32)
+
+	find_package(MFC QUIET)
+endif(WIN32)
+
+if(MFC_FOUND)
+
+	add_compile_definitions(STLSOFT_HAS_MFC)
+
+	message("-- using Microsoft Foundation Classes")
+endif(MFC_FOUND)
+
 
 # ##########################################################
 # dependencies, includes, options
@@ -106,6 +135,9 @@ option(BUILD_EXAMPLES "Build examples" ON)
 # - xTests - required for testing;
 #
 # optional:
+# - cstring - facilitates some C tests;
+# - shwild - enhances xTests for testing;
+# - UNIXem - required for examples/testing on Windows if USE_UNIXEM and WIN32 are defined;
 
 
 # ############################
@@ -136,11 +168,72 @@ endif(BUILD_TESTING)
 
 
 # ############################
+# shwild
+
+if(NOT (NO_SHWILD))
+
+	if(BUILD_TESTING)
+
+		set(shwild_REQUIRED_VERSION_ 0.12.6)
+
+		find_package(shwild ${shwild_REQUIRED_VERSION_} QUIET)
+
+		if(shwild_FOUND)
+
+			message("-- CMake package shwild found (version ${shwild_VERSION}; ${shwild_REQUIRED_VERSION_} requested)")
+
+			add_compile_definitions(XTESTS_USE_SHWILD)
+		endif(shwild_FOUND)
+	endif(BUILD_TESTING)
+endif()
+
+
+# ############################
+# cstring
+
+if(NOT (NO_CSTRING))
+
+	if(BUILD_TESTING)
+
+		set(cstring_REQUIRED_VERSION_ 4.0)
+
+		find_package(cstring ${cstring_REQUIRED_VERSION_} QUIET)
+
+		if(cstring_FOUND)
+
+			message("-- CMake package cstring found (version ${cstring_VERSION}; ${cstring_REQUIRED_VERSION_} requested)")
+
+			add_compile_definitions(STLSOFT_HAS_CSTRING)
+		endif(cstring_FOUND)
+	endif(BUILD_TESTING)
+endif()
+
+
+# ############################
+# UNIXem
+
+if((USE_UNIXEM) AND (WIN32))
+
+	if((BUILD_EXAMPLES) OR (BUILD_TESTING))
+
+		set(UNIXem_REQUIRED_VERSION_ 1.12.7)
+
+		find_package(UNIXem ${UNIXem_REQUIRED_VERSION_} REQUIRED)
+
+		message("-- CMake package UNIXem found (version ${UNIXem_VERSION}; ${UNIXem_REQUIRED_VERSION_} requested)")
+
+		add_compile_definitions(_STLSOFT_FORCE_ANY_COMPILER)
+		add_compile_definitions(STLSOFT_HAS_UNIXEM)
+	endif()
+endif()
+
+
+# ############################
 # xTests
 
 if(BUILD_TESTING)
 
-	set(xTests_REQUIRED_VERSION_ 0.24)
+	set(xTests_REQUIRED_VERSION_ 0.26.4)
 
 	find_package(xTests ${xTests_REQUIRED_VERSION_} REQUIRED)
 
@@ -161,6 +254,36 @@ include(GNUInstallDirs)
 
 # ##########################################################
 # targets
+
+# ################################################
+# custom definitions
+
+if(UNIX)
+
+	set(_BUILD_AS_UNIX 1)
+
+	message("-- Operating system Unix")
+else(UNIX)
+
+	if(WIN32)
+
+		if(USE_UNIXEM)
+
+			set(_BUILD_AS_UNIX 1)
+
+			message("-- Operating system Unix (synthesised on Windows)")
+		else(USE_UNIXEM)
+
+			set(_BUILD_AS_WIN32 1)
+
+			message("-- Operating system Windows")
+		endif(USE_UNIXEM)
+	else(WIN32)
+
+		message("-- Operating system unknown")
+	endif(WIN32)
+endif(UNIX)
+
 
 # ################################################
 # main libraries
@@ -197,11 +320,12 @@ endif(BUILD_TESTING)
 # ##########################################################
 # build
 
+
 add_library(STLSoft INTERFACE)
 
 target_include_directories(STLSoft INTERFACE
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>
+	$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+	$<INSTALL_INTERFACE:include>
 )
 
 
@@ -210,31 +334,31 @@ target_include_directories(STLSoft INTERFACE
 
 # this does not actually install anything...
 install(TARGETS STLSoft
-    EXPORT project-targets
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+	EXPORT project-targets
+	PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
 # ... and we have to manually copy the header files.
 foreach(ITEM
-    acestl
-    atlstl
-    comstl
-    inetstl
-    mfcstl
-    platformstl
-    rangelib
-    stlsoft
-    unixstl
-    winstl
-    wtlstl
+	acestl
+	atlstl
+	comstl
+	inetstl
+	mfcstl
+	platformstl
+	rangelib
+	stlsoft
+	unixstl
+	winstl
+	wtlstl
 )
 
-    install(
-        DIRECTORY ${CMAKE_SOURCE_DIR}/include/${ITEM}/
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${ITEM}/
-        FILES_MATCHING
-        PATTERN "*.h*"
-    )
+	install(
+		DIRECTORY ${CMAKE_SOURCE_DIR}/include/${ITEM}/
+		DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${ITEM}/
+		FILES_MATCHING
+		PATTERN "*.h*"
+	)
 endforeach()
 
 
@@ -244,30 +368,37 @@ endforeach()
 set(EXPORT_NAME ${PROJECT_NAME_LOWER})
 
 configure_package_config_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/${EXPORT_NAME}-config.cmake.in
-    ${CMAKE_CURRENT_BINARY_DIR}/cmake/${EXPORT_NAME}-config.cmake
-    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/${EXPORT_NAME}/cmake
+	${CMAKE_CURRENT_SOURCE_DIR}/cmake/${EXPORT_NAME}-config.cmake.in
+	${CMAKE_CURRENT_BINARY_DIR}/cmake/${EXPORT_NAME}-config.cmake
+	INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/${EXPORT_NAME}/cmake
 )
 
 write_basic_package_version_file(
-    ${CMAKE_CURRENT_BINARY_DIR}/cmake/${EXPORT_NAME}-config-version.cmake
-    VERSION ${PROJECT_VERSION}
-    COMPATIBILITY AnyNewerVersion
+	${CMAKE_CURRENT_BINARY_DIR}/cmake/${EXPORT_NAME}-config-version.cmake
+	VERSION ${PROJECT_VERSION}
+	COMPATIBILITY AnyNewerVersion
 )
 
-# install stlsoft-targets.cmake => /usr/local/lib/cmake/stlsoft
+#[====[
+export(EXPORT project-targets
+	FILE "${CMAKE_CURRENT_BINARY_DIR}/cmake/${EXPORT_NAME}-targets.cmake"
+	NAMESPACE "${PROJECT_NAME}::"
+)
+#]====]
+
+# install stlsoft-targets.cmake        => /usr/local/lib/cmake/stlsoft
 install(EXPORT project-targets
-    NAMESPACE "${PROJECT_NAME}::"
-    FILE "${EXPORT_NAME}-targets.cmake"
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${EXPORT_NAME}
+	NAMESPACE "${PROJECT_NAME}::"
+	FILE "${EXPORT_NAME}-targets.cmake"
+	DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${EXPORT_NAME}
 )
 
 # install stlsoft-config-version.cmake => /usr/local/lib/cmake/stlsoft
 # install stlsoft-config.cmake         => /usr/local/lib/cmake/stlsoft
 install(FILES
-    "${CMAKE_CURRENT_BINARY_DIR}/cmake/${EXPORT_NAME}-config.cmake"
-    "${CMAKE_CURRENT_BINARY_DIR}/cmake/${EXPORT_NAME}-config-version.cmake"
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${EXPORT_NAME}
+	"${CMAKE_CURRENT_BINARY_DIR}/cmake/${EXPORT_NAME}-config.cmake"
+	"${CMAKE_CURRENT_BINARY_DIR}/cmake/${EXPORT_NAME}-config-version.cmake"
+	DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${EXPORT_NAME}
 )
 
 

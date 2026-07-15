@@ -1,12 +1,12 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/window/menu_functions.h (originally MWMenu.h, ::SynesisWin)
+ * File:    winstl/window/menu_functions.h (originally MWMenu.h, ::SynesisWin)
  *
- * Purpose:     Menu functions.
+ * Purpose: Menu functions.
  *
- * Created:     20th October 1994
- * Updated:     22nd January 2024
+ * Created: 20th October 1994
+ * Updated: 24th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1994-2019, Matthew Wilson and Synesis Software
@@ -51,11 +51,12 @@
 #define WINSTL_INCL_WINSTL_WINDOW_H_MENU_FUNCTIONS
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define WINSTL_VER_WINSTL_WINDOW_H_MENU_FUNCTIONS_MAJOR       3
-# define WINSTL_VER_WINSTL_WINDOW_H_MENU_FUNCTIONS_MINOR       0
-# define WINSTL_VER_WINSTL_WINDOW_H_MENU_FUNCTIONS_REVISION    4
-# define WINSTL_VER_WINSTL_WINDOW_H_MENU_FUNCTIONS_EDIT        136
+# define WINSTL_VER_WINSTL_WINDOW_H_MENU_FUNCTIONS_MAJOR    3
+# define WINSTL_VER_WINSTL_WINDOW_H_MENU_FUNCTIONS_MINOR    0
+# define WINSTL_VER_WINSTL_WINDOW_H_MENU_FUNCTIONS_REVISION 4
+# define WINSTL_VER_WINSTL_WINDOW_H_MENU_FUNCTIONS_EDIT     138
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -67,6 +68,7 @@
 #ifdef STLSOFT_TRACE_INCLUDE
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -87,11 +89,17 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * C functions
  */
 
-STLSOFT_INLINE BOOL winstl__IsMenuItemChecked(HMENU hmenu, WORD wID)
+STLSOFT_INLINE
+BOOL
+winstl__IsMenuItemChecked(
+    HMENU   hmenu
+,   WORD    wID
+)
 {
     MENUITEMINFO    mii;
 
@@ -109,7 +117,13 @@ STLSOFT_INLINE BOOL winstl__IsMenuItemChecked(HMENU hmenu, WORD wID)
     return FALSE;
 }
 
-STLSOFT_INLINE BOOL winstl__SetMenuItemStateByIndex(HMENU hmenu, int i, UINT state)
+STLSOFT_INLINE
+BOOL
+winstl__SetMenuItemStateByIndex(
+    HMENU   hmenu
+,   int     i
+,   UINT    state
+)
 {
     MENUITEMINFO    mii;
 
@@ -120,7 +134,13 @@ STLSOFT_INLINE BOOL winstl__SetMenuItemStateByIndex(HMENU hmenu, int i, UINT sta
     return STLSOFT_NS_GLOBAL(SetMenuItemInfo)(hmenu, stlsoft_static_cast(UINT, i), TRUE, &mii);
 }
 
-STLSOFT_INLINE BOOL winstl__SetMenuItemStateById(HMENU hmenu, UINT id, UINT state)
+STLSOFT_INLINE
+BOOL
+winstl__SetMenuItemStateById(
+    HMENU   hmenu
+,   UINT    id
+,   UINT    state
+)
 {
     MENUITEMINFO    mii;
 
@@ -131,28 +151,46 @@ STLSOFT_INLINE BOOL winstl__SetMenuItemStateById(HMENU hmenu, UINT id, UINT stat
     return STLSOFT_NS_GLOBAL(SetMenuItemInfo)(hmenu, id, FALSE, &mii);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
  */
 
 #ifdef __cplusplus
 
-inline BOOL IsMenuItemChecked(HMENU hmenu, WORD wID)
+inline
+BOOL
+IsMenuItemChecked(
+    HMENU   hmenu
+,   WORD    wID
+)
 {
     return winstl__IsMenuItemChecked(hmenu, wID);
 }
 
-inline BOOL SetMenuItemStateByIndex(HMENU hmenu, int i, UINT state)
+inline
+BOOL
+SetMenuItemStateByIndex(
+    HMENU   hmenu
+,   int     i
+,   UINT    state
+)
 {
     return winstl__SetMenuItemStateByIndex(hmenu, i, state);
 }
 
-inline BOOL SetMenuItemStateById(HMENU hmenu, UINT id, UINT state)
+inline
+BOOL
+SetMenuItemStateById(
+    HMENU   hmenu
+,   UINT    id
+,   UINT    state
+)
 {
     return winstl__SetMenuItemStateById(hmenu, id, state);
 }
-
 #endif /* __cplusplus */
+
 
 /* ////////////////////////////////////////////////////////////////////// */
 
@@ -165,6 +203,7 @@ inline BOOL SetMenuItemStateById(HMENU hmenu, UINT id, UINT state)
 } /* namespace stlsoft */
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

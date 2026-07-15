@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/conversion/number/grouping_functions.hpp
+ * File:    winstl/conversion/number/grouping_functions.hpp
  *
- * Purpose:     Number formatting functions.
+ * Purpose: Number formatting functions.
  *
- * Created:     28th August 2005
- * Updated:     16th December 2023
+ * Created: 28th August 2005
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_CONVERSION_NUMBER_HPP_GROUPING_FUNCTIONS_MAJOR       1
 # define WINSTL_VER_WINSTL_CONVERSION_NUMBER_HPP_GROUPING_FUNCTIONS_MINOR       0
-# define WINSTL_VER_WINSTL_CONVERSION_NUMBER_HPP_GROUPING_FUNCTIONS_REVISION    9
-# define WINSTL_VER_WINSTL_CONVERSION_NUMBER_HPP_GROUPING_FUNCTIONS_EDIT        26
+# define WINSTL_VER_WINSTL_CONVERSION_NUMBER_HPP_GROUPING_FUNCTIONS_REVISION    10
+# define WINSTL_VER_WINSTL_CONVERSION_NUMBER_HPP_GROUPING_FUNCTIONS_EDIT        30
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -82,6 +83,7 @@
 # include <stlsoft/meta/is_integral_type.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_META_HPP_IS_INTEGRAL_TYPE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -101,22 +103,10 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * functions
  */
-
-#if 0
-template<
-    ss_typename_param_k C
-,   ss_typename_param_k N
->
-ws_size_t
-format_thousands(
-    C*                  dest
-,   ws_size_t           cchDest
-,   N const&            number
-);
-#endif /* 0 */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
@@ -133,12 +123,13 @@ format_thousands_3_impl(
 ,   stlsoft::yes_type
 )
 {
-    typedef system_traits<C>    traits_t;
+    typedef stlsoft::auto_buffer<C> buffer_t;
+    typedef system_traits<C>        system_traits_t;
 
-    int                     cch =   traits_t::get_locale_info(LOCALE_USER_DEFAULT, LOCALE_SGROUPING, NULL, 0);
-    stlsoft::auto_buffer<C> picture(1 + cch);
+    int         cch = system_traits_t::get_locale_info(LOCALE_USER_DEFAULT, LOCALE_SGROUPING, NULL, 0);
+    buffer_t    picture(1 + cch);
 
-    cch = traits_t::get_locale_info(LOCALE_USER_DEFAULT, LOCALE_SGROUPING, &picture[0], int(picture.size()));
+    cch = system_traits_t::get_locale_info(LOCALE_USER_DEFAULT, LOCALE_SGROUPING, &picture[0], int(picture.size()));
 
     return stlsoft::format_thousands(dest, cchDest, picture.data(), number);
 }
@@ -153,18 +144,47 @@ format_thousands_3_impl(
 ,   stlsoft::no_type
 )
 {
-    typedef system_traits<C>    traits_t;
+    typedef stlsoft::auto_buffer<C> buffer_t;
+    typedef system_traits<C>        system_traits_t;
 
-    int                     cch =   traits_t::get_locale_info(LOCALE_USER_DEFAULT, LOCALE_SGROUPING, NULL, 0);
-    stlsoft::auto_buffer<C> picture(1 + cch);
+    int         cch = system_traits_t::get_locale_info(LOCALE_USER_DEFAULT, LOCALE_SGROUPING, NULL, 0);
+    buffer_t    picture(1 + cch);
 
-    cch = traits_t::get_locale_info(LOCALE_USER_DEFAULT, LOCALE_SGROUPING, &picture[0], picture.size());
+    cch = system_traits_t::get_locale_info(LOCALE_USER_DEFAULT, LOCALE_SGROUPING, &picture[0], picture.size());
 
     return stlsoft::translate_thousands(dest, cchDest, picture.data(), number);
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+/** Converts the integer value \c number into a decimal string with grouping
+ * characters according to the current locale grouping picture (obtained
+ * from \c GetLocaleInfo() via \c LOCALE_SGROUPING for the current user)
+ *
+ * \ingroup group__library__Conversion
+ *
+\code
+  {
+    char    dest[21];
+    size_t  n = winstl::translate_thousands(dest, STLSOFT_NUM_ELEMENTS(dest), 123456789);
+
+    assert(n >= 11);
+    // NOTE: the actual format depends on the user/system grouping registry settings at the time of the call
+    // assert(0 == ::strcmp("123,456,789", dest));
+  }
+\endcode
+ *
+ * \tparam C Type of the character
+ * \tparam N Type of the integer
+ *
+ * \param dest Pointer to buffer to receive translation. If \c nullptr,
+ *   function returns required size;
+ * \param cchDest Size of available buffer. Ignored if dest is \c nullptr;
+ * \param number The number to be formatted;
+ *
+ * \return The number of characters required to store the result, including
+ *   its terminating NUL character. If this value is greater than \c cchDest
+ *   then nothing is written to \c dest
+ */
 template<
     ss_typename_param_k C
 ,   ss_typename_param_k N
@@ -177,22 +197,26 @@ format_thousands(
 ,   N const&            number
 )
 {
-    typedef ss_typename_type_k stlsoft::is_integral_type<N>::type   yesno_t;
+    typedef ss_typename_type_k stlsoft::is_integral_type<N>::type yesno_t;
 
     return format_thousands_3_impl(dest, cchDest, number, yesno_t());
 }
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

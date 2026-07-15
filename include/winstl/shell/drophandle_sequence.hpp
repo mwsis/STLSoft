@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/shell/drophandle_sequence.hpp
+ * File:    winstl/shell/drophandle_sequence.hpp
  *
- * Purpose:     Contains the basic_drophandle_sequence template class, and ANSI
- *              and Unicode specialisations thereof.
+ * Purpose: Contains the basic_drophandle_sequence template class, and ANSI
+ *          and Unicode specialisations thereof.
  *
- * Created:     13th November 2002
- * Updated:     22nd January 2024
+ * Created: 13th November 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,9 +55,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SHELL_HPP_DROPHANDLE_SEQUENCE_MAJOR      4
 # define WINSTL_VER_WINSTL_SHELL_HPP_DROPHANDLE_SEQUENCE_MINOR      1
-# define WINSTL_VER_WINSTL_SHELL_HPP_DROPHANDLE_SEQUENCE_REVISION   12
-# define WINSTL_VER_WINSTL_SHELL_HPP_DROPHANDLE_SEQUENCE_EDIT       114
+# define WINSTL_VER_WINSTL_SHELL_HPP_DROPHANDLE_SEQUENCE_REVISION   15
+# define WINSTL_VER_WINSTL_SHELL_HPP_DROPHANDLE_SEQUENCE_EDIT       119
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -102,6 +103,7 @@
 # include <shellapi.h>
 #endif /* !STLSOFT_INCL_H_SHELLAPI */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -121,6 +123,7 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * typedefs
  */
@@ -137,6 +140,7 @@ namespace winstl_project
 # define _STLSOFT_DROPHANDLE_SEQUENCE_VALUE_TYPE(C)     STLSOFT_NS_QUAL(basic_static_string)<C, WINSTL_CONST_MAX_PATH>
 #endif /* STLSOFT_CF_FRAME_STRING_SHIM_NOT_SUPPORTED */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * forward declarations
  */
@@ -147,6 +151,7 @@ template <ss_typename_param_k C, ss_typename_param_k T>
 class basic_drophandle_sequence;
 
 #endif /* STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -337,6 +342,9 @@ public:
     ss_explicit_k basic_drophandle_sequence(HDROP hdrop, ws_bool_t bOwnHandle = true);
     /// Release any resources acquired
     ~basic_drophandle_sequence() STLSOFT_NOEXCEPT;
+private:
+    basic_drophandle_sequence(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Attributes
 public:
@@ -375,11 +383,6 @@ private:
 
 // Implementation
 private:
-
-// Not to be implemented
-private:
-    basic_drophandle_sequence(class_type const&);
-    class_type& operator =(class_type const&);
 };
 
 /* Typedefs to commonly encountered types. */
@@ -398,6 +401,7 @@ typedef basic_drophandle_sequence<ws_char_w_t, drophandle_sequence_traits<ws_cha
  * \ingroup group__library__Windows_Shell
  */
 typedef basic_drophandle_sequence<TCHAR, drophandle_sequence_traits<TCHAR> >                drophandle_sequence;
+
 
 ////////////////////////////////////////////////////////////////////////////
 // Operators
@@ -641,12 +645,13 @@ inline ss_typename_type_ret_k basic_drophandle_sequence<C, T>::const_reverse_ite
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

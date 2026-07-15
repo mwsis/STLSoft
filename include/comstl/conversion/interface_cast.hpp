@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        comstl/conversion/interface_cast.hpp
+ * File:    comstl/conversion/interface_cast.hpp
  *
- * Purpose:     Safe interface casting functions.
+ * Purpose: Safe interface casting functions.
  *
- * Created:     25th June 2002
- * Updated:     22nd January 2024
+ * Created: 25th June 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -62,10 +62,11 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define COMSTL_VER_COMSTL_CONVERSION_HPP_INTERFACE_CAST_MAJOR      5
-# define COMSTL_VER_COMSTL_CONVERSION_HPP_INTERFACE_CAST_MINOR      2
-# define COMSTL_VER_COMSTL_CONVERSION_HPP_INTERFACE_CAST_REVISION   14
-# define COMSTL_VER_COMSTL_CONVERSION_HPP_INTERFACE_CAST_EDIT       136
+# define COMSTL_VER_COMSTL_CONVERSION_HPP_INTERFACE_CAST_MINOR      4
+# define COMSTL_VER_COMSTL_CONVERSION_HPP_INTERFACE_CAST_REVISION   1
+# define COMSTL_VER_COMSTL_CONVERSION_HPP_INTERFACE_CAST_EDIT       145
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -101,6 +102,7 @@
 # include <stlsoft/util/operator_bool.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_OPERATOR_BOOL */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -120,6 +122,7 @@ namespace comstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * functions
  */
@@ -137,6 +140,7 @@ simple_interface_cast(
 {
     return pi;
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * functionals
@@ -186,7 +190,7 @@ struct throw_bad_interface_cast_exception
 {
 public:
     /// The exception type
-    typedef bad_interface_cast  thrown_type;
+    typedef bad_interface_cast                              thrown_type;
 
 public:
     /// The function call operator, which throws the exception
@@ -256,7 +260,7 @@ struct interface_pointer_traits;
 template <ss_typename_param_k I>
 struct interface_pointer_traits<I*>
 {
-    typedef I   interface_type;
+    typedef I                                               interface_type;
 };
 
 # endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
@@ -285,8 +289,8 @@ private:
         return pi->Release();
     }
 };
-
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -304,29 +308,32 @@ private:
  * \param X The exception type
  */
 // [[synesis:class:implementation: comstl::interface_cast_base]]
-template<   ss_typename_param_k I
-        ,   ss_typename_param_k R
-        ,   ss_typename_param_k X
-        >
+template<
+    ss_typename_param_k I
+,   ss_typename_param_k R
+,   ss_typename_param_k X
+>
 class interface_cast_base
 {
 /// \name Member Types
 /// @{
 public:
     /// The interface pointer type
-    typedef I                                                               interface_pointer_type;
+    typedef I                                               interface_pointer_type;
 #ifdef STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT
     /// The interface type
-    typedef ss_typename_type_k interface_pointer_traits<I>::interface_type  interface_type;
+    typedef ss_typename_type_k interface_pointer_traits<I>::interface_type
+                                                            interface_type;
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
     /// The release type
-    typedef R                                                               release_type;
+    typedef R                                               release_type;
     /// The exception type
-    typedef X                                                               exception_policy_type;
+    typedef X                                               exception_policy_type;
     /// The thrown type
-    typedef ss_typename_type_k exception_policy_type::thrown_type           thrown_type;
+    typedef ss_typename_type_k exception_policy_type::thrown_type
+                                                            thrown_type;
     /// The current specialisation of the type
-    typedef interface_cast_base<I, R, X>                                    class_type;
+    typedef interface_cast_base<I, R, X>                    class_type;
 /// @}
 
 /// \name Member Constants
@@ -463,18 +470,20 @@ class interface_cast_noaddref
     : protected interface_cast_base<I, noaddref_release<I>, X>
 {
 private: // Member Types
-    typedef interface_cast_base<I, noaddref_release<I>, X>                  parent_class_type;
+    typedef interface_cast_base<I, noaddref_release<I>, X>  parent_class_type;
 public:
     /// The current specialisation of the type
-    typedef interface_cast_noaddref<I, X>                                   class_type;
+    typedef interface_cast_noaddref<I, X>                   class_type;
     /// The interface pointer type
-    typedef ss_typename_type_k parent_class_type::interface_pointer_type    interface_pointer_type;
+    typedef ss_typename_type_k parent_class_type::interface_pointer_type
+                                                            interface_pointer_type;
 # ifdef STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT
     /// The interface type
-    typedef ss_typename_type_k parent_class_type::interface_type            interface_type;
-    typedef protect_refcount<interface_type>*                               protected_interface_pointer_type;
+    typedef ss_typename_type_k parent_class_type::interface_type
+                                                            interface_type;
+    typedef protect_refcount<interface_type>*               protected_interface_pointer_type;
 # else /* ? STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
-    typedef interface_pointer_type                                          protected_interface_pointer_type;
+    typedef interface_pointer_type                          protected_interface_pointer_type;
 # endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
 public: // Construction
@@ -505,6 +514,9 @@ public: // Construction
     ~interface_cast_noaddref() STLSOFT_NOEXCEPT
     {} // We need to provide this to persuade VC6 to call the parent class dtor
 # endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+private:
+    interface_cast_noaddref(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
@@ -518,8 +530,6 @@ public:
 
 // Not to be implemented
 private:
-    interface_cast_noaddref(class_type const& rhs);
-    class_type const& operator =(class_type const& rhs);
 
     // These are defined to placate Borland C/C++
     void* operator new(cs_size_t /* si */) STLSOFT_NOEXCEPT
@@ -549,12 +559,17 @@ class interface_cast_addref
     : protected interface_cast_base<I, addref_release<I>, X>
 {
 private: // Member Types
-    typedef interface_cast_base<I, addref_release<I>, X>                    parent_class_type;
+    typedef interface_cast_base<
+        I
+    ,   addref_release<I>
+    ,   X
+    >                                                       parent_class_type;
 public:
     /// The current specialisation of the type
-    typedef interface_cast_addref<I, X>                                     class_type;
+    typedef interface_cast_addref<I, X>                     class_type;
     /// The interface pointer type
-    typedef ss_typename_type_k parent_class_type::interface_pointer_type    interface_pointer_type;
+    typedef ss_typename_type_k parent_class_type::interface_pointer_type
+                                                            interface_pointer_type;
 
 public: // Construction
     /// Constructor that attempts the speculative cast
@@ -578,6 +593,9 @@ public: // Construction
     ~interface_cast_addref() STLSOFT_NOEXCEPT
     {} // We need to provide this to persuade VC6 to call the parent class dtor
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+private:
+    interface_cast_addref(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
@@ -589,8 +607,6 @@ public:
 
 // Not to be implemented
 private:
-    interface_cast_addref(class_type const& rhs);
-    class_type const& operator =(class_type const& rhs);
 
     // These are defined to placate Borland C/C++
     void* operator new(cs_size_t /* si */) STLSOFT_NOEXCEPT
@@ -611,18 +627,24 @@ class interface_cast_tester
     : protected interface_cast_base<I, noaddref_release<I>, ignore_interface_cast_exception>
 {
 private: // Member Types
-    typedef interface_cast_base<I, noaddref_release<I>, ignore_interface_cast_exception>    parent_class_type;
+    typedef interface_cast_base<
+        I
+    ,   noaddref_release<I>
+    ,   ignore_interface_cast_exception
+    >                                                       parent_class_type;
 public:
     /// The current specialisation of the type
-    typedef interface_cast_tester<I>                                                        class_type;
+    typedef interface_cast_tester<I>                        class_type;
     /// The interface pointer type
-    typedef ss_typename_type_k parent_class_type::interface_pointer_type                    interface_pointer_type;
+    typedef ss_typename_type_k parent_class_type::interface_pointer_type
+                                                            interface_pointer_type;
 #ifdef STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT
     /// The interface type
-    typedef ss_typename_type_k parent_class_type::interface_type                            interface_type;
-    typedef protect_refcount<interface_type>*                                               protected_interface_pointer_type;
+    typedef ss_typename_type_k parent_class_type::interface_type
+                                                            interface_type;
+    typedef protect_refcount<interface_type>*               protected_interface_pointer_type;
 #else /* ? STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
-    typedef interface_pointer_type                                                          protected_interface_pointer_type;
+    typedef interface_pointer_type                          protected_interface_pointer_type;
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
 public: // Construction
@@ -647,6 +669,9 @@ public: // Construction
     ~interface_cast_tester() STLSOFT_NOEXCEPT
     {} // We need to provide this to persuade VC6 to call the parent class dtor
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+private:
+    interface_cast_tester(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 /// \name State
 /// @{
@@ -673,8 +698,6 @@ public:
 
 // Not to be implemented
 private:
-    interface_cast_tester(class_type const& rhs);
-    class_type const& operator =(class_type const& rhs);
 
     // These are defined to placate Borland C/C++
     void* operator new(cs_size_t /* si */) STLSOFT_NOEXCEPT
@@ -691,7 +714,8 @@ private:
  *
  * \ingroup group__library__Conversion
  *
- * \param src The object whose capabilities will be tested. May be NULL
+ * \param src The object whose capabilities will be tested. May be
+ *   \c nullptr
  *
 \code
 IStream* stm = . . .
@@ -790,7 +814,7 @@ try
 
   printf("Object has IStorage interface\n");
 }
-catch(comstl::bad_interface_cast &)
+catch (comstl::bad_interface_cast &)
 {
   printf("Object does not have IStorage interface\n");
 }
@@ -837,7 +861,7 @@ try
 
   printf("Wrapper object has IStorage interface\n");
 }
-catch(comstl::bad_interface_cast &)
+catch (comstl::bad_interface_cast &)
 {
   printf("Wrapper object does not have IStorage interface\n");
 }
@@ -932,6 +956,7 @@ try_interface_cast(
     return try_interface_cast<IDest>(src.get());
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * shims
  */
@@ -955,7 +980,7 @@ inline
 I
 get_ptr(
     COMSTL_NS_QUAL(interface_cast_noaddref)<I, X>& p
-)
+) STLSOFT_NOEXCEPT
 {
     return p.operator -> ();
 }
@@ -975,11 +1000,10 @@ inline
 I
 get_ptr(
     COMSTL_NS_QUAL(interface_cast_noaddref)<I, X> const& p
-)
+) STLSOFT_NOEXCEPT
 {
     return p.operator -> ();
 }
-
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 
 /** Attribute shim to retrieve the interface pointer of the given cast instance
@@ -996,7 +1020,7 @@ inline
 I
 get_ptr(
     COMSTL_NS_QUAL(interface_cast_addref)<I, X> &p
-)
+) STLSOFT_NOEXCEPT
 {
     return p;
 }
@@ -1014,11 +1038,12 @@ template<
 inline
 I const
 get_ptr(
-COMSTL_NS_QUAL(interface_cast_addref)<I, X> const& p
-)
+    COMSTL_NS_QUAL(interface_cast_addref)<I, X> const& p
+) STLSOFT_NOEXCEPT
 {
     return p;
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * deprecated shims
@@ -1036,7 +1061,7 @@ inline
 cs_bool_t
 is_empty(
     COMSTL_NS_QUAL(interface_cast_noaddref)<I, X> const& p
-)
+) STLSOFT_NOEXCEPT
 {
     return NULL != get_ptr(p);
 }
@@ -1051,24 +1076,27 @@ inline
 cs_bool_t
 is_empty(
     COMSTL_NS_QUAL(interface_cast_addref)<I, X> const& p
-)
+) STLSOFT_NOEXCEPT
 {
     return NULL != get_ptr(p);
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef COMSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace comstl */
+} // namespace comstl
 # else
-} /* namespace comstl_project */
-} /* namespace stlsoft */
+} // namespace comstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -1092,16 +1120,16 @@ using ::comstl::get_ptr;
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 using ::comstl::is_empty;
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

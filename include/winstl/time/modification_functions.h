@@ -1,12 +1,12 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/time/modification_functions.h
+ * File:    winstl/time/modification_functions.h
  *
- * Purpose:     Modification functions for Windows time structures.
+ * Purpose: Modification functions for Windows time structures.
  *
- * Created:     2nd February 2011
- * Updated:     22nd January 2024
+ * Created: 2nd February 2011
+ * Updated: 24th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2011-2019, Matthew Wilson and Synesis Software
@@ -51,11 +51,12 @@
 #define WINSTL_INCL_WINSTL_TIME_H_MODIFICATION_FUNCTIONS
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define WINSTL_VER_WINSTL_TIME_H_MODIFICATION_FUNCTIONS_MAJOR    2
-# define WINSTL_VER_WINSTL_TIME_H_MODIFICATION_FUNCTIONS_MINOR    0
-# define WINSTL_VER_WINSTL_TIME_H_MODIFICATION_FUNCTIONS_REVISION 1
-# define WINSTL_VER_WINSTL_TIME_H_MODIFICATION_FUNCTIONS_EDIT     12
+# define WINSTL_VER_WINSTL_TIME_H_MODIFICATION_FUNCTIONS_MAJOR      2
+# define WINSTL_VER_WINSTL_TIME_H_MODIFICATION_FUNCTIONS_MINOR      0
+# define WINSTL_VER_WINSTL_TIME_H_MODIFICATION_FUNCTIONS_REVISION   1
+# define WINSTL_VER_WINSTL_TIME_H_MODIFICATION_FUNCTIONS_EDIT       14
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -67,6 +68,7 @@
 #ifdef STLSOFT_TRACE_INCLUDE
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -88,6 +90,7 @@ namespace winstl_project
 
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * C functions
@@ -185,7 +188,7 @@ winstl_C_increment_FILETIME_us(
  *   in which case a subtraction is effected.
  *
  * \return The function does not return a value. The pointers must not be
- *   <code>NULL</code>, and no validity checking is performed on the offset
+ *   \c nullptr, and no validity checking is performed on the offset
  *   parameter values.
  *
  * \pre (NULL != result)
@@ -245,6 +248,7 @@ winstl_C_increment_SYSTEMTIME(
 
     return FALSE;
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
@@ -344,8 +348,8 @@ increment_SYSTEMTIME(
     ,   milliseconds
     );
 }
-
 #endif /* __cplusplus */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * backwards compatibility
@@ -354,6 +358,7 @@ increment_SYSTEMTIME(
 #ifdef STLSOFT_OBSOLETE
 
 #endif /* !STLSOFT_OBSOLETE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -369,6 +374,7 @@ increment_SYSTEMTIME(
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control
  */
@@ -376,8 +382,6 @@ increment_SYSTEMTIME(
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
 # pragma once
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
-
-/* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* !WINSTL_INCL_WINSTL_TIME_H_MODIFICATION_FUNCTIONS */
 

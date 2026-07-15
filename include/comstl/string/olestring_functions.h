@@ -1,12 +1,12 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        comstl/string/olestring_functions.h (originally MOOleStr.h, ::SynesisCom)
+ * File:    comstl/string/olestring_functions.h (originally MOOleStr.h, ::SynesisCom)
  *
- * Purpose:     Contains classes and functions for dealing with OLE/COM strings.
+ * Purpose: Contains classes and functions for dealing with OLE/COM strings.
  *
- * Created:     2nd March 1996
- * Updated:     22nd January 2024
+ * Created: 2nd March 1996
+ * Updated: 24th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1996-2019, Matthew Wilson and Synesis Software
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define COMSTL_VER_COMSTL_STRING_H_OLESTRING_FUNCTIONS_MAJOR       5
 # define COMSTL_VER_COMSTL_STRING_H_OLESTRING_FUNCTIONS_MINOR       1
-# define COMSTL_VER_COMSTL_STRING_H_OLESTRING_FUNCTIONS_REVISION    10
-# define COMSTL_VER_COMSTL_STRING_H_OLESTRING_FUNCTIONS_EDIT        173
+# define COMSTL_VER_COMSTL_STRING_H_OLESTRING_FUNCTIONS_REVISION    11
+# define COMSTL_VER_COMSTL_STRING_H_OLESTRING_FUNCTIONS_EDIT        176
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -75,13 +76,14 @@
 # include <stlsoft/internal/safestr.h>
 #endif /* !STLSOFT_INCL_STLSOFT_INTERNAL_H_SAFESTR */
 
+#ifndef WINSTL_INCL_WINSTL_API_external_h_UnicodeAndCharacterSet
+# include <winstl/api/external/UnicodeAndCharacterSet.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_UnicodeAndCharacterSet */
+
 #ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
 # include <stlsoft/api/external/string.h>
 #endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
 
-#ifndef WINSTL_INCL_WINSTL_API_external_h_UnicodeAndCharacterSet
-# include <winstl/api/external/UnicodeAndCharacterSet.h>
-#endif /* !WINSTL_INCL_WINSTL_API_external_h_UnicodeAndCharacterSet */
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -102,6 +104,7 @@ namespace comstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * C functions
  */
@@ -113,7 +116,9 @@ namespace comstl_project
  * \param s The string from which to create the OLE string
  * \result The created OLE string
  */
-STLSOFT_INLINE LPOLESTR comstl__olestring_create_a(cs_char_a_t const* s)
+STLSOFT_INLINE
+LPOLESTR
+comstl__olestring_create_a(cs_char_a_t const* s)
 {
     LPOLESTR    posz;
 
@@ -151,7 +156,9 @@ STLSOFT_INLINE LPOLESTR comstl__olestring_create_a(cs_char_a_t const* s)
  * \param s The string from which to create the OLE string
  * \result The created OLE string
  */
-STLSOFT_INLINE LPOLESTR comstl__olestring_create_w(cs_char_w_t const* s)
+STLSOFT_INLINE
+LPOLESTR
+comstl__olestring_create_w(cs_char_w_t const* s)
 {
     LPOLESTR posz;
 
@@ -184,7 +191,9 @@ STLSOFT_INLINE LPOLESTR comstl__olestring_create_w(cs_char_w_t const* s)
  *
  * \param posz The OLE string to destroy
  */
-STLSOFT_INLINE void comstl__olestring_destroy(LPOLESTR posz)
+STLSOFT_INLINE
+void
+comstl__olestring_destroy(LPOLESTR posz)
 {
     COMSTL_MESSAGE_ASSERT("Invalid request to destroy non-COM string", 0 != comstl__CoTaskMemDidAlloc(posz));
 
@@ -198,10 +207,13 @@ STLSOFT_INLINE void comstl__olestring_destroy(LPOLESTR posz)
  * \param posz The OLE string to duplicate
  * \return The copied OLE string
  */
-STLSOFT_INLINE LPOLESTR comstl__olestring_dup(LPCOLESTR posz)
+STLSOFT_INLINE
+LPOLESTR
+comstl__olestring_dup(LPCOLESTR posz)
 {
     return comstl__olestring_create_w(posz);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -211,6 +223,7 @@ STLSOFT_INLINE LPOLESTR comstl__olestring_dup(LPCOLESTR posz)
 namespace comstl
 {
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
@@ -225,7 +238,9 @@ namespace comstl
  * \param s The string from which to create the OLE string
  * \result The created OLE string
  */
-inline LPOLESTR olestring_create_a(cs_char_a_t const* s)
+inline
+LPOLESTR
+olestring_create_a(cs_char_a_t const* s)
 {
     return comstl__olestring_create_a(s);
 }
@@ -237,7 +252,9 @@ inline LPOLESTR olestring_create_a(cs_char_a_t const* s)
  * \param s The string from which to create the OLE string
  * \result The created OLE string
  */
-inline LPOLESTR olestring_create_w(cs_char_w_t const* s)
+inline
+LPOLESTR
+olestring_create_w(cs_char_w_t const* s)
 {
     return comstl__olestring_create_w(s);
 }
@@ -249,7 +266,9 @@ inline LPOLESTR olestring_create_w(cs_char_w_t const* s)
  * \param s The string from which to create the OLE string
  * \result The created OLE string
  */
-inline LPOLESTR olestring_create(cs_char_a_t const* s)
+inline
+LPOLESTR
+olestring_create(cs_char_a_t const* s)
 {
     return olestring_create_a(s);
 }
@@ -261,7 +280,9 @@ inline LPOLESTR olestring_create(cs_char_a_t const* s)
  * \param s The string from which to create the OLE string
  * \result The created OLE string
  */
-inline LPOLESTR olestring_create(cs_char_w_t const* s)
+inline
+LPOLESTR
+olestring_create(cs_char_w_t const* s)
 {
     return olestring_create_w(s);
 }
@@ -272,7 +293,9 @@ inline LPOLESTR olestring_create(cs_char_w_t const* s)
  *
  * \param posz The OLE string to destroy
  */
-inline void olestring_destroy(LPOLESTR posz)
+inline
+void
+olestring_destroy(LPOLESTR posz)
 {
     comstl__olestring_destroy(posz);
 }
@@ -284,14 +307,18 @@ inline void olestring_destroy(LPOLESTR posz)
  * \param posz The OLE string to duplicate
  * \return The copied OLE string
  */
-inline LPOLESTR olestring_dup(LPCOLESTR posz)
+inline
+LPOLESTR
+olestring_dup(LPCOLESTR posz)
 {
     return olestring_create(posz);
 }
-
 #endif /* __cplusplus */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef COMSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
@@ -302,6 +329,7 @@ inline LPOLESTR olestring_dup(LPCOLESTR posz)
 } /* namespace stlsoft */
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

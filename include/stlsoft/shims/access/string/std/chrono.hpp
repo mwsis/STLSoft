@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/shims/access/string/std/chrono.hpp
+ * File:    stlsoft/shims/access/string/std/chrono.hpp
  *
- * Purpose:     Contains the c_str_data and c_str_len accessors.
+ * Purpose: Contains the c_str_data and c_str_len accessors.
  *
- * Created:     25th October 2020
- * Updated:     18th January 2021
+ * Created: 25th October 2020
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2020-2021, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2020-2025, Matthew Wilson and Synesis Information Systems
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,6 +40,9 @@
  * ////////////////////////////////////////////////////////////////////// */
 
 
+/* STLSOFT:C++98:FILE_DEPRECATED */
+/* STLSOFT:C++03:FILE_DEPRECATED */
+
 /** \file stlsoft/shims/access/string/std/chrono.hpp
  *
  * \brief [C++] Definition of the string access shims for
@@ -53,9 +56,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_BASIC_CHRONO_MAJOR     1
 # define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_BASIC_CHRONO_MINOR     0
-# define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_BASIC_CHRONO_REVISION  3
-# define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_BASIC_CHRONO_EDIT      3
+# define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_BASIC_CHRONO_REVISION  6
+# define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_BASIC_CHRONO_EDIT      9
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -75,14 +79,15 @@
 # include <stlsoft/string/shim_string.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_SHIM_STRING */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_time
-# include <stlsoft/api/internal/time.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_time */
-
 #ifndef STLSOFT_INCL_CHRONO
 # define STLSOFT_INCL_CHRONO
 # include <chrono>
 #endif /* !STLSOFT_INCL_CHRONO */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_time
+# include <stlsoft/api/internal/time.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_time */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -92,6 +97,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_data
@@ -125,14 +131,12 @@ c_str_data_a(
     struct tm       tm;
     int const       r   =   STLSOFT_API_INTERNAL_Time_localtime(&tm, &t);
 
-    if (0 != r)
-    {
-        return shim_string_t("(invalid time)");
-    }
-    else
+    if (0 == r)
     {
         return c_str_data_a(&tm);
     }
+
+    return shim_string_t("(invalid time)");
 }
 #endif
 
@@ -169,22 +173,24 @@ c_str_len_a(
     struct tm       tm;
     int const       r   =   STLSOFT_API_INTERNAL_Time_localtime(&tm, &t);
 
-    if (0 != r)
-    {
-        return 14u;
-    }
-    else
+    if (0 == r)
     {
         return c_str_len_a(&tm);
     }
+
+    return 14u;
 }
 #endif
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/synch/tss_index.hpp (originally in MWTlsFns.h, ::SynesisWin)
+ * File:    winstl/synch/tss_index.hpp (originally in MWTlsFns.h, ::SynesisWin)
  *
- * Purpose:     Wrapper class for Win32 TSS key.
+ * Purpose: Wrapper class for Win32 TSS key.
  *
- * Created:     20th January 1999
- * Updated:     22nd January 2024
+ * Created: 20th January 1999
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1999-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SYNCH_HPP_TSS_INDEX_MAJOR    4
 # define WINSTL_VER_WINSTL_SYNCH_HPP_TSS_INDEX_MINOR    0
-# define WINSTL_VER_WINSTL_SYNCH_HPP_TSS_INDEX_REVISION 14
-# define WINSTL_VER_WINSTL_SYNCH_HPP_TSS_INDEX_EDIT     55
+# define WINSTL_VER_WINSTL_SYNCH_HPP_TSS_INDEX_REVISION 18
+# define WINSTL_VER_WINSTL_SYNCH_HPP_TSS_INDEX_EDIT     61
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -79,6 +80,7 @@
 # include <winstl/api/external/ErrorHandling.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -97,6 +99,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -132,6 +135,11 @@ public:
     )
         : parent_class_type(sc, message, Synchronisation_TssIndexCreationFailed)
     {}
+#if __cplusplus >= 201103L
+    tss_exception(class_type const&) = default;
+#endif
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Accessors
@@ -141,12 +149,6 @@ public:
     {
         return "failed to allocate a TSS key";
     }
-/// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    class_type& operator =(class_type const&);
 /// @}
 };
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
@@ -162,15 +164,15 @@ class tss_index
 /// @{
 public:
     /// This class
-    typedef tss_index   class_type;
+    typedef tss_index                                       class_type;
     /// The type of the TSS key
-    typedef ws_dword_t  key_type;
+    typedef ws_dword_t                                      key_type;
     /// The type of the TSS key
     ///
     /// \deprecated Deprecated in favour of key_type
-    typedef key_type    index_type;
+    typedef key_type                                        index_type;
     /// The type of the slot values
-    typedef void*       value_type;
+    typedef void*                                           value_type;
 /// @}
 
 /// \name Construction
@@ -185,6 +187,9 @@ public:
     {
         index_destroy_(m_index);
     }
+private:
+    tss_index(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Operations
@@ -255,26 +260,23 @@ private:
 private:
     key_type    m_index;
 /// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    tss_index(class_type const&);
-    class_type& operator =(class_type const&);
-/// @}
 };
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/util/resizeable_buffer_helpers.hpp
+ * File:    stlsoft/util/resizeable_buffer_helpers.hpp
  *
- * Purpose:     Utility functions for working with resizeable-buffers.
+ * Purpose: Utility functions for working with resizeable-buffers.
  *
- * Created:     24th December 2020
- * Updated:     16th January 2021
+ * Created: 24th December 2020
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2020-2021, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2020-2025, Matthew Wilson and Synesis Information Systems
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_UTIL_HPP_RESIZEABLE_BUFFER_HELPERS_MAJOR       1
 # define STLSOFT_VER_STLSOFT_UTIL_HPP_RESIZEABLE_BUFFER_HELPERS_MINOR       0
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_RESIZEABLE_BUFFER_HELPERS_REVISION    3
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_RESIZEABLE_BUFFER_HELPERS_EDIT        4
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_RESIZEABLE_BUFFER_HELPERS_REVISION    4
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_RESIZEABLE_BUFFER_HELPERS_EDIT        7
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -72,6 +73,7 @@
 # include <stlsoft/meta/size_of.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_META_HPP_SIZE_OF */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -80,6 +82,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helpers
@@ -184,6 +187,7 @@ struct rb_helper_traits
 STLSOFT_CLOSE_WORKER_NS_(ximpl_stlsoft_util_rb_helpers_)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * functions
  */
@@ -203,6 +207,13 @@ resizeable_buffer_resize(
 ,   ss_size_t           newSize
 )
 {
+#ifdef STLSOFT_COMPILER_IS_MSVC
+# if _MSC_VER >= 1200
+#  pragma warning(push)
+# endif /* compiler */
+# pragma warning(disable : 4459)
+#endif /* compiler */
+
 #if 0
 #elif defined(STLSOFT_COMPILER_IS_MSVC) && \
       _MSC_VER < 1310
@@ -223,13 +234,22 @@ resizeable_buffer_resize(
 
     return traits_t::do_resize(rb, newSize, &T_resizeableBuffer::resize);
 #endif
+
+#ifdef STLSOFT_COMPILER_IS_MSVC
+# if _MSC_VER >= 1200
+#  pragma warning(pop)
+# else /* ? compiler */
+#  pragma warning(default : 4459)
+# endif /* _MSC_VER */
+#endif /* compiler */
 }
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

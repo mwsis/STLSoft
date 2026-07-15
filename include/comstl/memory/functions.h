@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        comstl/memory/functions.h
+ * File:    comstl/memory/functions.h
  *
- * Purpose:     COM memory functions.
+ * Purpose: COM memory functions.
  *
- * Created:     2nd March 1996
- * Updated:     30th November 2020
+ * Created: 2nd March 1996
+ * Updated: 26th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1996-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,8 +54,9 @@
 # define COMSTL_VER_COMSTL_MEMORY_H_FUNCTIONS_MAJOR     4
 # define COMSTL_VER_COMSTL_MEMORY_H_FUNCTIONS_MINOR     1
 # define COMSTL_VER_COMSTL_MEMORY_H_FUNCTIONS_REVISION  9
-# define COMSTL_VER_COMSTL_MEMORY_H_FUNCTIONS_EDIT      62
+# define COMSTL_VER_COMSTL_MEMORY_H_FUNCTIONS_EDIT      64
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -71,6 +72,7 @@
 #ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
 # include <winstl/api/external/ErrorHandling.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -91,6 +93,7 @@ namespace comstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * C functions
  */
@@ -108,7 +111,9 @@ namespace comstl_project
  * \note [C++] This function is wrapped by the comstl::CoTaskMemGetSize()
  *   function.
  */
-STLSOFT_INLINE cs_size_t comstl__CoTaskMemGetSize(void* pv)
+STLSOFT_INLINE
+cs_size_t
+comstl__CoTaskMemGetSize(void* pv)
 {
     LPMALLOC    lpmalloc;
     cs_size_t   ulRet;
@@ -144,7 +149,9 @@ STLSOFT_INLINE cs_size_t comstl__CoTaskMemGetSize(void* pv)
  * \note [C++] This function is wrapped by the comstl::CoTaskMemDidAlloc()
  *   function.
  */
-STLSOFT_INLINE cs_sint_t comstl__CoTaskMemDidAlloc(void* pv)
+STLSOFT_INLINE
+cs_sint_t
+comstl__CoTaskMemDidAlloc(void* pv)
 {
     LPMALLOC    lpmalloc;
     cs_sint_t   iRet;
@@ -175,7 +182,9 @@ STLSOFT_INLINE cs_sint_t comstl__CoTaskMemDidAlloc(void* pv)
  * \note [C++] This function is wrapped by the comstl::CoTaskMemHeapMinimise()
  *   function.
  */
-STLSOFT_INLINE void comstl__CoTaskMemHeapMinimise(void)
+STLSOFT_INLINE
+void
+comstl__CoTaskMemHeapMinimise(void)
 {
     LPMALLOC    lpmalloc;
     HRESULT     hr  =   STLSOFT_NS_GLOBAL(CoGetMalloc)(MEMCTX_TASK, &lpmalloc);
@@ -191,6 +200,7 @@ STLSOFT_INLINE void comstl__CoTaskMemHeapMinimise(void)
     }
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -199,6 +209,7 @@ STLSOFT_INLINE void comstl__CoTaskMemHeapMinimise(void)
 namespace comstl
 {
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
@@ -215,7 +226,9 @@ namespace comstl
  * \param pv Pointer to the memory block
  * \return The size of the memory block (in bytes)
  */
-inline cs_size_t CoTaskMemGetSize(void* pv)
+inline
+cs_size_t
+CoTaskMemGetSize(void* pv)
 {
     return comstl__CoTaskMemGetSize(pv);
 }
@@ -232,7 +245,9 @@ inline cs_size_t CoTaskMemGetSize(void* pv)
  * \retval 0 The memory block was <i>not</i> allocated by the task allocator
  * \retval -1 CoTaskMemDidAlloc() cannot determine whether the memory block was allocated by the task allocator
  */
-inline cs_sint_t CoTaskMemDidAlloc(void* pv)
+inline
+cs_sint_t
+CoTaskMemDidAlloc(void* pv)
 {
     return comstl__CoTaskMemDidAlloc(pv);
 }
@@ -243,7 +258,9 @@ inline cs_sint_t CoTaskMemDidAlloc(void* pv)
  *
  * This function is a wrapper for comstl__CoTaskMemHeapMinimise().
  */
-inline void CoTaskMemHeapMinimise()
+inline
+void
+CoTaskMemHeapMinimise()
 {
     comstl__CoTaskMemHeapMinimise();
 }
@@ -254,14 +271,18 @@ inline void CoTaskMemHeapMinimise()
  *
  * This function is a wrapper for comstl__CoTaskMemHeapMinimise().
  */
-inline void CoTaskMemHeapMinimize()
+inline
+void
+CoTaskMemHeapMinimize()
 {
     comstl__CoTaskMemHeapMinimise();
 }
-
 #endif /* __cplusplus */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef COMSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
@@ -272,6 +293,7 @@ inline void CoTaskMemHeapMinimize()
 } /* namespace stlsoft */
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

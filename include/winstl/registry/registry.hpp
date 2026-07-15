@@ -4,11 +4,11 @@
  * Purpose:     Declares the Registry Library.
  *
  * Created:     19th January 2002
- * Updated:     26th December 2020
+ * Updated:     20th March 2025
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,8 +54,9 @@
 # define WINSTL_VER_WINSTL_REGISTRY_HPP_REGISTRY_MAJOR      1
 # define WINSTL_VER_WINSTL_REGISTRY_HPP_REGISTRY_MINOR      0
 # define WINSTL_VER_WINSTL_REGISTRY_HPP_REGISTRY_REVISION   7
-# define WINSTL_VER_WINSTL_REGISTRY_HPP_REGISTRY_EDIT       67
+# define WINSTL_VER_WINSTL_REGISTRY_HPP_REGISTRY_EDIT       69
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -74,6 +75,7 @@
 #ifndef WINSTL_INCL_WINSTL_REGISTRY_UTIL_HPP_DEFS
 # include <winstl/registry/util/defs.hpp>
 #endif /* !WINSTL_INCL_WINSTL_REGISTRY_UTIL_HPP_DEFS */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -101,12 +103,13 @@ namespace winstl_project
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

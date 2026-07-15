@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/filesystem/squeeze_functions.hpp (formerly winstl/filesystem/path_functions.hpp)
+ * File:    winstl/filesystem/squeeze_functions.hpp (formerly winstl/filesystem/path_functions.hpp)
  *
- * Purpose:     Path squeeze functions
+ * Purpose: Path squeeze functions
  *
- * Created:     6th June 2006
- * Updated:     16th February 2024
+ * Created: 6th June 2006
+ * Updated: 15th April 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_SQUEEZE_FUNCTIONS_MAJOR       2
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_SQUEEZE_FUNCTIONS_MINOR       0
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_SQUEEZE_FUNCTIONS_REVISION    5
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_SQUEEZE_FUNCTIONS_EDIT        35
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_SQUEEZE_FUNCTIONS_REVISION    6
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_SQUEEZE_FUNCTIONS_EDIT        39
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -78,6 +79,7 @@
 # include <stlsoft/shims/access/string.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_HPP_STRING */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -96,6 +98,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helper functions
@@ -136,7 +139,9 @@ path_squeeze_impl(
         {
             // Room for all
 
-            p.copy(buffer, cchBuffer);
+            p.copy(buffer, pathLen);
+
+            buffer[pathLen] = '\0';
 
             cchBuffer = pathLen + 1u;
         }
@@ -274,6 +279,7 @@ path_squeeze_impl2(
 STLSOFT_CLOSE_WORKER_NS_(ximpl_winstl_squeeze_functions_)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * API functions
  */
@@ -284,13 +290,14 @@ STLSOFT_CLOSE_WORKER_NS_(ximpl_winstl_squeeze_functions_)
  *
  * \param path The path
  * \param buffer Pointer to the buffer into which the sqeezed path will be
- *   written. If NULL, function returns required size (=== len(path) + 1)
+ *   written. If \c nullptr, function returns required
+ *   size (=== len(path) + 1)
  * \param cchBuffer The number of available characters inc buffer. This
  *   value in inclusive of the required <code>NUL</code>-terminator
  *
- * \return The number of characters required (if buffer is NULL), or the
- *   number of characters written (if buffer is non-NULL). In both cases, it
- *   includes the one required for the <code>NUL</code>-terminator
+ * \return The number of characters required (if buffer is \c nullptr), or
+ *   the number of characters written (if buffer is non-\c nullptr). In both
+ *   cases, it includes the one required for the <code>NUL</code>-terminator
  *
  * \remarks The squeeze algorithm is as follows. The path is split into
  *   volume+directory and file+ext. If the buffer is too small to fit the
@@ -314,6 +321,7 @@ path_squeeze(
     return STLSOFT_WORKER_NS_QUAL_(ximpl_winstl_squeeze_functions_, path_squeeze_impl2)(path, buffer, cchBuffer);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -321,13 +329,13 @@ path_squeeze(
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
-
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

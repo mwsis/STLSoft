@@ -1,17 +1,17 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/filesystem/path.hpp
+ * File:    winstl/filesystem/path.hpp
  *
- * Purpose:     Simple class that represents a path.
+ * Purpose: Simple class that represents a path.
  *
- * Created:     1st May 1993
- * Updated:     16th February 2024
+ * Created: 1st May 1993
+ * Updated: 20th March 2025
  *
- * Thanks to:   Pablo Aguilar for reporting defect in push_ext() (which
- *              doesn't work for wide-string builds).
+ * Thanks:  Pablo Aguilar for reporting defect in push_ext() (which
+ *          doesn't work for wide-string builds).
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1993-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -56,9 +56,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_PATH_MAJOR    7
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_PATH_MINOR    1
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_PATH_REVISION 7
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_PATH_EDIT     321
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_PATH_REVISION 11
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_PATH_EDIT     329
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -117,7 +118,7 @@
 
 #ifdef STLSOFT_DEBUG
 # include <stlsoft/algorithms/pod.hpp>
-#endif
+#endif /* STLSOFT_DEBUG */
 
 #ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
 # include <winstl/api/external/ErrorHandling.h>
@@ -491,7 +492,7 @@ public:
     /// Copies the contents into a caller supplied buffer
     ///
     /// \param buffer Pointer to character buffer to receive the contents.
-    ///  May be NULL, in which case the method returns size().
+    ///  May be \c nullptr, in which case the method returns size().
     /// \param cchBuffer Number of characters of available space in \c buffer.
     size_type
     copy(
@@ -589,7 +590,7 @@ private:
     >::other                                                part_ator_type_;
 #else /* ? STLSOFT_LF_ALLOCATOR_REBIND_SUPPORT */
 # ifdef WIN32
-    typedef ss_typename_type_k processheap_allocator<
+    typedef processheap_allocator<
         part_type
     >                                                       part_ator_type_;
 # else /* ? OS */
@@ -599,12 +600,14 @@ private:
 # endif /* OS */
 #endif /* STLSOFT_LF_ALLOCATOR_REBIND_SUPPORT */
 
-    typedef STLSOFT_NS_QUAL(auto_buffer_old)<
+    typedef STLSOFT_NS_QUAL(auto_buffer)<
         part_type
-    ,   part_ator_type_
 # ifdef WIN32
     ,   WINSTL_CONST_MAX_PATH / 2
+# else
+    ,   128
 # endif /* OS */
+    ,   part_ator_type_
     >                                                       part_buffer_type_;
 
     static
@@ -1269,6 +1272,7 @@ basic_path<C, T, A>::next_part_or_end_(
                 ++p;
 
                 // fall through
+                STLSOFT_FALLTHROUGH();
             case    '\0':
 
                 return p;
@@ -2096,7 +2100,7 @@ basic_path<C, T, A>::canonicalise(
 
     // 0. Handle special path prefixes
 
-    part_buffer_type_   parts(this->length() / 2);  // Uncanonicalised directory parts
+    part_buffer_type_   parts(this->size() / 2);  // Uncanonicalised directory parts
     char_type*          dest    =   &newPath.m_buffer[0] + results.root.len;
     char_type const*    p1      =   data_() + results.root.len;
     char_type const*    p2;
@@ -2681,15 +2685,17 @@ basic_path<C, T, A>::equal(
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
@@ -2716,7 +2722,7 @@ namespace std
     {
         lhs.swap(rhs);
     }
-} /* namespace std */
+} // namespace std
 # endif /* INTEL && _MSC_VER < 1310 */
 #endif /* STLSOFT_CF_std_NAMESPACE */
 
@@ -2756,7 +2762,7 @@ using ::winstl::c_str_ptr_null_w;
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
@@ -2772,7 +2778,6 @@ using ::winstl::c_str_ptr_null_w;
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !WINSTL_INCL_WINSTL_FILESYSTEM_HPP_PATH */
-
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/dl/dl_call.hpp
+ * File:    winstl/dl/dl_call.hpp
  *
- * Purpose:     Invocation of functions in dynamic libraries.
+ * Purpose: Invocation of functions in dynamic libraries.
  *
- * Created:     sometime in 1998
- * Updated:     22nd January 2024
+ * Created: sometime in 1998
+ * Updated: 22nd August 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1998-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_DL_HPP_DL_CALL_MAJOR     2
 # define WINSTL_VER_WINSTL_DL_HPP_DL_CALL_MINOR     8
-# define WINSTL_VER_WINSTL_DL_HPP_DL_CALL_REVISION  2
-# define WINSTL_VER_WINSTL_DL_HPP_DL_CALL_EDIT      67
+# define WINSTL_VER_WINSTL_DL_HPP_DL_CALL_REVISION  11
+# define WINSTL_VER_WINSTL_DL_HPP_DL_CALL_EDIT      79
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -69,7 +70,7 @@
 #endif /* STLSOFT_TRACE_INCLUDE */
 
 #if defined(STLSOFT_COMPILER_IS_COMO)
-# error dl_call is not compatible with Como, which experienced an ICE
+# error dl_call is not compatible with Comeau, which experienced an ICE
 #endif /* compiler */
 #if defined(STLSOFT_COMPILER_IS_WATCOM)
 # error dl_call is not compatible with Watcom, which does not have sufficient template support
@@ -82,6 +83,7 @@
 #ifndef WINSTL_INCL_WINSTL_EXCEPTION_HPP_WINSTL_EXCEPTION
 # include <winstl/exception/winstl_exception.hpp>
 #endif /* !WINSTL_INCL_WINSTL_EXCEPTION_HPP_WINSTL_EXCEPTION */
+
 #ifndef STLSOFT_INCL_STLSOFT_META_HPP_IS_FUNCTION_POINTER_TYPE
 # include <stlsoft/meta/is_function_pointer_type.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_META_HPP_IS_FUNCTION_POINTER_TYPE */
@@ -108,6 +110,7 @@
 # include <winstl/api/external/ErrorHandling.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -127,6 +130,7 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * compiler compatibility
  */
@@ -135,6 +139,7 @@ namespace winstl_project
     _MSC_VER < 1200
 # define WINSTL_DL_CALL_NO_ARG_TYPE_CHECK
 #endif /* compiler */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * macros
@@ -149,14 +154,19 @@ namespace winstl_project
  */
 
 #if defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
+
 # define WINSTL_DL_CALL_WINx_STDCALL_LITERAL(name)          <appropriate prefix> name
 #elif defined(WINSTL_OS_IS_WIN64)
+
 # define WINSTL_DL_CALL_WINx_STDCALL_LITERAL(name)          "cdecl:" name
 #elif defined(WINSTL_OS_IS_WIN32)
+
 # define WINSTL_DL_CALL_WINx_STDCALL_LITERAL(name)          "stdcall:" name
 #else /* ? WIN?? */
+
 # error Windows operating system not recognised
 #endif /* WIN?? */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -191,23 +201,35 @@ public:
 public:
     /// Constructs an instance of the exception based on the given missing
     /// function name, and Windows error code.
-    ss_explicit_k
-    missing_entry_point_exception(char const* functionName, status_code_type sc)
-        : parent_class_type(class_type::create_reason_(functionName).c_str(), sc)
+    missing_entry_point_exception(
+        char const*         functionName
+    ,   status_code_type    sc
+    )
+        : parent_class_type(class_type::create_reason_(functionName), sc)
     {}
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
     virtual ~missing_entry_point_exception() STLSOFT_NOEXCEPT_STDOVR
     {}
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+#if __cplusplus >= 201103L
+public:
+    missing_entry_point_exception(class_type const&) = default;
+#endif
 private:
-    class_type& operator =(class_type const&);  // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Implementation
 /// @{
 private:
-    static string_type create_reason_(char const* functionName)
+    static
+    string_type
+    create_reason_(
+        char const* functionName
+    )
     {
+        WINSTL_ASSERT(NULL != functionName);
+
         string_type reason("Failed to find procedure \"");
 
         return reason + functionName + '"';
@@ -231,6 +253,7 @@ public:
     typedef invalid_calling_convention_exception            class_type;
 private:
     typedef parent_class_type::string_type                  string_type;
+    typedef ws_size_t                                       size_type;
 public:
     /// The status code type
     typedef parent_class_type::status_code_type             status_code_type;
@@ -245,14 +268,16 @@ public:
     /// Constructs an instance of the exception based on the given
     /// function name, and Windows error code.
     ss_explicit_k
-    invalid_calling_convention_exception(char const* callingConventionSpecifier)
-        : parent_class_type(class_type::create_reason_(callingConventionSpecifier), ERROR_INVALID_FUNCTION)
-        , m_ccs(callingConventionSpecifier)
+    invalid_calling_convention_exception(stlsoft::basic_string_view<char> callingConventionSpecifier)
+        : parent_class_type(class_type::create_reason_(callingConventionSpecifier.data(), callingConventionSpecifier.size()), ERROR_INVALID_FUNCTION)
+        , m_ccs(callingConventionSpecifier.data(), callingConventionSpecifier.size())
     {}
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
     virtual ~invalid_calling_convention_exception() STLSOFT_NOEXCEPT_STDOVR
     {}
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Accessors
@@ -267,31 +292,31 @@ public:
 /// \name Implementation
 /// @{
 private:
-    static string_type create_reason_(char const* callingConventionSpecifier)
+    static
+    string_type
+    create_reason_(
+        char const* callingConventionSpecifier
+    ,   size_type   cchCallingConventionSpecifier
+    )
     {
-        return "Unrecognised or unsupported calling convention \"" + string_type(callingConventionSpecifier) + '"';
+        return "Unrecognised or unsupported calling convention \"" + string_type(callingConventionSpecifier, cchCallingConventionSpecifier) + '"';
     }
 /// @}
 
 /// \name Members
 /// @{
 private:
-    const string_type   m_ccs;
-/// @}
-
-// Not to be implemented
-/// @}
-private:
-    class_type& operator =(class_type const&);
+    string_type const   m_ccs;
 /// @}
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * enumerations
  */
 
-namespace calling_convention
-{
+namespace calling_convention {
+
     /** Calling conventions supported by winstl::dl_call()
      */
     enum calling_convention
@@ -334,8 +359,8 @@ namespace calling_convention
 #endif // STLSOFT_CF_STDCALL_SUPPORTED
         }
     }
+} // namespace calling_convention
 
-} /* namespace calling_convention */
 
 /* ////////////////////////////////////////////////////////////////////// */
 
@@ -362,28 +387,41 @@ template<
 struct function_descriptor
     : public function_descriptor_base
 {
+public: // types
+    typedef function_descriptor<CC, S>                      class_type;
+
+public: // constants
+
     enum { value = CC };
 
+public: // construction
+    /// T.B.C.
     ss_explicit_k
     function_descriptor(S const& functionName)
         : FunctionName(functionName)
         , CallingConvention(CC)
     {
 #if defined(STLSOFT_CF_FASTCALL_SUPPORTED)
+
 # if defined(STLSOFT_CF_STDCALL_SUPPORTED)
+
         STLSOFT_STATIC_ASSERT(  CC == calling_convention::cdeclCallConv ||  CC == calling_convention::fastcallCallConv ||  CC == calling_convention::stdcallCallConv);
 # else /* ? STLSOFT_CF_STDCALL_SUPPORTED */
+
         STLSOFT_STATIC_ASSERT(  CC == calling_convention::cdeclCallConv ||  CC == calling_convention::fastcallCallConv);
 # endif /* STLSOFT_CF_STDCALL_SUPPORTED */
 #else /* ? STLSOFT_CF_FASTCALL_SUPPORTED */
+
 # if defined(STLSOFT_CF_STDCALL_SUPPORTED)
+
         STLSOFT_STATIC_ASSERT(  CC == calling_convention::cdeclCallConv ||  CC == calling_convention::stdcallCallConv);
 # else /* ? STLSOFT_CF_STDCALL_SUPPORTED */
+
         STLSOFT_STATIC_ASSERT(  CC == calling_convention::cdeclCallConv);
 # endif /* STLSOFT_CF_STDCALL_SUPPORTED */
 #endif /* STLSOFT_CF_FASTCALL_SUPPORTED */
     }
-
+    /// T.B.C.
     function_descriptor(
         S const&    functionName
     ,   int         cc
@@ -391,12 +429,12 @@ struct function_descriptor
         : FunctionName(functionName)
         , CallingConvention(cc)
     {}
-
-    S const&    FunctionName;
-    const int   CallingConvention;
-
 private:
-    function_descriptor& operator =(function_descriptor const&);
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
+
+public: // fields
+    S const&    FunctionName;
+    int const   CallingConvention;
 };
 
 template<
@@ -410,9 +448,7 @@ fn_desc(S const& functionName)
     return function_descriptor<cc, S>(functionName);
 }
 
-template<
-    ss_typename_param_k    S
->
+template <ss_typename_param_k S>
 inline
 function_descriptor<0, S>
 fn_desc(
@@ -422,6 +458,7 @@ fn_desc(
 {
     return function_descriptor<0, S>(functionName, cc);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * traits
@@ -454,9 +491,7 @@ namespace winstl
 } /&zwj;* namespace winstl *&zwj;/
 \endcode
  */
-template<
-    ss_typename_param_k T
->
+template <ss_typename_param_k T>
 struct is_valid_dl_call_arg
 {
     enum { value = 0 };
@@ -472,9 +507,9 @@ struct dl_call_traits
 /// \name Member Types
 /// @{
 public:
-    typedef FARPROC         entry_point_type;
-    typedef HINSTANCE       library_handle_type;
-    typedef winstl::module  module_wrapper_type;
+    typedef FARPROC                                         entry_point_type;
+    typedef HINSTANCE                                       library_handle_type;
+    typedef winstl::dl_module                               module_wrapper_type;
 /// @}
 
 /// \name Dynamic Library Functions
@@ -515,16 +550,38 @@ public:
     {};
 /// @}
 
+/// \name Implementation functions
+/// @{
+public:
+    template <ss_typename_param_k T_function>
+    static
+    void
+    specialise_function_ptr(
+        T_function&         pfn
+    ,   entry_point_type&   pfn_v
+    )
+    {
+        STLSOFT_STATIC_ASSERT(sizeof(pfn) == sizeof(pfn_v));
+
+        union
+        {
+            dl_call_traits::entry_point_type    pfn_v;
+            T_function                          pfn;
+        } u;
+
+        u.pfn_v = pfn_v;
+
+        pfn = u.pfn;
+    }
+/// @}
 };
 
 
-// These structures used for selecting lock_name_() function templates
-template<
-    ss_typename_param_k T
->
+// These structures used for selecting dl_lock_name_() function templates
+template <ss_typename_param_k T>
 inline
 T const&
-lock_name_(
+dl_lock_name_(
     T const&    t
 ,   dl_call_traits::is_not_fd
 )
@@ -538,7 +595,7 @@ template<
 >
 inline
 S const&
-lock_name_(
+dl_lock_name_(
     function_descriptor<cc, S> const&   fd
 ,   dl_call_traits::is_fd
 )
@@ -548,43 +605,38 @@ lock_name_(
 
 inline
 dl_call_traits::is_fd
-test_fd_(function_descriptor_base const*)
+dl_test_fd_(function_descriptor_base const*)
 {
     return dl_call_traits::is_fd();
 }
 
 inline
-dl_call_traits::is_not_fd test_fd_(...)
+dl_call_traits::is_not_fd
+dl_test_fd_(...)
 {
     return dl_call_traits::is_not_fd();
 }
 
+inline
+dl_call_traits::library_is_handle
 #if defined(STLSOFT_COMPILER_IS_MSVC) || \
     defined(STLSOFT_COMPILER_IS_GCCx)
-inline
-dl_call_traits::library_is_handle
-test_library_(dl_call_traits::library_handle_type)
-{
-    return dl_call_traits::library_is_handle();
-}
+dl_test_library_(dl_call_traits::library_handle_type)
 #else /* ? compiler */
-inline
-dl_call_traits::library_is_handle
-test_library_(dl_call_traits::library_handle_type const&)
+dl_test_library_(dl_call_traits::library_handle_type const&)
+#endif /* compiler */
 {
     return dl_call_traits::library_is_handle();
 }
-#endif /* compiler */
 
-template<
-    ss_typename_param_k T
->
+template <ss_typename_param_k T>
 inline
 dl_call_traits::library_is_not_handle
-test_library_(T const&)
+dl_test_library_(T const&)
 {
     return dl_call_traits::library_is_not_handle();
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helper functions
@@ -592,14 +644,14 @@ test_library_(T const&)
 
 inline
 dl_call_traits::entry_point_type
-lookup_symbol_(
+dl_lookup_symbol_(
     dl_call_traits::library_handle_type hinst
 ,   char const*                         functionName
 )
 {
     dl_call_traits::entry_point_type fp = dl_call_traits::get_symbol(hinst, functionName);
 
-    if (NULL == fp)
+    if (dl_call_traits::entry_point_type() == fp)
     {
         STLSOFT_THROW_X(missing_entry_point_exception(functionName, WINSTL_API_EXTERNAL_ErrorHandling_GetLastError()));
     }
@@ -612,25 +664,28 @@ template<
 >
 inline
 calling_convention::calling_convention
-determine_calling_convention_(C const*& functionName)
+dl_determine_calling_convention_(C const*& functionName)
 {
-#if 0
-#elif defined(WINSTL_ARCH_IS_IA64) || \
-      defined(WINSTL_ARCH_IS_X64)
-
-    STLSOFT_SUPPRESS_UNUSED(functionName);
-
-    return calling_convention::cdeclCallConv;
-#else
-
     typedef stlsoft::basic_string_view<C> string_t;
 
-    calling_convention::calling_convention  cc = calling_convention::cdeclCallConv;
+    calling_convention::calling_convention  cc = calling_convention::unknownCallConv;
     string_t                                s0;
     string_t                                s1;
 
     if (stlsoft::split(functionName, ':', s0, s1))
     {
+#if 0
+#elif 0 ||\
+      defined(WINSTL_ARCH_IS_ARM64) ||\
+      defined(WINSTL_ARCH_IS_IA64) ||\
+      defined(WINSTL_ARCH_IS_X64) ||\
+      0
+
+        cc = calling_convention::cdeclCallConv;
+
+        functionName = s1.empty() ? s0.base() : s1.base();
+#else
+
 # ifdef STLSOFT_CF_CDECL_SUPPORTED
         if (s0 == "C" ||
             s0 == "cdecl")
@@ -653,14 +708,14 @@ determine_calling_convention_(C const*& functionName)
         } else
 # endif // STLSOFT_CF_STDCALL_SUPPORTED
         {
-            STLSOFT_THROW_X(invalid_calling_convention_exception(s0.c_str()));
+            STLSOFT_THROW_X(invalid_calling_convention_exception(s0));
         }
 
         functionName = s1.base();
+#endif
     }
 
     return cc;
-#endif
 }
 
 template<
@@ -668,14 +723,14 @@ template<
 >
 inline
 char const*
-detect_cc_(
+dl_detect_cc_(
     dl_call_traits::is_not_fd
 ,   char const*                             functionName
 ,   S const&
 ,   calling_convention::calling_convention& cc
 )
 {
-    cc = determine_calling_convention_(functionName);
+    cc = dl_determine_calling_convention_(functionName);
 
     return functionName;
 }
@@ -685,7 +740,7 @@ template<
 ,   ss_typename_param_k C
 >
 char const*
-detect_cc_(
+dl_detect_cc_(
     dl_call_traits::is_fd
 ,   char const*                             functionName
 ,   function_descriptor<CC, C> const&       fd
@@ -720,7 +775,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp)
 {
   R (STLSOFT_CDECL* pfn)();
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn();
 }
@@ -733,7 +788,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp)
 {
   R (STLSOFT_FASTCALL* pfn)();
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn();
 }
@@ -746,7 +801,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp)
 {
   R (STLSOFT_STDCALL* pfn)();
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn();
 }
@@ -763,7 +818,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0)
 {
   R (STLSOFT_CDECL* pfn)(A0 a0);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0);
 }
@@ -777,7 +832,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0)
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0);
 }
@@ -791,7 +846,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0)
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0);
 }
@@ -808,7 +863,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1)
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1);
 }
@@ -822,7 +877,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1);
 }
@@ -836,7 +891,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1);
 }
@@ -853,7 +908,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2);
 }
@@ -867,7 +922,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2);
 }
@@ -881,7 +936,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2);
 }
@@ -898,7 +953,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3);
 }
@@ -912,7 +967,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3);
 }
@@ -926,7 +981,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3);
 }
@@ -943,7 +998,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4);
 }
@@ -957,7 +1012,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4);
 }
@@ -971,7 +1026,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4);
 }
@@ -988,7 +1043,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5);
 }
@@ -1002,7 +1057,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5);
 }
@@ -1016,7 +1071,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5);
 }
@@ -1033,7 +1088,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6);
 }
@@ -1047,7 +1102,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6);
 }
@@ -1061,7 +1116,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6);
 }
@@ -1078,7 +1133,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7);
 }
@@ -1092,7 +1147,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7);
 }
@@ -1106,7 +1161,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7);
 }
@@ -1123,7 +1178,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8);
 }
@@ -1137,7 +1192,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8);
 }
@@ -1151,7 +1206,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8);
 }
@@ -1168,7 +1223,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
 }
@@ -1182,7 +1237,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
 }
@@ -1196,7 +1251,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
 }
@@ -1213,7 +1268,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 }
@@ -1227,7 +1282,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 }
@@ -1241,7 +1296,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 }
@@ -1258,7 +1313,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
 }
@@ -1272,7 +1327,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
 }
@@ -1286,7 +1341,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
 }
@@ -1303,7 +1358,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
 }
@@ -1317,7 +1372,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
 }
@@ -1331,7 +1386,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
 }
@@ -1348,7 +1403,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
 }
@@ -1362,7 +1417,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
 }
@@ -1376,7 +1431,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
 }
@@ -1393,7 +1448,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14);
 }
@@ -1407,7 +1462,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14);
 }
@@ -1421,7 +1476,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14);
 }
@@ -1438,7 +1493,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15);
 }
@@ -1452,7 +1507,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15);
 }
@@ -1466,7 +1521,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15);
 }
@@ -1483,7 +1538,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16);
 }
@@ -1497,7 +1552,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16);
 }
@@ -1511,7 +1566,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16);
 }
@@ -1528,7 +1583,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17);
 }
@@ -1542,7 +1597,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17);
 }
@@ -1556,7 +1611,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17);
 }
@@ -1573,7 +1628,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18);
 }
@@ -1587,7 +1642,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18);
 }
@@ -1601,7 +1656,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18);
 }
@@ -1618,7 +1673,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19);
 }
@@ -1632,7 +1687,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19);
 }
@@ -1646,7 +1701,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19);
 }
@@ -1663,7 +1718,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);
 }
@@ -1677,7 +1732,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);
 }
@@ -1691,7 +1746,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);
 }
@@ -1708,7 +1763,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21);
 }
@@ -1722,7 +1777,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21);
 }
@@ -1736,7 +1791,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21);
 }
@@ -1753,7 +1808,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22);
 }
@@ -1767,7 +1822,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22);
 }
@@ -1781,7 +1836,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22);
 }
@@ -1798,7 +1853,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23);
 }
@@ -1812,7 +1867,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23);
 }
@@ -1826,7 +1881,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23);
 }
@@ -1843,7 +1898,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24);
 }
@@ -1857,7 +1912,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24);
 }
@@ -1871,7 +1926,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24);
 }
@@ -1888,7 +1943,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25);
 }
@@ -1902,7 +1957,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25);
 }
@@ -1916,7 +1971,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25);
 }
@@ -1933,7 +1988,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26);
 }
@@ -1947,7 +2002,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26);
 }
@@ -1961,7 +2016,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26);
 }
@@ -1978,7 +2033,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27);
 }
@@ -1992,7 +2047,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27);
 }
@@ -2006,7 +2061,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27);
 }
@@ -2023,7 +2078,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28);
 }
@@ -2037,7 +2092,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28);
 }
@@ -2051,7 +2106,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28);
 }
@@ -2068,7 +2123,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29);
 }
@@ -2082,7 +2137,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29);
 }
@@ -2096,7 +2151,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29);
 }
@@ -2113,7 +2168,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29, A30 a30);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30);
 }
@@ -2127,7 +2182,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29, A30 a30);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30);
 }
@@ -2141,7 +2196,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29, A30 a30);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30);
 }
@@ -2158,7 +2213,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 {
   R (STLSOFT_CDECL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29, A30 a30, A31 a31);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31);
 }
@@ -2172,7 +2227,7 @@ inline R dl_call_invoke_fastcall(dl_call_traits::entry_point_type fp, A0 a0, A1 
 {
   R (STLSOFT_FASTCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29, A30 a30, A31 a31);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31);
 }
@@ -2186,7 +2241,7 @@ inline R dl_call_invoke_stdcall(dl_call_traits::entry_point_type fp, A0 a0, A1 a
 {
   R (STLSOFT_STDCALL* pfn)(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29, A30 a30, A31 a31);
 
-  reinterpret_cast<dl_call_traits::entry_point_type&>(pfn) = fp;
+  dl_call_traits::specialise_function_ptr(pfn, fp);
 
   return pfn(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31);
 }
@@ -2217,7 +2272,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_0(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2245,7 +2300,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_1(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2273,7 +2328,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_2(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2301,7 +2356,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_3(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2329,7 +2384,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_4(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2357,7 +2412,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_5(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2385,7 +2440,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_6(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2413,7 +2468,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_7(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2441,7 +2496,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_8(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2469,7 +2524,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_9(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2497,7 +2552,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_10(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2525,7 +2580,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_11(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2553,7 +2608,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_12(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2581,7 +2636,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_13(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2609,7 +2664,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_14(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2637,7 +2692,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_15(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2665,7 +2720,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_16(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2693,7 +2748,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_17(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2721,7 +2776,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_18(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2749,7 +2804,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_19(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2777,7 +2832,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_20(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2805,7 +2860,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_21(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2833,7 +2888,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_22(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2861,7 +2916,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_23(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2889,7 +2944,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_24(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2917,7 +2972,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_25(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2945,7 +3000,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_26(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -2973,7 +3028,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_27(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -3001,7 +3056,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_28(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -3029,7 +3084,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_29(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -3057,7 +3112,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_30(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -3085,7 +3140,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_31(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29, A30 a30)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -3113,7 +3168,7 @@ template< ss_typename_param_k R
         >
 inline R dl_call_dispatch_32(dl_call_traits::entry_point_type fp, calling_convention::calling_convention cc, A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29, A30 a30, A31 a31)
 {
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   switch (cc)
   {
@@ -3160,9 +3215,9 @@ inline R dl_call_lookup_0(  dl_call_traits::library_handle_type             hins
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_0<R>(fp, cc);
 }
@@ -3177,9 +3232,9 @@ inline R dl_call_lookup_1(  dl_call_traits::library_handle_type             hins
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_1<R>(fp, cc, a0);
 }
@@ -3194,9 +3249,9 @@ inline R dl_call_lookup_2(  dl_call_traits::library_handle_type             hins
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_2<R>(fp, cc, a0, a1);
 }
@@ -3211,9 +3266,9 @@ inline R dl_call_lookup_3(  dl_call_traits::library_handle_type             hins
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_3<R>(fp, cc, a0, a1, a2);
 }
@@ -3228,9 +3283,9 @@ inline R dl_call_lookup_4(  dl_call_traits::library_handle_type             hins
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_4<R>(fp, cc, a0, a1, a2, a3);
 }
@@ -3245,9 +3300,9 @@ inline R dl_call_lookup_5(  dl_call_traits::library_handle_type             hins
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_5<R>(fp, cc, a0, a1, a2, a3, a4);
 }
@@ -3262,9 +3317,9 @@ inline R dl_call_lookup_6(  dl_call_traits::library_handle_type             hins
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_6<R>(fp, cc, a0, a1, a2, a3, a4, a5);
 }
@@ -3279,9 +3334,9 @@ inline R dl_call_lookup_7(  dl_call_traits::library_handle_type             hins
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_7<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6);
 }
@@ -3296,9 +3351,9 @@ inline R dl_call_lookup_8(  dl_call_traits::library_handle_type             hins
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_8<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7);
 }
@@ -3313,9 +3368,9 @@ inline R dl_call_lookup_9(  dl_call_traits::library_handle_type             hins
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_9<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8);
 }
@@ -3325,14 +3380,14 @@ inline R dl_call_lookup_9(  dl_call_traits::library_handle_type             hins
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9
         >
-inline R dl_call_lookup_10(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_10( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_10<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
 }
@@ -3342,14 +3397,14 @@ inline R dl_call_lookup_10(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10
         >
-inline R dl_call_lookup_11(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_11( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_11<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 }
@@ -3359,14 +3414,14 @@ inline R dl_call_lookup_11(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11
         >
-inline R dl_call_lookup_12(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_12( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_12<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
 }
@@ -3376,14 +3431,14 @@ inline R dl_call_lookup_12(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12
         >
-inline R dl_call_lookup_13(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_13( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_13<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
 }
@@ -3393,14 +3448,14 @@ inline R dl_call_lookup_13(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13
         >
-inline R dl_call_lookup_14(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_14( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_14<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
 }
@@ -3410,14 +3465,14 @@ inline R dl_call_lookup_14(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14
         >
-inline R dl_call_lookup_15(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_15( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_15<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14);
 }
@@ -3427,14 +3482,14 @@ inline R dl_call_lookup_15(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15
         >
-inline R dl_call_lookup_16(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_16( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_16<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15);
 }
@@ -3444,14 +3499,14 @@ inline R dl_call_lookup_16(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15, ss_typename_param_k A16
         >
-inline R dl_call_lookup_17(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_17( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_17<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16);
 }
@@ -3461,14 +3516,14 @@ inline R dl_call_lookup_17(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15, ss_typename_param_k A16, ss_typename_param_k A17
         >
-inline R dl_call_lookup_18(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_18( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_18<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17);
 }
@@ -3478,14 +3533,14 @@ inline R dl_call_lookup_18(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15, ss_typename_param_k A16, ss_typename_param_k A17, ss_typename_param_k A18
         >
-inline R dl_call_lookup_19(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_19( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_19<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18);
 }
@@ -3495,14 +3550,14 @@ inline R dl_call_lookup_19(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15, ss_typename_param_k A16, ss_typename_param_k A17, ss_typename_param_k A18, ss_typename_param_k A19
         >
-inline R dl_call_lookup_20(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_20( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_20<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19);
 }
@@ -3512,14 +3567,14 @@ inline R dl_call_lookup_20(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15, ss_typename_param_k A16, ss_typename_param_k A17, ss_typename_param_k A18, ss_typename_param_k A19, ss_typename_param_k A20
         >
-inline R dl_call_lookup_21(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_21( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_21<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);
 }
@@ -3529,14 +3584,14 @@ inline R dl_call_lookup_21(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15, ss_typename_param_k A16, ss_typename_param_k A17, ss_typename_param_k A18, ss_typename_param_k A19, ss_typename_param_k A20, ss_typename_param_k A21
         >
-inline R dl_call_lookup_22(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_22( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_22<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21);
 }
@@ -3546,14 +3601,14 @@ inline R dl_call_lookup_22(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15, ss_typename_param_k A16, ss_typename_param_k A17, ss_typename_param_k A18, ss_typename_param_k A19, ss_typename_param_k A20, ss_typename_param_k A21, ss_typename_param_k A22
         >
-inline R dl_call_lookup_23(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_23( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_23<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22);
 }
@@ -3563,14 +3618,14 @@ inline R dl_call_lookup_23(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15, ss_typename_param_k A16, ss_typename_param_k A17, ss_typename_param_k A18, ss_typename_param_k A19, ss_typename_param_k A20, ss_typename_param_k A21, ss_typename_param_k A22, ss_typename_param_k A23
         >
-inline R dl_call_lookup_24(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_24( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_24<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23);
 }
@@ -3580,14 +3635,14 @@ inline R dl_call_lookup_24(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15, ss_typename_param_k A16, ss_typename_param_k A17, ss_typename_param_k A18, ss_typename_param_k A19, ss_typename_param_k A20, ss_typename_param_k A21, ss_typename_param_k A22, ss_typename_param_k A23, ss_typename_param_k A24
         >
-inline R dl_call_lookup_25(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_25( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_25<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24);
 }
@@ -3597,14 +3652,14 @@ inline R dl_call_lookup_25(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15, ss_typename_param_k A16, ss_typename_param_k A17, ss_typename_param_k A18, ss_typename_param_k A19, ss_typename_param_k A20, ss_typename_param_k A21, ss_typename_param_k A22, ss_typename_param_k A23, ss_typename_param_k A24, ss_typename_param_k A25
         >
-inline R dl_call_lookup_26(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_26( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_26<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25);
 }
@@ -3614,14 +3669,14 @@ inline R dl_call_lookup_26(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15, ss_typename_param_k A16, ss_typename_param_k A17, ss_typename_param_k A18, ss_typename_param_k A19, ss_typename_param_k A20, ss_typename_param_k A21, ss_typename_param_k A22, ss_typename_param_k A23, ss_typename_param_k A24, ss_typename_param_k A25, ss_typename_param_k A26
         >
-inline R dl_call_lookup_27(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_27( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_27<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26);
 }
@@ -3631,14 +3686,14 @@ inline R dl_call_lookup_27(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15, ss_typename_param_k A16, ss_typename_param_k A17, ss_typename_param_k A18, ss_typename_param_k A19, ss_typename_param_k A20, ss_typename_param_k A21, ss_typename_param_k A22, ss_typename_param_k A23, ss_typename_param_k A24, ss_typename_param_k A25, ss_typename_param_k A26, ss_typename_param_k A27
         >
-inline R dl_call_lookup_28(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_28( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_28<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27);
 }
@@ -3648,14 +3703,14 @@ inline R dl_call_lookup_28(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15, ss_typename_param_k A16, ss_typename_param_k A17, ss_typename_param_k A18, ss_typename_param_k A19, ss_typename_param_k A20, ss_typename_param_k A21, ss_typename_param_k A22, ss_typename_param_k A23, ss_typename_param_k A24, ss_typename_param_k A25, ss_typename_param_k A26, ss_typename_param_k A27, ss_typename_param_k A28
         >
-inline R dl_call_lookup_29(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_29( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_29<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28);
 }
@@ -3665,14 +3720,14 @@ inline R dl_call_lookup_29(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15, ss_typename_param_k A16, ss_typename_param_k A17, ss_typename_param_k A18, ss_typename_param_k A19, ss_typename_param_k A20, ss_typename_param_k A21, ss_typename_param_k A22, ss_typename_param_k A23, ss_typename_param_k A24, ss_typename_param_k A25, ss_typename_param_k A26, ss_typename_param_k A27, ss_typename_param_k A28, ss_typename_param_k A29
         >
-inline R dl_call_lookup_30(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_30( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_30<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29);
 }
@@ -3682,14 +3737,14 @@ inline R dl_call_lookup_30(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15, ss_typename_param_k A16, ss_typename_param_k A17, ss_typename_param_k A18, ss_typename_param_k A19, ss_typename_param_k A20, ss_typename_param_k A21, ss_typename_param_k A22, ss_typename_param_k A23, ss_typename_param_k A24, ss_typename_param_k A25, ss_typename_param_k A26, ss_typename_param_k A27, ss_typename_param_k A28, ss_typename_param_k A29, ss_typename_param_k A30
         >
-inline R dl_call_lookup_31(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_31( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29, A30 a30)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_31<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30);
 }
@@ -3699,14 +3754,14 @@ inline R dl_call_lookup_31(  dl_call_traits::library_handle_type             hin
 template< ss_typename_param_k R
         , ss_typename_param_k A0, ss_typename_param_k A1, ss_typename_param_k A2, ss_typename_param_k A3, ss_typename_param_k A4, ss_typename_param_k A5, ss_typename_param_k A6, ss_typename_param_k A7, ss_typename_param_k A8, ss_typename_param_k A9, ss_typename_param_k A10, ss_typename_param_k A11, ss_typename_param_k A12, ss_typename_param_k A13, ss_typename_param_k A14, ss_typename_param_k A15, ss_typename_param_k A16, ss_typename_param_k A17, ss_typename_param_k A18, ss_typename_param_k A19, ss_typename_param_k A20, ss_typename_param_k A21, ss_typename_param_k A22, ss_typename_param_k A23, ss_typename_param_k A24, ss_typename_param_k A25, ss_typename_param_k A26, ss_typename_param_k A27, ss_typename_param_k A28, ss_typename_param_k A29, ss_typename_param_k A30, ss_typename_param_k A31
         >
-inline R dl_call_lookup_32(  dl_call_traits::library_handle_type             hinst
+inline R dl_call_lookup_32( dl_call_traits::library_handle_type             hinst
                         ,   char const*                                     functionName
                         ,   calling_convention::calling_convention const&   cc
                         ,   A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29, A30 a30, A31 a31)
 {
-  dl_call_traits::entry_point_type fp  =   lookup_symbol_(hinst, functionName);
+  dl_call_traits::entry_point_type fp = dl_lookup_symbol_(hinst, functionName);
 
-  WINSTL_ASSERT(NULL != fp);
+  WINSTL_ASSERT(dl_call_traits::entry_point_type() != fp);
 
   return dl_call_dispatch_32<R>(fp, cc, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31);
 }
@@ -3739,19 +3794,19 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
 {
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
-  // lock_name_() is used in order to select the appropriate characteristics from
+  // dl_lock_name_() is used in order to select the appropriate characteristics from
   //  the file descriptor without allowing it to leave the current statement sequence
   //
-  // test_fd_() is used to determine the whether the function descriptor is a
+  // dl_test_fd_() is used to determine the whether the function descriptor is a
   // function_descriptor, or something else entirely (i.e. a string)
   //
-  // detect_cc_() is used in order to take a function descriptor, its string access
+  // dl_detect_cc_() is used in order to take a function descriptor, its string access
   //  shim converted (char const*) form, and a calling convention variable to instantiate
 
   return dl_call_lookup_0<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)   // This first one is needed for some, but not all, compilers
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)   // This first one is needed for some, but not all, compilers
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc);
@@ -3778,9 +3833,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_1<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -3809,9 +3864,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_2<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -3840,9 +3895,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_3<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -3871,9 +3926,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_4<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -3902,9 +3957,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_5<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -3933,9 +3988,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_6<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -3964,9 +4019,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_7<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -3995,9 +4050,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_8<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4026,9 +4081,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_9<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4057,9 +4112,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_10<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4088,9 +4143,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_11<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4119,9 +4174,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_12<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4150,9 +4205,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_13<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4181,9 +4236,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_14<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4212,9 +4267,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_15<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4243,9 +4298,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_16<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4274,9 +4329,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_17<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4305,9 +4360,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_18<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4336,9 +4391,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_19<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4367,9 +4422,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_20<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4398,9 +4453,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_21<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4429,9 +4484,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_22<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4460,9 +4515,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_23<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4491,9 +4546,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_24<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4522,9 +4577,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_25<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4553,9 +4608,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_26<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4584,9 +4639,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_27<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4615,9 +4670,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_28<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4646,9 +4701,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_29<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4677,9 +4732,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_30<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4708,9 +4763,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_31<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4739,9 +4794,9 @@ inline R dl_call_MOD(dl_call_traits::library_is_handle, dl_call_traits::library_
     calling_convention::calling_convention  cc  =   calling_convention::unknownCallConv;
 
   return dl_call_lookup_32<R>( hinst
-                          ,   detect_cc_( test_fd_(&fd)
-                                      ,   stlsoft::c_str_ptr(lock_name_(  fd
-                                                                      ,   test_fd_(&fd)))
+                          ,   dl_detect_cc_( dl_test_fd_(&fd)
+                                      ,   stlsoft::c_str_ptr(dl_lock_name_(  fd
+                                                                      ,   dl_test_fd_(&fd)))
                                       ,   fd
                                       ,   cc)
                           ,   cc
@@ -4790,7 +4845,7 @@ inline R dl_call(L const& library, FD const& fd)
 #ifndef WINSTL_DL_CALL_NO_ARG_TYPE_CHECK
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd);
 }
 
 
@@ -4810,7 +4865,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0)
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A0>::value || stlsoft::is_pointer_type<A0>::value || stlsoft::is_function_pointer_type<A0>::value || winstl::is_valid_dl_call_arg<A0>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0);
 }
 
 
@@ -4831,7 +4886,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1)
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A1>::value || stlsoft::is_pointer_type<A1>::value || stlsoft::is_function_pointer_type<A1>::value || winstl::is_valid_dl_call_arg<A1>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1);
 }
 
 
@@ -4853,7 +4908,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2)
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A2>::value || stlsoft::is_pointer_type<A2>::value || stlsoft::is_function_pointer_type<A2>::value || winstl::is_valid_dl_call_arg<A2>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2);
 }
 
 
@@ -4876,7 +4931,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3)
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A3>::value || stlsoft::is_pointer_type<A3>::value || stlsoft::is_function_pointer_type<A3>::value || winstl::is_valid_dl_call_arg<A3>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3);
 }
 
 
@@ -4900,7 +4955,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A4>::value || stlsoft::is_pointer_type<A4>::value || stlsoft::is_function_pointer_type<A4>::value || winstl::is_valid_dl_call_arg<A4>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4);
 }
 
 
@@ -4925,7 +4980,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A5>::value || stlsoft::is_pointer_type<A5>::value || stlsoft::is_function_pointer_type<A5>::value || winstl::is_valid_dl_call_arg<A5>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5);
 }
 
 
@@ -4951,7 +5006,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A6>::value || stlsoft::is_pointer_type<A6>::value || stlsoft::is_function_pointer_type<A6>::value || winstl::is_valid_dl_call_arg<A6>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6);
 }
 
 
@@ -4978,7 +5033,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A7>::value || stlsoft::is_pointer_type<A7>::value || stlsoft::is_function_pointer_type<A7>::value || winstl::is_valid_dl_call_arg<A7>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7);
 }
 
 
@@ -5006,7 +5061,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A8>::value || stlsoft::is_pointer_type<A8>::value || stlsoft::is_function_pointer_type<A8>::value || winstl::is_valid_dl_call_arg<A8>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
 
@@ -5035,7 +5090,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A9>::value || stlsoft::is_pointer_type<A9>::value || stlsoft::is_function_pointer_type<A9>::value || winstl::is_valid_dl_call_arg<A9>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
 }
 
 
@@ -5065,7 +5120,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A10>::value || stlsoft::is_pointer_type<A10>::value || stlsoft::is_function_pointer_type<A10>::value || winstl::is_valid_dl_call_arg<A10>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 }
 
 
@@ -5096,7 +5151,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A11>::value || stlsoft::is_pointer_type<A11>::value || stlsoft::is_function_pointer_type<A11>::value || winstl::is_valid_dl_call_arg<A11>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
 }
 
 
@@ -5128,7 +5183,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A12>::value || stlsoft::is_pointer_type<A12>::value || stlsoft::is_function_pointer_type<A12>::value || winstl::is_valid_dl_call_arg<A12>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
 }
 
 
@@ -5161,7 +5216,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A13>::value || stlsoft::is_pointer_type<A13>::value || stlsoft::is_function_pointer_type<A13>::value || winstl::is_valid_dl_call_arg<A13>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
 }
 
 
@@ -5195,7 +5250,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A14>::value || stlsoft::is_pointer_type<A14>::value || stlsoft::is_function_pointer_type<A14>::value || winstl::is_valid_dl_call_arg<A14>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14);
 }
 
 
@@ -5230,7 +5285,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A15>::value || stlsoft::is_pointer_type<A15>::value || stlsoft::is_function_pointer_type<A15>::value || winstl::is_valid_dl_call_arg<A15>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15);
 }
 
 
@@ -5266,7 +5321,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A16>::value || stlsoft::is_pointer_type<A16>::value || stlsoft::is_function_pointer_type<A16>::value || winstl::is_valid_dl_call_arg<A16>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16);
 }
 
 
@@ -5303,7 +5358,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A17>::value || stlsoft::is_pointer_type<A17>::value || stlsoft::is_function_pointer_type<A17>::value || winstl::is_valid_dl_call_arg<A17>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17);
 }
 
 
@@ -5341,7 +5396,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A18>::value || stlsoft::is_pointer_type<A18>::value || stlsoft::is_function_pointer_type<A18>::value || winstl::is_valid_dl_call_arg<A18>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18);
 }
 
 
@@ -5380,7 +5435,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A19>::value || stlsoft::is_pointer_type<A19>::value || stlsoft::is_function_pointer_type<A19>::value || winstl::is_valid_dl_call_arg<A19>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19);
 }
 
 
@@ -5420,7 +5475,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A20>::value || stlsoft::is_pointer_type<A20>::value || stlsoft::is_function_pointer_type<A20>::value || winstl::is_valid_dl_call_arg<A20>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);
 }
 
 
@@ -5461,7 +5516,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A21>::value || stlsoft::is_pointer_type<A21>::value || stlsoft::is_function_pointer_type<A21>::value || winstl::is_valid_dl_call_arg<A21>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21);
 }
 
 
@@ -5503,7 +5558,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A22>::value || stlsoft::is_pointer_type<A22>::value || stlsoft::is_function_pointer_type<A22>::value || winstl::is_valid_dl_call_arg<A22>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22);
 }
 
 
@@ -5546,7 +5601,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A23>::value || stlsoft::is_pointer_type<A23>::value || stlsoft::is_function_pointer_type<A23>::value || winstl::is_valid_dl_call_arg<A23>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23);
 }
 
 
@@ -5590,7 +5645,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A24>::value || stlsoft::is_pointer_type<A24>::value || stlsoft::is_function_pointer_type<A24>::value || winstl::is_valid_dl_call_arg<A24>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24);
 }
 
 
@@ -5635,7 +5690,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A25>::value || stlsoft::is_pointer_type<A25>::value || stlsoft::is_function_pointer_type<A25>::value || winstl::is_valid_dl_call_arg<A25>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25);
 }
 
 
@@ -5681,7 +5736,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A26>::value || stlsoft::is_pointer_type<A26>::value || stlsoft::is_function_pointer_type<A26>::value || winstl::is_valid_dl_call_arg<A26>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26);
 }
 
 
@@ -5728,7 +5783,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A27>::value || stlsoft::is_pointer_type<A27>::value || stlsoft::is_function_pointer_type<A27>::value || winstl::is_valid_dl_call_arg<A27>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27);
 }
 
 
@@ -5776,7 +5831,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A28>::value || stlsoft::is_pointer_type<A28>::value || stlsoft::is_function_pointer_type<A28>::value || winstl::is_valid_dl_call_arg<A28>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28);
 }
 
 
@@ -5825,7 +5880,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A29>::value || stlsoft::is_pointer_type<A29>::value || stlsoft::is_function_pointer_type<A29>::value || winstl::is_valid_dl_call_arg<A29>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29);
 }
 
 
@@ -5875,7 +5930,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A30>::value || stlsoft::is_pointer_type<A30>::value || stlsoft::is_function_pointer_type<A30>::value || winstl::is_valid_dl_call_arg<A30>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30);
 }
 
 
@@ -5926,12 +5981,13 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
   STLSOFT_STATIC_ASSERT(stlsoft::is_fundamental_type<A31>::value || stlsoft::is_pointer_type<A31>::value || stlsoft::is_function_pointer_type<A31>::value || winstl::is_valid_dl_call_arg<A31>::value);
 #endif /* !WINSTL_DL_CALL_NO_ARG_TYPE_CHECK */
 
-  return dl_call_MOD<R>(test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31);
+  return dl_call_MOD<R>(dl_test_library_(library), library, fd, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31);
 }
 
 //[<[STLSOFT-AUTO:DL_CALL-FUNCTIONS:END]>]
 
 /// @}
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -5940,12 +5996,13 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

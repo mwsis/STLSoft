@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        mfcstl/shims/access/string/CWnd.hpp
+ * File:    mfcstl/shims/access/string/CWnd.hpp
  *
- * Purpose:     String access shims for CWnd
+ * Purpose: String access shims for CWnd
  *
- * Created:     24th May 2002
- * Updated:     28th November 2020
+ * Created: 24th May 2002
+ * Updated: 21st March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define MFCSTL_VER_MFCSTL_SHIMS_ACCESS_STRING_HPP_CWND_MAJOR       4
 # define MFCSTL_VER_MFCSTL_SHIMS_ACCESS_STRING_HPP_CWND_MINOR       0
-# define MFCSTL_VER_MFCSTL_SHIMS_ACCESS_STRING_HPP_CWND_REVISION    14
-# define MFCSTL_VER_MFCSTL_SHIMS_ACCESS_STRING_HPP_CWND_EDIT        107
+# define MFCSTL_VER_MFCSTL_SHIMS_ACCESS_STRING_HPP_CWND_REVISION    16
+# define MFCSTL_VER_MFCSTL_SHIMS_ACCESS_STRING_HPP_CWND_EDIT        113
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -110,6 +111,7 @@
 # pragma warn .8084 /* Suppresses "Suggest parentheses to clarify precedence in function 'f()'" */
 #endif /* compiler */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -128,6 +130,7 @@ namespace mfcstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !MFCSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helpers
@@ -233,6 +236,7 @@ inline ms_size_t GetWindowText_T_(CListView const& w, LPTSTR buffer, ms_size_t c
 STLSOFT_CLOSE_WORKER_NS_(ximpl_mfcstl_CWnd_)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * classes
  */
@@ -260,7 +264,7 @@ public:
     /// Constructs an instance of the proxy from the given CWnd instance
     ///
     /// \param w The CWnd instance from which the text will be retrieved
-    template<ss_typename_param_k W>
+    template <ss_typename_param_k W>
     ss_explicit_k
     c_str_ptr_null_CWnd_proxy(W const& w)
         : m_block(make_block_(w))
@@ -279,12 +283,12 @@ public:
         cstring_maker_type_::free(m_block);
     }
 private:
-    void operator =(class_type const& rhs); // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
-    /// Returns a null-terminated string representing the window contents, or
-    /// NULL if the window contains no text.
+    /// Returns a null-terminated string representing the window contents,
+    /// or \c nullptr if the window contains no text.
     operator LPCTSTR () const
     {
         if (NULL == m_block)
@@ -296,7 +300,7 @@ public:
     }
 
 private: // implementation
-    template<ss_typename_param_k W>
+    template <ss_typename_param_k W>
     static
     block_type_*
     make_block_(W const& w)
@@ -347,7 +351,7 @@ public:
     /// Constructs an instance of the proxy from the given CWnd instance
     ///
     /// \param w The CWnd instance from which the text will be retrieved
-    template<ss_typename_param_k W>
+    template <ss_typename_param_k W>
     ss_explicit_k
     c_str_ptr_CWnd_proxy(W const& w)
         : m_block(make_block_(w))
@@ -366,7 +370,7 @@ public:
         cstring_maker_type_::free(m_block);
     }
 private:
-    void operator =(class_type const& rhs); // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
 // Accessors
 public:
@@ -378,7 +382,7 @@ public:
     }
 
 private: // implementation
-    template<ss_typename_param_k W>
+    template <ss_typename_param_k W>
     static
     block_type_*
     make_block_(W const& w)
@@ -401,6 +405,7 @@ private: // implementation
 private: // fields
     block_type_* const  m_block;
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * equivalence testing
@@ -426,11 +431,12 @@ inline ms_bool_t operator !=(c_str_ptr_null_CWnd_proxy const& lhs, LPCTSTR rhs)
     return static_cast<LPCTSTR>(lhs) != rhs;
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * iostream compatibility
  */
 
-template<ss_typename_param_k S>
+template <ss_typename_param_k S>
 inline S& operator <<(S& s, c_str_ptr_null_CWnd_proxy const& shim)
 {
     s << static_cast<LPCTSTR>(shim);
@@ -450,7 +456,7 @@ inline S& operator <<(S& s, c_str_ptr_CWnd_proxy const& shim)
  * c_str_ptr_null
  *
  * This can be applied to an expression, and the return value is either a
- * pointer to the character string or NULL.
+ * pointer to the character string or \c nullptr.
  */
 
 /* CWnd */
@@ -798,10 +804,10 @@ inline ms_size_t c_str_len_a(CListView const& w)
 #ifndef MFCSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace mfcstl */
+} // namespace mfcstl
 # else
-} /* namespace stlsoft::mfcstl_project */
-} /* namespace stlsoft */
+} // namespace mfcstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !MFCSTL_NO_NAMESPACE */
 
@@ -853,11 +859,12 @@ using ::mfcstl::c_str_ptr_null_a;
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
 #endif /* !MFCSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

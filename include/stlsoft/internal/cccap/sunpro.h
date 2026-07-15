@@ -1,19 +1,18 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/internal/cccap/sunpro.h
+ * File:    stlsoft/internal/cccap/sunpro.h
  *
- * Purpose:     Compiler feature discrimination for SunPro C / SunPro C++.
+ * Purpose: Compiler feature discrimination for SunPro C / SunPro C++.
  *
- * Created:     24th April 2008
- * Updated:     22nd January 2024
+ * Created: 24th April 2008
+ * Updated: 28th May 2025
  *
- * Thanks to:   Jonathan Wakely and Lars Ivar Igesund for help with
- *              getting STLSoft (and Pantheios) compatible with Solaris.
+ * Thanks:  Jonathan Wakely and Lars Ivar Igesund for help with getting
+ *          STLSoft (and Pantheios) compatible with Solaris. Austin Ziegler
+ *          for pointing out __func__ support
  *
- *              Austin Ziegler for pointing out __func__ support
+ * Home:    http://stlsoft.org/
  *
- * Home:        http://stlsoft.org/
- *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2008-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -61,14 +60,16 @@
 # error This file cannot be included more than once in any compilation unit
 #endif /* STLSOFT_INCL_H_STLSOFT_CCCAP_SUNPRO */
 
+
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define STLSOFT_VER_H_STLSOFT_CCCAP_SUNPRO_MAJOR      1
-# define STLSOFT_VER_H_STLSOFT_CCCAP_SUNPRO_MINOR      2
-# define STLSOFT_VER_H_STLSOFT_CCCAP_SUNPRO_REVISION   1
-# define STLSOFT_VER_H_STLSOFT_CCCAP_SUNPRO_EDIT       17
+# define STLSOFT_VER_H_STLSOFT_CCCAP_SUNPRO_MAJOR       1
+# define STLSOFT_VER_H_STLSOFT_CCCAP_SUNPRO_MINOR       2
+# define STLSOFT_VER_H_STLSOFT_CCCAP_SUNPRO_REVISION    2
+# define STLSOFT_VER_H_STLSOFT_CCCAP_SUNPRO_EDIT        20
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Auto-generation and compatibility
@@ -78,6 +79,7 @@
 [<[STLSOFT-AUTO:NO-DOCFILELABEL]>]
 [<[STLSOFT-AUTO:NO-UNITTEST]>]
 */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helper definitions
@@ -91,8 +93,9 @@
 # define _STLSOFT_SUNPRO_VER_                               __SUNPRO_C
 #endif /* __cplusplus */
 
-#define _STLSOFT_SUNPRO_VER_MAJOR   ((_STLSOFT_SUNPRO_VER_ & 0xff00) >> 8)
-#define _STLSOFT_SUNPRO_VER_MINOR   ((_STLSOFT_SUNPRO_VER_ & 0x00f0) >> 4)
+#define _STLSOFT_SUNPRO_VER_MAJOR                           ((_STLSOFT_SUNPRO_VER_ & 0xff00) >> 8)
+#define _STLSOFT_SUNPRO_VER_MINOR                           ((_STLSOFT_SUNPRO_VER_ & 0x00f0) >> 4)
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * compiler features
@@ -102,6 +105,7 @@
     (9 != _STLSOFT_SUNPRO_VER_MINOR)
 # error The STLSoft libraries have only been verified with Sun Pro 5.9.x. Please contact Synesis Software
 #endif /* major.minor */
+
 
 /* ///////////////////////////////////////////////
  * Pre-processor / compiler
@@ -140,6 +144,7 @@
 # define STLSOFT_PPF_VARIADIC_MACROS_SUPPORT
 #endif /* _STLSOFT_SUNPRO_VER_ */
 
+
 /* ///////////////////////////////////////////////
  * types
  */
@@ -147,27 +152,17 @@
 /* bool */
 #if defined(__cplusplus) && \
     defined(_BOOL)
-# define STLSOFT_CF_NATIVE_BOOL_SUPPORT
+# define STLSOFT_CF_BUILTIN_bool_SUPPORT
 #endif /* __cplusplus */
 
 /* char (sign) */
-/* #define STLSOFT_CF_CHAR_IS_UNSIGNED */
+/* #define STLSOFT_CF_char_IS_UNSIGNED */
 
 /* wchar_t */
 #ifdef _WCHAR_T
 # define STLSOFT_CF_NATIVE_WCHAR_T_SUPPORT
 #endif
 
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////// */
 
 /* /////////////////////////////////////////////////////////////////////////
  * integral types
@@ -192,8 +187,11 @@
  */
 
 
-#if defined(_LP64) || \
-    defined(__LP64__)
+#if 0
+#elif 0 ||\
+     defined(_LP64) ||\
+     defined(__LP64__) ||\
+     0
 # define _STLSOFT_SIZEOF_CHAR                               (1)
 # define _STLSOFT_SIZEOF_SHORT                              (2)
 # define _STLSOFT_SIZEOF_INT                                (4)
@@ -254,6 +252,7 @@
 #define STLSOFT_CF_64BIT_INT_IS_long_long
 #define STLSOFT_SI64_T_BASE_TYPE                            signed      long long
 #define STLSOFT_UI64_T_BASE_TYPE                            unsigned    long long
+
 
 /* ///////////////////////////////////////////////
  * language features
@@ -384,6 +383,7 @@
 /* !!! Assumed. Not yet verified !!! */ #define STLSOFT_CF_OPERATOR_BOOL_AS_OPERATOR_POINTER_TO_MEMBER_SUPPORT
 /* !!! Assumed. Not yet verified !!! */ #define STLSOFT_CF_OPERATOR_NOT_VIA_OPERATOR_POINTER_TO_MEMBER_SUPPORT
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * quality assurance features
  */
@@ -413,7 +413,7 @@
   */
 # define __STLSOFT_CF_ASSERT_SUPPORT
 # define STLSOFT_CF_ASSERT_SUPPORT
-# define STLSOFT_ASSERT(expr)                   _STLSOFT_CUSTOM_ASSERT(expr)
+# define STLSOFT_ASSERT(expr)                               _STLSOFT_CUSTOM_ASSERT(expr)
 # if defined(_STLSOFT_CUSTOM_ASSERT_INCLUDE)
 #  define   __STLSOFT_CF_ASSERT_INCLUDE_NAME                _STLSOFT_CUSTOM_ASSERT_INCLUDE
 # else
@@ -424,8 +424,9 @@
 # define STLSOFT_CF_ASSERT_SUPPORT
 /* # define   __STLSOFT_CF_USE_cassert */
 # define __STLSOFT_CF_ASSERT_INCLUDE_NAME                   <assert.h>
-# define STLSOFT_ASSERT(expr)                   assert(expr)
+# define STLSOFT_ASSERT(expr)                               assert(expr)
 #endif /* _STLSOFT_CUSTOM_ASSERT */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * calling convention
@@ -437,12 +438,14 @@
 # define STLSOFT_CDECL
 #endif /* STLSOFT_CF_CDECL_SUPPORTED */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * inline assembler
  */
 
 /* #define STSLSOFT_INLINE_ASM_SUPPORTED */
 /* #define STSLSOFT_ASM_IN_INLINE_SUPPORTED */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inline support
@@ -463,9 +466,11 @@
 # endif /* __cplusplus */
 #endif /* STLSOFT_LINUX_STDIO_ORDER_BUG */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * compiler warning suppression
  */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helper definitions
@@ -474,6 +479,7 @@
 #undef _STLSOFT_SUNPRO_VER_
 #undef _STLSOFT_SUNPRO_VER_MAJOR
 #undef _STLSOFT_SUNPRO_VER_MINOR
+
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

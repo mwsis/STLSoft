@@ -1,16 +1,16 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/conversion/union_cast.hpp (originally MLTypCnv.h, ::SynesisStd)
+ * File:    stlsoft/conversion/union_cast.hpp (originally MLTypCnv.h, ::SynesisStd)
  *
- * Purpose:     A powerful cast operator that limits the danger of
- *              reinterpret_cast, while avoiding the spurious warnings issued by
- *              some compilers.
+ * Purpose: A powerful cast operator that limits the danger of
+ *          reinterpret_cast, while avoiding the spurious warnings issued by
+ *          some compilers.
  *
- * Created:     2nd May 1997
- * Updated:     22nd January 2024
+ * Created: 2nd May 1997
+ * Updated: 29th June 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1997-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,9 +55,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONVERSION_HPP_UNION_CAST_MAJOR    5
 # define STLSOFT_VER_STLSOFT_CONVERSION_HPP_UNION_CAST_MINOR    0
-# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_UNION_CAST_REVISION 10
-# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_UNION_CAST_EDIT     79
+# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_UNION_CAST_REVISION 14
+# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_UNION_CAST_EDIT     86
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -82,6 +83,7 @@
 # endif /* !STLSOFT_INCL_STLSOFT_META_HPP_YESNO */
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -90,6 +92,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -190,7 +193,14 @@ public:
         STLSOFT_SUPPRESS_UNUSED(bCheckAlign);
     }
 private:
-    class_type& operator =(class_type const&);  // copy-assignment proscribed
+    // union_caster(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+#if 0 ||\
+    __cplusplus < 201103L ||\
+    __cplusplus >= 201703L ||\
+    0
+
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
+#endif
 /// @}
 
 /// \name Conversion
@@ -304,6 +314,7 @@ private:
 /// @}
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * shims
  */
@@ -358,8 +369,8 @@ make_union_cast(
 {
     return union_caster<TO, FROM, true>(from, bCheckAlign);
 }
-
 #endif /* compiler */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * operators
@@ -418,14 +429,15 @@ operator <(
 
     return lhs_ < rhs_;
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

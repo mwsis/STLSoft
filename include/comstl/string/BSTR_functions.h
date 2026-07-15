@@ -1,12 +1,12 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        comstl/string/BSTR_functions.h (originally MOBStrFn.h, ::SynesisCom)
+ * File:    comstl/string/BSTR_functions.h (originally MOBStrFn.h, ::SynesisCom)
  *
- * Purpose:     Contains classes and functions for dealing with BSTR strings.
+ * Purpose: Contains classes and functions for dealing with BSTR strings.
  *
- * Created:     24th June 2002
- * Updated:     22nd January 2024
+ * Created: 24th June 2002
+ * Updated: 24th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define COMSTL_VER_COMSTL_STRING_H_BSTR_FUNCTIONS_MAJOR    4
 # define COMSTL_VER_COMSTL_STRING_H_BSTR_FUNCTIONS_MINOR    4
-# define COMSTL_VER_COMSTL_STRING_H_BSTR_FUNCTIONS_REVISION 8
-# define COMSTL_VER_COMSTL_STRING_H_BSTR_FUNCTIONS_EDIT     105
+# define COMSTL_VER_COMSTL_STRING_H_BSTR_FUNCTIONS_REVISION 9
+# define COMSTL_VER_COMSTL_STRING_H_BSTR_FUNCTIONS_EDIT     108
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -75,16 +76,17 @@
 # include <stlsoft/quality/cover.h>
 #endif /* !STLSOFT_INCL_STLSOFT_QUALITY_H_COVER */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
-# include <stlsoft/api/external/string.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
-
 #ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
 # include <winstl/api/external/ErrorHandling.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
 #ifndef WINSTL_INCL_WINSTL_API_external_h_UnicodeAndCharacterSet
 # include <winstl/api/external/UnicodeAndCharacterSet.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_UnicodeAndCharacterSet */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -105,6 +107,7 @@ namespace comstl_project
 
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * C functions
@@ -288,8 +291,8 @@ comstl_C_BSTR_dup(
  *
  * \ingroup group__library__String
  *
- * \param s1 The first BSTR to compare. May be NULL
- * \param s2 The second BSTR to compare. May be NULL
+ * \param s1 The first BSTR to compare. May be \c nullptr
+ * \param s2 The second BSTR to compare. May be \c nullptr
  *
  * \return An integer value representing the relationship between the strings
  * \retval <0 s1 is lexicographically less than s2
@@ -327,6 +330,7 @@ comstl_C_BSTR_compare(
     }
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -335,6 +339,7 @@ comstl_C_BSTR_compare(
 namespace comstl
 {
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
@@ -538,8 +543,8 @@ BSTR_dup(
  *
  * \ingroup group__library__String
  *
- * \param s1 The first BSTR to compare. May be NULL
- * \param s2 The second BSTR to compare. May be NULL
+ * \param s1 The first BSTR to compare. May be \c nullptr
+ * \param s2 The second BSTR to compare. May be \c nullptr
  *
  * \return An integer value representing the relationship between the strings
  * \retval <0 s1 is lexicographically less than s2
@@ -557,6 +562,7 @@ BSTR_compare(
 }
 
 #endif /* __cplusplus */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * backwards compatibility
@@ -740,6 +746,7 @@ bstr_compare(
 } /* namespace stlsoft */
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

@@ -1,16 +1,16 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/controls/listbox_const_iterator.hpp
+ * File:    winstl/controls/listbox_const_iterator.hpp
  *
- * Purpose:     Contains the listbox_const_iterator class.
+ * Purpose: Contains the listbox_const_iterator class.
  *
- * Created:     10th November 2002
- * Updated:     22nd January 2024
+ * Created: 10th November 2002
+ * Updated: 20th March 2025
  *
- * Thanks:      To Pablo Aguilar for some patches.
+ * Thanks:  To Pablo Aguilar for some patches.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,9 +55,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTBOX_CONST_ITERATOR_MAJOR    4
 # define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTBOX_CONST_ITERATOR_MINOR    3
-# define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTBOX_CONST_ITERATOR_REVISION 6
-# define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTBOX_CONST_ITERATOR_EDIT     90
+# define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTBOX_CONST_ITERATOR_REVISION 7
+# define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTBOX_CONST_ITERATOR_EDIT     93
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -86,6 +87,7 @@
 # include <stlsoft/error/external_iterator_invalidation.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_ERROR_HPP_EXTERNAL_ITERATOR_INVALIDATION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -105,6 +107,7 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * classes
  */
@@ -122,39 +125,42 @@ template<   ss_typename_param_k S
         ,   ss_typename_param_k BT
         >
 class listbox_const_iterator
-    : public STLSOFT_NS_QUAL(iterator_base)<STLSOFT_NS_QUAL_STD(random_access_iterator_tag)
-                                        ,   S
-                                        ,   ws_ptrdiff_t
-                                        ,   S const*
-                                        ,   S const&
-                                        >
+    : public STLSOFT_NS_QUAL(iterator_base)<
+                STLSOFT_NS_QUAL_STD(random_access_iterator_tag)
+            ,   S
+            ,   ws_ptrdiff_t
+            ,   S const*
+            ,   S const&
+            >
 {
 /// \name Member Types
 /// @{
 public:
     /// The string type
-    typedef S                                                               value_type;
+    typedef S                                               value_type;
     /// The current specialisation of the type
-    typedef listbox_const_iterator<S, BT>                                   class_type;
+    typedef listbox_const_iterator<S, BT>                   class_type;
 #if defined(STLSOFT_COMPILER_IS_BORLAND)
 private:
-    typedef STLSOFT_NS_QUAL(string_traits)<S>                               string_traits_type_;
-    typedef ss_typename_type_k string_traits_type_::char_type               char_type;
+    typedef STLSOFT_NS_QUAL(string_traits)<S>               string_traits_type_;
+    typedef ss_typename_type_k string_traits_type_::char_type
+                                                            char_type;
 public:
 #else /* ? compiler */
     /// The character type
-    typedef ss_typename_type_k STLSOFT_NS_QUAL(string_traits)<S>::char_type char_type;
+    typedef ss_typename_type_k STLSOFT_NS_QUAL(string_traits)<S>::char_type
+                                                            char_type;
 #endif /* ? compiler */
     /// The size type
-    typedef ws_size_t                                                       size_type;
+    typedef ws_size_t                                       size_type;
     /// The difference type
-    typedef ws_ptrdiff_t                                                    difference_type;
+    typedef ws_ptrdiff_t                                    difference_type;
     /// The non-mutating (const) reference type
-    typedef value_type const&                                               const_reference;
+    typedef value_type const&                               const_reference;
     /// The non-mutating (const) pointer type
-    typedef value_type const*                                               const_pointer;
+    typedef value_type const*                               const_pointer;
     /// The allocator type
-    typedef processheap_allocator<char_type>                                allocator_type;
+    typedef processheap_allocator<char_type>                allocator_type;
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
     /// The non-mutating (const) reverse iterator type
     ///
@@ -165,20 +171,22 @@ public:
     /// there is no underlying range of values of which the offset-by-one
     /// mechanism of the std::reverse_iterator adaptor can access and
     /// return a valid reference.
-    typedef STLSOFT_NS_QUAL(const_reverse_iterator_base)<   class_type
-                                                        ,   value_type
-                                                        ,   value_type  // By-Value Temporary element references
-                                                        ,   void        // By-Value Temporary element references
-                                                        ,   difference_type
-                                                        >                   const_reverse_iterator_type;
+    typedef STLSOFT_NS_QUAL(const_reverse_iterator_base)<
+        class_type
+    ,   value_type
+    ,   value_type  // By-Value Temporary element references
+    ,   void        // By-Value Temporary element references
+    ,   difference_type
+>                                                           const_reverse_iterator_type;
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
     /// The auto-buffer type
-    typedef STLSOFT_NS_QUAL(auto_buffer_old)<   char_type
-                                            ,   allocator_type
-                                            ,   256
-                                            >                               buffer_type;
+    typedef STLSOFT_NS_QUAL(auto_buffer)<
+        char_type
+    ,   256
+    ,   allocator_type
+    >                                                       buffer_type;
     /// The control traits type
-    typedef BT                                                              control_traits_type;
+    typedef BT                                              control_traits_type;
 /// @}
 
 /// \name Construction
@@ -425,12 +433,13 @@ private:
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

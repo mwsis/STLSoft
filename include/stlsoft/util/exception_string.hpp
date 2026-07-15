@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/util/exception_string.hpp
+ * File:    stlsoft/util/exception_string.hpp
  *
- * Purpose:     Contains the exception_string limited functionality string class.
+ * Purpose: Contains the exception_string limited functionality string class.
  *
- * Created:     26th December 2005
- * Updated:     22nd January 2024
+ * Created: 26th December 2005
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_UTIL_HPP_EXCEPTION_STRING_MAJOR    1
 # define STLSOFT_VER_STLSOFT_UTIL_HPP_EXCEPTION_STRING_MINOR    4
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_EXCEPTION_STRING_REVISION 6
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_EXCEPTION_STRING_EDIT     33
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_EXCEPTION_STRING_REVISION 10
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_EXCEPTION_STRING_EDIT     39
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -78,6 +79,7 @@
 # include <stlsoft/string/char_traits.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_CHAR_TRAITS */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -86,6 +88,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -111,7 +114,11 @@ public:
     /// The size type
     typedef ss_size_t                                       size_type;
 private:
-    typedef auto_buffer_old<char_type, allocator_type, 96>  buffer_type_;
+    typedef auto_buffer<
+        char_type
+    ,   96
+    ,   allocator_type
+    >                                                       buffer_type_;
 /// @}
 
 /// \name Construction
@@ -144,7 +151,10 @@ public:
         traits_type::copy(&m_message[0], &rhs.m_message[0], m_message.size());
         m_message[m_message.size() - 1] = '\0';
     }
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
+public:
     /// Appends the given string to the message
     void operator +=(char_type const* s)
     {
@@ -239,47 +249,55 @@ public:
 private:
     buffer_type_    m_message;
 /// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    class_type& operator =(class_type const&);
-/// @}
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * shims
  */
 
-inline exception_string::char_type const* c_str_data(exception_string const& xs)
+inline
+exception_string::char_type const*
+c_str_data(exception_string const& xs)
 {
     return xs.data();
 }
 
-inline exception_string::size_type c_str_len(exception_string const& xs)
+inline
+exception_string::size_type
+c_str_len(exception_string const& xs)
 {
     return xs.size();
 }
 
-inline exception_string::char_type const* c_str_ptr(exception_string const& xs)
+inline
+exception_string::char_type const*
+c_str_ptr(exception_string const& xs)
 {
     return xs.c_str();
 }
 
-inline exception_string::char_type const* c_str_data_a(exception_string const& xs)
+inline
+exception_string::char_type const*
+c_str_data_a(exception_string const& xs)
 {
     return c_str_data(xs);
 }
 
-inline exception_string::size_type c_str_len_a(exception_string const& xs)
+inline
+exception_string::size_type
+c_str_len_a(exception_string const& xs)
 {
     return c_str_len(xs);
 }
 
-inline exception_string::char_type const* c_str_ptr_a(exception_string const& xs)
+inline
+exception_string::char_type const*
+c_str_ptr_a(exception_string const& xs)
 {
     return c_str_ptr(xs);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * operators
@@ -289,7 +307,11 @@ inline exception_string::char_type const* c_str_ptr_a(exception_string const& xs
  *
  * \ingroup group__library__String
  */
-inline exception_string operator +(exception_string const& lhs, exception_string::char_type const* rhs)
+inline
+exception_string operator +(
+    exception_string const&             lhs
+,   exception_string::char_type const*  rhs
+)
 {
     exception_string s(lhs);
 
@@ -302,7 +324,11 @@ inline exception_string operator +(exception_string const& lhs, exception_string
  *
  * \ingroup group__library__String
  */
-inline exception_string operator +(exception_string::char_type lhs, exception_string const& rhs)
+inline
+exception_string operator +(
+    exception_string::char_type lhs
+,   exception_string const&     rhs
+)
 {
     exception_string::char_type lhs_[2] = { lhs, '\0' };
     exception_string            s(lhs_);
@@ -316,7 +342,11 @@ inline exception_string operator +(exception_string::char_type lhs, exception_st
  *
  * \ingroup group__library__String
  */
-inline exception_string operator +(exception_string const& lhs, exception_string::char_type rhs)
+inline
+exception_string operator +(
+    exception_string const&     lhs
+,   exception_string::char_type rhs
+)
 {
     exception_string s(lhs);
 
@@ -329,7 +359,11 @@ inline exception_string operator +(exception_string const& lhs, exception_string
  *
  * \ingroup group__library__String
  */
-inline exception_string operator +(exception_string::char_type const* lhs, exception_string const& rhs)
+inline
+exception_string operator +(
+    exception_string::char_type const*  lhs
+,   exception_string const&             rhs
+)
 {
     exception_string s(lhs);
 
@@ -342,7 +376,11 @@ inline exception_string operator +(exception_string::char_type const* lhs, excep
  *
  * \ingroup group__library__String
  */
-inline exception_string operator +(exception_string const& lhs, exception_string const& rhs)
+inline
+exception_string operator +(
+    exception_string const& lhs
+,   exception_string const& rhs
+)
 {
     exception_string s(lhs);
 
@@ -351,11 +389,15 @@ inline exception_string operator +(exception_string const& lhs, exception_string
     return s;
 }
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* ////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

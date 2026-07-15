@@ -1,18 +1,17 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/util/std/iterator_helper.hpp
+ * File:    stlsoft/util/std/iterator_helper.hpp
  *
- * Purpose:     Definition of iterator class templates and macros for
- *              abstracting away standard library inconsistencies.
+ * Purpose: Definition of iterator class templates and macros for
+ *          abstracting away standard library inconsistencies.
  *
- * Created:     2nd January 2000
- * Updated:     6th February 2024
+ * Created: 2nd January 2000
+ * Updated: 20th March 2025
  *
- * Thanks:      To Cláudio Albuquerque for assisting with VC++ 12 & 14
- *              support.
+ * Thanks:  To Cláudio Albuquerque for assisting with VC++ 12 & 14 support.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2000-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -58,9 +57,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER_MAJOR     5
 # define STLSOFT_VER_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER_MINOR     8
-# define STLSOFT_VER_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER_REVISION  8
-# define STLSOFT_VER_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER_EDIT      125
+# define STLSOFT_VER_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER_REVISION  9
+# define STLSOFT_VER_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER_EDIT      128
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -100,6 +100,7 @@
 # endif /* !STLSOFT_INCL_STLSOFT_META_TYPEFIXER_HPP_REFERENCE_TYPE */
 #endif /* STLSOFT_CF_HAS_MEMBER_TYPE_SUPPORTED */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * warnings
  */
@@ -109,6 +110,7 @@
 # pragma warning(disable : 4097)    // suppresses: typedef-name 'identifier1' used as synonym for class-name 'identifier2'
 #endif /* compiler */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -117,6 +119,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * tested compatibilities
@@ -140,6 +143,7 @@ namespace stlsoft
 # endif /* 0 */
 
 #endif /* !STLSOFT_OVERRIDE_COMPILER_STD_LIBRARY_CHECK */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * iterator macros
@@ -547,6 +551,7 @@ namespace stlsoft
 # endif /*  */
 
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * iterators
@@ -993,6 +998,7 @@ public:
 
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * random access iterator support
  */
@@ -1006,7 +1012,7 @@ public:
 #ifdef _STLSOFT_CF_MIGHT_BE_DINKUMWARE_MS_NAUGHTIES
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
 
 template<
@@ -1026,10 +1032,10 @@ private:
     char    x[1024];
 };
 
-namespace std
-{
-    namespace test_dinkumware
-    {
+namespace std {
+
+    namespace test_dinkumware {
+
         template<
             ss_typename_param_k T1
         ,   ss_typename_param_k T2
@@ -1074,10 +1080,8 @@ namespace std
             ,   sizeof(_Ptrit_type) < 1024
             >::selected_type                                iterator_type;
         };
-
-    } /* namespace test_dinkumware */
-
-} /* namespace std */
+    } // namespace test_dinkumware
+} // namespace std
 
 #ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
@@ -1183,7 +1187,11 @@ distance_type(pointer_iterator<V, P, R>::type const&)
 # define stlsoft_iterator_query_category(I, i)              (STLSOFT_NS_QUAL_STD(_Iter_cat)(i))
 # define stlsoft_iterator_query_category_ptr(I, i)          (&STLSOFT_NS_QUAL_STD(_Iter_cat)(i))
 
-#elif defined(STLSOFT_COMPILER_IS_CLANG)
+#elif 0 ||\
+      defined(STLSOFT_COMPILER_IS_CLANG) ||\
+      defined(STLSOFT_COMPILER_IS_GCC) ||\
+      defined(STLSOFT_COMPILER_IS_MSVC) ||\
+      0
 
 # define stlsoft_iterator_query_category(I, i)              (ss_typename_type_k std::iterator_traits<I>::iterator_category())
 
@@ -1204,7 +1212,7 @@ distance_type(pointer_iterator<V, P, R>::type const&)
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
 
 /* ////////////////////////////////////////////////////////////////////// */

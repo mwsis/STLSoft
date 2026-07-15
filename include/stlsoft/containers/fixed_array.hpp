@@ -1,22 +1,22 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/containers/fixed_array.hpp
+ * File:    stlsoft/containers/fixed_array.hpp
  *
- * Purpose:     Contains the fixed_array_1d, fixed_array_2d, fixed_array_3d,
- *              fixed_array_4d template classes.
+ * Purpose: Contains the fixed_array_1d, fixed_array_2d, fixed_array_3d,
+ *          fixed_array_4d template classes.
  *
- * Created:     4th August 1998
- * Updated:     22nd January 2024
+ * Created: 4th August 1998
+ * Updated: 20th March 2025
  *
- * Thanks to:   Neal Becker for suggesting the uninitialised mode,
- *              requesting the function call operator, and for requesting
- *              the with-allocator constructor overloads.
+ * Thanks:  Neal Becker for suggesting the uninitialised mode, requesting
+ *          the function call operator, and for requesting the
+ *          with-allocator constructor overloads.
  *
- *              Thorsten Ottosen for suggesting swap() and mutating data(),
- *              and for providing suggested implementations.
+ *          Thorsten Ottosen for suggesting swap() and mutating data(), and
+ *          for providing suggested implementations.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1998-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -63,9 +63,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_FIXED_ARRAY_MAJOR      4
 # define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_FIXED_ARRAY_MINOR      9
-# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_FIXED_ARRAY_REVISION   12
-# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_FIXED_ARRAY_EDIT       206
+# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_FIXED_ARRAY_REVISION   14
+# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_FIXED_ARRAY_EDIT       210
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -114,6 +115,7 @@
 # include <stdexcept>                    // for std::out_of_range
 #endif /* !STLSOFT_INCL_STDEXCEPT */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -122,6 +124,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * forward declarations
@@ -165,6 +168,7 @@ template<   ss_typename_param_k T
 class fixed_array_5d;
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -249,7 +253,10 @@ public:
                   fixed_array_1d(index_type d0, value_type const& t, allocator_type const& ator);
                   fixed_array_1d(class_type const& rhs);
                  ~fixed_array_1d() STLSOFT_NOEXCEPT;
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
+public:
     allocator_type  get_allocator() const;
 
     void          swap(class_type& rhs) STLSOFT_NOEXCEPT;
@@ -324,10 +331,6 @@ private:
 
     friend class fixed_array_2d<T, A, P, true>;
     friend class fixed_array_2d<T, A, P, false>;
-
-// Not to be implemented
-private:
-    class_type const& operator =(class_type const& rhs);
 };
 
 /** 2 dimensional fixed array
@@ -409,7 +412,10 @@ public:
     fixed_array_2d(index_type d0, index_type d1, value_type const& t, allocator_type const& ator);
     fixed_array_2d(class_type const& rhs);
     ~fixed_array_2d() STLSOFT_NOEXCEPT;
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
+public:
     allocator_type  get_allocator() const;
 
     void swap(class_type& rhs) STLSOFT_NOEXCEPT;
@@ -490,10 +496,6 @@ private:
 
     friend class fixed_array_3d<T, A, P, true>;
     friend class fixed_array_3d<T, A, P, false>;
-
-// Not to be implemented
-private:
-    class_type const& operator =(class_type const& rhs);
 };
 
 /** 3 dimensional fixed array
@@ -575,7 +577,10 @@ public:
     fixed_array_3d(index_type d0, index_type d1, index_type d2, value_type const& t, allocator_type const& ator);
     fixed_array_3d(class_type const& rhs);
     ~fixed_array_3d() STLSOFT_NOEXCEPT;
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
+public:
     allocator_type  get_allocator() const;
 
     void swap(class_type& rhs) STLSOFT_NOEXCEPT;
@@ -656,10 +661,6 @@ private:
 
     friend class fixed_array_4d<T, A, P, true>;
     friend class fixed_array_4d<T, A, P, false>;
-
-// Not to be implemented
-private:
-    class_type const& operator =(class_type const& rhs);
 };
 
 /** 4 dimensional fixed array
@@ -741,7 +742,10 @@ public:
     fixed_array_4d(index_type d0, index_type d1, index_type d2, index_type d3, value_type const& t, allocator_type const& ator);
     fixed_array_4d(class_type const& rhs);
     ~fixed_array_4d() STLSOFT_NOEXCEPT;
+private:
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
+public:
     allocator_type  get_allocator() const;
 
     void swap(class_type& rhs) STLSOFT_NOEXCEPT;
@@ -824,11 +828,8 @@ private:
 
     friend class fixed_array_5d<T, A, P, true>;
     friend class fixed_array_5d<T, A, P, false>;
-
-// Not to be implemented
-private:
-    class_type const& operator =(class_type const& rhs);
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * implementation
@@ -2392,6 +2393,7 @@ inline ss_typename_type_ret_k fixed_array_4d<T, A, P, R>::const_pointer fixed_ar
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * shims
  */
@@ -2448,11 +2450,13 @@ inline ss_size_t array_size(fixed_array_5d<T, A, P, R> const& ar)
 }
 #endif /* 0 */
 
+
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

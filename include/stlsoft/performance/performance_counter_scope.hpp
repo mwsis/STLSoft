@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/performance/performance_counter_scope.hpp
+ * File:    stlsoft/performance/performance_counter_scope.hpp
  *
- * Purpose:     Performance counter scope class.
+ * Purpose: Performance counter scope class.
  *
- * Created:     20th July 2002
- * Updated:     26th December 2020
+ * Created: 20th July 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_HPP_PERFORMANCE_COUNTER_SCOPE_MAJOR    5
 # define STLSOFT_VER_STLSOFT_HPP_PERFORMANCE_COUNTER_SCOPE_MINOR    0
-# define STLSOFT_VER_STLSOFT_HPP_PERFORMANCE_COUNTER_SCOPE_REVISION 1
-# define STLSOFT_VER_STLSOFT_HPP_PERFORMANCE_COUNTER_SCOPE_EDIT     51
+# define STLSOFT_VER_STLSOFT_HPP_PERFORMANCE_COUNTER_SCOPE_REVISION 3
+# define STLSOFT_VER_STLSOFT_HPP_PERFORMANCE_COUNTER_SCOPE_EDIT     55
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -73,6 +74,7 @@
 # include <stlsoft/diagnostics/stopwatch_scope.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_HPP_STOPWATCH_SCOPE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -81,6 +83,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -97,15 +100,16 @@ template <ss_typename_param_k C>
 class performance_counter_scope
     : public stopwatch_scope<C>
 {
-public:
+public: // types
     /// The counter type
-    typedef C                               counter_type;
+    typedef C                                               counter_type;
     /// The class type
-    typedef performance_counter_scope<C>    class_type;
+    typedef performance_counter_scope<C>                    class_type;
 
-public:
+public: // construction
     /// Constructs with the performance counter instance to manage, on which start() is called
-    ss_explicit_k performance_counter_scope(counter_type &counter)
+    ss_explicit_k
+    performance_counter_scope(counter_type& counter)
         : m_counter(counter)
     {
         m_counter.start();
@@ -115,13 +119,18 @@ public:
     {
         m_counter.stop();
     }
+private:
+    performance_counter_scope(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 
+public: // operations
     /// Calls stop() on the managed counter
     void stop()
     {
         m_counter.stop();
     }
 
+public: // attributes
     // This method is const, to ensure that only the stop operation (via
     // performance_counter_scope::stop()) is accessible on the managed counter.
     /// Returns a non-mutable (const) reference to the managed counter
@@ -130,21 +139,16 @@ public:
         return m_counter;
     }
 
-// Members
-private:
-    C   &m_counter;
-
-// Not to be implemented
-private:
-    performance_counter_scope(class_type const& rhs);
-    class_type const& operator =(class_type const& rhs);
+private: // fields
+    C& m_counter;
 };
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

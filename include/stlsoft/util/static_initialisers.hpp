@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/util/static_initialisers.hpp (originally MLClsCtr.h, ::SynesisStd)
+ * File:    stlsoft/util/static_initialisers.hpp (originally MLClsCtr.h, ::SynesisStd)
  *
- * Purpose:     Initialiser classes for the STLSoft libraries.
+ * Purpose: Initialiser classes for the STLSoft libraries.
  *
- * Created:     17th February 1997
- * Updated:     30th November 2020
+ * Created: 17th February 1997
+ * Updated: 21st March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1997-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,9 +55,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_UTIL_HPP_STATIC_INITIALISERS_MAJOR     4
 # define STLSOFT_VER_STLSOFT_UTIL_HPP_STATIC_INITIALISERS_MINOR     0
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_STATIC_INITIALISERS_REVISION  6
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_STATIC_INITIALISERS_EDIT      228
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_STATIC_INITIALISERS_REVISION  8
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_STATIC_INITIALISERS_EDIT      233
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -70,6 +71,7 @@
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -79,6 +81,7 @@ namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * classes
  */
@@ -87,7 +90,7 @@ namespace stlsoft
 class method_constructor
 {
 public:
-    template<ss_typename_param_k T>
+    template <ss_typename_param_k T>
     method_constructor(T const& t, void (T::*const fn)())
     {
         (t.*fn)();
@@ -112,7 +115,7 @@ public:
 class static_initialiser
 {
 public:
-    typedef static_initialiser  class_type;
+    typedef static_initialiser                              class_type;
 
 /// \name Constructors
 /// @{
@@ -130,14 +133,14 @@ public:
     static_initialiser(void const* /* pt */)
     {}
 #endif // STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT
+private:
+    static_initialiser(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Not to be implemented
 /// @{
 private:
-    static_initialiser(class_type const&);
-    static_initialiser& operator =(class_type const&);
-
 #ifndef new
 # ifdef STLSOFT_COMPILER_IS_COMO
     void* operator new(ss_size_t) STLSOFT_NOEXCEPT
@@ -160,6 +163,9 @@ private:
  */
 class api_constructor
 {
+public: // types
+    typedef api_constructor                                 class_type;
+
 /// \name Constructors
 /// @{
 public:
@@ -178,6 +184,9 @@ public:
             (*m_pfnUninit)();
         }
     }
+private:
+    api_constructor(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Members
@@ -189,9 +198,6 @@ private:
 /// \name Not to be implemented
 /// @{
 private:
-    api_constructor(api_constructor const&);
-    api_constructor& operator =(api_constructor const&);
-
 #ifndef new
 # ifdef STLSOFT_COMPILER_IS_COMO
     void* operator new(ss_size_t) STLSOFT_NOEXCEPT
@@ -216,6 +222,9 @@ template <ss_typename_param_k T>
 class class_constructor
     : protected api_constructor
 {
+public: // types
+    typedef class_constructor                               class_type;
+
 /// \name Member types
 /// @{
 public:
@@ -235,14 +244,14 @@ public:
                                     ,   class_uninit_fn_t   pfnUninit)
         : api_constructor(pfnInit, pfnUninit)
     {}
+private:
+    class_constructor(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Not to be implemented
 /// @{
 private:
-    class_constructor(class_constructor const&);
-    class_constructor& operator =(class_constructor const&);
-
 #ifndef new
 # ifdef STLSOFT_COMPILER_IS_COMO
     void* operator new(ss_size_t) STLSOFT_NOEXCEPT
@@ -258,11 +267,15 @@ private:
 /// @}
 };
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

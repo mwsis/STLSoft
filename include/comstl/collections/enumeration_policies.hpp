@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        comstl/collections/enumeration_policies.hpp
+ * File:    comstl/collections/enumeration_policies.hpp
  *
- * Purpose:     Policies for enumerator interface handling.
+ * Purpose: Policies for enumerator interface handling.
  *
- * Created:     20th December 2003
- * Updated:     22nd January 2024
+ * Created: 20th December 2003
+ * Updated: 21st March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,9 +53,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATION_POLICIES_MAJOR       6
 # define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATION_POLICIES_MINOR       1
-# define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATION_POLICIES_REVISION    13
-# define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATION_POLICIES_EDIT        69
+# define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATION_POLICIES_REVISION    16
+# define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATION_POLICIES_EDIT        76
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -77,9 +78,10 @@
 # endif /* !COMSTL_INCL_COMSTL_EXCEPTION_HPP_COMSTL_EXCEPTION */
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -99,6 +101,7 @@ namespace comstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -131,8 +134,11 @@ public:
     clone_failure(HRESULT hr)
         : parent_class_type(hr)
     {}
+#if __cplusplus >= 201103L
+    clone_failure(class_type const&) = default;
+#endif
 private:
-    class_type& operator =(class_type const&);  // copy-assignment proscribed
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Accessors
@@ -187,7 +193,7 @@ struct repeatable_enumerator_tag
  *
  * \param I The enumeration interface
  */
-template<ss_typename_param_k I>
+template <ss_typename_param_k I>
 struct input_cloning_policy
     : public noncloneable_enumerator_tag
 {
@@ -236,7 +242,7 @@ public:
  *
  * \param I The enumeration interface
  */
-template<ss_typename_param_k I>
+template <ss_typename_param_k I>
 struct cloneable_cloning_policy
     : public cloneable_enumerator_tag
 {
@@ -248,7 +254,7 @@ public:
 public:
     /// Gets a working "copy" of the given enumerator root
     ///
-    /// \remarks For this policy, this calls Clone(), and returns NULL
+    /// \remarks For this policy, this calls Clone(), and returns \c nullptr
     ///   if that fails.
     static interface_type *get_working_instance(interface_type *root)
     {
@@ -306,7 +312,7 @@ public:
  *
  * \param I The enumeration interface
  */
-template<ss_typename_param_k I>
+template <ss_typename_param_k I>
 struct forward_cloning_policy
     : public repeatable_enumerator_tag
 {
@@ -320,7 +326,7 @@ public:
     ///
     /// \remarks For this policy, this calls Clone(), and throws an
     ///   instance of comstl::clone_failure if that fails (or returns
-    ///   NULL if exception support is disabled).
+    ///   \c nullptr if exception support is disabled).
     static interface_type *get_working_instance(interface_type *root)
     {
         COMSTL_ASSERT(NULL != root);
@@ -514,7 +520,7 @@ public:
             UINT        argErrIndex;
             VARIANT     result;
 
-            STLSOFT_API_INTERNAL_memfns_memset(&params, 0, sizeof(params));
+            STLSOFT_API_EXTERNAL_memfns_memset(&params, 0, sizeof(params));
             ::VariantInit(&result);
 
             hr = pdisp->Invoke( DISPID_NEWENUM
@@ -554,17 +560,21 @@ public:
     }
 };
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef COMSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace comstl */
+} // namespace comstl
 # else
-} /* namespace stlsoft::comstl_project */
-} /* namespace stlsoft */
+} // namespace comstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !COMSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

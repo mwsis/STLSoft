@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/conversion/internal/explicit_cast_specialisations.hpp
+ * File:    stlsoft/conversion/internal/explicit_cast_specialisations.hpp
  *
- * Purpose:     Specialisations of explicit_cast
+ * Purpose: Specialisations of explicit_cast
  *
- * Created:     13th August 2003
- * Updated:     26th December 2020
+ * Created: 13th August 2003
+ * Updated: 25th November 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -56,9 +56,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONVERSION_INTERNAL_HPP_EXPLICIT_CAST_SPECIALISATIONS_MAJOR    4
 # define STLSOFT_VER_STLSOFT_CONVERSION_INTERNAL_HPP_EXPLICIT_CAST_SPECIALISATIONS_MINOR    0
-# define STLSOFT_VER_STLSOFT_CONVERSION_INTERNAL_HPP_EXPLICIT_CAST_SPECIALISATIONS_REVISION 1
-# define STLSOFT_VER_STLSOFT_CONVERSION_INTERNAL_HPP_EXPLICIT_CAST_SPECIALISATIONS_EDIT     28
+# define STLSOFT_VER_STLSOFT_CONVERSION_INTERNAL_HPP_EXPLICIT_CAST_SPECIALISATIONS_REVISION 2
+# define STLSOFT_VER_STLSOFT_CONVERSION_INTERNAL_HPP_EXPLICIT_CAST_SPECIALISATIONS_EDIT     30
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * Auto-generation and compatibility
@@ -68,6 +69,7 @@
 [<[STLSOFT-AUTO:NO-UNITTEST]>]
 [<[STLSOFT-AUTO:NO-DOCFILELABEL]>]
 */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * specialisations
@@ -512,7 +514,7 @@ private:
     long double const& m_t;
 };
 
-#ifdef STLSOFT_CF_NATIVE_BOOL_SUPPORT
+#ifdef STLSOFT_CF_BUILTIN_bool_SUPPORT
 
 STLSOFT_TEMPLATE_SPECIALISATION
 class explicit_cast<bool const&>
@@ -538,8 +540,8 @@ public:
 private:
     bool const& m_t;
 };
+#endif /* STLSOFT_CF_BUILTIN_bool_SUPPORT */
 
-#endif /* STLSOFT_CF_NATIVE_BOOL_SUPPORT */
 
 /* ////////////////////////////////////////////////////////////////////// */
 

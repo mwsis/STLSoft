@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        mfcstl/shims/logical/is_empty/CString.hpp
+ * File:    mfcstl/shims/logical/is_empty/CString.hpp
  *
- * Purpose:     is_empty attribute shims for MFC CString
+ * Purpose: is_empty attribute shims for MFC CString
  *
- * Created:     18th December 2006
- * Updated:     28th November 2020
+ * Created: 18th December 2006
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -53,10 +53,11 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define MFCSTL_VER_MFCSTL_SHIMS_LOGICAL_IS_EMPTY_HPP_CSTRING_MAJOR     2
-# define MFCSTL_VER_MFCSTL_SHIMS_LOGICAL_IS_EMPTY_HPP_CSTRING_MINOR     0
-# define MFCSTL_VER_MFCSTL_SHIMS_LOGICAL_IS_EMPTY_HPP_CSTRING_REVISION  6
-# define MFCSTL_VER_MFCSTL_SHIMS_LOGICAL_IS_EMPTY_HPP_CSTRING_EDIT      18
+# define MFCSTL_VER_MFCSTL_SHIMS_LOGICAL_IS_EMPTY_HPP_CSTRING_MINOR     1
+# define MFCSTL_VER_MFCSTL_SHIMS_LOGICAL_IS_EMPTY_HPP_CSTRING_REVISION  1
+# define MFCSTL_VER_MFCSTL_SHIMS_LOGICAL_IS_EMPTY_HPP_CSTRING_EDIT      21
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -73,6 +74,7 @@
 # define STLSOFT_INCL_H_AFX
 # include <afx.h>
 #endif /* !STLSOFT_INCL_H_AFX */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -93,6 +95,7 @@ namespace mfcstl_project
 # endif /* _STLSOFT_NO_NAMESPMFC */
 #endif /* !_MFCSTL_NO_NAMESPMFC */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * shims
  */
@@ -102,20 +105,25 @@ namespace mfcstl_project
  * \ingroup group__concept__Shim__Logical__is_empty
  *
  */
-inline BOOL is_empty(CString const& s)
+inline
+BOOL
+is_empty(CString const& s) STLSOFT_NOEXCEPT
 {
     return s.IsEmpty();
 }
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef _MFCSTL_NO_NAMESPMFC
 # if defined(_STLSOFT_NO_NAMESPMFC) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace mfcstl */
+} // namespace mfcstl
 # else
-} /* namespace mfcstl_project */
-} /* namespace stlsoft */
+} // namespace mfcstl_project
+} // namespace stlsoft
 # endif /* _STLSOFT_NO_NAMESPMFC */
 
 namespace stlsoft
@@ -123,9 +131,9 @@ namespace stlsoft
 
     using ::mfcstl::is_empty;
 
-} /* namespace stlsoft */
-
+} // namespace stlsoft
 #endif /* !_MFCSTL_NO_NAMESPMFC */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

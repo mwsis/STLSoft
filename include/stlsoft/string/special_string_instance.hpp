@@ -1,17 +1,17 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/string/special_string_instance.hpp
+ * File:    stlsoft/string/special_string_instance.hpp
  *
- * Purpose:     Special string instance class template.
+ * Purpose: Special string instance class template.
  *
- * Created:     3rd June 2006
- * Updated:     22nd January 2024
+ * Created: 3rd June 2006
+ * Updated: 20th March 2025
  *
- * Thanks to:   Pablo Aguilar for spotting my omission of string access shims
- *              for special_string_instance_1.
+ * Thanks:  Pablo Aguilar for spotting my omission of string access shims
+ *          for special_string_instance_1.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -57,9 +57,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_STRING_HPP_SPECIAL_STRING_INSTANCE_MAJOR       1
 # define STLSOFT_VER_STLSOFT_STRING_HPP_SPECIAL_STRING_INSTANCE_MINOR       5
-# define STLSOFT_VER_STLSOFT_STRING_HPP_SPECIAL_STRING_INSTANCE_REVISION    4
-# define STLSOFT_VER_STLSOFT_STRING_HPP_SPECIAL_STRING_INSTANCE_EDIT        43
+# define STLSOFT_VER_STLSOFT_STRING_HPP_SPECIAL_STRING_INSTANCE_REVISION    7
+# define STLSOFT_VER_STLSOFT_STRING_HPP_SPECIAL_STRING_INSTANCE_EDIT        49
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -100,13 +101,13 @@
 # include <stlsoft/synch/lock_scope.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SYNCH_HPP_LOCK_SCOPE */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
 #ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
 # include <stlsoft/api/external/string.h>
 #endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -116,6 +117,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -154,7 +156,12 @@ public:
     /// The argument type
     typedef T_arg0                                          argument_0_type;
     /// The class type
-    typedef ssi_buffer<T_character, N, T_allocator, T_arg0> class_type;
+    typedef ssi_buffer<
+        T_character
+    ,   N
+    ,   T_allocator
+    ,   T_arg0
+    >                                                       class_type;
 private:
     /// The buffer type
     typedef stlsoft::auto_buffer<
@@ -183,7 +190,7 @@ public:
         : m_len(rhs.m_len)
         , m_buffer(rhs.m_len + 1)
     {
-        STLSOFT_API_INTERNAL_memfns_memcpy(&m_buffer[0], &rhs.m_buffer[0], sizeof(char_type) * (1u + m_len));
+        STLSOFT_API_EXTERNAL_memfns_memcpy(&m_buffer[0], &rhs.m_buffer[0], sizeof(char_type) * (1u + m_len));
     }
 #endif /* compiler */
 
@@ -196,6 +203,7 @@ public:
         m_buffer.resize(initial);
 
 #if 1
+
         size_type cch = pfn(&m_buffer[0], m_buffer.size());
 
         if (cch < m_buffer.size())
@@ -207,6 +215,7 @@ public:
             return;
         }
 #else
+
         // We don't pass NULL here, just in case
         char_type empty =   '\0';
         size_type cch   =   pfn(&empty, 0);
@@ -247,6 +256,7 @@ public:
         m_buffer.resize(initial);
 
 #if 1
+
         size_type cch = pfn(arg0, &m_buffer[0], m_buffer.size());
 
         if (cch < m_buffer.size())
@@ -258,6 +268,7 @@ public:
             return;
         }
 #else
+
         // We don't pass NULL here, just in case
         char_type   empty   =   '\0';
         size_type   cch     =   pfn(arg0, &empty, 0);
@@ -338,11 +349,18 @@ public:
 /// \name Construction
 /// @{
 public:
-    ssi_buffer_non_static(size_type initial, size_type (*pfn)(char_type*, size_type))
+    ssi_buffer_non_static(
+        size_type   initial
+    ,   size_type (*pfn)(char_type*, size_type)
+    )
     {
         parent_class_type::init(initial, pfn);
     }
-    ssi_buffer_non_static(size_type initial, size_type (*pfn)(T_arg0, char_type*, size_type), T_arg0 a0)
+    ssi_buffer_non_static(
+        size_type   initial
+    ,   size_type (*pfn)(T_arg0, char_type*, size_type)
+    ,   T_arg0      a0
+    )
     {
         parent_class_type::init(initial, pfn, a0);
     }
@@ -350,6 +368,7 @@ public:
     defined(STLSOFT_COMPILER_IS_CLANG) || \
     defined(STLSOFT_COMPILER_IS_GCC) || \
     0
+
     ssi_buffer_non_static(class_type const& rhs)
         : parent_class_type(rhs)
     {}
@@ -376,9 +395,10 @@ private:
     !defined(STLSOFT_COMPILER_IS_CLANG) && \
     !defined(STLSOFT_COMPILER_IS_GCC) && \
     1
+
     ssi_buffer_non_static(class_type const&);
 #endif /* compiler */
-    class_type& operator =(class_type const&);
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 };
 
@@ -394,7 +414,12 @@ struct ssi_buffer_static
 /// \name Member Types
 /// @{
 public:
-    typedef ssi_buffer<T_character, N, T_allocator, T_arg0> ssi_buffer_type;
+    typedef ssi_buffer<
+        T_character
+    ,   N
+    ,   T_allocator
+    ,   T_arg0
+    >                                                       ssi_buffer_type;
     typedef ssi_buffer_static<
         T_character
     ,   N
@@ -414,16 +439,24 @@ private:
 /// \name Construction
 /// @{
 public:
-    ssi_buffer_static(size_type initial, size_type (*pfn)(char_type*, size_type))
+    ssi_buffer_static(
+        size_type   initial
+    ,   size_type (*pfn)(char_type*, size_type)
+    )
         : m_buffer(get_buffer(initial, pfn))
     {}
-    ssi_buffer_static(size_type initial, size_type (*pfn)(T_arg0, char_type*, size_type), T_arg0 a0)
+    ssi_buffer_static(
+        size_type   initial
+    ,   size_type (*pfn)(T_arg0, char_type*, size_type)
+    ,   T_arg0      a0
+    )
         : m_buffer(get_buffer(initial, pfn, a0))
     {}
 #if 0 || \
     defined(STLSOFT_COMPILER_IS_CLANG) || \
     defined(STLSOFT_COMPILER_IS_GCC) || \
     0
+
     ssi_buffer_static(class_type const& rhs)
         : m_buffer(rhs.m_buffer)
     {}
@@ -446,7 +479,12 @@ public:
 /// \name Implementation
 /// @{
 private:
-    static ssi_buffer_type& get_buffer(size_type initial, size_type (*pfn)(char_type*, size_type))
+    static
+    ssi_buffer_type&
+    get_buffer(
+        size_type   initial
+    ,   size_type (*pfn)(char_type*, size_type)
+    )
     {
         static atomic_int_type                  s_count =   0;
         static bool                             s_bInit =   false;
@@ -464,7 +502,13 @@ private:
 
         return s_buffer;
     }
-    static ssi_buffer_type& get_buffer(size_type initial, size_type (*pfn)(T_arg0, char_type*, size_type), T_arg0 a0)
+    static
+    ssi_buffer_type&
+    get_buffer(
+        size_type   initial
+    ,   size_type (*pfn)(T_arg0, char_type*, size_type)
+    ,   T_arg0      a0
+    )
     {
         static atomic_int_type                  s_count =   0;
         static bool                             s_bInit =   false;
@@ -497,9 +541,10 @@ private:
     !defined(STLSOFT_COMPILER_IS_CLANG) && \
     !defined(STLSOFT_COMPILER_IS_GCC) && \
     1
+
     ssi_buffer_static(class_type const&);
 #endif /* compiler */
-    class_type& operator =(class_type const&);
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 };
 
@@ -636,7 +681,6 @@ private: // implementation
     ;
 #endif
 };
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** Base type for policies
@@ -678,7 +722,6 @@ public:
 
     enum { internalBufferSize = -1 };
 };
-
 
 /** Special string instance class template.
  *
@@ -859,8 +902,8 @@ public:
     {
         return data();
     }
-
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
     cstring_a_type  c_str_a() const
     {
         return c_str();
@@ -886,7 +929,12 @@ public:
 /// \name Operations
 /// @{
 public:
-    static size_type get(char_type* buffer, size_type cchBuffer)
+    static
+    size_type
+    get(
+        char_type*  buffer
+    ,   size_type   cchBuffer
+    )
     {
         return (policy_type::get_fn())(buffer, cchBuffer);
     }
@@ -1051,7 +1099,13 @@ public:
 /// \name Operations
 /// @{
 public:
-    static size_type get(argument_0_type argument, char_type* buffer, size_type cchBuffer)
+    static
+    size_type
+    get(
+        argument_0_type argument
+    ,   char_type*      buffer
+    ,   size_type       cchBuffer
+    )
     {
         return (policy_type::get_fn())(argument, buffer, cchBuffer);
     }
@@ -1076,8 +1130,8 @@ public:
     {
         return length();
     }
-
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
     cstring_a_type  c_str_a() const
     {
         return c_str();
@@ -1107,6 +1161,7 @@ private:
 /// @}
 };
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * operators
  */
@@ -1118,8 +1173,8 @@ template<
 >
 bool
 operator ==(
-    special_string_instance_base<T_policy, T_ssi> const&  lhs
-,   T_string const&                                       rhs
+    special_string_instance_base<T_policy, T_ssi> const&    lhs
+,   T_string const&                                         rhs
 )
 {
     return lhs.equal(rhs);
@@ -1132,8 +1187,8 @@ template<
 >
 bool
 operator ==(
-    T_string const&                                       lhs
-,   special_string_instance_base<T_policy, T_ssi> const&  rhs
+    T_string const&                                         lhs
+,   special_string_instance_base<T_policy, T_ssi> const&    rhs
 )
 {
     return rhs.equal(lhs);
@@ -1146,8 +1201,8 @@ template<
 >
 bool
 operator !=(
-    special_string_instance_base<T_policy, T_ssi> const&  lhs
-,   T_string const&                                       rhs
+    special_string_instance_base<T_policy, T_ssi> const&    lhs
+,   T_string const&                                         rhs
 )
 {
     return !lhs.equal(rhs);
@@ -1160,12 +1215,13 @@ template<
 >
 bool
 operator !=(
-    T_string const&                                       lhs
-,   special_string_instance_base<T_policy, T_ssi> const&  rhs
+    T_string const&                                         lhs
+,   special_string_instance_base<T_policy, T_ssi> const&    rhs
 )
 {
     return !rhs.equal(lhs);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * shims
@@ -1188,6 +1244,7 @@ c_str_ptr_null(
     return (0 != ssi.length()) ? ssi.c_str() : NULL;
 }
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
 template<
     ss_typename_param_k T_policy
 ,   ss_typename_param_k T_initex
@@ -1231,6 +1288,7 @@ c_str_ptr(
     return ssi.c_str();
 }
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
 template<
     ss_typename_param_k T_policy
 ,   ss_typename_param_k T_initex
@@ -1274,6 +1332,7 @@ c_str_data(
     return ssi.c_str();
 }
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
 template<
     ss_typename_param_k T_policy
 ,   ss_typename_param_k T_initex
@@ -1317,6 +1376,7 @@ c_str_len(
     return ssi.length();
 }
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
 template<
     ss_typename_param_k T_policy
 ,   ss_typename_param_k T_initex
@@ -1372,6 +1432,7 @@ c_str_ptr_null(STLSOFT_NS_QUAL(special_string_instance_1)<T_policy, T_initex> co
     return (0 != ssi.length()) ? ssi.c_str() : NULL;
 }
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
 template<
     ss_typename_param_k T_policy
 ,   ss_typename_param_k T_initex
@@ -1412,11 +1473,10 @@ c_str_ptr(
     STLSOFT_NS_QUAL(special_string_instance_1)<T_policy, T_initex> const& ssi
 )
 {
-    return
-    ssi.c_str()
-;
+    return ssi.c_str();
 }
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
 template<
     ss_typename_param_k T_policy
 ,   ss_typename_param_k T_initex
@@ -1455,11 +1515,10 @@ inline
 ss_typename_type_ret_k special_string_instance_1<T_policy, T_initex>::char_type const*
 c_str_data(STLSOFT_NS_QUAL(special_string_instance_1)<T_policy, T_initex> const& ssi)
 {
-    return
-    ssi.c_str()
-;
+    return ssi.c_str();
 }
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
 template<
     ss_typename_param_k T_policy
 ,   ss_typename_param_k T_initex
@@ -1503,6 +1562,7 @@ c_str_len(
     return ssi.length();
 }
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
 template<
     ss_typename_param_k T_policy
 ,   ss_typename_param_k T_initex
@@ -1543,13 +1603,15 @@ c_str_len_w(
 }
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

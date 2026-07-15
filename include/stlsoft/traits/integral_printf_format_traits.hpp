@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/traits/integral_printf_format_traits.hpp (formerly stlsoft/util/integral_printf_traits.hpp; originally stlsoft/util/printf_traits.hpp)
+ * File:    stlsoft/traits/integral_printf_format_traits.hpp (formerly stlsoft/util/integral_printf_traits.hpp; originally stlsoft/util/printf_traits.hpp)
  *
- * Purpose:     integral_printf_format_traits classes.
+ * Purpose: integral_printf_format_traits classes.
  *
- * Created:     16th January 2002
- * Updated:     26th December 2020
+ * Created: 16th January 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_UTIL_HPP_INTEGRAL_PRINTF_FORMAT_TRAITS_MAJOR       7
 # define STLSOFT_VER_STLSOFT_UTIL_HPP_INTEGRAL_PRINTF_FORMAT_TRAITS_MINOR       0
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_INTEGRAL_PRINTF_FORMAT_TRAITS_REVISION    2
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_INTEGRAL_PRINTF_FORMAT_TRAITS_EDIT        82
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_INTEGRAL_PRINTF_FORMAT_TRAITS_REVISION    3
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_INTEGRAL_PRINTF_FORMAT_TRAITS_EDIT        86
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -76,6 +77,7 @@
 # include <stlsoft/quality/cover.h>
 #endif /* !STLSOFT_INCL_STLSOFT_QUALITY_H_COVER */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -84,6 +86,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * macros
@@ -110,6 +113,7 @@ namespace stlsoft
         _MSC_VER < 1400 */) || \
      defined(STLSOFT_COMPILER_IS_VECTORC) || \
      defined(STLSOFT_COMPILER_IS_WATCOM)
+
 #  define STLSOFT_CF_64_BIT_PRINTF_USES_I64
 # elif 0 || \
        defined(STLSOFT_COMPILER_IS_CLANG) || \
@@ -121,12 +125,14 @@ namespace stlsoft
             _MSC_VER >= 1400) || \
        defined(STLSOFT_COMPILER_IS_MWERKS) || \
        defined(STLSOFT_COMPILER_IS_SUNPRO)
+
 #  define STLSOFT_CF_64_BIT_PRINTF_USES_LL
 # else /* ? compiler */
+
 #  error Further compiler discrimination is required
 # endif /* printf-64 */
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -191,7 +197,6 @@ struct integral_printf_format_traits
     ///   future version; use hexadecimal_format_w(false).
     static ss_char_w_t const* hex_format_w();
 };
-
 #else /* ? STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 template <ss_typename_param_k T>
@@ -203,7 +208,7 @@ template <ss_typename_param_k T>
 struct integral_printf_format_traits_base;
 
 
- /* char */
+ /* void */
 
 STLSOFT_TEMPLATE_SPECIALISATION
 struct integral_printf_format_traits_base<void>
@@ -295,9 +300,10 @@ struct integral_printf_format_traits_base<void>
 
         return s_strings[0 != upperCase];
     }
-
 };
 
+
+ /* char */
 
 STLSOFT_TEMPLATE_SPECIALISATION
 struct integral_printf_format_traits_base<char>
@@ -309,11 +315,13 @@ struct integral_printf_format_traits_base<char>
     }
     static ss_char_a_t const* decimal_format_a()
     {
-#  ifdef STLSOFT_CF_CHAR_IS_UNSIGNED
+#  ifdef STLSOFT_CF_char_IS_UNSIGNED
+
         return  "%u";
-#  else /* ? STLSOFT_CF_CHAR_IS_UNSIGNED */
+#  else /* ? STLSOFT_CF_char_IS_UNSIGNED */
+
         return  "%d";
-#  endif /* STLSOFT_CF_CHAR_IS_UNSIGNED */
+#  endif /* STLSOFT_CF_char_IS_UNSIGNED */
     }
     STLSOFT_DECLARE_FUNCTION_DEPRECATION_IN_FAVOUR_OF(format_w, decimal_format_w)
     static ss_char_w_t const* format_w()
@@ -322,11 +330,13 @@ struct integral_printf_format_traits_base<char>
     }
     static ss_char_w_t const* decimal_format_w()
     {
-#  ifdef STLSOFT_CF_CHAR_IS_UNSIGNED
+#  ifdef STLSOFT_CF_char_IS_UNSIGNED
+
         return L"%u";
-#  else /* ? STLSOFT_CF_CHAR_IS_UNSIGNED */
+#  else /* ? STLSOFT_CF_char_IS_UNSIGNED */
+
         return L"%d";
-#  endif /* STLSOFT_CF_CHAR_IS_UNSIGNED */
+#  endif /* STLSOFT_CF_char_IS_UNSIGNED */
     }
 
     STLSOFT_DECLARE_FUNCTION_DEPRECATION_IN_FAVOUR_OF(hex_format_a, hexadecimal_format_a)
@@ -790,13 +800,14 @@ struct integral_printf_format_traits_base<ss_sint64_t>
     }
     static ss_char_a_t const* decimal_format_a()
     {
-#if defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
+# if 0
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
         return  "%I64d";
-#elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
         return  "%lld";
-#else
-# error Further compiler discrimination is required
-#endif /* printf-64 */
+# else
+#  error Further compiler discrimination is required
+# endif /* printf-64 */
     }
     STLSOFT_DECLARE_FUNCTION_DEPRECATION_IN_FAVOUR_OF(format_w, decimal_format_w)
     static ss_char_w_t const* format_w()
@@ -805,13 +816,14 @@ struct integral_printf_format_traits_base<ss_sint64_t>
     }
     static ss_char_w_t const* decimal_format_w()
     {
-#if defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
+# if 0
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
         return L"%I64d";
-#elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
         return L"%lld";
-#else
-# error Further compiler discrimination is required
-#endif /* printf-64 */
+# else
+#  error Further compiler discrimination is required
+# endif /* printf-64 */
     }
 
     STLSOFT_DECLARE_FUNCTION_DEPRECATION_IN_FAVOUR_OF(hex_format_a, hexadecimal_format_a)
@@ -821,13 +833,14 @@ struct integral_printf_format_traits_base<ss_sint64_t>
     }
     static ss_char_a_t const* hexadecimal_format_a(bool upperCase)
     {
-#if defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
+# if 0
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
         return integral_printf_format_traits_base<void>::get_hexadecimal_format_pci64x_a_(upperCase);
-#elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
         return integral_printf_format_traits_base<void>::get_hexadecimal_format_pcllx_a_(upperCase);
-#else
-# error Further compiler discrimination is required
-#endif /* printf-64 */
+# else
+#  error Further compiler discrimination is required
+# endif /* printf-64 */
     }
     STLSOFT_DECLARE_FUNCTION_DEPRECATION_IN_FAVOUR_OF(hex_format_w, hexadecimal_format_w)
     static ss_char_w_t const* hex_format_w()
@@ -836,34 +849,37 @@ struct integral_printf_format_traits_base<ss_sint64_t>
     }
     static ss_char_w_t const* hexadecimal_format_w(bool upperCase)
     {
-#if defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
+# if 0
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
         return integral_printf_format_traits_base<void>::get_hexadecimal_format_pci64x_w_(upperCase);
-#elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
         return integral_printf_format_traits_base<void>::get_hexadecimal_format_pcllx_w_(upperCase);
-#else
-# error Further compiler discrimination is required
-#endif /* printf-64 */
+# else
+#  error Further compiler discrimination is required
+# endif /* printf-64 */
     }
 
     static ss_char_a_t const* octal_format_a()
     {
-#if defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
+# if 0
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
         return "%I64o";
-#elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
         return "%llo";
-#else
-# error Further compiler discrimination is required
-#endif /* printf-64 */
+# else
+#  error Further compiler discrimination is required
+# endif /* printf-64 */
     }
     static ss_char_w_t const* octal_format_w()
     {
-#if defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
+# if 0
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
         return L"%I64o";
-#elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
         return L"%llo";
-#else
-# error Further compiler discrimination is required
-#endif /* printf-64 */
+# else
+#  error Further compiler discrimination is required
+# endif /* printf-64 */
     }
 };
 
@@ -877,13 +893,14 @@ struct integral_printf_format_traits_base<ss_uint64_t>
     }
     static ss_char_a_t const* decimal_format_a()
     {
-#if defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
+# if 0
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
         return  "%I64u";
-#elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
         return  "%llu";
-#else
-# error Further compiler discrimination is required
-#endif /* printf-64 */
+# else
+#  error Further compiler discrimination is required
+# endif /* printf-64 */
     }
     STLSOFT_DECLARE_FUNCTION_DEPRECATION_IN_FAVOUR_OF(format_w, decimal_format_w)
     static ss_char_w_t const* format_w()
@@ -892,13 +909,14 @@ struct integral_printf_format_traits_base<ss_uint64_t>
     }
     static ss_char_w_t const* decimal_format_w()
     {
-#if defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
+# if 0
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
         return L"%I64u";
-#elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
         return L"%llu";
-#else
-# error Further compiler discrimination is required
-#endif /* printf-64 */
+# else
+#  error Further compiler discrimination is required
+# endif /* printf-64 */
     }
 
     STLSOFT_DECLARE_FUNCTION_DEPRECATION_IN_FAVOUR_OF(hex_format_a, hexadecimal_format_a)
@@ -908,13 +926,14 @@ struct integral_printf_format_traits_base<ss_uint64_t>
     }
     static ss_char_a_t const* hexadecimal_format_a(bool upperCase)
     {
-#if defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
+# if 0
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
         return integral_printf_format_traits_base<void>::get_hexadecimal_format_pci64x_a_(upperCase);
-#elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
         return integral_printf_format_traits_base<void>::get_hexadecimal_format_pcllx_a_(upperCase);
-#else
-# error Further compiler discrimination is required
-#endif /* printf-64 */
+# else
+#  error Further compiler discrimination is required
+# endif /* printf-64 */
     }
     STLSOFT_DECLARE_FUNCTION_DEPRECATION_IN_FAVOUR_OF(hex_format_w, hexadecimal_format_w)
     static ss_char_w_t const* hex_format_w()
@@ -923,42 +942,43 @@ struct integral_printf_format_traits_base<ss_uint64_t>
     }
     static ss_char_w_t const* hexadecimal_format_w(bool upperCase)
     {
-#if defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
+# if 0
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
         return integral_printf_format_traits_base<void>::get_hexadecimal_format_pci64x_w_(upperCase);
-#elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
         return integral_printf_format_traits_base<void>::get_hexadecimal_format_pcllx_w_(upperCase);
-#else
-# error Further compiler discrimination is required
-#endif /* printf-64 */
+# else
+#  error Further compiler discrimination is required
+# endif /* printf-64 */
     }
 
     static ss_char_a_t const* octal_format_a()
     {
-#if defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
+# if 0
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
         return "%I64o";
-#elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
         return "%llo";
-#else
-# error Further compiler discrimination is required
-#endif /* printf-64 */
+# else
+#  error Further compiler discrimination is required
+# endif /* printf-64 */
     }
     static ss_char_w_t const* octal_format_w()
     {
-#if defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
+# if 0
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_I64)
         return L"%I64o";
-#elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
+# elif defined(STLSOFT_CF_64_BIT_PRINTF_USES_LL)
         return L"%llo";
-#else
-# error Further compiler discrimination is required
-#endif /* printf-64 */
+# else
+#  error Further compiler discrimination is required
+# endif /* printf-64 */
     }
 };
-
-
 #endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
 
-STLSOFT_CLOSE_WORKER_NS_(ximpl_integral_printf_format_traits)
 
+STLSOFT_CLOSE_WORKER_NS_(ximpl_integral_printf_format_traits)
 
 STLSOFT_TEMPLATE_SPECIALISATION
 struct integral_printf_format_traits<char>
@@ -1011,7 +1031,9 @@ struct integral_printf_format_traits<ss_uint64_t>
 
 
 #ifdef STLSOFT_CF_CHAR_DISTINCT_INT_TYPE
+
 # if _STLSOFT_SIZEOF_CHAR == 1
+
 STLSOFT_TEMPLATE_SPECIALISATION
 struct integral_printf_format_traits<ss_sint8_t>
     : public STLSOFT_WORKER_NS_QUAL_(ximpl_integral_printf_format_traits, integral_printf_format_traits_base)<signed char>
@@ -1024,7 +1046,9 @@ struct integral_printf_format_traits<ss_uint8_t>
 #endif /* STLSOFT_CF_CHAR_DISTINCT_INT_TYPE */
 
 #ifdef STLSOFT_CF_SHORT_DISTINCT_INT_TYPE
+
 # if _STLSOFT_SIZEOF_SHORT == 2
+
 STLSOFT_TEMPLATE_SPECIALISATION
 struct integral_printf_format_traits<ss_sint16_t>
     : public STLSOFT_WORKER_NS_QUAL_(ximpl_integral_printf_format_traits, integral_printf_format_traits_base)<short>
@@ -1037,7 +1061,9 @@ struct integral_printf_format_traits<ss_uint16_t>
 #endif /* STLSOFT_CF_SHORT_DISTINCT_INT_TYPE */
 
 #ifdef STLSOFT_CF_INT_DISTINCT_INT_TYPE
+
 # if _STLSOFT_SIZEOF_INT == 4
+
 STLSOFT_TEMPLATE_SPECIALISATION
 struct integral_printf_format_traits<ss_sint32_t>
     : public STLSOFT_WORKER_NS_QUAL_(ximpl_integral_printf_format_traits, integral_printf_format_traits_base)<int>
@@ -1048,14 +1074,17 @@ struct integral_printf_format_traits<ss_uint32_t>
 {};
 # endif /* _STLSOFT_SIZEOF_INT == 4 */
 #endif /* STLSOFT_CF_INT_DISTINCT_INT_TYPE */
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

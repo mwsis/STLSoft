@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/conversion/integer_to_string/integer_to_octal_string.hpp (originally stlsoft_integer_to_string.h)
+ * File:    stlsoft/conversion/integer_to_string/integer_to_octal_string.hpp (originally stlsoft_integer_to_string.h)
  *
- * Purpose:     Very efficient integer to string conversion functions for
- *              octal representation.
+ * Purpose: Very efficient integer to string conversion functions for
+ *          octal representation.
  *
- * Created:     7th April 2002
- * Updated:     22nd January 2024
+ * Created: 7th April 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,9 +55,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONVERSION_INTEGER_TO_STRING_HPP_INTEGER_TO_OCTAL_STRING_MAJOR     5
 # define STLSOFT_VER_STLSOFT_CONVERSION_INTEGER_TO_STRING_HPP_INTEGER_TO_OCTAL_STRING_MINOR     0
-# define STLSOFT_VER_STLSOFT_CONVERSION_INTEGER_TO_STRING_HPP_INTEGER_TO_OCTAL_STRING_REVISION  22
-# define STLSOFT_VER_STLSOFT_CONVERSION_INTEGER_TO_STRING_HPP_INTEGER_TO_OCTAL_STRING_EDIT      99
+# define STLSOFT_VER_STLSOFT_CONVERSION_INTEGER_TO_STRING_HPP_INTEGER_TO_OCTAL_STRING_REVISION  23
+# define STLSOFT_VER_STLSOFT_CONVERSION_INTEGER_TO_STRING_HPP_INTEGER_TO_OCTAL_STRING_EDIT      102
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -96,13 +97,13 @@
 # include <stlsoft/quality/cover.h>
 #endif /* !STLSOFT_INCL_STLSOFT_QUALITY_H_COVER */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
 #ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
 # include <stlsoft/api/external/string.h>
 #endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -112,6 +113,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * worker functions
@@ -308,7 +310,7 @@ i2s_handle_signed_minimum_in_octal_2_(
     C* end  =   buf + cchBuf;
     C* r    =   end - STLSOFT_NUM_ELEMENTS(s_minimum);
 
-    STLSOFT_API_INTERNAL_memfns_memcpy(r, s_minimum, sizeof(C) * STLSOFT_NUM_ELEMENTS(s_minimum));
+    STLSOFT_API_EXTERNAL_memfns_memcpy(r, s_minimum, sizeof(C) * STLSOFT_NUM_ELEMENTS(s_minimum));
 
     STLSOFT_COVER_MARK_LINE();
 
@@ -336,7 +338,7 @@ i2s_handle_signed_minimum_in_octal_2_(
     C* end  =   buf + cchBuf;
     C* r    =   end - STLSOFT_NUM_ELEMENTS(s_minimum);
 
-    STLSOFT_API_INTERNAL_memfns_memcpy(r, s_minimum, sizeof(C) * STLSOFT_NUM_ELEMENTS(s_minimum));
+    STLSOFT_API_EXTERNAL_memfns_memcpy(r, s_minimum, sizeof(C) * STLSOFT_NUM_ELEMENTS(s_minimum));
 
     STLSOFT_COVER_MARK_LINE();
 
@@ -364,7 +366,7 @@ i2s_handle_signed_minimum_in_octal_2_(
     C* end  =   buf + cchBuf;
     C* r    =   end - STLSOFT_NUM_ELEMENTS(s_minimum);
 
-    STLSOFT_API_INTERNAL_memfns_memcpy(r, s_minimum, sizeof(C) * STLSOFT_NUM_ELEMENTS(s_minimum));
+    STLSOFT_API_EXTERNAL_memfns_memcpy(r, s_minimum, sizeof(C) * STLSOFT_NUM_ELEMENTS(s_minimum));
 
     STLSOFT_COVER_MARK_LINE();
 
@@ -392,7 +394,7 @@ i2s_handle_signed_minimum_in_octal_2_(
     C* end  =   buf + cchBuf;
     C* r    =   end - STLSOFT_NUM_ELEMENTS(s_minimum);
 
-    STLSOFT_API_INTERNAL_memfns_memcpy(r, s_minimum, sizeof(C) * STLSOFT_NUM_ELEMENTS(s_minimum));
+    STLSOFT_API_EXTERNAL_memfns_memcpy(r, s_minimum, sizeof(C) * STLSOFT_NUM_ELEMENTS(s_minimum));
 
     STLSOFT_COVER_MARK_LINE();
 
@@ -586,6 +588,7 @@ STLSOFT_CLOSE_WORKER_NS_(ximpl_I2S)
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * API functions
  */
@@ -692,13 +695,15 @@ integer_to_octal_string(
 }
 #endif /* STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

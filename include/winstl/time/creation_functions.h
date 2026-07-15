@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/time/creation_functions.h
+ * File:    winstl/time/creation_functions.h
  *
- * Purpose:     Creation functions for Windows time structures.
+ * Purpose: Creation functions for Windows time structures.
  *
- * Created:     25th February 2017
- * Updated:     26th December 2020
+ * Created: 25th February 2017
+ * Updated: 24th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,8 +54,9 @@
 # define WINSTL_VER_WINSTL_TIME_H_CREATION_FUNCTIONS_MAJOR      1
 # define WINSTL_VER_WINSTL_TIME_H_CREATION_FUNCTIONS_MINOR      0
 # define WINSTL_VER_WINSTL_TIME_H_CREATION_FUNCTIONS_REVISION   2
-# define WINSTL_VER_WINSTL_TIME_H_CREATION_FUNCTIONS_EDIT       4
+# define WINSTL_VER_WINSTL_TIME_H_CREATION_FUNCTIONS_EDIT       7
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -67,6 +68,7 @@
 #ifdef STLSOFT_TRACE_INCLUDE
 # pragma message(__FILE__)
 #endif /* STLSOFT_TRACE_INCLUDE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -86,6 +88,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * C functions
@@ -149,7 +152,7 @@ winstl_C_create_SYSTEMTIME_ms(
  * values
  *
  * \param ft Pointer to FILETIME instance to be initialised. May not be
- *   NULL
+ *   \c nullptr
  * \param year The year unit value
  * \param month The month unit value
  * \param day The day unit value
@@ -160,7 +163,7 @@ winstl_C_create_SYSTEMTIME_ms(
  *
  * \note No validation on values is performed
  *
- * \pre NULL != ft
+ * \pre nullptr != ft
  * \pre (year >= 1601 && year <= 30827)
  * \pre (month >= 1 && month <= 12)
  * \pre (day >= 1 && day <= 31)
@@ -188,6 +191,7 @@ winstl_C_create_FILETIME_ms(
 
     return STLSOFT_NS_GLOBAL(SystemTimeToFileTime)(&st, ft);
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
@@ -232,6 +236,7 @@ create_FILETIME_ms(
 
 #endif /* __cplusplus */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * backwards compatibility
  */
@@ -239,6 +244,7 @@ create_FILETIME_ms(
 #ifdef STLSOFT_OBSOLETE
 
 #endif /* !STLSOFT_OBSOLETE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -254,6 +260,7 @@ create_FILETIME_ms(
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control
  */
@@ -261,8 +268,6 @@ create_FILETIME_ms(
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
 # pragma once
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
-
-/* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* !WINSTL_INCL_WINSTL_TIME_H_CREATION_FUNCTIONS */
 

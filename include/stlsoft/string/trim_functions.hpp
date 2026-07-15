@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/string/trim_functions.hpp
+ * File:    stlsoft/string/trim_functions.hpp
  *
- * Purpose:     String utility functions for trimming and removing string contents.
+ * Purpose: String utility functions for trimming and removing string contents.
  *
- * Created:     25th April 2005
- * Updated:     22nd January 2024
+ * Created: 25th April 2005
+ * Updated: 21st March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_TRIM_FUNCTIONS_MAJOR       2
 # define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_TRIM_FUNCTIONS_MINOR       2
-# define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_TRIM_FUNCTIONS_REVISION    3
-# define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_TRIM_FUNCTIONS_EDIT        59
+# define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_TRIM_FUNCTIONS_REVISION    4
+# define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_TRIM_FUNCTIONS_EDIT        63
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -81,10 +82,6 @@
 # include <stlsoft/shims/access/string.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_HPP_STRING */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
-# include <stlsoft/api/external/string.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
-
 #ifndef STLSOFT_INCL_ALGORITHM
 # define STLSOFT_INCL_ALGORITHM
 # include <algorithm>
@@ -94,6 +91,11 @@
 # include <functional>
 #endif /* !STLSOFT_INCL_FUNCTIONAL */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -102,6 +104,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helpers
@@ -174,6 +177,7 @@ default_trim_chars(
 STLSOFT_CLOSE_WORKER_NS_(ximpl_split_functions)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * API functions
  */
@@ -235,7 +239,7 @@ trim_left_impl(
  *
  * \ingroup group__library__String
  */
-template<ss_typename_param_k S>
+template <ss_typename_param_k S>
 inline
 S&
 trim_left(
@@ -363,7 +367,7 @@ trim_right_impl(
  *
  * \ingroup group__library__String
  */
-template<ss_typename_param_k S>
+template <ss_typename_param_k S>
 inline
 S&
 trim_right(
@@ -509,7 +513,7 @@ trim_all_impl(
  *
  * \ingroup group__library__String
  */
-template<ss_typename_param_k S>
+template <ss_typename_param_k S>
 inline
 S&
 trim_all(
@@ -574,7 +578,7 @@ remove_all_impl(
 ,   C const*    removeChars
 )
 #else /* ? compiler */
-template<ss_typename_param_k S>
+template <ss_typename_param_k S>
 inline
 S&
 remove_all_impl(
@@ -624,7 +628,7 @@ remove_all_impl(
  *
  * \ingroup group__library__String
  */
-template<ss_typename_param_k S>
+template <ss_typename_param_k S>
 inline
 S&
 remove_all(
@@ -676,8 +680,9 @@ remove_all(
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
+} // namespace stlsoft
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

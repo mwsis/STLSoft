@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/filesystem/directory_functions.hpp (originally MLFlMan.h, ::SynesisStd)
+ * File:    winstl/filesystem/directory_functions.hpp (originally MLFlMan.h, ::SynesisStd)
  *
- * Purpose:     Functions for manipulating directories.
+ * Purpose: Functions for manipulating directories.
  *
- * Created:     7th February 2002
- * Updated:     22nd January 2024
+ * Created: 7th February 2002
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,8 +54,9 @@
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_DIRECTORY_FUNCTIONS_MAJOR     5
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_DIRECTORY_FUNCTIONS_MINOR     1
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_DIRECTORY_FUNCTIONS_REVISION  5
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_DIRECTORY_FUNCTIONS_EDIT      72
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_DIRECTORY_FUNCTIONS_EDIT      75
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -84,6 +85,7 @@
 # endif /* !WINSTL_INCL_WINSTL_MEMORY_HPP_PROCESSHEAP_ALLOCATOR */
 #endif /* _ATL_MIN_CRT */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -102,6 +104,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * helper functions
@@ -497,6 +500,7 @@ remove_directory_recurse_impl(
 STLSOFT_CLOSE_WORKER_NS_(ximpl_winstl_directory_functions_)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * functions
  */
@@ -582,27 +586,27 @@ create_directory_recurse(
  * \li If the err param is ~0 (-1 on UNIX), then the \c dir param specifies
  *   the name of the current directory being traversed. All other params are
  *   unspecified (except \c param). The return value is ignored.
- * \li If the err param is 0 and the \c st param is NULL, then \c dir
+ * \li If the err param is 0 and the \c st param is \c nullptr, then \c dir
  *   specifies the name of a directory that has been successfully removed.
  *   All other params are unspecified (except \c param). The return value is
  *   ignored.
- * \li If the err param is 0 and the \c st param is not NULL, then \c dir
- *   specifies the name of the currently traversing directory, and \c st
- *   specifies the stat information for the entry to be deleted. Return true
- *   to enable removal of this entry, or false to prevent removal (and
- *   cancel the overall operation). All other params are unspecified (except
- *   \c param).
- * \li If the err param is any other value, and the \c st param is NULL,
- *   then the \c dir param specifies the name of a directory that could not
- *   be deleted and err specifies the errno value associated with the
- *   failure. All other params are unspecified (except \c param). The return
- *   value is ignored.
- * \li If the err param is any other value, and the \c st param is not NULL,
- *   then the \c dir param specifies the name of a directory within which an
- *   entry could not be deleted, \c st specifies the stat information of the
- *   entry that could not be deleted, and err specifies the errno value
- *   associated with the failure. All other params are unspecified (except
- *   \c param). The return value is ignored.
+ * \li If the err param is 0 and the \c st param is not \c nullptr, then
+ *   \c dir specifies the name of the currently traversing directory, and
+ *   \c st specifies the stat information for the entry to be deleted.
+ *   Return true to enable removal of this entry, or false to prevent
+ *   removal (and cancel the overall operation). All other params are
+ *   unspecified (except \c param).
+ * \li If the err param is any other value, and the \c st param is
+ *   \c nullptr, then the \c dir param specifies the name of a directory
+ *   that could not be deleted and err specifies the errno value associated
+ *   with the failure. All other params are unspecified (except \c param).
+ *   The return value is ignored.
+ * \li If the err param is any other value, and the \c st param is not
+ *   \c nullptr, then the \c dir param specifies the name of a directory
+ *   within which an entry could not be deleted, \c st specifies the stat
+ *   information of the entry that could not be deleted, and err specifies
+ *   the errno value associated with the failure. All other params are
+ *   unspecified (except \c param). The return value is ignored.
  */
 inline
 ws_bool_t
@@ -684,6 +688,7 @@ remove_directory_recurse(
     return remove_directory_recurse(STLSOFT_NS_QUAL(c_str_ptr)(dir), NULL, NULL);
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -691,12 +696,13 @@ remove_directory_recurse(
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

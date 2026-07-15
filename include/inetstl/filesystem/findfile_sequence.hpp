@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        inetstl/filesystem/findfile_sequence.hpp  (originally MInetEnm.h)
+ * File:    inetstl/filesystem/findfile_sequence.hpp  (originally MInetEnm.h)
  *
- * Purpose:     Contains the basic_findfile_sequence template class, and ANSI
- *              and Unicode specialisations thereof.
+ * Purpose: Contains the basic_findfile_sequence template class, and ANSI
+ *          and Unicode specialisations thereof.
  *
- * Created:     30th April 1999
- * Updated:     16th February 2024
+ * Created: 30th April 1999
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1999-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -55,9 +55,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_MAJOR     3
 # define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_MINOR     0
-# define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_REVISION  25
-# define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_EDIT      167
+# define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_REVISION  28
+# define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_EDIT      173
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -110,6 +111,7 @@
 # endif /* !WINSTL_INCL_WINSTL_API_external_h_FileManagement */
 #endif /* _WIN32 */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -129,6 +131,7 @@ namespace inetstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !INETSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * forward declarations
  */
@@ -143,8 +146,8 @@ class basic_findfile_sequence_value_type;
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k X, ss_typename_param_k V>
 class basic_findfile_sequence_const_input_iterator;
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -249,6 +252,9 @@ public:
                         ,   flags_type          flags = directories | files);
     /// Destructor
     ~basic_findfile_sequence() STLSOFT_NOEXCEPT;
+private:
+    basic_findfile_sequence(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+    void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
 /// @}
 
 /// \name Iteration
@@ -316,14 +322,8 @@ private:
 
     static  HINTERNET   find_first_file_(HINTERNET hconn, char_type const* spec, flags_type flags, find_data_type *findData);
 /// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    basic_findfile_sequence(class_type const&);
-    class_type& operator =(class_type const&);
-/// @}
 };
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * typedefs for commonly encountered types
@@ -575,6 +575,9 @@ private:
                 traits_type::find_close(hSrch);
             }
         }
+    private:
+        shared_handle(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+        void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
     /// @}
 
     /// \name Operations
@@ -595,13 +598,6 @@ private:
 
             return rc;
         }
-    /// @}
-
-    /// \name Not to be implemented
-    /// @{
-    private:
-        shared_handle(class_type const&);
-        class_type& operator =(class_type const&);
     /// @}
     };
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
@@ -666,8 +662,10 @@ private:
 /// @}
 };
 
-////////////////////////////////////////////////////////////////////////////
-// Operators
+
+/* /////////////////////////////////////////////////////////////////////////
+ * operators
+ */
 
 // basic_findfile_sequence_const_input_iterator
 
@@ -753,8 +751,10 @@ inline is_bool_t operator !=(  C const* lhs, basic_findfile_sequence_value_type<
     return !rhs.equal(lhs);
 }
 
-////////////////////////////////////////////////////////////////////////////
-// Shims
+
+/* /////////////////////////////////////////////////////////////////////////
+ * shims
+ */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
@@ -768,7 +768,6 @@ inline is_char_w_t const* c_str_data_w(INETSTL_NS_QUAL(basic_findfile_sequence_v
 {
     return v.get_path();
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \ref group__concept__Shim__string_access__c_str_data for inetstl::basic_findfile_sequence_value_type
@@ -782,8 +781,6 @@ inline C const* c_str_data(INETSTL_NS_QUAL(basic_findfile_sequence_value_type)<C
     return v.get_path();
 }
 
-
-
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 template <ss_typename_param_k T, ss_typename_param_k X>
@@ -796,7 +793,6 @@ inline is_size_t c_str_len_w(INETSTL_NS_QUAL(basic_findfile_sequence_value_type)
 {
     return STLSOFT_NS_QUAL(c_str_len_w(v.get_path()));
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \ref group__concept__Shim__string_access__c_str_len for inetstl::basic_findfile_sequence_value_type
@@ -808,8 +804,6 @@ inline is_size_t c_str_len(INETSTL_NS_QUAL(basic_findfile_sequence_value_type)<C
 {
     return STLSOFT_NS_QUAL(c_str_len(v.get_path()));
 }
-
-
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
@@ -823,7 +817,6 @@ inline is_char_w_t const* c_str_ptr_w(INETSTL_NS_QUAL(basic_findfile_sequence_va
 {
     return v.get_path();
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \ref group__concept__Shim__string_access__c_str_ptr for inetstl::basic_findfile_sequence_value_type
@@ -835,8 +828,6 @@ inline C const* c_str_ptr(INETSTL_NS_QUAL(basic_findfile_sequence_value_type)<C,
 {
     return v.get_path();
 }
-
-
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
@@ -850,7 +841,6 @@ inline is_char_w_t const* c_str_ptr_null_w(INETSTL_NS_QUAL(basic_findfile_sequen
 {
     return STLSOFT_NS_QUAL(c_str_ptr_null(v.get_path()));
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \ref group__concept__Shim__string_access__c_str_ptr_null for inetstl::basic_findfile_sequence_value_type
@@ -864,9 +854,9 @@ inline C const* c_str_ptr_null(INETSTL_NS_QUAL(basic_findfile_sequence_value_typ
 }
 
 
-
-////////////////////////////////////////////////////////////////////////////
-// Implementation
+/* /////////////////////////////////////////////////////////////////////////
+ * implementation
+ */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
@@ -1397,7 +1387,7 @@ inline ss_typename_type_ret_k basic_findfile_sequence_const_input_iterator<C, T,
                             }
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
                         }
-                        catch(...)
+                        catch (...)
                         {
                             WINSTL_API_EXTERNAL_FileManagement_FindClose(hSrch);
 
@@ -1493,20 +1483,23 @@ inline is_bool_t basic_findfile_sequence_const_input_iterator<C, T, X, V>::equal
 
     return m_handle == rhs.m_handle;
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef INETSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace inetstl */
+} // namespace inetsl
 # else
-} /* namespace inetstl_project */
-} /* namespace stlsoft */
+} // namespace inetstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !INETSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -1543,11 +1536,12 @@ using ::inetstl::c_str_ptr_null_w;
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
 #endif /* !INETSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

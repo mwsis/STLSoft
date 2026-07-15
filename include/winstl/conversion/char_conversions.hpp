@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/conversion/char_conversions.hpp (originally MLStrCnv.h, ::SynesisStd)
+ * File:    winstl/conversion/char_conversions.hpp (originally MLStrCnv.h, ::SynesisStd)
  *
- * Purpose:     Type conversions for Windows.
+ * Purpose: Type conversions for Windows.
  *
- * Created:     31st May 2003
- * Updated:     29th January 2024
+ * Created: 31st May 2003
+ * Updated: 20th March 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_CONVERSION_HPP_CHAR_CONVERSIONS_MAJOR    5
 # define WINSTL_VER_WINSTL_CONVERSION_HPP_CHAR_CONVERSIONS_MINOR    4
-# define WINSTL_VER_WINSTL_CONVERSION_HPP_CHAR_CONVERSIONS_REVISION 13
-# define WINSTL_VER_WINSTL_CONVERSION_HPP_CHAR_CONVERSIONS_EDIT     116
+# define WINSTL_VER_WINSTL_CONVERSION_HPP_CHAR_CONVERSIONS_REVISION 15
+# define WINSTL_VER_WINSTL_CONVERSION_HPP_CHAR_CONVERSIONS_EDIT     120
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -97,6 +98,10 @@
 # include <errno.h>
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
+
 #ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
 # include <winstl/api/external/ErrorHandling.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
@@ -104,9 +109,6 @@
 # include <winstl/api/external/UnicodeAndCharacterSet.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_UnicodeAndCharacterSet */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -127,6 +129,7 @@ namespace winstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * classes
  */
@@ -140,15 +143,15 @@ template <
     ws_size_t V_internalSize
 >
 class multibyte2wide
-    : private auto_buffer_old<ws_char_w_t, processheap_allocator<ws_char_w_t>, V_internalSize>
+    : private auto_buffer<ws_char_w_t, V_internalSize, processheap_allocator<ws_char_w_t> >
 {
 /// \name Member Types
 /// @{
 private:
-    typedef auto_buffer_old<
+    typedef auto_buffer<
         ws_char_w_t
-    ,   processheap_allocator<ws_char_w_t>
     ,   V_internalSize
+    ,   processheap_allocator<ws_char_w_t>
     >                                                       parent_class_type;
 public:
     /// The character type
@@ -184,9 +187,9 @@ public:
     multibyte2wide(class_type const& s)
         : parent_class_type(s.size() + 1)
     {
-        char_type* p = &static_cast<parent_class_type&>(*this)[0];
+        char_type* const p = &static_cast<parent_class_type&>(*this)[0];
 
-        STLSOFT_API_INTERNAL_memfns_memcpy(p, s, sizeof(char_type) * (1u + s.size()));
+        STLSOFT_API_EXTERNAL_memfns_memcpy(p, s, sizeof(char_type) * (1u + s.size()));
         STLSOFT_ASSERT('\0' == (*this)[s.size()]);
     }
 # endif /* compiler */
@@ -298,15 +301,15 @@ private:
  */
 template <ws_size_t V_internalSize>
 class wide2multibyte
-    : private auto_buffer_old<ws_char_a_t, processheap_allocator<ws_char_a_t>, V_internalSize>
+    : private auto_buffer<ws_char_a_t, V_internalSize, processheap_allocator<ws_char_a_t> >
 {
 /// \name Member Types
 /// @{
 private:
-    typedef auto_buffer_old<
+    typedef auto_buffer<
         ws_char_a_t
-    ,   processheap_allocator<ws_char_a_t>
     ,   V_internalSize
+    ,   processheap_allocator<ws_char_a_t>
     >                                                       parent_class_type;
 public:
     /// The character type
@@ -342,9 +345,9 @@ public:
     wide2multibyte(class_type const& s)
         : parent_class_type(s.size() + 1)
     {
-        char_type* p = &static_cast<parent_class_type&>(*this)[0];
+        char_type* const p = &static_cast<parent_class_type&>(*this)[0];
 
-        STLSOFT_API_INTERNAL_memfns_memcpy(p, s, sizeof(char_type) * (1u + s.size()));
+        STLSOFT_API_EXTERNAL_memfns_memcpy(p, s, sizeof(char_type) * (1u + s.size()));
         STLSOFT_ASSERT('\0' == (*this)[s.size()]);
     }
 # endif /* compiler */
@@ -552,6 +555,7 @@ typedef a2w                                                 t2w;
 typedef w2a                                                 w2t;
 # endif /* UNICODE */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * shims
@@ -799,6 +803,7 @@ operator <<(
     return stm;
 }
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
  */
@@ -806,10 +811,10 @@ operator <<(
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
 
@@ -848,11 +853,12 @@ using ::winstl::c_str_ptr_null_w;
 
 # if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace stlsoft */
+} // namespace stlsoft
 # else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
 # endif /* !STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * global namespace shims
@@ -893,6 +899,7 @@ operator <<(
     return stm << c.c_str();
 }
 #endif /* library */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

@@ -1,6 +1,6 @@
 # STLSoft - Known Issues:
 
-## STLSoft 1.10 Known Issues:
+## STLSoft 1.11 Known Issues:
 
 * The documentation is still lacking. This will be addressed in the release of 1.11.
 

@@ -1,17 +1,17 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/internal/cccap/gcc.h
+ * File:    stlsoft/internal/cccap/gcc.h
  *
- * Purpose:     Compiler feature discrimination for GNU C/C++.
+ * Purpose: Compiler feature discrimination for GNU C/C++.
  *
- * Created:     7th February 2003
- * Updated:     12th February 2024
+ * Created: 7th February 2003
+ * Updated: 31st May 2025
  *
- * Thanks:      To Sergey Nikulov, for PowerPC (BSD) compatibility fixes;
- *              wiluite for MinGW 64-bit compatibility.
+ * Thanks:  To Sergey Nikulov, for PowerPC (BSD) compatibility fixes;
+ *          wiluite for MinGW 64-bit compatibility.
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -60,13 +60,11 @@
 #endif /* STLSOFT_INCL_H_STLSOFT_CCCAP_GCC */
 
 
-/* ////////////////////////////////////////////////////////////////////// */
-
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_H_STLSOFT_CCCAP_GCC_MAJOR      3
-# define STLSOFT_VER_H_STLSOFT_CCCAP_GCC_MINOR      31
-# define STLSOFT_VER_H_STLSOFT_CCCAP_GCC_REVISION   1
-# define STLSOFT_VER_H_STLSOFT_CCCAP_GCC_EDIT       113
+# define STLSOFT_VER_H_STLSOFT_CCCAP_GCC_MINOR      34
+# define STLSOFT_VER_H_STLSOFT_CCCAP_GCC_REVISION   3
+# define STLSOFT_VER_H_STLSOFT_CCCAP_GCC_EDIT       121
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 
@@ -121,6 +119,17 @@
     +                                                       \
         (STLSOFT_INTERNAL_GCC_PATCHLEVEL_   * 1)            \
     )
+
+
+#if 0
+#elif 0 ||\
+      defined(__MINGW32__) ||\
+      defined(__MINGW64__) ||\
+      defined(__MINGW__) ||\
+      0
+
+# define STLSOFT_MINGW
+#endif
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -241,6 +250,11 @@
 
 #define STLSOFT_CF_STATIC_ASSERT_SUPPORT
 
+#if defined(__cplusplus) &&\
+    __cplusplus >= 201103L
+# define STLSOFT_CF_static_assert_SUPPORT
+#endif /* compiler */
+
 #define STLSOFT_CF_ANONYMOUS_UNION_SUPPORT
 
 #define STLSOFT_CF_NEGATIVE_MODULUS_POSITIVE_GIVES_NEGATIVE_RESULT
@@ -256,7 +270,14 @@
 
 #ifndef __cplusplus
 
-# define STLSOFT_CUSTOM_C_INLINE                            static inline
+# if defined(__STDC_VERSION__) &&\
+     __STDC_VERSION__ >= 201112L
+
+#  define STLSOFT_CUSTOM_C_INLINE                           static inline
+# else /* ? C version */
+
+#  define STLSOFT_CUSTOM_C_INLINE                           extern inline
+# endif /* C version */
 #endif
 
 
@@ -330,6 +351,9 @@
 # define STLSOFT_CF_noexcept_KEYWORD_SUPPORT
 #endif /* compiler */
 
+#define STLSOFT_CF_noinline_KEYWORD_SUPPORT
+#define STLSOFT_CUSTOM_NOINLINE                             __attribute__((noinline))
+
 #if STLSOFT_GCC_VER >= 40700 &&\
     defined(__cplusplus) &&\
     (__cplusplus > 199711)
@@ -363,7 +387,10 @@
 #if __GNUC__ > 4 || \
     (   __GNUC__ == 4 && \
         __GNUC_MINOR__ >= 3)
-# define STLSOFT_CF_RVALUE_REFERENCES_SUPPORT
+# if defined(__cplusplus) && \
+     __cplusplus >= 201103L
+#  define STLSOFT_CF_RVALUE_REFERENCES_SUPPORT
+# endif
 #endif
 
 #if __GNUC__ >= 3
@@ -446,8 +473,7 @@
 #endif /* compiler */
 
 #if 0
-#elif defined(__MINGW32__) || \
-      defined(__MINGW64__)
+#elif defined(STLSOFT_MINGW)
 
 # define STLSOFT_CF_TEMPLATE_COPY_CONSTRUCTOR_TEMPLATE_OVERLOAD_DISCRIMINATED_AGAINST_NON_TEMPLATE_COPY_CONSTRUCTOR
 #else
@@ -534,11 +560,16 @@
 
 #define _STLSOFT_SIZEOF_CHAR                                (1)
 
-#if defined(__ILP64__) || \
-    defined(_ILP64)
+#if 0
+#elif 0 ||\
+      defined(__ILP64__) ||\
+      defined(_ILP64) ||\
+      0
 # error Currently the STLSoft libraries are not compatible with the ILP64 memory model
-#elif defined(__LP64__) || \
-      defined(_LP64)
+#elif 0 ||\
+      defined(__LP64__) ||\
+      defined(_LP64) ||\
+      0
  /* LP64 */
 # define _STLSOFT_SIZEOF_SHORT                              (2)
 # define _STLSOFT_SIZEOF_INT                                (4)

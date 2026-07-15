@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/string/copy_functions.h
+ * File:    stlsoft/string/copy_functions.h
  *
- * Purpose:     String copy functions.
+ * Purpose: String copy functions.
  *
- * Created:     29th September 2016
- * Updated:     22nd January 2024
+ * Created: 29th September 2016
+ * Updated: 26th April 2025
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -54,9 +54,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_STRING_H_COPY_FUNCTIONS_MAJOR      2
 # define STLSOFT_VER_STLSOFT_STRING_H_COPY_FUNCTIONS_MINOR      0
-# define STLSOFT_VER_STLSOFT_STRING_H_COPY_FUNCTIONS_REVISION   3
-# define STLSOFT_VER_STLSOFT_STRING_H_COPY_FUNCTIONS_EDIT       12
+# define STLSOFT_VER_STLSOFT_STRING_H_COPY_FUNCTIONS_REVISION   5
+# define STLSOFT_VER_STLSOFT_STRING_H_COPY_FUNCTIONS_EDIT       15
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -76,16 +77,10 @@
 # include <stlsoft/string/string_slice.h>
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_H_STRING_SLICE */
 
-#ifndef STLSOFT_INCL_STLSOFT_QUALITY_H_CONTRACT
-# include <stlsoft/quality/contract.h>
-#endif /* !STLSOFT_INCL_STLSOFT_QUALITY_H_CONTRACT */
-#ifndef STLSOFT_INCL_STLSOFT_QUALITY_H_COVER
-# include <stlsoft/quality/cover.h>
-#endif /* !STLSOFT_INCL_STLSOFT_QUALITY_H_COVER */
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_memfns
+# include <stlsoft/api/external/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_memfns */
 
-#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
-# include <stlsoft/api/internal/memfns.h>
-#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -95,6 +90,7 @@
 namespace stlsoft
 {
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * API functions
@@ -119,7 +115,7 @@ namespace stlsoft
 STLSOFT_INLINE
 ss_size_t
 STLSoft_C_string_copy_a(
-    ss_char_a_t*            dest
+    ss_char_a_t             dest[]
 ,   ss_size_t               cchDest
 ,   ss_char_a_t const*      src
 ,   ss_size_t               cchSrc
@@ -135,7 +131,7 @@ STLSoft_C_string_copy_a(
     if (0 != n &&
         0 != cchSrc)
     {
-        STLSOFT_API_INTERNAL_memfns_memcpy(dest, src, sizeof(ss_char_a_t) * n);
+        STLSOFT_API_EXTERNAL_memfns_memcpy(dest, src, sizeof(ss_char_a_t) * n);
 
         if (n < cchDest)
         {
@@ -149,7 +145,7 @@ STLSoft_C_string_copy_a(
 STLSOFT_INLINE
 ss_size_t
 STLSoft_C_string_copy_w(
-    ss_char_w_t*            dest
+    ss_char_w_t             dest[]
 ,   ss_size_t               cchDest
 ,   ss_char_w_t const*      src
 ,   ss_size_t               cchSrc
@@ -165,7 +161,7 @@ STLSoft_C_string_copy_w(
     if (0 != n &&
         0 != cchSrc)
     {
-        STLSOFT_API_INTERNAL_memfns_memcpy(dest, src, sizeof(ss_char_w_t) * n);
+        STLSOFT_API_EXTERNAL_memfns_memcpy(dest, src, sizeof(ss_char_w_t) * n);
     }
 
     if (n < cchDest)
@@ -195,7 +191,7 @@ STLSoft_C_string_copy_w(
 STLSOFT_INLINE
 ss_size_t
 STLSoft_C_string_copy_with_nul_a(
-    ss_char_a_t*            dest
+    ss_char_a_t             dest[]
 ,   ss_size_t               cchDest
 ,   ss_char_a_t const*      src
 ,   ss_size_t               cchSrc
@@ -224,7 +220,7 @@ STLSoft_C_string_copy_with_nul_a(
 
     if (0 != n)
     {
-        STLSOFT_API_INTERNAL_memfns_memcpy(dest, src, sizeof(ss_char_a_t) * n);
+        STLSOFT_API_EXTERNAL_memfns_memcpy(dest, src, sizeof(ss_char_a_t) * n);
 
         dest[n] = '\0';
     }
@@ -235,7 +231,7 @@ STLSoft_C_string_copy_with_nul_a(
 STLSOFT_INLINE
 ss_size_t
 STLSoft_C_string_copy_with_nul_w(
-    ss_char_w_t*            dest
+    ss_char_w_t             dest[]
 ,   ss_size_t               cchDest
 ,   ss_char_w_t const*      src
 ,   ss_size_t               cchSrc
@@ -264,7 +260,7 @@ STLSoft_C_string_copy_with_nul_w(
 
     if (0 != n)
     {
-        STLSOFT_API_INTERNAL_memfns_memcpy(dest, src, sizeof(ss_char_w_t) * n);
+        STLSOFT_API_EXTERNAL_memfns_memcpy(dest, src, sizeof(ss_char_w_t) * n);
     }
 
     if (0 != cchDest)
@@ -274,6 +270,7 @@ STLSoft_C_string_copy_with_nul_w(
 
     return n;
 }
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * API functions (C++)
@@ -286,7 +283,7 @@ STLSoft_C_string_copy_with_nul_w(
 inline
 ss_size_t
 string_copy(
-    ss_char_a_t*            dest
+    ss_char_a_t             dest[]
 ,   ss_size_t               cchDest
 ,   ss_char_a_t const*      src
 ,   ss_size_t               cchSrc
@@ -298,7 +295,7 @@ string_copy(
 inline
 ss_size_t
 string_copy(
-    ss_char_w_t*            dest
+    ss_char_w_t             dest[]
 ,   ss_size_t               cchDest
 ,   ss_char_w_t const*      src
 ,   ss_size_t               cchSrc
@@ -310,7 +307,7 @@ string_copy(
 inline
 ss_size_t
 string_copy(
-    ss_char_a_t*            dest
+    ss_char_a_t             dest[]
 ,   ss_size_t               cchDest
 ,   string_slice_a_t const& src
 )
@@ -321,14 +318,13 @@ string_copy(
 inline
 ss_size_t
 string_copy(
-    ss_char_w_t*            dest
+    ss_char_w_t             dest[]
 ,   ss_size_t               cchDest
 ,   string_slice_w_t const& src
 )
 {
     return STLSoft_C_string_copy_w(&dest[0], cchDest, src.ptr, src.len);
 }
-
 # ifdef STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT
 
 template<
@@ -384,7 +380,6 @@ string_copy(
 {
     return STLSoft_C_string_copy_w(&dest[0], N_dest, src.ptr, src.len);
 }
-
 # endif /* !STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT */
 
 // string_copy_with_nul
@@ -392,7 +387,7 @@ string_copy(
 inline
 ss_size_t
 string_copy_with_nul(
-    ss_char_a_t*            dest
+    ss_char_a_t             dest[]
 ,   ss_size_t               cchDest
 ,   ss_char_a_t const*      src
 ,   ss_size_t               cchSrc
@@ -404,7 +399,7 @@ string_copy_with_nul(
 inline
 ss_size_t
 string_copy_with_nul(
-    ss_char_w_t*            dest
+    ss_char_w_t             dest[]
 ,   ss_size_t               cchDest
 ,   ss_char_w_t const*      src
 ,   ss_size_t               cchSrc
@@ -416,7 +411,7 @@ string_copy_with_nul(
 inline
 ss_size_t
 string_copy_with_nul(
-    ss_char_a_t*            dest
+    ss_char_a_t             dest[]
 ,   ss_size_t               cchDest
 ,   string_slice_a_t const& src
 )
@@ -427,14 +422,13 @@ string_copy_with_nul(
 inline
 ss_size_t
 string_copy_with_nul(
-    ss_char_w_t*            dest
+    ss_char_w_t             dest[]
 ,   ss_size_t               cchDest
 ,   string_slice_w_t const& src
 )
 {
     return STLSoft_C_string_copy_with_nul_w(&dest[0], cchDest, src.ptr, src.len);
 }
-
 # ifdef STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT
 
 template<
@@ -490,10 +484,9 @@ string_copy_with_nul(
 {
     return STLSoft_C_string_copy_with_nul_w(&dest[0], N_dest, src.ptr, src.len);
 }
-
 # endif /* !STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT */
-
 #endif /* __cplusplus */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -502,6 +495,7 @@ string_copy_with_nul(
 #ifndef STLSOFT_NO_NAMESPACE
 } /* namespace stlsoft */
 #endif /* STLSOFT_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        unixstl/system/console_functions.h
+ * File:    unixstl/system/console_functions.h
  *
- * Purpose:     Windows console functions.
+ * Purpose: Windows console functions.
  *
- * Created:     6th August 2015
- * Updated:     23rd January 2021
+ * Created: 6th August 2015
+ * Updated: 27th December 2024
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2021, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2015-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -52,10 +52,11 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define UNIXSTL_VER_UNIXSTL_SYSTEM_H_CONSOLE_FUNCTIONS_MAJOR       1
-# define UNIXSTL_VER_UNIXSTL_SYSTEM_H_CONSOLE_FUNCTIONS_MINOR       0
-# define UNIXSTL_VER_UNIXSTL_SYSTEM_H_CONSOLE_FUNCTIONS_REVISION    9
-# define UNIXSTL_VER_UNIXSTL_SYSTEM_H_CONSOLE_FUNCTIONS_EDIT        13
+# define UNIXSTL_VER_UNIXSTL_SYSTEM_H_CONSOLE_FUNCTIONS_MINOR       1
+# define UNIXSTL_VER_UNIXSTL_SYSTEM_H_CONSOLE_FUNCTIONS_REVISION    2
+# define UNIXSTL_VER_UNIXSTL_SYSTEM_H_CONSOLE_FUNCTIONS_EDIT        18
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -70,9 +71,8 @@
 
 #ifndef STLSOFT_INCL_H_UNISTD
 # define STLSOFT_INCL_H_UNISTD
-# include <unistd.h>                    /* for istty() */
+# include <unistd.h>                    /* for isatty() */
 #endif /* !STLSOFT_INCL_H_UNISTD */
-
 #if !defined(_WIN32)
 # ifndef STLSOFT_INCL_SYS_H_IOCTL
 #  define STLSOFT_INCL_SYS_H_IOCTL
@@ -84,7 +84,6 @@
 # define STLSOFT_INCL_H_STDIO
 # include <stdio.h>                     /* for fileno(), stdout */
 #endif /* !STLSOFT_INCL_H_STDIO */
-
 #ifndef STLSOFT_INCL_H_STDLIB
 # define STLSOFT_INCL_H_STDLIB
 # include <stdlib.h>                    /* for atoi(), getenv() */
@@ -98,14 +97,15 @@
 #if 0
 #elif defined(_WIN32) && \
       defined(_STLSOFT_FORCE_ANY_COMPILER)
+
 # ifndef WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_
 #  include <winstl/api/winstl_win32_winnt_.h>
 # endif /* !WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_ */
 # ifndef WINSTL_INCL_WINSTL_API_external_h_Console
 #  include <winstl/api/external/Console.h>
 # endif /* !WINSTL_INCL_WINSTL_API_external_h_Console */
-# include <windows.h>
 #endif
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -126,6 +126,68 @@ namespace unixstl_project
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
 
+
+/* /////////////////////////////////////////////////////////////////////////
+ * helpers
+ */
+
+#ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
+STLSOFT_INLINE
+ss_truthy_t
+unixstl_C_isatty_fd_(
+    int fd
+)
+{
+    int (*pfn_isatty)(int);
+
+#if defined(_MSC_VER) && \
+    defined(_STLSOFT_FORCE_ANY_COMPILER)
+
+# include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
+
+    pfn_isatty  =   STLSOFT_NS_GLOBAL(_isatty);
+
+# include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
+#else
+
+    pfn_isatty  =   STLSOFT_NS_GLOBAL(isatty);
+#endif
+
+    return (*pfn_isatty)(fd);
+}
+
+STLSOFT_INLINE
+ss_truthy_t
+unixstl_C_isatty_stm_(
+    FILE* stm
+)
+{
+    int (*pfn_fileno)(FILE*);
+    int (*pfn_isatty)(int);
+
+#if defined(_MSC_VER) && \
+    defined(_STLSOFT_FORCE_ANY_COMPILER)
+
+# include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
+
+    pfn_fileno  =   STLSOFT_NS_GLOBAL(_fileno);
+    pfn_isatty  =   STLSOFT_NS_GLOBAL(_isatty);
+
+# include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
+#else
+
+    pfn_fileno  =   STLSOFT_NS_GLOBAL(fileno);
+    pfn_isatty  =   STLSOFT_NS_GLOBAL(isatty);
+#endif
+
+    int const fd = (*pfn_fileno)(stm);
+
+    return (*pfn_isatty)(fd);
+}
+#endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
+
 /* /////////////////////////////////////////////////////////////////////////
  * functions
  */
@@ -145,35 +207,25 @@ unixstl_C_get_console_width(void)
      *
      */
 
-    int (*pfn_fileno)(FILE*);
-    int (*pfn_isatty)(int);
-    char* (*pfn_getenv)(char const*);
+    /* 1. Try the environment variable COLUMNS, if we're a tty */
+
+    if (unixstl_C_isatty_stm_(stdout))
+    {
+        char* (*pfn_getenv)(char const*);
 
 #if defined(_MSC_VER) && \
     defined(_STLSOFT_FORCE_ANY_COMPILER)
 
 # include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
 
-    pfn_fileno  =   STLSOFT_NS_GLOBAL(_fileno);
-    pfn_isatty  =   STLSOFT_NS_GLOBAL(_isatty);
-    pfn_getenv  =   STLSOFT_NS_GLOBAL(getenv);
+        pfn_getenv  =   STLSOFT_NS_GLOBAL(getenv);
 
 # include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 #else
 
-    pfn_fileno  =   STLSOFT_NS_GLOBAL(fileno);
-    pfn_isatty  =   STLSOFT_NS_GLOBAL(isatty);
-    pfn_getenv  =   STLSOFT_NS_GLOBAL(getenv);
+        pfn_getenv  =   STLSOFT_NS_GLOBAL(getenv);
 #endif
 
-    int const fn_stdout = (*pfn_fileno)(stdout);
-
-
-
-    /* 1. Try the environment variable COLUMNS, if we're a tty */
-
-    if ((*pfn_isatty)(fn_stdout))
-    {
         char const* const columns = (*pfn_getenv)("COLUMNS");
 
         if (NULL != columns)
@@ -222,9 +274,27 @@ unixstl_C_get_console_width(void)
 #endif
 
 
-
     return ~stlsoft_static_cast(us_size_t, 0);
 }
+
+STLSOFT_INLINE
+ss_truthy_t
+unixstl_C_isatty_fd(
+    int fd
+)
+{
+    return unixstl_C_isatty_fd_(fd);
+}
+
+STLSOFT_INLINE
+ss_truthy_t
+unixstl_C_isatty_stm(
+    FILE* stm
+)
+{
+    return unixstl_C_isatty_stm_(stm);
+}
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -234,6 +304,7 @@ unixstl_C_get_console_width(void)
 namespace unixstl
 {
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * C++ functions
@@ -252,9 +323,29 @@ get_console_width()
     return unixstl_C_get_console_width();
 }
 
+inline
+bool
+isatty(
+    int fd
+)
+{
+    return 0 != unixstl_C_isatty_fd(fd);
+}
+
+inline
+bool
+isatty(
+    FILE* stm
+)
+{
+    return 0 != unixstl_C_isatty_stm(stm);
+}
 #endif /* __cplusplus */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef UNIXSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
@@ -265,6 +356,7 @@ get_console_width()
 } /* namespace stlsoft */
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !UNIXSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control

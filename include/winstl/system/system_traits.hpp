@@ -1,18 +1,18 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        winstl/system/system_traits.hpp
+ * File:    winstl/system/system_traits.hpp
  *
- * Purpose:     Contains the system_traits template class, and ANSI and
- *              Unicode specialisations thereof.
+ * Purpose: Contains the system_traits template class, and ANSI and
+ *          Unicode specialisations thereof.
  *
- * Created:     15th November 2002
- * Updated:     1st January 2021
+ * Created: 15th November 2002
+ * Updated: 27th May 2025
  *
- * Thanks to:   Austin Ziegler for spotting the defective pre-condition
- *              enforcement of expand_environment_strings().
+ * Thanks:  Austin Ziegler for spotting the defective pre-condition
+ *          enforcement of expand_environment_strings().
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
- * Copyright (c) 2019-2021, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -58,9 +58,10 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SYSTEM_HPP_SYSTEM_TRAITS_MAJOR       6
 # define WINSTL_VER_WINSTL_SYSTEM_HPP_SYSTEM_TRAITS_MINOR       0
-# define WINSTL_VER_WINSTL_SYSTEM_HPP_SYSTEM_TRAITS_REVISION    4
-# define WINSTL_VER_WINSTL_SYSTEM_HPP_SYSTEM_TRAITS_EDIT        165
+# define WINSTL_VER_WINSTL_SYSTEM_HPP_SYSTEM_TRAITS_REVISION    6
+# define WINSTL_VER_WINSTL_SYSTEM_HPP_SYSTEM_TRAITS_EDIT        171
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * includes
@@ -98,6 +99,9 @@
 #  endif /* !STLSOFT_INCL_STLSOFT_CONVERSION_HPP_TRUNCATION_TEST */
 # endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 #endif /* _WINSTL_SYSTEM_TRAITS_USE_TRUNCATION_TESTING */
+#ifndef STLSOFT_INCL_STLSOFT_UTIL_HPP_RESIZEABLE_BUFFER_HELPERS
+# include <stlsoft/util/resizeable_buffer_helpers.hpp>
+#endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_RESIZEABLE_BUFFER_HELPERS */
 
 #if STLSOFT_LEAD_VER >= 0x010a0000
 # ifndef WINSTL_INCL_WINSTL_SYSTEM_H_DIRECTORY_FUNCTIONS
@@ -112,6 +116,13 @@
 # define STLSOFT_INCL_H_CTYPE
 # include <ctype.h>
 #endif /* !STLSOFT_INCL_H_CTYPE */
+
+#ifndef WINSTL_INCL_WINSTL_API_internal_h_DynamicLinkLibrary
+# include <winstl/api/internal/DynamicLinkLibrary.h>
+#endif /* !WINSTL_INCL_WINSTL_API_internal_h_DynamicLinkLibrary */
+#ifndef WINSTL_INCL_WINSTL_API_internal_h_SystemInformation
+# include <winstl/api/internal/SystemInformation.h>
+#endif /* !WINSTL_INCL_WINSTL_API_internal_h_SystemInformation */
 
 #ifndef WINSTL_INCL_WINSTL_API_external_h_DynamicLinkLibrary
 # include <winstl/api/external/DynamicLinkLibrary.h>
@@ -129,13 +140,10 @@
 # include <winstl/api/external/SystemInformation.h>
 #endif /* !WINSTL_INCL_WINSTL_API_external_h_SystemInformation */
 
-#ifndef WINSTL_INCL_WINSTL_API_internal_h_DynamicLinkLibrary
-# include <winstl/api/internal/DynamicLinkLibrary.h>
-#endif /* !WINSTL_INCL_WINSTL_API_internal_h_DynamicLinkLibrary */
-
 #ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
 # include <stlsoft/api/external/string.h>
 #endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * namespace
@@ -155,6 +163,7 @@ namespace winstl_project
 {
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * classes
@@ -207,9 +216,9 @@ public:
     /// path string character rules on the ambient operating system
     ///
     /// \param ps1 C-style string pointer to the first path. May not be
-    ///   \c null
+    ///   \c nullptr
     /// \param ps2 C-style string pointer to the first path. May not be
-    ///   \c null
+    ///   \c nullptr
     ///
     /// \note This function does <em>not</em> perform analysis such as
     ///   canonicalisation of dots directories
@@ -224,9 +233,9 @@ public:
     /// path string character rules on the ambient operating system
     ///
     /// \param ps1 C-style string pointer to the first path. May not be
-    ///   \c null
+    ///   \c nullptr
     /// \param ps2 C-style string pointer to the first path. May not be
-    ///   \c null
+    ///   \c nullptr
     /// \param cch Number of characters to compare
     ///
     /// \note This function does <em>not</em> perform analysis such as
@@ -468,10 +477,11 @@ public:
     /// Gets an environment variable into the given buffer
     ///
     /// \param name The name of the variable to find
-    /// \param buffer The buffer in which to write the variable. If this is NULL, then the required length is returned
+    /// \param buffer The buffer in which to write the variable. If this is
+    ///   \c nullptr, then the required length is returned
     /// \param cchBuffer The size of the buffer, in characters
     ///
-    /// \pre NULL != name
+    /// \pre nullptr != name
     /// \pre 0 == cchBuffer || nullptr != buffer
     static
     size_type
@@ -496,9 +506,10 @@ public:
     ,   T_resizeableBuffer& rb
     );
 
-    /// Expands environment strings in \c src into \c buffer, up to a maximum \c cchDest characters
+    /// Expands environment strings in \c src into \c buffer, up to a
+    /// maximum \c cchDest characters
     ///
-    /// \pre NULL != src
+    /// \pre nullptr != src
     /// \pre 0 == cchBuffer || nullptr != buffer
     static
     size_type
@@ -740,9 +751,31 @@ public:
     ,   T_resizeableBuffer& rb
     )
     {
-        size_type const cchRequired = get_module_filename(hModule, static_cast<char_type*>(NULL), 0);
+        size_type const cchRequired = get_module_filename(hModule, 0 == rb.size() ? static_cast<char_type*>(NULL) : &rb[0], rb.size());
 
-        rb.resize(cchRequired);
+        if (0 == cchRequired)
+        {
+            return 0;
+        }
+
+        if (rb.size() < cchRequired)
+        {
+            error_type const le = get_last_error();
+
+            if (STLSOFT_NS_QUAL(resizeable_buffer_resize)(rb, cchRequired))
+            {
+                if (ERROR_INSUFFICIENT_BUFFER == le)
+                {
+                    set_last_error(ERROR_SUCCESS);
+                }
+            }
+            else
+            {
+                set_last_error(ERROR_OUTOFMEMORY);
+
+                return 0;
+            }
+        }
 
         return get_module_filename(hModule, &rb[0], rb.size());
     }
@@ -798,9 +831,31 @@ public:
         T_resizeableBuffer& rb
     )
     {
-        size_type const cchRequired = get_system_directory(static_cast<char_type*>(NULL), 0);
+        size_type const cchRequired = get_system_directory(0 == rb.size() ? static_cast<char_type*>(NULL) : &rb[0], rb.size());
 
-        rb.resize(cchRequired);
+        if (0 == cchRequired)
+        {
+            return 0;
+        }
+
+        if (rb.size() < cchRequired)
+        {
+            error_type const le = get_last_error();
+
+            if (STLSOFT_NS_QUAL(resizeable_buffer_resize)(rb, cchRequired))
+            {
+                if (ERROR_INSUFFICIENT_BUFFER == le)
+                {
+                    set_last_error(ERROR_SUCCESS);
+                }
+            }
+            else
+            {
+                set_last_error(ERROR_OUTOFMEMORY);
+
+                return 0;
+            }
+        }
 
         return get_system_directory(&rb[0], rb.size());
     }
@@ -821,9 +876,31 @@ public:
         T_resizeableBuffer& rb
     )
     {
-        size_type const cchRequired = get_windows_directory(static_cast<char_type*>(NULL), 0);
+        size_type const cchRequired = get_windows_directory(0 == rb.size() ? static_cast<char_type*>(NULL) : &rb[0], rb.size());
 
-        rb.resize(cchRequired);
+        if (0 == cchRequired)
+        {
+            return 0;
+        }
+
+        if (rb.size() < cchRequired)
+        {
+            error_type const le = get_last_error();
+
+            if (STLSOFT_NS_QUAL(resizeable_buffer_resize)(rb, cchRequired))
+            {
+                if (ERROR_INSUFFICIENT_BUFFER == le)
+                {
+                    set_last_error(ERROR_SUCCESS);
+                }
+            }
+            else
+            {
+                set_last_error(ERROR_OUTOFMEMORY);
+
+                return 0;
+            }
+        }
 
         return get_windows_directory(&rb[0], rb.size());
     }
@@ -849,9 +926,31 @@ public:
         T_resizeableBuffer& rb
     )
     {
-        size_type const cchRequired = get_home_directory(static_cast<char_type*>(NULL), 0);
+        size_type const cchRequired = get_home_directory(0 == rb.size() ? static_cast<char_type*>(NULL) : &rb[0], rb.size());
 
-        rb.resize(cchRequired);
+        if (0 == cchRequired)
+        {
+            return 0;
+        }
+
+        if (rb.size() < cchRequired)
+        {
+            error_type const le = get_last_error();
+
+            if (STLSOFT_NS_QUAL(resizeable_buffer_resize)(rb, cchRequired))
+            {
+                if (ERROR_INSUFFICIENT_BUFFER == le)
+                {
+                    set_last_error(ERROR_SUCCESS);
+                }
+            }
+            else
+            {
+                set_last_error(ERROR_OUTOFMEMORY);
+
+                return 0;
+            }
+        }
 
         return get_home_directory(&rb[0], rb.size());
     }
@@ -938,14 +1037,31 @@ public:
     ,   T_resizeableBuffer& rb
     )
     {
-        size_type const cchRequired = get_environment_variable(name, static_cast<char_type*>(NULL), 0);
+        size_type const cchRequired = get_environment_variable(name, 0 == rb.size() ? static_cast<char_type*>(NULL) : &rb[0], rb.size());
 
         if (0 == cchRequired)
         {
             return 0;
         }
 
-        rb.resize(cchRequired);
+        if (rb.size() < cchRequired)
+        {
+            error_type const le = get_last_error();
+
+            if (STLSOFT_NS_QUAL(resizeable_buffer_resize)(rb, cchRequired))
+            {
+                if (ERROR_INSUFFICIENT_BUFFER == le)
+                {
+                    set_last_error(ERROR_SUCCESS);
+                }
+            }
+            else
+            {
+                set_last_error(ERROR_OUTOFMEMORY);
+
+                return 0;
+            }
+        }
 
         return get_environment_variable(name, &rb[0], rb.size());
     }
@@ -974,9 +1090,31 @@ public:
     ,   T_resizeableBuffer& rb
     )
     {
-        size_type const cchRequired = expand_environment_strings(src, static_cast<char_type*>(NULL), 0);
+        size_type const cchRequired = expand_environment_strings(src, 0 == rb.size() ? static_cast<char_type*>(NULL) : &rb[0], rb.size());
 
-        rb.resize(cchRequired);
+        if (0 == cchRequired)
+        {
+            return 0;
+        }
+
+        if (rb.size() < cchRequired)
+        {
+            error_type const le = get_last_error();
+
+            if (STLSOFT_NS_QUAL(resizeable_buffer_resize)(rb, cchRequired))
+            {
+                if (ERROR_INSUFFICIENT_BUFFER == le)
+                {
+                    set_last_error(ERROR_SUCCESS);
+                }
+            }
+            else
+            {
+                set_last_error(ERROR_OUTOFMEMORY);
+
+                return 0;
+            }
+        }
 
         return expand_environment_strings(src, &rb[0], rb.size());
     }
@@ -1007,16 +1145,16 @@ private:
 
 # ifdef STLSOFT_CF_EXCEPTION_SUPPORT
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetSystemDirectoryA(buffer, STLSOFT_NS_QUAL(truncation_cast)<DWORD>(cchBuffer));
+        return WINSTL_API_INTERNAL_SystemInformation_GetSystemDirectoryA(buffer, STLSOFT_NS_QUAL(truncation_cast)<DWORD>(cchBuffer));
 # else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
 
         WINSTL_MESSAGE_ASSERT("buffer size out of range", STLSOFT_NS_QUAL(truncation_test)<DWORD>(cchBuffer));
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetSystemDirectoryA(buffer, static_cast<DWORD>(cchBuffer));
+        return WINSTL_API_INTERNAL_SystemInformation_GetSystemDirectoryA(buffer, static_cast<DWORD>(cchBuffer));
 # endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 #else /* ? _WINSTL_SYSTEM_TRAITS_USE_TRUNCATION_TESTING */
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetSystemDirectoryA(buffer, cchBuffer);
+        return WINSTL_API_INTERNAL_SystemInformation_GetSystemDirectoryA(buffer, cchBuffer);
 #endif /* _WINSTL_SYSTEM_TRAITS_USE_TRUNCATION_TESTING */
     }
 
@@ -1026,16 +1164,16 @@ private:
 
 # ifdef STLSOFT_CF_EXCEPTION_SUPPORT
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetWindowsDirectoryA(buffer, STLSOFT_NS_QUAL(truncation_cast)<DWORD>(cchBuffer));
+        return WINSTL_API_INTERNAL_SystemInformation_GetWindowsDirectoryA(buffer, STLSOFT_NS_QUAL(truncation_cast)<DWORD>(cchBuffer));
 # else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
 
         WINSTL_MESSAGE_ASSERT("buffer size out of range", STLSOFT_NS_QUAL(truncation_test)<DWORD>(cchBuffer));
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetWindowsDirectoryA(buffer, static_cast<DWORD>(cchBuffer));
+        return WINSTL_API_INTERNAL_SystemInformation_GetWindowsDirectoryA(buffer, static_cast<DWORD>(cchBuffer));
 # endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 #else /* ? _WINSTL_SYSTEM_TRAITS_USE_TRUNCATION_TESTING */
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetWindowsDirectoryA(buffer, cchBuffer);
+        return WINSTL_API_INTERNAL_SystemInformation_GetWindowsDirectoryA(buffer, cchBuffer);
 #endif /* _WINSTL_SYSTEM_TRAITS_USE_TRUNCATION_TESTING */
     }
 
@@ -1045,16 +1183,16 @@ private:
 
 # ifdef STLSOFT_CF_EXCEPTION_SUPPORT
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetEnvironmentVariableA(name, buffer, STLSOFT_NS_QUAL(truncation_cast)<DWORD>(cchBuffer));
+        return WINSTL_API_INTERNAL_SystemInformation_GetEnvironmentVariableA(name, buffer, STLSOFT_NS_QUAL(truncation_cast)<DWORD>(cchBuffer));
 # else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
 
         WINSTL_MESSAGE_ASSERT("buffer size out of range", STLSOFT_NS_QUAL(truncation_test)<DWORD>(cchBuffer));
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetEnvironmentVariableA(name, buffer, static_cast<DWORD>(cchBuffer));
+        return WINSTL_API_INTERNAL_SystemInformation_GetEnvironmentVariableA(name, buffer, static_cast<DWORD>(cchBuffer));
 # endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 #else /* ? _WINSTL_SYSTEM_TRAITS_USE_TRUNCATION_TESTING */
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetEnvironmentVariableA(name, buffer, cchBuffer);
+        return WINSTL_API_INTERNAL_SystemInformation_GetEnvironmentVariableA(name, buffer, cchBuffer);
 #endif /* _WINSTL_SYSTEM_TRAITS_USE_TRUNCATION_TESTING */
     }
 
@@ -1234,9 +1372,31 @@ public:
     ,   T_resizeableBuffer& rb
     )
     {
-        size_type const cchRequired = get_module_filename(hModule, static_cast<char_type*>(NULL), 0);
+        size_type const cchRequired = get_module_filename(hModule, 0 == rb.size() ? static_cast<char_type*>(NULL) : &rb[0], rb.size());
 
-        rb.resize(cchRequired);
+        if (0 == cchRequired)
+        {
+            return 0;
+        }
+
+        if (rb.size() < cchRequired)
+        {
+            error_type const le = get_last_error();
+
+            if (STLSOFT_NS_QUAL(resizeable_buffer_resize)(rb, cchRequired))
+            {
+                if (ERROR_INSUFFICIENT_BUFFER == le)
+                {
+                    set_last_error(ERROR_SUCCESS);
+                }
+            }
+            else
+            {
+                set_last_error(ERROR_OUTOFMEMORY);
+
+                return 0;
+            }
+        }
 
         return get_module_filename(hModule, &rb[0], rb.size());
     }
@@ -1292,9 +1452,31 @@ public:
         T_resizeableBuffer& rb
     )
     {
-        size_type const cchRequired = get_system_directory(static_cast<char_type*>(NULL), 0);
+        size_type const cchRequired = get_system_directory(0 == rb.size() ? static_cast<char_type*>(NULL) : &rb[0], rb.size());
 
-        rb.resize(cchRequired);
+        if (0 == cchRequired)
+        {
+            return 0;
+        }
+
+        if (rb.size() < cchRequired)
+        {
+            error_type const le = get_last_error();
+
+            if (STLSOFT_NS_QUAL(resizeable_buffer_resize)(rb, cchRequired))
+            {
+                if (ERROR_INSUFFICIENT_BUFFER == le)
+                {
+                    set_last_error(ERROR_SUCCESS);
+                }
+            }
+            else
+            {
+                set_last_error(ERROR_OUTOFMEMORY);
+
+                return 0;
+            }
+        }
 
         return get_system_directory(&rb[0], rb.size());
     }
@@ -1315,9 +1497,31 @@ public:
         T_resizeableBuffer& rb
     )
     {
-        size_type const cchRequired = get_windows_directory(static_cast<char_type*>(NULL), 0);
+        size_type const cchRequired = get_windows_directory(0 == rb.size() ? static_cast<char_type*>(NULL) : &rb[0], rb.size());
 
-        rb.resize(cchRequired);
+        if (0 == cchRequired)
+        {
+            return 0;
+        }
+
+        if (rb.size() < cchRequired)
+        {
+            error_type const le = get_last_error();
+
+            if (STLSOFT_NS_QUAL(resizeable_buffer_resize)(rb, cchRequired))
+            {
+                if (ERROR_INSUFFICIENT_BUFFER == le)
+                {
+                    set_last_error(ERROR_SUCCESS);
+                }
+            }
+            else
+            {
+                set_last_error(ERROR_OUTOFMEMORY);
+
+                return 0;
+            }
+        }
 
         return get_windows_directory(&rb[0], rb.size());
     }
@@ -1343,9 +1547,31 @@ public:
         T_resizeableBuffer& rb
     )
     {
-        size_type const cchRequired = get_home_directory(static_cast<char_type*>(NULL), 0);
+        size_type const cchRequired = get_home_directory(0 == rb.size() ? static_cast<char_type*>(NULL) : &rb[0], rb.size());
 
-        rb.resize(cchRequired);
+        if (0 == cchRequired)
+        {
+            return 0;
+        }
+
+        if (rb.size() < cchRequired)
+        {
+            error_type const le = get_last_error();
+
+            if (STLSOFT_NS_QUAL(resizeable_buffer_resize)(rb, cchRequired))
+            {
+                if (ERROR_INSUFFICIENT_BUFFER == le)
+                {
+                    set_last_error(ERROR_SUCCESS);
+                }
+            }
+            else
+            {
+                set_last_error(ERROR_OUTOFMEMORY);
+
+                return 0;
+            }
+        }
 
         return get_home_directory(&rb[0], rb.size());
     }
@@ -1432,14 +1658,31 @@ public:
     ,   T_resizeableBuffer& rb
     )
     {
-        size_type const cchRequired = get_environment_variable(name, static_cast<char_type*>(NULL), 0);
+        size_type const cchRequired = get_environment_variable(name, 0 == rb.size() ? static_cast<char_type*>(NULL) : &rb[0], rb.size());
 
         if (0 == cchRequired)
         {
             return 0;
         }
 
-        rb.resize(cchRequired);
+        if (rb.size() < cchRequired)
+        {
+            error_type const le = get_last_error();
+
+            if (STLSOFT_NS_QUAL(resizeable_buffer_resize)(rb, cchRequired))
+            {
+                if (ERROR_INSUFFICIENT_BUFFER == le)
+                {
+                    set_last_error(ERROR_SUCCESS);
+                }
+            }
+            else
+            {
+                set_last_error(ERROR_OUTOFMEMORY);
+
+                return 0;
+            }
+        }
 
         return get_environment_variable(name, &rb[0], rb.size());
     }
@@ -1455,7 +1698,17 @@ public:
         WINSTL_ASSERT(NULL != src);
         WINSTL_ASSERT(NULL != buffer || 0 == cchBuffer);
 
-        return class_type::ExpandEnvironmentStringsW(src, buffer, cchBuffer);
+        size_type const r = class_type::ExpandEnvironmentStringsW(src, buffer, cchBuffer);
+
+        if (cchBuffer < r)
+        {
+            if (NULL != buffer)
+            {
+                buffer[0] = L'\0';
+            }
+        }
+
+        return r;
     }
 
     template<
@@ -1468,9 +1721,31 @@ public:
     ,   T_resizeableBuffer& rb
     )
     {
-        size_type const cchRequired = expand_environment_strings(src, static_cast<char_type*>(NULL), 0);
+        size_type const cchRequired = expand_environment_strings(src, 0 == rb.size() ? static_cast<char_type*>(NULL) : &rb[0], rb.size());
 
-        rb.resize(cchRequired);
+        if (0 == cchRequired)
+        {
+            return 0;
+        }
+
+        if (rb.size() < cchRequired)
+        {
+            error_type const le = get_last_error();
+
+            if (STLSOFT_NS_QUAL(resizeable_buffer_resize)(rb, cchRequired))
+            {
+                if (ERROR_INSUFFICIENT_BUFFER == le)
+                {
+                    set_last_error(ERROR_SUCCESS);
+                }
+            }
+            else
+            {
+                set_last_error(ERROR_OUTOFMEMORY);
+
+                return 0;
+            }
+        }
 
         return expand_environment_strings(src, &rb[0], rb.size());
     }
@@ -1501,16 +1776,16 @@ private:
 
 # ifdef STLSOFT_CF_EXCEPTION_SUPPORT
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetSystemDirectoryW(buffer, STLSOFT_NS_QUAL(truncation_cast)<DWORD>(cchBuffer));
+        return WINSTL_API_INTERNAL_SystemInformation_GetSystemDirectoryW(buffer, STLSOFT_NS_QUAL(truncation_cast)<DWORD>(cchBuffer));
 # else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
 
         WINSTL_MESSAGE_ASSERT("buffer size out of range", STLSOFT_NS_QUAL(truncation_test)<DWORD>(cchBuffer));
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetSystemDirectoryW(buffer, static_cast<DWORD>(cchBuffer));
+        return WINSTL_API_INTERNAL_SystemInformation_GetSystemDirectoryW(buffer, static_cast<DWORD>(cchBuffer));
 # endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 #else /* ? _WINSTL_SYSTEM_TRAITS_USE_TRUNCATION_TESTING */
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetSystemDirectoryW(buffer, cchBuffer);
+        return WINSTL_API_INTERNAL_SystemInformation_GetSystemDirectoryW(buffer, cchBuffer);
 #endif /* _WINSTL_SYSTEM_TRAITS_USE_TRUNCATION_TESTING */
     }
 
@@ -1520,16 +1795,16 @@ private:
 
 # ifdef STLSOFT_CF_EXCEPTION_SUPPORT
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetWindowsDirectoryW(buffer, STLSOFT_NS_QUAL(truncation_cast)<DWORD>(cchBuffer));
+        return WINSTL_API_INTERNAL_SystemInformation_GetWindowsDirectoryW(buffer, STLSOFT_NS_QUAL(truncation_cast)<DWORD>(cchBuffer));
 # else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
 
         WINSTL_MESSAGE_ASSERT("buffer size out of range", STLSOFT_NS_QUAL(truncation_test)<DWORD>(cchBuffer));
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetWindowsDirectoryW(buffer, static_cast<DWORD>(cchBuffer));
+        return WINSTL_API_INTERNAL_SystemInformation_GetWindowsDirectoryW(buffer, static_cast<DWORD>(cchBuffer));
 # endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 #else /* ? _WINSTL_SYSTEM_TRAITS_USE_TRUNCATION_TESTING */
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetWindowsDirectoryW(buffer, cchBuffer);
+        return WINSTL_API_INTERNAL_SystemInformation_GetWindowsDirectoryW(buffer, cchBuffer);
 #endif /* _WINSTL_SYSTEM_TRAITS_USE_TRUNCATION_TESTING */
     }
 
@@ -1539,16 +1814,16 @@ private:
 
 # ifdef STLSOFT_CF_EXCEPTION_SUPPORT
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetEnvironmentVariableW(name, buffer, STLSOFT_NS_QUAL(truncation_cast)<DWORD>(cchBuffer));
+        return WINSTL_API_INTERNAL_SystemInformation_GetEnvironmentVariableW(name, buffer, STLSOFT_NS_QUAL(truncation_cast)<DWORD>(cchBuffer));
 # else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
 
         WINSTL_MESSAGE_ASSERT("buffer size out of range", STLSOFT_NS_QUAL(truncation_test)<DWORD>(cchBuffer));
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetEnvironmentVariableW(name, buffer, static_cast<DWORD>(cchBuffer));
+        return WINSTL_API_INTERNAL_SystemInformation_GetEnvironmentVariableW(name, buffer, static_cast<DWORD>(cchBuffer));
 # endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 #else /* ? _WINSTL_SYSTEM_TRAITS_USE_TRUNCATION_TESTING */
 
-        return WINSTL_API_EXTERNAL_SystemInformation_GetEnvironmentVariableW(name, buffer, cchBuffer);
+        return WINSTL_API_INTERNAL_SystemInformation_GetEnvironmentVariableW(name, buffer, cchBuffer);
 #endif /* _WINSTL_SYSTEM_TRAITS_USE_TRUNCATION_TESTING */
     }
 
@@ -1571,20 +1846,23 @@ private:
 #endif /* _WINSTL_SYSTEM_TRAITS_USE_TRUNCATION_TESTING */
     }
 };
-
 #endif /* STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef WINSTL_NO_NAMESPACE
 # if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} /* namespace winstl */
+} // namespace winstl
 # else
-} /* namespace winstl_project */
-} /* namespace stlsoft */
+} // namespace winstl_project
+} // namespace stlsoft
 # endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !WINSTL_NO_NAMESPACE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion control
