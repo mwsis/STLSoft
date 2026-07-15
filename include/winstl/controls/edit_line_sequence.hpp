@@ -4,46 +4,48 @@
  * Purpose:     Contains the edit_line_sequence class.
  *
  * Created:     23rd March 2006
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/controls/edit_line_sequence.hpp
  *
- * \brief [C++ only] Definition of the winstl::edit_line_sequence class
+ * \brief [C++] Definition of the winstl::edit_line_sequence class
  *  template
- *   (\ref group__library__windows_controls "Windows Controls" Library).
+ *   (\ref group__library__Windows_Control "Windows Control" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_CONTROLS_HPP_EDIT_LINE_SEQUENCE
@@ -52,17 +54,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_CONTROLS_HPP_EDIT_LINE_SEQUENCE_MAJOR    1
 # define WINSTL_VER_WINSTL_CONTROLS_HPP_EDIT_LINE_SEQUENCE_MINOR    0
-# define WINSTL_VER_WINSTL_CONTROLS_HPP_EDIT_LINE_SEQUENCE_REVISION 7
-# define WINSTL_VER_WINSTL_CONTROLS_HPP_EDIT_LINE_SEQUENCE_EDIT     15
+# define WINSTL_VER_WINSTL_CONTROLS_HPP_EDIT_LINE_SEQUENCE_REVISION 12
+# define WINSTL_VER_WINSTL_CONTROLS_HPP_EDIT_LINE_SEQUENCE_EDIT     30
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef WINSTL_INCL_WINSTL_CONTROLS_H_FUNCTIONS
 # include <winstl/controls/functions.h>      // for combobox_addstring(), etc.
 #endif /* !WINSTL_INCL_WINSTL_CONTROLS_H_FUNCTIONS */
@@ -88,34 +94,31 @@
 #endif /* !STLSOFT_INCL_VECTOR */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief STL-like sequence for edit control contents
+/** STL-like sequence for edit control contents
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  *
  * This class presents an STL-like sequence interface to an edit control
  *
@@ -126,30 +129,30 @@ namespace winstl_project
  */
 template<   ss_typename_param_k C
         ,   ss_typename_param_k A = processheap_allocator<C>
-        ,   ss_typename_param_k S = stlsoft_ns_qual(basic_simple_string)<C, stlsoft_ns_qual(char_traits)<C>, A>
-        ,   ss_typename_param_k Q = stlsoft_ns_qual_std(vector)<S>
+        ,   ss_typename_param_k S = STLSOFT_NS_QUAL(basic_simple_string)<C, STLSOFT_NS_QUAL(char_traits)<C>, A>
+        ,   ss_typename_param_k Q = STLSOFT_NS_QUAL_STD(vector)<S>
         >
 class edit_line_sequence
-    : public stlsoft_ns_qual(stl_collection_tag)
+    : public STLSOFT_NS_QUAL(stl_collection_tag)
 {
 /// \name Member Types
 /// @{
 public:
-    /// \brief The character type
+    /// The character type
     typedef C                                                       char_type;
-    /// \brief The allocator type
+    /// The allocator type
     typedef A                                                       allocator_type;
-    /// \brief The string type
+    /// The string type
     typedef S                                                       string_type;
-    /// \brief The value type
+    /// The value type
     typedef string_type                                             value_type;
-    /// \brief The container type
+    /// The container type
     typedef Q                                                       queue_type;
-    /// \brief The current specialisation of this type
+    /// The current specialisation of the type
     typedef edit_line_sequence<S>                                   class_type;
-    /// \brief The non-mutating (const) iterator type
+    /// The non-mutating (const) iterator type
     typedef ss_typename_type_k queue_type::const_iterator           const_iterator;
-    /// \brief The non-mutating (const) reverse iterator type
+    /// The non-mutating (const) reverse iterator type
     typedef ss_typename_type_k queue_type::const_reverse_iterator   const_reverse_iterator;
     /// The non-mutable (const) reference type
     typedef ss_typename_type_k const_iterator::const_reference      const_reference;
@@ -158,7 +161,7 @@ public:
 /// \name Construction
 /// @{
 public:
-    /// \brief Constructs on the given edit control
+    /// Constructs on the given edit control
     ss_explicit_k edit_line_sequence(HWND hwndEdit, unsigned = 0);
 /// @}
 
@@ -192,15 +195,8 @@ inline ws_bool_t operator !=(ss_typename_type_k edit_line_sequence<C, A, S, Q>::
     return !lhs.equal(rhs);
 }
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/edit_line_sequence_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Implementation
+ * implementation
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -217,11 +213,11 @@ inline /* ss_explicit_k */ edit_line_sequence<C, A, S, Q>::edit_line_sequence(HW
     int         numLines    =   edit_getcount(hwndEdit);
 
     { int   charTotal = 0;
-        for(int i = 0; i < numLines; ++i)
+        for (int i = 0; i < numLines; ++i)
     {
         int                                 charIndex   =   charTotal + i;
         int                                 lineLength  =   edit_linelength(hwndEdit, charIndex);
-        stlsoft_ns_qual(auto_buffer)<char>  line(1 + lineLength);
+        STLSOFT_NS_QUAL(auto_buffer)<char>  line(1 + lineLength);
 
         lineLength  =   edit_getline(hwndEdit, i, &line[0], line.size());
 
@@ -263,19 +259,25 @@ inline ss_typename_type_ret_k edit_line_sequence<C, A, S, Q>::const_reverse_iter
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_CONTROLS_HPP_EDIT_LINE_SEQUENCE */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_CONTROLS_HPP_EDIT_LINE_SEQUENCE */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

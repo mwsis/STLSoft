@@ -4,46 +4,48 @@
  * Purpose:     Platform header for the readdir_sequence components.
  *
  * Created:     29th April 2006
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file platformstl/filesystem/readdir_sequence.hpp
  *
- * \brief [C++ only] Definition of the platformstl::readdir_sequence
+ * \brief [C++] Definition of the platformstl::readdir_sequence
  *  type
- *   (\ref group__library__filesystem "File System" Library).
+ *   (\ref group__library__FileSystem "File System" Library).
  */
 
 #ifndef PLATFORMSTL_INCL_PLATFORMSTL_FILESYSTEM_HPP_READDIR_SEQUENCE
@@ -53,17 +55,20 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_READDIR_SEQUENCE_MAJOR      2
 # define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_READDIR_SEQUENCE_MINOR      2
-# define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_READDIR_SEQUENCE_REVISION   3
-# define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_READDIR_SEQUENCE_EDIT       20
+# define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_READDIR_SEQUENCE_REVISION   9
+# define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_READDIR_SEQUENCE_EDIT       33
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef PLATFORMSTL_INCL_PLATFORMSTL_HPP_PLATFORMSTL
 # include <platformstl/platformstl.hpp>
 #endif /* !PLATFORMSTL_INCL_PLATFORMSTL_HPP_PLATFORMSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #if defined(PLATFORMSTL_OS_IS_UNIX)
 # ifndef UNIXSTL_INCL_UNIXSTL_FILESYSTEM_HPP_READDIR_SEQUENCE
@@ -81,31 +86,29 @@
 #endif /* operating system */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#if defined(_STLSOFT_NO_NAMESPACE) || \
+#if defined(STLSOFT_NO_NAMESPACE) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::platformstl */
 namespace platformstl
 {
 #else
 /* Define stlsoft::platformstl_project */
-
 namespace stlsoft
 {
-
 namespace platformstl_project
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #if defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 
-    /** \brief STL-like readonly sequence based on directory contents.
+    /** STL-like readonly sequence based on directory contents.
      *
-     * \ingroup group__library__filesystem
+     * \ingroup group__library__FileSystem
      *
      * The class is only defined in the \link ::platformstl platformstl\endlink
      * when the platform is not UNIX, in which case it uses the services
@@ -120,11 +123,11 @@ namespace platformstl_project
 
 #elif defined(PLATFORMSTL_OS_IS_UNIX)
 
-# ifdef _UNIXSTL_NO_NAMESPACE
+# ifdef UNIXSTL_NO_NAMESPACE
     using ::readdir_sequence;
-# else /* ? _UNIXSTL_NO_NAMESPACE */
+# else /* ? UNIXSTL_NO_NAMESPACE */
     using ::unixstl::readdir_sequence;
-# endif /* _UNIXSTL_NO_NAMESPACE */
+# endif /* UNIXSTL_NO_NAMESPACE */
 
 #elif defined(PLATFORMSTL_OS_IS_WINDOWS)
 
@@ -136,23 +139,23 @@ namespace platformstl_project
         // This class
         typedef readdir_sequence                                    class_type;
     private:
-        typedef winstl_ns_qual(ws_char_a_t)                         char_type;
-        typedef winstl_ns_qual(basic_findfile_sequence)<char_type>  underlying_sequence_type;
-        typedef winstl_ns_qual(filesystem_traits)<char_type>        traits_type;
+        typedef WINSTL_NS_QUAL(ws_char_a_t)                         char_type;
+        typedef WINSTL_NS_QUAL(basic_findfile_sequence)<char_type>  underlying_sequence_type;
+        typedef WINSTL_NS_QUAL(filesystem_traits)<char_type>        traits_type;
     public:
         typedef underlying_sequence_type::const_iterator            underlying_sequence_const_iterator_type;
         typedef underlying_sequence_type::value_type                underlying_sequence_value_type;
     public:
         // The size type
-        typedef winstl_ns_qual(ws_size_t)                           size_type;
+        typedef WINSTL_NS_QUAL(ws_size_t)                           size_type;
         // The non-mutating (const) iterator type
         class                                                       const_iterator;
         // The value type
         typedef char_type const*                                    value_type;
         /// The flags type
-        typedef winstl_ns_qual(ws_int_t)                            flags_type;
+        typedef WINSTL_NS_QUAL(ws_int_t)                            flags_type;
         /// The Boolean type
-        typedef winstl_ns_qual(ws_bool_t)                           bool_type;
+        typedef WINSTL_NS_QUAL(ws_bool_t)                           bool_type;
 
     public:
     /// @}
@@ -173,7 +176,7 @@ namespace platformstl_project
     /// \name Construction
     /// @{
     public:
-        /// \brief Constructs a sequence according to the given criteria
+        /// Constructs a sequence according to the given criteria
         ///
         /// The constructor initialises a readdir_sequence instance on the given
         /// directory with the given flags.
@@ -186,19 +189,19 @@ namespace platformstl_project
         /// most efficient.
         template <ss_typename_param_k S>
         ss_explicit_k readdir_sequence(S const& directory)
-            : m_ffs(stlsoft_ns_qual(c_str_ptr)(directory), "*.*", translate_flags_(directories | files))
+            : m_ffs(STLSOFT_NS_QUAL(c_str_ptr)(directory), "*.*", translate_flags_(directories | files))
             , m_flags(validate_flags_(directories | files))
         {}
 
         template <ss_typename_param_k S>
         readdir_sequence(S const& directory, flags_type flags)
-            : m_ffs(stlsoft_ns_qual(c_str_ptr)(directory), "*.*", translate_flags_(flags))
+            : m_ffs(STLSOFT_NS_QUAL(c_str_ptr)(directory), "*.*", translate_flags_(flags))
             , m_flags(validate_flags_(flags))
         {}
 
         template <ss_typename_param_k S>
         readdir_sequence(S const& directory, search_flags flags)
-            : m_ffs(stlsoft_ns_qual(c_str_ptr)(directory), "*.*", translate_flags_(flags))
+            : m_ffs(STLSOFT_NS_QUAL(c_str_ptr)(directory), "*.*", translate_flags_(flags))
             , m_flags(validate_flags_(flags))
         {}
     /// @}
@@ -219,17 +222,17 @@ namespace platformstl_project
     /// \name Attributes
     /// @{
     public:
-        /// \brief Indicates whether the search sequence is empty
+        /// Indicates whether the search sequence is empty
         bool_type           empty() const;
 
-        /// \brief The search directory
+        /// The search directory
         ///
         /// \note The value returned by this method always has a trailing path name separator, so
         /// you can safely concatenate this with the value returned by the iterator's operator *()
         /// with minimal fuss.
         char_type const     *get_directory() const;
 
-        /// \brief The flags used by the sequence
+        /// The flags used by the sequence
         ///
         /// \note This value is the value used by the sequence, which may, as a result of the
         /// determination of defaults, be different from those specified in its constructor. In
@@ -241,10 +244,10 @@ namespace platformstl_project
     /// \name Implementation
     /// @{
     private:
-        /// \brief Ensures that the flags are correct
+        /// Ensures that the flags are correct
         static flags_type   validate_flags_(flags_type flags);
 
-        /// \brief Translates the flags to the underlying sequence
+        /// Translates the flags to the underlying sequence
         static flags_type   translate_flags_(flags_type flags);
     /// @}
 
@@ -263,13 +266,13 @@ namespace platformstl_project
     /// @}
     };
 
-    /// \brief Iterator for readdir_sequence class
+    /// Iterator for readdir_sequence class
     ///
     /// This class performs as a non-mutating iterator (aka const iterator) for the
     /// readdir_sequence class.
 
     class readdir_sequence::const_iterator
-        : public stlsoft_ns_qual(iterator_base)<platformstl_ns_qual_std(input_iterator_tag)
+        : public STLSOFT_NS_QUAL(iterator_base)<STLSOFT_NS_QUAL_STD(input_iterator_tag)
                                             ,   readdir_sequence::value_type
                                             ,   ss_ptrdiff_t
                                             ,   void
@@ -389,7 +392,7 @@ namespace platformstl_project
         WINSTL_MESSAGE_ASSERT("Specification of unrecognised/unsupported flags", flags == (flags & validFlags));
         STLSOFT_SUPPRESS_UNUSED(validFlags);
 
-        if(0 == (flags & (directories | files)))
+        if (0 == (flags & (directories | files)))
         {
             flags |= (directories | files);
         }
@@ -401,22 +404,22 @@ namespace platformstl_project
     {
         flags_type  translatedFlags =   0;
 
-        if(underlying_sequence_type::includeDots & flags)
+        if (underlying_sequence_type::includeDots & flags)
         {
             translatedFlags |= underlying_sequence_type::includeDots;
         }
 
-        if(directories & flags)
+        if (directories & flags)
         {
             translatedFlags |= underlying_sequence_type::directories;
         }
 
-        if(files & flags)
+        if (files & flags)
         {
             translatedFlags |= underlying_sequence_type::files;
         }
 
-        if(fullPath == ((fullPath | absolutePath) & flags))
+        if (fullPath == ((fullPath | absolutePath) & flags))
         {
             translatedFlags |= underlying_sequence_type::relativePath;
         }
@@ -468,13 +471,13 @@ namespace platformstl_project
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#if defined(_STLSOFT_NO_NAMESPACE) || \
+#if defined(STLSOFT_NO_NAMESPACE) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace platformstl
+} /* namespace platformstl */
 #else
-} // namespace platformstl_project
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+} /* namespace platformstl_project */
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 #if defined(PLATFORMSTL_OS_IS_WINDOWS) && \
     (   defined(STLSOFT_COMPILER_IS_BORLAND) || \
@@ -494,7 +497,13 @@ inline int operator !=( platformstl::readdir_sequence::const_iterator const& lhs
 
 #endif /* WIN32 && compiler */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !PLATFORMSTL_INCL_PLATFORMSTL_FILESYSTEM_HPP_READDIR_SEQUENCE */
 

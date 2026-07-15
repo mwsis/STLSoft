@@ -4,49 +4,52 @@
  * Purpose:     Enumerates clipboard formats.
  *
  * Created:     11th May 2003
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks:      To Martin Moene for reporting the lack of iterator traits
- *              of the const_iterator nested class
+ *              of the const_iterator nested class; wiluite for a defect
+ *              report.
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/clipboard/clipboard_format_sequence.hpp
  *
- * \brief [C++ only] Definition of the winstl::clipboard_format_sequence
+ * \brief [C++] Definition of the winstl::clipboard_format_sequence
  *  class
- *   (\ref group__library__windows_clipboard "Windows Clipboard" Library).
+ *   (\ref group__library__Windows_Clipboard "Windows Clipboard" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_CLIPBOARD_HPP_CLIPBOARD_FORMAT_SEQUENCE
@@ -55,17 +58,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_CLIPBOARD_HPP_CLIPBOARD_FORMAT_SEQUENCE_MAJOR    4
 # define WINSTL_VER_WINSTL_CLIPBOARD_HPP_CLIPBOARD_FORMAT_SEQUENCE_MINOR    0
-# define WINSTL_VER_WINSTL_CLIPBOARD_HPP_CLIPBOARD_FORMAT_SEQUENCE_REVISION 4
-# define WINSTL_VER_WINSTL_CLIPBOARD_HPP_CLIPBOARD_FORMAT_SEQUENCE_EDIT     34
+# define WINSTL_VER_WINSTL_CLIPBOARD_HPP_CLIPBOARD_FORMAT_SEQUENCE_REVISION 10
+# define WINSTL_VER_WINSTL_CLIPBOARD_HPP_CLIPBOARD_FORMAT_SEQUENCE_EDIT     49
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_COLLECTIONS_UTIL_HPP_COLLECTIONS
 # include <stlsoft/collections/util/collections.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_COLLECTIONS_UTIL_HPP_COLLECTIONS */
@@ -74,36 +81,33 @@
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 // class clipboard_format_sequence
-/** \brief This class provides an STL-like sequence for iterating the
+/** This class provides an STL-like sequence for iterating the
  *   clipboard formats for the current process.
  *
- * \ingroup group__library__windows_clipboard
+ * \ingroup group__library__Windows_Clipboard
  *
  * The class enables the formats currently available on the clipboard to be
  * enumerated, as shown in the following example:
@@ -131,33 +135,33 @@ namespace winstl_project
  *  <code>CF_UNICODETEXT</code>.
  */
 class clipboard_format_sequence
-    : public stlsoft_ns_qual(stl_collection_tag)
+    : public STLSOFT_NS_QUAL(stl_collection_tag)
 {
 /// \name Member Types
 /// @{
 public:
-    /// \brief The type
+    /// The type
     typedef clipboard_format_sequence       class_type;
-    /// \brief The value type
+    /// The value type
     typedef UINT                            value_type;
-    /// \brief The size type
+    /// The size type
     typedef ws_size_t                       size_type;
-    /// \brief The difference type
+    /// The difference type
     typedef ws_ptrdiff_t                    difference_type;
 /// @}
 
 /// \name Construction
 /// @{
 public:
-    /// \brief Constructs a sequence object, attempting to open the clipboard
+    /// Constructs a sequence object, attempting to open the clipboard
     clipboard_format_sequence()
         : m_bOpen(::OpenClipboard(NULL) != FALSE)
     {}
 
-    /// \brief Release any resources aquired
+    /// Release any resources acquired
     ~clipboard_format_sequence() STLSOFT_NOEXCEPT
     {
-        if(m_bOpen)
+        if (m_bOpen)
         {
             ::CloseClipboard();
         }
@@ -167,9 +171,9 @@ public:
 /// \name Iteration
 /// @{
 public:
-    /// \brief Non-mutating iterator class
+    /// Non-mutating iterator class
     class const_iterator
-        : public stlsoft_ns_qual(iterator_base)<winstl_ns_qual_std(input_iterator_tag)
+        : public STLSOFT_NS_QUAL(iterator_base)<STLSOFT_NS_QUAL_STD(input_iterator_tag)
                                             ,   value_type
                                             ,   ws_ptrdiff_t
                                             ,   void        // By-Value Temporary reference
@@ -179,29 +183,29 @@ public:
         friend class clipboard_format_sequence;
 
     public:
-        /// \brief The type
+        /// The type
         typedef const_iterator              class_type;
-        /// \brief The container type
+        /// The container type
         typedef clipboard_format_sequence   container_type;
 
     /// \name Construction
     /// @{
     private:
-        /// \brief Constructs an iterator from the given format
+        /// Constructs an iterator from the given format
         const_iterator(UINT nextFmt)
             : m_nextFmt(nextFmt)
         {}
     public:
-        /// \brief Constructs an iterator
+        /// Constructs an iterator
         const_iterator()
             : m_nextFmt(0)
         {}
-        /// \brief Copy constructor
+        /// Copy constructor
         const_iterator(class_type const& rhs)
             : m_nextFmt(rhs.m_nextFmt)
         {}
 
-        /// \brief Copy assignment operator
+        /// Copy assignment operator
         class_type& operator =(class_type const& rhs)
         {
             m_nextFmt = rhs.m_nextFmt;
@@ -212,7 +216,7 @@ public:
     /// @}
 
     public:
-        /// \brief Pre-increment operator
+        /// Pre-increment operator
         class_type& operator ++()
         {
             WINSTL_MESSAGE_ASSERT("Incrementing an invalid iterator!", m_nextFmt != 0);
@@ -221,7 +225,7 @@ public:
 
             return *this;
         }
-        /// \brief Post-increment operator
+        /// Post-increment operator
         class_type operator ++(int)
         {
             class_type  ret(*this);
@@ -238,7 +242,7 @@ public:
             return m_nextFmt;
         }
 
-        /// \brief Evaluates whether \c this and \c rhs are equivalent
+        /// Evaluates whether \c this and \c rhs are equivalent
         ///
         /// \param rhs The instance against which to compare
         /// \retval true If \c this and \c rhs are equivalent
@@ -248,7 +252,7 @@ public:
             return m_nextFmt == rhs.m_nextFmt;
         }
 
-        /// \brief Evaluates whether \c this and \c rhs are not equivalent
+        /// Evaluates whether \c this and \c rhs are not equivalent
         ///
         /// \param rhs The instance against which to compare
         /// \retval true If \c this and \c rhs are not equivalent
@@ -263,14 +267,14 @@ public:
         UINT    m_nextFmt;
     };
 
-    /// \brief Begins the iteration
+    /// Begins the iteration
     ///
     /// \return An iterator representing the start of the sequence
     const_iterator  begin() const
     {
         return const_iterator(::EnumClipboardFormats(0));
     }
-    /// \brief Ends the iteration
+    /// Ends the iteration
     ///
     /// \return An iterator representing the end of the sequence
     const_iterator  end() const
@@ -278,19 +282,19 @@ public:
         return const_iterator(0);
     }
 
-    /// \brief Indicates whether the search sequence is empty
+    /// Indicates whether the search sequence is empty
     ws_bool_t empty() const
     {
-        return begin() != end();
+        return begin() == end();
     }
 
-    /// \brief Returns the number of elements in the sequence
+    /// Returns the number of elements in the sequence
     size_type size() const
     {
         return static_cast<size_type>(::CountClipboardFormats());
     }
 
-    /// \brief Indicates whether the search sequence is valid
+    /// Indicates whether the search sequence is valid
     ///
     /// \note The sequence may not be able to access the clipboard formats if another window is currently holding the clipboard via a call to <b>OpenClipboard()</b>
     ws_bool_t inaccessible() const
@@ -315,19 +319,25 @@ private:
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_CLIPBOARD_HPP_CLIPBOARD_FORMAT_SEQUENCE */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_CLIPBOARD_HPP_CLIPBOARD_FORMAT_SEQUENCE */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

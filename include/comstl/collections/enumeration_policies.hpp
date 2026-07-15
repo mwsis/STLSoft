@@ -4,45 +4,47 @@
  * Purpose:     Policies for enumerator interface handling.
  *
  * Created:     20th December 2003
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file comstl/collections/enumeration_policies.hpp
  *
- * \brief [C++ only] Policies for enumerator interface handling
- *   (\ref group__library__collections "Collections" Library).
+ * \brief [C++] Policies for enumerator interface handling
+ *   (\ref group__library__Collection "Collection" Library).
  */
 
 #ifndef COMSTL_INCL_COMSTL_COLLECTIONS_HPP_ENUMERATION_POLICIES
@@ -51,94 +53,92 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATION_POLICIES_MAJOR       6
 # define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATION_POLICIES_MINOR       1
-# define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATION_POLICIES_REVISION    7
-# define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATION_POLICIES_EDIT        55
+# define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATION_POLICIES_REVISION    13
+# define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATION_POLICIES_EDIT        69
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef COMSTL_INCL_COMSTL_H_COMSTL
 # include <comstl/comstl.h>
 #endif /* !COMSTL_INCL_COMSTL_H_COMSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER
 # include <stlsoft/util/std/iterator_helper.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER */
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-# ifndef COMSTL_INCL_COMSTL_ERROR_HPP_EXCEPTIONS
-#  include <comstl/error/exceptions.hpp>
-# endif /* !COMSTL_INCL_COMSTL_ERROR_HPP_EXCEPTIONS */
+# ifndef COMSTL_INCL_COMSTL_EXCEPTION_HPP_COMSTL_EXCEPTION
+#  include <comstl/exception/comstl_exception.hpp>
+# endif /* !COMSTL_INCL_COMSTL_EXCEPTION_HPP_COMSTL_EXCEPTION */
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
+# include <stlsoft/api/internal/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::comstl */
 namespace comstl
 {
 # else
 /* Define stlsoft::comstl_project */
-
 namespace stlsoft
 {
-
 namespace comstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
 
-/** \brief Exception class thrown when Clone() method fails
+/** Exception class thrown when Clone() method fails
  *
- * \ingroup group__library__collections
+ * \ingroup group__library__Collection
  */
 // [[synesis:class:exception: comstl::clone_failure]]
 class clone_failure
-    : public com_exception
+    : public comstl_exception
 {
 /// \name Member Types
 /// @{
 public:
-    /// \brief The parent class type
-    typedef com_exception       parent_class_type;
-    /// \brief The type of this class
-    typedef clone_failure       class_type;
+    /// The parent class type
+    typedef comstl_exception                                parent_class_type;
+    /// The type of this class
+    typedef clone_failure                                   class_type;
 /// @}
 
 /// \name Construction
 /// @{
 public:
-    /// \brief Constructs an instance from the given HRESULT code
-    ss_explicit_k clone_failure(HRESULT hr)
+    /// Constructs an instance from the given HRESULT code
+    ss_explicit_k
+    clone_failure(HRESULT hr)
         : parent_class_type(hr)
     {}
+private:
+    class_type& operator =(class_type const&);  // copy-assignment proscribed
 /// @}
 
 /// \name Accessors
 /// @{
 public:
-    /// \brief Returns a human-readable description of the exceptional condition
+    /// Returns a human-readable description of the exceptional condition
 #if defined(STLSOFT_COMPILER_IS_DMC)
     char const* what() const throw()
 #else /* ? compiler */
@@ -148,38 +148,32 @@ public:
         return "Request to clone enumerator failed";
     }
 /// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    class_type& operator =(class_type const&);
-/// @}
 };
 
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 
 
-/** \brief Policy tag type that indicates an enumerator's Clone() method
+/** Policy tag type that indicates an enumerator's Clone() method
  *    will fail.
  *
- * \ingroup group__library__collections
+ * \ingroup group__library__Collection
  */
 struct noncloneable_enumerator_tag
 {};
 
-/** \brief Policy tag type that indicates an enumerator's Clone() method
+/** Policy tag type that indicates an enumerator's Clone() method
  *    will succeed.
  *
- * \ingroup group__library__collections
+ * \ingroup group__library__Collection
  */
 struct cloneable_enumerator_tag
 {};
 
-/** \brief Policy tag type that indicates an enumerator's Clone() method
+/** Policy tag type that indicates an enumerator's Clone() method
  *    will succeed, and return an enumerator that will provide the same
  *    sequence of items as the source instance.
  *
- * \ingroup group__library__collections
+ * \ingroup group__library__Collection
  */
 struct repeatable_enumerator_tag
     : public cloneable_enumerator_tag
@@ -187,9 +181,9 @@ struct repeatable_enumerator_tag
 
 
 
-/** \brief Policy type that causes COM enumerator cloning according the STL Input Iterator concept
+/** Policy type that causes COM enumerator cloning according the STL Input Iterator concept
  *
- * \ingroup group__library__collections
+ * \ingroup group__library__Collection
  *
  * \param I The enumeration interface
  */
@@ -200,10 +194,10 @@ struct input_cloning_policy
 public:
     typedef I                                       interface_type;
     typedef interface_type*                         value_type;
-    typedef comstl_ns_qual_std(input_iterator_tag)  iterator_tag_type;
+    typedef STLSOFT_NS_QUAL_STD(input_iterator_tag)  iterator_tag_type;
 
 public:
-    /// \brief Gets a working "copy" of the given enumerator root
+    /// Gets a working "copy" of the given enumerator root
     ///
     /// \remarks For this policy, this simply calls AddRef()
     static interface_type *get_working_instance(interface_type *root)
@@ -215,7 +209,7 @@ public:
         return root;
     }
 
-    /// \brief "Clones" the given COM enumerator interface according to the Input Iterator concept
+    /// "Clones" the given COM enumerator interface according to the Input Iterator concept
     static interface_type *share(interface_type *src)
     {
         COMSTL_ASSERT(NULL != src);
@@ -236,9 +230,9 @@ public:
     }
 };
 
-/** \brief Policy type that causes COM enumerator cloning according the STL Input Iterator concept
+/** Policy type that causes COM enumerator cloning according the STL Input Iterator concept
  *
- * \ingroup group__library__collections
+ * \ingroup group__library__Collection
  *
  * \param I The enumeration interface
  */
@@ -249,10 +243,10 @@ struct cloneable_cloning_policy
 public:
     typedef I                                       interface_type;
     typedef interface_type*                         value_type;
-    typedef comstl_ns_qual_std(input_iterator_tag)  iterator_tag_type;
+    typedef STLSOFT_NS_QUAL_STD(input_iterator_tag)  iterator_tag_type;
 
 public:
-    /// \brief Gets a working "copy" of the given enumerator root
+    /// Gets a working "copy" of the given enumerator root
     ///
     /// \remarks For this policy, this calls Clone(), and returns NULL
     ///   if that fails.
@@ -263,7 +257,7 @@ public:
         interface_type  *ret;
         HRESULT         hr  =   const_cast<interface_type*>(root)->Clone(&ret);
 
-        if(FAILED(hr))
+        if (FAILED(hr))
         {
             ret = NULL;
         }
@@ -278,7 +272,7 @@ public:
         interface_type  *ret;
         HRESULT         hr  =   const_cast<interface_type*>(src)->Clone(&ret);
 
-        if(FAILED(hr))
+        if (FAILED(hr))
         {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
             STLSOFT_THROW_X(clone_failure(hr));
@@ -306,9 +300,9 @@ public:
     }
 };
 
-/** \brief Policy type that causes COM enumerator cloning according the STL Forward Iterator concept
+/** Policy type that causes COM enumerator cloning according the STL Forward Iterator concept
  *
- * \ingroup group__library__collections
+ * \ingroup group__library__Collection
  *
  * \param I The enumeration interface
  */
@@ -319,10 +313,10 @@ struct forward_cloning_policy
 public:
     typedef I                                           interface_type;
     typedef interface_type*                             value_type;
-    typedef comstl_ns_qual_std(forward_iterator_tag)    iterator_tag_type;
+    typedef STLSOFT_NS_QUAL_STD(forward_iterator_tag)    iterator_tag_type;
 
 public:
-    /// \brief Gets a working "copy" of the given enumerator root
+    /// Gets a working "copy" of the given enumerator root
     ///
     /// \remarks For this policy, this calls Clone(), and throws an
     ///   instance of comstl::clone_failure if that fails (or returns
@@ -334,7 +328,7 @@ public:
         interface_type  *ret;
         HRESULT         hr  =   const_cast<interface_type*>(root)->Clone(&ret);
 
-        if(FAILED(hr))
+        if (FAILED(hr))
         {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
             STLSOFT_THROW_X(clone_failure(hr));
@@ -346,7 +340,7 @@ public:
         return ret;
     }
 
-    /// \brief "Clones" the given COM enumerator interface according to the Forward Iterator concept
+    /// "Clones" the given COM enumerator interface according to the Forward Iterator concept
     static interface_type *share(interface_type *src)
     {
         COMSTL_ASSERT(NULL != src);
@@ -354,7 +348,7 @@ public:
         interface_type  *ret;
         HRESULT         hr  =   const_cast<interface_type*>(src)->Clone(&ret);
 
-        if(FAILED(hr))
+        if (FAILED(hr))
         {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
             STLSOFT_THROW_X(clone_failure(hr));
@@ -382,9 +376,9 @@ public:
     }
 };
 
-/** \brief Adapts a value policy to a function class based interface
+/** Adapts a value policy to a function class based interface
  *
- * \ingroup group__library__collections
+ * \ingroup group__library__Collection
  *
  * \param P The value policy (e.g. BSTR_policy, VARIANT_policy, FORMATETC_policy)
  */
@@ -396,7 +390,7 @@ public:
     typedef ss_typename_type_k P::value_type    value_type;
 
 public:
-    /// \brief The initialisation function class
+    /// The initialisation function class
     struct init_element
     {
         /// The function call operator, which causes the value to be initialised
@@ -405,7 +399,7 @@ public:
             P::init(&v);
         }
     };
-    /// \brief The copy function class
+    /// The copy function class
     struct copy_element
     {
         /// The function call operator, which causes the destination to be copied from the source
@@ -414,7 +408,7 @@ public:
             P::copy(&dest, &src);
         }
     };
-    /// \brief The clear function class
+    /// The clear function class
     struct clear_element
     {
         /// The function call operator, which causes the value to be cleared
@@ -425,11 +419,11 @@ public:
     };
 };
 
-/** \brief [DEPRECATED] Adapts a value policy to a function class based interface
+/** [DEPRECATED] Adapts a value policy to a function class based interface
  *
  * \deprecated Equivalent to value_policy_adaptor
  *
- * \ingroup group__library__collections
+ * \ingroup group__library__Collection
  */
 template <ss_typename_param_k P>
 struct policy_adaptor
@@ -439,9 +433,9 @@ public:
     typedef ss_typename_type_k P::value_type    value_type;
 };
 
-/** \brief Acquires an enumerator from a collection assuming _NewEnum property
+/** Acquires an enumerator from a collection assuming _NewEnum property
  *
- * \ingroup group__library__collections
+ * \ingroup group__library__Collection
  *
  * \remarks Invokes the the get__NewEnum() method
  */
@@ -471,9 +465,9 @@ public:
     }
 };
 
-/** \brief Acquires an enumerator from a collection assuming _NewEnum method
+/** Acquires an enumerator from a collection assuming _NewEnum method
  *
- * \ingroup group__library__collections
+ * \ingroup group__library__Collection
  *
  * \remarks Invokes the the _NewEnum() method
  */
@@ -493,9 +487,9 @@ public:
     }
 };
 
-/** \brief Acquires an enumerator from a collection by looking up the DISPID_NEWENUM on the collection's IDispatch interface
+/** Acquires an enumerator from a collection by looking up the DISPID_NEWENUM on the collection's IDispatch interface
  *
- * \ingroup group__library__collections
+ * \ingroup group__library__Collection
  *
  * \remarks Calls IDispatch::Invoke(DISPID_NEWENUM, . . . , DISPATCH_METHOD | DISPATCH_PROPERTYGET, . . . );
  */
@@ -514,13 +508,13 @@ public:
         LPDISPATCH  pdisp;
         HRESULT     hr  =   pcoll->QueryInterface(IID_IDispatch, reinterpret_cast<void**>(&pdisp));
 
-        if(SUCCEEDED(hr))
+        if (SUCCEEDED(hr))
         {
             DISPPARAMS  params;
             UINT        argErrIndex;
             VARIANT     result;
 
-            ::memset(&params, 0, sizeof(params));
+            STLSOFT_API_INTERNAL_memfns_memset(&params, 0, sizeof(params));
             ::VariantInit(&result);
 
             hr = pdisp->Invoke( DISPID_NEWENUM
@@ -534,13 +528,13 @@ public:
 
             pdisp->Release();
 
-            if(SUCCEEDED(hr))
+            if (SUCCEEDED(hr))
             {
                 hr = ::VariantChangeType(&result, &result, 0, VT_UNKNOWN);
 
-                if(SUCCEEDED(hr))
+                if (SUCCEEDED(hr))
                 {
-                    if(NULL == result.punkVal)
+                    if (NULL == result.punkVal)
                     {
                         hr = E_UNEXPECTED;
                     }
@@ -562,17 +556,23 @@ public:
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace comstl
+} /* namespace comstl */
 # else
-} // namespace stlsoft::comstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+} /* namespace stlsoft::comstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !COMSTL_INCL_COMSTL_COLLECTIONS_HPP_ENUMERATION_POLICIES */
 

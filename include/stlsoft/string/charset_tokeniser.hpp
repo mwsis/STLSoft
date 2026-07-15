@@ -4,46 +4,48 @@
  * Purpose:     String token parsing class using char-sets.
  *
  * Created:     17th October 2005
- * Updated:     15th December 2023
+ * Updated:     20th January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/string/charset_tokeniser.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::charset_tokeniser class
+ * \brief [C++] Definition of the stlsoft::charset_tokeniser class
  *  template
- *   (\ref group__library__string "String" Library).
+ *   (\ref group__library__String "String" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_STRING_HPP_CHARSET_TOKENISER
@@ -52,29 +54,20 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_STRING_HPP_CHARSET_TOKENISER_MAJOR     2
 # define STLSOFT_VER_STLSOFT_STRING_HPP_CHARSET_TOKENISER_MINOR     0
-# define STLSOFT_VER_STLSOFT_STRING_HPP_CHARSET_TOKENISER_REVISION  4
-# define STLSOFT_VER_STLSOFT_STRING_HPP_CHARSET_TOKENISER_EDIT      26
+# define STLSOFT_VER_STLSOFT_STRING_HPP_CHARSET_TOKENISER_REVISION  8
+# define STLSOFT_VER_STLSOFT_STRING_HPP_CHARSET_TOKENISER_EDIT      38
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_DMC:  __DMC__<0x0839
-STLSOFT_COMPILER_IS_MSVC: _MSC_VER<1200
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #if defined(STLSOFT_COMPILER_IS_MSVC) && \
     _MSC_VER < 1200
@@ -90,33 +83,22 @@ STLSOFT_COMPILER_IS_WATCOM:
 # include <algorithm>
 #endif /* !STLSOFT_INCL_ALGORITHM */
 
-#ifdef STLSOFT_UNITTEST
-# ifndef STLSOFT_INCL_STLSOFT_STRING_HPP_SIMPLE_STRING
-#  include <stlsoft/string/simple_string.hpp>
-# endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_SIMPLE_STRING */
-# ifndef STLSOFT_INCL_STLSOFT_STRING_HPP_STRING_VIEW
-#  include <stlsoft/string/string_view.hpp>
-# endif /* STLSOFT_INCL_STLSOFT_STRING_HPP_STRING_VIEW */
-# include <algorithm>
-# include <string>
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Comparator for the stlsoft::charset_tokeniser class template.
+/** Comparator for the stlsoft::charset_tokeniser class template.
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  */
 template <ss_typename_param_k S>
 struct charset_comparator
@@ -128,7 +110,7 @@ private:
     template <ss_typename_param_k const_iterator>
     static bool equal_(delimiter_type const& delimiter, const_iterator &it)
     {
-        return delimiter.end() != stlsoft_ns_qual_std(find)(delimiter.begin(), delimiter.end(), *it);
+        return delimiter.end() != STLSOFT_NS_QUAL_STD(find)(delimiter.begin(), delimiter.end(), *it);
     }
 
     template <ss_typename_param_k const_iterator>
@@ -183,9 +165,9 @@ public:
     }
 };
 
-/** \brief A class template that provides string tokenising behaviour, where the delimiter is a character set, a la <code>strtok()</code>
+/** A class template that provides string tokenising behaviour, where the delimiter is a character set, a la <code>strtok()</code>
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  *
  * This class takes a string, and a character-set delimiter, and fashions
  * a sequence from the given string, with each element determined with
@@ -225,7 +207,7 @@ class charset_tokeniser
 private:
     typedef string_tokeniser<S, D, B, V, T, P>                          parent_class_type;
 public:
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef charset_tokeniser<S, B, V, T, D, P>                         class_type;
     /// The sequence string type
     typedef ss_typename_type_k parent_class_type::string_type           string_type;
@@ -309,7 +291,7 @@ public:
 
 #if !defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT) || \
     defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_OVERLOAD_DISCRIMINATED)
-    /// \brief Tokenise the given range with the given delimiter
+    /// Tokenise the given range with the given delimiter
     ///
     /// \param from The start of the asymmetric range to tokenise
     /// \param to The start of the asymmetric range to tokenise
@@ -333,21 +315,19 @@ public:
 /// @}
 };
 
+/* ////////////////////////////////////////////////////////////////////// */
+
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Unit-testing
+ * inclusion control
  */
 
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/charset_tokeniser_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
-/* ////////////////////////////////////////////////////////////////////// */
-
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
-
-/* ////////////////////////////////////////////////////////////////////// */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_CHARSET_TOKENISER */
 

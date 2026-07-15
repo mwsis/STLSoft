@@ -1,52 +1,54 @@
 /* /////////////////////////////////////////////////////////////////////////
  * File:        stlsoft/std/cstring.hpp
  *
- * Purpose:     Mappings to string string functions
+ * Purpose:     Mappings to std string functions
  *
  * Created:     2nd December 2004
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks:      To Anton Sekeris for providing good advice on the naming scheme
  *              for the stlsoft/std headers
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/std/cstring.hpp
  *
- * \brief [C++ only] Mappings of &lt;cstring> string functions that use
- *   \ref group__concept__shim__string_access string
- *   (\ref group__library__utility "Utility" Library).
+ * \brief [C++] Mappings of &lt;cstring> string functions that use
+ *   \ref group__concept__Shim__string_access string
+ *   (\ref group__library__Utility "Utility" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_STD_HPP_CSTRING
@@ -55,17 +57,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_STD_HPP_CSTRING_MAJOR      1
 # define STLSOFT_VER_STLSOFT_STD_HPP_CSTRING_MINOR      5
-# define STLSOFT_VER_STLSOFT_STD_HPP_CSTRING_REVISION   4
-# define STLSOFT_VER_STLSOFT_STD_HPP_CSTRING_EDIT       34
+# define STLSOFT_VER_STLSOFT_STD_HPP_CSTRING_REVISION   10
+# define STLSOFT_VER_STLSOFT_STD_HPP_CSTRING_EDIT       47
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_STD_HPP_CBASE_
 # include <stlsoft/std/cbase_.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_STD_HPP_CBASE_ */
@@ -76,29 +82,25 @@
 # include <stlsoft/string/string_traits.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_STRING_TRAITS */
 
-#ifndef STLSOFT_INCL_H_STRING
-# define STLSOFT_INCL_H_STRING
-# include <string.h>
-#endif /* !STLSOFT_INCL_H_STRING */
-#ifndef STLSOFT_INCL_H_WCHAR
-# define STLSOFT_INCL_H_WCHAR
-# include <wchar.h>
-#endif /* !STLSOFT_INCL_H_WCHAR */
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
 #if defined(STLSOFT_COMPILER_IS_BORLAND)
 # include <malloc.h>
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Functions
+ * functions
  */
 
 /// \name Copying and concatenation family
@@ -106,10 +108,10 @@ namespace stlsoft
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace std_impl
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
     inline ss_char_a_t* strcpy_a(ss_char_a_t* dest, ss_char_a_t const* src)
     {
@@ -179,9 +181,9 @@ namespace std_impl
         return strncat_w(dest, src, n);
     }
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace std_impl
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace std_impl */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
@@ -189,7 +191,7 @@ namespace std_impl
 template <ss_typename_param_k S>
 inline ss_typename_type_ret_k string_traits<S>::char_type* strcpy(ss_typename_type_k string_traits<S>::char_type* dest, S const& src)
 {
-    return stlsoft_std_ns_qual(strcpy_)(dest, stlsoft_ns_qual(c_str_ptr)(src));
+    return stlsoft_std_ns_qual(strcpy_)(dest, STLSOFT_NS_QUAL(c_str_ptr)(src));
 }
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
@@ -209,7 +211,7 @@ inline ss_char_w_t* strcpy(ss_char_w_t* dest, ss_char_w_t const* src)
 template <ss_typename_param_k S>
 inline ss_typename_type_ret_k string_traits<S>::char_type* strcat(ss_typename_type_k string_traits<S>::char_type* dest, S const& src)
 {
-    return stlsoft_std_ns_qual(strcat_)(dest, stlsoft_ns_qual(c_str_ptr)(src));
+    return stlsoft_std_ns_qual(strcat_)(dest, STLSOFT_NS_QUAL(c_str_ptr)(src));
 }
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
@@ -228,7 +230,7 @@ inline ss_char_w_t* strcat(ss_char_w_t* dest, ss_char_w_t const* src)
 template <ss_typename_param_k S>
 inline ss_typename_type_ret_k string_traits<S>::char_type* strncpy(ss_typename_type_k string_traits<S>::char_type* dest, S const& src)
 {
-    return stlsoft_std_ns_qual(strncpy_)(dest, stlsoft_ns_qual(c_str_data)(src), stlsoft_ns_qual(c_str_len)(src));
+    return stlsoft_std_ns_qual(strncpy_)(dest, STLSOFT_NS_QUAL(c_str_data)(src), STLSOFT_NS_QUAL(c_str_len)(src));
 }
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
@@ -237,7 +239,7 @@ inline ss_typename_type_ret_k string_traits<S>::char_type* strncpy(ss_typename_t
 template <ss_typename_param_k S>
 inline ss_typename_type_ret_k string_traits<S>::char_type* strncat(ss_typename_type_k string_traits<S>::char_type* dest, S const& src)
 {
-    return stlsoft_std_ns_qual(strncat_)(dest, stlsoft_ns_qual(c_str_data)(src), stlsoft_ns_qual(c_str_len)(src));
+    return stlsoft_std_ns_qual(strncat_)(dest, STLSOFT_NS_QUAL(c_str_data)(src), STLSOFT_NS_QUAL(c_str_len)(src));
 }
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
@@ -246,7 +248,7 @@ inline ss_typename_type_ret_k string_traits<S>::char_type* strncat(ss_typename_t
 template <ss_typename_param_k S>
 inline ss_typename_type_ret_k string_traits<S>::char_type* strncpy(ss_typename_type_k string_traits<S>::char_type* dest, S const& src, ss_size_t n)
 {
-    return stlsoft_std_ns_qual(strncpy_)(dest, stlsoft_ns_qual(c_str_data)(src), n);
+    return stlsoft_std_ns_qual(strncpy_)(dest, STLSOFT_NS_QUAL(c_str_data)(src), n);
 }
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
@@ -265,7 +267,7 @@ inline ss_char_w_t* strncpy(ss_char_w_t* dest, ss_char_w_t const* src, ss_size_t
 template <ss_typename_param_k S>
 inline ss_typename_type_ret_k string_traits<S>::char_type* strncat(ss_typename_type_k string_traits<S>::char_type* dest, S const& src, ss_size_t n)
 {
-    return stlsoft_std_ns_qual(strncat_)(dest, stlsoft_ns_qual(c_str_data)(src), n);
+    return stlsoft_std_ns_qual(strncat_)(dest, STLSOFT_NS_QUAL(c_str_data)(src), n);
 }
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
@@ -286,10 +288,10 @@ inline ss_char_w_t* strncat(ss_char_w_t* dest, ss_char_w_t const* src, ss_size_t
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace std_impl
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
     inline int strcmp_a(ss_char_a_t const* s1, ss_char_a_t const* s2)
     {
@@ -325,9 +327,9 @@ namespace std_impl
         return strncmp_w(s1, s2, n);
     }
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace std_impl
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace std_impl */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
@@ -335,7 +337,7 @@ namespace std_impl
 template <ss_typename_param_k S>
 inline ss_size_t strlen(S const& s)
 {
-    return stlsoft_ns_qual(c_str_len)(s);
+    return STLSOFT_NS_QUAL(c_str_len)(s);
 }
 
 inline ss_size_t strlen(ss_char_a_t const* s)
@@ -352,7 +354,7 @@ inline ss_size_t strlen(ss_char_w_t const* s)
 template <ss_typename_param_k S>
 inline int strcmp(S const& s1, S const& s2)
 {
-    return stlsoft_std_ns_qual(strcmp_)(stlsoft_ns_qual(c_str_ptr)(s1), stlsoft_ns_qual(c_str_ptr)(s2));
+    return stlsoft_std_ns_qual(strcmp_)(STLSOFT_NS_QUAL(c_str_ptr)(s1), STLSOFT_NS_QUAL(c_str_ptr)(s2));
 }
 
 inline int strcmp(ss_char_a_t const* s1, ss_char_a_t const* s2)
@@ -369,7 +371,7 @@ inline int strcmp(ss_char_w_t const* s1, ss_char_w_t const* s2)
 template <ss_typename_param_k S>
 inline int strncmp(S const& s1, S const& s2, ss_size_t n)
 {
-    return stlsoft_std_ns_qual(strncmp_)(stlsoft_ns_qual(c_str_ptr)(s1), stlsoft_ns_qual(c_str_ptr)(s2), n);
+    return stlsoft_std_ns_qual(strncmp_)(STLSOFT_NS_QUAL(c_str_ptr)(s1), STLSOFT_NS_QUAL(c_str_ptr)(s2), n);
 }
 
 inline int strncmp(ss_char_a_t const* s1, ss_char_a_t const* s2, ss_size_t n)
@@ -436,10 +438,10 @@ char *  __cdecl strpbrk(char const*, char const*);
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace std_impl
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
     inline ss_char_a_t* strdup_a(ss_char_a_t const* s)
     {
@@ -454,7 +456,7 @@ namespace std_impl
         const ss_size_t len =   ::wcslen(s);
         ss_char_w_t     *sz =   static_cast<ss_char_w_t*>(::malloc(sizeof(ss_char_w_t) * (1 + len)));
 
-        if(NULL != sz)
+        if (NULL != sz)
         {
             ::wcscpy(sz, s);
         }
@@ -473,16 +475,16 @@ namespace std_impl
         return strdup_w(s);
     }
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace std_impl
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace std_impl */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 
-/** \brief Duplicates the given string
+/** Duplicates the given string
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  * \note The returned string is allocated by the standard strdup() function,
  * which uses malloc() to allocate the memory, and so must be freed using free()
@@ -491,13 +493,13 @@ namespace std_impl
 template <ss_typename_param_k S>
 inline ss_typename_type_ret_k string_traits<S>::char_type* strdup(S const& s)
 {
-    return stlsoft_std_ns_qual(strdup_)(stlsoft_ns_qual(c_str_ptr)(s));
+    return stlsoft_std_ns_qual(strdup_)(STLSOFT_NS_QUAL(c_str_ptr)(s));
 }
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
-/** \brief Duplicates the multibyte C-string
+/** Duplicates the multibyte C-string
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  */
 
 inline ss_char_a_t* strdup(ss_char_a_t const* s)
@@ -505,9 +507,9 @@ inline ss_char_a_t* strdup(ss_char_a_t const* s)
     return stlsoft_std_ns_qual(strdup_)(s);
 }
 
-/** \brief Duplicates the wide C-string
+/** Duplicates the wide C-string
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  */
 
 inline ss_char_w_t* strdup(ss_char_w_t const* s)
@@ -517,11 +519,17 @@ inline ss_char_w_t* strdup(ss_char_w_t const* s)
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_STD_HPP_CSTRING */
 

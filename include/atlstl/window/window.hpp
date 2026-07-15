@@ -5,46 +5,48 @@
  *              operations.
  *
  * Created:     25th November 2006
- * Updated:     15th December 2023
+ * Updated:     26th December 2020
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file atlstl/window/window.hpp
- * \brief [C++ only; requires ATL library] Definition of the
+ * \brief [C++; requires ATL library] Definition of the
  *   atlstl::Window class, which is an enhancement of ATL's CWindow,
  *   supporting shims for common operations
- *   (\ref group__library__windows_window "Windows Window" Library).
+ *   (\ref group__library__Windows_Window "Windows Window" Library).
  */
 
 #ifndef ATLSTL_INCL_ATLSTL_WINDOW_HPP_WINDOW
@@ -53,17 +55,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define ATLSTL_VER_ATLSTL_WINDOW_HPP_WINDOW_MAJOR      1
 # define ATLSTL_VER_ATLSTL_WINDOW_HPP_WINDOW_MINOR      0
-# define ATLSTL_VER_ATLSTL_WINDOW_HPP_WINDOW_REVISION   3
-# define ATLSTL_VER_ATLSTL_WINDOW_HPP_WINDOW_EDIT       9
+# define ATLSTL_VER_ATLSTL_WINDOW_HPP_WINDOW_REVISION   8
+# define ATLSTL_VER_ATLSTL_WINDOW_HPP_WINDOW_EDIT       21
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef ATLSTL_INCL_ATLSTL_HPP_ATLSTL
 # include <atlstl/atlstl.hpp>
 #endif /* !ATLSTL_INCL_ATLSTL_HPP_ATLSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef ATLSTL_INCL_ATLSTL_WINDOW_HPP_ENHANCED_WINDOW
 # include <atlstl/window/enhanced_window.hpp>
 #endif /* !ATLSTL_INCL_ATLSTL_WINDOW_HPP_ENHANCED_WINDOW */
@@ -71,37 +77,45 @@
 # include <stlsoft/shims/access/string.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_HPP_STRING */
 
+#ifndef STRICT
+# error ATL window components are not compatible with non-STRICT configuration
+#endif
+
+#ifndef STLSOFT_INCL_SYS_H_ATLWIN
+# define STLSOFT_INCL_SYS_H_ATLWIN
+# include <atlwin.h>
+#endif /* !STLSOFT_INCL_SYS_H_ATLWIN */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _ATLSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef ATLSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::atlstl */
 namespace atlstl
 {
 # else
 /* Define stlsoft::atlstl_project */
-
 namespace stlsoft
 {
-
 namespace atlstl_project
 {
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !ATLSTL_NO_NAMESPACE */
 
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_ATLSTL_NO_NAMESPACE */
+using ::ATL::CWindow;
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief This class inherits from ATL's CWindow, and provides enhanced
+/** This class inherits from ATL's CWindow, and provides enhanced
  *    string operations (using string access shims) and additional
  *    functionality (via the EnhancedWindow mixin class template).
  *
- * \ingroup group__library__windows_window
+ * \ingroup group__library__Windows_Window
  */
 // [[synesis:class:ui-window: atlstl::Window]]
 class Window
@@ -118,13 +132,13 @@ public:
 /// \name Construction
 /// @{
 public:
-    /// \brief Constructs an instance of Window
+    /// Constructs an instance of Window
     ss_explicit_k
     Window(HWND hwnd = NULL)
         : parent_class_type(hwnd)
     {}
 
-    /// \brief Assigns a window handle to the instance
+    /// Assigns a window handle to the instance
     class_type& operator =(HWND hwnd)
     {
         parent_class_type::operator =(hwnd);
@@ -132,7 +146,7 @@ public:
         return *this;
     }
 
-    /// \brief Creates a window.
+    /// Creates a window.
     template<   ss_typename_param_k S0
             ,   ss_typename_param_k S1
             >
@@ -148,7 +162,7 @@ public:
         return parent_class_type::Create(stlsoft::c_str_ptr(lpstrWndClass), hWndParent, rcPos, stlsoft::c_str_ptr(szWindowName), dwStyle, dwExStyle, nID, lpCreateParam);
     }
 
-    /// \brief Creates a window.
+    /// Creates a window.
     template<   ss_typename_param_k S0
             ,   ss_typename_param_k S1
             >
@@ -171,7 +185,7 @@ public:
 
     // Window Text Functions
 
-    /// \brief Invokes <code>CWindow::SetWindowText()</code> for an arbitrary string type.
+    /// Invokes <code>CWindow::SetWindowText()</code> for an arbitrary string type.
     template <ss_typename_param_k S>
     BOOL SetWindowText(S const& lpszString)
     {
@@ -230,19 +244,25 @@ private:
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _ATLSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef ATLSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace atlstl
+} /* namespace atlstl */
 # else
-} // namespace atlstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_ATLSTL_NO_NAMESPACE */
+} /* namespace atlstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !ATLSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* ATLSTL_INCL_ATLSTL_WINDOW_HPP_SYNESIS_ABOUT_DIALOG */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !ATLSTL_INCL_ATLSTL_WINDOW_HPP_WINDOW */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

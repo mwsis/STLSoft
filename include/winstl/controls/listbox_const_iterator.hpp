@@ -4,47 +4,49 @@
  * Purpose:     Contains the listbox_const_iterator class.
  *
  * Created:     10th November 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks:      To Pablo Aguilar for some patches.
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/controls/listbox_const_iterator.hpp
  *
- * \brief [C++ only] Definition of the winstl::listbox_const_iterator class
- *   (\ref group__library__windows_controls "Windows Controls" Library).
+ * \brief [C++] Definition of the winstl::listbox_const_iterator class
+ *   (\ref group__library__Windows_Control "Windows Control" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_CONTROLS_HPP_LISTBOX_CONST_ITERATOR
@@ -53,17 +55,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTBOX_CONST_ITERATOR_MAJOR    4
 # define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTBOX_CONST_ITERATOR_MINOR    3
-# define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTBOX_CONST_ITERATOR_REVISION 1
-# define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTBOX_CONST_ITERATOR_EDIT     75
+# define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTBOX_CONST_ITERATOR_REVISION 6
+# define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTBOX_CONST_ITERATOR_EDIT     90
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_MEMORY_HPP_AUTO_BUFFER
 # include <stlsoft/memory/auto_buffer.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_MEMORY_HPP_AUTO_BUFFER */
@@ -81,34 +87,31 @@
 #endif /* !STLSOFT_INCL_STLSOFT_ERROR_HPP_EXTERNAL_ITERATOR_INVALIDATION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Iterator for listbox_sequence class
+/** Iterator for listbox_sequence class
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  *
  * This class acts as the iterator for the listbox_sequence class, and implements
  * the Random Access Iterator concept
@@ -119,7 +122,7 @@ template<   ss_typename_param_k S
         ,   ss_typename_param_k BT
         >
 class listbox_const_iterator
-    : public stlsoft_ns_qual(iterator_base)<winstl_ns_qual_std(random_access_iterator_tag)
+    : public STLSOFT_NS_QUAL(iterator_base)<STLSOFT_NS_QUAL_STD(random_access_iterator_tag)
                                         ,   S
                                         ,   ws_ptrdiff_t
                                         ,   S const*
@@ -131,16 +134,16 @@ class listbox_const_iterator
 public:
     /// The string type
     typedef S                                                               value_type;
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef listbox_const_iterator<S, BT>                                   class_type;
 #if defined(STLSOFT_COMPILER_IS_BORLAND)
 private:
-    typedef stlsoft_ns_qual(string_traits)<S>                               string_traits_type_;
+    typedef STLSOFT_NS_QUAL(string_traits)<S>                               string_traits_type_;
     typedef ss_typename_type_k string_traits_type_::char_type               char_type;
 public:
 #else /* ? compiler */
     /// The character type
-    typedef ss_typename_type_k stlsoft_ns_qual(string_traits)<S>::char_type char_type;
+    typedef ss_typename_type_k STLSOFT_NS_QUAL(string_traits)<S>::char_type char_type;
 #endif /* ? compiler */
     /// The size type
     typedef ws_size_t                                                       size_type;
@@ -153,7 +156,7 @@ public:
     /// The allocator type
     typedef processheap_allocator<char_type>                                allocator_type;
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
-    /// \brief The non-mutating (const) reverse iterator type
+    /// The non-mutating (const) reverse iterator type
     ///
     /// This typedef is provided as a convenience for the sequence.
     ///
@@ -162,7 +165,7 @@ public:
     /// there is no underlying range of values of which the offset-by-one
     /// mechanism of the std::reverse_iterator adaptor can access and
     /// return a valid reference.
-    typedef stlsoft_ns_qual(const_reverse_iterator_base)<   class_type
+    typedef STLSOFT_NS_QUAL(const_reverse_iterator_base)<   class_type
                                                         ,   value_type
                                                         ,   value_type  // By-Value Temporary element references
                                                         ,   void        // By-Value Temporary element references
@@ -170,7 +173,7 @@ public:
                                                         >                   const_reverse_iterator_type;
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
     /// The auto-buffer type
-    typedef stlsoft_ns_qual(auto_buffer_old)<   char_type
+    typedef STLSOFT_NS_QUAL(auto_buffer_old)<   char_type
                                             ,   allocator_type
                                             ,   256
                                             >                               buffer_type;
@@ -195,14 +198,14 @@ public:
     /// Dereferences the iterator and returns a reference to the current value
     const_reference operator *() const
     {
-        if(!m_bRetrieved)
+        if (!m_bRetrieved)
         {
             int len;
 
-            if(control_traits_type::err_constant() == (len = control_traits_type::get_text_len(m_hwnd, m_index)))
+            if (control_traits_type::err_constant() == (len = control_traits_type::get_text_len(m_hwnd, m_index)))
             {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-                STLSOFT_THROW_X(stlsoft_ns_qual(external_iterator_invalidation)("external iterator invalidation: control contents may have been altered externally"));
+                STLSOFT_THROW_X(STLSOFT_NS_QUAL(external_iterator_invalidation)("external iterator invalidation: control contents may have been altered externally"));
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
                 len = 0;
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
@@ -210,10 +213,10 @@ public:
 
             buffer_type buffer(1 + len);
 
-            if(control_traits_type::err_constant() == (len = control_traits_type::get_text(m_hwnd, m_index, &buffer[0])))
+            if (control_traits_type::err_constant() == (len = control_traits_type::get_text(m_hwnd, m_index, &buffer[0])))
             {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-                STLSOFT_THROW_X(stlsoft_ns_qual(external_iterator_invalidation)("external iterator invalidation: control contents may have been altered externally"));
+                STLSOFT_THROW_X(STLSOFT_NS_QUAL(external_iterator_invalidation)("external iterator invalidation: control contents may have been altered externally"));
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
                 buffer.resize(1);
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
@@ -262,13 +265,13 @@ public:
     }
 
     /// Indicates whether \c this and \c rhs are equivalent
-    bool operator == (class_type const& rhs) const
+    bool operator ==(class_type const& rhs) const
     {
         return 0 == compare(rhs);
     }
 
     /// Indicates whether \c this and \c rhs are not equivalent
-    bool operator != (class_type const& rhs) const
+    bool operator !=(class_type const& rhs) const
     {
         return 0 != compare(rhs);
     }
@@ -383,10 +386,10 @@ public:
 
         int len;
 
-        if(control_traits_type::err_constant() == (len = control_traits_type::get_text_len(hwnd, index)))
+        if (control_traits_type::err_constant() == (len = control_traits_type::get_text_len(hwnd, index)))
         {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-            STLSOFT_THROW_X(stlsoft_ns_qual(external_iterator_invalidation)("external iterator invalidation: control contents may have been altered externally"));
+            STLSOFT_THROW_X(STLSOFT_NS_QUAL(external_iterator_invalidation)("external iterator invalidation: control contents may have been altered externally"));
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
             len = 0;
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
@@ -394,10 +397,10 @@ public:
 
         buffer_type buffer(1 + len);
 
-        if(control_traits_type::err_constant() == (len = control_traits_type::get_text(hwnd, index, &buffer[0])))
+        if (control_traits_type::err_constant() == (len = control_traits_type::get_text(hwnd, index, &buffer[0])))
         {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-            STLSOFT_THROW_X(stlsoft_ns_qual(external_iterator_invalidation)("external iterator invalidation: control contents may have been altered externally"));
+            STLSOFT_THROW_X(STLSOFT_NS_QUAL(external_iterator_invalidation)("external iterator invalidation: control contents may have been altered externally"));
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
             buffer.resize(1);
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
@@ -419,19 +422,25 @@ private:
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_CONTROLS_HPP_LISTBOX_CONST_ITERATOR */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_CONTROLS_HPP_LISTBOX_CONST_ITERATOR */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

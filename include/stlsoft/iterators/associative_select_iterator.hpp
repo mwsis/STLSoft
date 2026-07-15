@@ -5,14 +5,14 @@
  *              underlying iterator in order to obtain the key/mapped type.
  *
  * Created:     28th January 2005
- * Updated:     15th December 2023
+ * Updated:     26th December 2020
  *
  * Thanks:      To Manfred Ehrhart, for detecting issues with iterator
  *              member types and select_second().
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -25,9 +25,10 @@
  * - Redistributions in binary form must reproduce the above copyright
  *   notice, this list of conditions and the following disclaimer in the
  *   documentation and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the
- *   names of any contributors may be used to endorse or promote products
- *   derived from this software without specific prior written permission.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
  * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
@@ -46,9 +47,9 @@
 
 /** \file stlsoft/iterators/associative_select_iterator.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::contiguous_diluter_iterator
+ * \brief [C++] Definition of the stlsoft::contiguous_diluter_iterator
  *   class template
- *   (\ref group__library__iterators "Iterators" Library).
+ *   (\ref group__library__Iterator "Iterator" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_ITERATORS_HPP_ASSOCIATIVE_SELECT_ITERATOR
@@ -57,27 +58,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_ITERATORS_HPP_ASSOCIATIVE_SELECT_ITERATOR_MAJOR    2
 # define STLSOFT_VER_STLSOFT_ITERATORS_HPP_ASSOCIATIVE_SELECT_ITERATOR_MINOR    2
-# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_ASSOCIATIVE_SELECT_ITERATOR_REVISION 2
-# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_ASSOCIATIVE_SELECT_ITERATOR_EDIT     29
+# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_ASSOCIATIVE_SELECT_ITERATOR_REVISION 5
+# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_ASSOCIATIVE_SELECT_ITERATOR_EDIT     39
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER
 # include <stlsoft/util/std/iterator_helper.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER */
@@ -96,21 +91,21 @@ STLSOFT_COMPILER_IS_WATCOM:
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Selects the \c first member of the type to which it is applied
+/** Selects the \c first member of the type to which it is applied
  *
- * \ingroup group__library__iterators
+ * \ingroup group__library__Iterator
  */
 // [[synesis:class:function-class:unary-function: select_first<T<P>>]]
 template <class P>
@@ -151,9 +146,9 @@ public:
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief Selects the \c first second of the type to which it is applied
+/** Selects the \c first second of the type to which it is applied
  *
- * \ingroup group__library__iterators
+ * \ingroup group__library__Iterator
  */
 // [[synesis:class:function-class:unary-function: select_second<T<P>>]]
 template <class P>
@@ -197,7 +192,7 @@ public:
 /** An iterator adaptor that uses a select functor on its base iterator
  *    in order to obtain the value_type.
  *
- * \ingroup group__library__iterators
+ * \ingroup group__library__Iterator
  */
 template<   ss_typename_param_k I
         ,   ss_typename_param_k F
@@ -292,7 +287,7 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Creator functions
+ * creator functions
  */
 
 /** Creates an instance of associative_select_iterator.
@@ -355,7 +350,7 @@ inline associative_select_iterator<
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Operators
+ * operators
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -380,11 +375,17 @@ inline ss_bool_t operator !=(associative_select_iterator<I, F> const& lhs, assoc
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_ITERATORS_HPP_ASSOCIATIVE_SELECT_ITERATOR */
 

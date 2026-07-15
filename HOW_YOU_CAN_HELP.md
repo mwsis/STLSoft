@@ -1,12 +1,5 @@
 # STLSoft - How You Can Help <!-- omit in toc -->
 
-> Note
-> **STLSoft-1.9** is now obsolete; please instead use **STLSoft 1.10**, which may be obtained from https://github.com/synesissoftware/STLSoft-1.10
-
-
-----
-
-
 ## Table of Contents <!-- omit in toc -->
 
 There are several ways in which you can help the **STLSoft** project:
@@ -25,7 +18,7 @@ We're very keen to hear of any problems you have in using the libraries.
 
 Please submit an issue at:
 
-  https://github.com/synesissoftware/STLSoft-1.9/issues
+  https://github.com/synesissoftware/STLSoft-1.10/issues
 
 Please help us to help you by submitting as much information about the
 problem as you think is relevant, including:
@@ -41,8 +34,7 @@ problem as you think is relevant, including:
 ## Feature requests
 
 If there are features that you think would enhance the libraries, please
-feel free to share your ideas, but do so via the [**STLSoft-1.10**](https://github.com/synesissoftware/STLSoft-1.10/)
-project.
+feel free to share your ideas.
 
 You can either submit an issue:
 
@@ -88,4 +80,7 @@ there's lots more to be done. You can help out by updating the STLSoft
 Wikipedia page at:
 
   http://en.wikipedia.org/wiki/STLSoft
+
+
+<!-- ########################### end of file ########################### -->
 

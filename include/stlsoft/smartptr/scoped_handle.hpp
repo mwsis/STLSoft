@@ -1,52 +1,54 @@
 /* /////////////////////////////////////////////////////////////////////////
  * File:        stlsoft/smartptr/scoped_handle.hpp (evolved from MLResPtr.h, ::SynesisStd)
  *
- * Purpose:     scoped_handle - parameterisable RAII class for arbitrary
+ * Purpose:     scoped_handle - specialisable RAII class for arbitrary
  *              resource types.
  *
  * Created:     1st November 1994
- * Updated:     15th December 2023
+ * Updated:     29th January 2024
  *
  * Thanks to:   Adi Shavit, for requesting the indirect functionality
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1994-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/smartptr/scoped_handle.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::scoped_handle smart
+ * \brief [C++] Definition of the stlsoft::scoped_handle smart
  *   pointer class template
- *   (\ref group__library__smart_pointers "Smart Pointers" Library).
+ *   (\ref group__library__SmartPointer "Smart Pointer" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE
@@ -54,44 +56,48 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE_MAJOR    5
-# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE_MINOR    4
-# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE_REVISION 3
-# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE_EDIT     668
+# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE_MINOR    6
+# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE_REVISION 1
+# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE_EDIT     686
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #if defined(STLSOFT_COMPILER_IS_BORLAND)
 # include <stlsoft/smartptr/scoped_handle_borland_.hpp>
 #else /* ? compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler warnings
+ * compiler warnings
  */
 
 #if defined(STLSOFT_COMPILER_IS_MSVC) && \
     _MSC_VER >= 1400
+
 # pragma warning(push)
 # pragma warning(disable : 4191)
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -103,9 +109,9 @@ struct H_holder
 /// \name Member Types
 /// @{
 public:
-    typedef H           resource_type;
-    typedef H           handle_type;
-    typedef H_holder<H> class_type;
+    typedef H                                               resource_type;
+    typedef H                                               handle_type;
+    typedef H_holder<H>                                     class_type;
 /// @}
 
 /// \name Construction
@@ -121,6 +127,10 @@ public:
     {
         this->u.ph = ph;
     }
+
+private:
+    H_holder(class_type const&);
+    class_type& operator =(class_type const&);
 /// @}
 
 /// \name Operations
@@ -144,12 +154,8 @@ public:
         H   h;
         H*  ph;
     }           u;
-    const bool  bPointer;
+    bool const  bPointer;
 /// @}
-
-private:
-    H_holder(class_type const&);
-    class_type& operator =(class_type const&);
 };
 
 # ifdef STLSOFT_CF_CDECL_SUPPORTED
@@ -159,11 +165,11 @@ template<   ss_typename_param_k H
 struct function_translator_cdecl
 {
 private:
-    typedef void    (STLSOFT_CDECL* degenerate_function_type)();    // C++-98; 5.2.10;6
+    typedef void                            (STLSOFT_CDECL* degenerate_function_type)();    // C++-98; 5.2.10;6
 public:
-    typedef R       (STLSOFT_CDECL* function_type)(H);
-    typedef R       (STLSOFT_CDECL* indirect_function_type)(H*);
-    typedef H_holder<H>             holder_type;
+    typedef R                               (STLSOFT_CDECL* function_type)(H);
+    typedef R                               (STLSOFT_CDECL* indirect_function_type)(H*);
+    typedef H_holder<H>                                     holder_type;
 
     static void translate(holder_type& h, degenerate_function_type pv)
     {
@@ -194,11 +200,11 @@ template<   ss_typename_param_k H
 struct function_translator_fastcall
 {
 private:
-    typedef void    (STLSOFT_CDECL*     degenerate_function_type)();
+    typedef void                         (STLSOFT_CDECL*    degenerate_function_type)();
 public:
-    typedef R       (STLSOFT_FASTCALL*  function_type)(H);
-    typedef R       (STLSOFT_FASTCALL*  indirect_function_type)(H*);
-    typedef H_holder<H>                 holder_type;
+    typedef R                            (STLSOFT_FASTCALL* function_type)(H);
+    typedef R                            (STLSOFT_FASTCALL* indirect_function_type)(H*);
+    typedef H_holder<H>                                     holder_type;
 
     static void translate(holder_type& h, degenerate_function_type pv)
     {
@@ -229,11 +235,11 @@ template<   ss_typename_param_k H
 struct function_translator_stdcall
 {
 private:
-    typedef void    (STLSOFT_CDECL*     degenerate_function_type)();
+    typedef void                          (STLSOFT_CDECL*   degenerate_function_type)();
 public:
-    typedef R       (STLSOFT_STDCALL*   function_type)(H);
-    typedef R       (STLSOFT_STDCALL*   indirect_function_type)(H*);
-    typedef H_holder<H>                 holder_type;
+    typedef R                             (STLSOFT_STDCALL* function_type)(H);
+    typedef R                             (STLSOFT_STDCALL* indirect_function_type)(H*);
+    typedef H_holder<H>                                     holder_type;
 
     static void translate(holder_type& h, degenerate_function_type pv)
     {
@@ -265,9 +271,9 @@ template<   ss_typename_param_k R
 struct function_translator_cdecl_void
 {
 private:
-    typedef void    (STLSOFT_CDECL *degenerate_function_type)();    // C++-98; 5.2.10;6
+    typedef void                            (STLSOFT_CDECL* degenerate_function_type)();    // C++-98; 5.2.10;6
 public:
-    typedef R       (STLSOFT_CDECL *function_type)(void);
+    typedef R                               (STLSOFT_CDECL* function_type)(void);
 
     static void translate(degenerate_function_type pv)
     {
@@ -286,9 +292,9 @@ template<   ss_typename_param_k R
 struct function_translator_fastcall_void
 {
 private:
-    typedef void    (STLSOFT_CDECL *degenerate_function_type)();
+    typedef void                            (STLSOFT_CDECL* degenerate_function_type)();
 public:
-    typedef R       (STLSOFT_FASTCALL *function_type)(void);
+    typedef R                            (STLSOFT_FASTCALL* function_type)(void);
 
     static void translate(degenerate_function_type pv)
     {
@@ -307,9 +313,9 @@ template<   ss_typename_param_k R
 struct function_translator_stdcall_void
 {
 private:
-    typedef void    (STLSOFT_CDECL *degenerate_function_type)();
+    typedef void                            (STLSOFT_CDECL* degenerate_function_type)();
 public:
-    typedef R       (STLSOFT_STDCALL *function_type)(void);
+    typedef R                             (STLSOFT_STDCALL* function_type)(void);
 
     static void translate(degenerate_function_type pv)
     {
@@ -328,13 +334,13 @@ public:
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 
-/** \brief Provides automated scope-based cleanup of arbitrary resource
+/** Provides automated scope-based cleanup of arbitrary resource
  *    types without any memory allocation required to implement the generic
  *    support.
  *
- * \ingroup group__library__smart_pointers
+ * \ingroup group__library__SmartPointer
  *
- * The template is parameterised on the resource type (e.g. FILE*, int, void*)
+ * The template is specialised on the resource type (e.g. FILE*, int, void*)
  * and instances are initialised from a resource handle and the address of a
  * (single-parameter) cleanup function, as in:
  *
@@ -369,15 +375,15 @@ class scoped_handle
 /// \name Types
 /// @{
 private:
-    typedef void (STLSOFT_CDECL*    degenerate_function_type)();
-    typedef H_holder<H>             holder_type;
+    typedef void                            (STLSOFT_CDECL* degenerate_function_type)();
+    typedef H_holder<H>                                     holder_type;
 public:
-    /// \brief The resource type
-    typedef H                   resource_type;
-    /// \brief The handle type
-    typedef H                   handle_type;
-    /// \brief The instantiation of the type
-    typedef scoped_handle<H>    class_type;
+    /// The resource type
+    typedef H                                               resource_type;
+    /// The handle type
+    typedef H                                               handle_type;
+    /// The instantiation of the type
+    typedef scoped_handle<H>                                class_type;
 /// @}
 
 /// \name Construction
@@ -386,7 +392,7 @@ public:
 #ifdef STLSOFT_CF_CDECL_SUPPORTED
 # if !defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT) || \
      defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_OVERLOAD_DISCRIMINATED)
-    /// \brief Construct from a resource handle and a clean-up function with void return type
+    /// Construct from a resource handle and a clean-up function with void return type
     scoped_handle(  resource_type   h
                 ,   void            (STLSOFT_CDECL *f)(resource_type)
                 ,   resource_type   hNull = 0)
@@ -398,7 +404,7 @@ public:
         STLSOFT_MESSAGE_ASSERT("Precondition violation: cannot initialise with a NULL function pointer", NULL != f);
     }
 
-    /// \brief Construct from a resource handle and an indirect clean-up function with void return type
+    /// Construct from a resource handle and an indirect clean-up function with void return type
     scoped_handle(  resource_type*  ph
                 ,   void            (STLSOFT_CDECL *f)(resource_type*)
                 ,   resource_type   hNull = 0)
@@ -412,7 +418,7 @@ public:
 # endif /* !STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT || STLSOFT_CF_MEMBER_TEMPLATE_CTOR_OVERLOAD_DISCRIMINATED */
 
 # if defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT)
-    /// \brief Construct from a resource handle and a clean-up function with non-void return type
+    /// Construct from a resource handle and a clean-up function with non-void return type
     template <ss_typename_param_k R>
     scoped_handle(  resource_type   h
                 ,   R               (STLSOFT_CDECL *f)(resource_type)
@@ -424,7 +430,7 @@ public:
     {
         STLSOFT_MESSAGE_ASSERT("Precondition violation: cannot initialise with a NULL function pointer", NULL != f);
     }
-    /// \brief Construct from a resource handle and an indirect clean-up function with non-void return type
+    /// Construct from a resource handle and an indirect clean-up function with non-void return type
     template <ss_typename_param_k R>
     scoped_handle(  resource_type*  ph
                 ,   R               (STLSOFT_CDECL *f)(resource_type*)
@@ -442,7 +448,7 @@ public:
 #ifdef STLSOFT_CF_FASTCALL_SUPPORTED
 # if !defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT) || \
      defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_OVERLOAD_DISCRIMINATED)
-    /// \brief Construct from a resource handle and a clean-up "fastcall" function with void return type
+    /// Construct from a resource handle and a clean-up "fastcall" function with void return type
     scoped_handle(  resource_type   h
                 ,   void            (STLSOFT_FASTCALL *f)(resource_type)
                 ,   resource_type   hNull = 0)
@@ -453,7 +459,7 @@ public:
     {
         STLSOFT_MESSAGE_ASSERT("Precondition violation: cannot initialise with a NULL function pointer", NULL != f);
     }
-    /// \brief Construct from a resource handle and an indirect clean-up "fastcall" function with void return type
+    /// Construct from a resource handle and an indirect clean-up "fastcall" function with void return type
     scoped_handle(  resource_type   h
                 ,   void            (STLSOFT_FASTCALL *f)(resource_type *)
                 ,   resource_type   hNull = 0)
@@ -467,7 +473,7 @@ public:
 # endif /* !STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT || STLSOFT_CF_MEMBER_TEMPLATE_CTOR_OVERLOAD_DISCRIMINATED */
 
 # if defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT)
-    /// \brief Construct from a resource handle and a clean-up "fastcall" function with non-void return type
+    /// Construct from a resource handle and a clean-up "fastcall" function with non-void return type
     template <ss_typename_param_k R>
     scoped_handle(  resource_type   h
                 ,   R               (STLSOFT_FASTCALL *f)(resource_type)
@@ -479,7 +485,7 @@ public:
     {
         STLSOFT_MESSAGE_ASSERT("Precondition violation: cannot initialise with a NULL function pointer", NULL != f);
     }
-    /// \brief Construct from a resource handle and an indirect clean-up "fastcall" function with non-void return type
+    /// Construct from a resource handle and an indirect clean-up "fastcall" function with non-void return type
     template <ss_typename_param_k R>
     scoped_handle(  resource_type*  ph
                 ,   R               (STLSOFT_FASTCALL *f)(resource_type*)
@@ -498,7 +504,7 @@ public:
 #ifdef STLSOFT_CF_STDCALL_SUPPORTED
 # if !defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT) || \
      defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_OVERLOAD_DISCRIMINATED)
-    /// \brief Construct from a resource handle and a clean-up "stdcall" function with void return type
+    /// Construct from a resource handle and a clean-up "stdcall" function with void return type
     scoped_handle(  resource_type   h
                 ,   void            (STLSOFT_STDCALL *f)(resource_type)
                 ,   resource_type   hNull = 0)
@@ -509,7 +515,7 @@ public:
     {
         STLSOFT_MESSAGE_ASSERT("Precondition violation: cannot initialise with a NULL function pointer", NULL != f);
     }
-    /// \brief Construct from a resource handle and an indirect clean-up "stdcall" function with void return type
+    /// Construct from a resource handle and an indirect clean-up "stdcall" function with void return type
     scoped_handle(  resource_type*  ph
                 ,   void            (STLSOFT_STDCALL *f)(resource_type*)
                 ,   resource_type   hNull = 0)
@@ -523,7 +529,7 @@ public:
 # endif /* !STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT || STLSOFT_CF_MEMBER_TEMPLATE_CTOR_OVERLOAD_DISCRIMINATED */
 
 # if defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT)
-    /// \brief Construct from a resource handle and a clean-up "stdcall" function with non-void return type
+    /// Construct from a resource handle and a clean-up "stdcall" function with non-void return type
     template <ss_typename_param_k R>
     scoped_handle(  resource_type   h
                 ,   R               (STLSOFT_STDCALL *f)(resource_type)
@@ -535,7 +541,7 @@ public:
     {
         STLSOFT_MESSAGE_ASSERT("Precondition violation: cannot initialise with a NULL function pointer", NULL != f);
     }
-    /// \brief Construct from a resource handle and an indirect clean-up "stdcall" function with non-void return type
+    /// Construct from a resource handle and an indirect clean-up "stdcall" function with non-void return type
     template <ss_typename_param_k R>
     scoped_handle(  resource_type*  ph
                 ,   R               (STLSOFT_STDCALL *f)(resource_type*)
@@ -550,26 +556,45 @@ public:
 # endif /* STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT */
 #endif /* STLSOFT_CF_STDCALL_SUPPORTED */
 
-    /// \brief "Releases" the managed resource.
+#ifdef STLSOFT_CF_RVALUE_REFERENCES_SUPPORT
+
+    /// Constructs an instance by taking over the state of the
+    /// instance \c rhs
+    ///
+    /// \param rhs The instance whose state will be taken over. Upon return
+    ///   \c rhs will be <code>empty()</code>
+    scoped_handle(class_type&& rhs) STLSOFT_NOEXCEPT
+        : m_hh(rhs.detach())
+        , m_hNull(rhs.m_hNull)
+        , m_tfn(rhs.m_tfn)
+        , m_fn(rhs.m_fn)
+    {}
+#endif /* STLSOFT_CF_RVALUE_REFERENCES_SUPPORT */
+
+    /// "Releases" the managed resource.
     ///
     /// Invokes the cleanup function, unless close() or detach() have
     /// already been called
-    ~scoped_handle()
+    ~scoped_handle() STLSOFT_NOEXCEPT
     {
         STLSOFT_MESSAGE_ASSERT("Invariant violation: function pointer must not be NULL", NULL != m_fn);
 
-        if(!empty())
+        if (!empty())
         {
             m_tfn(m_hh, m_fn);
         }
     }
+
+private:
+    scoped_handle(class_type const&);           // copy-construction proscribed
+    class_type& operator =(class_type const&);  // copy-assignment proscribed
 /// @}
 
 /// \name Attributes
 /// @{
 public:
-    /// \brief Indicates whether the instance holds a non-"null" resource
-    bool empty() const
+    /// Indicates whether the instance holds a non-"null" resource
+    bool empty() const STLSOFT_NOEXCEPT
     {
         STLSOFT_MESSAGE_ASSERT("Invariant violation: function pointer must not be NULL", NULL != m_fn);
 
@@ -580,14 +605,14 @@ public:
 /// \name Operations
 /// @{
 public:
-    /// \brief Closes the handle immediately
+    /// Closes the handle immediately
     ///
     /// \note Calling this method more than once has no effect.
     void close()
     {
         STLSOFT_MESSAGE_ASSERT("Invariant violation: function pointer must not be NULL", NULL != m_fn);
 
-        if(!empty())
+        if (!empty())
         {
             m_tfn(m_hh, m_fn);
 
@@ -595,11 +620,11 @@ public:
         }
     }
 
-    /// \brief Detaches the resource, and returns it to the caller.
+    /// Detaches the resource, and returns it to the caller.
     ///
     /// \remarks Calling this method removes the resource from the managing
     ///   instance, so it will not be automatically closed.
-    resource_type detach()
+    resource_type detach() STLSOFT_NOEXCEPT
     {
         STLSOFT_MESSAGE_ASSERT("Invariant violation: function pointer must not be NULL", NULL != m_fn);
 
@@ -614,11 +639,11 @@ public:
 /// \name Accessors
 /// @{
 public:
-    /// \brief Provides the bare resource handle to the caller. Does not
+    /// Provides the bare resource handle to the caller. Does not
     ///   detach the handle from the managing instance.
     ///
     /// \deprecated Deprecated in favour of get()
-    resource_type handle() const
+    resource_type handle() const STLSOFT_NOEXCEPT
     {
 #if defined(STLSOFT_COMPILER_IS_WATCOM)
         return (resource_type)(m_hh.get());
@@ -626,9 +651,9 @@ public:
         return const_cast<resource_type>(m_hh.get());
 #endif /* compiler */
     }
-    /// \brief Provides the bare resource handle to the caller. Does not detach the
+    /// Provides the bare resource handle to the caller. Does not detach the
     /// handle from the managing instance.
-    resource_type get() const
+    resource_type get() const STLSOFT_NOEXCEPT
     {
         return const_cast<class_type&>(*this).m_hh.get();
     }
@@ -646,17 +671,10 @@ private:
 /// \name Members
 /// @{
 private:
-    holder_type                 m_hh;                                   //!< The handle to the managed resource
-    const resource_type         m_hNull;                                //!< The value for the null handle
-    void                        (*m_tfn)(holder_type&, degenerate_function_type); //!< The function translator function
-    degenerate_function_type    m_fn;                                   //!< The actual resource release function
-/// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    scoped_handle(class_type const&);
-    class_type& operator =(class_type const&);
+    holder_type                 m_hh;                                           //!< The handle to the managed resource
+    resource_type /* const */   m_hNull;                                        //!< The value for the null handle
+    void                      (*m_tfn)(holder_type&, degenerate_function_type); //!< The function translator function
+    degenerate_function_type    m_fn;                                           //!< The actual resource release function
 /// @}
 };
 
@@ -672,14 +690,14 @@ class scoped_handle<void>
 /// \name Types
 /// @{
 private:
-    typedef void (STLSOFT_CDECL *degenerate_function_type)();
+    typedef void                            (STLSOFT_CDECL* degenerate_function_type)();
 public:
-    /// \brief The resource type
-    typedef void                resource_type;
-    /// \brief The handle type
-    typedef void                handle_type;
-    /// \brief The instantiation of the type
-    typedef scoped_handle<void> class_type;
+    /// The resource type
+    typedef void                                            resource_type;
+    /// The handle type
+    typedef void                                            handle_type;
+    /// The instantiation of the type
+    typedef scoped_handle<void>                             class_type;
 /// @}
 
 /// \name Construction
@@ -688,7 +706,7 @@ public:
 #ifdef STLSOFT_CF_CDECL_SUPPORTED
 # if !defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT) || \
      defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_OVERLOAD_DISCRIMINATED)
-    /// \brief Construct from a resource handle and a clean-up function with void return type
+    /// Construct from a resource handle and a clean-up function with void return type
     scoped_handle(  void            (STLSOFT_CDECL *f)())
         : m_bInvoked(false)
         , m_tfn(&function_translator_cdecl_void<void>::translate)
@@ -699,7 +717,7 @@ public:
 # endif /* !STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT || STLSOFT_CF_MEMBER_TEMPLATE_CTOR_OVERLOAD_DISCRIMINATED */
 
 # if defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT)
-    /// \brief Construct from a resource handle and a clean-up function with non-void return type
+    /// Construct from a resource handle and a clean-up function with non-void return type
     template <ss_typename_param_k R>
     scoped_handle(  R               (STLSOFT_CDECL *f)())
         : m_bInvoked(false)
@@ -714,7 +732,7 @@ public:
 #ifdef STLSOFT_CF_FASTCALL_SUPPORTED
 # if !defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT) || \
      defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_OVERLOAD_DISCRIMINATED)
-    /// \brief Construct from a resource handle and a clean-up "fastcall" function with void return type
+    /// Construct from a resource handle and a clean-up "fastcall" function with void return type
     scoped_handle(  void            (STLSOFT_FASTCALL *f)())
         : m_bInvoked(false)
         , m_tfn(&function_translator_fastcall_void<void>::translate)
@@ -725,7 +743,7 @@ public:
 # endif /* !STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT || STLSOFT_CF_MEMBER_TEMPLATE_CTOR_OVERLOAD_DISCRIMINATED */
 
 # if defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT)
-    /// \brief Construct from a resource handle and a clean-up "fastcall" function with non-void return type
+    /// Construct from a resource handle and a clean-up "fastcall" function with non-void return type
     template <ss_typename_param_k R>
     scoped_handle(  R               (STLSOFT_FASTCALL *f)())
         : m_bInvoked(false)
@@ -741,7 +759,7 @@ public:
 #ifdef STLSOFT_CF_STDCALL_SUPPORTED
 # if !defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT) || \
      defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_OVERLOAD_DISCRIMINATED)
-    /// \brief Construct from a resource handle and a clean-up "stdcall" function with void return type
+    /// Construct from a resource handle and a clean-up "stdcall" function with void return type
     scoped_handle(  void            (STLSOFT_STDCALL *f)())
         : m_bInvoked(false)
         , m_tfn(&function_translator_stdcall_void<void>::translate)
@@ -752,7 +770,7 @@ public:
 # endif /* !STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT || STLSOFT_CF_MEMBER_TEMPLATE_CTOR_OVERLOAD_DISCRIMINATED */
 
 # if defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT)
-    /// \brief Construct from a resource handle and a clean-up "stdcall" function with non-void return type
+    /// Construct from a resource handle and a clean-up "stdcall" function with non-void return type
     template <ss_typename_param_k R>
     scoped_handle(  R               (STLSOFT_STDCALL *f)())
         : m_bInvoked(false)
@@ -764,21 +782,41 @@ public:
 # endif /* STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT */
 #endif /* STLSOFT_CF_STDCALL_SUPPORTED */
 
-    /// \brief "Releases" the managed resource.
+#ifdef STLSOFT_CF_RVALUE_REFERENCES_SUPPORT
+
+    /// Constructs an instance by taking over the state of the
+    /// instance \c rhs
+    ///
+    /// \param rhs The instance whose state will be taken over. Upon return
+    ///   \c rhs will be <code>empty()</code>
+    scoped_handle(class_type&& rhs) STLSOFT_NOEXCEPT
+        : m_bInvoked(rhs.m_bInvoked)
+        , m_tfn(rhs.m_tfn)
+        , m_fn(rhs.m_fn)
+    {
+        rhs.detach();
+    }
+#endif /* STLSOFT_CF_RVALUE_REFERENCES_SUPPORT */
+
+    /// "Releases" the managed resource.
     ///
     /// Invokes the cleanup function, unless close() or detach() have
     /// already been called
-    ~scoped_handle()
+    ~scoped_handle() STLSOFT_NOEXCEPT
     {
         close();
     }
+
+private:
+    scoped_handle(class_type const&);           // copy-construction proscribed
+    class_type& operator =(class_type const&);  // copy-assignment proscribed
 /// @}
 
 /// \name Attributes
 /// @{
 public:
-    /// \brief Indicates whether the instance holds a non-"null" resource
-    bool empty() const
+    /// Indicates whether the instance holds a non-"null" resource
+    bool empty() const STLSOFT_NOEXCEPT
     {
         return m_bInvoked;
     }
@@ -787,23 +825,23 @@ public:
 /// \name Operations
 /// @{
 public:
-    /// \brief Closes the handle immediately
+    /// Closes the handle immediately
     ///
     /// \note Calling this method more than once has no effect.
     void close()
     {
-        if(!empty())
+        if (!empty())
         {
             m_tfn(m_fn);
             m_bInvoked = true;
         }
     }
 
-    /// \brief Detaches the resource, and returns it to the caller.
+    /// Detaches the resource, and returns it to the caller.
     ///
     /// \remarks Calling this method removes the resource from the managing
     ///   instance, so it will not be automatically closed.
-    resource_type detach()
+    resource_type detach() STLSOFT_NOEXCEPT
     {
         m_bInvoked = true;
     }
@@ -812,16 +850,16 @@ public:
 /// \name Accessors
 /// @{
 public:
-    /// \brief Provides the bare resource handle to the caller. Does not
+    /// Provides the bare resource handle to the caller. Does not
     ///   detach the handle from the managing instance.
     ///
     /// \deprecated Deprecated in favour of get()
-    resource_type handle() const
+    resource_type handle() const STLSOFT_NOEXCEPT
     {
     }
-    /// \brief Provides the bare resource handle to the caller. Does not detach the
+    /// Provides the bare resource handle to the caller. Does not detach the
     /// handle from the managing instance.
-    resource_type get() const
+    resource_type get() const STLSOFT_NOEXCEPT
     {
     }
 /// @}
@@ -830,15 +868,8 @@ public:
 /// @{
 private:
     ss_bool_t                   m_bInvoked;                         //!< Indicates whether the cleanup function has been invoked
-    void                        (*m_tfn)(degenerate_function_type); //!< The function translator function
+    void                      (*m_tfn)(degenerate_function_type);   //!< The function translator function
     degenerate_function_type    m_fn;                               //!< The actual resource release function
-/// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-    scoped_handle(class_type const&);
-    class_type& operator =(class_type const&);
 /// @}
 };
 
@@ -850,37 +881,50 @@ private:
 
 template<   ss_typename_param_k H
         >
-inline void swap(scoped_handle<H>& lhs, scoped_handle<H>& rhs)
+inline void swap(scoped_handle<H>& lhs, scoped_handle<H>& rhs) STLSOFT_NOEXCEPT
 {
     lhs.swap(rhs);
 }
 
-////////////////////////////////////////////////////////////////////////////
-// Shims
+/* /////////////////////////////////////////////////////////////////////////
+ * shims
+ */
 
-template<ss_typename_param_k H>
+template <ss_typename_param_k H>
+inline
 #if defined(STLSOFT_COMPILER_IS_WATCOM)
-inline H get_handle(scoped_handle<H> const& h)
+H
 #else /* ? compiler */
-inline ss_typename_type_ret_k scoped_handle<H>::handle_type get_handle(scoped_handle<H> const& h)
+ss_typename_type_ret_k scoped_handle<H>::handle_type
 #endif /* compiler */
+get_handle(
+    scoped_handle<H> const& h
+) STLSOFT_NOEXCEPT
 {
     return h.get();
 }
 
+/** is_null shim
+ *
+ * \ingroup group__library__SmartPointer
+ */
+template <ss_typename_param_k H>
+inline
+bool
+is_null(
+    scoped_handle<H> const& h
+) STLSOFT_NOEXCEPT
+{
+    return h.empty();
+}
+
 /* /////////////////////////////////////////////////////////////////////////
- * Unit-testing
+ * namespace
  */
 
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/scoped_handle_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
-/* ////////////////////////////////////////////////////////////////////// */
-
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* In the special case of Intel behaving as VC++ 7.0 or earlier on Win32, we
  * illegally insert into the std namespace.
@@ -893,11 +937,11 @@ namespace std
 {
     template<   ss_typename_param_k H
             >
-    inline void swap(stlsoft_ns_qual(scoped_handle)<H>& lhs, stlsoft_ns_qual(scoped_handle)<H>& rhs)
+    inline void swap(STLSOFT_NS_QUAL(scoped_handle)<H>& lhs, STLSOFT_NS_QUAL(scoped_handle)<H>& rhs)
     {
         lhs.swap(rhs);
     }
-} // namespace std
+} /* namespace std */
 # endif /* INTEL && _MSC_VER < 1310 */
 #endif /* STLSOFT_CF_std_NAMESPACE */
 
@@ -906,15 +950,22 @@ namespace std
 #endif /* ? compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler warnings
+ * compiler warnings
  */
 
 #if defined(STLSOFT_COMPILER_IS_MSVC) && \
     _MSC_VER >= 1400
+
 # pragma warning(pop)
 #endif /* compiler */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE */
 

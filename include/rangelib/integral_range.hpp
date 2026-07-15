@@ -4,37 +4,39 @@
  * Purpose:     Integral range class.
  *
  * Created:     4th November 2003
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -47,8 +49,8 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define RANGELIB_VER_RANGELIB_HPP_INTEGRAL_RANGE_MAJOR    2
 # define RANGELIB_VER_RANGELIB_HPP_INTEGRAL_RANGE_MINOR    6
-# define RANGELIB_VER_RANGELIB_HPP_INTEGRAL_RANGE_REVISION 6
-# define RANGELIB_VER_RANGELIB_HPP_INTEGRAL_RANGE_EDIT     58
+# define RANGELIB_VER_RANGELIB_HPP_INTEGRAL_RANGE_REVISION 11
+# define RANGELIB_VER_RANGELIB_HPP_INTEGRAL_RANGE_EDIT     70
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -63,21 +65,25 @@ STLSOFT_COMPILER_IS_MWERKS:   (__MWERKS__ & 0xFF00) < 0x3000
  */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef RANGELIB_INCL_RANGELIB_HPP_RANGELIB
 # include <rangelib/rangelib.hpp>
 #endif /* !RANGELIB_INCL_RANGELIB_HPP_RANGELIB */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef RANGELIB_INCL_RANGELIB_HPP_RANGE_CATEGORIES
 # include <rangelib/range_categories.hpp>
 #endif /* !RANGELIB_INCL_RANGELIB_HPP_RANGE_CATEGORIES */
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_HPP_OPERATOR_BOOL
 # include <stlsoft/util/operator_bool.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_OPERATOR_BOOL */
-#ifndef STLSOFT_INCL_STLSOFT_ERROR_HPP_EXCEPTIONS
-# include <stlsoft/error/exceptions.hpp>      // for null_exception_policy
-#endif /* !STLSOFT_INCL_STLSOFT_ERROR_HPP_EXCEPTIONS */
+#ifndef WINSTL_INCL_WINSTL_EXCEPTION_HPP_THROW_POLICIES
+# include <stlsoft/exception/throw_policies.hpp>
+#endif /* !WINSTL_INCL_WINSTL_EXCEPTION_HPP_THROW_POLICIES */
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_HPP_CONSTRAINTS
 # include <stlsoft/util/constraints.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_CONSTRAINTS */
@@ -108,34 +114,31 @@ STLSOFT_COMPILER_IS_MWERKS:   (__MWERKS__ & 0xFF00) < 0x3000
 #endif /* !STLSOFT_INCL_H_STDIO */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
 #ifndef RANGELIB_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::rangelib */
 namespace rangelib
 {
 # else
 /* Define stlsoft::rangelib_project */
-
 namespace stlsoft
 {
-
 namespace rangelib_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !RANGELIB_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Error policy class for integral_range
+/** Error policy class for integral_range
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  */
 struct invalid_integral_range_policy
 {
@@ -231,9 +234,9 @@ public:
 #endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
 };
 
-/** \brief This range class represents an integral range.
+/** This range class represents an integral range.
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * It is categoried as a Notional Range
  *
@@ -275,11 +278,11 @@ public:
         , m_last(last)
         , m_increment(increment)
     {
-        if(m_last < m_position)
+        if (m_last < m_position)
         {
 //          std_swap(m_position, m_last);
 
-            if(m_increment > 0)
+            if (m_increment > 0)
             {
                 m_increment = -m_increment;
             }
@@ -376,9 +379,9 @@ private:
         ss_bool_t   bValid = true;
 
         // Check modulus
-        if(bValid)
+        if (bValid)
         {
-            if( first != last &&
+            if (first != last &&
                 0 != increment)
             {
                 bValid = (0 == ((last - first) % increment));
@@ -386,9 +389,9 @@ private:
         }
 
         // Check direction
-        if(bValid)
+        if (bValid)
         {
-            if( (   last < first &&
+            if ((   last < first &&
                     increment > 0) ||
                 (   first < last &&
                     increment < 0))
@@ -400,7 +403,7 @@ private:
 //        STLSOFT_MESSAGE_ASSERT("The range you have specified will not close with the given increment", (first == last || (increment > 0 && last > first) || (increment < 0 && last < first)));
 //        STLSOFT_MESSAGE_ASSERT("The range you have specified will not close with the given increment", 0 == ((last - first) % increment));
 
-        if(!bValid)
+        if (!bValid)
         {
             exception_policy_type()(first, last, increment);
         }
@@ -417,7 +420,7 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Creator functions
+ * creator functions
  */
 
 template <ss_typename_param_k T>
@@ -432,26 +435,25 @@ inline integral_range<T> make_integral_range(T first, T last, T increment)
     return integral_range<T>(first, last, increment);
 }
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/integral_range_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef RANGELIB_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace rangelib
+} /* namespace rangelib */
 # else
-} // namespace rangelib_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
+} /* namespace rangelib_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !RANGELIB_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !RANGELIB_INCL_RANGELIB_HPP_INTEGRAL_RANGE */
 

@@ -1,48 +1,50 @@
 /* /////////////////////////////////////////////////////////////////////////
  * File:        comstl/comstl.h
  *
- * Purpose:     Root header for the COMSTL libraries. Performs various compiler
+ * Purpose:     Root header for the COMSTL libraries. Performs compiler
  *              and platform discriminations, and definitions of types.
  *
  * Created:     15th January 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 #ifndef COMSTL_INCL_COMSTL_H_COMSTL
 #define COMSTL_INCL_COMSTL_H_COMSTL
-/** \brief Defined for backward-compatiblity
+/** Defined for backward-compatiblity
  *
  * This is the old header include guard, from when comstl.h was in the
  * STLSoft root include directory
@@ -53,13 +55,14 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define COMSTL_VER_COMSTL_H_COMSTL_MAJOR       3
 # define COMSTL_VER_COMSTL_H_COMSTL_MINOR       9
-# define COMSTL_VER_COMSTL_H_COMSTL_REVISION    2
-# define COMSTL_VER_COMSTL_H_COMSTL_EDIT        119
+# define COMSTL_VER_COMSTL_H_COMSTL_REVISION    8
+# define COMSTL_VER_COMSTL_H_COMSTL_EDIT        130
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \file comstl/comstl.h
  *
- * \brief [C, C++; requires COM] The root header for the \ref group__project__comstl "COMSTL" project.
+ * \brief [C, C++; requires COM] Root header for the
+ * \ref group__project__comstl "COMSTL" project.
  */
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -98,7 +101,7 @@
 
 /** \def _COMSTL_VER_MAJOR
  *
- * \brief The major version number of COMSTL
+ * The major version number of COMSTL
  *
  * This number is subject to increment when changes to COMSTL are so
  * substantial as to require wholesale changes to application code.
@@ -106,7 +109,7 @@
 
 /** \def _COMSTL_VER_MINOR
  *
- * \brief The minor version number of COMSTL
+ * The minor version number of COMSTL
  *
  * This number is subject to increment when changes to COMSTL as so
  * substantial as to require wholesale changes to application code.
@@ -114,12 +117,12 @@
 
 /** \def _COMSTL_VER_REVISION
  *
- * \brief The revision version number of COMSTL
+ * The revision version number of COMSTL
  */
 
 /** \def _COMSTL_VER
  *
- * \brief The current composite version number of COMSTL
+ * The current composite version number of COMSTL
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -150,20 +153,27 @@
 # define _COMSTL_VER_1_8_6      0x010806ff  /*!< Version 1.8.6 (with STLSoft 1.9.97) */
 # define _COMSTL_VER_1_9_1      0x010901ff  /*!< Version 1.9.1 (with STLSoft 1.9.98) */
 # define _COMSTL_VER_1_9_2      0x010902ff  /*!< Version 1.9.2 (with STLSoft 1.9.113) */
+# define _COMSTL_VER_1_10_1_B01 0x010a0181  /*!< Version 1.10.1 beta 1 (with STLSoft 1.10.1 beta 1) */
+# define _COMSTL_VER_1_10_1_B02 0x010a0182  /*!< Version 1.10.1 beta 2 (with STLSoft 1.10.1 beta 17) */
+# define _COMSTL_VER_1_10_1_B03 0x010a0183  /*!< Version 1.10.1 beta 3 (with STLSoft 1.10.1 beta 26) */
+# define _COMSTL_VER_1_10_1     0x010a01ff  /*!< Version 1.10.1 (with STLSoft 1.10.3) */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #define _COMSTL_VER_MAJOR       1
-#define _COMSTL_VER_MINOR       9
-#define _COMSTL_VER_REVISION    2
-#define _COMSTL_VER             _COMSTL_VER_1_9_2
+#define _COMSTL_VER_MINOR       10
+#define _COMSTL_VER_REVISION    1
+#define _COMSTL_VER             _COMSTL_VER_1_10_1
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #ifndef STLSOFT_INCL_H_OBJBASE
 # define STLSOFT_INCL_H_OBJBASE
@@ -185,16 +195,15 @@
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * STLSoft version compatibility
+ * STLSoft version compatibility check(s)
  */
 
-#if !defined(_STLSOFT_VER) || \
-    _STLSOFT_VER < 0x010971ff
-# error This version of the COMSTL libraries requires STLSoft version 1.9.113, or later
+#if _STLSOFT_VER < 0x010a019a
+# error This version of the COMSTL libraries requires STLSoft version 1.10.1 beta 26, or later
 #endif /* _STLSOFT_VER */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler compatibility
+ * compiler compatibility
  *
  * Currently the only compilers supported by the COMSTL libraries are
  *
@@ -263,12 +272,12 @@
 #endif /* compiler tag */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Contract Enforcement
+ * contract enforcement
  *
  * The macro comstl_assert provides standard debug-mode assert functionality.
  */
 
-/** \brief Defines a runtime assertion
+/** Defines a runtime assertion
  *
  * \ingroup group__project__comstl__assertion_macros
  *
@@ -276,7 +285,7 @@
  */
 #define COMSTL_ASSERT(expr)                 STLSOFT_ASSERT(expr)
 
-/** \brief Defines a runtime assertion, with message
+/** Defines a runtime assertion, with message
  *
  * \ingroup group__project__comstl__assertion_macros
  *
@@ -285,7 +294,7 @@
  */
 #define COMSTL_MESSAGE_ASSERT(msg, expr)    STLSOFT_MESSAGE_ASSERT(msg, expr)
 
-/** \brief Defines a compile-time assertion
+/** Defines a compile-time assertion
  *
  * \ingroup group__project__comstl__assertion_macros
  *
@@ -302,7 +311,7 @@
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler language feature support
+ * compiler language feature support
  */
 
 /* DCOM support
@@ -330,7 +339,7 @@
 #endif /* _WIN32_WINNT >= 0x0400 || _WIN32_DCOM */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The COMSTL components are contained within the comstl namespace. This is
  * usually an alias for stlsoft::comstl_project.
@@ -338,19 +347,19 @@
  * When compilers support namespaces they are defined by default. They can be
  * undefined using a cascasing system, as follows:
  *
- * If _STLSOFT_NO_NAMESPACES is defined, then _COMSTL_NO_NAMESPACES is defined.
+ * If STLSOFT_NO_NAMESPACES is defined, then COMSTL_NO_NAMESPACES is defined.
  *
- * If _COMSTL_NO_NAMESPACES is defined, then _COMSTL_NO_NAMESPACE is defined.
+ * If COMSTL_NO_NAMESPACES is defined, then COMSTL_NO_NAMESPACE is defined.
  *
- * If _COMSTL_NO_NAMESPACE is defined, then the COMSTL constructs are defined
+ * If COMSTL_NO_NAMESPACE is defined, then the COMSTL constructs are defined
  * in the global scope.
  *
- * If _STLSOFT_NO_NAMESPACES, _COMSTL_NO_NAMESPACES and _COMSTL_NO_NAMESPACE are
- * all undefined but the symbol _STLSOFT_NO_NAMESPACE is defined (whence the
+ * If STLSOFT_NO_NAMESPACES, COMSTL_NO_NAMESPACES and COMSTL_NO_NAMESPACE are
+ * all undefined but the symbol STLSOFT_NO_NAMESPACE is defined (whence the
  * namespace stlsoft does not exist), then the COMSTL constructs are defined
  * within the comstl namespace. The definition matrix is as follows:
  *
- * _STLSOFT_NO_NAMESPACE    _COMSTL_NO_NAMESPACE    comstl definition
+ * STLSOFT_NO_NAMESPACE     COMSTL_NO_NAMESPACE     comstl definition
  * ---------------------    --------------------    -----------------
  *  not defined              not defined             = stlsoft::comstl_project
  *  not defined              defined                 not defined
@@ -359,53 +368,99 @@
  *
  *
  *
- * The macro comstl_ns_qual() macro can be used to refer to elements in the
+ * The macro COMSTL_NS_QUAL() macro can be used to refer to elements in the
  * COMSTL libraries irrespective of whether they are in the
  * stlsoft::comstl_project (or comstl) namespace or in the global namespace.
  *
  * Furthermore, some compilers do not support the standard library in the std
- * namespace, so the comstl_ns_qual_std() macro can be used to refer to elements
- * in the COMSTL libraries irrespective of whether they are in the std namespace
+ * namespace, so the STLSOFT_NS_QUAL_STD() macro can be used to refer to elements
+ * in the standard library irrespective of whether they are in the std namespace
  * or in the global namespace.
  */
 
-/* No STLSoft namespaces means no COMSTL namespaces */
-#ifdef _STLSOFT_NO_NAMESPACES
-# define _COMSTL_NO_NAMESPACES
-#endif /* _STLSOFT_NO_NAMESPACES */
+/* /////////////////////////////////////
+ * obsolete preprocessor symbol detection
+ */
 
-/* No COMSTL namespaces means no comstl namespace */
 #ifdef _COMSTL_NO_NAMESPACES
-# define _COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _COMSTL_NO_NAMESPACES. This symbol is now deprecated, and may be ignored by a future release : instead define COMSTL_NO_NAMESPACES")
+# endif
+# if !defined(COMSTL_NO_NAMESPACES)
+#  define COMSTL_NO_NAMESPACES
+# endif /* !COMSTL_NO_NAMESPACES */
 #endif /* _COMSTL_NO_NAMESPACES */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifdef _COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _COMSTL_NO_NAMESPACE. This symbol is now deprecated, and may be ignored by a future release : instead define COMSTL_NO_NAMESPACE")
+# endif
+# if !defined(COMSTL_NO_NAMESPACE)
+#  define COMSTL_NO_NAMESPACE
+# endif /* !COMSTL_NO_NAMESPACE */
+#endif /* _COMSTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////
+ * namespace support discrimination
+ */
+
+/* No STLSoft namespaces means no COMSTL namespaces */
+#ifdef STLSOFT_NO_NAMESPACES
+# define COMSTL_NO_NAMESPACES
+#endif /* STLSOFT_NO_NAMESPACES */
+
+/* No COMSTL namespaces means no comstl namespace */
+#ifdef COMSTL_NO_NAMESPACES
+# define COMSTL_NO_NAMESPACE
+#endif /* COMSTL_NO_NAMESPACES */
+
+#ifdef COMSTL_NO_NAMESPACES
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_COMSTL_NO_NAMESPACES)
+#   define _COMSTL_NO_NAMESPACES
+#  endif /* !_COMSTL_NO_NAMESPACES */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* COMSTL_NO_NAMESPACES */
+
+#ifdef COMSTL_NO_NAMESPACE
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_COMSTL_NO_NAMESPACE)
+#   define _COMSTL_NO_NAMESPACE
+#  endif /* !_COMSTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* COMSTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////
+ * declaration '*stl*' namespace
+ */
+
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::comstl */
-/** \brief The <code class="namespace">comstl</code> namespace contains all components
+/** The \c comstl namespace contains all components
  *   in the \ref group__project__comstl "COMSTL" project.
  *
- * By default, the <code>comstl</code> namespace is actually an alias for
+ * By default, the \c comstl namespace is actually an alias for
  * the namespace <code>stlsoft::comstl_project</code>, which is where all
  * the \ref group__project__comstl "COMSTL" components actually reside. This
  * measure allows all components within the main the
  * \ref group__project__stlsoft "STLSoft" project (which are defined within
- * the <code>stlsoft</code> namespace) to be visible to all components
- * "within" the <code>comstl</code> namespace. (Otherwise, there would be a
+ * the \c stlsoft namespace) to be visible to all components
+ * "within" the \c comstl namespace. (Otherwise, there would be a
  * whole lot of onerous qualification throughout the code of all
  * \ref group__projects "sub-projects".)
  *
- * \note If either/both of the symbols <code>_STLSOFT_NO_NAMESPACES</code>
- * and <code>_COMSTL_NO_NAMESPACE</code> are defined, all
+ * \note If either/both of the symbols \c STLSOFT_NO_NAMESPACES
+ * and \c COMSTL_NO_NAMESPACE are defined, all
  * \ref group__project__comstl "COMSTL" components will be defined in the
- * global namespace. Conversely, if the <code>_STLSOFT_NO_NAMESPACE</code>
+ * global namespace. Conversely, if the \c STLSOFT_NO_NAMESPACE
  * symbol (not to be confused with the
- * <code>_STLSOFT_NO_NAMESPACES</code> symbol!) is defined - meaning that
+ * \c STLSOFT_NO_NAMESPACES symbol!) is defined - meaning that
  * all \ref group__project__stlsoft "main project" components are to be
- * defined in the global namespace, and <code>_COMSTL_NO_NAMESPACE</code>
+ * defined in the global namespace, and \c COMSTL_NO_NAMESPACE
  * is <b>not</b> defined, then all \ref group__project__comstl "COMSTL"
- * components will be defined within a bona fide <code>comstl</code>
+ * components will be defined within a bona fide \c comstl
  * namespace.
  *
  * \note This is a vestige of compatibility with compilers with
@@ -417,49 +472,40 @@ namespace comstl
 {
 # else
 /* Define stlsoft::comstl_project */
-
 namespace stlsoft
 {
-
 namespace comstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
 #else
-stlsoft_ns_using(move_lhs_from_rhs)
-#endif /* !_COMSTL_NO_NAMESPACE */
+STLSOFT_NS_USING(move_lhs_from_rhs)
+#endif /* !COMSTL_NO_NAMESPACE */
 
-/** \def comstl_ns_qual(x)
+/** \def COMSTL_NS_QUAL(x)
  * Qualifies with <b>comstl::</b> if COMSTL is using namespaces or, if not, does not qualify
  */
 
-/** \def comstl_ns_using(x)
+/** \def COMSTL_NS_USING(x)
  * Declares a using directive (with respect to <b>comstl</b>) if COMSTL is using namespaces or, if not, does nothing
  */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# define comstl_ns_qual(x)          ::comstl::x
-# define comstl_ns_using(x)         using ::comstl::x;
-#else /* ? _COMSTL_NO_NAMESPACE */
-# define comstl_ns_qual(x)          x
-# define comstl_ns_using(x)
-#endif /* !_COMSTL_NO_NAMESPACE */
+#ifndef COMSTL_NO_NAMESPACE
+# define COMSTL_NS_QUAL(x)          ::comstl::x
+# define COMSTL_NS_USING(x)         using ::comstl::x;
+#else /* ? COMSTL_NO_NAMESPACE */
+# define COMSTL_NS_QUAL(x)          x
+# define COMSTL_NS_USING(x)
+#endif /* !COMSTL_NO_NAMESPACE */
 
-/** \def comstl_ns_qual_std(x)
- * Qualifies with <b>std::</b> if COMSTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does not qualify
- */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define comstl_ns_qual(x)                                  COMSTL_NS_QUAL(x)
+# define comstl_ns_using(x)                                 COMSTL_NS_USING(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
-/** \def comstl_ns_using_std(x)
- * Declares a using directive (with respect to <b>std</b>) if COMSTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does nothing
- */
-
-#ifdef STLSOFT_CF_std_NAMESPACE
-# define comstl_ns_qual_std(x)      ::std::x
-# define comstl_ns_using_std(x)     using ::std::x;
-#else /* ? STLSOFT_CF_std_NAMESPACE */
-# define comstl_ns_qual_std(x)      x
-# define comstl_ns_using_std(x)
-#endif /* !STLSOFT_CF_std_NAMESPACE */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define comstl_ns_qual_std(x)                              STLSOFT_NS_QUAL_STD(x)
+# define comstl_ns_using_std(x)                             STLSOFT_NS_USING_STD(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
 /* /////////////////////////////////////////////////////////////////////////
  * Language agnostic macros.
@@ -469,7 +515,7 @@ stlsoft_ns_using(move_lhs_from_rhs)
  *
  * \ingroup group__project__comstl__language_agnostic_macros
  *
- * \brief Resolves to <b>p->lpVtbl</b> for C compilation, and to <b>p</b> in C++
+ * Resolves to <b>p->lpVtbl</b> for C compilation, and to <b>p</b> in C++
  *
  * \see COMSTL_ITF_THIS, COMSTL_ITF_THIS0, COMSTL_IID_2_REF, COMSTL_REF_2_PTR
  */
@@ -484,7 +530,7 @@ stlsoft_ns_using(move_lhs_from_rhs)
  *
  * \ingroup group__project__comstl__language_agnostic_macros
  *
- * \brief Resolves to <b>p,</b> for C compilation, and to nothing in C++
+ * Resolves to <b>p,</b> for C compilation, and to nothing in C++
  *
  * \see COMSTL_ITF_CALL, COMSTL_ITF_THIS0, COMSTL_IID_2_REF, COMSTL_REF_2_PTR
  */
@@ -499,7 +545,7 @@ stlsoft_ns_using(move_lhs_from_rhs)
  *
  * \ingroup group__project__comstl__language_agnostic_macros
  *
- * \brief Resolves to <b>p</b> for C compilation, and to nothing in C++
+ * Resolves to <b>p</b> for C compilation, and to nothing in C++
  *
  * \see COMSTL_ITF_CALL, COMSTL_ITF_THIS, COMSTL_IID_2_REF, COMSTL_REF_2_PTR
  */
@@ -514,7 +560,7 @@ stlsoft_ns_using(move_lhs_from_rhs)
  *
  * \ingroup group__project__comstl__language_agnostic_macros
  *
- * \brief Resolves to <b>&iid</b> for C compilation, and to <b>iid</b> in C++
+ * Resolves to <b>&iid</b> for C compilation, and to <b>iid</b> in C++
  *
  * \see COMSTL_ITF_CALL, COMSTL_ITF_THIS, COMSTL_ITF_THIS0, COMSTL_REF_2_PTR
  */
@@ -529,7 +575,7 @@ stlsoft_ns_using(move_lhs_from_rhs)
  *
  * \ingroup group__project__comstl__language_agnostic_macros
  *
- * \brief Resolves to <b>iid</b> for C compilation, and to <b>&iid</b> in C++
+ * Resolves to <b>iid</b> for C compilation, and to <b>&iid</b> in C++
  *
  * \see COMSTL_ITF_CALL, COMSTL_ITF_THIS, COMSTL_ITF_THIS0, COMSTL_PTR_2_REF
  */
@@ -544,7 +590,7 @@ stlsoft_ns_using(move_lhs_from_rhs)
  *
  * \ingroup group__project__comstl__language_agnostic_macros
  *
- * \brief Resolves to <b>piid</b> for C compilation, and to <b>*piid</b> in C++
+ * Resolves to <b>piid</b> for C compilation, and to <b>*piid</b> in C++
  *
  * \see COMSTL_ITF_CALL, COMSTL_ITF_THIS, COMSTL_ITF_THIS0, COMSTL_REF_2_PTR
  */
@@ -562,38 +608,139 @@ stlsoft_ns_using(move_lhs_from_rhs)
 # endif /* COMSTL_VARIANT_UNION_ARMS_HAVE_NAMES_ */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-#if !defined(COMSTL_ASSUME_VARIANT_UNION_FORCE_ARMS_HAVE_NAMES) && \
-    defined(_FORCENAMELESSUNION) && \
-    !defined(NONAMELESSUNION)
+/** \def COMSTL_ASSUME_VARIANT_UNION_FORCE_ARMS_HAVE_NAMES
+ *
+ * Define this to enforce COM unions having arms.
+ *
+ * An alternative to the general \c _FORCENAMELESSUNION
+ */
+
+#if 1 && \
+    !defined(COMSTL_ASSUME_VARIANT_UNION_FORCE_ARMS_HAVE_NAMES) && \
+    !defined(_FORCENAMELESSUNION) && \
+    defined(NONAMELESSUNION) && \
+    1
+
 # define COMSTL_ASSUME_VARIANT_UNION_FORCE_ARMS_HAVE_NAMES
-#endif /* !COMSTL_ASSUME_VARIANT_UNION_FORCE_ARMS_HAVE_NAMES) && _FORCENAMELESSUNION */
+#endif
 
 
-#if defined(COMSTL_ASSUME_VARIANT_UNION_FORCE_ARMS_HAVE_NAMES)
+#if 0
+#elif defined(_FORCENAMELESSUNION)
+
+#elif defined(COMSTL_ASSUME_VARIANT_UNION_FORCE_ARMS_HAVE_NAMES)
+
 # define COMSTL_VARIANT_UNION_ARMS_HAVE_NAMES_
-#elif defined(STLSOFT_COMPILER_IS_GCC)
-   /* GCC has different definitions to the other compilers, so have to treat
-    * differently
-    */
-# if defined(NONAMELESSUNION)
+#else
+
+ /* The observed extant discriminations are:
+  *
+  * 1 (VC++ 6):
+  *
+  *  (__STDC__ && !defined(_FORCENAMELESSUNION)) || defined(NONAMELESSUNION)
+  *
+  * 2 (*):
+  *
+  *  (__STDC__ && !defined(_FORCENAMELESSUNION)) || defined(NONAMELESSUNION) || (!defined(_MSC_EXTENSIONS) && !defined(_FORCENAMELESSUNION))
+  *
+  * 3 (MinGW GCC 4.9):
+  *
+  *  NONAMELESSUNION
+  *
+  * 4 (MinGW GCC 8.1):
+  *
+  *  (__STDC__ && !defined(__cplusplus) && !defined(_FORCENAMELESSUNION)) || defined(NONAMELESSUNION) || (defined (_MSC_VER) && !defined(_MSC_EXTENSIONS) && !defined(_FORCENAMELESSUNION))
+  *
+  * which may be better understood as:
+  *
+  * 1 (VC++ 6):
+
+    0 ||
+
+    defined(NONAMELESSUNION) ||
+
+    (  __STDC__ && \
+        !defined(_FORCENAMELESSUNION)) ||
+
+    0
+  *
+  * 2 (*):
+
+    0 ||
+
+    defined(NONAMELESSUNION) ||
+
+    (   __STDC__ &&
+        !defined(_FORCENAMELESSUNION)) ||
+
+    (   !defined(_MSC_EXTENSIONS) &&
+        !defined(_FORCENAMELESSUNION)) ||
+
+    0
+  *
+  * 3 (MinGW GCC 4.9):
+
+    0 ||
+
+    defined(NONAMELESSUNION) ||
+
+    0
+
+  * 4 (MinGW GCC 8.1):
+
+
+    0 ||
+
+    defined(NONAMELESSUNION) ||
+
+    (   __STDC__ &&
+        !defined(__cplusplus) &&
+        !defined(_FORCENAMELESSUNION)) ||
+
+    (   defined (_MSC_VER) &&
+        !defined(_MSC_EXTENSIONS) &&
+        !defined(_FORCENAMELESSUNION)) ||
+
+    0
+  */
+
+# if 0
+# elif defined(NONAMELESSUNION)
+
 #  define COMSTL_VARIANT_UNION_ARMS_HAVE_NAMES_
-# endif /* NONAMELESSUNION */
-#else /* ? compiler */
-   /* Other compilers use the MS headers, which test against __STDC__,
-    * _FORCENAMELESSUNION and NONAMELESSUNION
-    */
-# if (  __STDC__ && \
-        !defined(_FORCENAMELESSUNION)) || \
-     defined(NONAMELESSUNION)
+# elif defined(STLSOFT_COMPILER_IS_GCC)
+
+#  if STLSOFT_GCC_VER >= 80000 /* NOTE: this number may be wrong - too large, but still old way with 4.9 */
+
+#   if 0
+#   elif __STDC__ && \
+         !defined(__cplusplus) && \
+         !defined(_FORCENAMELESSUNION)
+
+#    define COMSTL_VARIANT_UNION_ARMS_HAVE_NAMES_
+#   elif defined(_MSC_VER) && \
+         !defined(_MSC_EXTENSIONS) && \
+         !defined(_FORCENAMELESSUNION)
+
+#    define COMSTL_VARIANT_UNION_ARMS_HAVE_NAMES_
+#   endif /* ? GCC version */
+#  endif
+# elif __STDC__ && \
+       defined(_FORCENAMELESSUNION)
+
 #  define COMSTL_VARIANT_UNION_ARMS_HAVE_NAMES_
-# endif /* (  __STDC__ && !_FORCENAMELESSUNION) || NONAMELESSUNION */
-#endif /* compiler */
+# elif !defined(_MSC_EXTENSIONS) && \
+       !defined(_FORCENAMELESSUNION)
+
+#  define COMSTL_VARIANT_UNION_ARMS_HAVE_NAMES_
+# endif
+#endif
 
 /** \def COMSTL_ACCESS_VARIANT_MEM_BYPTR(pvar, mem)
  *
  * \ingroup group__project__comstl__language_agnostic_macros
  *
- * \brief TBC
+ *
  */
 # if defined(STLSOFT_DOCUMENTATION_SKIP_SECTION) || \
      !defined(COMSTL_VARIANT_UNION_ARMS_HAVE_NAMES_)
@@ -623,7 +770,7 @@ stlsoft_ns_using(move_lhs_from_rhs)
  *
  * \ingroup group__project__comstl__language_agnostic_macros
  *
- * \brief TBC
+ *
  */
 
 # if defined(STLSOFT_DOCUMENTATION_SKIP_SECTION) || \
@@ -654,7 +801,7 @@ stlsoft_ns_using(move_lhs_from_rhs)
  *
  * \ingroup group__project__comstl__language_agnostic_macros
  *
- * \brief TBC
+ *
  */
 # if defined(STLSOFT_DOCUMENTATION_SKIP_SECTION) || \
      !defined(COMSTL_VARIANT_UNION_ARMS_HAVE_NAMES_)
@@ -667,12 +814,12 @@ stlsoft_ns_using(move_lhs_from_rhs)
  *
  * \ingroup group__project__comstl__language_agnostic_macros
  *
- * \brief TBC
+ *
  */
 #define COMSTL_ACCESS_VARIANT_decVal_BYREF(var)         COMSTL_ACCESS_VARIANT_decVal_BYPTR(&(var))
 
 /* /////////////////////////////////////////////////////////////////////////
- * Typedefs
+ * typedefs
  *
  * The COMSTL uses a number of typedefs to aid in compiler-independence in the
  * libraries' main code.
@@ -680,43 +827,43 @@ stlsoft_ns_using(move_lhs_from_rhs)
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-typedef stlsoft_ns_qual(ss_char_a_t)        cs_char_a_t;    /*!< Ansi char type             */
-typedef stlsoft_ns_qual(ss_char_w_t)        cs_char_w_t;    /*!< Unicode char type          */
+typedef STLSOFT_NS_QUAL(ss_char_a_t)        cs_char_a_t;    /*!< Ansi char type             */
+typedef STLSOFT_NS_QUAL(ss_char_w_t)        cs_char_w_t;    /*!< Unicode char type          */
 typedef OLECHAR                             cs_char_o_t;    /*!< COM char type              */
-typedef stlsoft_ns_qual(ss_sint8_t)         cs_sint8_t;     /*!< 8-bit signed integer       */
-typedef stlsoft_ns_qual(ss_uint8_t)         cs_uint8_t;     /*!< 8-bit unsigned integer     */
-typedef stlsoft_ns_qual(ss_int16_t)         cs_int16_t;     /*!< 16-bit integer             */
-typedef stlsoft_ns_qual(ss_sint16_t)        cs_sint16_t;    /*!< 16-bit signed integer      */
-typedef stlsoft_ns_qual(ss_uint16_t)        cs_uint16_t;    /*!< 16-bit unsigned integer    */
-typedef stlsoft_ns_qual(ss_int32_t)         cs_int32_t;     /*!< 32-bit integer             */
-typedef stlsoft_ns_qual(ss_sint32_t)        cs_sint32_t;    /*!< 32-bit signed integer      */
-typedef stlsoft_ns_qual(ss_uint32_t)        cs_uint32_t;    /*!< 32-bit unsigned integer    */
+typedef STLSOFT_NS_QUAL(ss_sint8_t)         cs_sint8_t;     /*!< 8-bit signed integer       */
+typedef STLSOFT_NS_QUAL(ss_uint8_t)         cs_uint8_t;     /*!< 8-bit unsigned integer     */
+typedef STLSOFT_NS_QUAL(ss_int16_t)         cs_int16_t;     /*!< 16-bit integer             */
+typedef STLSOFT_NS_QUAL(ss_sint16_t)        cs_sint16_t;    /*!< 16-bit signed integer      */
+typedef STLSOFT_NS_QUAL(ss_uint16_t)        cs_uint16_t;    /*!< 16-bit unsigned integer    */
+typedef STLSOFT_NS_QUAL(ss_int32_t)         cs_int32_t;     /*!< 32-bit integer             */
+typedef STLSOFT_NS_QUAL(ss_sint32_t)        cs_sint32_t;    /*!< 32-bit signed integer      */
+typedef STLSOFT_NS_QUAL(ss_uint32_t)        cs_uint32_t;    /*!< 32-bit unsigned integer    */
 #ifdef STLSOFT_CF_64BIT_INT_SUPPORT
-typedef stlsoft_ns_qual(ss_int64_t)         cs_int64_t;     /*!< 64-bit integer             */
-typedef stlsoft_ns_qual(ss_sint64_t)        cs_sint64_t;    /*!< 64-bit signed integer      */
-typedef stlsoft_ns_qual(ss_uint64_t)        cs_uint64_t;    /*!< 64-bit unsigned integer    */
+typedef STLSOFT_NS_QUAL(ss_int64_t)         cs_int64_t;     /*!< 64-bit integer             */
+typedef STLSOFT_NS_QUAL(ss_sint64_t)        cs_sint64_t;    /*!< 64-bit signed integer      */
+typedef STLSOFT_NS_QUAL(ss_uint64_t)        cs_uint64_t;    /*!< 64-bit unsigned integer    */
 #endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
-typedef stlsoft_ns_qual(ss_int_t)           cs_int_t;       /*!< integer                    */
-typedef stlsoft_ns_qual(ss_sint_t)          cs_sint_t;      /*!< signed integer             */
-typedef stlsoft_ns_qual(ss_uint_t)          cs_uint_t;      /*!< unsigned integer           */
-typedef stlsoft_ns_qual(ss_long_t)          cs_long_t;      /*!< long                       */
+typedef STLSOFT_NS_QUAL(ss_int_t)           cs_int_t;       /*!< integer                    */
+typedef STLSOFT_NS_QUAL(ss_sint_t)          cs_sint_t;      /*!< signed integer             */
+typedef STLSOFT_NS_QUAL(ss_uint_t)          cs_uint_t;      /*!< unsigned integer           */
+typedef STLSOFT_NS_QUAL(ss_long_t)          cs_long_t;      /*!< long                       */
 #if defined(__cplusplus)
-typedef stlsoft_ns_qual(ss_bool_t)          cs_bool_t;      /*!< bool                       */
+typedef STLSOFT_NS_QUAL(ss_bool_t)          cs_bool_t;      /*!< bool                       */
 #endif /* __cplusplus */
 typedef DWORD                               cs_dword_t;     /*!< dword                      */
-typedef stlsoft_ns_qual(ss_size_t)          cs_size_t;      /*!< size                       */
-typedef stlsoft_ns_qual(ss_ptrdiff_t)       cs_ptrdiff_t;   /*!< ptr diff                   */
-typedef stlsoft_ns_qual(ss_streampos_t)     cs_streampos_t; /*!< streampos                  */
-typedef stlsoft_ns_qual(ss_streamoff_t)     cs_streamoff_t; /*!< streamoff                  */
+typedef STLSOFT_NS_QUAL(ss_size_t)          cs_size_t;      /*!< size                       */
+typedef STLSOFT_NS_QUAL(ss_ptrdiff_t)       cs_ptrdiff_t;   /*!< ptr diff                   */
+typedef STLSOFT_NS_QUAL(ss_streampos_t)     cs_streampos_t; /*!< streampos                  */
+typedef STLSOFT_NS_QUAL(ss_streamoff_t)     cs_streamoff_t; /*!< streamoff                  */
 #ifdef _WIN64
-typedef stlsoft_ns_qual(ss_sint64_t)        cs_sptrint_t;
-typedef stlsoft_ns_qual(ss_uint64_t)        cs_uptrint_t;
+typedef STLSOFT_NS_QUAL(ss_sint64_t)        cs_sptrint_t;
+typedef STLSOFT_NS_QUAL(ss_uint64_t)        cs_uptrint_t;
 #else /* ? _WIN64 */
-typedef stlsoft_ns_qual(ss_sint32_t)        cs_sptrint_t;
-typedef stlsoft_ns_qual(ss_uint32_t)        cs_uptrint_t;
+typedef STLSOFT_NS_QUAL(ss_sint32_t)        cs_sptrint_t;
+typedef STLSOFT_NS_QUAL(ss_uint32_t)        cs_uptrint_t;
 #endif /* _WIN64 */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 typedef cs_char_a_t         char_a_t;           /*!< Ansi char type             */
 typedef cs_char_w_t         char_w_t;           /*!< Unicode char type          */
 typedef cs_char_o_t         char_o_t;           /*!< COM char type              */
@@ -747,12 +894,12 @@ typedef cs_streamoff_t      streamoff_t;        /*!< streamoff                  
 # endif /* compiler */
 typedef cs_sptrint_t        sptrint_t;
 typedef cs_uptrint_t        uptrint_t;
-#endif /* !_STLSOFT_NO_NAMESPACE */
+#endif /* !STLSOFT_NO_NAMESPACE */
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Values
+ * values
  *
  * Since the boolean type may not be supported natively on all compilers, the
  * values of true and false may also not be provided. Hence the values of
@@ -761,23 +908,23 @@ typedef cs_uptrint_t        uptrint_t;
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-#define cs_true_v       ss_true_v
-#define cs_false_v      ss_false_v
+#define cs_true_v                                           ss_true_v
+#define cs_false_v                                          ss_false_v
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Constants
+ * constants
  */
 
 #ifdef __cplusplus
 const cs_size_t COMSTL_CCH_GUID     =   38;
 #else /* ? __cplusplus */
-# define COMSTL_CCH_GUID            (38u)
+# define COMSTL_CCH_GUID                                    (38u)
 #endif /* __cplusplus */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Code modification macros
+ * code modification macros
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -798,13 +945,13 @@ const cs_size_t COMSTL_CCH_GUID     =   38;
 # define comstl_num_elements(ar)                        COMSTL_NUM_ELEMENTS(ar)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
+/** [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_DESTROY_INSTANCE().
  */
 #define comstl_destroy_instance(t, type, p)             STLSOFT_DESTROY_INSTANCE(t, type, p)
 
-/** \brief [DEPRECATED] Generates an opaque type with the name \c _htype
+/** [DEPRECATED] Generates an opaque type with the name \c _htype
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_GEN_OPAQUE().
  */
@@ -812,19 +959,19 @@ const cs_size_t COMSTL_CCH_GUID     =   38;
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 } /* namespace comstl */
 # else
 } /* namespace comstl_project */
 } /* namespace stlsoft */
 namespace comstl = ::stlsoft::comstl_project;
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Inclusion
+ * inclusion control
  */
 
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
@@ -833,7 +980,7 @@ namespace comstl = ::stlsoft::comstl_project;
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#endif /* COMSTL_INCL_COMSTL_H_COMSTL */
+#endif /* !COMSTL_INCL_COMSTL_H_COMSTL */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

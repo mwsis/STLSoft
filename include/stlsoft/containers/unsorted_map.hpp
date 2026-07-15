@@ -4,46 +4,48 @@
  * Purpose:     An associative container that maintains the order of element insertion.
  *
  * Created:     12th February 2006
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/containers/unsorted_map.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::unsorted_map container
+ * \brief [C++] Definition of the stlsoft::unsorted_map container
  *   class template
- *   (\ref group__library__containers "Containers" Library).
+ *   (\ref group__library__Container "Container" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_CONTAINERS_HPP_UNSORTED_MAP
@@ -52,8 +54,8 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_UNSORTED_MAP_MAJOR      1
 # define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_UNSORTED_MAP_MINOR      3
-# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_UNSORTED_MAP_REVISION   2
-# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_UNSORTED_MAP_EDIT       21
+# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_UNSORTED_MAP_REVISION   7
+# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_UNSORTED_MAP_EDIT       34
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -67,18 +69,22 @@ STLSOFT_COMPILER_IS_BORLAND:
  */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_COLLECTIONS_UTIL_HPP_COLLECTIONS
 # include <stlsoft/collections/util/collections.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_COLLECTIONS_UTIL_HPP_COLLECTIONS */
-#ifndef STLSOFT_INCL_STLSOFT_MEMORY_HPP_ALLOCATOR_SELECTOR
-# include <stlsoft/memory/allocator_selector.hpp>
-#endif /* !STLSOFT_INCL_STLSOFT_MEMORY_HPP_ALLOCATOR_SELECTOR */
+#ifndef STLSOFT_INCL_STLSOFT_MEMORY_UTIL_HPP_ALLOCATOR_SELECTOR
+# include <stlsoft/memory/util/allocator_selector.hpp>
+#endif /* !STLSOFT_INCL_STLSOFT_MEMORY_UTIL_HPP_ALLOCATOR_SELECTOR */
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER
 # include <stlsoft/util/std/iterator_helper.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER */
@@ -106,27 +112,23 @@ STLSOFT_COMPILER_IS_BORLAND:
 # include <vector>
 #endif /* !STLSOFT_INCL_VECTOR */
 
-#ifdef STLSOFT_UNITTEST
-# include <string>
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief An associative container that maintains the order of element
+/** An associative container that maintains the order of element
  *   insertion.
  *
- * \ingroup group__library__containers
+ * \ingroup group__library__Container
  *
  * \param K The container key type
  * \param T The container mapped type
@@ -139,28 +141,28 @@ namespace stlsoft
  */
 template<   ss_typename_param_k K
         ,   ss_typename_param_k T
-        ,   ss_typename_param_k P   =   stlsoft_ns_qual_std(less)<K>
+        ,   ss_typename_param_k P   =   STLSOFT_NS_QUAL_STD(less)<K>
         ,   ss_typename_param_k A   =   ss_typename_type_def_k allocator_selector<T>::allocator_type
         >
 class unsorted_map
     : public stl_collection_tag
 {
 public:
-    /// \brief The key type
+    /// The key type
     typedef K                                                               key_type;
-    /// \brief The mapped type
+    /// The mapped type
     typedef T                                                               mapped_type;
-    /// \brief The predicate type
+    /// The predicate type
     typedef P                                                               key_compare;
-    /// \brief The value type
-    typedef stlsoft_ns_qual_std(pair)<const K, T>                           value_type;
-    /// \brief The allocator type
+    /// The value type
+    typedef STLSOFT_NS_QUAL_STD(pair)<const K, T>                           value_type;
+    /// The allocator type
     typedef A                                                               allocator_type;
-    /// \brief This type
+    /// This type
     typedef unsorted_map<K, T, P, A>                                        class_type;
 private:
-    typedef stlsoft_ns_qual_std(pair)<K, T>                                 internal_value_type_;
-    typedef stlsoft_ns_qual_std(vector)<internal_value_type_
+    typedef STLSOFT_NS_QUAL_STD(pair)<K, T>                                 internal_value_type_;
+    typedef STLSOFT_NS_QUAL_STD(vector)<internal_value_type_
                                     ,   ss_typename_type_k allocator_selector<internal_value_type_>::allocator_type
                                     >                                       container_type_;
 public:
@@ -178,13 +180,13 @@ public:
     typedef ss_typename_type_k iterator_gen_::type                          iterator;
     typedef ss_typename_type_k const_iterator_gen_::type                    const_iterator;
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
-    typedef stlsoft_ns_qual(const_reverse_iterator_base)<   iterator
+    typedef STLSOFT_NS_QUAL(const_reverse_iterator_base)<   iterator
                                                         ,   value_type
                                                         ,   reference
                                                         ,   pointer
                                                         ,   difference_type
                                                         >                   reverse_iterator;
-    typedef stlsoft_ns_qual(const_reverse_iterator_base)<   const_iterator
+    typedef STLSOFT_NS_QUAL(const_reverse_iterator_base)<   const_iterator
                                                         ,   value_type
                                                         ,   const_reference
                                                         ,   const_pointer
@@ -193,7 +195,7 @@ public:
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
 
 public:
-    /// \brief The number of elements in the map
+    /// The number of elements in the map
     size_type   size() const
     {
         return m_elements.size();
@@ -283,11 +285,11 @@ public:
     {
         ss_typename_type_k container_type_::iterator    it;
 
-        it = stlsoft_ns_qual_std(find)( member_selector(m_elements.begin(), &internal_value_type_::first)
+        it = STLSOFT_NS_QUAL_STD(find)( member_selector(m_elements.begin(), &internal_value_type_::first)
                                     ,   member_selector(m_elements.end(), &internal_value_type_::first)
                                     ,   key).base();
 
-        if(m_elements.end() != it)
+        if (m_elements.end() != it)
         {
             m_elements.erase(it);
 
@@ -306,11 +308,11 @@ public:
     {
         ss_typename_type_k container_type_::iterator    it;
 
-        it = stlsoft_ns_qual_std(find)( member_selector(m_elements.begin(), &internal_value_type_::first)
+        it = STLSOFT_NS_QUAL_STD(find)( member_selector(m_elements.begin(), &internal_value_type_::first)
                                     ,   member_selector(m_elements.end(), &internal_value_type_::first)
                                     ,   key).base();
 
-        if(m_elements.end() == it)
+        if (m_elements.end() == it)
         {
             m_elements.push_back(value_type(key, value));
         }
@@ -324,21 +326,19 @@ private:
     container_type_ m_elements;
 };
 
+/* ////////////////////////////////////////////////////////////////////// */
+
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Unit-testing
+ * inclusion control
  */
 
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/unsorted_map_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
-/* ////////////////////////////////////////////////////////////////////// */
-
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
-
-/* ////////////////////////////////////////////////////////////////////// */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_CONTAINERS_HPP_UNSORTED_MAP */
 

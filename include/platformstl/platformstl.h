@@ -5,11 +5,11 @@
  *              platform discriminations, and definitions of types.
  *
  * Created:     20th March 2005
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -22,9 +22,10 @@
  * - Redistributions in binary form must reproduce the above copyright
  *   notice, this list of conditions and the following disclaimer in the
  *   documentation and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the
- *   names of any contributors may be used to endorse or promote products
- *   derived from this software without specific prior written permission.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
  * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
@@ -47,9 +48,9 @@
 /* File version */
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define PLATFORMSTL_VER_PLATFORMSTL_H_PLATFORMSTL_MAJOR    1
-# define PLATFORMSTL_VER_PLATFORMSTL_H_PLATFORMSTL_MINOR    14
-# define PLATFORMSTL_VER_PLATFORMSTL_H_PLATFORMSTL_REVISION 5
-# define PLATFORMSTL_VER_PLATFORMSTL_H_PLATFORMSTL_EDIT     45
+# define PLATFORMSTL_VER_PLATFORMSTL_H_PLATFORMSTL_MINOR    15
+# define PLATFORMSTL_VER_PLATFORMSTL_H_PLATFORMSTL_REVISION 6
+# define PLATFORMSTL_VER_PLATFORMSTL_H_PLATFORMSTL_EDIT     58
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \file platformstl/platformstl.h
@@ -126,32 +127,39 @@
 # define _PLATFORMSTL_VER_1_8_2     0x010802ff  /*!< Version 1.8.2 (with STLSoft 1.9.90) */
 # define _PLATFORMSTL_VER_1_8_3     0x010803ff  /*!< Version 1.8.3 (with STLSoft 1.9.110) */
 # define _PLATFORMSTL_VER_1_8_4     0x010804ff  /*!< Version 1.8.4 (with STLSoft 1.9.119) */
-# define _PLATFORMSTL_VER_1_8_5     0x010805ff  /*!< Version 1.8.5 (with STLSoft 1.9.132) */
+# define _PLATFORMSTL_VER_1_9_1_B01 0x01090181  /*!< Version 1.9.1 beta 1 (with STLSoft 1.10.1 beta 1) */
+# define _PLATFORMSTL_VER_1_9_1_B02 0x01090182  /*!< Version 1.9.1 beta 2 (with STLSoft 1.10.1 beta 16) */
+# define _PLATFORMSTL_VER_1_9_1_B03 0x01090183  /*!< Version 1.9.1 beta 3 (with STLSoft 1.10.1 beta 23) */
+# define _PLATFORMSTL_VER_1_9_1_B04 0x01090184  /*!< Version 1.9.1 beta 4 (with STLSoft 1.10.1 beta 26) */
+# define _PLATFORMSTL_VER_1_9_2     0x010902ff  /*!< Version 1.9.2 (with STLSoft 1.10.5) */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #define _PLATFORMSTL_VER_MAJOR      1
-#define _PLATFORMSTL_VER_MINOR      8
-#define _PLATFORMSTL_VER_REVISION   5
-#define _PLATFORMSTL_VER            _PLATFORMSTL_VER_1_8_5
+#define _PLATFORMSTL_VER_MINOR      9
+#define _PLATFORMSTL_VER_REVISION   2
+#define _PLATFORMSTL_VER            _PLATFORMSTL_VER_1_9_2
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * STLSoft version compatibility
+ * STLSoft version compatibility check(s)
  */
 
-#if _STLSOFT_VER < 0x010984ff
-# error This version of the PlatformSTL libraries requires STLSoft version 1.9.132, or later. (www.stlsoft.org)
-#endif /* STLSoft version */
+#if _STLSOFT_VER < 0x010a019a
+# error This version of the PlatformSTL libraries requires STLSoft version 1.10.1 beta 26, or later
+#endif /* _STLSOFT_VER */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Operating system identification
+ * operating system identification
  */
 
 #if 0
@@ -197,7 +205,7 @@
 #endif /* operating system */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Architecture
+ * architecture
  */
 
 #ifdef PLATFORMSTL_ARCH_IS_X86
@@ -272,12 +280,13 @@
 #endif /* operating system */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Contract Enforcement
+ * contract enforcement
  *
- * The macro winstl_assert provides standard debug-mode assert functionality.
+ * The macro PLATFORMSTL_ASSERT provides standard debug-mode assert
+ * functionality.
  */
 
-/** \brief Defines an assertion construct for runtime verification.
+/** Defines an assertion construct for runtime verification.
  *
  * \param expr Must be non-zero, or an assertion will be fired
  *
@@ -290,7 +299,7 @@
 # define PLATFORMSTL_ASSERT(expr)             STLSOFT_ASSERT(expr)
 #endif /* !PLATFORMSTL_ASSERT */
 
-/** \brief Defines a runtime assertion, with message
+/** Defines a runtime assertion, with message
  *
  * \param expr Must be non-zero, or an assertion will be fired
  * \param msg The literal character string message to be included in the assertion
@@ -299,7 +308,7 @@
 
 /** \def PLATFORMSTL_STATIC_ASSERT(expr)
  *
- * \brief Defines an assertion construct for compile-time verification.
+ * Defines an assertion construct for compile-time verification.
  *
  * \param expr A compile-time evaluatable condition that must be non-zero, or compilation will fail.
  *
@@ -308,7 +317,7 @@
 #define PLATFORMSTL_STATIC_ASSERT(expr)       STLSOFT_STATIC_ASSERT(expr)
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The PLATFORMSTL components are contained within the platformstl namespace. This is
  * usually an alias for stlsoft::platformstl_project,
@@ -320,64 +329,64 @@
 
 #if defined(__cplusplus)
 
-# if defined(_STLSOFT_NO_NAMESPACES)
-#  error PlatformSTL may not be compiled when _STLSOFT_NO_NAMESPACES is defined. Note: it _can_ be compiled in the presence of _STLSOFT_NO_NAMESPACE, or _UNIXSTL_NO_NAMESPACE, or _WINSTL_NO_NAMESPACE
-# endif /* _STLSOFT_NO_NAMESPACES */
+# if defined(STLSOFT_NO_NAMESPACES)
+#  error PlatformSTL may not be compiled when STLSOFT_NO_NAMESPACES is defined. Note: it _can_ be compiled in the presence of STLSOFT_NO_NAMESPACE, or UNIXSTL_NO_NAMESPACE, or WINSTL_NO_NAMESPACE
+# endif /* STLSOFT_NO_NAMESPACES */
 
-# if defined(_PLATFORMSTL_NO_NAMESPACES)
-#  error Use of namespaces in PlatformSTL may not be suspended; _PLATFORMSTL_NO_NAMESPACES was detected
-# endif /* _PLATFORMSTL_NO_NAMESPACES */
+# if defined(PLATFORMSTL_NO_NAMESPACES)
+#  error Use of namespaces in PlatformSTL may not be suspended; PLATFORMSTL_NO_NAMESPACES was detected
+# endif /* PLATFORMSTL_NO_NAMESPACES */
 
-# if defined(_PLATFORMSTL_NO_NAMESPACE)
-#  error Use of namespaces in PlatformSTL may not be suspended; _PLATFORMSTL_NO_NAMESPACE was detected
-# endif /* _PLATFORMSTL_NO_NAMESPACE */
+# if defined(PLATFORMSTL_NO_NAMESPACE)
+#  error Use of namespaces in PlatformSTL may not be suspended; PLATFORMSTL_NO_NAMESPACE was detected
+# endif /* PLATFORMSTL_NO_NAMESPACE */
 
 # if defined(PLATFORMSTL_OS_IS_UNIX)
-#  ifdef _UNIXSTL_NO_NAMESPACE
+#  ifdef UNIXSTL_NO_NAMESPACE
 #   define PLATFORMSTL_NO_PLATFORM_NAMESPACE
-#  endif /* _UNIXSTL_NO_NAMESPACE */
+#  endif /* UNIXSTL_NO_NAMESPACE */
 # elif defined(PLATFORMSTL_OS_IS_WINDOWS)
-#  ifdef _WINSTL_NO_NAMESPACE
+#  ifdef WINSTL_NO_NAMESPACE
 #   define PLATFORMSTL_NO_PLATFORM_NAMESPACE
-#  endif /* _WINSTL_NO_NAMESPACE */
+#  endif /* WINSTL_NO_NAMESPACE */
 # else /* ? operating system */
 #  error Operating system not discriminated. Only UNIX and Windows are currently recognised by PlatformSTL
 # endif /* operating system */
 #else /* ? __cplusplus */
 
-# ifndef _PLATFORMSTL_NO_NAMESPACE
-#  define _PLATFORMSTL_NO_NAMESPACE
-# endif /* !_PLATFORMSTL_NO_NAMESPACE */
+# ifndef PLATFORMSTL_NO_NAMESPACE
+#  define PLATFORMSTL_NO_NAMESPACE
+# endif /* !PLATFORMSTL_NO_NAMESPACE */
 #endif /* __cplusplus */
 
 #if !defined(__cplusplus)
  /* Nothing defined in C */
-#elif defined(_STLSOFT_NO_NAMESPACE) || \
+#elif defined(STLSOFT_NO_NAMESPACE) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::platformstl */
-/** \brief The <code class="namespace">platformstl</code> namespace contains all components
+/** The \c platformstl namespace contains all components
  *   in the \ref group__project__platformstl "PlatformSTL" project.
  *
- * By default, the <code>platformstl</code> namespace is actually an alias for
+ * By default, the \c platformstl namespace is actually an alias for
  * the namespace <code>stlsoft::platformstl_project</code>, which is where all
  * the \ref group__project__platformstl "PlatformSTL" components actually reside. This
  * measure allows all components within the main the
  * \ref group__project__stlsoft "STLSoft" project (which are defined within
- * the <code>stlsoft</code> namespace) to be visible to all components
- * "within" the <code>platformstl</code> namespace. (Otherwise, there would be a
+ * the \c stlsoft namespace) to be visible to all components
+ * "within" the \c platformstl namespace. (Otherwise, there would be a
  * whole lot of onerous qualification throughout the code of all
  * \ref group__projects "sub-projects".)
  *
- * \note If either/both of the symbols <code>_STLSOFT_NO_NAMESPACES</code>
- * and <code>_PLATFORMSTL_NO_NAMESPACE</code> are defined, all
+ * \note If either/both of the symbols \c STLSOFT_NO_NAMESPACES
+ * and \c PLATFORMSTL_NO_NAMESPACE are defined, all
  * \ref group__project__platformstl "PlatformSTL" components will be defined in the
- * global namespace. Conversely, if the <code>_STLSOFT_NO_NAMESPACE</code>
+ * global namespace. Conversely, if the \c STLSOFT_NO_NAMESPACE
  * symbol (not to be confused with the
- * <code>_STLSOFT_NO_NAMESPACES</code> symbol!) is defined - meaning that
+ * \c STLSOFT_NO_NAMESPACES symbol!) is defined - meaning that
  * all \ref group__project__stlsoft "main project" components are to be
- * defined in the global namespace, and <code>_PLATFORMSTL_NO_NAMESPACE</code>
+ * defined in the global namespace, and \c PLATFORMSTL_NO_NAMESPACE
  * is <b>not</b> defined, then all \ref group__project__platformstl "PlatformSTL"
- * components will be defined within a bona fide <code>platformstl</code>
+ * components will be defined within a bona fide \c platformstl
  * namespace.
  *
  * \note This is a vestige of compatibility with compilers with
@@ -389,15 +398,13 @@ namespace platformstl
 {
 #else
 /* Define stlsoft::platformstl_project */
-
 namespace stlsoft
 {
-
 namespace platformstl_project
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/** \def platformstl_ns_qual(x)
+/** \def PLATFORMSTL_NS_QUAL(x)
  * Qualifies with <b>platformstl::</b> if PlatformSTL is using namespaces or, if not, does not qualify
  */
 
@@ -405,29 +412,23 @@ namespace platformstl_project
  * Declares a using directive (with respect to <b>platformstl</b>) if PlatformSTL is using namespaces or, if not, does nothing
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-# define platformstl_ns_qual(x)         ::platformstl::x
-# define platformstl_ns_using(x)        using ::platformstl::x;
-#else /* ? _STLSOFT_NO_NAMESPACE */
-# define platformstl_ns_qual(x)         x
-# define platformstl_ns_using(x)
-#endif /* !_STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+# define PLATFORMSTL_NS_QUAL(x)         ::platformstl::x
+# define PLATFORMSTL_NS_USING(x)        using ::platformstl::x;
+#else /* ? STLSOFT_NO_NAMESPACE */
+# define PLATFORMSTL_NS_QUAL(x)         x
+# define PLATFORMSTL_NS_USING(x)
+#endif /* !STLSOFT_NO_NAMESPACE */
 
-/** \def platformstl_ns_qual_std(x)
- * Qualifies with <b>std::</b> if PlatformSTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does not qualify
- */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define platformstl_ns_qual(x)                             PLATFORMSTL_NS_QUAL(x)
+# define platformstl_ns_using(x)                            PLATFORMSTL_NS_USING(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
-/** \def platformstl_ns_using_std(x)
- * Declares a using directive (with respect to <b>std</b>) if PlatformSTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does nothing
- */
-
-#ifdef STLSOFT_CF_std_NAMESPACE
-# define platformstl_ns_qual_std(x)     ::std::x
-# define platformstl_ns_using_std(x)    using ::std::x;
-#else /* ? STLSOFT_CF_std_NAMESPACE */
-# define platformstl_ns_qual_std(x)     x
-# define platformstl_ns_using_std(x)
-#endif /* !STLSOFT_CF_std_NAMESPACE */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define platformstl_ns_qual_std(x)                         STLSOFT_NS_QUAL_STD(x)
+# define platformstl_ns_using_std(x)                        STLSOFT_NS_USING_STD(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
 /* ////////////////////////////////////////////////////////////////////// */
 
@@ -435,55 +436,55 @@ namespace platformstl_project
     defined(__cplusplus)
 
 # if defined(PLATFORMSTL_OS_IS_UNIX)
-typedef unixstl_ns_qual(us_char_a_t)        char_a_t;    /*!< Ansi char type */
-typedef unixstl_ns_qual(us_char_w_t)        char_w_t;    /*!< Unicode char type */
-typedef unixstl_ns_qual(us_sint8_t)         sint8_t;     /*!< 8-bit signed integer */
-typedef unixstl_ns_qual(us_uint8_t)         uint8_t;     /*!< 8-bit unsigned integer */
-typedef unixstl_ns_qual(us_int16_t)         int16_t;     /*!< 16-bit integer */
-typedef unixstl_ns_qual(us_sint16_t)        sint16_t;    /*!< 16-bit signed integer */
-typedef unixstl_ns_qual(us_uint16_t)        uint16_t;    /*!< 16-bit unsigned integer */
-typedef unixstl_ns_qual(us_int32_t)         int32_t;     /*!< 32-bit integer */
-typedef unixstl_ns_qual(us_sint32_t)        sint32_t;    /*!< 32-bit signed integer */
-typedef unixstl_ns_qual(us_uint32_t)        uint32_t;    /*!< 32-bit unsigned integer */
+typedef UNIXSTL_NS_QUAL(us_char_a_t)        char_a_t;    /*!< Ansi char type */
+typedef UNIXSTL_NS_QUAL(us_char_w_t)        char_w_t;    /*!< Unicode char type */
+typedef UNIXSTL_NS_QUAL(us_sint8_t)         sint8_t;     /*!< 8-bit signed integer */
+typedef UNIXSTL_NS_QUAL(us_uint8_t)         uint8_t;     /*!< 8-bit unsigned integer */
+typedef UNIXSTL_NS_QUAL(us_int16_t)         int16_t;     /*!< 16-bit integer */
+typedef UNIXSTL_NS_QUAL(us_sint16_t)        sint16_t;    /*!< 16-bit signed integer */
+typedef UNIXSTL_NS_QUAL(us_uint16_t)        uint16_t;    /*!< 16-bit unsigned integer */
+typedef UNIXSTL_NS_QUAL(us_int32_t)         int32_t;     /*!< 32-bit integer */
+typedef UNIXSTL_NS_QUAL(us_sint32_t)        sint32_t;    /*!< 32-bit signed integer */
+typedef UNIXSTL_NS_QUAL(us_uint32_t)        uint32_t;    /*!< 32-bit unsigned integer */
 #  ifdef STLSOFT_CF_64BIT_INT_SUPPORT
-typedef unixstl_ns_qual(us_int64_t)         int64_t;     /*!< 64-bit integer */
-typedef unixstl_ns_qual(us_sint64_t)        sint64_t;    /*!< 64-bit signed integer */
-typedef unixstl_ns_qual(us_uint64_t)        uint64_t;    /*!< 64-bit unsigned integer */
+typedef UNIXSTL_NS_QUAL(us_int64_t)         int64_t;     /*!< 64-bit integer */
+typedef UNIXSTL_NS_QUAL(us_sint64_t)        sint64_t;    /*!< 64-bit signed integer */
+typedef UNIXSTL_NS_QUAL(us_uint64_t)        uint64_t;    /*!< 64-bit unsigned integer */
 #  endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
-typedef unixstl_ns_qual(us_int_t)           int_t;       /*!< integer */
-typedef unixstl_ns_qual(us_sint_t)          sint_t;      /*!< signed integer */
-typedef unixstl_ns_qual(us_uint_t)          uint_t;      /*!< unsigned integer */
-typedef unixstl_ns_qual(us_long_t)          long_t;      /*!< long */
+typedef UNIXSTL_NS_QUAL(us_int_t)           int_t;       /*!< integer */
+typedef UNIXSTL_NS_QUAL(us_sint_t)          sint_t;      /*!< signed integer */
+typedef UNIXSTL_NS_QUAL(us_uint_t)          uint_t;      /*!< unsigned integer */
+typedef UNIXSTL_NS_QUAL(us_long_t)          long_t;      /*!< long */
 #ifdef __cplusplus
-typedef unixstl_ns_qual(us_bool_t)          bool_t;      /*!< bool */
+typedef UNIXSTL_NS_QUAL(us_bool_t)          bool_t;      /*!< bool */
 #endif /* __cplusplus */
-typedef unixstl_ns_qual(us_streampos_t)     streampos_t; /*!< streampos */
-typedef unixstl_ns_qual(us_streamoff_t)     streamoff_t; /*!< streamoff */
+typedef UNIXSTL_NS_QUAL(us_streampos_t)     streampos_t; /*!< streampos */
+typedef UNIXSTL_NS_QUAL(us_streamoff_t)     streamoff_t; /*!< streamoff */
 # elif defined(PLATFORMSTL_OS_IS_WINDOWS)
-typedef winstl_ns_qual(ws_char_a_t)         char_a_t;    /*!< Ansi char type */
-typedef winstl_ns_qual(ws_char_w_t)         char_w_t;    /*!< Unicode char type */
-typedef winstl_ns_qual(ws_sint8_t)          sint8_t;     /*!< 8-bit signed integer */
-typedef winstl_ns_qual(ws_uint8_t)          uint8_t;     /*!< 8-bit unsigned integer */
-typedef winstl_ns_qual(ws_int16_t)          int16_t;     /*!< 16-bit integer */
-typedef winstl_ns_qual(ws_sint16_t)         sint16_t;    /*!< 16-bit signed integer */
-typedef winstl_ns_qual(ws_uint16_t)         uint16_t;    /*!< 16-bit unsigned integer */
-typedef winstl_ns_qual(ws_int32_t)          int32_t;     /*!< 32-bit integer */
-typedef winstl_ns_qual(ws_sint32_t)         sint32_t;    /*!< 32-bit signed integer */
-typedef winstl_ns_qual(ws_uint32_t)         uint32_t;    /*!< 32-bit unsigned integer */
+typedef WINSTL_NS_QUAL(ws_char_a_t)         char_a_t;    /*!< Ansi char type */
+typedef WINSTL_NS_QUAL(ws_char_w_t)         char_w_t;    /*!< Unicode char type */
+typedef WINSTL_NS_QUAL(ws_sint8_t)          sint8_t;     /*!< 8-bit signed integer */
+typedef WINSTL_NS_QUAL(ws_uint8_t)          uint8_t;     /*!< 8-bit unsigned integer */
+typedef WINSTL_NS_QUAL(ws_int16_t)          int16_t;     /*!< 16-bit integer */
+typedef WINSTL_NS_QUAL(ws_sint16_t)         sint16_t;    /*!< 16-bit signed integer */
+typedef WINSTL_NS_QUAL(ws_uint16_t)         uint16_t;    /*!< 16-bit unsigned integer */
+typedef WINSTL_NS_QUAL(ws_int32_t)          int32_t;     /*!< 32-bit integer */
+typedef WINSTL_NS_QUAL(ws_sint32_t)         sint32_t;    /*!< 32-bit signed integer */
+typedef WINSTL_NS_QUAL(ws_uint32_t)         uint32_t;    /*!< 32-bit unsigned integer */
 #  ifdef STLSOFT_CF_64BIT_INT_SUPPORT
-typedef winstl_ns_qual(ws_int64_t)          int64_t;     /*!< 64-bit integer */
-typedef winstl_ns_qual(ws_sint64_t)         sint64_t;    /*!< 64-bit signed integer */
-typedef winstl_ns_qual(ws_uint64_t)         uint64_t;    /*!< 64-bit unsigned integer */
+typedef WINSTL_NS_QUAL(ws_int64_t)          int64_t;     /*!< 64-bit integer */
+typedef WINSTL_NS_QUAL(ws_sint64_t)         sint64_t;    /*!< 64-bit signed integer */
+typedef WINSTL_NS_QUAL(ws_uint64_t)         uint64_t;    /*!< 64-bit unsigned integer */
 #  endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
-typedef winstl_ns_qual(ws_int_t)            int_t;       /*!< integer */
-typedef winstl_ns_qual(ws_sint_t)           sint_t;      /*!< signed integer */
-typedef winstl_ns_qual(ws_uint_t)           uint_t;      /*!< unsigned integer */
-typedef winstl_ns_qual(ws_long_t)           long_t;      /*!< long */
+typedef WINSTL_NS_QUAL(ws_int_t)            int_t;       /*!< integer */
+typedef WINSTL_NS_QUAL(ws_sint_t)           sint_t;      /*!< signed integer */
+typedef WINSTL_NS_QUAL(ws_uint_t)           uint_t;      /*!< unsigned integer */
+typedef WINSTL_NS_QUAL(ws_long_t)           long_t;      /*!< long */
 #ifdef __cplusplus
-typedef winstl_ns_qual(ws_bool_t)           bool_t;      /*!< bool */
+typedef WINSTL_NS_QUAL(ws_bool_t)           bool_t;      /*!< bool */
 #endif /* __cplusplus */
-typedef winstl_ns_qual(ws_streampos_t)      streampos_t; /*!< streampos */
-typedef winstl_ns_qual(ws_streamoff_t)      streamoff_t; /*!< streamoff */
+typedef WINSTL_NS_QUAL(ws_streampos_t)      streampos_t; /*!< streampos */
+typedef WINSTL_NS_QUAL(ws_streamoff_t)      streamoff_t; /*!< streamoff */
 # else /* ? operating system */
 # error Operating system not discriminated. Only UNIX and Win32 are currently recognised by PlatformSTL
 # endif /* operating system */
@@ -494,24 +495,22 @@ typedef winstl_ns_qual(ws_streamoff_t)      streamoff_t; /*!< streamoff */
 
 #if !defined(__cplusplus)
  /* Nothing defined in C */
-#elif defined(_STLSOFT_NO_NAMESPACE) || \
+#elif defined(STLSOFT_NO_NAMESPACE) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 } /* namespace platformstl */
 #else
 } /* namespace platformstl_project */
 } /* namespace stlsoft */
 namespace platformstl = ::stlsoft::platformstl_project;
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Inclusion
+ * inclusion control
  */
 
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
 # pragma once
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
-
-/* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* !PLATFORMSTL_INCL_PLATFORMSTL_H_PLATFORMSTL */
 

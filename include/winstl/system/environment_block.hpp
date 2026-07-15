@@ -4,46 +4,48 @@
  * Purpose:     Contains the basic_environment_block class.
  *
  * Created:     25th June 2004
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/system/environment_block.hpp
  *
- * \brief [C++ only] Definition of the winstl::basic_environment_block class
+ * \brief [C++] Definition of the winstl::basic_environment_block class
  *  template
- *   (\ref group__library__system "System" Library).
+ *   (\ref group__library__System "System" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_SYSTEM_HPP_ENVIRONMENT_BLOCK
@@ -52,21 +54,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SYSTEM_HPP_ENVIRONMENT_BLOCK_MAJOR       4
 # define WINSTL_VER_WINSTL_SYSTEM_HPP_ENVIRONMENT_BLOCK_MINOR       0
-# define WINSTL_VER_WINSTL_SYSTEM_HPP_ENVIRONMENT_BLOCK_REVISION    3
-# define WINSTL_VER_WINSTL_SYSTEM_HPP_ENVIRONMENT_BLOCK_EDIT        56
+# define WINSTL_VER_WINSTL_SYSTEM_HPP_ENVIRONMENT_BLOCK_REVISION    8
+# define WINSTL_VER_WINSTL_SYSTEM_HPP_ENVIRONMENT_BLOCK_EDIT        72
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef WINSTL_INCL_WINSTL_MEMORY_HPP_PROCESSHEAP_ALLOCATOR
 # include <winstl/memory/processheap_allocator.hpp>
 #endif /* !WINSTL_INCL_WINSTL_MEMORY_HPP_PROCESSHEAP_ALLOCATOR */
@@ -81,35 +83,32 @@
 #endif /* !WINSTL_INCL_WINSTL_SHIMS_ACCESS_HPP_STRING */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Class used for preparing environment blocks compatible with the Windows
+/** Class used for preparing environment blocks compatible with the Windows
  * CreateProcess() function.
  *
- * \ingroup group__library__system
+ * \ingroup group__library__System
  *
  * It is used as follows:
 \code
@@ -153,7 +152,7 @@ public:
     typedef T                                   traits_type;
     /// The allocator type
     typedef A                                   allocator_type;
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef basic_environment_block<C, T, A>    class_type;
     /// The size type
     typedef ws_size_t                           size_type;
@@ -184,7 +183,7 @@ public:
     /// instance unchanged.
     class_type& operator =(class_type const& rhs)
     {
-        if(m_buffer.resize(rhs.m_buffer.size()))
+        if (m_buffer.resize(rhs.m_buffer.size()))
         {
             pod_copy_n(&m_buffer.data()[0], &rhs.m_buffer.data()[0], m_buffer.size());
         }
@@ -196,7 +195,7 @@ public:
 /// \name Operations
 /// @{
 public:
-    /// \brief Append a full NAME=VALUE environment variable
+    /// Append a full NAME=VALUE environment variable
     ///
     /// \param variable The variable
     /// \param cch The length of the variable
@@ -222,7 +221,7 @@ public:
         WINSTL_ASSERT('\0' == m_buffer[m_buffer.size() - 1]);
         WINSTL_ASSERT('\0' == m_buffer[m_buffer.size() - 2]);
 
-        if(!m_buffer.resize(oldSize + cch + 1))
+        if (!m_buffer.resize(oldSize + cch + 1))
         {
             return false;
         }
@@ -239,7 +238,7 @@ public:
             return true;
         }
     }
-    /// \brief Append a NAME= environment variable
+    /// Append a NAME= environment variable
     ///
     /// \param variable The variable
     ///
@@ -255,9 +254,9 @@ public:
     template <ss_typename_param_k S>
     ws_bool_t push_back(S const& variable)
     {
-        return push_back(stlsoft_ns_qual(c_str_data)(variable), stlsoft_ns_qual(c_str_len)(variable));
+        return push_back(STLSOFT_NS_QUAL(c_str_data)(variable), STLSOFT_NS_QUAL(c_str_len)(variable));
     }
-    /// \brief Append a full NAME=VALUE environment pair
+    /// Append a full NAME=VALUE environment pair
     ///
     /// \param name The variable name
     /// \param cchName The length of the variable name
@@ -284,7 +283,7 @@ public:
         WINSTL_ASSERT('\0' == m_buffer[m_buffer.size() - 1]);
         WINSTL_ASSERT('\0' == m_buffer[m_buffer.size() - 2]);
 
-        if(!m_buffer.resize(oldSize + cchName + 1 + cchValue + 1))
+        if (!m_buffer.resize(oldSize + cchName + 1 + cchValue + 1))
         {
             return false;
         }
@@ -304,7 +303,7 @@ public:
             return true;
         }
     }
-    /// \brief Append a full NAME=VALUE environment pair
+    /// Append a full NAME=VALUE environment pair
     ///
     /// \param name The variable name
     /// \param value The variable value
@@ -321,7 +320,7 @@ public:
             >
     ws_bool_t push_back(S1 const& name, S2 const& value)
     {
-        return push_back(stlsoft_ns_qual(c_str_data)(name), stlsoft_ns_qual(c_str_len)(name), stlsoft_ns_qual(c_str_data)(value), stlsoft_ns_qual(c_str_len)(value));
+        return push_back(STLSOFT_NS_QUAL(c_str_data)(name), STLSOFT_NS_QUAL(c_str_len)(name), STLSOFT_NS_QUAL(c_str_data)(value), STLSOFT_NS_QUAL(c_str_len)(value));
     }
 
     /// Empties the block of all variables
@@ -362,12 +361,12 @@ public:
     }
 /// @}
 
-/** \brief Members
+/** Members
  *
- * \ingroup group__library__system
+ * \ingroup group__library__System
  */
 private:
-    typedef stlsoft_ns_qual(auto_buffer_old)<   char_type
+    typedef STLSOFT_NS_QUAL(auto_buffer_old)<   char_type
                                             ,   allocator_type
                                             ,   1024
                                             >       buffer_type_;
@@ -376,53 +375,51 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Typedefs for commonly encountered types
+ * typedefs for commonly encountered types
  */
 
 #ifdef STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT
 
  /// Specialisation of the basic_path template for the ANSI character type \c char
 typedef basic_environment_block<ws_char_a_t>    environment_block_a;
-/** \brief Specialisation of the basic_environment_block template for the Unicode character type \c wchar_t
+/** Specialisation of the basic_environment_block template for the Unicode character type \c wchar_t
  *
- * \ingroup group__library__system
+ * \ingroup group__library__System
  */
 typedef basic_environment_block<ws_char_w_t>    environment_block_w;
-/** \brief Specialisation of the basic_environment_block template for the Win32 character type \c TCHAR
+/** Specialisation of the basic_environment_block template for the Win32 character type \c TCHAR
  *
- * \ingroup group__library__system
+ * \ingroup group__library__System
  */
 typedef basic_environment_block<TCHAR>          environment_block;
 
 #endif /* STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Unit-testing
+ * implementation
  */
 
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/environment_block_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
+/* ////////////////////////////////////////////////////////////////////// */
+
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
+     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
+} /* namespace winstl */
+# else
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Implementation
+ * inclusion control
  */
 
-/* ////////////////////////////////////////////////////////////////////// */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
-     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
-# else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
-
-/* ////////////////////////////////////////////////////////////////////// */
-
-#endif /* WINSTL_INCL_WINSTL_SYSTEM_HPP_ENVIRONMENT_BLOCK */
+#endif /* !WINSTL_INCL_WINSTL_SYSTEM_HPP_ENVIRONMENT_BLOCK */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

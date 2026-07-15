@@ -1,10 +1,95 @@
 # STLSoft - History
 
-> Note
-> **STLSoft-1.9** is now obsolete; please instead use **STLSoft 1.10**, which may be obtained from https://github.com/synesissoftware/STLSoft-1.10
-
 
 ----
+
+
+28th October 2024 - 1.10.12 released
+------------------------------------
+
+ * project boilerplate updated (in line with STLSoft-1.11)
+
+
+16th February 2024 - 1.10.11 released
+-------------------------------------
+
+ * project boilerplate
+ * corrected inappropriate use of `ss_typename_param_k`
+
+
+16th February 2024 - 1.10.10 released
+-------------------------------------
+
+ * further tranche of stream insertion operator implementations
+ * fixes and enhancements to `stlsoft::util::string_insert`
+ * added `stlsoft::meta::hash_sentry` meta-type;
+ * added test.unit.unixstl.filesystem.path test project;
+
+
+12th February 2024 - 1.10.9 released
+------------------------------------
+
+ * stlsoft::frequency_map uses traits to select between ordered and unordered representation
+ * added test.unit.stlsoft.containers.frequency_map project
+ * C++98 compatibility
+
+
+6th February 2024 - 1.10.8 released
+-----------------------------------
+
+ * added dev/bin/batch_compile_check
+ * language compatibility fix
+ * iterator definition fixes (related to C++17 deprecation of std::iterator)
+
+
+30th January 2024 - 1.10.7 released
+-----------------------------------
+
+ * enhanced stream insertion operators, when used with types descended from `std::basic_ios<>`, to observe width and alignment for `stlsoft::basic_shim_string<>`, `stlsoft::basic_simple_string<>`, `stlsoft::basic_static_string`, `stlsoft::basic_string_view`, `stlsoft::stlsoft_C_string_slice_m_t`/`stlsoft::stlsoft_C_string_slice_w_t`
+ * refactored (almost) all direct calls to disparate parts of the `printf()`-family to use the STLSoft abstractions
+ * wholesale refinement of whitespace around conditional control statements;
+ * large number of minor and trivial tidyings
+
+
+28th January 2024 - 1.10.6 released
+-----------------------------------
+
+ * simplification and improvement of CMake handling
+ * dependency on xTests is now optional (in prepare_cmake.sh)
+ * now depends on xTests 0.21.2
+ * CMake C language now C11
+ * fixed defect in `stlsoft::pod_vector`
+
+
+18th January 2024 - 1.10.5 released
+-----------------------------------
+
+ * C++20 compatibility
+ * C17 compatibility
+ * introduced several unit-tests (previously in private repo);
+ * stlsoft::pod_vector now default-initialses elements in size-constructor
+
+
+16th January 2024 - 1.10.4 released
+-----------------------------------
+
+ * C++17 compatibility
+ * unixstl::semaphore now fully implemented on Mac OSX;
+
+
+12th January 2024 - 1.10.3 released
+-----------------------------------
+
+ * warnings fix (Issue 14)
+ * fixed sub-project versions (Issue 15)
+ * minor project boilerplate fixes and tidying
+
+
+3rd January 2024 - 1.10.2 released
+----------------------------------
+
+ * defect fixes;
+ * Min-GW 64-bit compatibility
 
 
 15th December 2023 - 1.9.136 released
@@ -14,12 +99,134 @@
  * porting back significant and necessary fixes from STLSoft-1.10
 
 
+13th December 2023 - 1.10.1 released
+------------------------------------
+
+ * CMake support
+
+26th April 2021 - 1.10.1 (beta 33) released
+-------------------------------------------
+
+ * Clang compatibility
+
+26th April 2021 - 1.10.1 (beta 32) released
+-------------------------------------------
+
+ * GCC/Clang compatibility
+
+2nd April 2021 - 1.10.1 (beta 31) released
+------------------------------------------
+
+ * Clang compatibility
+ * provision for customising inline (in C compilation)
+ * warnings
+
+29th March 2021 - 1.10.1 (beta 30) released
+-------------------------------------------
+
+ * Clang compatibility
+ * warnings
+
+16th February 2021 - 1.10.1 (beta 29) released
+---------------------------------------------
+
+ * a whole lot of Clang- and GCC-compatibility
+
+18th January 2021 - 1.10.1 (beta 28) released
+---------------------------------------------
+
+ * added character-array overloads of fast_strftime()
+ * WinSTL hard link information functions now work for directories as well as files
+ * various defect fixes
+
+10th January 2021 - 1.10.1 (beta 27) released
+---------------------------------------------
+
+ * added string access shims for std::chrono type(s)
+ * some GCC compatibility tweaks
+
+4th January 2021 - 1.10.1 (beta 26) released
+--------------------------------------------
+
+ * added (UNIXSTL and WinSTL) Path Classification API (from 1.12 work), which work with Windows UNC and long-path root designators and all slash conventions
+ * added (UNIXSTL and WinSTL) path parsing function - include/???stl/filesystem/path_parse_functions.h, presenting a consistent set of functions centralised from disparate parts of the libraries
+ * BREAKING CHANGES: (UNIXSTL and WinSTL) basic_path<> methods get_file() and get_ext() now return slices, and get_ext() changed semantics to include '.'
+ * (UNIXSTL and WinSTL) basic_path<> added move semantics and get_location() method and made swap() method public, as well as numerous defect fixes and consistency improvements implemented in terms of new Path Classification API
+ * (UNIXSTL and WinSTL) filesystem_traits<> added path classification and path parsing methods, as well as numerous defect fixes
+ * updated copyright info for all files, from Synesis Software to Synesis Information Systems
+ * stlsoft::basic_path_buffer<> added resize(), back(), front() methods
+ * added added stlsoft_C_(str|wcs)nicmp()
+ * raw (C) string slice types moved out of stlsoft:: namespace in C++
+ * C++14 compatibility
+ * a whole lot of work to reduce dependencies
+ * many improvements to GCC compatibility
+ * all uses of memcpy() and memset() now in terms of abstractions (in stlsoft/api/internal/memfns.h)
+ * BREAKING CHANGES: ~ abstracted out string-handling from *stl::system_traits<> into stlsoft::c_string_traits<>, and removed several unused (and sketchy) functions
+
+14th December 2020 - 1.10.1 (beta 25) released
+----------------------------------------------
+
+ * added two more files missing from beta 23 - D'oh!
+
+13th December 2020 - 1.10.1 (beta 24) released
+----------------------------------------------
+
+ * added file unixstl/filesystem/path_buffer.hpp missing from beta 23
+
+13th December 2020 - 1.10.1 (beta 23) released
+----------------------------------------------
+
+ * basic_file_path_buffer<> is now deprecated in all projects, and all dependent components are modified to use other facilities
+ * added platformstl::environment_variable<> class template
+ * added (in)equality operators for stlsoft::error_desc
+ * added stlsoft::basic_path_buffer<> component, as an alternative to basic_file_path_buffer<>
+ * stlsoft::auto_buffer<> class template copy_from() method, and ctor and resize() method that take value for initialisation of (new) elements
+ * added stlsoft::strnpbrkn()/wcsnpbrkn() (and added stlsoft_C_(str|wcs)npbrkn())
+ * added move constructor to unixstl::module and winstl::module
+ * large number of new methods and defect fixes in (platformstl|unixstl|winstl)::filesystem_traits
+ * large number of new methods and defect fixes in (platformstl|unixstl|winstl)::system_traits
+
+29th November 2020 - 1.10.1 (beta 22) released
+----------------------------------------------
+
+ * added stlsoft::string_to_integer_range()
+ * added stlsoft::strnchr(), stlsoft::strnistrn(), stlsoft::strnstrn() C-style string search functions
+ * added move constructor to stlsoft::auto_buffer<>
+ * added move constructor for stlsoft::scoped_handle<>
+ * added move constructor for stlsoft::(basic_)simple_string<>
+ * winstl::output_debug_line() overloads expanded to 16-parameters, and changed to use variadic templates where supported
+ * stlsoft::split() functions enhanced to: return vector of arbitrary length; allow heterogeneous types for the split elements
+ * stlsoft::string_switch() split into two overloads to handle property and unambiguously flag enums, regular enums, and enum classes
+ * significant, BREAKING changes to stlsoft::try_parse_to() overloads to avoid ambiguity
+ * changed significantly the way in which stlsoft::cstring_maker works, and adjusted all dependent code
+ * various additions for compatibility with std::string_view (which is very similar to stlsoft::string_view)
+ * fixed case of a bunch of headers
+
+27th July 2020 - 1.10.1 (beta 21) released
+------------------------------------------
+
+ * VC++ 15/16 compatibility
+ * fixed unixstl::readdir_sequence::empty()
+
 27th July 2020 - 1.9.135 released
 ---------------------------------
 
  * VC++ 15/16 compatibility
  * fixed unixstl::readdir_sequence::empty()
 
+
+4th July 2020 - 1.10.1 (beta 20) released
+-----------------------------------------
+
+ * fixed detecton of shared_ptr and unique_ptr
+
+4th July 2020 - 1.10.1 (beta 19) released
+-----------------------------------------
+
+ * added stlsoft::t2w, stlsoft::w2t, stlsoft::t2a, stlsoft::a2t for upcoming Pantheios release
+ * added stream insertion operator (generic) for string slice types
+ * added compatibility with Visual C++ 15.x and 16.x
+ * added support for the ARM architecture (christopherplawrence)
 
 4th July 2020 - 1.9.134 released
 --------------------------------
@@ -34,6 +241,33 @@
  * Add support for the ARM architecture when doing Android NDK GCC compilation
 
 
+31st October 2019 - 1.10.1 (beta 18) released
+---------------------------------------------
+
+ * added stlsoft/system/environment/functions.hpp to enhances stlsoft::environment_variable_exists() with string access shims to support arbitrary string type
+ * remove vestigial (and erroneous) winstl/string/spin_policies.hpp
+ * various documentation fixes
+
+24th October 2019 - 1.10.1 (beta 17) released
+---------------------------------------------
+
+ * GCC 8 compatibility
+ * GCC 9 compatibility
+ * implemented WinSTL_C_FileInformation_get_SECURITY_DESCRIPTOR_w()
+ * improved documentation
+
+13th October 2019 - 1.10.1 (beta 16) released
+---------------------------------------------
+
+ * added stlsoft_C_environment_variable_exists_a() / environment_variable_exists() (from STLSoft 1.10-alpha)
+ * added stlsoft::count_bits(int) overload
+ * added cbegin(), cend(), crbegin(), crend() to platformstl::environment_map
+ * significant additions and removals of WinSTL file creation functions
+ * added WinSTL security functions (from STLSoft 1.10-alpha)
+ * recognising Mac OSX architecture as UNIX
+ * canonicalising '\file' description sections
+ * suppresses deprecation warning from reporting use of deprecated functions inside other deprecated functions
+
 11th October 2019 - 1.9.132 released
 ------------------------------------
 
@@ -41,6 +275,153 @@
  * PlatformSTL now recognises Mac OSX as UNIX implicitly
  * fixed up project files (README, NEWS, etc.)
 
+
+13th September 2019 - 1.10.1 (beta 15) released
+-----------------------------------------------
+
+ * added stlsoft::fast_strftime() and stlsoft::fast_wcsftime() as drop-in replacements for std::strftime() and std::wcsftime()
+ * added get_ptr() shim overload for std::shared_ptr and std::unique_ptr
+ * added stlsoft::get_top() attribute shim
+ * stlsoft::basic_string_view<>::substr()
+ * added winstl_C_format_message_strerror_w()
+ * removed stlsoft::literal_cast<>
+ * various portability improvements to newer compilers
+
+4th August 2019 - 1.10.1 (beta 14) released
+-------------------------------------------
+
+ * added SECURITY_DESCRIPTOR helpers()
+ * stlsoft::w2m and stlsoft::m2w now more general
+
+16th April 2019 - 1.10.1 (beta 13) released
+-------------------------------------------
+
+ * fixed STLSOFT_ALWAYS_FALSE() / STLSOFT_ALWAYS_TRUE()
+ * platformstl::FILE_stream : ~ fixing character-encoding function selection defect
+ * canonicalising source file structure
+
+26th December 2018 - 1.10.1 (beta 12) released
+----------------------------------------------
+
+ * added sas_to_string() (and related) functions
+ * added stlsoft::errno_exception (from 1.12 branch)
+ * added stlsoft::locale_scope
+ * STLSoft's struct tm String Access Shims now work for arbitrary locale
+ * UNIXSTL's timeval String Access Shims now work for arbitrary locale
+
+22nd December 2018 - 1.10.1 (beta 11) released
+----------------------------------------------
+
+ * stlsoft::ref_ptr : + borrow(); + own()
+ * winstl::environment_variable : + data(); + equal(); + equal_ignore_case(); + exists(); + operators ==() and !=()
+
+20th December 2018 - 1.10.1 (beta 10) released
+----------------------------------------------
+
+ * winstl::process_mutex() now takes an optional EVENT handle which will be signalled if the mutex experiences an abandoned acquire
+ * special_string_instance now provides generic (SAS) (in)equality operators automatically
+ * try_parse_to_bool() semantics firmed up
+
+12th June 2018 - 1.10.1 (beta 9) released
+-----------------------------------------
+
+ * Borland compatibility
+
+11th June 2018 - 1.10.1 (beta 8) released
+-----------------------------------------
+
+ * fixing break to UNIX-compatibility introduced in beta-6/7
+
+9th June 2018 - 1.10.1 (beta 7) released
+----------------------------------------
+
+ * auto_buffer<> now supports limited form of pointer arithmethic via operator -()
+ * added subscript operator for auto_array_destructor<>
+ * VC++ 14.1x compatibility
+ * refactoring of copy-proscriptions
+
+9th June 2018 - 1.10.1 (beta 6) released
+----------------------------------------
+
+ * refactored in terms of external API
+ * removed empty/meaningless "compatibility" sections
+ * canonicalising proscribed construction methods
+ * simplifying, and prospective changes (for getting to 1.12)
+
+15th May 2017 - 1.10.1 (beta 5) released
+----------------------------------------
+
+ * enhanced STLSOFT_SUPPRESS_UNUSED() to work with rvalues
+
+19th February 2017 - 1.10.1 (beta 3) released
+---------------------------------------------
+
+ Further to 1.10.1 (beta 2):
+
+ * a whole bunch of non-functional changes to make the codebase more
+   consistent and amenable to further automatic instrumentation by script
+   auto-validation script compatibility, and ensure all files have full
+   inclusion control
+ * fixing get_FILE_ptr() shim namespace issues
+ * winstl::token_information has additional compatibility up to W8/Svr12,
+   and now defaults to throwing instances of winstl::security_exception
+
+28th January 2017 - 1.10.1 (beta 2) released
+--------------------------------------------
+
+ Further to 1.10.1 (beta 1):
+
+ * work on STLSoft integer_to_string functions to loosen non-array forms'
+   preconditions, reduce dependencies in rest of codebase to
+   integer_to_decimal_string()-only;
+ * filesystem_traits - refactored is_dots() and starts_with_dots() to
+   accomodate GCC 4.9 pedanticism
+ * exposing unixstl/winstl types spin_mutex_no_yield and spin_mutex_yield to
+   platformstl namespace
+ * a large number of changes to improve compatibility with UNIX, Clang,
+   GCC, and MinGW
+ * hiding/suppressing unused typedefs
+
+14th January 2017 - 1.10.1 (beta 1) released
+--------------------------------------------
+
+ After ten years (10!), STLSoft 1.10 is finally out of alpha. The first
+ release, 1.10.1 beta 1, comprises all the established components from
+ previous versions along with several new components that have been
+ available in the 1.10 alpha (delta) update and a large number of
+ components previously unreleased.
+
+ * major reworking of exceptions hierarchy, including provision of project
+   and library identifiers, status-code, and message translation
+ * several new special-string-instance types, including home_directory,
+   host_name, temporary_directory, temporary_file_name
+ * new string access shims, for types including timeval, type_info
+ * new attribute shims, including: get_synch_handle, get_FILE_ptr
+ * new logical shims, including: is_empty, is_null
+ * new high-performance conversion functions (based around the extant
+   technology in stlsoft::integer_to_string()): integer_to_decimal_string(),
+   integer_to_hexadecimal_string(), integer_to_octal_string(),
+   integer_to_lc_string(), integer_to_zero_padded_decimal_string()
+ * new conversion parsing functions: string_to_bool(), string_to_integer()
+ * new scoped_method class template
+ * new scoped_lambda class template
+ * new bit-testing functions
+ * substantially improved atomic function support
+ * substantially improved spin_mutex class templates and policies
+ * new diagnostic stopwatch classes and logging functions
+ * new platformstl::file_stream_base class template and policies
+ * new string slice classes that are compatible (but do not depend on) other
+   Synesis projects (such as FastFormat and Pantheios)
+ * new time comparison functions and operators, conversion cast and
+   functions, elicitation functions, modification functions, and validation
+   functions
+ * ... and many many other improvements and additions ...
+
+============================================================================
+
+
+
+============================================================================
 
 2nd November 2016 - 1.9.131 released
 ------------------------------------

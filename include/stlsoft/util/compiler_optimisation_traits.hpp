@@ -4,46 +4,48 @@
  * Purpose:     compiler_optimisation_traits class.
  *
  * Created:     15th November 2003
- * Updated:     15th December 2023
+ * Updated:     17th January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/util/compiler_optimisation_traits.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::compiler_optimisation_traits
+ * \brief [C++] Definition of the stlsoft::compiler_optimisation_traits
  *   traits class
- *   (\ref group__library__utility "Utility" Library).
+ *   (\ref group__library__Utility "Utility" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_HPP_COMPILER_OPTIMISATION_TRAITS
@@ -52,35 +54,38 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_H_STLSOFT_COMPILER_OPTIMISATION_TRAITS_MAJOR       4
 # define STLSOFT_VER_H_STLSOFT_COMPILER_OPTIMISATION_TRAITS_MINOR       0
-# define STLSOFT_VER_H_STLSOFT_COMPILER_OPTIMISATION_TRAITS_REVISION    1
-# define STLSOFT_VER_H_STLSOFT_COMPILER_OPTIMISATION_TRAITS_EDIT        22
+# define STLSOFT_VER_H_STLSOFT_COMPILER_OPTIMISATION_TRAITS_REVISION    5
+# define STLSOFT_VER_H_STLSOFT_COMPILER_OPTIMISATION_TRAITS_EDIT        32
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-/** \brief The base class, and the comparand for empty cases
+/** The base class, and the comparand for empty cases
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  */
 struct compiler_optimisation_traits_ebo_parent
@@ -89,9 +94,9 @@ struct compiler_optimisation_traits_ebo_parent
 /* EBO - Empty Base Optimisation
  */
 
-/** \brief The result of Case 1, and the intermediate parent for Cases 3 & 4.
+/** The result of Case 1, and the intermediate parent for Cases 3 & 4.
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  *       compiler_optimisation_traits_ebo_parent
  *                |
@@ -103,9 +108,9 @@ struct compiler_optimisation_traits_ebo_thin_child
     : compiler_optimisation_traits_ebo_parent
 {};
 
-/** \brief The result of Case 2
+/** The result of Case 2
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  *       compiler_optimisation_traits_ebo_parent
  *                |
@@ -119,9 +124,9 @@ struct compiler_optimisation_traits_ebo_thick_child
     int i;
 };
 
-/** \brief Used in Cases 2, 4, 6 & 8
+/** Used in Cases 2, 4, 6 & 8
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  */
 struct compiler_optimisation_traits_ebo_thick_peer
@@ -129,9 +134,9 @@ struct compiler_optimisation_traits_ebo_thick_peer
     int i;
 };
 
-/** \brief The result of Case 3
+/** The result of Case 3
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  *       compiler_optimisation_traits_ebo_parent
  *                |
@@ -146,9 +151,9 @@ struct compiler_optimisation_traits_ebo_thin_grandchild
     : compiler_optimisation_traits_ebo_thin_child
 {};
 
-/** \brief The result of Case 4
+/** The result of Case 4
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  *       compiler_optimisation_traits_ebo_parent
  *                |
@@ -165,17 +170,17 @@ struct compiler_optimisation_traits_ebo_thick_grandchild
     int i;
 };
 
-/** \brief Used in Case 5
+/** Used in Case 5
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  */
 struct compiler_optimisation_traits_ebo_parent2
 {};
 
-/** \brief The result of Case 5
+/** The result of Case 5
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  *   compiler_optimisation_traits_ebo_parent      compiler_optimisation_traits_ebo_parent2
  *                |                        |
@@ -187,9 +192,9 @@ struct compiler_optimisation_traits_ebo_mi_thin_child
     : compiler_optimisation_traits_ebo_parent, compiler_optimisation_traits_ebo_parent2
 {};
 
-/** \brief The result of Case 6
+/** The result of Case 6
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  *   compiler_optimisation_traits_ebo_parent      compiler_optimisation_traits_ebo_parent2
  *                |                        |
@@ -203,9 +208,9 @@ struct compiler_optimisation_traits_ebo_mi_thick_child
     int i;
 };
 
-/** \brief The result of Case 7
+/** The result of Case 7
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  *   compiler_optimisation_traits_ebo_parent      compiler_optimisation_traits_ebo_thick_peer
  *                |                        |
@@ -221,17 +226,17 @@ struct compiler_optimisation_traits_ebo_mi_mixin_child
 /* EDO - Empty Derived Optimisation
  */
 
-/** \brief Used in Case 1
+/** Used in Case 1
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  */
 struct compiler_optimisation_traits_edo_thin_base
 {};
 
-/** \brief Used in Case 2
+/** Used in Case 2
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  */
 struct compiler_optimisation_traits_edo_thick_base
@@ -239,17 +244,17 @@ struct compiler_optimisation_traits_edo_thick_base
     int i;
 };
 
-/** \brief Used in Case 3
+/** Used in Case 3
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  */
 struct compiler_optimisation_traits_edo_thin_base2
 {};
 
-/** \brief Used in Cases 3 & 4
+/** Used in Cases 3 & 4
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  */
 template <ss_typename_param_k T>
@@ -257,9 +262,9 @@ struct compiler_optimisation_traits_edo_child
     : T
 {};
 
-/** \brief Result of case 3
+/** Result of case 3
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  *       compiler_optimisation_traits_edo_thick_base
  *                    |
@@ -272,9 +277,9 @@ struct compiler_optimisation_traits_edo_child_of_thick_base
 {};
 
 
-/** \brief Used in Cases 7 & 8
+/** Used in Cases 7 & 8
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  */
 template<   ss_typename_param_k T1
@@ -286,9 +291,9 @@ struct compiler_optimisation_traits_edo_mi_child
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief traits class for (current) compiler
+/** traits class for (current) compiler
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  */
 struct compiler_optimisation_traits
@@ -311,9 +316,9 @@ public:
     /// 7. With one empty base (the mixin), one non-empty base and empty child
     enum { supportsEBO7 = sizeof(compiler_optimisation_traits_ebo_mi_mixin_child) == sizeof(compiler_optimisation_traits_ebo_thick_peer) };
 
-    enum { supportsEBO = supportsEBO1 & supportsEBO2 & supportsEBO3 & supportsEBO4 };
-    enum { supportsMIEBO = supportsEBO5 & supportsEBO6 & supportsEBO7 /* & supportsEBO8 */ };
-    enum { supportsExtendedEBO = supportsEBO & supportsMIEBO };
+    enum { supportsEBO = int(supportsEBO1) & int(supportsEBO2) & int(supportsEBO3) & int(supportsEBO4) };
+    enum { supportsMIEBO = int(supportsEBO5) & int(supportsEBO6) & int(supportsEBO7) /* & int(supportsEBO8) */ };
+    enum { supportsExtendedEBO = int(supportsEBO) & int(supportsMIEBO) };
 
     // Empty Derived Optimisation (EDO)
     //
@@ -335,18 +340,24 @@ public:
     /// 8. With one empty base (the mixin), one non-empty base; child is template
     enum { supportsEDO8 = sizeof(compiler_optimisation_traits_edo_mi_child<compiler_optimisation_traits_edo_thick_base, compiler_optimisation_traits_edo_thin_base>) == sizeof(compiler_optimisation_traits_edo_thick_base) };
 
-    enum { supportsEDO = supportsEDO1 & supportsEDO2 & supportsEDO3 & supportsEDO4 };
-    enum { supportsMIEDO = supportsEDO5 & supportsEDO6 & supportsEDO7 & supportsEDO8 };
-    enum { supportsExtendedEDO = supportsEDO & supportsMIEDO };
+    enum { supportsEDO = int(supportsEDO1) & int(supportsEDO2) & int(supportsEDO3) & int(supportsEDO4) };
+    enum { supportsMIEDO = int(supportsEDO5) & int(supportsEDO6) & int(supportsEDO7) & int(supportsEDO8) };
+    enum { supportsExtendedEDO = int(supportsEDO) & int(supportsMIEDO) };
 };
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_COMPILER_OPTIMISATION_TRAITS */
 

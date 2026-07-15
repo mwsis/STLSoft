@@ -5,75 +5,71 @@
  *              and Unicode specialisations thereof.
  *
  * Created:     30th April 1999
- * Updated:     15th December 2023
+ * Updated:     16th February 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1999-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file inetstl/filesystem/findfile_sequence.hpp
  *
- * \brief [C++ only] Definition of the inetstl::findfile_sequence
+ * \brief [C++] Definition of the inetstl::findfile_sequence
  *   class template
- *   (\ref group__library__filesystem "File System" Library).
+ *   (\ref group__library__FileSystem "File System" Library).
  */
 
 #ifndef INETSTL_INCL_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE
 #define INETSTL_INCL_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_MAJOR    3
-# define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_MINOR    0
-# define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_REVISION 12
-# define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_EDIT     141
+# define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_MAJOR     3
+# define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_MINOR     0
+# define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_REVISION  25
+# define INETSTL_VER_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE_EDIT      167
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_MSVC: _MSC_VER<1100
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef INETSTL_INCL_INETSTL_H_INETSTL
 # include <inetstl/inetstl.h>
 #endif /* !INETSTL_INCL_INETSTL_H_INETSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef INETSTL_OS_IS_WINDOWS
 # error This file is currently compatible only with the Win32/Win64 API
 #endif /* !INETSTL_OS_IS_WINDOWS */
@@ -81,13 +77,13 @@ STLSOFT_COMPILER_IS_MSVC: _MSC_VER<1100
 # include <inetstl/filesystem/filesystem_traits.hpp>
 #endif /* !INETSTL_INCL_INETSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS */
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-# ifndef INETSTL_INCL_INETSTL_ERROR_HPP_EXCEPTIONS
-#  include <inetstl/error/exceptions.hpp>           // for throw_internet_exception_policy
-# endif /* !INETSTL_INCL_INETSTL_ERROR_HPP_EXCEPTIONS */
+# ifndef INETSTL_INCL_INETSTL_EXCEPTION_HPP_THROW_POLICIES
+#  include <inetstl/exception/throw_policies.hpp>   // for throw_internet_exception_policy
+# endif /* !INETSTL_INCL_INETSTL_EXCEPTION_HPP_THROW_POLICIES */
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
-# ifndef STLSOFT_INCL_STLSOFT_ERROR_HPP_EXCEPTIONS
-#  include <stlsoft/error/exceptions.hpp>           // for stlsoft::null_exception_policy
-# endif /* !STLSOFT_INCL_STLSOFT_ERROR_HPP_EXCEPTIONS */
+# ifndef WINSTL_INCL_WINSTL_EXCEPTION_HPP_THROW_POLICIES
+#  include <stlsoft/exception/throw_policies.hpp>   // for stlsoft::null_exception_policy
+# endif /* !WINSTL_INCL_WINSTL_EXCEPTION_HPP_THROW_POLICIES */
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 #ifndef STLSOFT_INCL_STLSOFT_COLLECTIONS_UTIL_HPP_COLLECTIONS
 # include <stlsoft/collections/util/collections.hpp>
@@ -105,38 +101,36 @@ STLSOFT_COMPILER_IS_MSVC: _MSC_VER<1100
 # include <stlsoft/shims/access/string.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_HPP_STRING */
 
-#ifdef STLSOFT_UNITTEST
-# include <stlsoft/conversion/integer_to_string.hpp>
-# include <inetstl/network/connection.hpp>
-# include <inetstl/network/session.hpp>
-# include <stdio.h>
-# include <string.h>
-#endif /* STLSOFT_UNITTEST */
+#ifdef _WIN32
+# ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
+#  include <winstl/api/external/ErrorHandling.h>
+# endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
+# ifndef WINSTL_INCL_WINSTL_API_external_h_FileManagement
+#  include <winstl/api/external/FileManagement.h>
+# endif /* !WINSTL_INCL_WINSTL_API_external_h_FileManagement */
+#endif /* _WIN32 */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _INETSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef INETSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::inetstl */
 namespace inetstl
 {
 # else
 /* Define stlsoft::inetstl_project */
-
 namespace stlsoft
 {
-
 namespace inetstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_INETSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !INETSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Forward declarations
+ * forward declarations
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -153,13 +147,13 @@ class basic_findfile_sequence_const_input_iterator;
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 // class basic_findfile_sequence
-/** \brief Presents an STL-like sequence interface over the items on the file-system
+/** Presents an STL-like sequence interface over the items on the file-system
  *
- * \ingroup group__library__filesystem
+ * \ingroup group__library__FileSystem
  *
  * \param C The character type
  * \param T The traits type. On translators that support default template arguments this defaults to filesystem_traits<C>
@@ -175,7 +169,7 @@ template<   ss_typename_param_k C
 # ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         ,   ss_typename_param_k X   =   throw_internet_exception_policy
 # else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
-        ,   ss_typename_param_k X   =   stlsoft_ns_qual(null_exception_policy)
+        ,   ss_typename_param_k X   =   STLSOFT_NS_QUAL(null_exception_policy)
 # endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 #else /* ? STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
         ,   ss_typename_param_k T /* = filesystem_traits<C> */
@@ -183,7 +177,7 @@ template<   ss_typename_param_k C
 #endif /* STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
         >
 class basic_findfile_sequence
-    : public stlsoft_ns_qual(stl_collection_tag)
+    : public STLSOFT_NS_QUAL(stl_collection_tag)
 {
 /// \name Member Types
 /// @{
@@ -193,10 +187,10 @@ public:
     /// The exception policy type
     typedef X                                                                   exception_policy_type;
     /// The type thrown
-    typedef ss_typename_param_k exception_policy_type::thrown_type              thrown_type;
+    typedef ss_typename_type_k exception_policy_type::thrown_type               thrown_type;
     /// The traits type
     typedef T                                                                   traits_type;
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef basic_findfile_sequence<C, T, X>                                    class_type;
     /// The value type
     typedef basic_findfile_sequence_value_type<C, T, X>                         value_type;
@@ -218,7 +212,7 @@ public:
     typedef is_bool_t                                                           bool_type;
 private:
     typedef is_sint_t                                                           flags_type;
-    typedef stlsoft_ns_qual(basic_simple_string)<char_type>                     string_type;
+    typedef STLSOFT_NS_QUAL(basic_simple_string)<char_type>                     string_type;
 /// @}
 
 /// \name Member Constants
@@ -332,52 +326,52 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Typedefs for commonly encountered types
+ * typedefs for commonly encountered types
  */
 
-/** \brief Specialisation of the basic_findfile_sequence template for the ANSI character type \c char
+/** Specialisation of the basic_findfile_sequence template for the ANSI character type \c char
  *
- * \ingroup group__library__filesystem
+ * \ingroup group__library__FileSystem
  */
 typedef basic_findfile_sequence<is_char_a_t
                             ,   filesystem_traits<is_char_a_t>
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
                             ,   throw_internet_exception_policy
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
-                            ,   stlsoft_ns_qual(null_exception_policy)
+                            ,   STLSOFT_NS_QUAL(null_exception_policy)
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
                             >                                                   findfile_sequence_a;
-/** \brief Specialisation of the basic_findfile_sequence template for the Unicode character type \c wchar_t
+/** Specialisation of the basic_findfile_sequence template for the Unicode character type \c wchar_t
  *
- * \ingroup group__library__filesystem
+ * \ingroup group__library__FileSystem
  */
 typedef basic_findfile_sequence<is_char_w_t
                             ,   filesystem_traits<is_char_w_t>
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
                             ,   throw_internet_exception_policy
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
-                            ,   stlsoft_ns_qual(null_exception_policy)
+                            ,   STLSOFT_NS_QUAL(null_exception_policy)
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
                             >                                                   findfile_sequence_w;
-/** \brief Specialisation of the basic_findfile_sequence template for the Win32 character type \c TCHAR
+/** Specialisation of the basic_findfile_sequence template for the Win32 character type \c TCHAR
  *
- * \ingroup group__library__filesystem
+ * \ingroup group__library__FileSystem
  */
 typedef basic_findfile_sequence<TCHAR
                             ,   filesystem_traits<TCHAR>
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
                             ,   throw_internet_exception_policy
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
-                            ,   stlsoft_ns_qual(null_exception_policy)
+                            ,   STLSOFT_NS_QUAL(null_exception_policy)
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
                             >                 findfile_sequence;
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 // class basic_findfile_sequence_value_type
-/** \brief Value type for the basic_findfile_sequence
+/** Value type for the basic_findfile_sequence
  *
- * \ingroup group__library__filesystem
+ * \ingroup group__library__FileSystem
  */
 template<   ss_typename_param_k C
         ,   ss_typename_param_k T
@@ -395,10 +389,10 @@ public:
     /// The exception policy type
     typedef X                                                       exception_policy_type;
     /// The type thrown
-    typedef ss_typename_param_k exception_policy_type::thrown_type  thrown_type;
+    typedef ss_typename_type_k exception_policy_type::thrown_type   thrown_type;
     /// The traits type
     typedef T                                                       traits_type;
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef basic_findfile_sequence_value_type<C, T, X>             class_type;
     /// The find-data type
     typedef ss_typename_type_k traits_type::find_data_type          find_data_type;
@@ -407,7 +401,7 @@ public:
 private:
     typedef ss_typename_type_k sequence_type::bool_type             bool_type;
     typedef ss_typename_type_k sequence_type::flags_type            flags_type;
-    typedef stlsoft_ns_qual(basic_simple_string)<char_type>         string_type;
+    typedef STLSOFT_NS_QUAL(basic_simple_string)<char_type>         string_type;
 /// @}
 
 /// \name Construction
@@ -426,10 +420,10 @@ private:
 
         size_type cchFile = traits_type::str_len(data.cFileName);
 
-        if('/' != data.cFileName[0])
+        if ('/' != data.cFileName[0])
         {
             traits_type::char_copy(m_path, path, cchPath + 1);
-            if(!traits_type::has_dir_end(m_path))
+            if (!traits_type::has_dir_end(m_path))
             {
                 traits_type::ensure_dir_end(m_path);
                 ++cchPath;
@@ -444,9 +438,9 @@ private:
     }
 // @}
 
-/** \brief Accessors
+/** Accessors
  *
- * \ingroup group__library__filesystem
+ * \ingroup group__library__FileSystem
  */
 // @{
 public:
@@ -488,14 +482,14 @@ private:
     friend class basic_findfile_sequence_const_input_iterator<C, T, X, class_type>;
 
     find_data_type  m_data;
-    char_type       m_path[1 + _MAX_PATH];
+    char_type       m_path[1 + INETSTL_CONST_MAX_PATH];
 /// @}
 };
 
 // class basic_findfile_sequence_const_input_iterator
-/** \brief Iterator type for the basic_findfile_sequence supporting the Input Iterator concept
+/** Iterator type for the basic_findfile_sequence supporting the Input Iterator concept
  *
- * \ingroup group__library__filesystem
+ * \ingroup group__library__FileSystem
  */
 template<   ss_typename_param_k C
         ,   ss_typename_param_k T
@@ -504,7 +498,7 @@ template<   ss_typename_param_k C
         >
 class basic_findfile_sequence_const_input_iterator
 #ifndef STLSOFT_COMPILER_IS_WATCOM
-    : public stlsoft_ns_qual(iterator_base)<inetstl_ns_qual_std(input_iterator_tag)
+    : public STLSOFT_NS_QUAL(iterator_base)<STLSOFT_NS_QUAL_STD(input_iterator_tag)
                                         ,   V
                                         ,   is_ptrdiff_t
                                         ,   void    // By-Value Temporary reference
@@ -522,12 +516,12 @@ public:
     /// The exception policy type
     typedef X                                                           exception_policy_type;
     /// The type thrown
-    typedef ss_typename_param_k exception_policy_type::thrown_type      thrown_type;
+    typedef ss_typename_type_k exception_policy_type::thrown_type       thrown_type;
     /// The traits type
     typedef T                                                           traits_type;
     /// The value type
     typedef V                                                           value_type;
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef basic_findfile_sequence_const_input_iterator<C, T, X, V>    class_type;
     /// The find-data type
     typedef ss_typename_type_k traits_type::find_data_type              find_data_type;
@@ -576,7 +570,7 @@ private:
         {
             INETSTL_MESSAGE_ASSERT("Shared search handle being destroyed with outstanding references!", 0 == m_refCount);
 
-            if(NULL != hSrch)
+            if (NULL != hSrch)
             {
                 traits_type::find_close(hSrch);
             }
@@ -594,7 +588,7 @@ private:
         {
             ss_sint32_t rc = --m_refCount;
 
-            if(0 == rc)
+            if (0 == rc)
             {
                 delete this;
             }
@@ -705,7 +699,7 @@ template<   ss_typename_param_k C
         ,   ss_typename_param_k T
         ,   ss_typename_param_k X
         >
-inline is_bool_t operator == (  basic_findfile_sequence_value_type<C, T, X> const&  lhs
+inline is_bool_t operator ==(  basic_findfile_sequence_value_type<C, T, X> const&  lhs
                             ,   basic_findfile_sequence_value_type<C, T, X> const&  rhs)
 {
     return lhs.equal(rhs);
@@ -715,7 +709,7 @@ template<   ss_typename_param_k C
         ,   ss_typename_param_k T
         ,   ss_typename_param_k X
         >
-inline is_bool_t operator == (  basic_findfile_sequence_value_type<C, T, X> const& lhs
+inline is_bool_t operator ==(  basic_findfile_sequence_value_type<C, T, X> const& lhs
                             ,   C const* rhs)
 {
     return lhs.equal(rhs);
@@ -725,7 +719,7 @@ template<   ss_typename_param_k C
         ,   ss_typename_param_k T
         ,   ss_typename_param_k X
         >
-inline is_bool_t operator == (C const* lhs, basic_findfile_sequence_value_type<C, T, X> const& rhs)
+inline is_bool_t operator ==(C const* lhs, basic_findfile_sequence_value_type<C, T, X> const& rhs)
 {
     return rhs.equal(lhs);
 }
@@ -734,7 +728,7 @@ template<   ss_typename_param_k C
         ,   ss_typename_param_k T
         ,   ss_typename_param_k X
         >
-inline is_bool_t operator != (  basic_findfile_sequence_value_type<C, T, X> const& lhs
+inline is_bool_t operator !=(  basic_findfile_sequence_value_type<C, T, X> const& lhs
                             ,   basic_findfile_sequence_value_type<C, T, X> const& rhs)
 {
     return !lhs.equal(rhs);
@@ -744,7 +738,7 @@ template<   ss_typename_param_k C
         ,   ss_typename_param_k T
         ,   ss_typename_param_k X
         >
-inline is_bool_t operator != (  basic_findfile_sequence_value_type<C, T, X> const&  lhs
+inline is_bool_t operator !=(  basic_findfile_sequence_value_type<C, T, X> const&  lhs
                             ,   C const* rhs)
 {
     return !lhs.equal(rhs);
@@ -754,7 +748,7 @@ template<   ss_typename_param_k C
         ,   ss_typename_param_k T
         ,   ss_typename_param_k X
         >
-inline is_bool_t operator != (  C const* lhs, basic_findfile_sequence_value_type<C, T, X> const& rhs)
+inline is_bool_t operator !=(  C const* lhs, basic_findfile_sequence_value_type<C, T, X> const& rhs)
 {
     return !rhs.equal(lhs);
 }
@@ -765,25 +759,25 @@ inline is_bool_t operator != (  C const* lhs, basic_findfile_sequence_value_type
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 template <ss_typename_param_k T, ss_typename_param_k X>
-inline is_char_a_t const* c_str_data_a(inetstl_ns_qual(basic_findfile_sequence_value_type)<is_char_a_t, T, X> const& v)
+inline is_char_a_t const* c_str_data_a(INETSTL_NS_QUAL(basic_findfile_sequence_value_type)<is_char_a_t, T, X> const& v)
 {
     return v.get_path();
 }
 template <ss_typename_param_k T, ss_typename_param_k X>
-inline is_char_w_t const* c_str_data_w(inetstl_ns_qual(basic_findfile_sequence_value_type)<is_char_w_t, T, X> const& v)
+inline is_char_w_t const* c_str_data_w(INETSTL_NS_QUAL(basic_findfile_sequence_value_type)<is_char_w_t, T, X> const& v)
 {
     return v.get_path();
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_data for inetstl::basic_findfile_sequence_value_type
+/** \ref group__concept__Shim__string_access__c_str_data for inetstl::basic_findfile_sequence_value_type
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k X>
-inline C const* c_str_data(inetstl_ns_qual(basic_findfile_sequence_value_type)<C, T, X> const& v)
+inline C const* c_str_data(INETSTL_NS_QUAL(basic_findfile_sequence_value_type)<C, T, X> const& v)
 {
     return v.get_path();
 }
@@ -793,26 +787,26 @@ inline C const* c_str_data(inetstl_ns_qual(basic_findfile_sequence_value_type)<C
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 template <ss_typename_param_k T, ss_typename_param_k X>
-inline is_size_t c_str_len_a(inetstl_ns_qual(basic_findfile_sequence_value_type)<is_char_a_t, T, X> const& v)
+inline is_size_t c_str_len_a(INETSTL_NS_QUAL(basic_findfile_sequence_value_type)<is_char_a_t, T, X> const& v)
 {
-    return stlsoft_ns_qual(c_str_len_a(v.get_path()));
+    return STLSOFT_NS_QUAL(c_str_len_a(v.get_path()));
 }
 template <ss_typename_param_k T, ss_typename_param_k X>
-inline is_size_t c_str_len_w(inetstl_ns_qual(basic_findfile_sequence_value_type)<is_char_w_t, T, X> const& v)
+inline is_size_t c_str_len_w(INETSTL_NS_QUAL(basic_findfile_sequence_value_type)<is_char_w_t, T, X> const& v)
 {
-    return stlsoft_ns_qual(c_str_len_w(v.get_path()));
+    return STLSOFT_NS_QUAL(c_str_len_w(v.get_path()));
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_len for inetstl::basic_findfile_sequence_value_type
+/** \ref group__concept__Shim__string_access__c_str_len for inetstl::basic_findfile_sequence_value_type
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k X>
-inline is_size_t c_str_len(inetstl_ns_qual(basic_findfile_sequence_value_type)<C, T, X> const& v)
+inline is_size_t c_str_len(INETSTL_NS_QUAL(basic_findfile_sequence_value_type)<C, T, X> const& v)
 {
-    return stlsoft_ns_qual(c_str_len(v.get_path()));
+    return STLSOFT_NS_QUAL(c_str_len(v.get_path()));
 }
 
 
@@ -820,24 +814,24 @@ inline is_size_t c_str_len(inetstl_ns_qual(basic_findfile_sequence_value_type)<C
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 template <ss_typename_param_k T, ss_typename_param_k X>
-inline is_char_a_t const* c_str_ptr_a(inetstl_ns_qual(basic_findfile_sequence_value_type)<is_char_a_t, T, X> const& v)
+inline is_char_a_t const* c_str_ptr_a(INETSTL_NS_QUAL(basic_findfile_sequence_value_type)<is_char_a_t, T, X> const& v)
 {
     return v.get_path();
 }
 template <ss_typename_param_k T, ss_typename_param_k X>
-inline is_char_w_t const* c_str_ptr_w(inetstl_ns_qual(basic_findfile_sequence_value_type)<is_char_w_t, T, X> const& v)
+inline is_char_w_t const* c_str_ptr_w(INETSTL_NS_QUAL(basic_findfile_sequence_value_type)<is_char_w_t, T, X> const& v)
 {
     return v.get_path();
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr for inetstl::basic_findfile_sequence_value_type
+/** \ref group__concept__Shim__string_access__c_str_ptr for inetstl::basic_findfile_sequence_value_type
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k X>
-inline C const* c_str_ptr(inetstl_ns_qual(basic_findfile_sequence_value_type)<C, T, X> const& v)
+inline C const* c_str_ptr(INETSTL_NS_QUAL(basic_findfile_sequence_value_type)<C, T, X> const& v)
 {
     return v.get_path();
 }
@@ -847,59 +841,66 @@ inline C const* c_str_ptr(inetstl_ns_qual(basic_findfile_sequence_value_type)<C,
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 template <ss_typename_param_k T, ss_typename_param_k X>
-inline is_char_a_t const* c_str_ptr_null_a(inetstl_ns_qual(basic_findfile_sequence_value_type)<is_char_a_t, T, X> const& v)
+inline is_char_a_t const* c_str_ptr_null_a(INETSTL_NS_QUAL(basic_findfile_sequence_value_type)<is_char_a_t, T, X> const& v)
 {
-    return stlsoft_ns_qual(c_str_ptr_null(v.get_path()));
+    return STLSOFT_NS_QUAL(c_str_ptr_null(v.get_path()));
 }
 template <ss_typename_param_k T, ss_typename_param_k X>
-inline is_char_w_t const* c_str_ptr_null_w(inetstl_ns_qual(basic_findfile_sequence_value_type)<is_char_w_t, T, X> const& v)
+inline is_char_w_t const* c_str_ptr_null_w(INETSTL_NS_QUAL(basic_findfile_sequence_value_type)<is_char_w_t, T, X> const& v)
 {
-    return stlsoft_ns_qual(c_str_ptr_null(v.get_path()));
+    return STLSOFT_NS_QUAL(c_str_ptr_null(v.get_path()));
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr_null for inetstl::basic_findfile_sequence_value_type
+/** \ref group__concept__Shim__string_access__c_str_ptr_null for inetstl::basic_findfile_sequence_value_type
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k X>
-inline C const* c_str_ptr_null(inetstl_ns_qual(basic_findfile_sequence_value_type)<C, T, X> const& v)
+inline C const* c_str_ptr_null(INETSTL_NS_QUAL(basic_findfile_sequence_value_type)<C, T, X> const& v)
 {
-    return stlsoft_ns_qual(c_str_ptr_null(v.get_path()));
+    return STLSOFT_NS_QUAL(c_str_ptr_null(v.get_path()));
 }
 
 
-
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/findfile_sequence_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
 
 ////////////////////////////////////////////////////////////////////////////
 // Implementation
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
+# if 0 || \
+     defined(STLSOFT_CF_FUNCTION_SIGNATURE_FULL_ARG_QUALIFICATION_REQUIRED) || \
+     0
+
+#  define INETSTL_findfile_sequence_pt_(pt)                 ss_typename_type_k basic_findfile_sequence<C, T, X>::pt
+# else
+
+#  define INETSTL_findfile_sequence_pt_(pt)                 pt
+# endif
+
+
 // basic_findfile_sequence
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k X>
-inline /* static */ HINTERNET basic_findfile_sequence<C, T, X>::find_first_file_(
-    HINTERNET                                                               hconn
-,   ss_typename_type_k basic_findfile_sequence<C, T, X>::char_type const*   spec
-,   ss_typename_type_k basic_findfile_sequence<C, T, X>::flags_type         /* flags */
-,   ss_typename_type_k basic_findfile_sequence<C, T, X>::find_data_type*    findData
+inline
+/* static */
+HINTERNET
+basic_findfile_sequence<C, T, X>::find_first_file_(
+    HINTERNET                                           hconn
+,   INETSTL_findfile_sequence_pt_(char_type) const*     spec
+,   INETSTL_findfile_sequence_pt_(flags_type)        /* flags */
+,   INETSTL_findfile_sequence_pt_(find_data_type)*      findData
 )
 {
-    HINTERNET   hSrch   =   traits_type::find_first_file(hconn, spec, findData);
+    HINTERNET hSrch = traits_type::find_first_file(hconn, spec, findData);
 
-    if(NULL == hSrch)
+    if (NULL == hSrch)
     {
-        DWORD       dwErr   =   ::GetLastError();
+        DWORD const dwErr = WINSTL_API_EXTERNAL_ErrorHandling_GetLastError();
 
-        if(ERROR_FTP_TRANSFER_IN_PROGRESS == dwErr)
+        if (ERROR_FTP_TRANSFER_IN_PROGRESS == dwErr)
         {
             exception_policy_type()("Already enumerating using current connection", dwErr);
         }
@@ -913,7 +914,12 @@ inline /* static */ HINTERNET basic_findfile_sequence<C, T, X>::find_first_file_
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k X>
-inline /* static */ ss_typename_type_ret_k basic_findfile_sequence<C, T, X>::flags_type basic_findfile_sequence<C, T, X>::validate_flags_(ss_typename_type_k basic_findfile_sequence<C, T, X>::flags_type flags)
+inline
+/* static */
+ss_typename_type_ret_k basic_findfile_sequence<C, T, X>::flags_type
+basic_findfile_sequence<C, T, X>::validate_flags_(
+    INETSTL_findfile_sequence_pt_(flags_type) flags
+)
 {
     const flags_type    validFlags  =   0
                                     |   includeDots
@@ -927,7 +933,7 @@ inline /* static */ ss_typename_type_ret_k basic_findfile_sequence<C, T, X>::fla
     INETSTL_MESSAGE_ASSERT("Specification of unrecognised/unsupported flags", flags == (flags & validFlags));
     STLSOFT_SUPPRESS_UNUSED(validFlags);
 
-    if(0 == (flags & (directories | files)))
+    if (0 == (flags & (directories | files)))
     {
         flags |= (directories | files);
     }
@@ -946,9 +952,9 @@ inline /* static */ void basic_findfile_sequence<C, T, X>::extract_subpath_(HINT
 {
     char_type* pFile;
 
-    traits_type::get_full_path_name(hconn, pattern, _MAX_PATH, dest, &pFile);
+    traits_type::get_full_path_name(hconn, pattern, INETSTL_CONST_MAX_PATH, dest, &pFile);
 
-    if(NULL != pFile)
+    if (NULL != pFile)
     {
         *pFile = '\0';
     }
@@ -956,7 +962,12 @@ inline /* static */ void basic_findfile_sequence<C, T, X>::extract_subpath_(HINT
 
 // Construction
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k X>
-inline basic_findfile_sequence<C, T, X>::basic_findfile_sequence(HINTERNET hconn, char_type const* pattern, ss_typename_type_k basic_findfile_sequence<C, T, X>::flags_type flags /* = directories | files */)
+inline
+basic_findfile_sequence<C, T, X>::basic_findfile_sequence(
+    HINTERNET                                       hconn
+,   INETSTL_findfile_sequence_pt_(char_type) const* pattern
+,   INETSTL_findfile_sequence_pt_(flags_type)       flags /* = directories | files */
+)
     : m_hconn(hconn)
     , m_delim('\0')
     , m_flags(validate_flags_(flags))
@@ -967,7 +978,13 @@ inline basic_findfile_sequence<C, T, X>::basic_findfile_sequence(HINTERNET hconn
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k X>
-inline basic_findfile_sequence<C, T, X>::basic_findfile_sequence(HINTERNET hconn, char_type const* directory, char_type const* pattern, ss_typename_type_k basic_findfile_sequence<C, T, X>::flags_type flags /* = directories | files */)
+inline
+basic_findfile_sequence<C, T, X>::basic_findfile_sequence(
+    HINTERNET                                       hconn
+,   INETSTL_findfile_sequence_pt_(char_type) const* directory
+,   INETSTL_findfile_sequence_pt_(char_type) const* pattern
+,   INETSTL_findfile_sequence_pt_(flags_type)       flags /* = directories | files */
+)
     : m_hconn(hconn)
     , m_delim('\0')
     , m_flags(validate_flags_(flags))
@@ -979,11 +996,11 @@ inline basic_findfile_sequence<C, T, X>::basic_findfile_sequence(HINTERNET hconn
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k X>
 inline basic_findfile_sequence<C, T, X>::basic_findfile_sequence(
-    HINTERNET                                                       hconn
-,   char_type const*                                                directory
-,   char_type const*                                                patterns
-,   char_type                                                       delim
-,   ss_typename_type_k basic_findfile_sequence<C, T, X>::flags_type flags /* = directories | files */
+    HINTERNET                                       hconn
+,   INETSTL_findfile_sequence_pt_(char_type) const* directory
+,   INETSTL_findfile_sequence_pt_(char_type) const* patterns
+,   INETSTL_findfile_sequence_pt_(char_type)        delim
+,   INETSTL_findfile_sequence_pt_(flags_type)       flags /* = directories | files */
 )
     : m_hconn(hconn)
     , m_delim(delim)
@@ -1006,7 +1023,7 @@ inline ss_typename_type_ret_k basic_findfile_sequence<C, T, X>::const_iterator b
 {
     INETSTL_ASSERT(is_valid());
 
-    return const_input_iterator(*this, stlsoft_ns_qual(c_str_ptr)(m_rootDir), stlsoft_ns_qual(c_str_ptr)(m_patterns), m_delim, m_flags);
+    return const_input_iterator(*this, STLSOFT_NS_QUAL(c_str_ptr)(m_rootDir), STLSOFT_NS_QUAL(c_str_ptr)(m_patterns), m_delim, m_flags);
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k X>
@@ -1019,13 +1036,16 @@ inline ss_typename_type_ret_k basic_findfile_sequence<C, T, X>::const_iterator b
 
 // Attributes
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k X>
-ss_typename_type_k basic_findfile_sequence<C, T, X>::char_type const* basic_findfile_sequence<C, T, X>::get_directory(ss_typename_type_k basic_findfile_sequence<C, T, X>::size_type* pn) const
+ss_typename_type_ret_k basic_findfile_sequence<C, T, X>::char_type
+const* basic_findfile_sequence<C, T, X>::get_directory(
+    INETSTL_findfile_sequence_pt_(size_type)* pn
+) const
 {
     INETSTL_ASSERT(is_valid());
 
     size_type n_;
 
-    if(NULL == pn)
+    if (NULL == pn)
     {
         pn = &n_;
     }
@@ -1042,7 +1062,7 @@ inline ss_typename_type_ret_k basic_findfile_sequence<C, T, X>::size_type basic_
 {
     INETSTL_ASSERT(is_valid());
 
-    return stlsoft_ns_qual_std(distance)(begin(), end());
+    return STLSOFT_NS_QUAL_STD(distance)(begin(), end());
 }
 #endif /* STLSOFT_OBSOLETE */
 
@@ -1051,7 +1071,7 @@ inline is_bool_t basic_findfile_sequence<C, T, X>::empty() const
 {
     INETSTL_ASSERT(is_valid());
 
-    return begin() == end();
+    return end() == begin();
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k X>
@@ -1162,7 +1182,7 @@ inline /* static */ int basic_findfile_sequence_const_input_iterator<C, T, X, V>
     INETSTL_ASSERT(NULL != p1);
     INETSTL_ASSERT(p0 <= p1);
 
-    return stlsoft_ns_qual(find_next_token)(p0, p1, delim);
+    return STLSOFT_NS_QUAL(find_next_token)(p0, p1, delim);
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k X, ss_typename_param_k V>
@@ -1179,37 +1199,37 @@ inline /* static */ HINTERNET basic_findfile_sequence_const_input_iterator<C, T,
 {
     HINTERNET   hSrch = traits_type::find_first_file(hconn, pattern, findData);
 
-    if(hSrch != NULL)
+    if (hSrch != NULL)
     {
         // Now need to validate against the flags
-        for(; hSrch != NULL; )
+        for (; hSrch != NULL; )
         {
-            if(0 == (findData->dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+            if (0 == (findData->dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
             {
                 // A file, and files requested, so break
-                if(flags & sequence_type::files)
+                if (flags & sequence_type::files)
                 {
                     break;
                 }
             }
             else
             {
-                if(traits_type::is_dots(findData->cFileName))
+                if (traits_type::is_dots(findData->cFileName))
                 {
-                    if(flags & sequence_type::includeDots)
+                    if (flags & sequence_type::includeDots)
                     {
                         // A dots file, and dots are requested
                         break;
                     }
                 }
-                else if(flags & sequence_type::directories)
+                else if (flags & sequence_type::directories)
                 {
                     // A directory, and directories requested
                     break;
                 }
             }
 
-            if(!traits_type::find_next_file(hSrch, findData))
+            if (!traits_type::find_next_file(hSrch, findData))
             {
                 traits_type::find_close(hSrch);
 
@@ -1280,7 +1300,7 @@ inline basic_findfile_sequence_const_input_iterator<C, T, X, V>::basic_findfile_
     , m_delim(rhs.m_delim)
     , m_flags(rhs.m_flags)
 {
-    if(NULL != m_handle)
+    if (NULL != m_handle)
     {
         m_handle->AddRef();
     }
@@ -1305,12 +1325,12 @@ inline basic_findfile_sequence_const_input_iterator<C, T, X, V> &basic_findfile_
     m_delim     =   rhs.m_delim;
     m_flags     =   rhs.m_flags;
 
-    if(NULL != m_handle)
+    if (NULL != m_handle)
     {
         m_handle->AddRef();
     }
 
-    if(NULL != this_handle)
+    if (NULL != this_handle)
     {
         this_handle->Release();
     }
@@ -1321,7 +1341,7 @@ inline basic_findfile_sequence_const_input_iterator<C, T, X, V> &basic_findfile_
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k X, ss_typename_param_k V>
 inline basic_findfile_sequence_const_input_iterator<C, T, X, V>::~basic_findfile_sequence_const_input_iterator() STLSOFT_NOEXCEPT
 {
-    if(NULL != m_handle)
+    if (NULL != m_handle)
     {
         m_handle->Release();
     }
@@ -1340,20 +1360,20 @@ inline ss_typename_type_ret_k basic_findfile_sequence_const_input_iterator<C, T,
     //  1. starting out
     //  2.
 
-    for(; '\0' != *m_pattern0 || '\0' != *m_pattern1;)
+    for (; '\0' != *m_pattern0 || '\0' != *m_pattern1;)
     {
-        if(NULL == m_handle)
+        if (NULL == m_handle)
         {
             // Need to work through the
 
-            while(find_next_pattern_(m_pattern0, m_pattern1, m_delim))
+            while (find_next_pattern_(m_pattern0, m_pattern1, m_delim))
             {
-                if(m_pattern1 != m_pattern0)    // Will return m_pattern0 == m_pattern1 for empty tokens
+                if (m_pattern1 != m_pattern0)    // Will return m_pattern0 == m_pattern1 for empty tokens
                 {
                     string_type     pattern(m_pattern0, m_pattern1);
                     string_type     search  =   m_rootDir;
 
-                    if(search.back() != '/')
+                    if (search.back() != '/')
                     {
                         static const char_type  slash[] = { '/', '\0' };
 
@@ -1361,10 +1381,9 @@ inline ss_typename_type_ret_k basic_findfile_sequence_const_input_iterator<C, T,
                     }
                     search += pattern;
 
-//printf("[%s]\n", search.c_str());
-                    HINTERNET       hSrch   =   find_first_file_(m_list->m_hconn, stlsoft_ns_qual(c_str_ptr)(search), m_flags, &m_data);
+                    HINTERNET       hSrch   =   find_first_file_(m_list->m_hconn, STLSOFT_NS_QUAL(c_str_ptr)(search), m_flags, &m_data);
 
-                    if(NULL != hSrch)
+                    if (NULL != hSrch)
                     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
                         try
@@ -1372,15 +1391,15 @@ inline ss_typename_type_ret_k basic_findfile_sequence_const_input_iterator<C, T,
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
                             m_handle = new shared_handle(hSrch);
 
-                            if(NULL == m_handle)
+                            if (NULL == m_handle)
                             {
-                                ::FindClose(hSrch);
+                                WINSTL_API_EXTERNAL_FileManagement_FindClose(hSrch);
                             }
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
                         }
                         catch(...)
                         {
-                            ::FindClose(hSrch);
+                            WINSTL_API_EXTERNAL_FileManagement_FindClose(hSrch);
 
                             throw;
                         }
@@ -1392,11 +1411,11 @@ inline ss_typename_type_ret_k basic_findfile_sequence_const_input_iterator<C, T,
             }
         }
 
-        if(NULL != m_handle)
+        if (NULL != m_handle)
         {
-            for(; m_handle->hSrch != NULL; )
+            for (; m_handle->hSrch != NULL; )
             {
-                if(!traits_type::find_next_file(m_handle->hSrch, &m_data))
+                if (!traits_type::find_next_file(m_handle->hSrch, &m_data))
                 {
                     m_handle->Release();
 
@@ -1406,25 +1425,25 @@ inline ss_typename_type_ret_k basic_findfile_sequence_const_input_iterator<C, T,
                 }
                 else
                 {
-                    if((m_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0)
+                    if ((m_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0)
                     {
                         // A file, and files requested, so break
-                        if(m_flags & sequence_type::files)
+                        if (m_flags & sequence_type::files)
                         {
                             return *this;
                         }
                     }
                     else
                     {
-                        if(traits_type::is_dots(m_data.cFileName))
+                        if (traits_type::is_dots(m_data.cFileName))
                         {
-                            if(m_flags & sequence_type::includeDots)
+                            if (m_flags & sequence_type::includeDots)
                             {
                                 // A dots file, and dots are requested
                                 return *this;
                             }
                         }
-                        else if(m_flags & sequence_type::directories)
+                        else if (m_flags & sequence_type::directories)
                         {
                             // A directory, and directories requested
                             return *this;
@@ -1451,7 +1470,7 @@ inline ss_typename_type_ret_k basic_findfile_sequence_const_input_iterator<C, T,
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k X, ss_typename_param_k V>
 inline const ss_typename_type_k basic_findfile_sequence_const_input_iterator<C, T, X, V>::value_type basic_findfile_sequence_const_input_iterator<C, T, X, V>::operator *() const
 {
-    if(NULL != m_handle)
+    if (NULL != m_handle)
     {
         size_type           dirLen  =   0;
         char_type const*    dir     =   m_list->get_directory(&dirLen);
@@ -1479,32 +1498,32 @@ inline is_bool_t basic_findfile_sequence_const_input_iterator<C, T, X, V>::equal
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _INETSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef INETSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace inetstl
+} /* namespace inetstl */
 # else
-} // namespace inetstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_INETSTL_NO_NAMESPACE */
+} /* namespace inetstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !INETSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The string access shims exist either in the stlsoft namespace, or in the
  * global namespace. This is required by the lookup rules.
  *
  */
 
-#ifndef _INETSTL_NO_NAMESPACE
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+#ifndef INETSTL_NO_NAMESPACE
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 namespace stlsoft
 {
-# else /* ? _STLSOFT_NO_NAMESPACE */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
 
 using ::inetstl::c_str_data;
 using ::inetstl::c_str_data_a;
@@ -1522,17 +1541,23 @@ using ::inetstl::c_str_ptr_null;
 using ::inetstl::c_str_ptr_null_a;
 using ::inetstl::c_str_ptr_null_w;
 
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace stlsoft
-# else /* ? _STLSOFT_NO_NAMESPACE */
+} /* namespace stlsoft */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
-#endif /* !_INETSTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
+#endif /* !INETSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* INETSTL_INCL_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !INETSTL_INCL_INETSTL_FILESYSTEM_HPP_FINDFILE_SEQUENCE */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

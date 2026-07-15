@@ -1,20 +1,12 @@
 # STLSoft - Authors
 
-> Note
-> **STLSoft-1.9** is now obsolete; please instead use **STLSoft 1.10**, which may be obtained from https://github.com/synesissoftware/STLSoft-1.10
-
-
-----
-
-
 ## Major Contributors:
 
-* Matthew Wilson        (most of the libraries)
-* Garth Lancaster       (many edits, fixes, and nuggets of advice over the years)
-* Pablo Aguilar         (Windows ToolHelp Library)
+* Matt Wilson ([mwsis](https://github.com/mwsis)) - primary contributor of most of the libraries
+* Pablo Aguilar - author of the Windows ToolHelp Library
 
 
-## Bug reports, fixes and suggestions (for which we are very grateful):
+## Defect reports, fixes and suggestions (for which we are very grateful):
 
 * Adi Shavit
 * Allan McLellan
@@ -28,6 +20,7 @@
 * Carston Schmidt
 * chenchang
 * Chris Newcombe
+* Chris Oldwood
 * Christian Roessel
 * Christopher Diggins
 * christopherplawrence
@@ -35,12 +28,14 @@
 * Colin Gravell
 * Dave Brooks
 * David Wang
+* denis-bz-py
 * Diego Chanoux
 * Dimitri Kaparis
 * Eduardo Bezerra
 * Eugene Gershnik
 * Felix Gartsman
 * Gabor Fischer
+* Garth Lancaster
 * Greg Peet
 * HeartIcy
 * iceboy

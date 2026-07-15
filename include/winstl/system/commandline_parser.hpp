@@ -4,46 +4,48 @@
  * Purpose:     commandline_parser class.
  *
  * Created:     20th May 2000
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2000-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/system/commandline_parser.hpp
  *
- * \brief [C++ only] Definition of the winstl::basic_commandline_parser
+ * \brief [C++] Definition of the winstl::basic_commandline_parser
  *  class template
- *   (\ref group__library__system "System" Library).
+ *   (\ref group__library__System "System" Library).
  */
 
 
@@ -53,17 +55,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SYSTEM_HPP_COMMANDLINE_PARSER_MAJOR      2
 # define WINSTL_VER_WINSTL_SYSTEM_HPP_COMMANDLINE_PARSER_MINOR      1
-# define WINSTL_VER_WINSTL_SYSTEM_HPP_COMMANDLINE_PARSER_REVISION   2
-# define WINSTL_VER_WINSTL_SYSTEM_HPP_COMMANDLINE_PARSER_EDIT       37
+# define WINSTL_VER_WINSTL_SYSTEM_HPP_COMMANDLINE_PARSER_REVISION   7
+# define WINSTL_VER_WINSTL_SYSTEM_HPP_COMMANDLINE_PARSER_EDIT       51
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_MEMORY_HPP_AUTO_BUFFER
 # include <stlsoft/memory/auto_buffer.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_MEMORY_HPP_AUTO_BUFFER */
@@ -83,29 +89,26 @@
 #endif /* !STLSOFT_INCL_H_CTYPE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 /** Parses a Windows (<code>WinMain()</code>) command line into
@@ -120,10 +123,10 @@ assert(0 == ::strcmp("d e f", cp[1]));
 assert(0 == ::strcmp("ghi",   cp[2]));
 \endcode
  *
- * \ingroup group__library__system
+ * \ingroup group__library__System
  */
 template<   ss_typename_param_k C
-        ,   ss_typename_param_k T = stlsoft_ns_qual(stlsoft_char_traits)<C>
+        ,   ss_typename_param_k T = STLSOFT_NS_QUAL(stlsoft_char_traits)<C>
         >
 class basic_commandline_parser
 {
@@ -140,12 +143,12 @@ private:
     typedef char_type*                                          pointer_type_;
     typedef processheap_allocator<char_type>                    allocator_type_;
     typedef processheap_allocator<pointer_type_>                pointers_allocator_type_;
-    typedef stlsoft_ns_qual(auto_buffer)<
+    typedef STLSOFT_NS_QUAL(auto_buffer)<
         char_type
     ,   256
     ,   allocator_type_
     >                                                           buffer_type_;
-    typedef stlsoft_ns_qual(auto_buffer)<
+    typedef STLSOFT_NS_QUAL(auto_buffer)<
         pointer_type_
     ,   20
     ,   pointers_allocator_type_
@@ -167,7 +170,7 @@ public:
      *   of pointers to the arguments.
      */
     ss_explicit_k basic_commandline_parser(char_type const* cmdLine)
-        : m_buffer(1 + stlsoft_ns_qual(c_str_len)(cmdLine))
+        : m_buffer(1 + STLSOFT_NS_QUAL(c_str_len)(cmdLine))
         , m_pointers(0)
     {
         init_(cmdLine, m_buffer.size() - 1);
@@ -207,24 +210,24 @@ private:
         iterator        b       =   m_buffer.begin();
         const iterator  e       =   m_buffer.end() - 1;
 
-        for(; b != e; ++b)
+        for (; b != e; ++b)
         {
             const char_type ch = *b;
 
             WINSTL_ASSERT('\0' != ch);
 
-            if('"' == ch)
+            if ('"' == ch)
             {
-                if(quotedArgumentStart == state)
+                if (quotedArgumentStart == state)
                 {
                     state   =   space;
                 }
-                else if(quotedArgument == state)
+                else if (quotedArgument == state)
                 {
                     *b      =   '\0';
                     state   =   space;
                 }
-                else if(space == state)
+                else if (space == state)
                 {
                     state   =   quotedArgumentStart;
                 }
@@ -232,18 +235,18 @@ private:
                 {
                 }
             }
-            else if(isspace(ch))
+            else if (isspace(ch))
             {
-                if(quotedArgumentStart == state)
+                if (quotedArgumentStart == state)
                 {
                     state   =   quotedArgument;
 
                     add_pointer(&*b);
                 }
-                else if(quotedArgument == state)
+                else if (quotedArgument == state)
                 {
                 }
-                else if(space == state)
+                else if (space == state)
                 {
                 }
                 else
@@ -257,13 +260,13 @@ private:
             }
             else
             {
-                if(quotedArgumentStart == state)
+                if (quotedArgumentStart == state)
                 {
                     state   =   quotedArgument;
 
                     add_pointer(&*b);
                 }
-                else if(space == state)
+                else if (space == state)
                 {
                     state   =   argument;
 
@@ -322,7 +325,7 @@ public:
 private:
     ws_bool_t add_pointer(pointer_type_ p)
     {
-        if(!m_pointers.resize(1 + m_pointers.size()))
+        if (!m_pointers.resize(1 + m_pointers.size()))
         {
             return false;
         }
@@ -342,47 +345,46 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Typedefs for commonly encountered types
+ * typedefs for commonly encountered types
  */
 
 /** Specialisation of the basic_commandline_parser template for the ANSI character type \c char
  *
- * \ingroup group__library__system
+ * \ingroup group__library__System
  */
 typedef basic_commandline_parser<ws_char_a_t>   commandline_parser_a;
 /** Specialisation of the basic_commandline_parser template for the Unicode character type \c wchar_t
  *
- * \ingroup group__library__system
+ * \ingroup group__library__System
  */
 typedef basic_commandline_parser<ws_char_w_t>   commandline_parser_w;
 /** Specialisation of the basic_commandline_parser template for the Win32 character type \c TCHAR
  *
- * \ingroup group__library__system
+ * \ingroup group__library__System
  */
 typedef basic_commandline_parser<TCHAR>         commandline_parser;
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/commandline_parser_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_SYSTEM_HPP_COMMANDLINE_PARSER */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_SYSTEM_HPP_COMMANDLINE_PARSER */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

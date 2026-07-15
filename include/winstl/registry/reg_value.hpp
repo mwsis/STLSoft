@@ -10,7 +10,7 @@
  *              regretably now implemented as independent classes.
  *
  * Created:     19th January 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks:      To Diego Chanoux for spotting a defect in the value_sz() method.
  *
@@ -23,42 +23,44 @@
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/registry/reg_value.hpp
  *
- * \brief [C++ only] Definition of the winstl::basic_reg_value class
+ * \brief [C++] Definition of the winstl::basic_reg_value class
  *   template
- *   (\ref group__library__windows_registry "Windows Registry" Library).
+ *   (\ref group__library__Windows_Registry "Windows Registry" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_REGISTRY_HPP_REG_VALUE
@@ -67,17 +69,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_MAJOR     3
 # define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_MINOR     5
-# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_REVISION  2
-# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_EDIT      110
+# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_REVISION  11
+# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_EDIT      129
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef WINSTL_INCL_WINSTL_REGISTRY_HPP_REGFWD
 # include <winstl/registry/regfwd.hpp>
 #endif /* !WINSTL_INCL_WINSTL_REGISTRY_HPP_REGFWD */
@@ -114,53 +120,54 @@
 # endif /* !STLSOFT_INCL_VECTOR */
 #endif /* !WINSTL_REG_VALUE_NO_MULTI_SZ */
 
-#ifndef STLSOFT_UNITTEST
-# include <winstl/registry/reg_key.hpp>
-#endif /* !STLSOFT_UNITTEST */
+#ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
+# include <winstl/api/external/ErrorHandling.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
+#ifndef WINSTL_INCL_WINSTL_API_external_h_Registry
+# include <winstl/api/external/Registry.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_Registry */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 /** Represents a binary registry value
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  */
 template<ss_typename_param_k A>
 class reg_blob
     : protected A
-    , public stlsoft_ns_qual(stl_collection_tag)
+    , public STLSOFT_NS_QUAL(stl_collection_tag)
 {
 /// \name Member Types
 /// @{
-    typedef stlsoft_ns_qual(auto_buffer_old)<   ws_byte_t
-                                            ,   processheap_allocator<ws_byte_t>
-                                            ,   CCH_REG_API_AUTO_BUFFER
-                                            >               buffer_type;
+    typedef STLSOFT_NS_QUAL(auto_buffer_old)<
+        ws_byte_t
+    ,   processheap_allocator<ws_byte_t>
+    ,   CCH_REG_API_AUTO_BUFFER
+    >                                                       buffer_type;
 public:
     /// The allocator type
     typedef A                                               allocator_type;
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef reg_blob<A>                                     class_type;
     /// The value type
     typedef ws_byte_t                                       value_type;
@@ -176,12 +183,13 @@ public:
     typedef ws_ptrdiff_t                                    difference_type;
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
     /// The non-mutating (const) reverse iterator type
-    typedef const_reverse_iterator_base <   const_iterator
-                                        ,   value_type const
-                                        ,   const_reference
-                                        ,   const_pointer
-                                        ,   difference_type
-                                        >                   const_reverse_iterator;
+    typedef const_reverse_iterator_base<
+        const_iterator
+    ,   value_type const
+    ,   const_reference
+    ,   const_pointer
+    ,   difference_type
+    >                                                       const_reverse_iterator;
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
 /// @}
 
@@ -249,7 +257,7 @@ private:
 
 /** Represents a registry value, providing methods for accessing the value in different types.
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  *
  * This class acts as the value type of classes that manipulate registry values
  * and encapsulates the concept of a registry value.
@@ -273,48 +281,50 @@ class basic_reg_value
 /// @{
 public:
     /// The character type
-    typedef C                                                           char_type;
+    typedef C                                               char_type;
     /// The traits type
-    typedef T                                                           traits_type;
+    typedef T                                               traits_type;
     /// The allocator type
-    typedef A                                                           allocator_type;
-    /// The current parameterisation of the type
-    typedef basic_reg_value<C, T, A>                                    class_type;
+    typedef A                                               allocator_type;
+    /// The current specialisation of the type
+    typedef basic_reg_value<C, T, A>                        class_type;
     /// The size type
-    typedef ss_typename_type_k traits_type::size_type                   size_type;
+    typedef ss_typename_type_k traits_type::size_type       size_type;
     /// The string type
-    typedef ss_typename_type_k traits_type::string_type                 string_type;
+    typedef ss_typename_type_k traits_type::string_type     string_type;
 #ifndef WINSTL_REG_VALUE_NO_MULTI_SZ
     /// The string vector type
-    typedef stlsoft_ns_qual_std(vector)<string_type>                    strings_type;
+    typedef STLSOFT_NS_QUAL_STD(vector)<string_type>        strings_type;
 #endif /* !WINSTL_REG_VALUE_NO_MULTI_SZ */
     /// The key type
 #if defined(STLSOFT_CF_THROW_BAD_ALLOC) && \
     defined(STLSOFT_COMPILER_IS_MSVC) && \
     _MSC_VER == 1100
     /* WSCB: VC5 has an internal compiler error if use traits_type::hkey_type */
-    typedef HKEY                                                        hkey_type;
+    typedef HKEY                                            hkey_type;
 #else /* ? compiler */
-    typedef ss_typename_type_k traits_type::hkey_type                   hkey_type;
+    typedef ss_typename_type_k traits_type::hkey_type       hkey_type;
 #endif /* compiler */
     /// The blob type
-    typedef reg_blob<A>                                                 blob_type;
+    typedef reg_blob<A>                                     blob_type;
 private:
-    typedef stlsoft_ns_qual(auto_buffer_old)<   char_type
-                                            ,   allocator_type
-                                            ,   CCH_REG_API_AUTO_BUFFER
-                                            >                           char_buffer_type_;
-    typedef stlsoft_ns_qual(auto_buffer_old)<   ws_byte_t
+    typedef STLSOFT_NS_QUAL(auto_buffer_old)<
+        char_type
+    ,   allocator_type
+    ,   CCH_REG_API_AUTO_BUFFER
+    >                                                       char_buffer_type_;
+    typedef STLSOFT_NS_QUAL(auto_buffer_old)<
+        ws_byte_t
 #ifdef STLSOFT_LF_ALLOCATOR_REBIND_SUPPORT
-                                            ,   ss_typename_type_k allocator_type::ss_template_qual_k rebind<ws_byte_t>::other
+    ,   ss_typename_type_k allocator_type::ss_template_qual_k rebind<ws_byte_t>::other
 #else /* ? STLSOFT_LF_ALLOCATOR_REBIND_SUPPORT */
-                                            ,   processheap_allocator<ws_byte_t>
+    ,   processheap_allocator<ws_byte_t>
 #endif /* STLSOFT_LF_ALLOCATOR_REBIND_SUPPORT */
-                                            ,   CCH_REG_API_AUTO_BUFFER
-                                            >                           byte_buffer_type_;
+    ,   CCH_REG_API_AUTO_BUFFER
+    >                                                       byte_buffer_type_;
 private:
     /// The results type of the Registry API
-    typedef ss_typename_type_k traits_type::result_type                 result_type;
+    typedef ss_typename_type_k traits_type::result_type     result_type;
 /// @}
 
 /// \name Construction
@@ -411,29 +421,35 @@ private:
 /* Typedefs to commonly encountered types. */
 /** Specialisation of the basic_reg_value template for the ANSI character type \c char
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  */
-typedef basic_reg_value<ws_char_a_t, reg_traits<ws_char_a_t>, processheap_allocator<ws_char_a_t> >  reg_value_a;
+typedef basic_reg_value<
+    ws_char_a_t
+,   reg_traits<ws_char_a_t>
+,   processheap_allocator<ws_char_a_t>
+>                                                           reg_value_a;
 /** Specialisation of the basic_reg_value template for the Unicode character type \c wchar_t
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  */
-typedef basic_reg_value<ws_char_w_t, reg_traits<ws_char_w_t>, processheap_allocator<ws_char_w_t> >  reg_value_w;
+typedef basic_reg_value<
+    ws_char_w_t
+,   reg_traits<ws_char_w_t>
+,   processheap_allocator<ws_char_w_t>
+>                                                           reg_value_w;
 /** Specialisation of the basic_reg_value template for the Win32 character type \c TCHAR
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  */
-typedef basic_reg_value<TCHAR, reg_traits<TCHAR>, processheap_allocator<TCHAR> >                    reg_value;
+typedef basic_reg_value<
+    TCHAR
+,   reg_traits<TCHAR>
+,   processheap_allocator<TCHAR>
+>                                                           reg_value;
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/reg_value_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Implementation
+ * implementation
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -467,9 +483,9 @@ inline basic_reg_value<C, T, A>::basic_reg_value(basic_reg_value<C, T, A>::hkey_
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
 inline basic_reg_value<C, T, A>::~basic_reg_value() STLSOFT_NOEXCEPT
 {
-    if(m_hkey != NULL)
+    if (m_hkey != NULL)
     {
-        ::RegCloseKey(m_hkey);
+        WINSTL_API_EXTERNAL_Registry_RegCloseKey(m_hkey);
     }
 }
 
@@ -482,9 +498,9 @@ inline ss_typename_type_ret_k basic_reg_value<C, T, A>::class_type& basic_reg_va
 
     hkey_type   hkey    =   m_hkey;
     m_hkey              =   dup_key_(rhs.m_hkey, KEY_READ);
-    if(hkey != NULL)
+    if (hkey != NULL)
     {
-        ::RegCloseKey(hkey);
+        WINSTL_API_EXTERNAL_Registry_RegCloseKey(hkey);
     }
 
     return *this;
@@ -494,7 +510,7 @@ inline ss_typename_type_ret_k basic_reg_value<C, T, A>::class_type& basic_reg_va
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
 inline ws_dword_t basic_reg_value<C, T, A>::get_type_() const
 {
-    if(!m_bTypeRetrieved)
+    if (!m_bTypeRetrieved)
     {
         size_type   data_size = 0;
         ws_dword_t  type;
@@ -507,7 +523,7 @@ inline ws_dword_t basic_reg_value<C, T, A>::get_type_() const
         ws_bool_t&   m_bTypeRetrieved   =   const_cast<ws_bool_t &>(this->m_bTypeRetrieved);
 #endif /* STLSOFT_CF_mutable_KEYWORD_SUPPORT */
 
-        if(0 == traits_type::reg_query_value(m_hkey, m_name.c_str(), type, NULL, data_size))
+        if (0 == traits_type::reg_query_value(m_hkey, m_name.c_str(), type, NULL, data_size))
         {
             m_type              =   type;
             m_bTypeRetrieved    =   ws_true_v;
@@ -520,7 +536,7 @@ inline ws_dword_t basic_reg_value<C, T, A>::get_type_() const
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
 inline /* static */ ss_typename_type_ret_k basic_reg_value<C, T, A>::hkey_type basic_reg_value<C, T, A>::dup_key_(ss_typename_type_k basic_reg_value<C, T, A>::hkey_type hkey, REGSAM accessMask/* , ss_typename_type_k basic_reg_value<C, T, A>::result_type *res */)
 {
-    if(NULL == hkey)
+    if (NULL == hkey)
     {
         return NULL;
     }
@@ -529,12 +545,12 @@ inline /* static */ ss_typename_type_ret_k basic_reg_value<C, T, A>::hkey_type b
         result_type res;
         HKEY        hkeyDup = traits_type::key_dup(hkey, accessMask, &res);
 
-        if(ERROR_SUCCESS != res)
+        if (ERROR_SUCCESS != res)
         {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
             static const char message[] = "could not duplicate key";
 
-            if(ERROR_ACCESS_DENIED == res)
+            if (ERROR_ACCESS_DENIED == res)
             {
                 STLSOFT_THROW_X(access_denied_exception(message, res));
             }
@@ -543,7 +559,7 @@ inline /* static */ ss_typename_type_ret_k basic_reg_value<C, T, A>::hkey_type b
                 STLSOFT_THROW_X(key_not_duplicated_exception(message, res));
             }
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
-            ::SetLastError(res);
+            WINSTL_API_EXTERNAL_ErrorHandling_SetLastError(res);
             hkeyDup = NULL;
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
         }
@@ -574,12 +590,12 @@ inline ss_typename_type_ret_k basic_reg_value<C, T, A>::string_type basic_reg_va
     size_type   data_size   =   0;
     ws_long_t   res         =   traits_type::reg_query_info(m_hkey, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &data_size, NULL, NULL);
 
-    if(ERROR_SUCCESS != res)
+    if (ERROR_SUCCESS != res)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         static const char message[] = "could not determine the data size";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -589,7 +605,7 @@ inline ss_typename_type_ret_k basic_reg_value<C, T, A>::string_type basic_reg_va
         }
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
     }
-    else if(data_size > 0) // Are there _any_ values have non-zero size
+    else if (data_size > 0) // Are there _any_ values have non-zero size
     {
         char_buffer_type_   buffer(1 + data_size);
         ws_dword_t          dw;
@@ -597,12 +613,12 @@ inline ss_typename_type_ret_k basic_reg_value<C, T, A>::string_type basic_reg_va
         data_size = buffer.size();
         res = traits_type::reg_query_value(m_hkey, m_name.c_str(), dw, &buffer[0], data_size);
 
-        if(ERROR_SUCCESS != res)
+        if (ERROR_SUCCESS != res)
         {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
             static const char message[] = "could not elicit string value";
 
-            if(ERROR_ACCESS_DENIED == res)
+            if (ERROR_ACCESS_DENIED == res)
             {
                 STLSOFT_THROW_X(access_denied_exception(message, res));
             }
@@ -612,7 +628,7 @@ inline ss_typename_type_ret_k basic_reg_value<C, T, A>::string_type basic_reg_va
             }
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
         }
-        else if(data_size > 0) // We do a second check here because the requested value might have 0-size, and because registry contents can be changed by other processes
+        else if (data_size > 0) // We do a second check here because the requested value might have 0-size, and because registry contents can be changed by other processes
         {
             WINSTL_ASSERT(0 != data_size);
 
@@ -633,22 +649,22 @@ inline ss_typename_type_ret_k basic_reg_value<C, T, A>::string_type basic_reg_va
     // Does expand environment strings
     string_type ret = value_sz();
 
-    if( ret.length() > 0 &&
+    if (ret.length() > 0 &&
         REG_EXPAND_SZ == get_type_())
     {
         size_type size = traits_type::expand_environment_strings(ret.c_str(), NULL, 0);
 
-        if(0 != size)
+        if (0 != size)
         {
             char_buffer_type_ buffer(1 + size);
 
-            if(0 == traits_type::expand_environment_strings(ret.c_str(), &buffer[0], size))
+            if (0 == traits_type::expand_environment_strings(ret.c_str(), &buffer[0], size))
             {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
                 static const char   message[]   =   "could not expand environment strings";
-                DWORD               res         =   ::GetLastError();
+                DWORD const         res         =   WINSTL_API_EXTERNAL_ErrorHandling_GetLastError();
 
-                if(ERROR_ACCESS_DENIED == res)
+                if (ERROR_ACCESS_DENIED == res)
                 {
                     STLSOFT_THROW_X(access_denied_exception(message, res));
                 }
@@ -676,12 +692,12 @@ inline ws_dword_t basic_reg_value<C, T, A>::value_dword() const
     ws_dword_t  value_type;
     ws_long_t   res     =   traits_type::reg_query_value(m_hkey, m_name.c_str(), value_type, &dwValue, cbData);
 
-    if(ERROR_SUCCESS != res)
+    if (ERROR_SUCCESS != res)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         static const char message[] = "could not query value";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -714,7 +730,7 @@ inline ss_typename_type_ret_k basic_reg_value<C, T, A>::blob_type basic_reg_valu
     ws_dword_t  dw;
     ws_long_t   res         =   traits_type::reg_query_value(m_hkey, m_name.c_str(), dw, NULL, data_size);
 
-    if(ERROR_SUCCESS != res)
+    if (ERROR_SUCCESS != res)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
 
@@ -722,7 +738,7 @@ query_failed:
 
         static const char message[] = "could not elicit binary value";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -736,14 +752,14 @@ query_failed:
     {
         WINSTL_MESSAGE_ASSERT("queried registry value is not binary", dw == REG_BINARY);
 
-        if(data_size > 0)
+        if (data_size > 0)
         {
             byte_buffer_type_   buffer(data_size);
 
             data_size = buffer.size();
             res = traits_type::reg_query_value(m_hkey, m_name.c_str(), dw, buffer.data(), data_size);
 
-            if(ERROR_SUCCESS != res)
+            if (ERROR_SUCCESS != res)
             {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
                 goto query_failed;
@@ -767,12 +783,12 @@ inline ss_typename_type_ret_k basic_reg_value<C, T, A>::strings_type basic_reg_v
     size_type       data_size   =   0;
     ws_long_t       res         =   traits_type::reg_query_info(m_hkey, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &data_size, NULL, NULL);
 
-    if(ERROR_SUCCESS != res)
+    if (ERROR_SUCCESS != res)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         static const char message[] = "could not determine the data size";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -782,7 +798,7 @@ inline ss_typename_type_ret_k basic_reg_value<C, T, A>::strings_type basic_reg_v
         }
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
     }
-    else if(data_size > 0) // Are there _any_ values have non-zero size
+    else if (data_size > 0) // Are there _any_ values have non-zero size
     {
         char_buffer_type_   buffer(1 + data_size);
         ws_dword_t          dw;
@@ -790,12 +806,12 @@ inline ss_typename_type_ret_k basic_reg_value<C, T, A>::strings_type basic_reg_v
         data_size   =   buffer.size();
         res         =   traits_type::reg_query_value(m_hkey, m_name.c_str(), dw, &buffer[0], data_size);
 
-        if(ERROR_SUCCESS != res)
+        if (ERROR_SUCCESS != res)
         {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
             static const char message[] = "could not elicit string values";
 
-            if(ERROR_ACCESS_DENIED == res)
+            if (ERROR_ACCESS_DENIED == res)
             {
                 STLSOFT_THROW_X(access_denied_exception(message, res));
             }
@@ -805,13 +821,13 @@ inline ss_typename_type_ret_k basic_reg_value<C, T, A>::strings_type basic_reg_v
             }
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
         }
-        else if(data_size > 0) // We do a second check here because the requested value might have 0-size, and because registry contents can be changed by other processes
+        else if (data_size > 0) // We do a second check here because the requested value might have 0-size, and because registry contents can be changed by other processes
         {
             buffer[data_size / sizeof(char_type)] = 0;
 
             ss_typename_type_k char_buffer_type_::const_iterator start = buffer.begin();
 
-            { for(ss_typename_type_k char_buffer_type_::const_iterator ii = buffer.begin(); buffer.end() != ii;)
+            { for (ss_typename_type_k char_buffer_type_::const_iterator ii = buffer.begin(); buffer.end() != ii;)
             {
                 if (*ii != (char_type)0)
                 {
@@ -850,14 +866,14 @@ template<ss_typename_param_k A>
 inline reg_blob<A>::reg_blob(ss_typename_type_k reg_blob<A>::value_type const* data, ss_typename_type_k reg_blob<A>::size_type n)
     : m_buffer(n)
 {
-    winstl_ns_qual_std(copy)(data, data + m_buffer.size(), m_buffer.begin());
+    STLSOFT_NS_QUAL_STD(copy)(data, data + m_buffer.size(), m_buffer.begin());
 }
 
 template<ss_typename_param_k A>
 inline reg_blob<A>::reg_blob(ss_typename_type_k reg_blob<A>::class_type const& rhs)
     : m_buffer(rhs.size())
 {
-    winstl_ns_qual_std(copy)(rhs.data(), rhs.data() + m_buffer.size(), m_buffer.begin());
+    STLSOFT_NS_QUAL_STD(copy)(rhs.data(), rhs.data() + m_buffer.size(), m_buffer.begin());
 }
 
 template<ss_typename_param_k A>
@@ -907,19 +923,25 @@ inline ss_typename_type_ret_k reg_blob<A>::const_reverse_iterator reg_blob<A>::r
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_REGISTRY_HPP_REG_VALUE */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_REGISTRY_HPP_REG_VALUE */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

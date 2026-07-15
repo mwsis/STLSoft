@@ -4,40 +4,42 @@
  * Purpose:     Helper functions for the Windows time types.
  *
  * Created:     2nd December 2004
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks to:   David Wang, for spotting an error in one of the shim
  *              functions.
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -46,7 +48,7 @@
  *
  * \brief [C++] Definition of the string access shims for the Windows time
  *   types
- *   (\ref group__concept__shim__string_access "String Access Shims" Concept).
+ *   (\ref group__concept__Shim__string_access "String Access Shims" Concept).
  */
 
 #ifndef WINSTL_INCL_WINSTL_SHIMS_ACCESS_STRING_HPP_TIME
@@ -55,17 +57,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_TIME_MAJOR       2
 # define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_TIME_MINOR       3
-# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_TIME_REVISION    10
-# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_TIME_EDIT        60
+# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_TIME_REVISION    17
+# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_TIME_EDIT        75
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef WINSTL_INCL_WINSTL_ERROR_HPP_CONVERSION_ERROR
 # include <winstl/error/conversion_error.hpp>
 #endif /* !WINSTL_INCL_WINSTL_ERROR_HPP_CONVERSION_ERROR */
@@ -81,35 +87,37 @@
 #ifndef STLSOFT_INCL_STLSOFT_STRING_HPP_SHIM_STRING
 # include <stlsoft/string/shim_string.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_SHIM_STRING */
+
 #ifdef WINSTL_UDATE_DEFINED
 # include <objbase.h>
 # include <oleauto.h>
 #endif /* WINSTL_UDATE_DEFINED */
 
+#ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
+# include <winstl/api/external/ErrorHandling.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Helper Classes
+ * helper classes
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -117,16 +125,16 @@ struct ximpl_winstl_shims_access_string_time
 {
     typedef int (STLSOFT_STDCALL *pfnGetDateTimeFmtA_t)(LCID                Locale      // locale
                                                     ,   DWORD               dwFlags     // options
-                                                    ,   CONST SYSTEMTIME    *lpTime     // time
-                                                    ,   ws_char_a_t const   *lpFormat   // time format string
-                                                    ,   ws_char_a_t         *lpTimeStr  // formatted string buffer
+                                                    ,   CONST SYSTEMTIME*   lpTime      // time
+                                                    ,   ws_char_a_t const*  lpFormat    // time format string
+                                                    ,   ws_char_a_t*        lpTimeStr   // formatted string buffer
                                                     ,   int                 cchTime);   // size of string buffer
 
     typedef int (STLSOFT_STDCALL *pfnGetDateTimeFmtW_t)(LCID                Locale      // locale
                                                     ,   DWORD               dwFlags     // options
-                                                    ,   CONST SYSTEMTIME    *lpTime     // time
-                                                    ,   ws_char_w_t const   *lpFormat   // time format string
-                                                    ,   ws_char_w_t         *lpTimeStr  // formatted string buffer
+                                                    ,   CONST SYSTEMTIME*   lpTime      // time
+                                                    ,   ws_char_w_t const*  lpFormat    // time format string
+                                                    ,   ws_char_w_t*        lpTimeStr   // formatted string buffer
                                                     ,   int                 cchTime);   // size of string buffer
 
     //
@@ -142,18 +150,18 @@ struct ximpl_winstl_shims_access_string_time
     {
         cchDate = static_cast<ws_size_t>(pfnGetDateFmtA(LOCALE_USER_DEFAULT, 0, &t, NULL, NULL, 0));
 
-        if(0 != cchDate)
+        if (0 != cchDate)
         {
             cchTime = static_cast<ws_size_t>(pfnGetTimeFmtA(LOCALE_USER_DEFAULT, 0, &t, NULL, NULL, 0));
 
-            if(0 != cchTime)
+            if (0 != cchTime)
             {
                 return (cchDate - 1) + 1 + (cchTime - 1);
             }
         }
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-        DWORD const e = ::GetLastError();
+        DWORD const e = WINSTL_API_EXTERNAL_ErrorHandling_GetLastError();
 
         // TODO: discriminate on e and on the values of t to determine
         // which condition (of invalid value, out-of-range, etc.)
@@ -177,18 +185,18 @@ struct ximpl_winstl_shims_access_string_time
     {
         cchDate = static_cast<ws_size_t>(pfnGetDateFmtW(LOCALE_USER_DEFAULT, 0, &t, NULL, NULL, 0));
 
-        if(0 != cchDate)
+        if (0 != cchDate)
         {
             cchTime = static_cast<ws_size_t>(pfnGetTimeFmtW(LOCALE_USER_DEFAULT, 0, &t, NULL, NULL, 0));
 
-            if(0 != cchTime)
+            if (0 != cchTime)
             {
                 return (cchDate - 1) + 1 + (cchTime - 1);
             }
         }
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-        DWORD const e = ::GetLastError();
+        DWORD const e = WINSTL_API_EXTERNAL_ErrorHandling_GetLastError();
 
         // TODO: discriminate on e and on the values of t to determine
         // which condition (of invalid value, out-of-range, etc.)
@@ -202,21 +210,21 @@ struct ximpl_winstl_shims_access_string_time
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Helper Functions
+ * helper functions
  */
 
-/** \brief [DEPRECATED] Converts a <code>FILETIME</code> value to a
+/** [DEPRECATED] Converts a <code>FILETIME</code> value to a
  *   <code>SYSTEMTIME</code> value.
  *
  * \deprecated Instead use winstl::to_SYSTEMTIME(FILETIME const&)
  *
- * \ingroup group__library__shims__string_access
+ * \ingroup group__library__Shims_Access_String
  *
  * \param ft The <code>FILETIME</code> instance whose value is to be converted
  *
  * \note If <code>ft</code> does not represent a valid time value, the
  *  return value is undefined. The caller may check
- *  <code>GetLastError()</code> to determine whether the conversion has been
+ *  <code>::GetLastError()</code> to determine whether the conversion has been
  *  successful.
  */
 inline
@@ -225,7 +233,7 @@ FILETIME2SYSTEMTIME(
     FILETIME const& ft
 )
 {
-    return winstl_ns_qual(to_SYSTEMTIME)(ft);
+    return WINSTL_NS_QUAL(to_SYSTEMTIME)(ft);
 }
 
 template <ss_typename_param_k S>
@@ -233,7 +241,7 @@ inline
 void
 stream_insert(S &stm, SYSTEMTIME const& t)
 {
-    typedef stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>     string_t;
+    typedef STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>     string_t;
     typedef ximpl_winstl_shims_access_string_time                impl_t;
 
     ws_size_t       cchDate     =   0;
@@ -243,12 +251,12 @@ stream_insert(S &stm, SYSTEMTIME const& t)
 #ifdef STLSOFT_CD_EXCEPTION_SUPPORT
     WINSTL_ASSERT(0 != cchTotal);
 #else /* ? STLSOFT_CD_EXCEPTION_SUPPORT */
-    if(0 != cchTotal)
+    if (0 != cchTotal)
 #endif /* STLSOFT_CD_EXCEPTION_SUPPORT */
     {
         string_t s(cchTotal);
 
-        if(cchTotal == s.size())
+        if (cchTotal == s.size())
         {
             ::GetDateFormatA(LOCALE_USER_DEFAULT, 0, &t, NULL, &s.data()[0], static_cast<int>(cchDate));
             s.data()[cchDate - 1] = ' ';
@@ -287,7 +295,7 @@ stream_insert(S &stm, UDATE const& ud)
 #endif /* WINSTL_UDATE_DEFINED */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Shims
+ * shims
  */
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -297,20 +305,20 @@ stream_insert(S &stm, UDATE const& ud)
 // SYSTEMTIME
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_ptr_a(
     SYSTEMTIME const&   t
 ,   ws_bool_t           bMilliseconds
 )
 {
-    typedef stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>     string_t;
+    typedef STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>     string_t;
     typedef ximpl_winstl_shims_access_string_time                impl_t;
 
     int (STLSOFT_STDCALL *pfnGetTimeFormatA)(   LCID                Locale      // locale
                                             ,   DWORD               dwFlags     // options
-                                            ,   CONST SYSTEMTIME    *lpTime     // time
-                                            ,   ws_char_a_t const   *lpFormat   // time format string
-                                            ,   ws_char_a_t         *lpTimeStr  // formatted string buffer
+                                            ,   CONST SYSTEMTIME*   lpTime      // time
+                                            ,   ws_char_a_t const*  lpFormat    // time format string
+                                            ,   ws_char_a_t*        lpTimeStr   // formatted string buffer
                                             ,   int                 cchTime)    // size of string buffer
 
                                             =   bMilliseconds ? GetTimeFormat_msA : ::GetTimeFormatA;
@@ -320,7 +328,7 @@ c_str_ptr_a(
     const ws_size_t cchTotal    =   impl_t::calc_sizes(t, ::GetDateFormatA, pfnGetTimeFormatA, cchDate, cchTime);
     string_t        s(cchTotal);
 
-    if( 0 != cchTotal &&
+    if (0 != cchTotal &&
         cchTotal == s.size())
     {
         ::GetDateFormatA(LOCALE_USER_DEFAULT, 0, &t, NULL, &s.data()[0], static_cast<int>(cchDate));
@@ -338,7 +346,7 @@ c_str_ptr_a(
     return s;
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_ptr_a(
     SYSTEMTIME const& t
 )
@@ -347,20 +355,20 @@ c_str_ptr_a(
 }
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_ptr_w(
     SYSTEMTIME const&   t
 ,   ws_bool_t           bMilliseconds
 )
 {
-    typedef stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>     string_t;
+    typedef STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>     string_t;
     typedef ximpl_winstl_shims_access_string_time                impl_t;
 
     int (STLSOFT_STDCALL *pfnGetTimeFormatW)(   LCID                Locale      // locale
                                             ,   DWORD               dwFlags     // options
-                                            ,   CONST SYSTEMTIME    *lpTime     // time
-                                            ,   ws_char_w_t const   *lpFormat   // time format string
-                                            ,   ws_char_w_t         *lpTimeStr  // formatted string buffer
+                                            ,   CONST SYSTEMTIME*   lpTime      // time
+                                            ,   ws_char_w_t const*  lpFormat    // time format string
+                                            ,   ws_char_w_t*        lpTimeStr   // formatted string buffer
                                             ,   int                 cchTime)    // size of string buffer
 
                                             =   bMilliseconds ? GetTimeFormat_msW : ::GetTimeFormatW;
@@ -370,7 +378,7 @@ c_str_ptr_w(
     const ws_size_t cchTotal    =   impl_t::calc_sizes(t, ::GetDateFormatW, pfnGetTimeFormatW, cchDate, cchTime);
     string_t        s(cchTotal);
 
-    if( 0 != cchTotal &&
+    if (0 != cchTotal &&
         cchTotal == s.size())
     {
         ::GetDateFormatW(LOCALE_USER_DEFAULT, 0, &t, NULL, &s.data()[0], static_cast<int>(cchDate));
@@ -388,7 +396,7 @@ c_str_ptr_w(
     return s;
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_ptr_w(
     SYSTEMTIME const& t
 )
@@ -397,7 +405,7 @@ c_str_ptr_w(
 }
 
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_ptr(
     SYSTEMTIME const&   t
 ,   ws_bool_t           bMilliseconds
@@ -410,7 +418,7 @@ c_str_ptr(
 #endif /* UNICODE */
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_ptr(
     SYSTEMTIME const& t
 )
@@ -422,7 +430,7 @@ c_str_ptr(
 // FILETIME
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_ptr_a(
     FILETIME const& t
 ,   ws_bool_t       bMilliseconds
@@ -431,7 +439,7 @@ c_str_ptr_a(
     return c_str_ptr_a(FILETIME2SYSTEMTIME(t), bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_ptr_a(
     FILETIME const& t
 )
@@ -440,7 +448,7 @@ c_str_ptr_a(
 }
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_ptr_w(
     FILETIME const& t
 ,   ws_bool_t       bMilliseconds
@@ -449,7 +457,7 @@ c_str_ptr_w(
     return c_str_ptr_w(FILETIME2SYSTEMTIME(t), bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_ptr_w(
     FILETIME const& t
 )
@@ -458,7 +466,7 @@ c_str_ptr_w(
 }
 
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_ptr(
     FILETIME const& t
 ,   ws_bool_t       bMilliseconds
@@ -467,7 +475,7 @@ c_str_ptr(
     return c_str_ptr(FILETIME2SYSTEMTIME(t), bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_ptr(
     FILETIME const& t
 )
@@ -481,7 +489,7 @@ c_str_ptr(
 // UDATE
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_ptr_a(
     UDATE const&    ud
 ,   ws_bool_t       bMilliseconds
@@ -491,7 +499,7 @@ c_str_ptr_a(
 }
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_ptr_a(
     UDATE const& ud
 )
@@ -500,7 +508,7 @@ c_str_ptr_a(
 }
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_ptr_w(
     UDATE const&    ud
 ,   ws_bool_t       bMilliseconds
@@ -510,7 +518,7 @@ c_str_ptr_w(
 }
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_ptr_w(
     UDATE const& ud
 )
@@ -519,7 +527,7 @@ c_str_ptr_w(
 }
 
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_ptr(
     UDATE const&    ud
 ,   ws_bool_t       bMilliseconds
@@ -529,7 +537,7 @@ c_str_ptr(
 }
 
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_ptr(
     UDATE const& ud
 )
@@ -546,7 +554,7 @@ c_str_ptr(
 // SYSTEMTIME
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_data_a(
     SYSTEMTIME const&   t
 ,   ws_bool_t           bMilliseconds
@@ -555,7 +563,7 @@ c_str_data_a(
     return c_str_ptr_a(t, bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_data_a(
     SYSTEMTIME const& t
 )
@@ -564,7 +572,7 @@ c_str_data_a(
 }
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_data_w(
     SYSTEMTIME const&   t
 ,   ws_bool_t           bMilliseconds
@@ -573,7 +581,7 @@ c_str_data_w(
     return c_str_ptr_w(t, bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_data_w(
     SYSTEMTIME const& t
 )
@@ -582,7 +590,7 @@ c_str_data_w(
 }
 
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_data(
     SYSTEMTIME const&   t
 ,   ws_bool_t           bMilliseconds
@@ -595,7 +603,7 @@ c_str_data(
 #endif /* UNICODE */
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_data(
     SYSTEMTIME const& t
 )
@@ -607,7 +615,7 @@ c_str_data(
 // FILETIME
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_data_a(
     FILETIME const& t
 ,   ws_bool_t       bMilliseconds
@@ -616,7 +624,7 @@ c_str_data_a(
     return c_str_ptr_a(FILETIME2SYSTEMTIME(t), bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_data_a(
     FILETIME const& t
 )
@@ -625,7 +633,7 @@ c_str_data_a(
 }
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_data_w(
     FILETIME const& t
 ,   ws_bool_t       bMilliseconds
@@ -634,7 +642,7 @@ c_str_data_w(
     return c_str_ptr_w(FILETIME2SYSTEMTIME(t), bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_data_w(
     FILETIME const& t
 )
@@ -643,7 +651,7 @@ c_str_data_w(
 }
 
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_data(
     FILETIME const& t
 ,   ws_bool_t       bMilliseconds
@@ -652,7 +660,7 @@ c_str_data(
     return c_str_ptr(FILETIME2SYSTEMTIME(t), bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_data(
     FILETIME const& t
 )
@@ -666,7 +674,7 @@ c_str_data(
 #ifdef WINSTL_UDATE_DEFINED
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_data_a(
     UDATE const&    t
 ,   ws_bool_t       bMilliseconds
@@ -675,7 +683,7 @@ c_str_data_a(
     return c_str_ptr_a(t.st, bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_data_a(
     UDATE const& t
 )
@@ -684,7 +692,7 @@ c_str_data_a(
 }
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_data_w(
     UDATE const&    t
 ,   ws_bool_t       bMilliseconds
@@ -693,7 +701,7 @@ c_str_data_w(
     return c_str_ptr_w(t.st, bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_data_w(
     UDATE const& t
 )
@@ -702,7 +710,7 @@ c_str_data_w(
 }
 
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_data(
     UDATE const&    t
 ,   ws_bool_t       bMilliseconds
@@ -711,7 +719,7 @@ c_str_data(
     return c_str_ptr(t.st, bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_data(
     UDATE const& t
 )
@@ -728,7 +736,7 @@ c_str_data(
 // SYSTEMTIME
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_ptr_null_a(
     SYSTEMTIME const&   t
 ,   ws_bool_t           bMilliseconds
@@ -737,7 +745,7 @@ c_str_ptr_null_a(
     return c_str_ptr_a(t, bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_ptr_null_a(
     SYSTEMTIME const& t
 )
@@ -747,7 +755,7 @@ c_str_ptr_null_a(
 
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_ptr_null_w(
     SYSTEMTIME const&   t
 ,   ws_bool_t           bMilliseconds
@@ -756,7 +764,7 @@ c_str_ptr_null_w(
     return c_str_ptr_w(t, bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_ptr_null_w(
     SYSTEMTIME const& t
 )
@@ -766,7 +774,7 @@ c_str_ptr_null_w(
 
 
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_ptr_null(
     SYSTEMTIME const&   t
 ,   ws_bool_t           bMilliseconds
@@ -775,7 +783,7 @@ c_str_ptr_null(
     return c_str_ptr(t, bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_ptr_null(
     SYSTEMTIME const& t
 )
@@ -788,7 +796,7 @@ c_str_ptr_null(
 // FILETIME
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_ptr_null_a(
     FILETIME const& t
 ,   ws_bool_t       bMilliseconds
@@ -797,7 +805,7 @@ c_str_ptr_null_a(
     return c_str_ptr_null_a(FILETIME2SYSTEMTIME(t), bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_ptr_null_a(
     FILETIME const& t
 )
@@ -807,7 +815,7 @@ c_str_ptr_null_a(
 
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_ptr_null_w(
     FILETIME const& t
 ,   ws_bool_t       bMilliseconds
@@ -816,7 +824,7 @@ c_str_ptr_null_w(
     return c_str_ptr_null_w(FILETIME2SYSTEMTIME(t), bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_ptr_null_w(
     FILETIME const& t
 )
@@ -826,7 +834,7 @@ c_str_ptr_null_w(
 
 
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_ptr_null(
     FILETIME const& t
 ,   ws_bool_t       bMilliseconds
@@ -835,7 +843,7 @@ c_str_ptr_null(
     return c_str_ptr_null(FILETIME2SYSTEMTIME(t), bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_ptr_null(
     FILETIME const& t
 )
@@ -849,7 +857,7 @@ c_str_ptr_null(
 #ifdef WINSTL_UDATE_DEFINED
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_ptr_null_a(
     UDATE const&    t
 ,   ws_bool_t       bMilliseconds
@@ -858,7 +866,7 @@ c_str_ptr_null_a(
     return c_str_ptr_null_a(t.st, bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_a_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_a_t>
 c_str_ptr_null_a(
     UDATE const& t
 )
@@ -868,7 +876,7 @@ c_str_ptr_null_a(
 
 
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_ptr_null_w(
     UDATE const&    t
 ,   ws_bool_t       bMilliseconds
@@ -877,7 +885,7 @@ c_str_ptr_null_w(
     return c_str_ptr_null_w(t.st, bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<ws_char_w_t>
+STLSOFT_NS_QUAL(basic_shim_string)<ws_char_w_t>
 c_str_ptr_null_w(
     UDATE const& t
 )
@@ -887,7 +895,7 @@ c_str_ptr_null_w(
 
 
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_ptr_null(
     UDATE const&    t
 ,   ws_bool_t       bMilliseconds
@@ -896,7 +904,7 @@ c_str_ptr_null(
     return c_str_ptr_null(t.st, bMilliseconds);
 }
 inline
-stlsoft_ns_qual(basic_shim_string)<TCHAR>
+STLSOFT_NS_QUAL(basic_shim_string)<TCHAR>
 c_str_ptr_null(
     UDATE const& t
 )
@@ -928,9 +936,9 @@ c_str_len_a(
 
     int (STLSOFT_STDCALL *pfnGetTimeFormatA)(   LCID                Locale      // locale
                                             ,   DWORD               dwFlags     // options
-                                            ,   CONST SYSTEMTIME    *lpTime     // time
-                                            ,   ws_char_a_t const   *lpFormat   // time format string
-                                            ,   ws_char_a_t         *lpTimeStr  // formatted string buffer
+                                            ,   CONST SYSTEMTIME*   lpTime      // time
+                                            ,   ws_char_a_t const*  lpFormat    // time format string
+                                            ,   ws_char_a_t*        lpTimeStr   // formatted string buffer
                                             ,   int                 cchTime)    // size of string buffer
 
                                             =   bMilliseconds ? GetTimeFormat_msA : ::GetTimeFormatA;
@@ -960,9 +968,9 @@ c_str_len_w(
 
     int (STLSOFT_STDCALL *pfnGetTimeFormatW)(   LCID                Locale      // locale
                                             ,   DWORD               dwFlags     // options
-                                            ,   CONST SYSTEMTIME    *lpTime     // time
-                                            ,   ws_char_w_t const   *lpFormat   // time format string
-                                            ,   ws_char_w_t         *lpTimeStr  // formatted string buffer
+                                            ,   CONST SYSTEMTIME*   lpTime      // time
+                                            ,   ws_char_w_t const*  lpFormat    // time format string
+                                            ,   ws_char_w_t*        lpTimeStr   // formatted string buffer
                                             ,   int                 cchTime)    // size of string buffer
 
                                             =   bMilliseconds ? GetTimeFormat_msW : ::GetTimeFormatW;
@@ -1124,12 +1132,12 @@ c_str_len(
 
 
 /* /////////////////////////////////////////////////////////////////////////
- * Stream inserter
+ * stream inserter
  */
 
-/** \brief An inserter function for SYSTEMTIME into output streams
+/** An inserter function for SYSTEMTIME into output streams
  *
- * \ingroup group__library__shims__string_access
+ * \ingroup group__library__Shims_Access_String
  *
  */
 template <ss_typename_param_k S>
@@ -1145,9 +1153,9 @@ operator <<(
     return s;
 }
 
-/** \brief An inserter function for FILETIME into output streams
+/** An inserter function for FILETIME into output streams
  *
- * \ingroup group__library__shims__string_access
+ * \ingroup group__library__Shims_Access_String
  *
  */
 template <ss_typename_param_k S>
@@ -1165,9 +1173,9 @@ operator <<(
 
 #ifdef WINSTL_UDATE_DEFINED
 
-/** \brief An inserter function for UDATE into output streams
+/** An inserter function for UDATE into output streams
  *
- * \ingroup group__library__shims__string_access
+ * \ingroup group__library__Shims_Access_String
  *
  */
 template <ss_typename_param_k S>
@@ -1187,18 +1195,18 @@ operator <<(
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
 
-/** \brief An inserter function for SYSTEMTIME into output streams
+/** An inserter function for SYSTEMTIME into output streams
  *
- * \ingroup group__library__shims__string_access
+ * \ingroup group__library__Shims_Access_String
  *
  */
 template <ss_typename_param_k S>
@@ -1214,9 +1222,9 @@ operator <<(
     return s;
 }
 
-/** \brief An inserter function for FILETIME into output streams
+/** An inserter function for FILETIME into output streams
  *
- * \ingroup group__library__shims__string_access
+ * \ingroup group__library__Shims_Access_String
  *
  */
 template <ss_typename_param_k S>
@@ -1251,16 +1259,16 @@ namespace stlsoft
     using ::winstl::c_str_len_a;
     using ::winstl::c_str_len_w;
 
-} // namespace stlsoft
+} /* namespace stlsoft */
 
-#endif /* !_WINSTL_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
@@ -1274,29 +1282,30 @@ namespace stlsoft
 namespace winstl_project
 {
 
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/time_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
-/* ////////////////////////////////////////////////////////////////////// */
-
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !WINSTL_INCL_WINSTL_SHIMS_ACCESS_STRING_HPP_TIME */
 

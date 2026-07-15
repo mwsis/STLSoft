@@ -4,49 +4,50 @@
  * Purpose:     String view slice functions.
  *
  * Created:     25th April 2005
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks:      To Pablo Aguilar for inspiration for these functions, and
  *              collaboration on their implementation.
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
- * Copyright (c) 2005, Pablo Aguilar
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/string/view_slice_functions.hpp
  *
- * \brief [C++ only] String view slice functions
- *   (\ref group__library__string "String" Library).
+ * \brief [C++] String view slice functions
+ *   (\ref group__library__String "String" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_STRING_HPP_VIEW_SLICE_FUNCTIONS
@@ -55,28 +56,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_VIEW_SLICE_FUNCTIONS_MAJOR     2
 # define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_VIEW_SLICE_FUNCTIONS_MINOR     1
-# define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_VIEW_SLICE_FUNCTIONS_REVISION  7
-# define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_VIEW_SLICE_FUNCTIONS_EDIT      29
+# define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_VIEW_SLICE_FUNCTIONS_REVISION  12
+# define STLSOFT_VER_INCL_STLSOFT_STRING_HPP_VIEW_SLICE_FUNCTIONS_EDIT      43
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_MWERKS: __MWERKS__<0x3000
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #if defined(STLSOFT_COMPILER_IS_MWERKS) && \
     ((__MWERKS__ & 0xff00) < 0x3000)
 # error stlsoft/string/view_slice_functions.hpp not compatible with Metrowerks 7.x (v2.4)
@@ -96,24 +90,17 @@ STLSOFT_COMPILER_IS_WATCOM:
 # include <stlsoft/string/string_view.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_STRING_VIEW */
 
-#ifdef STLSOFT_UNITTEST
-# include <string>
-# ifndef STLSOFT_INCL_STLSOFT_STRING_HPP_SIMPLE_STRING
-#  include <stlsoft/string/simple_string.hpp>
-# endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_SIMPLE_STRING */
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Helper classes
+ * helper classes
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -193,16 +180,16 @@ struct string_view_helper_traits<ss_char_w_t const [N]>
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Slice functions
+ * slice functions
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 template <ss_typename_param_k C>
 inline basic_string_view<C> left_view_helper(C const* s, ss_size_t n)
 {
-    const ss_size_t len = stlsoft_ns_qual(c_str_len)(s);
+    const ss_size_t len = STLSOFT_NS_QUAL(c_str_len)(s);
 
-    if(n > len)
+    if (n > len)
     {
         // Want more than is available, so get all
         n = len;
@@ -212,18 +199,18 @@ inline basic_string_view<C> left_view_helper(C const* s, ss_size_t n)
 }
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief
+/**
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  */
 inline basic_string_view<ss_char_a_t> left_view(ss_char_a_t const* s, ss_size_t n)
 {
     return left_view_helper(s, n);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  */
 inline basic_string_view<ss_char_w_t> left_view(ss_char_w_t const* s, ss_size_t n)
 {
@@ -236,9 +223,9 @@ inline ss_typename_type_ret_k string_view_helper_traits<S>::view_type left_view(
     typedef string_view_helper_traits<S>            traits_t;
     typedef ss_typename_type_k traits_t::view_type  view_t;
 
-    const ss_size_t len = stlsoft_ns_qual(c_str_len)(s);
+    const ss_size_t len = STLSOFT_NS_QUAL(c_str_len)(s);
 
-    if(n > len)
+    if (n > len)
     {
         // Want more than is available, so get all
         n = len;
@@ -251,9 +238,9 @@ inline ss_typename_type_ret_k string_view_helper_traits<S>::view_type left_view(
 template <ss_typename_param_k C>
 inline basic_string_view<C> right_view_helper(C const* s, ss_size_t n)
 {
-    const ss_size_t len = stlsoft_ns_qual(c_str_len)(s);
+    const ss_size_t len = STLSOFT_NS_QUAL(c_str_len)(s);
 
-    if(n > len)
+    if (n > len)
     {
         // Want more than is available, so get all, from start
         n = len;
@@ -268,18 +255,18 @@ inline basic_string_view<C> right_view_helper(C const* s, ss_size_t n)
 }
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief
+/**
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  */
 inline basic_string_view<ss_char_a_t> right_view(ss_char_a_t const* s, ss_size_t n)
 {
     return right_view_helper(s, n);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  */
 inline basic_string_view<ss_char_w_t> right_view(ss_char_w_t const* s, ss_size_t n)
 {
@@ -292,10 +279,10 @@ inline ss_typename_type_ret_k string_view_helper_traits<S>::view_type right_view
     typedef string_view_helper_traits<S>            traits_t;
     typedef ss_typename_type_k traits_t::view_type  view_t;
 
-    const ss_size_t len = stlsoft_ns_qual(c_str_len)(s);
+    const ss_size_t len = STLSOFT_NS_QUAL(c_str_len)(s);
     ss_size_t       off =   0;
 
-    if(n > len)
+    if (n > len)
     {
         // Want more than is available, so get all, from start
         n = len;
@@ -312,10 +299,10 @@ inline ss_typename_type_ret_k string_view_helper_traits<S>::view_type right_view
 template <ss_typename_param_k C>
 inline basic_string_view<C> mid_view_helper(C const* s, ss_size_t start, ss_size_t n)
 {
-    const ss_size_t len = stlsoft_ns_qual(c_str_len)(s);
+    const ss_size_t len = STLSOFT_NS_QUAL(c_str_len)(s);
     ss_size_t       off =   0;
 
-    if(start > len)
+    if (start > len)
     {
         // Want more than is available, so we start at the end
         off = len;
@@ -325,7 +312,7 @@ inline basic_string_view<C> mid_view_helper(C const* s, ss_size_t start, ss_size
         off = start;
     }
 
-    if(off + n > len)
+    if (off + n > len)
     {
         // Want more than is available starting at off, so we just get what is available
         n = len - off;
@@ -335,18 +322,18 @@ inline basic_string_view<C> mid_view_helper(C const* s, ss_size_t start, ss_size
 }
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief
+/**
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  */
 inline basic_string_view<ss_char_a_t> mid_view(ss_char_a_t const* s, ss_size_t start, ss_size_t n)
 {
     return mid_view_helper(s, start, n);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  */
 inline basic_string_view<ss_char_w_t> mid_view(ss_char_w_t const* s, ss_size_t start, ss_size_t n)
 {
@@ -359,10 +346,10 @@ inline ss_typename_type_ret_k string_view_helper_traits<S>::view_type mid_view(S
     typedef string_view_helper_traits<S>            traits_t;
     typedef ss_typename_type_k traits_t::view_type  view_t;
 
-    const ss_size_t len = stlsoft_ns_qual(c_str_len)(s);
+    const ss_size_t len = STLSOFT_NS_QUAL(c_str_len)(s);
     ss_size_t       off =   0;
 
-    if(start > len)
+    if (start > len)
     {
         // Want more than is available, so we start at the end
         off = len;
@@ -372,7 +359,7 @@ inline ss_typename_type_ret_k string_view_helper_traits<S>::view_type mid_view(S
         off = start;
     }
 
-    if(off + n > len)
+    if (off + n > len)
     {
         // Want more than is available starting at off, so we just get what is available
         n = len - off;
@@ -381,20 +368,19 @@ inline ss_typename_type_ret_k string_view_helper_traits<S>::view_type mid_view(S
     return view_t(s.data() + off, n);
 }
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/view_slice_functions_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_VIEW_SLICE_FUNCTIONS */
 

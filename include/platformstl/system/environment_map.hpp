@@ -4,45 +4,47 @@
  * Purpose:     Definition of the environment_map class.
  *
  * Created:     14th November 2005
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file platformstl/system/environment_map.hpp
  *
- * \brief [C++ only] Definition of the platformstl::environment_map class
- *   (\ref group__library__system "System" Library).
+ * \brief [C++] Definition of the platformstl::environment_map class
+ *   (\ref group__library__System "System" Library).
  */
 
 #ifndef PLATFORMSTL_INCL_PLATFORMSTL_SYSTEM_HPP_ENVIRONMENT_MAP
@@ -51,28 +53,22 @@
 /* File version */
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define PLATFORMSTL_VER_PLATFORMSTL_SYSTEM_HPP_ENVIRONMENT_MAP_MAJOR       2
-# define PLATFORMSTL_VER_PLATFORMSTL_SYSTEM_HPP_ENVIRONMENT_MAP_MINOR       4
-# define PLATFORMSTL_VER_PLATFORMSTL_SYSTEM_HPP_ENVIRONMENT_MAP_REVISION    1
-# define PLATFORMSTL_VER_PLATFORMSTL_SYSTEM_HPP_ENVIRONMENT_MAP_EDIT        58
+# define PLATFORMSTL_VER_PLATFORMSTL_SYSTEM_HPP_ENVIRONMENT_MAP_MINOR       5
+# define PLATFORMSTL_VER_PLATFORMSTL_SYSTEM_HPP_ENVIRONMENT_MAP_REVISION    2
+# define PLATFORMSTL_VER_PLATFORMSTL_SYSTEM_HPP_ENVIRONMENT_MAP_EDIT        74
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Auto-generation and compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
-*/
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef PLATFORMSTL_INCL_PLATFORMSTL_HPP_PLATFORMSTL
 # include <platformstl/platformstl.hpp>
 #endif /* !PLATFORMSTL_INCL_PLATFORMSTL_HPP_PLATFORMSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef PLATFORMSTL_INCL_PLATFORMSTL_SYSTEM_HPP_ENVIRONMENT_VARIABLE_TRAITS
 # include <platformstl/system/environment_variable_traits.hpp>
 #endif /* !PLATFORMSTL_INCL_PLATFORMSTL_SYSTEM_HPP_ENVIRONMENT_VARIABLE_TRAITS */
@@ -107,6 +103,10 @@ STLSOFT_COMPILER_IS_WATCOM:
 # include <stlsoft/collections/util/collections.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_COLLECTIONS_UTIL_HPP_COLLECTIONS */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
 #ifndef STLSOFT_INCL_MAP
 # define STLSOFT_INCL_MAP
 # include <map>
@@ -117,29 +117,27 @@ STLSOFT_COMPILER_IS_WATCOM:
 #endif /* !STLSOFT_INCL_UTILITY */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#if defined(_STLSOFT_NO_NAMESPACE) || \
+#if defined(STLSOFT_NO_NAMESPACE) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::platformstl */
 namespace platformstl
 {
 #else
 /* Define stlsoft::platformstl_project */
-
 namespace stlsoft
 {
-
 namespace platformstl_project
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Provides an associative STL-collection interface to the current
+/** Provides an associative STL-collection interface to the current
  *   process's system environment.
  *
  * \note The design and implementation of this class is documented in Part 2
@@ -147,36 +145,37 @@ namespace platformstl_project
  *  <a href = "http://extendedstl.com">Extended STL</a>.
  */
 class environment_map
-    : public stlsoft_ns_qual(stl_collection_tag)
+    : public STLSOFT_NS_QUAL(stl_collection_tag)
 {
 /// \name Member Types
 /// @{
 private:
     typedef environment_variable_traits                     traits_type;
-    typedef stlsoft_ns_qual_std(string)                     string_type;
+    typedef STLSOFT_NS_QUAL_STD(string)                     string_type;
 public:
-    /// \brief The string type used for variable name, and lookup
+    /// The string type used for variable name, and lookup
     ///
     /// \note This is the association "key" type
     typedef string_type                                     first_type;
-    /// \brief The string type used for variable value, and retrieval
+    /// The string type used for variable value, and retrieval
     ///
     /// \note This is the association "value" type
     typedef string_type                                     second_type;
-    /// \brief Value type of the class: a pair of first_type and second_type
+    /// Value type of the class: a pair of first_type and second_type
     typedef std::pair<  const first_type
                     ,   second_type
                     >                                       value_type;
-    /// \brief The size type
+    /// The size type
     typedef ss_size_t                                       size_type;
-    /// \brief The difference type
+    /// The difference type
     typedef ss_ptrdiff_t                                    difference_type;
-    /// \brief The non-mutating (const) reference type
+    /// The non-mutating (const) reference type
     typedef const value_type                                const_reference;    // BVT
-    /// \brief The non-mutating (const) iterator type
+    /// The non-mutating (const) iterator type
     class                                                   const_iterator;
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT) && \
     !defined(STLSOFT_COMPILER_IS_BORLAND)
+
     typedef const_reverse_bidirectional_iterator_base<  const_iterator
                                                     ,   value_type
                                                     ,   const_reference
@@ -184,7 +183,7 @@ public:
                                                     ,   difference_type
                                                     >       const_reverse_iterator;
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
-    /// \brief The type of the class
+    /// The type of the class
     typedef environment_map                                 class_type;
 
 private:
@@ -192,13 +191,15 @@ private:
     class snapshot
     {
     public: // Member Types
-        typedef stlsoft_ns_qual(shared_ptr)<snapshot>   ref_type;
+        typedef STLSOFT_NS_QUAL(shared_ptr)<snapshot>   ref_type;
 #if defined(STLSOFT_CF_STD_LIBRARY_IS_DINKUMWARE_VC) && \
     STLSOFT_CF_STD_LIBRARY_DINKUMWARE_VC_VERSION == STLSOFT_CF_DINKUMWARE_VC_VERSION_7_0
+
         // VC7 libs get confused with const key type here
-        typedef stlsoft_ns_qual_std(map)<         first_type
+        typedef STLSOFT_NS_QUAL_STD(map)<         first_type
 #else /* ? library */
-        typedef stlsoft_ns_qual_std(map)<   const first_type
+
+        typedef STLSOFT_NS_QUAL_STD(map)<   const first_type
 #endif /* library */
                                         ,   second_type
                                         >               variables_type_;
@@ -208,14 +209,14 @@ private:
         snapshot();
 
     public: // Operations
-        ss_bool_t erase(    first_type const&   name) throw();
-        void erase(         iterator            it) throw();
+        ss_bool_t erase(    first_type const&   name) STLSOFT_NOEXCEPT;
+        void erase(         iterator            it) STLSOFT_NOEXCEPT;
         void insert(        first_type const    &name
                         ,   second_type const&  value);
         void set(           first_type const&   name
                         ,   second_type const&  value);
         ss_bool_t lookup(   first_type const&   name
-                        ,   second_type*&       pvalue) throw();
+                        ,   second_type*&       pvalue) STLSOFT_NOEXCEPT;
 
     public: // Iteration
         iterator    begin();
@@ -229,7 +230,7 @@ private:
 /// \name Construction
 /// @{
 public:
-    /// \brief Constructs an instance of the type
+    /// Constructs an instance of the type
     ///
     /// \note This instance does <b>not</b> store a snapshot of the
     ///  environment at the time of its construction. All lookup and
@@ -240,7 +241,7 @@ public:
 /// \name Element Access
 /// @{
 public:
-    /// \brief Returns the value of the given environment variable, or throws
+    /// Returns the value of the given environment variable, or throws
     ///  std::out_of_range if it does not exist.
     ///
     /// \param name The name of the environment variable whose value is to be
@@ -248,7 +249,7 @@ public:
     ///
     /// \exception std::out_of_range If no variable exists with the given name
     second_type operator [](char const* name) const;
-    /// \brief Returns the value of the given environment variable, or throws
+    /// Returns the value of the given environment variable, or throws
     ///  std::out_of_range if it does not exist.
     ///
     /// \param name The name of the environment variable whose value is to be
@@ -257,12 +258,12 @@ public:
     /// \exception std::out_of_range If no variable exists with the given name
     second_type operator [](first_type const& name) const;
 
-    /// \brief Looks for the variable of the given name in the current
+    /// Looks for the variable of the given name in the current
     ///  process environment.
     ///
     /// \return A Boolean value indicating whether the variable was found
     ss_bool_t   lookup(char const* name, second_type& value) const;
-    /// \brief Looks for the variable of the given name in the current
+    /// Looks for the variable of the given name in the current
     ///  process environment.
     ///
     /// \return A Boolean value indicating whether the variable was found
@@ -272,7 +273,7 @@ public:
 /// \name Operations
 /// @{
 public:
-    /// \brief Discard any current enumeration snapshots.
+    /// Discard any current enumeration snapshots.
     ///
     /// Used to force the collection instance to discard any currently snapshotd
     /// snapshot it may be holding on behalf of extant iterator instances, so
@@ -285,7 +286,8 @@ public:
 /// @{
 public:
 #ifdef PLATFORMSTL_ENVVAR_SET_SUPPORTED
-    /// \brief Inserts or updates and environment variable
+
+    /// Inserts or updates and environment variable
     ///
     /// \note This method is strongly exception-safe. The insertion into the
     /// snapshot is done first. If that does not throw an exception, but the
@@ -294,24 +296,25 @@ public:
     /// already exists, in which case
     void insert(first_type const& name, second_type const& value);
 
-    /// \brief The semantics of this function are identical to the string object overload
+    /// The semantics of this function are identical to the string object overload
     ///
     /// \param name The name of the variable to insert/update
     /// \param value The new value of the variable
     void insert(char const* name, char const* value);
 #endif /* PLATFORMSTL_ENVVAR_SET_SUPPORTED */
 #ifdef PLATFORMSTL_ENVVAR_ERASE_SUPPORTED
-    /// \brief Removes the entry of the given name
+
+    /// Removes the entry of the given name
     ///
     /// \note If the given entry does not exist
     size_type erase(first_type const& name);
 
-    /// \brief Removes the entry of the given name
+    /// Removes the entry of the given name
     ///
     /// \note If the given entry does not exist
     size_type erase(char const* name);
 
-    /// \brief Removes the entry corresponding to the given iterator
+    /// Removes the entry corresponding to the given iterator
     void erase(const_iterator it);
 #endif /* PLATFORMSTL_ENVVAR_ERASE_SUPPORTED */
 /// @}
@@ -320,21 +323,41 @@ public:
 /// @{
 public:
 #ifdef PLATFORMSTL_ENVVAR_HAS_ENVIRON
-    /// \brief Begins the iteration
+
+    /// Begins the iteration
+    ///
+    /// \return A non-mutating (const) iterator representing the start of the sequence
+    const_iterator  cbegin() const;
+    /// Ends the iteration
+    ///
+    /// \return A non-mutating (const) iterator representing (one past) the end of the sequence
+    const_iterator  cend() const;
+
+    /// Begins the iteration
     ///
     /// \return A non-mutating (const) iterator representing the start of the sequence
     const_iterator  begin() const;
-    /// \brief Ends the iteration
+    /// Ends the iteration
     ///
     /// \return A non-mutating (const) iterator representing (one past) the end of the sequence
     const_iterator  end() const;
 # if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT) && \
      !defined(STLSOFT_COMPILER_IS_BORLAND)
-    /// \brief Begins the reverse iteration
+
+    /// Begins the reverse iteration
+    ///
+    /// \return A non-mutating (const) iterator representing the start of the reverse sequence
+    const_reverse_iterator  crbegin() const;
+    /// Ends the reverse iteration
+    ///
+    /// \return A non-mutating (const) iterator representing (one past) the end of the reverse sequence
+    const_reverse_iterator  crend() const;
+
+    /// Begins the reverse iteration
     ///
     /// \return A non-mutating (const) iterator representing the start of the reverse sequence
     const_reverse_iterator  rbegin() const;
-    /// \brief Ends the reverse iteration
+    /// Ends the reverse iteration
     ///
     /// \return A non-mutating (const) iterator representing (one past) the end of the reverse sequence
     const_reverse_iterator  rend() const;
@@ -346,14 +369,15 @@ public:
 /// @{
 public:
 #ifdef PLATFORMSTL_ENVVAR_HAS_ENVIRON
-    /// \brief const_iterator class
+
+    /// const_iterator class
     ///
     /// \note Even though the const_iterator class, in and of itself, supports Invalidatable
     /// References, the collection as a whole supports only By-Value Temporary (BVT) References
     /// because that is the highest model that the subscript operations can support. (See XSTL
     /// for details.)
     class const_iterator
-        : public stlsoft_ns_qual(iterator_base)<stlsoft_ns_qual_std(bidirectional_iterator_tag)
+        : public STLSOFT_NS_QUAL(iterator_base)<STLSOFT_NS_QUAL_STD(bidirectional_iterator_tag)
                                             ,   value_type
                                             ,   ss_ptrdiff_t
                                             ,   void                // By-Value Temporary reference
@@ -411,6 +435,7 @@ public:
 /// @{
 private:
 #ifdef PLATFORMSTL_ENVVAR_HAS_ENVIRON
+
     void check_refresh_snapshot_() const;
 #endif /* PLATFORMSTL_ENVVAR_HAS_ENVIRON */
 /// @}
@@ -419,6 +444,7 @@ private:
 /// @{
 private:
 #ifdef PLATFORMSTL_ENVVAR_HAS_ENVIRON
+
     mutable snapshot::ref_type     m_snapshot;
 #endif /* PLATFORMSTL_ENVVAR_HAS_ENVIRON */
 /// @}
@@ -432,7 +458,7 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Operators
+ * operators
  */
 
 // NOTE: Neither Borland (5.6+) nor DMC++ correctly handle ADL for (comparison)
@@ -443,23 +469,31 @@ private:
         __BORLANDC__ >= 0x0560) || \
     defined(STLSOFT_COMPILER_IS_DMC)
 
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace platformstl
+} /* namespace platformstl */
 # else
-} // namespace platformstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
+} /* namespace platformstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
 
 #endif /* compiler */
 
-inline stlsoft_ns_qual(ss_bool_t) operator ==(  platformstl_ns_qual(environment_map)::const_iterator const&  lhs
-                                            ,   platformstl_ns_qual(environment_map)::const_iterator const&  rhs)
+inline
+STLSOFT_NS_QUAL(ss_bool_t)
+operator ==(
+    PLATFORMSTL_NS_QUAL(environment_map)::const_iterator const& lhs
+,   PLATFORMSTL_NS_QUAL(environment_map)::const_iterator const& rhs
+)
 {
     return lhs.equal(rhs);
 }
-inline stlsoft_ns_qual(ss_bool_t) operator !=(  platformstl_ns_qual(environment_map)::const_iterator const&  lhs
-                                            ,   platformstl_ns_qual(environment_map)::const_iterator const&  rhs)
+inline
+STLSOFT_NS_QUAL(ss_bool_t)
+operator !=(
+    PLATFORMSTL_NS_QUAL(environment_map)::const_iterator const& lhs
+,   PLATFORMSTL_NS_QUAL(environment_map)::const_iterator const& rhs
+)
 {
     return !lhs.equal(rhs);
 }
@@ -469,32 +503,23 @@ inline stlsoft_ns_qual(ss_bool_t) operator !=(  platformstl_ns_qual(environment_
         __BORLANDC__ >= 0x0560) || \
     defined(STLSOFT_COMPILER_IS_DMC)
 
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::platformstl */
 namespace platformstl
 {
 # else
 /* Define stlsoft::platformstl_project */
-
 namespace stlsoft
 {
-
 namespace platformstl_project
 {
-# endif /* _STLSOFT_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
 
 #endif /* compiler */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/environment_map_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Implementation
+ * implementation
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -502,6 +527,7 @@ namespace platformstl_project
 // environment_map::const_iterator
 
 #ifdef PLATFORMSTL_ENVVAR_HAS_ENVIRON
+
 inline environment_map::const_iterator::const_iterator()
     : m_it()
 {}
@@ -568,9 +594,9 @@ inline environment_map::second_type environment_map::operator [](char const* nam
 {
     char const  *value  =   traits_type::get_variable(name);
 
-    if(NULL == value)
+    if (NULL == value)
     {
-        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("variable does not exist"));
+        STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("variable does not exist"));
     }
 
     return value;
@@ -601,6 +627,7 @@ inline void environment_map::refresh()
 }
 
 #ifdef PLATFORMSTL_ENVVAR_SET_SUPPORTED
+
 inline void environment_map::insert(environment_map::first_type const& name, environment_map::second_type const& value)
 {
     // Preconditions
@@ -610,7 +637,7 @@ inline void environment_map::insert(environment_map::first_type const& name, env
 
     second_type *pstr   =   NULL;
 
-    if( 1 < m_snapshot.use_count() &&
+    if (1 < m_snapshot.use_count() &&
         m_snapshot->lookup(name, pstr))
     {
         // If it exists, then:
@@ -621,9 +648,9 @@ inline void environment_map::insert(environment_map::first_type const& name, env
         pstr->reserve(value.size());
 
         // 2. Insert into the host environment
-        if(0 != traits_type::set_variable(name.c_str(), value.c_str()))
+        if (0 != traits_type::set_variable(name.c_str(), value.c_str()))
         {
-            STLSOFT_THROW_X(stlsoft_ns_qual_std(runtime_error)("Cannot set environment variable"));
+            STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(runtime_error)("Cannot set environment variable"));
         }
 
         // 3. Update the snapshot
@@ -634,19 +661,19 @@ inline void environment_map::insert(environment_map::first_type const& name, env
         // If it does not exist, then we add it first, and remove
         // again if the set_variable() call fails to also put it
         // in the host environment
-        if(1 < m_snapshot.use_count())
+        if (1 < m_snapshot.use_count())
         {
             m_snapshot->insert(name, value);
         }
 
-        if(0 != traits_type::set_variable(name.c_str(), value.c_str()))
+        if (0 != traits_type::set_variable(name.c_str(), value.c_str()))
         {
-            if(1 < m_snapshot.use_count())
+            if (1 < m_snapshot.use_count())
             {
                 m_snapshot->erase(name);
             }
 
-            STLSOFT_THROW_X(stlsoft_ns_qual_std(runtime_error)("Cannot set environment variable"));
+            STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(runtime_error)("Cannot set environment variable"));
         }
     }
 }
@@ -665,6 +692,7 @@ inline void environment_map::insert(char const* name, char const* value)
 #endif /* PLATFORMSTL_ENVVAR_SET_SUPPORTED */
 
 #ifdef PLATFORMSTL_ENVVAR_ERASE_SUPPORTED
+
 inline environment_map::size_type environment_map::erase(environment_map::first_type const& name)
 {
     // Preconditions
@@ -673,7 +701,7 @@ inline environment_map::size_type environment_map::erase(environment_map::first_
 
     size_type   b   =   0;
 
-    if(0 != traits_type::erase_variable(name.c_str()))
+    if (0 != traits_type::erase_variable(name.c_str()))
     {
 #if 0
         // Failure to erase might be if some external part of the
@@ -683,10 +711,10 @@ inline environment_map::size_type environment_map::erase(environment_map::first_
         // still exists (rather than knowing what value(s) to check
         // the return value of erase_variable() for).
 
-        if(NULL != traits_type::get_variable(name.c_str()))
+        if (NULL != traits_type::get_variable(name.c_str()))
 #endif /* 0 */
         {
-            STLSOFT_THROW_X(stlsoft_ns_qual_std(runtime_error)("Cannot erase environment variable"));
+            STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(runtime_error)("Cannot erase environment variable"));
         }
     }
     else
@@ -694,9 +722,9 @@ inline environment_map::size_type environment_map::erase(environment_map::first_
         b = 1;
     }
 
-    if(1 < m_snapshot.use_count())
+    if (1 < m_snapshot.use_count())
     {
-        if(m_snapshot->erase(name))
+        if (m_snapshot->erase(name))
         {
             b = 1;
         }
@@ -725,7 +753,7 @@ inline void environment_map::erase(environment_map::const_iterator it)
     first_type const    &name   =   (*it.m_it).first;   // Avoid CUR
 #endif /* 0 */
 
-    if(0 != traits_type::erase_variable(name.c_str()))
+    if (0 != traits_type::erase_variable(name.c_str()))
     {
 #if 0
         // Failure to erase might be if some external part of the
@@ -735,10 +763,10 @@ inline void environment_map::erase(environment_map::const_iterator it)
         // still exists (rather than knowing what value(s) to check
         // the return value of erase_variable() for).
 
-        if(NULL != traits_type::get_variable(name.c_str()))
+        if (NULL != traits_type::get_variable(name.c_str()))
 #endif /* 0 */
         {
-            STLSOFT_THROW_X(stlsoft_ns_qual_std(runtime_error)("Cannot erase environment variable"));
+            STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(runtime_error)("Cannot erase environment variable"));
         }
     }
 
@@ -747,7 +775,13 @@ inline void environment_map::erase(environment_map::const_iterator it)
 #endif /* PLATFORMSTL_ENVVAR_ERASE_SUPPORTED */
 
 #ifdef PLATFORMSTL_ENVVAR_HAS_ENVIRON
+
 inline environment_map::const_iterator environment_map::begin() const
+{
+    return cbegin();
+}
+
+inline environment_map::const_iterator environment_map::cbegin() const
 {
     check_refresh_snapshot_();
 
@@ -762,6 +796,11 @@ inline environment_map::const_iterator environment_map::begin() const
 
 inline environment_map::const_iterator environment_map::end() const
 {
+    return cend();
+}
+
+inline environment_map::const_iterator environment_map::cend() const
+{
     check_refresh_snapshot_();
 
 #if 0
@@ -775,12 +814,23 @@ inline environment_map::const_iterator environment_map::end() const
 
 # if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT) && \
      !defined(STLSOFT_COMPILER_IS_BORLAND)
+
 inline environment_map::const_reverse_iterator environment_map::rbegin() const
+{
+    return crbegin();
+}
+
+inline environment_map::const_reverse_iterator environment_map::crbegin() const
 {
     return const_reverse_iterator(end());
 }
 
 inline environment_map::const_reverse_iterator environment_map::rend() const
+{
+    return crend();
+}
+
+inline environment_map::const_reverse_iterator environment_map::crend() const
 {
     return const_reverse_iterator(begin());
 }
@@ -788,9 +838,10 @@ inline environment_map::const_reverse_iterator environment_map::rend() const
 #endif /* PLATFORMSTL_ENVVAR_HAS_ENVIRON */
 
 #ifdef PLATFORMSTL_ENVVAR_HAS_ENVIRON
+
 inline void environment_map::check_refresh_snapshot_() const
 {
-    if(m_snapshot.use_count() < 2)
+    if (m_snapshot.use_count() < 2)
     {
         m_snapshot = snapshot::ref_type(new snapshot());
     }
@@ -809,7 +860,7 @@ inline environment_map::snapshot::snapshot()
     stlsoft::scoped_handle<char const**>    env(    traits_type::get_environ()
                                                 ,   &traits_type::release_environ);
 
-    { for(char const** p = env.get(); NULL != *p; ++p)
+    { for (char const** p = env.get(); NULL != *p; ++p)
     {
         stlsoft::split(*p, '=', name, value);
 
@@ -827,11 +878,11 @@ inline environment_map::snapshot::iterator environment_map::snapshot::end()
     return m_variables.end();
 }
 
-inline ss_bool_t environment_map::snapshot::erase(first_type const& name) throw()
+inline ss_bool_t environment_map::snapshot::erase(first_type const& name) STLSOFT_NOEXCEPT
 {
     variables_type_::iterator it  =   m_variables.find(name);
 
-    if(m_variables.end() != it)
+    if (m_variables.end() != it)
     {
         m_variables.erase(it);
 
@@ -841,7 +892,7 @@ inline ss_bool_t environment_map::snapshot::erase(first_type const& name) throw(
     return false;
 }
 
-inline void environment_map::snapshot::erase(environment_map::snapshot::iterator it) throw()
+inline void environment_map::snapshot::erase(environment_map::snapshot::iterator it) STLSOFT_NOEXCEPT
 {
     m_variables.erase(it);
 }
@@ -881,11 +932,11 @@ inline void environment_map::snapshot::set(first_type const& name, second_type c
 
 }
 
-inline ss_bool_t environment_map::snapshot::lookup(first_type const& name, second_type *&pvalue) throw()
+inline ss_bool_t environment_map::snapshot::lookup(first_type const& name, second_type *&pvalue) STLSOFT_NOEXCEPT
 {
     variables_type_::iterator it  =   m_variables.find(name);
 
-    if(m_variables.end() == it)
+    if (m_variables.end() == it)
     {
         return false;
     }
@@ -903,15 +954,21 @@ inline ss_bool_t environment_map::snapshot::lookup(first_type const& name, secon
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#if defined(_STLSOFT_NO_NAMESPACE) || \
+#if defined(STLSOFT_NO_NAMESPACE) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace platformstl
+} /* namespace platformstl */
 #else
-} // namespace platformstl_project
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+} /* namespace platformstl_project */
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !PLATFORMSTL_INCL_PLATFORMSTL_SYSTEM_HPP_ENVIRONMENT_MAP */
 

@@ -5,47 +5,49 @@
  *              through multiple IDispatch interfaces visible to script clients.
  *
  * Created:     15th May 2006
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file atlstl/automation/multiple_dispatch.hpp
- * \brief [C++ only; requires ATL library] Definition of the
+ * \brief [C++; requires ATL library] Definition of the
  *  atlstl::IDispatchImpl2 and atlstl::IDispatchImpl3
  *  class templates, which make the methods and properties exhibited through
  *  multiple IDispatch interfaces visible to scripting clients
- *   (\ref group__library__com_automation "COM Automation" Library).
+ *   (\ref group__library__COM_Automation "COM Automation" Library).
  */
 
 #ifndef ATLSTL_INCL_ATLSTL_AUTOMATION_HPP_MULTIPLE_DISPATCH
@@ -54,57 +56,52 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_MULTIPLE_DISPATCH_MAJOR      2
 # define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_MULTIPLE_DISPATCH_MINOR      1
-# define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_MULTIPLE_DISPATCH_REVISION   2
-# define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_MULTIPLE_DISPATCH_EDIT       18
+# define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_MULTIPLE_DISPATCH_REVISION   5
+# define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_MULTIPLE_DISPATCH_EDIT       28
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef ATLSTL_INCL_ATLSTL_HPP_ATLSTL
 # include <atlstl/atlstl.hpp>
 #endif /* !ATLSTL_INCL_ATLSTL_HPP_ATLSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
+#include <atlcom.h>
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _ATLSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef ATLSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::atlstl */
 namespace atlstl
 {
 # else
 /* Define stlsoft::atlstl_project */
-
 namespace stlsoft
 {
-
 namespace atlstl_project
 {
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !ATLSTL_NO_NAMESPACE */
 
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_ATLSTL_NO_NAMESPACE */
+using ::ATL::IDispatchImpl;
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Class template that enables the methods and properties exhibited
+/** Class template that enables the methods and properties exhibited
  * through two IDispatch interfaces to be visible to scripting clients.
  *
- * \ingroup group__library__com_automation
+ * \ingroup group__library__COM_Automation
  *
  * The class template is used in place of ATL's IDispatchImpl class in the
  * parent class list of a class template that support two dispinterfaces.
@@ -196,14 +193,14 @@ class IDispatchImpl2
 /// \name Member Types
 /// @{
 public:
-    typedef IDispatchImpl<I0, IID0, LibID>  dispatch_parent_0_type; //!< \brief The type of the first dispinterface
-    typedef IDispatchImpl<I1, IID1, LibID>  dispatch_parent_1_type; //!< \brief The type of the second dispinterface
+    typedef IDispatchImpl<I0, IID0, LibID>  dispatch_parent_0_type; //!< The type of the first dispinterface
+    typedef IDispatchImpl<I1, IID1, LibID>  dispatch_parent_1_type; //!< The type of the second dispinterface
 /// @}
 
 /// \name IDispatch methods
 /// @{
 protected:
-    /** \brief Provides the required behaviour of
+    /** Provides the required behaviour of
      *  <code>IDispatch::GetIDsOfNames()</code>, by querying the two
      *  dispinterfaces, in order, to match the name(s).
      *
@@ -232,7 +229,7 @@ protected:
         unsigned    index   =   1;
         HRESULT     hr      =   dispatch_parent_0_type::GetIDsOfNames(riid, rgszNames, cNames, lcid, rgdispid);
 
-        if( FAILED(hr) &&
+        if (FAILED(hr) &&
             DISP_E_UNKNOWNNAME == hr)
         {
             ++index;
@@ -241,15 +238,15 @@ protected:
         }
 
         // Encode interface info into the dispid
-        if(SUCCEEDED(hr))
+        if (SUCCEEDED(hr))
         {
             DISPID  dispidFlag  =   DISPID(0x1) << (8 * sizeof(DISPID) - 2);
 
             dispidFlag >>= (index - 1);
 
-            for(UINT i = 0; i < cNames; ++i)
+            for (UINT i = 0; i < cNames; ++i)
             {
-                if(rgdispid[i] < 0)
+                if (rgdispid[i] < 0)
                 {
                     // Leave these alone. They'll be processed on a first-come-first-serve
                     // basis, which assumes that the GetIDsOfNames() and Invoke() of I0 and
@@ -266,7 +263,7 @@ protected:
 
         return hr;
     }
-    /** \brief Provides the required behaviour of
+    /** Provides the required behaviour of
      *  <code>IDispatch::Invoke()</code>, by invoking this method on the
      *  requisite dispinterface.
      *
@@ -290,18 +287,18 @@ protected:
                     ,   EXCEPINFO*  pexcepinfo
                     ,   UINT*       puArgErr)
     {
-        if(dispidMember >= 0)
+        if (dispidMember >= 0)
         {
             DISPID  dispidFlag  =   DISPID(0x1) << (8 * sizeof(DISPID) - 2);
 
             dispidFlag >>= 0;
-            if(dispidMember & dispidFlag)
+            if (dispidMember & dispidFlag)
             {
                 return dispatch_parent_0_type::Invoke(dispidMember & ~dispidFlag, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
             }
 
             dispidFlag >>= 1;
-            if(dispidMember & dispidFlag)
+            if (dispidMember & dispidFlag)
             {
                 return dispatch_parent_1_type::Invoke(dispidMember & ~dispidFlag, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
             }
@@ -309,7 +306,7 @@ protected:
 
         HRESULT hr = dispatch_parent_0_type::Invoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
 
-        if( FAILED(hr) &&
+        if (FAILED(hr) &&
             DISP_E_MEMBERNOTFOUND == hr)
         {
             hr = dispatch_parent_1_type::Invoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
@@ -320,10 +317,10 @@ protected:
 /// @}
 };
 
-/** \brief Class template that enables the methods and properties exhibited
+/** Class template that enables the methods and properties exhibited
  * through three IDispatch interfaces to be visible to scripting clients.
  *
- * \ingroup group__library__com_automation
+ * \ingroup group__library__COM_Automation
  *
  * IDispatchImpl3 is used (and operates) in exactly the same way as
  * IDispatchImpl2, except that it supports three dispinterfaces, rather than
@@ -346,15 +343,15 @@ class IDispatchImpl3
 /// \name Member Types
 /// @{
 public:
-    typedef IDispatchImpl<I0, IID0, LibID>  dispatch_parent_0_type; //!< \brief The type of the first dispinterface
-    typedef IDispatchImpl<I1, IID1, LibID>  dispatch_parent_1_type; //!< \brief The type of the second dispinterface
-    typedef IDispatchImpl<I2, IID2, LibID>  dispatch_parent_2_type; //!< \brief The type of the third dispinterface
+    typedef IDispatchImpl<I0, IID0, LibID>  dispatch_parent_0_type; //!< The type of the first dispinterface
+    typedef IDispatchImpl<I1, IID1, LibID>  dispatch_parent_1_type; //!< The type of the second dispinterface
+    typedef IDispatchImpl<I2, IID2, LibID>  dispatch_parent_2_type; //!< The type of the third dispinterface
 /// @}
 
 /// \name IDispatch methods
 /// @{
 protected:
-    /** \brief Provides the required behaviour of
+    /** Provides the required behaviour of
      *   <code>IDispatch::GetIDsOfNames()</code>, by querying the three
      *   dispinterfaces, in order, to match the name(s).
      *
@@ -383,7 +380,7 @@ protected:
         unsigned    index   =   1;
         HRESULT     hr      =   dispatch_parent_0_type::GetIDsOfNames(riid, rgszNames, cNames, lcid, rgdispid);
 
-        if( FAILED(hr) &&
+        if (FAILED(hr) &&
             DISP_E_UNKNOWNNAME == hr)
         {
             ++index;
@@ -391,7 +388,7 @@ protected:
             hr = dispatch_parent_1_type::GetIDsOfNames(riid, rgszNames, cNames, lcid, rgdispid);
         }
 
-        if( FAILED(hr) &&
+        if (FAILED(hr) &&
             DISP_E_UNKNOWNNAME == hr)
         {
             ++index;
@@ -400,15 +397,15 @@ protected:
         }
 
         // Encode interface info into the dispid
-        if(SUCCEEDED(hr))
+        if (SUCCEEDED(hr))
         {
             DISPID  dispidFlag  =   DISPID(0x1) << (8 * sizeof(DISPID) - 2);
 
             dispidFlag >>= (index - 1);
 
-            for(UINT i = 0; i < cNames; ++i)
+            for (UINT i = 0; i < cNames; ++i)
             {
-                if(rgdispid[i] < 0)
+                if (rgdispid[i] < 0)
                 {
                     // Leave these alone. They'll be processed on a first-come-first-serve
                     // basis, which assumes that the GetIDsOfNames() and Invoke() of I0 and
@@ -425,7 +422,7 @@ protected:
 
         return hr;
     }
-    /** \brief Provides the required behaviour of
+    /** Provides the required behaviour of
      *  <code>IDispatch::Invoke()</code>, by invoking this method on the
      *  requisite dispinterface.
      *
@@ -449,24 +446,24 @@ protected:
                     ,   EXCEPINFO*  pexcepinfo
                     ,   UINT*       puArgErr)
     {
-        if(dispidMember >= 0)
+        if (dispidMember >= 0)
         {
             DISPID  dispidFlag  =   DISPID(0x1) << (8 * sizeof(DISPID) - 2);
 
             dispidFlag >>= 0;
-            if(dispidMember & dispidFlag)
+            if (dispidMember & dispidFlag)
             {
                 return dispatch_parent_0_type::Invoke(dispidMember & ~dispidFlag, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
             }
 
             dispidFlag >>= 1;
-            if(dispidMember & dispidFlag)
+            if (dispidMember & dispidFlag)
             {
                 return dispatch_parent_1_type::Invoke(dispidMember & ~dispidFlag, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
             }
 
             dispidFlag >>= 1;
-            if(dispidMember & dispidFlag)
+            if (dispidMember & dispidFlag)
             {
                 return dispatch_parent_2_type::Invoke(dispidMember & ~dispidFlag, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
             }
@@ -474,13 +471,13 @@ protected:
 
         HRESULT hr = dispatch_parent_0_type::Invoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
 
-        if( FAILED(hr) &&
+        if (FAILED(hr) &&
             DISP_E_MEMBERNOTFOUND == hr)
         {
             hr = dispatch_parent_1_type::Invoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
         }
 
-        if( FAILED(hr) &&
+        if (FAILED(hr) &&
             DISP_E_MEMBERNOTFOUND == hr)
         {
             hr = dispatch_parent_2_type::Invoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
@@ -491,10 +488,10 @@ protected:
 /// @}
 };
 
-/** \brief Class template that enables the methods and properties exhibited
+/** Class template that enables the methods and properties exhibited
  *    through four IDispatch interfaces to be visible to scripting clients.
  *
- * \ingroup group__library__com_automation
+ * \ingroup group__library__COM_Automation
  *
  * IDispatchImpl4 is used (and operates) in exactly the same way as
  * IDispatchImpl3, except that it supports four dispinterfaces, rather than
@@ -520,16 +517,16 @@ class IDispatchImpl4
 /// \name Member Types
 /// @{
 public:
-    typedef IDispatchImpl<I0, IID0, LibID>  dispatch_parent_0_type; //!< \brief The type of the first dispinterface
-    typedef IDispatchImpl<I1, IID1, LibID>  dispatch_parent_1_type; //!< \brief The type of the second dispinterface
-    typedef IDispatchImpl<I2, IID2, LibID>  dispatch_parent_2_type; //!< \brief The type of the third dispinterface
-    typedef IDispatchImpl<I3, IID3, LibID>  dispatch_parent_3_type; //!< \brief The type of the fourth dispinterface
+    typedef IDispatchImpl<I0, IID0, LibID>  dispatch_parent_0_type; //!< The type of the first dispinterface
+    typedef IDispatchImpl<I1, IID1, LibID>  dispatch_parent_1_type; //!< The type of the second dispinterface
+    typedef IDispatchImpl<I2, IID2, LibID>  dispatch_parent_2_type; //!< The type of the third dispinterface
+    typedef IDispatchImpl<I3, IID3, LibID>  dispatch_parent_3_type; //!< The type of the fourth dispinterface
 /// @}
 
 /// \name IDispatch methods
 /// @{
 protected:
-    /** \brief Provides the required behaviour of
+    /** Provides the required behaviour of
      *   <code>IDispatch::GetIDsOfNames()</code>, by querying the four
      *   dispinterfaces, in order, to match the name(s).
      *
@@ -558,7 +555,7 @@ protected:
         unsigned    index   =   1;
         HRESULT     hr      =   dispatch_parent_0_type::GetIDsOfNames(riid, rgszNames, cNames, lcid, rgdispid);
 
-        if( FAILED(hr) &&
+        if (FAILED(hr) &&
             DISP_E_UNKNOWNNAME == hr)
         {
             ++index;
@@ -566,7 +563,7 @@ protected:
             hr = dispatch_parent_1_type::GetIDsOfNames(riid, rgszNames, cNames, lcid, rgdispid);
         }
 
-        if( FAILED(hr) &&
+        if (FAILED(hr) &&
             DISP_E_UNKNOWNNAME == hr)
         {
             ++index;
@@ -574,7 +571,7 @@ protected:
             hr = dispatch_parent_2_type::GetIDsOfNames(riid, rgszNames, cNames, lcid, rgdispid);
         }
 
-        if( FAILED(hr) &&
+        if (FAILED(hr) &&
             DISP_E_UNKNOWNNAME == hr)
         {
             ++index;
@@ -583,15 +580,15 @@ protected:
         }
 
         // Encode interface info into the dispid
-        if(SUCCEEDED(hr))
+        if (SUCCEEDED(hr))
         {
             DISPID  dispidFlag  =   DISPID(0x1) << (8 * sizeof(DISPID) - 2);
 
             dispidFlag >>= (index - 1);
 
-            for(UINT i = 0; i < cNames; ++i)
+            for (UINT i = 0; i < cNames; ++i)
             {
-                if(rgdispid[i] < 0)
+                if (rgdispid[i] < 0)
                 {
                     // Leave these alone. They'll be processed on a first-come-first-serve
                     // basis, which assumes that the GetIDsOfNames() and Invoke() of I0 and
@@ -608,7 +605,7 @@ protected:
 
         return hr;
     }
-    /** \brief Provides the required behaviour of
+    /** Provides the required behaviour of
      *  <code>IDispatch::Invoke()</code>, by invoking this method on the
      *  requisite dispinterface.
      *
@@ -632,30 +629,30 @@ protected:
                     ,   EXCEPINFO*  pexcepinfo
                     ,   UINT*       puArgErr)
     {
-        if(dispidMember >= 0)
+        if (dispidMember >= 0)
         {
             DISPID  dispidFlag  =   DISPID(0x1) << (8 * sizeof(DISPID) - 2);
 
             dispidFlag >>= 0;
-            if(dispidMember & dispidFlag)
+            if (dispidMember & dispidFlag)
             {
                 return dispatch_parent_0_type::Invoke(dispidMember & ~dispidFlag, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
             }
 
             dispidFlag >>= 1;
-            if(dispidMember & dispidFlag)
+            if (dispidMember & dispidFlag)
             {
                 return dispatch_parent_1_type::Invoke(dispidMember & ~dispidFlag, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
             }
 
             dispidFlag >>= 1;
-            if(dispidMember & dispidFlag)
+            if (dispidMember & dispidFlag)
             {
                 return dispatch_parent_2_type::Invoke(dispidMember & ~dispidFlag, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
             }
 
             dispidFlag >>= 1;
-            if(dispidMember & dispidFlag)
+            if (dispidMember & dispidFlag)
             {
                 return dispatch_parent_3_type::Invoke(dispidMember & ~dispidFlag, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
             }
@@ -663,19 +660,19 @@ protected:
 
         HRESULT hr = dispatch_parent_0_type::Invoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
 
-        if( FAILED(hr) &&
+        if (FAILED(hr) &&
             DISP_E_MEMBERNOTFOUND == hr)
         {
             hr = dispatch_parent_1_type::Invoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
         }
 
-        if( FAILED(hr) &&
+        if (FAILED(hr) &&
             DISP_E_MEMBERNOTFOUND == hr)
         {
             hr = dispatch_parent_2_type::Invoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
         }
 
-        if( FAILED(hr) &&
+        if (FAILED(hr) &&
             DISP_E_MEMBERNOTFOUND == hr)
         {
             hr = dispatch_parent_3_type::Invoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
@@ -688,17 +685,23 @@ protected:
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _ATLSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef ATLSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace atlstl
+} /* namespace atlstl */
 # else
-} // namespace atlstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_ATLSTL_NO_NAMESPACE */
+} /* namespace atlstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !ATLSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !ATLSTL_INCL_ATLSTL_AUTOMATION_HPP_MULTIPLE_DISPATCH */
 

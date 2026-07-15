@@ -5,45 +5,47 @@
  *              enumerator interfaces.
  *
  * Created:     17th September 1998
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1998-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file comstl/util/value_policies.hpp
  *
- * \brief [C++ only; requires COM] Value policies for various COM types
- *   (\ref group__library__utility__com "COM Utility" Library).
+ * \brief [C++; requires COM] Value policies for various COM types
+ *   (\ref group__library__COM_Utility "COM Utility" Library).
  */
 
 #ifndef COMSTL_INCL_COMSTL_UTIL_HPP_VALUE_POLICIES
@@ -52,17 +54,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define COMSTL_VER_COMSTL_UTIL_HPP_VALUE_POLICIES_MAJOR    5
 # define COMSTL_VER_COMSTL_UTIL_HPP_VALUE_POLICIES_MINOR    1
-# define COMSTL_VER_COMSTL_UTIL_HPP_VALUE_POLICIES_REVISION 3
-# define COMSTL_VER_COMSTL_UTIL_HPP_VALUE_POLICIES_EDIT     167
+# define COMSTL_VER_COMSTL_UTIL_HPP_VALUE_POLICIES_REVISION 8
+# define COMSTL_VER_COMSTL_UTIL_HPP_VALUE_POLICIES_EDIT     179
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef COMSTL_INCL_COMSTL_H_COMSTL
 # include <comstl/comstl.h>
 #endif /* !COMSTL_INCL_COMSTL_H_COMSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef COMSTL_INCL_COMSTL_STRING_H_OLESTRING_FUNCTIONS
 # include <comstl/string/olestring_functions.h>   // for olestring_dup(), etc.
 #endif /* !COMSTL_INCL_COMSTL_STRING_H_OLESTRING_FUNCTIONS */
@@ -71,40 +77,37 @@
 #endif /* !STLSOFT_INCL_STLSOFT_CONVERSION_HPP_SAP_CAST */
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-# ifndef COMSTL_INCL_COMSTL_ERROR_HPP_EXCEPTIONS
-#  include <comstl/error/exceptions.hpp>
-# endif /* !COMSTL_INCL_COMSTL_ERROR_HPP_EXCEPTIONS */
+# ifndef COMSTL_INCL_COMSTL_EXCEPTION_HPP_COMSTL_EXCEPTION
+#  include <comstl/exception/comstl_exception.hpp>
+# endif /* !COMSTL_INCL_COMSTL_EXCEPTION_HPP_COMSTL_EXCEPTION */
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::comstl */
 namespace comstl
 {
 # else
 /* Define stlsoft::comstl_project */
-
 namespace stlsoft
 {
-
 namespace comstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Value policy for GUID
+/** Value policy for GUID
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * \sa comstl::collection_sequence
  * \sa comstl::enumerator_sequence
@@ -136,9 +139,9 @@ public:
 };
 
 
-/** \brief Value policy for BSTR
+/** Value policy for BSTR
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * \sa comstl::collection_sequence
  * \sa comstl::enumerator_sequence
@@ -162,19 +165,19 @@ public:
     /// In the case of the <code>BSTR</code> type, this involves calling
     /// <code>SysAllocString()</code>
     ///
-    /// \exception comstl::com_exception If exception support is enabled,
-    ///   an instance of <code>comstl::com_exception</code> will be thrown
-    ///   if the copy cannot be made
+    /// \exception comstl::comstl_exception If exception support is enabled,
+    ///   an instance of <code>comstl::comstl_exception</code> will be
+    ///   thrown if the copy cannot be made
     static void copy(value_type* dest, value_type const* src)
     {
         *dest = ::SysAllocString(*src);
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-        if( NULL == *dest &&
+        if (NULL == *dest &&
             NULL != *src &&
             L'\0' != (*src)[0])
         {
-            STLSOFT_THROW_X(com_exception("failed to copy BSTR", E_OUTOFMEMORY));
+            STLSOFT_THROW_X(comstl_exception("failed to copy BSTR", E_OUTOFMEMORY));
         }
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
     }
@@ -189,9 +192,9 @@ public:
 };
 
 
-/** \brief Value policy for LPOLESTR
+/** Value policy for LPOLESTR
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * \sa comstl::collection_sequence
  * \sa comstl::enumerator_sequence
@@ -215,18 +218,18 @@ public:
     /// In the case of the OLE string type, this involves calling
     /// <code>olestring_dup()</code>
     ///
-    /// \exception comstl::com_exception If exception support is enabled,
-    ///   an instance of <code>comstl::com_exception</code> will be thrown
-    ///   if the copy cannot be made
+    /// \exception comstl::comstl_exception If exception support is enabled,
+    ///   an instance of <code>comstl::comstl_exception</code> will be
+    ///   thrown if the copy cannot be made
     static void copy(value_type* dest, value_type const* src)
     {
         *dest = olestring_dup(*src);
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-        if( NULL == *dest &&
+        if (NULL == *dest &&
             NULL != *src)
         {
-            STLSOFT_THROW_X(com_exception("failed to copy OLE string", E_OUTOFMEMORY));
+            STLSOFT_THROW_X(comstl_exception("failed to copy OLE string", E_OUTOFMEMORY));
         }
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
     }
@@ -241,9 +244,9 @@ public:
 };
 
 
-/** \brief Value policy for VARIANT
+/** Value policy for VARIANT
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * \sa comstl::collection_sequence
  * \sa comstl::enumerator_sequence
@@ -267,17 +270,17 @@ public:
     /// In the case of the <code>VARIANT</code> type, this involves calling
     /// <code>VariantCopy()</code>
     ///
-    /// \exception comstl::com_exception If exception support is enabled,
-    ///   an instance of <code>comstl::com_exception</code> will be thrown
-    ///   if the copy cannot be made
+    /// \exception comstl::comstl_exception If exception support is enabled,
+    ///   an instance of <code>comstl::comstl_exception</code> will be
+    ///   thrown if the copy cannot be made
     static void copy(value_type* dest, value_type const* src)
     {
         HRESULT hr = ::VariantCopy(dest, const_cast<VARIANT*>(src));
 
-        if(FAILED(hr))
+        if (FAILED(hr))
         {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-            STLSOFT_THROW_X(com_exception("failed to copy VARIANT", hr));
+            STLSOFT_THROW_X(comstl_exception("failed to copy VARIANT", hr));
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
         }
     }
@@ -292,9 +295,9 @@ public:
 };
 
 
-/** \brief Value policy for interface
+/** Value policy for interface
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * \param I The interface
  *
@@ -325,7 +328,7 @@ public:
     static void copy(value_type* dest, value_type const* src)
     {
         *dest = *src;
-        if(NULL != *dest)
+        if (NULL != *dest)
         {
             (*dest)->AddRef();
         }
@@ -337,7 +340,7 @@ public:
     /// (unless it is already NULL)
     static void clear(value_type* p) STLSOFT_NOEXCEPT
     {
-        if(NULL != *p)
+        if (NULL != *p)
         {
             (*p)->Release();
             *p = NULL;
@@ -346,9 +349,9 @@ public:
 };
 
 
-/** \brief Value policy for LPUNKNOWN
+/** Value policy for LPUNKNOWN
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * \sa comstl::collection_sequence
  * \sa comstl::enumerator_sequence
@@ -375,7 +378,7 @@ public:
     static void copy(value_type* dest, value_type const* src)
     {
         *dest = *src;
-        if(NULL != *dest)
+        if (NULL != *dest)
         {
             (*dest)->AddRef();
         }
@@ -387,7 +390,7 @@ public:
     /// (unless it is already NULL)
     static void clear(value_type* p) STLSOFT_NOEXCEPT
     {
-        if(NULL != *p)
+        if (NULL != *p)
         {
             (*p)->Release();
             *p = NULL;
@@ -396,9 +399,9 @@ public:
 };
 
 
-/** \brief Value policy for STATSTG
+/** Value policy for STATSTG
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * \sa comstl::collection_sequence
  * \sa comstl::enumerator_sequence
@@ -424,20 +427,20 @@ public:
     /// invoking <code>olestring_dup()</code> on the <code>pwcsName</code>
     /// member, to obtain a deep copy
     ///
-    /// \exception comstl::com_exception If exception support is enabled,
-    ///   an instance of <code>comstl::com_exception</code> will be thrown
-    ///   if the copy cannot be made
+    /// \exception comstl::comstl_exception If exception support is enabled,
+    ///   an instance of <code>comstl::comstl_exception</code> will be
+    ///   thrown if the copy cannot be made
     static void copy(value_type* dest, value_type const* src)
     {
         *dest = *src;
-        if(NULL != src->pwcsName)
+        if (NULL != src->pwcsName)
         {
             dest->pwcsName = olestring_dup(src->pwcsName);
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-            if(NULL == dest->pwcsName)
+            if (NULL == dest->pwcsName)
             {
-                STLSOFT_THROW_X(com_exception("failed to copy OLE string when copying STATSTG", E_OUTOFMEMORY));
+                STLSOFT_THROW_X(comstl_exception("failed to copy OLE string when copying STATSTG", E_OUTOFMEMORY));
             }
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
         };
@@ -453,9 +456,9 @@ public:
 };
 
 
-/** \brief Value policy for FORMATETC
+/** Value policy for FORMATETC
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * \sa comstl::collection_sequence
  * \sa comstl::enumerator_sequence
@@ -481,29 +484,29 @@ public:
     /// invoking <code>CoTaskMemAlloc()</code> on the <code>ptd</code>
     /// member, to obtain a deep copy
     ///
-    /// \exception comstl::com_exception If exception support is enabled,
-    ///   an instance of <code>comstl::com_exception</code> will be thrown
-    ///   if the copy cannot be made
+    /// \exception comstl::comstl_exception If exception support is enabled,
+    ///   an instance of <code>comstl::comstl_exception</code> will be
+    ///   thrown if the copy cannot be made
     static void copy(value_type* dest, value_type const* src)
     {
         *dest = *src;
-        if(NULL != dest->ptd)
+        if (NULL != dest->ptd)
         {
             dest->ptd = static_cast<DVTARGETDEVICE*>(::CoTaskMemAlloc(src->ptd->tdSize));
 
-            if(NULL == dest->ptd)
+            if (NULL == dest->ptd)
             {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-                STLSOFT_THROW_X(com_exception("failed to copy DVTARGETDEVICE when copying FORMATETC", E_OUTOFMEMORY));
+                STLSOFT_THROW_X(comstl_exception("failed to copy DVTARGETDEVICE when copying FORMATETC", E_OUTOFMEMORY));
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
             }
             else
             {
-                BYTE const* src_begin   =   stlsoft_ns_qual(sap_cast)<BYTE const*>(&src->ptd);
+                BYTE const* src_begin   =   STLSOFT_NS_QUAL(sap_cast)<BYTE const*>(&src->ptd);
                 BYTE const* src_end     =   src_begin + src->ptd->tdSize;
-                BYTE*       dest_begin  =   stlsoft_ns_qual(sap_cast)<BYTE*>(&dest->ptd);
+                BYTE*       dest_begin  =   STLSOFT_NS_QUAL(sap_cast)<BYTE*>(&dest->ptd);
 
-                for(; src_begin != src_end; ++src_begin, ++dest_begin)
+                for (; src_begin != src_end; ++src_begin, ++dest_begin)
                 {
                     *dest_begin = *src_begin;
                 }
@@ -522,17 +525,23 @@ public:
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace comstl
+} /* namespace comstl */
 # else
-} // namespace stlsoft::comstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+} /* namespace stlsoft::comstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !COMSTL_INCL_COMSTL_UTIL_HPP_VALUE_POLICIES */
 

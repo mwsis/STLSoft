@@ -6,46 +6,48 @@
  *              sequence.
  *
  * Created:     6th February 1999
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1999-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/iterators/transform_iterator.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::transform_iterator
+ * \brief [C++] Definition of the stlsoft::transform_iterator
  *   iterator adaptor class template
- *   (\ref group__library__iterators "Iterators" Library).
+ *   (\ref group__library__Iterator "Iterator" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_ITERATORS_HPP_TRANSFORM_ITERATOR
@@ -54,28 +56,20 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_ITERATORS_HPP_TRANSFORM_ITERATOR_MAJOR     2
 # define STLSOFT_VER_STLSOFT_ITERATORS_HPP_TRANSFORM_ITERATOR_MINOR     1
-# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_TRANSFORM_ITERATOR_REVISION  1
-# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_TRANSFORM_ITERATOR_EDIT      121
+# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_TRANSFORM_ITERATOR_REVISION  6
+# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_TRANSFORM_ITERATOR_EDIT      135
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_MSVC: _MSC_VER<1200
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #if defined(STLSOFT_COMPILER_IS_MSVC) && \
     _MSC_VER < 1200
@@ -89,14 +83,6 @@ STLSOFT_COMPILER_IS_WATCOM:
 #ifndef STLSOFT_INCL_STLSOFT_SMARTPTR_HPP_SHARED_PTR
 # include <stlsoft/smartptr/shared_ptr.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SMARTPTR_HPP_SHARED_PTR */
-
-#ifdef STLSOFT_UNITTEST
-# include <algorithm>
-# include <functional>
-# include <string>
-# include <vector>
-# include <stlsoft/conversion/integer_to_string.hpp>
-#endif /* STLSOFT_UNITTEST */
 
 // #define STLSOFT_TRANSFORM_ITERATOR_IS_COMPATIBLE_WITH_HETEROGENOUS_ITERATOR_ALGOS
 
@@ -114,16 +100,16 @@ STLSOFT_COMPILER_IS_WATCOM:
 #endif /* library */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 #if 0
@@ -135,10 +121,10 @@ public:
 #endif /* 0 */
 
 
-/** \brief An iterator adaptor that uses a predicate to filter desired
+/** An iterator adaptor that uses a predicate to filter desired
  *    values from the iterator's underlying sequence.
  *
- * \ingroup group__library__iterators
+ * \ingroup group__library__Iterator
  *
  * I The iterator to transform
  * F The unary function that will be used to transform the values
@@ -154,7 +140,7 @@ template<   ss_typename_param_k I
 // [[synesis:class:iterator: transform_iterator<T<I>, T<F>>]]
 class transform_iterator
 #if 0
-    : public stlsoft_ns_qual(iterator_base)<ss_typename_type_k stlsoft_ns_qual_std(iterator_traits)<I>::iterator_category
+    : public STLSOFT_NS_QUAL(iterator_base)<ss_typename_type_k STLSOFT_NS_QUAL_STD(iterator_traits)<I>::iterator_category
                                         ,   ss_typename_type_k transform_function_type::result_type
                                         ,   ????
                                         ,   void
@@ -173,17 +159,17 @@ public:
     typedef ss_typename_type_k transform_function_type::result_type value_type;
 #ifdef STLSOFT_ITER_TXFM_ITER_OLD_DW
     /// The iterator category
-    typedef stlsoft_ns_qual_std(input_iterator_tag)                 iterator_category;
+    typedef STLSOFT_NS_QUAL_STD(input_iterator_tag)                 iterator_category;
     /// The difference type
     typedef void                                                    difference_type;
 #else /* ? STLSOFT_ITER_TXFM_ITER_OLD_DW */
-    typedef stlsoft_ns_qual_std(iterator_traits)<I>                 traits_type;
+    typedef STLSOFT_NS_QUAL_STD(iterator_traits)<I>                 traits_type;
     /// The iterator category
     typedef ss_typename_type_k traits_type::iterator_category       iterator_category;
     /// The difference type
     typedef ss_typename_type_k traits_type::difference_type         difference_type;
 #endif /* STLSOFT_ITER_TXFM_ITER_OLD_DW */
-    /// The parameterisation of the type
+    /// The current specialisation of the type
     typedef transform_iterator<I, F>                                class_type;
     /// The mutating (non-const) pointer type
     ///
@@ -221,7 +207,7 @@ public:
         , m_current()
     {}
 
-    /// \brief A copy of the base iterator
+    /// A copy of the base iterator
     iterator_type base() const
     {
         return m_it;
@@ -375,7 +361,7 @@ public:
 private:
     void get_current_()
     {
-        if(NULL == m_current.get())
+        if (NULL == m_current.get())
         {
             m_current = value_type_ptr_type_(new value_type(m_transformer(*m_it)));
         }
@@ -407,12 +393,12 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Creator functions
+ * creator functions
  */
 
-/** \brief Creator function for transform_iterator
+/** Creator function for transform_iterator
  *
- * \ingroup group__library__iterators
+ * \ingroup group__library__Iterator
  *
  * \param it The iterator to transform
  * \param fn The function object used to effect the transformation
@@ -427,9 +413,9 @@ inline transform_iterator<I, F> make_transform_iterator(I it, F fn)
     return transform_iterator<I, F>(it, fn);
 }
 
-/** \brief Creator function for transform_iterator
+/** Creator function for transform_iterator
  *
- * \ingroup group__library__iterators
+ * \ingroup group__library__Iterator
  *
  * \param it The iterator to transform
  * \param fn The function object used to effect the transformation
@@ -466,7 +452,7 @@ inline transform_iterator<I, F> transform(I it, F fn)
 #endif /* 0 */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Operators
+ * operators
  */
 
 // operator ==
@@ -574,20 +560,19 @@ inline ss_bool_t operator >=(transform_iterator<I, F> const& lhs, transform_iter
 
 #endif /* !STLSOFT_ITER_TXFM_ITER_OLD_DW */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/transform_iterator_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_ITERATORS_HPP_TRANSFORM_ITERATOR */
 

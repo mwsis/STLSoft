@@ -1,12 +1,5 @@
 # STLSoft - FAQ <!-- omit in toc -->
 
-> Note
-> **STLSoft-1.9** is now obsolete; please instead use **STLSoft 1.10**, which may be obtained from https://github.com/synesissoftware/STLSoft-1.10
-
-
-----
-
-
 The FAQ list is under (constant) development. If you post a question on the
 Issues forum (https://github.com/synesissoftware/STLSoft-1.10/issues)
 it will be used to create one.
@@ -19,7 +12,6 @@ it will be used to create one.
 - [Q3: "How do I use STLSoft?"](#q3-how-do-i-use-stlsoft)
 - [Q4: "Does STLSoft have unit-tests?"](#q4-does-stlsoft-have-unit-tests)
 - [Q5: "Is STLSoft still relevant given the widespread support for 'Modern C++'?"](#q5-is-stlsoft-still-relevant-given-the-widespread-support-for-modern-c)
-- [Q6: "What is STLSoft-1.10?"](#q6-what-is-stlsoft-110)
 
 
 # FAQs: <!-- omit in toc -->
@@ -66,12 +58,6 @@ This is a good question. Over the remainder of 2023 and into 2024 we will be upd
 [**recls**](https://github.com/synesissoftware/recls),
 [**shwild**](https://github.com/synesissoftware/shwild),
 and more - in light of 'Modern C++' and determining how well this can be achieved with standard C++ facilities alone. This will inform the future of **STLSoft**, which may be to invest much further effort into the exist 1.x stream or, perhaps, create a new 2.x stream that does not need to worry itself with the very extensive compiler-feature-detection and missing-feature-detection that comprises much of the current (1.x) **STLSoft** facilities.
-
-## Q6: "What is STLSoft-1.10?"
-
-**STLSoft-1.10** is the next version of **STLSoft**, and is now available after many years in beta (during which time our major contributor has been busy commercially). As well as containing several new components, it also incorporates wholesale refactoring of code and of the structural aspects (including packaging and directories). **STLSoft-1.10** is available (in beta form) from GitHub:
-
-  https://github.com/synesissoftware/STLSoft-1.10
 
 
 <!-- ########################### end of file ########################### -->

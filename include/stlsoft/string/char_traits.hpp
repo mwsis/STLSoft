@@ -4,46 +4,48 @@
  * Purpose:     char_traits classes.
  *
  * Created:     19th November 1998
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1998-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/string/char_traits.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::stlsoft_char_traits and
+ * \brief [C++] Definition of the stlsoft::stlsoft_char_traits and
  *  stlsoft::stlsoft_char_traits_safe traits classes
- *   (\ref group__library__string "String" Library).
+ *   (\ref group__library__String "String" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_STRING_HPP_CHAR_TRAITS
@@ -52,12 +54,12 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_STRING_HPP_CHAR_TRAITS_MAJOR    4
 # define STLSOFT_VER_STLSOFT_STRING_HPP_CHAR_TRAITS_MINOR    1
-# define STLSOFT_VER_STLSOFT_STRING_HPP_CHAR_TRAITS_REVISION 1
-# define STLSOFT_VER_STLSOFT_STRING_HPP_CHAR_TRAITS_EDIT     74
+# define STLSOFT_VER_STLSOFT_STRING_HPP_CHAR_TRAITS_REVISION 7
+# define STLSOFT_VER_STLSOFT_STRING_HPP_CHAR_TRAITS_EDIT     91
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  *
  * There is a degree of complexity with respect to the definition and use of
  * char_traits in the STLSoft libraries, depending on whether the std and/or
@@ -93,17 +95,31 @@
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_HPP_SIGN_TRAITS
 # include <stlsoft/util/sign_traits.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_SIGN_TRAITS */
+
 #if defined(STLSOFT_CF_std_char_traits_AVAILABLE) && \
-    defined(_STLSOFT_NO_NAMESPACE) && \
+    defined(STLSOFT_NO_NAMESPACE) && \
     !defined(STLSOFT_CF_std_NAMESPACE)
 # include <string>                  // for std::char_traits
 #elif defined(STLSOFT_COMPILER_IS_DMC) && \
       !defined(STLSOFT_CF_std_NAMESPACE)
 # include <string>                  // for std::char_traits
 #endif /* !::stlsoft && !::std */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
+# include <stlsoft/api/internal/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
+
 #if !defined(STLSOFT_NO_CHAR_TRAITS_LIBRARY_CALLS) || \
     defined(STLSOFT_DEBUG)
 # include <string.h>
@@ -115,26 +131,26 @@
 #endif /* !STLSOFT_NO_CHAR_TRAITS_LIBRARY_CALLS || STLSOFT_DEBUG */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Constraints
+ * constraints
  */
 
 // class stlsoft_char_traits
-/** \brief Character traits
+/** Character traits
  *
  * \param C The character type
  * \param N The integer type
  * \param Z The size type
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  */
 template<   ss_typename_param_k C
         >
@@ -143,7 +159,7 @@ struct stlsoft_char_traits
 public:
     /// The char type
     typedef C                                   char_type;
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef stlsoft_char_traits<C>              class_type;
     /// The integer type
     typedef ss_int_t                            int_type;
@@ -168,7 +184,7 @@ public:
 
         STLSOFT_MESSAGE_ASSERT("char_traits<X>::assign called with NULL destination", (0 == cch || NULL != dest));
 
-        for(ret = dest; 0 < cch; --cch, ++dest)
+        for (ret = dest; 0 < cch; --cch, ++dest)
         {
             assign(*dest, c);
         }
@@ -202,9 +218,9 @@ public:
         STLSOFT_MESSAGE_ASSERT("char_traits<X>::compare called with NULL string", (0 == cch || NULL != s1));
         STLSOFT_MESSAGE_ASSERT("char_traits<X>::compare called with NULL string", (0 == cch || NULL != s2));
 
-        for(size_type n = 0; n < cch; ++n, ++s1, ++s2)
+        for (size_type n = 0; n < cch; ++n, ++s1, ++s2)
         {
-            if(!eq(*s1, *s2))
+            if (!eq(*s1, *s2))
             {
                 return lt(*s1, *s2) ? -1 : +1;
             }
@@ -218,13 +234,13 @@ public:
         STLSOFT_MESSAGE_ASSERT("char_traits<X>::compare_max called with NULL string", (0 == cch || NULL != s1));
         STLSOFT_MESSAGE_ASSERT("char_traits<X>::compare_max called with NULL string", (0 == cch || NULL != s2));
 
-        for(size_type n = 0; n < cch; ++n, ++s1, ++s2)
+        for (size_type n = 0; n < cch; ++n, ++s1, ++s2)
         {
-            if(!eq(*s1, *s2))
+            if (!eq(*s1, *s2))
             {
                 return lt(*s1, *s2) ? -1 : +1;
             }
-            else if(eq(*s1, char_type(0)))
+            else if (eq(*s1, char_type(0)))
             {
                 break;
             }
@@ -233,12 +249,12 @@ public:
         return 0;
     }
 
-    /// Compares, using compare(), \c s1 with \c s2, either or both of which may be \c null
+    /// Compares, using compare(), \c s1 with \c s2, either or both of which may be \c nullptr
     static int_type compare_null(char_type const* s1, char_type const* s2, size_type cch)
     {
         int_type    result;
 
-        if(NULL == s1)
+        if (NULL == s1)
         {
             result = (NULL == s2) ? 0 : -1;
         }
@@ -250,12 +266,12 @@ public:
         return result;
     }
 
-    /// Compares, using compare_max(), \c s1 with \c s2, either or both of which may be \c null
+    /// Compares, using compare_max(), \c s1 with \c s2, either or both of which may be \c nullptr
     static int_type compare_maxnull(char_type const* s1, char_type const* s2, size_type cch)
     {
         int_type    result;
 
-        if(NULL == s1)
+        if (NULL == s1)
         {
             result = (NULL == s2) ? 0 : -1;
         }
@@ -274,7 +290,7 @@ public:
 
         STLSOFT_MESSAGE_ASSERT("char_traits<X>::length called with NULL string", NULL != s);
 
-        for(cch = 0; !eq(*s, char_type(0)); ++s)
+        for (cch = 0; !eq(*s, char_type(0)); ++s)
         {
             ++cch;
         }
@@ -282,7 +298,7 @@ public:
         return cch;
     }
 
-    /// Evaluates the length of the string \c s, which may be \c null
+    /// Evaluates the length of the string \c s, which may be \c nullptr
     static size_type length_null(char_type const* s)
     {
         return (NULL != s) ? length(s) : 0;
@@ -299,7 +315,7 @@ public:
 
         STLSOFT_MESSAGE_ASSERT("char_traits<X>::length_max called with NULL string", NULL != s);
 
-        for(cch = 0; cch < limit && !eq(*s, char_type(0)); ++s)
+        for (cch = 0; cch < limit && !eq(*s, char_type(0)); ++s)
         {
             ++cch;
         }
@@ -307,7 +323,7 @@ public:
         return cch;
     }
 
-    /// Evaluates the length of the string \c s, which may be \c null, up to a given number of characters
+    /// Evaluates the length of the string \c s, which may be \c nullptr, up to a given number of characters
     ///
     /// \param s The string to be evaluated. It may be null
     /// \param limit The maximum number of characters to evaluate
@@ -326,10 +342,10 @@ public:
         STLSOFT_MESSAGE_ASSERT("char_traits<X>::copy called with NULL source", (0 == cch || NULL != src));
 
 #ifdef STLSOFT_DEBUG
-        ::memset(dest, 0, cch * sizeof(char_type));
+        STLSOFT_API_INTERNAL_memfns_memset(dest, 0, cch * sizeof(char_type));
 #endif /* STLSOFT_DEBUG */
 
-        for(ret = dest; 0 < cch; --cch, ++dest, ++src)
+        for (ret = dest; 0 < cch; --cch, ++dest, ++src)
         {
             assign(*dest, *src);
         }
@@ -345,17 +361,17 @@ public:
         STLSOFT_MESSAGE_ASSERT("char_traits<X>::move called with NULL destination", (0 == cch || NULL != dest));
         STLSOFT_MESSAGE_ASSERT("char_traits<X>::move called with NULL source", (0 == cch || NULL != src));
 
-        if( src < dest &&
+        if (src < dest &&
             dest < src + cch)
         {
-            for(dest += cch, src += cch; 0 < cch; --cch)
+            for (dest += cch, src += cch; 0 < cch; --cch)
             {
                 assign(*--dest, *--src);
             }
         }
         else
         {
-            for(; 0 < cch; --cch, ++dest, ++src)
+            for (; 0 < cch; --cch, ++dest, ++src)
             {
                 assign(*dest, *src);
             }
@@ -369,9 +385,9 @@ public:
     {
         STLSOFT_MESSAGE_ASSERT("char_traits<X>::find called with NULL string", (0 == cch || NULL != s));
 
-        for(; 0 < cch; --cch, ++s)
+        for (; 0 < cch; --cch, ++s)
         {
-            if(eq(*s, c))
+            if (eq(*s, c))
             {
                 break;
             }
@@ -416,13 +432,13 @@ public:
 };
 
 // class stlsoft_char_traits_safe
-/** \brief Character traits, all of the operations of which can work with null pointers
+/** Character traits, all of the operations of which can work with null pointers
  *
  * \param C The character type
  * \param N The integer type
  * \param Z The size type
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  */
 template<   ss_typename_param_k C
         >
@@ -434,7 +450,7 @@ private:
 public:
     /// The character type
     typedef C                                   char_type;
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef stlsoft_char_traits_safe<C>         class_type;
     /// The integer type
     typedef ss_int_t                            int_type;
@@ -491,13 +507,13 @@ public:
         return compare_maxnull(s1, s2, cch);
     }
 
-    /// Compares, using compare(), \c s1 with \c s2, either or both of which may be \c null
+    /// Compares, using compare(), \c s1 with \c s2, either or both of which may be \c nullptr
     static int_type compare_null(char_type const* s1, char_type const* s2, size_type cch)
     {
         return parent_class_type::compare(s1, s2, cch);
     }
 
-    /// Compares, using compare_max(), \c s1 with \c s2, either or both of which may be \c null
+    /// Compares, using compare_max(), \c s1 with \c s2, either or both of which may be \c nullptr
     static int_type compare_maxnull(char_type const* s1, char_type const* s2, size_type cch)
     {
         return parent_class_type::compare_maxnull(s1, s2, cch);
@@ -513,7 +529,7 @@ public:
         return (NULL == s) ? 0 : parent_class_type::length_max(s, limit);
     }
 
-    /// Evaluates the length of the string \c s, which may be \c null, up to a given number of characters
+    /// Evaluates the length of the string \c s, which may be \c nullptr, up to a given number of characters
     ///
     /// \param s The string to be evaluated. It may be null
     /// \param limit The maximum number of characters to evaluate
@@ -523,7 +539,7 @@ public:
         return length_max_null(s, limit);
     }
 
-    /// Evaluates the length of the string \c s, which may be \c null
+    /// Evaluates the length of the string \c s, which may be \c nullptr
     static size_type length_null(char_type const* s)
     {
         return (NULL == s) ? 0 : parent_class_type::length(s);
@@ -591,13 +607,13 @@ public:
 };
 
 // class char_traits
-/** \brief Character traits, all of the operations of which can work with null pointers
+/** Character traits, all of the operations of which can work with null pointers
  *
  * \param C The character type
  * \param N The integer type
  * \param Z The size type
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  */
 
 /* DMC++ special handling */
@@ -617,8 +633,8 @@ using ::char_traits;
 /* We only define (stlsoft::)char_traits if no std::char_traits is available, or
  * the stlsoft namespace is defined, or the std namespace is defined.
  */
- #if !defined(STLSOFT_CF_std_char_traits_AVAILABLE) || /* std does not define char_traits */ \
-     !defined(_STLSOFT_NO_NAMESPACE) ||                 /* stlsoft namespace is defined */ \
+# if !defined(STLSOFT_CF_std_char_traits_AVAILABLE) || /* std does not define char_traits */ \
+     !defined(STLSOFT_NO_NAMESPACE) ||                 /* stlsoft namespace is defined */ \
      defined(STLSOFT_CF_std_NAMESPACE)
 template<   ss_typename_param_k C
         >
@@ -627,7 +643,7 @@ struct char_traits
 {
     typedef stlsoft_char_traits<C>                          parent_class_type;
 public:
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef char_traits<C>                                  class_type;
     /// The character type
     typedef ss_typename_type_k parent_class_type::char_type char_type;
@@ -640,13 +656,13 @@ public:
 #endif /* comp/lib */
 
 // class char_traits_safe
-/** \brief Character traits, all of the operations of which can work with null pointers
+/** Character traits, all of the operations of which can work with null pointers
  *
  * \param C The character type
  * \param N The integer type
  * \param Z The size type
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  */
 template<   ss_typename_param_k C
         >
@@ -655,7 +671,7 @@ struct char_traits_safe
 {
     typedef stlsoft_char_traits_safe<C>                     parent_class_type;
 public:
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef char_traits_safe<C>                             class_type;
     /// The character type
     typedef ss_typename_type_k parent_class_type::char_type char_type;
@@ -666,7 +682,7 @@ public:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Specialisations
+ * specialisations
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -683,7 +699,7 @@ public:
 STLSOFT_TEMPLATE_SPECIALISATION
 inline char* stlsoft_char_traits<char>::assign(char* dest, ss_size_t cch, char const& c)
 {
-    return static_cast<char*>(::memset(dest, c, cch * sizeof(char)));
+    return static_cast<char*>(STLSOFT_API_INTERNAL_memfns_memset(dest, c, cch * sizeof(char)));
 }
 
 STLSOFT_TEMPLATE_SPECIALISATION
@@ -709,10 +725,10 @@ STLSOFT_TEMPLATE_SPECIALISATION
 inline char* stlsoft_char_traits<char>::copy(char* dest, char const* src, ss_size_t cch)
 {
 #ifdef STLSOFT_DEBUG
-    ::memset(dest, 0, cch * sizeof(char));
+    STLSOFT_API_INTERNAL_memfns_memset(dest, 0, cch * sizeof(char));
 #endif /* STLSOFT_DEBUG */
 
-    return static_cast<char*>(memcpy(dest, src, cch * sizeof(char)));
+    return static_cast<char*>(STLSOFT_API_INTERNAL_memfns_memcpy(dest, src, cch * sizeof(char)));
 }
 
 STLSOFT_TEMPLATE_SPECIALISATION
@@ -733,20 +749,19 @@ inline ss_size_t stlsoft_char_traits<wchar_t>::length(wchar_t const* s)
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/char_traits_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_CHAR_TRAITS */
 

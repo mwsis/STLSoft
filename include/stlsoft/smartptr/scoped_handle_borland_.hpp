@@ -1,53 +1,57 @@
 /* /////////////////////////////////////////////////////////////////////////
  * File:        stlsoft/smartptr/scoped_handle_borland_.hpp (evolved from MLResPtr.h, ::SynesisStd)
  *
- * Purpose:     scoped_handle - parameterisable RAII class for arbitrary
+ * Purpose:     scoped_handle - specialisable RAII class for arbitrary
  *              resource types; special implementation for Borland.
  *
  * Created:     1st November 1994
- * Updated:     15th December 2023
+ * Updated:     29th January 2024
  *
  * Thanks to:   Maciej Kaniewski, for requesting Borland compatibility (in
  *              order to use FastFormat and Pantheios)
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1994-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
+/* STLSOFT:FILE_NOT_SELF_SUFFICIENT */
+
 /** \file stlsoft/smartptr/scoped_handle_borland_.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::scoped_handle smart
+ * \brief [C++] Definition of the stlsoft::scoped_handle smart
  *   pointer class template
- *   (\ref group__library__smart_pointers "Smart Pointers" Library).
+ *   (\ref group__library__SmartPointer "Smart Pointer" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE_BORLAND_
@@ -55,21 +59,24 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE_BORLAND__MAJOR      6
-# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE_BORLAND__MINOR      1
+# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE_BORLAND__MINOR      2
 # define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE_BORLAND__REVISION   2
-# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE_BORLAND__EDIT       672
+# define STLSOFT_VER_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE_BORLAND__EDIT       685
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
+ * compatibility
  */
 
 //#if !defined(STLSOFT_COMPILER_IS_MSVC)
@@ -79,16 +86,16 @@
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Helper classes
+ * helper classes
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -905,7 +912,7 @@ struct scoped_handle_borland_impl_
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 template <ss_typename_param_k H>
@@ -1028,11 +1035,11 @@ public:
 # endif /* STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT */
 #endif /* STLSOFT_CF_STDCALL_SUPPORTED */
 
-    ~scoped_handle()
+    ~scoped_handle() STLSOFT_NOEXCEPT
     {
         STLSOFT_MESSAGE_ASSERT("Invariant violation: function pointer must not be NULL", NULL != m_fn);
 
-        if(!empty())
+        if (!empty())
         {
             m_fn->destroy(m_handle);
         }
@@ -1053,7 +1060,7 @@ public:
     {
         STLSOFT_MESSAGE_ASSERT("Invariant violation: function pointer must not be NULL", NULL != m_fn);
 
-        if(!empty())
+        if (!empty())
         {
             m_fn->destroy(m_handle);
 
@@ -1061,7 +1068,7 @@ public:
         }
     }
 
-    resource_type detach()
+    resource_type detach() STLSOFT_NOEXCEPT
     {
         STLSOFT_MESSAGE_ASSERT("Invariant violation: function pointer must not be NULL", NULL != m_fn);
 
@@ -1073,17 +1080,17 @@ public:
     }
 
 public:
-    resource_type handle() const
+    resource_type handle() const STLSOFT_NOEXCEPT
     {
         return m_handle;
     }
-    resource_type get() const
+    resource_type get() const STLSOFT_NOEXCEPT
     {
         return m_handle;
     }
 
 private:
-    resource_type get_null_value_() const
+    resource_type get_null_value_() const STLSOFT_NOEXCEPT
     {
         return m_hNull;
     }
@@ -1178,13 +1185,13 @@ public:
 # endif /* STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT */
 #endif /* STLSOFT_CF_STDCALL_SUPPORTED */
 
-    ~scoped_handle()
+    ~scoped_handle() STLSOFT_NOEXCEPT
     {
         close();
     }
 
 public:
-    bool empty() const
+    bool empty() const STLSOFT_NOEXCEPT
     {
         return m_bInvoked;
     }
@@ -1192,23 +1199,23 @@ public:
 public:
     void close()
     {
-        if(!empty())
+        if (!empty())
         {
             m_fn->destroy();
             m_bInvoked = true;
         }
     }
 
-    resource_type detach()
+    resource_type detach() STLSOFT_NOEXCEPT
     {
         m_bInvoked = true;
     }
 
 public:
-    resource_type handle() const
+    resource_type handle() const STLSOFT_NOEXCEPT
     {
     }
-    resource_type get() const
+    resource_type get() const STLSOFT_NOEXCEPT
     {
     }
 
@@ -1233,41 +1240,62 @@ private:
 
 template<   ss_typename_param_k H
         >
-inline void swap(scoped_handle<H>& lhs, scoped_handle<H>& rhs)
+inline void swap(scoped_handle<H>& lhs, scoped_handle<H>& rhs) STLSOFT_NOEXCEPT
 {
     lhs.swap(rhs);
 }
 
-////////////////////////////////////////////////////////////////////////////
-// Shims
+/* /////////////////////////////////////////////////////////////////////////
+ * shims
+ */
 
-template<ss_typename_param_k H>
+template <ss_typename_param_k H>
+inline
 #if defined(STLSOFT_COMPILER_IS_WATCOM)
-inline H get_handle(scoped_handle<H> const& h)
+H
 #else /* ? compiler */
-inline ss_typename_type_ret_k scoped_handle<H>::handle_type get_handle(scoped_handle<H> const& h)
+ss_typename_type_ret_k scoped_handle<H>::handle_type
 #endif /* compiler */
+get_handle(
+    scoped_handle<H> const& h
+) STLSOFT_NOEXCEPT
 {
     return h.get();
 }
 
+/** is_null shim
+ *
+ * \ingroup group__library__SmartPointer
+ */
+template <ss_typename_param_k H>
+inline
+bool
+is_null(
+    scoped_handle<H> const& h
+) STLSOFT_NOEXCEPT
+{
+    return h.empty();
+}
+
 /* /////////////////////////////////////////////////////////////////////////
- * Unit-testing
+ * namespace
  */
 
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/scoped_handle_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
-/* ////////////////////////////////////////////////////////////////////// */
-
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler warnings
+ * compiler warnings
  */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 /* ////////////////////////////////////////////////////////////////////// */
 

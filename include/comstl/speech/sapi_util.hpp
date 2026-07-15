@@ -4,11 +4,11 @@
  * Purpose:     Definition of SAPI types and constants.
  *
  * Created:     31st August 2006
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -21,9 +21,10 @@
  * - Redistributions in binary form must reproduce the above copyright
  *   notice, this list of conditions and the following disclaimer in the
  *   documentation and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the
- *   names of any contributors may be used to endorse or promote products
- *   derived from this software without specific prior written permission.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
  * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
@@ -42,8 +43,8 @@
 
 /** \file comstl/speech/sapi_util.hpp
  *
- * \brief [C++ only; requires COM] Definition of SAPI types and constants.
- *   (\ref group__library__utility__com "COM Utility" Library).
+ * \brief [C++; requires COM] Definition of SAPI types and constants.
+ *   (\ref group__library__COM_Utility "COM Utility" Library).
  */
 
 #ifndef COMSTL_INCL_COMSTL_SPEECH_HPP_SAPI_UTIL
@@ -53,17 +54,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define COMSTL_VER_COMSTL_SPEECH_HPP_SAPI_UTIL_MAJOR       1
 # define COMSTL_VER_COMSTL_SPEECH_HPP_SAPI_UTIL_MINOR       0
-# define COMSTL_VER_COMSTL_SPEECH_HPP_SAPI_UTIL_REVISION    4
-# define COMSTL_VER_COMSTL_SPEECH_HPP_SAPI_UTIL_EDIT        7
+# define COMSTL_VER_COMSTL_SPEECH_HPP_SAPI_UTIL_REVISION    9
+# define COMSTL_VER_COMSTL_SPEECH_HPP_SAPI_UTIL_EDIT        21
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef COMSTL_INCL_COMSTL_H_COMSTL
 # include <comstl/comstl.h>
 #endif /* !COMSTL_INCL_COMSTL_H_COMSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef COMSTL_INCL_UTIL_HPP_CREATION_FUNCTIONS
 # include <comstl/util/creation_functions.hpp>
 #endif /* !COMSTL_INCL_UTIL_HPP_CREATION_FUNCTIONS */
@@ -88,32 +93,31 @@
 #endif /* COMSTL_SPEECH_SAPI_UTIL_USE_MS_SAPI_HEADERS */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#if !defined(_COMSTL_NO_NAMESPACE) && \
+#if !defined(COMSTL_NO_NAMESPACE) && \
     !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# if defined(_STLSOFT_NO_NAMESPACE)
+# if defined(STLSOFT_NO_NAMESPACE)
 /* There is no stlsoft namespace, so must define ::comstl */
 namespace comstl
 {
 # else
 /* Define stlsoft::comstl_project */
-
 namespace stlsoft
 {
-
 namespace comstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * SAPI
+ * sapi
  */
 
-#ifndef COMSTL_SPEECH_SAPI_UTIL_USE_MS_SAPI_HEADERS
+#ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
+# ifndef COMSTL_SPEECH_SAPI_UTIL_USE_MS_SAPI_HEADERS
 
 /** Interface that emulates the vtable of ISpNotifySource
  */
@@ -195,8 +199,8 @@ enum SPEAKFLAGS
     SPF_UNUSED_FLAGS = ~SPF_VOICE_MASK
 };
 
-# define CLSID_SpVoice  comstl_ns_qual(CLSID_SpVoice_)
-# define ISpVoice       comstl_ns_qual(ISpVoice_)
+# define CLSID_SpVoice                                      COMSTL_NS_QUAL(CLSID_SpVoice_)
+# define ISpVoice                                           COMSTL_NS_QUAL(ISpVoice_)
 
 namespace
 {
@@ -210,15 +214,22 @@ namespace
 COMSTL_IID_TRAITS_DEFINE__(ISpVoice_, ISpVoice_)
 
 
-#endif /* !COMSTL_SPEECH_SAPI_UTIL_USE_MS_SAPI_HEADERS */
+# endif /* !COMSTL_SPEECH_SAPI_UTIL_USE_MS_SAPI_HEADERS */
+#endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Functions
+ * functions
  */
 
 namespace impl
 {
-    inline HRESULT sapi_speak_(ISpVoice* voice, wchar_t const* words, DWORD flags)
+    inline
+    HRESULT
+    sapi_speak_(
+        ISpVoice*       voice
+    ,   wchar_t const*  words
+    ,   DWORD           flags
+    )
     {
         COMSTL_ASSERT(NULL != voice);
 
@@ -226,36 +237,52 @@ namespace impl
 
         return voice->Speak(words, flags, &streamNumber);
     }
-    inline HRESULT sapi_speak_(ISpVoice* voice, char const* words, DWORD flags)
+    inline
+    HRESULT
+    sapi_speak_(
+        ISpVoice*       voice
+    ,   char const*     words
+    ,   DWORD           flags
+    )
     {
-        return sapi_speak_(voice, stlsoft_ns_qual(a2w)(words), flags);
+        return sapi_speak_(voice, STLSOFT_NS_QUAL(a2w)(words), flags);
     }
 
-} // namespace impl
+} /* namespace impl */
 
 template<   ss_typename_param_k V
         ,   ss_typename_param_k S
         >
-inline HRESULT sapi_speak(V& voice, S const& words, DWORD flags)
+inline
+HRESULT
+sapi_speak(
+    V&          voice
+,   S const&    words
+,   DWORD       flags
+)
 {
-    return impl::sapi_speak_(stlsoft_ns_qual(get_ptr)(voice), stlsoft_ns_qual(c_str_ptr)(words), flags);
+    return impl::sapi_speak_(STLSOFT_NS_QUAL(get_ptr)(voice), STLSOFT_NS_QUAL(c_str_ptr)(words), flags);
 }
 
-inline HRESULT sapi_create(stlsoft_ns_qual(ref_ptr)<ISpVoice>& voice)
+inline
+HRESULT
+sapi_create(
+    STLSOFT_NS_QUAL(ref_ptr)<ISpVoice>& voice
+)
 {
     return comstl::co_create_instance(CLSID_SpVoice, voice);
 }
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 } /* namespace comstl */
 # else
 } /* namespace comstl_project */
 } /* namespace stlsoft */
-# endif /* _STLSOFT_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
 
 # ifndef COMSTL_SPEECH_SAPI_UTIL_USE_MS_SAPI_HEADERS
 
@@ -273,11 +300,17 @@ using ::comstl::SPF_UNUSED_FLAGS;
 
 # endif /* !COMSTL_SPEECH_SAPI_UTIL_USE_MS_SAPI_HEADERS */
 
-#endif /* !_COMSTL_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* COMSTL_INCL_COMSTL_SPEECH_HPP_SAPI_UTIL */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !COMSTL_INCL_COMSTL_SPEECH_HPP_SAPI_UTIL */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

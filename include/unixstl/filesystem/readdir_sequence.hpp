@@ -4,45 +4,47 @@
  * Purpose:     readdir_sequence class.
  *
  * Created:     15th January 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
  * - Redistributions of source code must retain the above copyright notice,
  *   this list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Information Systems nor
- *   the names of any contributors may be used to endorse or promote products
- *   derived from this software without specific prior written permission.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file unixstl/filesystem/readdir_sequence.hpp
  *
- * \brief [C++ only] Definition of the unixstl::readdir_sequence class
- *   (\ref group__library__filesystem "File System" Library).
+ * \brief [C++] Definition of the unixstl::readdir_sequence class
+ *   (\ref group__library__FileSystem "File System" Library).
  */
 
 #ifndef UNIXSTL_INCL_UNIXSTL_FILESYSTEM_HPP_READDIR_SEQUENCE
@@ -50,27 +52,31 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_READDIR_SEQUENCE_MAJOR      5
-# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_READDIR_SEQUENCE_MINOR      2
-# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_READDIR_SEQUENCE_REVISION   4
-# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_READDIR_SEQUENCE_EDIT       138
+# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_READDIR_SEQUENCE_MINOR      1
+# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_READDIR_SEQUENCE_REVISION   2
+# define UNIXSTL_VER_UNIXSTL_FILESYSTEM_HPP_READDIR_SEQUENCE_EDIT       156
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef UNIXSTL_INCL_UNIXSTL_H_UNIXSTL
 # include <unixstl/unixstl.h>
 #endif /* !UNIXSTL_INCL_UNIXSTL_H_UNIXSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef UNIXSTL_INCL_UNIXSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS
 # include <unixstl/filesystem/filesystem_traits.hpp>
 #endif /* !UNIXSTL_INCL_UNIXSTL_FILESYSTEM_HPP_FILESYSTEM_TRAITS */
-#ifndef UNIXSTL_INCL_UNIXSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER
-# include <unixstl/filesystem/file_path_buffer.hpp>
-#endif /* !UNIXSTL_INCL_UNIXSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER */
-#ifndef UNIXSTL_INCL_UNIXSTL_HPP_ERROR_UNIX_EXCEPTIONS
-# include <unixstl/error/exceptions.hpp>
-#endif /* !UNIXSTL_INCL_UNIXSTL_ERROR_HPP_UNIX_EXCEPTIONS */
+#ifndef STLSOFT_INCL_STLSOFT_MEMORY_HPP_AUTO_BUFFER
+# include <stlsoft/memory/auto_buffer.hpp>
+#endif /* !STLSOFT_INCL_STLSOFT_MEMORY_HPP_AUTO_BUFFER */
+# ifndef UNIXSTL_INCL_UNIXSTL_HPP_EXCEPTION_UNIXSTL_EXCEPTION
+#  include <unixstl/exception/unixstl_exception.hpp>
+# endif /* !UNIXSTL_INCL_UNIXSTL_HPP_EXCEPTION_UNIXSTL_EXCEPTION */
 
 #if defined(PATH_MAX)
 # ifndef STLSOFT_INCL_STLSOFT_STRING_HPP_STATIC_STRING
@@ -106,52 +112,49 @@
 #endif /* !STLSOFT_INCL_H_DIRENT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
 /* No STLSoft namespaces means no UNIXSTL namespaces */
-#ifdef _STLSOFT_NO_NAMESPACES
-# define _UNIXSTL_NO_NAMESPACES
-#endif /* _STLSOFT_NO_NAMESPACES */
+#ifdef STLSOFT_NO_NAMESPACES
+# define UNIXSTL_NO_NAMESPACES
+#endif /* STLSOFT_NO_NAMESPACES */
 
 /* No UNIXSTL namespaces means no unixstl namespace */
-#ifdef _UNIXSTL_NO_NAMESPACES
-# define _UNIXSTL_NO_NAMESPACE
-#endif /* _UNIXSTL_NO_NAMESPACES */
+#ifdef UNIXSTL_NO_NAMESPACES
+# define UNIXSTL_NO_NAMESPACE
+#endif /* UNIXSTL_NO_NAMESPACES */
 
-#ifndef _UNIXSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef UNIXSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::unixstl */
 namespace unixstl
 {
 # else
 /* Define stlsoft::unixstl_project */
-
 namespace stlsoft
 {
-
 namespace unixstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_UNIXSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !UNIXSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Exception class thrown by unixstl::readdir_sequence.
+/** Exception class thrown by unixstl::readdir_sequence.
  *
- * \ingroup group__library__filesystem
+ * \ingroup group__library__FileSystem
  */
 class readdir_sequence_exception
-    : public unix_exception
+    : public unixstl_exception
 {
 /// \name Types
 /// @{
 public:
-    typedef unix_exception                  parent_class_type;
+    typedef unixstl_exception               parent_class_type;
     typedef readdir_sequence_exception      class_type;
     typedef parent_class_type::string_type  string_type;
 /// @}
@@ -186,47 +189,49 @@ public:
 };
 
 
-/** \brief STL-like readonly sequence based on directory contents
+/** STL-like readonly sequence based on directory contents
  *
- * \ingroup group__library__filesystem
+ * \ingroup group__library__FileSystem
  *
  * This class presents and STL-like readonly sequence interface to allow the
  * iteration over the contents of a directory.
  */
 class readdir_sequence
-    : public stlsoft_ns_qual(stl_collection_tag)
+    : public STLSOFT_NS_QUAL(stl_collection_tag)
 {
 /// \name Member Types
 /// @{
 public:
-    /// \brief This class
-    typedef readdir_sequence                                    class_type;
+    /// This class
+    typedef readdir_sequence                                class_type;
 private:
     // These make it easy to move to a template, if ever needed
-    typedef us_char_a_t                                         char_type;
-    typedef filesystem_traits<char_type>                        traits_type;
+    typedef us_char_a_t                                     char_type;
+    typedef filesystem_traits<char_type>                    traits_type;
 public:
-    /// \brief The size type
-    typedef us_size_t                                           size_type;
-    /// \brief The non-mutating (const) iterator type
-    class                                                       const_iterator;
-    /// \brief The value type
+    /// The size type
+    typedef us_size_t                                       size_type;
+    /// The non-mutating (const) iterator type
+    class                                                   const_iterator;
+    /// The value type
 #if defined(UNIXSTL_READDIR_SEQUENCE_OLD_VALUE_TYPE)
-    typedef struct dirent const*                                value_type;
+    typedef struct dirent const*                            value_type;
 #else /* ? UNIXSTL_READDIR_SEQUENCE_OLD_VALUE_TYPE */
-    typedef char_type const*                                    value_type;
+    typedef char_type const*                                value_type;
 #endif /* UNIXSTL_READDIR_SEQUENCE_OLD_VALUE_TYPE */
-    /// \brief The flags type
-    typedef us_int_t                                            flags_type;
+    /// The flags type
+    typedef us_int_t                                        flags_type;
 
 public:
 #if defined(PATH_MAX)
-    typedef stlsoft_ns_qual(basic_static_string)<   char_type
-                                                ,   PATH_MAX
-                                                >               string_type;
+    typedef STLSOFT_NS_QUAL(basic_static_string)<
+        char_type
+    ,   PATH_MAX
+    >                                                       string_type;
 #else /* ? PATH_MAX */
-    typedef stlsoft_ns_qual(basic_simple_string)<   char_type
-                                                >               string_type;
+    typedef STLSOFT_NS_QUAL(basic_simple_string)<
+        char_type
+    >                                                       string_type;
 #endif /* !PATH_MAX */
 /// @}
 
@@ -235,28 +240,31 @@ public:
 public:
     enum
     {
-            includeDots     =   0x0008  /*!< \brief Requests that dots directories be included in the returned sequence */
-        ,   directories     =   0x0010  /*!< \brief Causes the search to include directories */
-        ,   files           =   0x0020  /*!< \brief Causes the search to include files */
+            includeDots     =   0x0008  /*!< Requests that dots directories be included in the returned sequence */
+        ,   directories     =   0x0010  /*!< Causes the search to include directories */
+        ,   files           =   0x0020  /*!< Causes the search to include files */
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
         ,   sockets         =   0x0000  /*!< CURRENTLY UNSUPPORTED : DO NOT USE! This exists for forward compatibility with STLSoft 1.10 test programs, and is subject to change in the future. A future version will support sockets, but it may not use this enumerator name. */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
         ,   typeMask        =   0x0070
-        ,   fullPath        =   0x0100  /*!< \brief Each file entry is presented as a full path relative to the search directory. */
-        ,   absolutePath    =   0x0200  /*!< \brief The search directory is converted to an absolute path. */
+        ,   fullPath        =   0x0100  /*!< Each file entry is presented as a full path relative to the search directory. */
+        ,   absolutePath    =   0x0200  /*!< The search directory is converted to an absolute path. */
     };
 /// @}
 
 /// \name Construction
 /// @{
 public:
-    /// \brief Constructs a sequence according to the given criteria
+    /// Constructs a sequence according to the given criteria
     ///
     /// The constructor initialises a readdir_sequence instance on the given
     /// directory with the given flags.
     ///
     /// \param directory The directory whose contents are to be searched
-    /// \param flags Flags to alter the behaviour of the search
+    /// \param flags Flags to alter the behaviour of the search. By default
+    ///   the \c directories and \c files flags are passed. If none of the
+    ///   entry type flags (\c directories, \c files, \c sockets) are
+    ///   specified, then all types are included in the search.
     ///
     /// \note The \c flags parameter defaults to <code>directories | files</code> because
     /// this reflects the default behaviour of \c readdir(), and also because it is the
@@ -264,18 +272,18 @@ public:
     template <ss_typename_param_k S>
     readdir_sequence(S const& directory, flags_type flags = directories | files)
         : m_flags(validate_flags_(flags))
-        , m_directory(prepare_directory_(stlsoft_ns_qual(c_str_ptr)(directory), flags))
+        , m_directory(prepare_directory_(STLSOFT_NS_QUAL(c_str_ptr)(directory), flags))
     {}
 /// @}
 
 /// \name Iteration
 /// @{
 public:
-    /// \brief Begins the iteration
+    /// Begins the iteration
     ///
     /// \return An iterator representing the start of the sequence
     const_iterator  begin() const;
-    /// \brief Ends the iteration
+    /// Ends the iteration
     ///
     /// \return An iterator representing the end of the sequence
     const_iterator  end() const;
@@ -284,32 +292,35 @@ public:
 /// \name Attributes
 /// @{
 public:
-    /// \brief Indicates whether the search sequence is empty
+    /// Indicates whether the search sequence is empty
     us_bool_t empty() const;
 
-    /// \brief The search directory
+    /// The search directory
     ///
-    /// \note The value returned by this method always has a trailing path name separator, so
-    /// you can safely concatenate this with the value returned by the iterator's operator *()
-    /// with minimal fuss.
+    /// \note The value returned by this method always has a trailing path
+    /// name separator, so you can safely concatenate this with the value
+    /// returned by the iterator's <code>operator *()</code> with minimal
+    /// fuss, though you should do this only if you have not specified
+    /// \c fullPath nor \c absolutePath.
     string_type const&  get_directory() const;
 
-    /// \brief The flags used by the sequence
+    /// The flags used by the sequence
     ///
-    /// \note This value is the value used by the sequence, which may, as a result of the
-    /// determination of defaults, be different from those specified in its constructor. In
-    /// other words, if <code>includeDots</code> is specified, this function
-    /// will return <code>includeDots | directories | files</code>
+    /// \note This value is the value used by the sequence, which may, as a
+    /// result of the determination of defaults, be different from those
+    /// specified in its constructor. For example, if
+    /// <code>includeDots</code> was specified, this function will instead
+    /// return <code>includeDots | directories | files</code>.
     flags_type          get_flags() const;
 /// @}
 
 /// \name Implementation
 /// @{
 private:
-    /// \brief Ensures that the flags are correct
+    /// Ensures that the flags are correct
     static flags_type   validate_flags_(flags_type flags);
 
-    /// \brief Prepares the directory, according to the given flags
+    /// Prepares the directory, according to the given flags
     static string_type  prepare_directory_(char_type const* directory, flags_type flags);
 /// @}
 
@@ -328,15 +339,15 @@ private:
 /// @}
 };
 
-/** \brief Iterator for the \link unixstl::readdir_sequence readdir_sequence\endlink class.
+/** Iterator for the \link unixstl::readdir_sequence readdir_sequence\endlink class.
  *
- * \ingroup group__library__filesystem
+ * \ingroup group__library__FileSystem
  *
  * This class performs as a non-mutating iterator (aka const iterator) for the
  * readdir_sequence class.
  */
 class readdir_sequence::const_iterator
-    : public stlsoft_ns_qual(iterator_base)<unixstl_ns_qual_std(input_iterator_tag)
+    : public STLSOFT_NS_QUAL(iterator_base)<STLSOFT_NS_QUAL_STD(input_iterator_tag)
                                         ,   readdir_sequence::value_type
                                         ,   us_ptrdiff_t
                                         ,   void                            // By-Value Temporary reference
@@ -346,16 +357,16 @@ class readdir_sequence::const_iterator
 /// \name Members
 /// @{
 private:
-    typedef readdir_sequence::string_type           string_type;
+    typedef readdir_sequence::string_type                   string_type;
 public:
-    /// \brief The class type
-    typedef const_iterator                          class_type;
-    /// \brief The value type
-    typedef readdir_sequence::value_type            value_type;
-    /// \brief The flags type
-    typedef readdir_sequence::flags_type            flags_type;
-//    typedef value_type*                           pointer;
-//    typedef value_type&                           reference;
+    /// The class type
+    typedef const_iterator                                  class_type;
+    /// The value type
+    typedef readdir_sequence::value_type                    value_type;
+    /// The flags type
+    typedef readdir_sequence::flags_type                    flags_type;
+//    typedef value_type*                                     pointer;
+//    typedef value_type&                                     reference;
 /// @}
 
 /// \name Construction
@@ -363,38 +374,38 @@ public:
 private:
     friend class readdir_sequence;
 
-    /// \brief Construct an instance and begin a sequence iteration on the given dir.
+    /// Construct an instance and begin a sequence iteration on the given dir.
     const_iterator(DIR* dir, string_type const& directory, flags_type flags);
 public:
-    /// \brief Default constructor
+    /// Default constructor
     const_iterator();
-    /// \brief Copy constructor
+    /// Copy constructor
     const_iterator(class_type const& rhs);
-    /// \brief Release the search handle
+    /// Release the search handle
     ~const_iterator() STLSOFT_NOEXCEPT;
 
-    /// \brief Copy assignment operator
+    /// Copy assignment operator
     class_type const& operator =(class_type const& rhs);
 /// @}
 
 /// \name Input Iterator Methods
 /// @{
 public:
-    /// \brief Returns the value representative
+    /// Returns the value representative
     value_type operator *() const;
 
-    /// \brief Moves the iteration on to the next point in the sequence, or end() if
+    /// Moves the iteration on to the next point in the sequence, or end() if
     /// the sequence is exhausted
     class_type& operator ++();
 
-    /// \brief Post-increment form of operator ++().
+    /// Post-increment form of operator ++().
     ///
     /// \note Because this version uses a temporary on which to call the
     /// pre-increment form it is thereby less efficient, and should not be used
     /// except where post-increment semantics are required.
     class_type operator ++(int);
 
-    /// \brief Compares \c this for equality with \c rhs
+    /// Compares \c this for equality with \c rhs
     ///
     /// \param rhs The instance against which to test
     /// \retval true if the iterators are equivalent
@@ -407,11 +418,11 @@ public:
 private:
     struct shared_handle;
 
-    shared_handle*  m_handle;  // The DIR handle, shared with other iterator instances
-    struct dirent*  m_entry;   // The current entry
+    shared_handle*  m_handle;   // The DIR handle, shared with other iterator instances
+    struct dirent*  m_entry;    // The current entry
     flags_type      m_flags;    // flags. (Only non-const, to allow copy assignment)
     string_type     m_scratch;  // Holds the directory, and is a scratch area
-    size_type       m_dirLen;   // The length of the directory
+    size_type       m_dirLen;   // The length of the directory (in `m_scratch`)
 /// @}
 };
 
@@ -448,7 +459,7 @@ public:
     {
         ss_sint32_t rc = --m_refCount;
 
-        if(0 == rc)
+        if (0 == rc)
         {
             delete this;
         }
@@ -464,7 +475,7 @@ private:
     {
         UNIXSTL_MESSAGE_ASSERT("Shared search handle being destroyed with outstanding references!", 0 == m_refCount);
 
-        if(NULL != m_dir)
+        if (NULL != m_dir)
         {
             ::closedir(m_dir);
         }
@@ -503,15 +514,8 @@ operator !=(
     return !lhs.equal(rhs);
 }
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/readdir_sequence_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Implementation
+ * implementation
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -538,7 +542,7 @@ readdir_sequence::validate_flags_(
     UNIXSTL_MESSAGE_ASSERT("Specification of unrecognised/unsupported flags", flags == (flags & validFlags));
     STLSOFT_SUPPRESS_UNUSED(validFlags);
 
-    if(0 == (flags & (directories | files)))
+    if (0 == (flags & (directories | files)))
     {
         flags |= (directories | files);
     }
@@ -554,7 +558,7 @@ readdir_sequence::prepare_directory_(
 ,   readdir_sequence::flags_type    flags
 )
 {
-    if( NULL == directory ||
+    if (NULL == directory ||
         '\0' == *directory)
     {
         static const char_type s_thisDir[] = { '.', '\0' };
@@ -562,18 +566,40 @@ readdir_sequence::prepare_directory_(
         directory = s_thisDir;
     }
 
-    basic_file_path_buffer<char_type>   path;
-    size_type                           n;
+    // NOTE: because this is an auto_buffer, which understands nothing about
+    // a nul-terminating character, the following code must account
+    // explicitly for it, marked "+nul"
+    STLSOFT_NS_QUAL(auto_buffer)<char_type> path(1);
+    size_type                               n;
 
-    if(absolutePath & flags)
+    if (0 == path.size())
     {
-        n = traits_type::get_full_path_name(directory, path.size() - 1u, &path[0]);
+        // rather weak response to allocation failure, although this
+        // happens only when STLSOFT_CF_EXCEPTION_SUPPORT not defined
 
-        if(0 == n)
+        return string_type();
+    }
+
+    if (absolutePath & flags)
+    {
+        // NOTE: upon success, path will have been expanded to (at least)
+        // `n` elements
+        n = traits_type::get_full_path_name(directory, path);
+
+        if (0 == n)
         {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-            STLSOFT_THROW_X(readdir_sequence_exception("failed to enumerate directory", errno, directory));
+            int e = (0 != errno) ? errno : ENOMEM;
+
+            STLSOFT_THROW_X(readdir_sequence_exception("failed to obtain full path of search directory", e, directory));
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
+
+            // "+nul"
+            if (!path.resize(1 + n))
+            {
+                return string_type();
+            }
+
             traits_type::char_copy(&path[0], directory, n);
             path[n] = \'0';
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
@@ -583,15 +609,39 @@ readdir_sequence::prepare_directory_(
     {
         n = traits_type::str_len(directory);
 
+        // "+nul"
+        //
+        // NOTE: we ask for 2, not 1, so that the path-name-separator
+        // extension in the final step below will, if required, be
+        // cheap
+        if (!path.resize(2 + n))
+        {
+            return string_type();
+        }
+
         traits_type::char_copy(&path[0], directory, n);
         path[n] = '\0';
     }
 
-    traits_type::ensure_dir_end(&path[n - 1]);
+    // TODO: change this to `&path[n - 1]` when `ensure_dir_end()` can handle that
+    // "+nul"
+    if (!traits_type::has_dir_end(&path[0]))
+    {
+        // at this point, `path` will be exactly `n` elements in length
 
-    directory = path.c_str();
+        // "+nul"
+        path.resize(2 + n);
 
-    return directory;
+        // "+nul"
+        traits_type::ensure_dir_end(&path[0]);
+
+        // "+nul"
+        n++;
+    }
+
+
+    // "+nul"
+    return string_type(path.data(), n);
 }
 
 inline
@@ -600,7 +650,7 @@ readdir_sequence::begin() const
 {
     DIR* dir = ::opendir(m_directory.c_str());
 
-    if(NULL == dir)
+    if (NULL == dir)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         STLSOFT_THROW_X(readdir_sequence_exception("failed to enumerate directory", errno, m_directory.c_str()));
@@ -636,7 +686,7 @@ inline
 us_bool_t
 readdir_sequence::empty() const
 {
-    return begin() == end();
+    return end() == begin();
 }
 
 inline
@@ -670,7 +720,7 @@ readdir_sequence::const_iterator::const_iterator(
 {
     UNIXSTL_ASSERT(traits_type::has_dir_end(m_scratch.c_str()));
 
-    if(NULL == m_handle)
+    if (NULL == m_handle)
     {
         ::closedir(dir);
     }
@@ -699,7 +749,7 @@ readdir_sequence::const_iterator::const_iterator(
     , m_scratch(rhs.m_scratch)
     , m_dirLen(rhs.m_dirLen)
 {
-    if(NULL != m_handle)
+    if (NULL != m_handle)
     {
         m_handle->AddRef();
     }
@@ -708,7 +758,7 @@ readdir_sequence::const_iterator::const_iterator(
 inline
 readdir_sequence::const_iterator::~const_iterator() STLSOFT_NOEXCEPT
 {
-    if(NULL != m_handle)
+    if (NULL != m_handle)
     {
         m_handle->Release();
     }
@@ -728,12 +778,12 @@ readdir_sequence::const_iterator::operator =(
     m_scratch =   rhs.m_scratch;
     m_dirLen  =   rhs.m_dirLen;
 
-    if(NULL != m_handle)
+    if (NULL != m_handle)
     {
         m_handle->AddRef();
     }
 
-    if(NULL != this_handle)
+    if (NULL != this_handle)
     {
         this_handle->Release();
     }
@@ -760,20 +810,20 @@ readdir_sequence::const_iterator::operator ++()
 {
     UNIXSTL_MESSAGE_ASSERT( "Incrementing invalid iterator", NULL != m_handle);
 
-    for(;;)
+    for (;;)
     {
         errno = 0;
 
         m_entry = ::readdir(m_handle->m_dir);
 
-        if(NULL == m_entry)
+        if (NULL == m_entry)
         {
-            if(0 != errno)
+            if (0 != errno)
             {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
                 m_scratch.resize(m_dirLen);
 
-                STLSOFT_THROW_X(readdir_sequence_exception("Partial failure of directory enumeration", errno, m_scratch.c_str()));
+                STLSOFT_THROW_X(readdir_sequence_exception("failed to complete directory enumeration", errno, m_scratch.c_str()));
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
             }
         }
@@ -783,9 +833,9 @@ readdir_sequence::const_iterator::operator ++()
 
             // Check for dots
 
-            if(0 == (m_flags & includeDots))
+            if (0 == (m_flags & includeDots))
             {
-                if(traits_type::is_dots(m_entry->d_name))
+                if (traits_type::is_dots(m_entry->d_name))
                 {
                     continue; // Don't want dots; skip it
                 }
@@ -798,7 +848,7 @@ readdir_sequence::const_iterator::operator ++()
             //
             // then need to construct it.
 #ifdef _WIN32
-            if((m_flags & (fullPath | directories | files)) != (directories | files))
+            if ((m_flags & (fullPath | directories | files)) != (directories | files))
 #endif /* _WIN32 */
             {
                 // Truncate the scratch to the directory path, ...
@@ -808,13 +858,13 @@ readdir_sequence::const_iterator::operator ++()
             }
 
 #ifdef _WIN32
-            if((m_flags & (directories | files)) != (directories | files))
+            if ((m_flags & (directories | files)) != (directories | files))
 #endif /* _WIN32 */
             {
                 // Now need to process the file, by using stat
                 traits_type::stat_data_type st;
 
-                if(!traits_type::stat(m_scratch.c_str(), &st))
+                if (!traits_type::stat(m_scratch.c_str(), &st))
                 {
                     // Failed to get info from entry. Must assume it is
                     // dead, so skip it
@@ -825,23 +875,23 @@ readdir_sequence::const_iterator::operator ++()
 #ifndef _WIN32
                     // Test for sockets : this version does not support sockets,
                     // but does elide them from the search results.
-                    if(traits_type::is_socket(&st))
+                    if (traits_type::is_socket(&st))
                     {
                         continue;
                     }
 #endif /* !_WIN32 */
 
-                    if(m_flags & directories) // Want directories
+                    if (m_flags & directories) // Want directories
                     {
-                        if(traits_type::is_directory(&st))
+                        if (traits_type::is_directory(&st))
                         {
                             // It is a directory, so accept it
                             break;
                         }
                     }
-                    if(m_flags & files) // Want files
+                    if (m_flags & files) // Want files
                     {
-                        if(traits_type::is_file(&st))
+                        if (traits_type::is_file(&st))
                         {
                             // It is a file, so accept it
                             break;
@@ -856,7 +906,7 @@ readdir_sequence::const_iterator::operator ++()
         break;
     }
 
-    if(NULL == m_entry)
+    if (NULL == m_entry)
     {
         UNIXSTL_ASSERT(NULL != m_handle);
 
@@ -894,17 +944,23 @@ readdir_sequence::const_iterator::equal(
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _UNIXSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef UNIXSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace unixstl
+} /* namespace unixstl */
 # else
-} // namespace unixstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_UNIXSTL_NO_NAMESPACE */
+} /* namespace unixstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !UNIXSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !UNIXSTL_INCL_UNIXSTL_FILESYSTEM_HPP_READDIR_SEQUENCE */
 

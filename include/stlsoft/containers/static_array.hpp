@@ -4,49 +4,51 @@
  * Purpose:     Statically sized multidimensional class template.
  *
  * Created:     4th August 1998
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks to:   Neal Becker for suggesting the uninitialised mode.
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1998-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/containers/static_array.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::static_array_1d,
+ * \brief [C++] Definition of the stlsoft::static_array_1d,
  *    stlsoft::static_array_2d, stlsoft::static_array_3d, and
  *    stlsoft::static_array_4d multidimensional array class templates
- *   (\ref group__library__containers "Containers" Library).
+ *   (\ref group__library__Container "Container" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_CONTAINERS_HPP_STATIC_ARRAY
@@ -55,31 +57,20 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_STATIC_ARRAY_MAJOR     4
 # define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_STATIC_ARRAY_MINOR     4
-# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_STATIC_ARRAY_REVISION  3
-# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_STATIC_ARRAY_EDIT      190
+# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_STATIC_ARRAY_REVISION  7
+# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_STATIC_ARRAY_EDIT      202
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_BORLAND:  __BORLANDC__<0x0564
-STLSOFT_COMPILER_IS_DMC:  __DMC__<0x0844
-STLSOFT_COMPILER_IS_GCC:  __GNUC__<3
-STLSOFT_COMPILER_IS_MSVC: _MSC_VER<1200
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #if defined(STLSOFT_COMPILER_IS_BORLAND) && \
     __BORLANDC__ < 0x0560
@@ -120,22 +111,17 @@ STLSOFT_COMPILER_IS_WATCOM:
 # include <stdexcept>                    // for std::out_of_range
 #endif /* !STLSOFT_INCL_STDEXCEPT */
 
-#ifdef STLSOFT_UNITTEST
-# include <algorithm>
-# include <numeric>
-#endif /* !STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Forward declarations
+ * forward declarations
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -191,9 +177,9 @@ class static_array_5d;
 // Classes
 
 // class static_array_1d
-/** \brief 1 dimensional static array
+/** 1 dimensional static array
  *
- * \ingroup group__library__containers
+ * \ingroup group__library__Container
  *
  * \param T The value type
  * \param N0 The first dimension extent
@@ -315,7 +301,7 @@ public:
 protected:
     pointer     data_();
     index_type  calc_index_(index_type i0) const;
-    void        range_check_(index_type i0) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) );
+    void        range_check_(index_type i0) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) );
 
 // Members
 private:
@@ -327,9 +313,9 @@ private:
 };
 
 // class static_array_2d
-/** \brief 2 dimensional static array
+/** 2 dimensional static array
  *
- * \ingroup group__library__containers
+ * \ingroup group__library__Container
  *
  * \param T The value type
  * \param N0 The first dimension extent
@@ -461,8 +447,8 @@ public:
 protected:
     pointer     data_();
     index_type  calc_index_(index_type i0, index_type i1) const;
-    void        range_check_(index_type i0, index_type i1) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) );
-    void        range_check_(index_type i0) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) );
+    void        range_check_(index_type i0, index_type i1) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) );
+    void        range_check_(index_type i0) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) );
 
 // Members
 private:
@@ -474,9 +460,9 @@ private:
 };
 
 // class static_array_3d
-/** \brief 3 dimensional static array
+/** 3 dimensional static array
  *
- * \ingroup group__library__containers
+ * \ingroup group__library__Container
  *
  * \param T The value type
  * \param N0 The first dimension extent
@@ -611,8 +597,8 @@ public:
 protected:
     pointer     data_();
     index_type  calc_index_(index_type i0, index_type i1, index_type i2) const;
-    void        range_check_(index_type i0, index_type i1, index_type i2) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) );
-    void        range_check_(index_type i0) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) );
+    void        range_check_(index_type i0, index_type i1, index_type i2) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) );
+    void        range_check_(index_type i0) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) );
 
 // Members
 private:
@@ -625,9 +611,9 @@ private:
 
 
 // class static_array_4d
-/** \brief 4 dimensional static array
+/** 4 dimensional static array
  *
- * \ingroup group__library__containers
+ * \ingroup group__library__Container
  *
  * \param T The value type
  * \param N0 The first dimension extent
@@ -764,9 +750,9 @@ public:
 protected:
     pointer     data_();
     index_type  calc_index_(index_type i0, index_type i1, index_type i2, index_type i3) const;
-    void        range_check_(index_type i0, index_type i1, index_type i2, index_type i3) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) );
-    void        range_check_(index_type i0, index_type i1, index_type i2) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) );
-    void        range_check_(index_type i0) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) );
+    void        range_check_(index_type i0, index_type i1, index_type i2, index_type i3) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) );
+    void        range_check_(index_type i0, index_type i1, index_type i2) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) );
+    void        range_check_(index_type i0) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) );
 
 // Members
 private:
@@ -778,7 +764,7 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Implementation
+ * implementation
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -798,14 +784,14 @@ inline ss_typename_type_ret_k static_array_1d<T, N0, P, M>::index_type static_ar
 }
 
 template <ss_typename_param_k T, ss_size_t N0, ss_typename_param_k P, ss_typename_param_k M>
-inline void static_array_1d<T, N0, P, M>::range_check_(ss_typename_type_k static_array_1d<T, N0, P, M>::index_type i0) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) )
+inline void static_array_1d<T, N0, P, M>::range_check_(ss_typename_type_k static_array_1d<T, N0, P, M>::index_type i0) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) )
 {
     STLSOFT_SUPPRESS_UNUSED(i0);
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if(!(i0 < N0))
+    if (!(i0 < N0))
     {
-        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("static array index out of range"));
+        STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("static array index out of range"));
     }
 #else
     STLSOFT_MESSAGE_ASSERT("static array index out of range", i0 < N0);
@@ -838,7 +824,7 @@ inline static_array_1d<T, N0, P, M>::static_array_1d(static_array_1d<T, N0, P, M
 template <ss_typename_param_k T, ss_size_t N0, ss_typename_param_k P, ss_typename_param_k M>
 inline static_array_1d<T, N0, P, M>::~static_array_1d() STLSOFT_NOEXCEPT
 {
-    if(!is_pointer_type<M>::value)
+    if (!is_pointer_type<M>::value)
     {
         array_range_initialiser<T, allocator_type, P>::destroy(*this, data_(), size());
     }
@@ -1012,15 +998,15 @@ inline ss_typename_type_ret_k static_array_2d<T, N0, N1, P, M>::index_type stati
 }
 
 template <ss_typename_param_k T, ss_size_t N0, ss_size_t N1, ss_typename_param_k P, ss_typename_param_k M>
-inline void static_array_2d<T, N0, N1, P, M>::range_check_(ss_typename_type_k static_array_2d<T, N0, N1, P, M>::index_type i0, ss_typename_type_k static_array_2d<T, N0, N1, P, M>::index_type i1) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) )
+inline void static_array_2d<T, N0, N1, P, M>::range_check_(ss_typename_type_k static_array_2d<T, N0, N1, P, M>::index_type i0, ss_typename_type_k static_array_2d<T, N0, N1, P, M>::index_type i1) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) )
 {
     STLSOFT_SUPPRESS_UNUSED(i0); STLSOFT_SUPPRESS_UNUSED(i1);
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if( !(i0 < N0) ||
+    if (!(i0 < N0) ||
         !(i1 < N1))
     {
-        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("static array index out of range"));
+        STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("static array index out of range"));
     }
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
     STLSOFT_MESSAGE_ASSERT("static array index out of range", (i0 < N0 && i1 < N1));
@@ -1028,14 +1014,14 @@ inline void static_array_2d<T, N0, N1, P, M>::range_check_(ss_typename_type_k st
 }
 
 template <ss_typename_param_k T, ss_size_t N0, ss_size_t N1, ss_typename_param_k P, ss_typename_param_k M>
-inline void static_array_2d<T, N0, N1, P, M>::range_check_(ss_typename_type_k static_array_2d<T, N0, N1, P, M>::index_type i0) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) )
+inline void static_array_2d<T, N0, N1, P, M>::range_check_(ss_typename_type_k static_array_2d<T, N0, N1, P, M>::index_type i0) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) )
 {
     STLSOFT_SUPPRESS_UNUSED(i0);
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if(!(i0 < N0))
+    if (!(i0 < N0))
     {
-        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("static array index out of range"));
+        STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("static array index out of range"));
     }
 #else
     STLSOFT_MESSAGE_ASSERT("static array index out of range", i0 < N0);
@@ -1068,7 +1054,7 @@ inline static_array_2d<T, N0, N1, P, M>::static_array_2d(static_array_2d<T, N0, 
 template <ss_typename_param_k T, ss_size_t N0, ss_size_t N1, ss_typename_param_k P, ss_typename_param_k M>
 inline static_array_2d<T, N0, N1, P, M>::~static_array_2d() STLSOFT_NOEXCEPT
 {
-    if(!is_pointer_type<M>::value)
+    if (!is_pointer_type<M>::value)
     {
         array_range_initialiser<T, allocator_type, P>::destroy(*this, data_(), size());
     }
@@ -1271,16 +1257,16 @@ inline ss_typename_type_ret_k static_array_3d<T, N0, N1, N2, P, M>::index_type s
 }
 
 template <ss_typename_param_k T, ss_size_t N0, ss_size_t N1, ss_size_t N2, ss_typename_param_k P, ss_typename_param_k M>
-inline void static_array_3d<T, N0, N1, N2, P, M>::range_check_(ss_typename_type_k static_array_3d<T, N0, N1, N2, P, M>::index_type i0, ss_typename_type_k static_array_3d<T, N0, N1, N2, P, M>::index_type i1, ss_typename_type_k static_array_3d<T, N0, N1, N2, P, M>::index_type i2) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) )
+inline void static_array_3d<T, N0, N1, N2, P, M>::range_check_(ss_typename_type_k static_array_3d<T, N0, N1, N2, P, M>::index_type i0, ss_typename_type_k static_array_3d<T, N0, N1, N2, P, M>::index_type i1, ss_typename_type_k static_array_3d<T, N0, N1, N2, P, M>::index_type i2) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) )
 {
     STLSOFT_SUPPRESS_UNUSED(i0); STLSOFT_SUPPRESS_UNUSED(i1); STLSOFT_SUPPRESS_UNUSED(i2);
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if( !(i0 < N0) ||
+    if (!(i0 < N0) ||
         !(i1 < N1) ||
         !(i2 < N2))
     {
-        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("static array index out of range"));
+        STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("static array index out of range"));
     }
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
     STLSOFT_MESSAGE_ASSERT("static array index out of range", (i0 < N0 && i1 < N1 && i2 < N2));
@@ -1288,14 +1274,14 @@ inline void static_array_3d<T, N0, N1, N2, P, M>::range_check_(ss_typename_type_
 }
 
 template <ss_typename_param_k T, ss_size_t N0, ss_size_t N1, ss_size_t N2, ss_typename_param_k P, ss_typename_param_k M>
-inline void static_array_3d<T, N0, N1, N2, P, M>::range_check_(ss_typename_type_k static_array_3d<T, N0, N1, N2, P, M>::index_type i0) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) )
+inline void static_array_3d<T, N0, N1, N2, P, M>::range_check_(ss_typename_type_k static_array_3d<T, N0, N1, N2, P, M>::index_type i0) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) )
 {
     STLSOFT_SUPPRESS_UNUSED(i0);
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if(!(i0 < N0))
+    if (!(i0 < N0))
     {
-        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("static array index out of range"));
+        STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("static array index out of range"));
     }
 #else
     STLSOFT_MESSAGE_ASSERT("static array index out of range", i0 < N0);
@@ -1328,7 +1314,7 @@ inline static_array_3d<T, N0, N1, N2, P, M>::static_array_3d(static_array_3d<T, 
 template <ss_typename_param_k T, ss_size_t N0, ss_size_t N1, ss_size_t N2, ss_typename_param_k P, ss_typename_param_k M>
 inline static_array_3d<T, N0, N1, N2, P, M>::~static_array_3d() STLSOFT_NOEXCEPT
 {
-    if(!is_pointer_type<M>::value)
+    if (!is_pointer_type<M>::value)
     {
         array_range_initialiser<T, allocator_type, P>::destroy(*this, data_(), size());
     }
@@ -1537,17 +1523,17 @@ inline ss_typename_type_ret_k static_array_4d<T, N0, N1, N2, N3, P, M>::index_ty
 }
 
 template <ss_typename_param_k T, ss_size_t N0, ss_size_t N1, ss_size_t N2, ss_size_t N3, ss_typename_param_k P, ss_typename_param_k M>
-inline void static_array_4d<T, N0, N1, N2, N3, P, M>::range_check_(ss_typename_type_k static_array_4d<T, N0, N1, N2, N3, P, M>::index_type i0, ss_typename_type_k static_array_4d<T, N0, N1, N2, N3, P, M>::index_type i1, ss_typename_type_k static_array_4d<T, N0, N1, N2, N3, P, M>::index_type i2, ss_typename_type_k static_array_4d<T, N0, N1, N2, N3, P, M>::index_type i3) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) )
+inline void static_array_4d<T, N0, N1, N2, N3, P, M>::range_check_(ss_typename_type_k static_array_4d<T, N0, N1, N2, N3, P, M>::index_type i0, ss_typename_type_k static_array_4d<T, N0, N1, N2, N3, P, M>::index_type i1, ss_typename_type_k static_array_4d<T, N0, N1, N2, N3, P, M>::index_type i2, ss_typename_type_k static_array_4d<T, N0, N1, N2, N3, P, M>::index_type i3) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) )
 {
     STLSOFT_SUPPRESS_UNUSED(i0); STLSOFT_SUPPRESS_UNUSED(i1); STLSOFT_SUPPRESS_UNUSED(i2); STLSOFT_SUPPRESS_UNUSED(i3);
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if( !(i0 < N0) ||
+    if (!(i0 < N0) ||
         !(i1 < N1) ||
         !(i2 < N2) ||
         !(i3 < N3))
     {
-        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("static array index out of range"));
+        STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("static array index out of range"));
     }
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
     STLSOFT_MESSAGE_ASSERT("static array index out of range", (i0 < N0 && i1 < N1 && i2 < N2 && i3 < N3));
@@ -1555,14 +1541,14 @@ inline void static_array_4d<T, N0, N1, N2, N3, P, M>::range_check_(ss_typename_t
 }
 
 template <ss_typename_param_k T, ss_size_t N0, ss_size_t N1, ss_size_t N2, ss_size_t N3, ss_typename_param_k P, ss_typename_param_k M>
-inline void static_array_4d<T, N0, N1, N2, N3, P, M>::range_check_(ss_typename_type_k static_array_4d<T, N0, N1, N2, N3, P, M>::index_type i0) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) )
+inline void static_array_4d<T, N0, N1, N2, N3, P, M>::range_check_(ss_typename_type_k static_array_4d<T, N0, N1, N2, N3, P, M>::index_type i0) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) )
 {
     STLSOFT_SUPPRESS_UNUSED(i0);
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if(!(i0 < N0))
+    if (!(i0 < N0))
     {
-        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("static array index out of range"));
+        STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("static array index out of range"));
     }
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
     STLSOFT_MESSAGE_ASSERT("static array index out of range", i0 < N0);
@@ -1590,7 +1576,7 @@ inline static_array_4d<T, N0, N1, N2, N3, P, M>::static_array_4d(static_array_4d
 template <ss_typename_param_k T, ss_size_t N0, ss_size_t N1, ss_size_t N2, ss_size_t N3, ss_typename_param_k P, ss_typename_param_k M>
 inline static_array_4d<T, N0, N1, N2, N3, P, M>::~static_array_4d() STLSOFT_NOEXCEPT
 {
-    if(!is_pointer_type<M>::value)
+    if (!is_pointer_type<M>::value)
     {
         array_range_initialiser<T, allocator_type, P>::destroy(*this, data_(), size());
     }
@@ -1801,7 +1787,7 @@ inline ss_typename_type_ret_k static_array_4d<T, N0, N1, N2, N3, P, M>::value_ty
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Shims
+ * shims
  */
 
 # if !defined(STLSOFT_COMPILER_IS_MSVC) || \
@@ -1881,20 +1867,19 @@ inline ss_size_t array_size(static_array_5d<T, N0, N1, N2, N3, N4, P, M> const& 
 
 #endif /* compiler */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/static_array_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_CONTAINERS_HPP_STATIC_ARRAY */
 

@@ -4,40 +4,44 @@
  * Purpose:     Compiler feature discrimination for unknown compilers.
  *
  * Created:     7th February 2003
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
+
+/* STLSOFT:FILE_EXCEPTED */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # error This file must not be included independently of stlsoft/stlsoft.h
@@ -46,7 +50,6 @@
 /** \file stlsoft/internal/cccap/unknown.h
  *
  * Compiler feature discrimination for unknown compilers
- * (\ref group__library__internal).
  */
 
 #ifdef STLSOFT_INCL_H_STLSOFT_CCCAP_UNKNOWN
@@ -57,9 +60,9 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_H_STLSOFT_CCCAP_UNKNOWN_MAJOR      3
-# define STLSOFT_VER_H_STLSOFT_CCCAP_UNKNOWN_MINOR      17
+# define STLSOFT_VER_H_STLSOFT_CCCAP_UNKNOWN_MINOR      18
 # define STLSOFT_VER_H_STLSOFT_CCCAP_UNKNOWN_REVISION   1
-# define STLSOFT_VER_H_STLSOFT_CCCAP_UNKNOWN_EDIT       71
+# define STLSOFT_VER_H_STLSOFT_CCCAP_UNKNOWN_EDIT       78
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -116,6 +119,7 @@
  */
 
 #define STLSOFT_CF_SUPPORTS_VARIADIC_MACROS
+#define STLSOFT_PPF_VARIADIC_MACROS_SUPPORT
 
 /* Anonymous unions
  */
@@ -126,7 +130,7 @@
 #define STLSOFT_CF_COMPILER_SUPPORTS_RETURN_VOID
 
 /* /////////////////////////////////////////////////////////////////////////
- * Types
+ * types
  */
 
 /* bool */
@@ -149,7 +153,7 @@
 /* ////////////////////////////////////////////////////////////////////// */
 
 /* ///////////////////////////////////////////////
- * Integral types
+ * integral types
  *
  * The purpose of this section is to define the following types:
  *
@@ -171,39 +175,39 @@
  */
 
 #if defined(__LP64__)
-# define _STLSOFT_SIZEOF_CHAR           (1)
-# define _STLSOFT_SIZEOF_SHORT          (2)
-# define _STLSOFT_SIZEOF_INT            (4)
-# define _STLSOFT_SIZEOF_LONG           (8)
-# define _STLSOFT_SIZEOF_LONG_LONG      (8)
+# define _STLSOFT_SIZEOF_CHAR                               (1)
+# define _STLSOFT_SIZEOF_SHORT                              (2)
+# define _STLSOFT_SIZEOF_INT                                (4)
+# define _STLSOFT_SIZEOF_LONG                               (8)
+# define _STLSOFT_SIZEOF_LONG_LONG                          (8)
 #else /* ? data model */
-# define _STLSOFT_SIZEOF_CHAR           (1)
-# define _STLSOFT_SIZEOF_SHORT          (2)
-# define _STLSOFT_SIZEOF_INT            (4)
-# define _STLSOFT_SIZEOF_LONG           (4)
-# define _STLSOFT_SIZEOF_LONG_LONG      (8)
+# define _STLSOFT_SIZEOF_CHAR                               (1)
+# define _STLSOFT_SIZEOF_SHORT                              (2)
+# define _STLSOFT_SIZEOF_INT                                (4)
+# define _STLSOFT_SIZEOF_LONG                               (4)
+# define _STLSOFT_SIZEOF_LONG_LONG                          (8)
 #endif /* data model */
 
 /* 8-bit integer */
 #define STLSOFT_CF_8BIT_INT_SUPPORT
-#define STLSOFT_SI08_T_BASE_TYPE    signed      char
-#define STLSOFT_UI08_T_BASE_TYPE    unsigned    char
+#define STLSOFT_SI08_T_BASE_TYPE                            signed      char
+#define STLSOFT_UI08_T_BASE_TYPE                            unsigned    char
 
 /* 16-bit integer */
 #define STLSOFT_CF_16BIT_INT_SUPPORT
-#define STLSOFT_SI16_T_BASE_TYPE    signed      short
-#define STLSOFT_UI16_T_BASE_TYPE    unsigned    short
+#define STLSOFT_SI16_T_BASE_TYPE                            signed      short
+#define STLSOFT_UI16_T_BASE_TYPE                            unsigned    short
 
 /* 32-bit integer */
 #define STLSOFT_CF_32BIT_INT_SUPPORT
-#define STLSOFT_SI32_T_BASE_TYPE    signed      int
-#define STLSOFT_UI32_T_BASE_TYPE    unsigned    int
+#define STLSOFT_SI32_T_BASE_TYPE                            signed      int
+#define STLSOFT_UI32_T_BASE_TYPE                            unsigned    int
 #define STLSOFT_CF_LONG_DISTINCT_INT_TYPE
 
 /* 64-bit integer */
 #define STLSOFT_CF_64BIT_INT_SUPPORT
-#define STLSOFT_SI64_T_BASE_TYPE    signed      long long
-#define STLSOFT_UI64_T_BASE_TYPE    unsigned    long long
+#define STLSOFT_SI64_T_BASE_TYPE                            signed      long long
+#define STLSOFT_UI64_T_BASE_TYPE                            unsigned    long long
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -211,14 +215,14 @@
  */
 
 /* ///////////////////////////////////////////////
- * Miscellaneous
+ * miscellaneous
  */
 
 /* Does the compiler support Argument-Dependent Lookup? */
 #define STLSOFT_CF_ADL_LOOKUP_SUPPORT
 
 /* ///////////////////////////////////////////////
- * Static array size determination
+ * static array size determination
  */
 #define STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT
 
@@ -241,7 +245,7 @@
 #define STLSOFT_CF_TYPENAME_TYPE_RET_KEYWORD_SUPPORT
 
 /* ///////////////////////////////////////////////
- * RTTI support
+ * rtti support
  */
 
 #ifdef __cplusplus
@@ -249,7 +253,7 @@
 #endif /* __cplusplus */
 
 /* ///////////////////////////////////////////////
- * Exception support
+ * exception support
  */
 
 #ifdef __cplusplus
@@ -263,7 +267,7 @@
 #define STLSOFT_CF_THROW_BAD_ALLOC
 
 /* ///////////////////////////////////////////////
- * Namespace support
+ * namespace support
  */
 
 /* Can the compiler support namespaces? */
@@ -272,7 +276,7 @@
 #endif /* __cplusplus */
 
 /* Should we allow the STLSoft libraries to be defined within a namespace? */
-/* #define _STLSOFT_NO_NAMESPACES */
+/* #define STLSOFT_NO_NAMESPACES */
 
 /* Does the C++ standard library exist within the std namespace */
 /* TODO: Move this out of here, and change to STLSOFT_LF_std_NAMESPACE */
@@ -382,7 +386,7 @@
 
 
 /* /////////////////////////////////////////////////////////////////////////
- * Quality assurance features
+ * quality assurance features
  */
 
 /* Dynamic assert:
@@ -415,7 +419,7 @@
 # define STLSOFT_CF_ASSERT_SUPPORT
 # define STLSOFT_ASSERT(expr)                   _STLSOFT_CUSTOM_ASSERT(expr)
 # if defined(_STLSOFT_CUSTOM_ASSERT_INCLUDE)
-#  define   __STLSOFT_CF_ASSERT_INCLUDE_NAME    _STLSOFT_CUSTOM_ASSERT_INCLUDE
+#  define   __STLSOFT_CF_ASSERT_INCLUDE_NAME                _STLSOFT_CUSTOM_ASSERT_INCLUDE
 # else
 #  error You must define _STLSOFT_CUSTOM_ASSERT_INCLUDE along with _STLSOFT_CUSTOM_ASSERT()
 # endif /* !_STLSOFT_CUSTOM_ASSERT_INCLUDE */
@@ -433,7 +437,7 @@
 /* TODO: define here whether need -1 or 0 as the static assert invalid array quantifier */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Calling convention
+ * calling convention
  */
 
 #define STLSOFT_CF_CDECL_SUPPORTED
@@ -447,7 +451,7 @@
 /* #define   STLSOFT_STDCALL             __stdcall */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Inline assembler
+ * inline assembler
  */
 
 /* #define STSLSOFT_INLINE_ASM_SUPPORTED */
@@ -462,13 +466,13 @@
  /* Special case when "forcing" any compiler on Win32 using VC++ in order
   * to emulate UNIX compilation
   */
-# define STLSOFT_CUSTOM_C_INLINE    __inline
+# define STLSOFT_CUSTOM_C_INLINE                            __inline
 #else /* ? environment */
 # define STLSOFT_CF_C99_INLINE
 #endif /* environment */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler warning suppression
+ * compiler warning suppression
  */
 
 /* ///////////////////////////// end of file //////////////////////////// */

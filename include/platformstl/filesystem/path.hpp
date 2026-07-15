@@ -4,46 +4,48 @@
  * Purpose:     Platform header for the path components.
  *
  * Created:     20th March 2005
- * Updated:     15th December 2023
+ * Updated:     28th November 2020
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file platformstl/filesystem/path.hpp
  *
- * \brief [C++ only] Definition of the platformstl::basic_path
+ * \brief [C++] Definition of the platformstl::basic_path
  *  type
- *   (\ref group__library__filesystem "File System" Library).
+ *   (\ref group__library__FileSystem "File System" Library).
  */
 
 #ifndef PLATFORMSTL_INCL_PLATFORMSTL_FILESYSTEM_HPP_PATH
@@ -53,17 +55,20 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_PATH_MAJOR      2
 # define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_PATH_MINOR      2
-# define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_PATH_REVISION   1
-# define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_PATH_EDIT       30
+# define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_PATH_REVISION   6
+# define PLATFORMSTL_VER_PLATFORMSTL_FILESYSTEM_HPP_PATH_EDIT       42
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef PLATFORMSTL_INCL_PLATFORMSTL_FILESYSTEM_HPP_PLATFORMSTL
 # include <platformstl/platformstl.hpp>
 #endif /* !PLATFORMSTL_INCL_PLATFORMSTL_FILESYSTEM_HPP_PLATFORMSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #if defined(PLATFORMSTL_OS_IS_UNIX)
 # ifndef UNIXSTL_INCL_UNIXSTL_FILESYSTEM_HPP_PATH
@@ -78,31 +83,29 @@
 #endif /* operating system */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#if defined(_STLSOFT_NO_NAMESPACE) || \
+#if defined(STLSOFT_NO_NAMESPACE) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::platformstl */
 namespace platformstl
 {
 #else
 /* Define stlsoft::platformstl_project */
-
 namespace stlsoft
 {
-
 namespace platformstl_project
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #if defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 
-    /** \brief Class used for composing and decomposing file-system paths.
+    /** Class used for composing and decomposing file-system paths.
      *
-     * \ingroup group__library__filesystem
+     * \ingroup group__library__FileSystem
      *
      * The class is not actually defined in the
      * \link ::platformstl platformstl\endlink namespace. Rather, it
@@ -122,11 +125,11 @@ namespace platformstl_project
     class basic_path
     {};
 
-    /// \brief Specialisation of the basic_path template for the ANSI character type \c char
+    /// Specialisation of the basic_path template for the ANSI character type \c char
     typedef basic_path<char, filesystem_traits<char> >          path_a;
-    /// \brief Specialisation of the basic_path template for the Unicode character type \c wchar_t
+    /// Specialisation of the basic_path template for the Unicode character type \c wchar_t
     typedef basic_path<wchar_t, filesystem_traits<wchar_t> >    path_w;
-    /// \brief Specialisation of the basic_path template for the ANSI character type \c char on UNIX, and for the \c TCHAR type on Windows
+    /// Specialisation of the basic_path template for the ANSI character type \c char on UNIX, and for the \c TCHAR type on Windows
     typedef basic_path<tchar, filesystem_traits<tchar> >        path;
 
 #elif defined(PLATFORMSTL_OS_IS_UNIX)
@@ -147,7 +150,7 @@ namespace platformstl_project
 
     template<   ss_typename_param_k C
 #  ifdef STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT
-            ,   ss_typename_param_k T = unixstl_ns_qual(filesystem_traits)<C>
+            ,   ss_typename_param_k T = UNIXSTL_NS_QUAL(filesystem_traits)<C>
             ,   ss_typename_param_k A = ss_typename_type_def_k stlsoft::allocator_selector<C>::allocator_type
 #  else /* ? STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
             ,   ss_typename_param_k T /* = filesystem_traits<C> */
@@ -155,10 +158,10 @@ namespace platformstl_project
 #  endif /* STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
             >
     class basic_path
-        : public unixstl_ns_qual(basic_path__)<C, T, A>
+        : public UNIXSTL_NS_QUAL(basic_path__)<C, T, A>
     {
     private:
-        typedef unixstl_ns_qual(basic_path__)<C, T, A>                  parent_class_type;
+        typedef UNIXSTL_NS_QUAL(basic_path__)<C, T, A>                  parent_class_type;
         typedef basic_path<C, T, A>                                     class_type;
     public:
         typedef ss_typename_type_k parent_class_type::char_type         char_type;
@@ -219,20 +222,20 @@ namespace platformstl_project
 #  endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
     };
 
-    typedef basic_path<ss_char_a_t, unixstl_ns_qual(filesystem_traits)<ss_char_a_t> >   path_a;
-    typedef basic_path<ss_char_w_t, unixstl_ns_qual(filesystem_traits)<ss_char_w_t> >   path_w;
-    typedef basic_path<ss_char_a_t, unixstl_ns_qual(filesystem_traits)<ss_char_a_t> >   path;
+    typedef basic_path<ss_char_a_t, UNIXSTL_NS_QUAL(filesystem_traits)<ss_char_a_t> >   path_a;
+    typedef basic_path<ss_char_w_t, UNIXSTL_NS_QUAL(filesystem_traits)<ss_char_w_t> >   path_w;
+    typedef basic_path<ss_char_a_t, UNIXSTL_NS_QUAL(filesystem_traits)<ss_char_a_t> >   path;
 
 # else /* ? compiler */
 
-#  ifdef _UNIXSTL_NO_NAMESPACE
+#  ifdef UNIXSTL_NO_NAMESPACE
     using ::basic_path;
-#  else /* ? _UNIXSTL_NO_NAMESPACE */
+#  else /* ? UNIXSTL_NO_NAMESPACE */
     using ::unixstl::basic_path;
     using ::unixstl::path_a;
     using ::unixstl::path_w;
     using ::unixstl::path;
-#  endif /* _UNIXSTL_NO_NAMESPACE */
+#  endif /* UNIXSTL_NO_NAMESPACE */
 
 # endif /* compiler */
 
@@ -254,18 +257,18 @@ namespace platformstl_project
 
     template<   ss_typename_param_k C
 #  ifdef STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT
-            ,   ss_typename_param_k T = winstl_ns_qual(filesystem_traits)<C>
-            ,   ss_typename_param_k A = winstl_ns_qual(processheap_allocator)<C>
+            ,   ss_typename_param_k T = WINSTL_NS_QUAL(filesystem_traits)<C>
+            ,   ss_typename_param_k A = WINSTL_NS_QUAL(processheap_allocator)<C>
 #  else /* ? STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
             ,   ss_typename_param_k T /* = filesystem_traits<C> */
             ,   ss_typename_param_k A /* = processheap_allocator<C> */
 #  endif /* STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
             >
     class basic_path
-        : public winstl_ns_qual(basic_path__)<C, T, A>
+        : public WINSTL_NS_QUAL(basic_path__)<C, T, A>
     {
     private:
-        typedef winstl_ns_qual(basic_path__)<C, T, A>                   parent_class_type;
+        typedef WINSTL_NS_QUAL(basic_path__)<C, T, A>                   parent_class_type;
         typedef basic_path<C, T, A>                                     class_type;
     public:
         typedef ss_typename_type_k parent_class_type::char_type         char_type;
@@ -326,20 +329,20 @@ namespace platformstl_project
 #  endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
     };
 
-    typedef basic_path<ss_char_a_t,  winstl_ns_qual(filesystem_traits)<ss_char_a_t> >   path_a;
-    typedef basic_path<ss_char_w_t,  winstl_ns_qual(filesystem_traits)<ss_char_w_t> >   path_w;
-    typedef basic_path<TCHAR,        winstl_ns_qual(filesystem_traits)<TCHAR      > >   path;
+    typedef basic_path<ss_char_a_t,  WINSTL_NS_QUAL(filesystem_traits)<ss_char_a_t> >   path_a;
+    typedef basic_path<ss_char_w_t,  WINSTL_NS_QUAL(filesystem_traits)<ss_char_w_t> >   path_w;
+    typedef basic_path<TCHAR,        WINSTL_NS_QUAL(filesystem_traits)<TCHAR      > >   path;
 
 # else /* ? compiler */
 
-#  ifdef _WINSTL_NO_NAMESPACE
+#  ifdef WINSTL_NO_NAMESPACE
     using ::basic_path;
-#  else /* ? _WINSTL_NO_NAMESPACE */
+#  else /* ? WINSTL_NO_NAMESPACE */
      using ::winstl::basic_path;
      using ::winstl::path_a;
      using ::winstl::path_w;
      using ::winstl::path;
-#  endif /* _WINSTL_NO_NAMESPACE */
+#  endif /* WINSTL_NO_NAMESPACE */
 
 # endif /* compiler */
 
@@ -349,15 +352,21 @@ namespace platformstl_project
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#if defined(_STLSOFT_NO_NAMESPACE) || \
+#if defined(STLSOFT_NO_NAMESPACE) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace platformstl
+} /* namespace platformstl */
 #else
-} // namespace platformstl_project
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+} /* namespace platformstl_project */
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !PLATFORMSTL_INCL_PLATFORMSTL_FILESYSTEM_HPP_PATH */
 

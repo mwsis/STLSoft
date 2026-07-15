@@ -4,47 +4,49 @@
  * Purpose:     Contains the listview_sequence class template.
  *
  * Created:     8th May 2003
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks:      To Pablo Aguilar for making the requisite feature requests.
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/controls/listview_sequence.hpp
  *
- * \brief [C++ only] Definition of the winstl::listview_sequence class
- *   (\ref group__library__windows_controls "Windows Controls" Library).
+ * \brief [C++] Definition of the winstl::listview_sequence class
+ *   (\ref group__library__Windows_Control "Windows Control" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_CONTROLS_HPP_LISTVIEW_SEQUENCE
@@ -53,27 +55,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTVIEW_SEQUENCE_MAJOR     4
 # define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTVIEW_SEQUENCE_MINOR     3
-# define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTVIEW_SEQUENCE_REVISION  2
-# define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTVIEW_SEQUENCE_EDIT      77
+# define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTVIEW_SEQUENCE_REVISION  9
+# define WINSTL_VER_WINSTL_CONTROLS_HPP_LISTVIEW_SEQUENCE_EDIT      92
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_BORLAND:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_COLLECTIONS_UTIL_HPP_COLLECTIONS
 # include <stlsoft/collections/util/collections.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_COLLECTIONS_UTIL_HPP_COLLECTIONS */
@@ -99,55 +95,57 @@ STLSOFT_COMPILER_IS_BORLAND:
 typedef WINSTL_LISTVIEW_SEQUENCE_CUSTOM_STRING_TYPE lvs_string_t;
 #else /* ? WINSTL_LISTVIEW_SEQUENCE_CUSTOM_STRING_TYPE */
 # ifdef STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT
-typedef stlsoft_ns_qual(basic_simple_string)<TCHAR> lvs_string_t;
+typedef STLSOFT_NS_QUAL(basic_simple_string)<TCHAR> lvs_string_t;
 # else
-typedef stlsoft_ns_qual(basic_simple_string)<   TCHAR
-                                            ,   stlsoft_ns_qual(stlsoft_char_traits)<TCHAR>
-                                            ,   winstl_ns_qual(processheap_allocator)<TCHAR>
+typedef STLSOFT_NS_QUAL(basic_simple_string)<   TCHAR
+                                            ,   STLSOFT_NS_QUAL(stlsoft_char_traits)<TCHAR>
+                                            ,   WINSTL_NS_QUAL(processheap_allocator)<TCHAR>
                                             >       lvs_string_t;
 # endif /* STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
 #endif /* WINSTL_LISTVIEW_SEQUENCE_CUSTOM_STRING_TYPE */
 #ifndef WINSTL_INCL_WINSTL_SHIMS_ACCESS_HPP_STRING
 # include <winstl/shims/access/string.hpp>
 #endif /* !WINSTL_INCL_WINSTL_SHIMS_ACCESS_HPP_STRING */
+#ifdef STLSOFT_CF_EXCEPTION_SUPPORT
+# ifndef STLSOFT_INCL_STLSOFT_CONVERSION_HPP_TRUNCATION_CAST
+#  include <stlsoft/conversion/truncation_cast.hpp>
+# endif /* !STLSOFT_INCL_STLSOFT_CONVERSION_HPP_TRUNCATION_CAST */
+#endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Typedefs
+ * typedefs
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
+#ifndef WINSTL_NO_NAMESPACE
 using ::lvs_string_t;
-#endif /* !_WINSTL_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Item class used by the listview_sequence class
+/** Item class used by the listview_sequence class
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  */
 //template<ss_typename_param_k S = lvs_string_t>
 class listview_sequence_item
@@ -164,7 +162,7 @@ public:
 public:
     lvs_string_t text(int iSubItem = 0) const
     {
-        typedef stlsoft_ns_qual(auto_buffer_old)<   TCHAR
+        typedef STLSOFT_NS_QUAL(auto_buffer_old)<   TCHAR
                                                 ,   processheap_allocator<TCHAR>
                                                 ,   256
                                                 >       buffer_t;
@@ -176,14 +174,14 @@ public:
         item.iItem      =   m_index;
         item.iSubItem   =   iSubItem;
 
-        for(;; cb += buffer_t::internal_size())
+        for (;; cb += buffer_t::internal_size())
         {
             buffer_t    buffer(cb);
 
             item.cchTextMax =   static_cast<int>(cb);
             item.pszText    =   &buffer[0];
 
-            if(!ListView_GetItem(m_hwndListView, &item))
+            if (!ListView_GetItem(m_hwndListView, &item))
             {
                 item.cchTextMax = 0;
                 break;
@@ -192,7 +190,7 @@ public:
             {
                 ss_size_t len =   static_cast<ss_size_t>(lstrlen(item.pszText));
 
-                if(len + 1 < cb)
+                if (len + 1 < cb)
                 {
                     return lvs_string_t(item.pszText, len);
                 }
@@ -235,12 +233,12 @@ private:
 };
 
 
-/** \brief Provides an STL-like sequence over the contents of a Windows List-view (<code>"SysListView32"</code>)
+/** Provides an STL-like sequence over the contents of a Windows List-view (<code>"SysListView32"</code>)
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  */
 class listview_sequence
-    : public stlsoft_ns_qual(stl_collection_tag)
+    : public STLSOFT_NS_QUAL(stl_collection_tag)
 {
 public:
     /// The value type
@@ -252,6 +250,8 @@ public:
     typedef ws_ptrdiff_t            difference_type;
     ///
     typedef listview_sequence       sequence_class_type;
+private:
+    typedef int                     internal_index_type_;
 
 
 public:
@@ -262,7 +262,7 @@ public:
 public:
     /// const_iterator for the listview_sequence
     class const_iterator
-        : public stlsoft_ns_qual(iterator_base)<winstl_ns_qual_std(random_access_iterator_tag)
+        : public STLSOFT_NS_QUAL(iterator_base)<STLSOFT_NS_QUAL_STD(random_access_iterator_tag)
                                             ,   sequence_value_type
                                             ,   ws_ptrdiff_t
                                             ,   void                // By-Value Temporary reference
@@ -361,7 +361,11 @@ public:
         /// Offset
         class_type& operator +=(difference_type index)
         {
-            m_index += index;
+#ifdef STLSOFT_CF_EXCEPTION_SUPPORT
+            m_index += stlsoft::truncation_cast<internal_index_type_>(index);
+#else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
+            m_index += static_cast<internal_index_type_>(index);
+#endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 
             return *this;
         }
@@ -369,7 +373,11 @@ public:
         /// Offset
         class_type& operator -=(difference_type index)
         {
-            m_index -= index;
+#ifdef STLSOFT_CF_EXCEPTION_SUPPORT
+            m_index -= stlsoft::truncation_cast<internal_index_type_>(index);
+#else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
+            m_index -= static_cast<internal_index_type_>(index);
+#endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 
             return *this;
         }
@@ -377,7 +385,11 @@ public:
         /// Subscript operator
         value_type operator [](difference_type index) const
         {
-            return value_type(m_hwndListView, m_index + index);
+#ifdef STLSOFT_CF_EXCEPTION_SUPPORT
+            return value_type(m_hwndListView, stlsoft::truncation_cast<internal_index_type_>(m_index + index));
+#else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
+            return value_type(m_hwndListView, static_cast<internal_index_type_>(m_index + index));
+#endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
         }
 
         /// Calculate the distance between \c this and \c rhs
@@ -412,7 +424,7 @@ public:
 
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
     /// The non-mutating (const) reverse iterator type
-    typedef stlsoft_ns_qual(const_reverse_iterator_base)<   const_iterator
+    typedef STLSOFT_NS_QUAL(const_reverse_iterator_base)<   const_iterator
                                                         ,   value_type
                                                         ,   value_type  // By-Value Temporary reference category
                                                         ,   void        // By-Value Temporary reference category
@@ -478,51 +490,51 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Shims
+ * shims
  */
 
-inline stlsoft_ns_qual(basic_shim_string)<TCHAR, 64, true, processheap_allocator<TCHAR> > c_str_ptr_null(listview_sequence_item const& lvi)
+inline STLSOFT_NS_QUAL(basic_shim_string)<TCHAR, 64, true, processheap_allocator<TCHAR> > c_str_ptr_null(listview_sequence_item const& lvi)
 {
-    return stlsoft_ns_qual(c_str_ptr_null)(lvi.text());
+    return STLSOFT_NS_QUAL(c_str_ptr_null)(lvi.text());
 }
 #ifdef UNICODE
-inline stlsoft_ns_qual(basic_shim_string)<TCHAR, 64, true, processheap_allocator<TCHAR> > c_str_ptr_null_w(listview_sequence_item const& lvi)
+inline STLSOFT_NS_QUAL(basic_shim_string)<TCHAR, 64, true, processheap_allocator<TCHAR> > c_str_ptr_null_w(listview_sequence_item const& lvi)
 #else /* ? UNICODE */
-inline stlsoft_ns_qual(basic_shim_string)<TCHAR, 64, true, processheap_allocator<TCHAR> > c_str_ptr_null_a(listview_sequence_item const& lvi)
+inline STLSOFT_NS_QUAL(basic_shim_string)<TCHAR, 64, true, processheap_allocator<TCHAR> > c_str_ptr_null_a(listview_sequence_item const& lvi)
 #endif /* UNICODE */
 {
-    return stlsoft_ns_qual(c_str_ptr_null)(lvi.text());
+    return STLSOFT_NS_QUAL(c_str_ptr_null)(lvi.text());
 }
 
-inline stlsoft_ns_qual(basic_shim_string)<TCHAR, 64, false, processheap_allocator<TCHAR> > c_str_ptr(listview_sequence_item const& lvi)
+inline STLSOFT_NS_QUAL(basic_shim_string)<TCHAR, 64, false, processheap_allocator<TCHAR> > c_str_ptr(listview_sequence_item const& lvi)
 {
-    return stlsoft_ns_qual(c_str_ptr)(lvi.text());
+    return STLSOFT_NS_QUAL(c_str_ptr)(lvi.text());
 }
 #ifdef UNICODE
-inline stlsoft_ns_qual(basic_shim_string)<TCHAR, 64, true, processheap_allocator<TCHAR> > c_str_ptr_w(listview_sequence_item const& lvi)
+inline STLSOFT_NS_QUAL(basic_shim_string)<TCHAR, 64, true, processheap_allocator<TCHAR> > c_str_ptr_w(listview_sequence_item const& lvi)
 #else /* ? UNICODE */
-inline stlsoft_ns_qual(basic_shim_string)<TCHAR, 64, true, processheap_allocator<TCHAR> > c_str_ptr_a(listview_sequence_item const& lvi)
+inline STLSOFT_NS_QUAL(basic_shim_string)<TCHAR, 64, true, processheap_allocator<TCHAR> > c_str_ptr_a(listview_sequence_item const& lvi)
 #endif /* UNICODE */
 {
-    return stlsoft_ns_qual(c_str_ptr)(lvi.text());
+    return STLSOFT_NS_QUAL(c_str_ptr)(lvi.text());
 }
 
-inline stlsoft_ns_qual(basic_shim_string)<TCHAR, 64, false, processheap_allocator<TCHAR> > c_str_data(listview_sequence_item const& lvi)
+inline STLSOFT_NS_QUAL(basic_shim_string)<TCHAR, 64, false, processheap_allocator<TCHAR> > c_str_data(listview_sequence_item const& lvi)
 {
-    return stlsoft_ns_qual(c_str_data)(lvi.text());
+    return STLSOFT_NS_QUAL(c_str_data)(lvi.text());
 }
 #ifdef UNICODE
-inline stlsoft_ns_qual(basic_shim_string)<TCHAR, 64, true, processheap_allocator<TCHAR> > c_str_data_w(listview_sequence_item const& lvi)
+inline STLSOFT_NS_QUAL(basic_shim_string)<TCHAR, 64, true, processheap_allocator<TCHAR> > c_str_data_w(listview_sequence_item const& lvi)
 #else /* ? UNICODE */
-inline stlsoft_ns_qual(basic_shim_string)<TCHAR, 64, true, processheap_allocator<TCHAR> > c_str_data_a(listview_sequence_item const& lvi)
+inline STLSOFT_NS_QUAL(basic_shim_string)<TCHAR, 64, true, processheap_allocator<TCHAR> > c_str_data_a(listview_sequence_item const& lvi)
 #endif /* UNICODE */
 {
-    return stlsoft_ns_qual(c_str_data)(lvi.text());
+    return STLSOFT_NS_QUAL(c_str_data)(lvi.text());
 }
 
 inline ws_size_t c_str_len(listview_sequence_item const& lvi)
 {
-    return stlsoft_ns_qual(c_str_len)(lvi.text());
+    return STLSOFT_NS_QUAL(c_str_len)(lvi.text());
 }
 
 
@@ -536,34 +548,36 @@ inline S& operator <<(S& s, listview_sequence_item const& lvi)
     return s;
 }
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The string access shims exist either in the stlsoft namespace, or in the
  * global namespace. This is required by the lookup rules.
  *
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+#ifndef WINSTL_NO_NAMESPACE
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 namespace stlsoft
 {
-# else /* ? _STLSOFT_NO_NAMESPACE */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
 
 using ::winstl::c_str_ptr_null;
 using ::winstl::c_str_ptr_null_a;
@@ -579,17 +593,23 @@ using ::winstl::c_str_data_w;
 
 using ::winstl::c_str_len;
 
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace stlsoft
-# else /* ? _STLSOFT_NO_NAMESPACE */
+} /* namespace stlsoft */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_CONTROLS_HPP_LISTVIEW_SEQUENCE */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_CONTROLS_HPP_LISTVIEW_SEQUENCE */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

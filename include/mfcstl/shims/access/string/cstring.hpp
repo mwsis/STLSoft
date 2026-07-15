@@ -1,49 +1,50 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        mfcstl/shims/access/string/cstring.hpp
+ * File:        mfcstl/shims/access/string/CString.hpp
  *
- * Purpose:     Contains classes and functions for dealing with MFC strings.
+ * Purpose:     String access shims for CString
  *
  * Created:     24th May 2002
- * Updated:     15th December 2023
+ * Updated:     28th November 2020
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
-/** \file mfcstl/shims/access/string/cstring.hpp
+/** \file mfcstl/shims/access/string/CString.hpp
  *
- * \brief [C++] Definition of the string access shims for
- *   <code>CString</code>
- *   (\ref group__concept__shim__string_access "String Access Shims" Concept).
+ * \brief [C++] String access shims for <code>CString</code>
+ *   (\ref group__concept__Shim__string_access "String Access Shims" Concept).
  */
 
 #ifndef MFCSTL_INCL_MFCSTL_SHIMS_ACCESS_STRING_HPP_CSTRING
@@ -52,42 +53,43 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define MFCSTL_VER_MFCSTL_SHIMS_ACCESS_STRING_HPP_CSTRING_MAJOR    4
 # define MFCSTL_VER_MFCSTL_SHIMS_ACCESS_STRING_HPP_CSTRING_MINOR    0
-# define MFCSTL_VER_MFCSTL_SHIMS_ACCESS_STRING_HPP_CSTRING_REVISION 1
-# define MFCSTL_VER_MFCSTL_SHIMS_ACCESS_STRING_HPP_CSTRING_EDIT     90
+# define MFCSTL_VER_MFCSTL_SHIMS_ACCESS_STRING_HPP_CSTRING_REVISION 7
+# define MFCSTL_VER_MFCSTL_SHIMS_ACCESS_STRING_HPP_CSTRING_EDIT     100
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef MFCSTL_INCL_MFCSTL_HPP_MFCSTL
 # include <mfcstl/mfcstl.hpp>
 #endif /* !MFCSTL_INCL_MFCSTL_HPP_MFCSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_HPP_STRING
 # include <stlsoft/shims/access/string.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_HPP_STRING */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _MFCSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef MFCSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::mfcstl */
 namespace mfcstl
 {
 # else
 /* Define stlsoft::mfcstl_project */
-
 namespace stlsoft
 {
-
 namespace mfcstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_MFCSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !MFCSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
  * c_str_data
@@ -97,9 +99,9 @@ namespace mfcstl_project
  */
 
 /* CString */
-/** \brief \ref group__concept__shim__string_access__c_str_data for CString
+/** \ref group__concept__Shim__string_access__c_str_data for CString
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 inline LPCTSTR c_str_data(CString const& s)
@@ -126,9 +128,9 @@ inline LPCTSTR c_str_data_a(CString const& s)
  */
 
 /* CString */
-/** \brief \ref group__concept__shim__string_access__c_str_len for CString
+/** \ref group__concept__Shim__string_access__c_str_len for CString
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 inline ms_size_t c_str_len(CString const& s)
@@ -153,9 +155,9 @@ inline ms_size_t c_str_len_a(CString const& s)
  */
 
 /* CString */
-/** \brief \ref group__concept__shim__string_access__c_str_ptr for CString
+/** \ref group__concept__Shim__string_access__c_str_ptr for CString
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 inline LPCTSTR c_str_ptr(CString const& s)
@@ -182,9 +184,9 @@ inline LPCTSTR c_str_ptr_a(CString const& s)
  */
 
 /* CString */
-/** \brief \ref group__concept__shim__string_access__c_str_ptr_null for CString
+/** \ref group__concept__Shim__string_access__c_str_ptr_null for CString
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 inline LPCTSTR c_str_ptr_null(CString const& s)
@@ -203,41 +205,34 @@ inline LPCTSTR c_str_ptr_null_a(CString const& s)
     return c_str_ptr_null(s);
 }
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/cstring_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _MFCSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef MFCSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace mfcstl
+} /* namespace mfcstl */
 # else
-} // namespace stlsoft::mfcstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_MFCSTL_NO_NAMESPACE */
+} /* namespace stlsoft::mfcstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !MFCSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The string access shims exist either in the stlsoft namespace, or in the
  * global namespace. This is required by the lookup rules.
  *
  */
 
-#ifndef _MFCSTL_NO_NAMESPACE
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+#ifndef MFCSTL_NO_NAMESPACE
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 namespace stlsoft
 {
-# else /* ? _STLSOFT_NO_NAMESPACE */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
 
 using ::mfcstl::c_str_data;
 #if defined(UNICODE)
@@ -268,16 +263,16 @@ using ::mfcstl::c_str_ptr_null_a;
 #endif /* UNICODE */
 
 
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace stlsoft
-# else /* ? _STLSOFT_NO_NAMESPACE */
+} /* namespace stlsoft */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
-#endif /* !_MFCSTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
+#endif /* !MFCSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Global namespace shims
+ * global namespace shims
  */
 
 /* This defines a stream inserter shim function template for CString for use
@@ -292,14 +287,20 @@ using ::mfcstl::c_str_ptr_null_a;
 # include <iosfwd>
 
 /* Has to be like this otherwise it conflicts with operator <<(class CArchive &,const class CString &) (at least with VC++ <7.1). */
-inline mfcstl_ns_qual_std(basic_ostream)<TCHAR>& operator <<(mfcstl_ns_qual_std(basic_ostream)<TCHAR> &stm, CString const& shim)
+inline STLSOFT_NS_QUAL_STD(basic_ostream)<TCHAR>& operator <<(STLSOFT_NS_QUAL_STD(basic_ostream)<TCHAR> &stm, CString const& shim)
 {
     return stm << static_cast<LPCTSTR>(shim);
 }
 
 #endif /* library */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !MFCSTL_INCL_MFCSTL_SHIMS_ACCESS_STRING_HPP_CSTRING */
 

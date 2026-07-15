@@ -4,49 +4,53 @@
  * Purpose:     Instantiations of th_sequence_value_traits<>.
  *
  * Created:     21st May 2005
- * Updated:     15th December 2023
+ * Updated:     26th December 2020
  *
  * Thanks:      To Pablo for contributing this great library.
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2005-2023, Pablo Aguilar
+ * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2005-2007, Pablo Aguilar
  * Copyright (c) 2006-2011, Matthew Wilson
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software, nor Pablo
- *   Aguilar, nor the names of any contributors may be used to endorse or
- *   promote products derived from this software without specific prior written
- *   permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems,
+ *   nor Pablo Aguilar,  nor the names of any contributors may be used to
+ *   endorse or promote products derived from this software without
+ *   specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/toolhelp/sequence_value_traits.hpp
  *
- * \brief [C++ only] Instantiations of th_sequence_value_traits<>
- *   (\ref group__library__windows_toolhelp "Windows ToolHelp" Library).
+ * \brief [C++] Instantiations of th_sequence_value_traits<>
+ *   (\ref group__library__Windows_Toolhelp "Windows ToolHelp" Library).
  */
+
+/* STLSOFT:FILE_EXCEPTED */
 
 // NO INCLUDE GUARDS
 // This file is meant to be included multiple times
@@ -54,14 +58,9 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_TOOLHELP_HPP_SEQUENCE_VALUE_TRAITS_MAJOR     1
 # define WINSTL_VER_WINSTL_TOOLHELP_HPP_SEQUENCE_VALUE_TRAITS_MINOR     1
-# define WINSTL_VER_WINSTL_TOOLHELP_HPP_SEQUENCE_VALUE_TRAITS_REVISION  5
-# define WINSTL_VER_WINSTL_TOOLHELP_HPP_SEQUENCE_VALUE_TRAITS_EDIT      11
+# define WINSTL_VER_WINSTL_TOOLHELP_HPP_SEQUENCE_VALUE_TRAITS_REVISION  6
+# define WINSTL_VER_WINSTL_TOOLHELP_HPP_SEQUENCE_VALUE_TRAITS_EDIT      17
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
-
-/* Compatibility
-[<[STLSOFT-AUTO:NO-DOCFILELABEL]>]
-[<[STLSOFT-AUTO:NO-UNITTEST]>]
-*/
 
 #ifndef WINSTL_TH_API_SEQUENCE_VALUE_TRAITS_VALUE
 # error This file cannot be included independently, but only within one of the toolhelp sequence specialisation headers
@@ -75,6 +74,8 @@
 #ifndef WINSTL_TH_API_SEQUENCE_VALUE_TRAITS_FLAG
 # error This file cannot be included independently, but only within one of the toolhelp sequence specialisation headers
 #endif /* !WINSTL_TH_API_SEQUENCE_VALUE_TRAITS_FLAG */
+
+#ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 STLSOFT_TEMPLATE_SPECIALISATION
 struct th_sequence_value_traits<WINSTL_TH_API_SEQUENCE_VALUE_TRAITS_VALUE>
@@ -113,6 +114,7 @@ struct th_sequence_value_traits<WINSTL_TH_API_SEQUENCE_VALUE_TRAITS_VALUE>
         return WINSTL_TH_API_SEQUENCE_VALUE_TRAITS_CREATE_SNAPSHOT_FAIL_MESSAGE;
     }
 };
+#endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 // #undef here so we don't have to repeat this each time we include this file
 #undef WINSTL_TH_API_SEQUENCE_VALUE_TRAITS_VALUE

@@ -15,46 +15,48 @@
  *              2003 issue of Windows Developer Network (http://windevnet.com).
  *
  * Created:     1st May 2004
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file inetstl/filesystem/searchspec_sequence.hpp
  *
- * \brief [C++ only] Definition of the inetstl::searchspec_sequence
+ * \brief [C++] Definition of the inetstl::searchspec_sequence
  *   class template
- *   (\ref group__library__filesystem "File System" Library).
+ *   (\ref group__library__FileSystem "File System" Library).
  */
 
 #ifndef INETSTL_INCL_INETSTL_FILESYSTEM_HPP_SEARCHSPEC_SEQUENCE
@@ -63,21 +65,25 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_INETSTL_FILESYSTEM_HPP_SEARCHSPEC_SEQUENCE_MAJOR      5
 # define STLSOFT_VER_INETSTL_FILESYSTEM_HPP_SEARCHSPEC_SEQUENCE_MINOR      1
-# define STLSOFT_VER_INETSTL_FILESYSTEM_HPP_SEARCHSPEC_SEQUENCE_REVISION   6
-# define STLSOFT_VER_INETSTL_FILESYSTEM_HPP_SEARCHSPEC_SEQUENCE_EDIT       57
+# define STLSOFT_VER_INETSTL_FILESYSTEM_HPP_SEARCHSPEC_SEQUENCE_REVISION   12
+# define STLSOFT_VER_INETSTL_FILESYSTEM_HPP_SEARCHSPEC_SEQUENCE_EDIT       72
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef INETSTL_INCL_INETSTL_H_INETSTL
 # include <inetstl/inetstl.h>
 #endif /* !INETSTL_INCL_INETSTL_H_INETSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
-#ifdef STLSOFT_CF_PRAGMA_MESSAGE_SUPPORT
-# pragma message("This file is now obsolete, and will be removed in a future release. The inetstl::basic_findfile_sequence class now supports multi-part patterns. This file will be removed from a future release.")
-#endif /* STLSOFT_CF_PRAGMA_MESSAGE_SUPPORT */
+#ifdef STLSOFT_PPF_pragma_message_SUPPORT
+# pragma message(__FILE__ "(" STLSOFT_STRINGIZE(__LINE__) "): This file is now obsolete, and will be removed in a future release. The inetstl::basic_findfile_sequence class now supports multi-part patterns. This file will be removed from a future release.")
+#endif
+
 #ifndef INETSTL_OS_IS_WINDOWS
 # error This file is currently compatible only with the Win32/Win64 API
 #endif /* !INETSTL_OS_IS_WINDOWS */
@@ -102,29 +108,26 @@
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _INETSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef INETSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::inetstl */
 namespace inetstl
 {
 # else
 /* Define stlsoft::inetstl_project */
-
 namespace stlsoft
 {
-
 namespace inetstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_INETSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !INETSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Functions
+ * functions
  */
 
 template <ss_typename_param_k T>
@@ -138,21 +141,21 @@ inline void call_set_null(T *&pt, void (T::*F)())
 }
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Provides multi-pattern functionality over a file-system search sequence class
+/** Provides multi-pattern functionality over a file-system search sequence class
  *
- * \ingroup group__library__filesystem
+ * \ingroup group__library__FileSystem
  */
 template <ss_typename_param_k S>
 class searchspec_sequence
-    : public stlsoft_ns_qual(stl_collection_tag)
+    : public STLSOFT_NS_QUAL(stl_collection_tag)
 {
 public:
     /// The underlying find sequence type
     typedef S                                                           find_sequence_type;
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef searchspec_sequence<S>                                      class_type;
 private:
     typedef searchspec_sequence<S>                                      outer_class_type;
@@ -245,11 +248,11 @@ private:
             , m_entriesEnd(m_entries->end())
             , m_cRefs(1)
         {
-            while(m_entriesNext == m_entriesEnd)
+            while (m_entriesNext == m_entriesEnd)
             {
                 ++m_tokensNext;
 
-                if(m_tokensNext == m_tokensEnd)
+                if (m_tokensNext == m_tokensEnd)
                 {
                     break;
                 }
@@ -276,7 +279,7 @@ private:
         {
             search_state *ss = new search_state(hconn, rootDir, searchSpec, delimiter, flags);
 
-            if(ss->m_tokensNext == ss->m_tokensEnd)
+            if (ss->m_tokensNext == ss->m_tokensEnd)
             {
                 delete ss;
 
@@ -289,7 +292,7 @@ private:
     public:
         bool next()
         {
-            if(m_tokensNext == m_tokensEnd)
+            if (m_tokensNext == m_tokensEnd)
             {
                 return false;
             }
@@ -304,11 +307,11 @@ private:
 
             ++m_entriesNext;
 
-            while(m_entriesNext == m_entriesEnd)
+            while (m_entriesNext == m_entriesEnd)
             {
                 ++m_tokensNext;
 
-                if(m_tokensNext == m_tokensEnd)
+                if (m_tokensNext == m_tokensEnd)
                 {
                     return false;
                 }
@@ -329,7 +332,7 @@ private:
 
         void Release()
         {
-            if(0 == --m_cRefs)
+            if (0 == --m_cRefs)
             {
                 delete this;
             }
@@ -367,7 +370,7 @@ public:
         /// Destructor
         ~const_iterator() STLSOFT_NOEXCEPT
         {
-            if(NULL != m_searchState)
+            if (NULL != m_searchState)
             {
                 m_searchState->Release();
             }
@@ -377,7 +380,7 @@ public:
         const_iterator(class_type const& rhs)
             : m_searchState(rhs.m_searchState)
         {
-            if(NULL != m_searchState)
+            if (NULL != m_searchState)
             {
                 ++m_searchState->m_cRefs;
             }
@@ -385,14 +388,14 @@ public:
 
         class_type& operator =(class_type const& rhs)
         {
-            if(NULL != m_searchState)
+            if (NULL != m_searchState)
             {
                 m_searchState->Release();
             }
 
             m_searchState = rhs.m_searchState;
 
-            if(NULL != m_searchState)
+            if (NULL != m_searchState)
             {
                 ++m_searchState->m_cRefs;
             }
@@ -405,7 +408,7 @@ public:
         {
             INETSTL_ASSERT(NULL != m_searchState);
 
-            if(!m_searchState->next())
+            if (!m_searchState->next())
             {
 #if defined(STLSOFT_COMPILER_IS_MSVC) && \
     _MSC_VER < 1300
@@ -468,10 +471,10 @@ public:
     }
 
 public:
-    /// \brief Indicates whether the sequence is empty
+    /// Indicates whether the sequence is empty
     ss_bool_t empty() const
     {
-        return begin() == end();
+        return end() == begin();
     }
 
 // Implementation
@@ -498,13 +501,6 @@ private:
 };
 
 ////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/searchspec_sequence_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
-////////////////////////////////////////////////////////////////////////////
 // Implementation
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -514,19 +510,25 @@ private:
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _INETSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef INETSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace inetstl
+} /* namespace inetstl */
 # else
-} // namespace inetstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_INETSTL_NO_NAMESPACE */
+} /* namespace inetstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !INETSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* INETSTL_INCL_INETSTL_FILESYSTEM_HPP_SEARCHSPEC_SEQUENCE */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !INETSTL_INCL_INETSTL_FILESYSTEM_HPP_SEARCHSPEC_SEQUENCE */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

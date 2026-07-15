@@ -4,11 +4,11 @@
  * Purpose:     Command-line sequences class.
  *
  * Created:     25th June 2005
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -21,9 +21,10 @@
  * - Redistributions in binary form must reproduce the above copyright
  *   notice, this list of conditions and the following disclaimer in the
  *   documentation and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the
- *   names of any contributors may be used to endorse or promote products
- *   derived from this software without specific prior written permission.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
  * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
@@ -42,8 +43,8 @@
 
 /** \file stlsoft/system/cmdargs.hpp
  *
- * [C++ only] Definition of the stlsoft::cmdargs class
- *   (\ref group__library__system "System" Library).
+ * \brief [C++] Definition of the stlsoft::cmdargs class
+ *   (\ref group__library__System "System" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_SYSTEM_HPP_CMDARGS
@@ -52,27 +53,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_SYSTEM_HPP_CMDARGS_MAJOR       3
 # define STLSOFT_VER_STLSOFT_SYSTEM_HPP_CMDARGS_MINOR       0
-# define STLSOFT_VER_STLSOFT_SYSTEM_HPP_CMDARGS_REVISION    4
-# define STLSOFT_VER_STLSOFT_SYSTEM_HPP_CMDARGS_EDIT        32
+# define STLSOFT_VER_STLSOFT_SYSTEM_HPP_CMDARGS_REVISION    8
+# define STLSOFT_VER_STLSOFT_SYSTEM_HPP_CMDARGS_EDIT        45
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifdef STLSOFT_SYSTEM_CMDARGS_USE_STD_STRING
 # include <string>
 #else /* ? STLSOFT_SYSTEM_CMDARGS_USE_STD_STRING */
@@ -97,16 +92,16 @@ STLSOFT_COMPILER_IS_WATCOM:
 #endif /* !STLSOFT_INCL_VECTOR */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 /** Facade class that presents argc+argv command line parameters as
@@ -114,7 +109,7 @@ namespace stlsoft
  *    prefixes and, optionally, separated from an option value by a =) and
  *    values (those without any leading hyphens)
  *
- * \ingroup group__library__system
+ * \ingroup group__library__System
  *
  * \note The cmdargs instance maintains views onto the actual arguments in
  *   the argv array. Therefore, the behaviour is undefined if any code
@@ -190,8 +185,8 @@ public:
     typedef option                                          options_value_type;
     typedef value                                           values_value_type;
 
-    typedef stlsoft_ns_qual_std(vector)<options_value_type> options_type;
-    typedef stlsoft_ns_qual_std(vector)<values_value_type>  values_type;
+    typedef STLSOFT_NS_QUAL_STD(vector)<options_value_type> options_type;
+    typedef STLSOFT_NS_QUAL_STD(vector)<values_value_type>  values_type;
 
     typedef options_type::const_iterator                    const_options_iterator;
     typedef values_type::const_iterator                     const_values_iterator;
@@ -255,7 +250,7 @@ public:
     {
         options_type::const_iterator it = has_option_(c_str_ptr(optionName), type);
 
-        if(m_options.end() != it)
+        if (m_options.end() != it)
         {
             opt = *it;
 
@@ -275,7 +270,7 @@ public:
     {
         values_type::const_iterator it = has_value_(c_str_ptr(valueName));
 
-        if(m_values.end() != it)
+        if (m_values.end() != it)
         {
             val = *it;
 
@@ -302,24 +297,17 @@ private:
 };
 
 ////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/cmdargs_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
-////////////////////////////////////////////////////////////////////////////
 // Implementation
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 inline cmdargs::cmdargs(int argc, char /*const*/ **argv)
 {
-    for(int i = 1; i < argc; ++i)
+    for (int i = 1; i < argc; ++i)
     {
         char const  *arg    =   argv[i];
 
-        if('-' == arg[0])
+        if ('-' == arg[0])
         {
             ++arg;
 
@@ -398,9 +386,9 @@ inline cmdargs::values_type::const_iterator cmdargs::has_value_(char const* valu
 
     values_type::const_iterator b;
 
-    for(b = m_values.begin(); b != m_values.end(); ++b)
+    for (b = m_values.begin(); b != m_values.end(); ++b)
     {
-        if((*b).name == valueName)
+        if ((*b).name == valueName)
         {
             break;
         }
@@ -415,9 +403,9 @@ inline cmdargs::options_type::const_iterator cmdargs::has_option_(char const* op
 
     options_type::const_iterator b;
 
-    for(b = m_options.begin(); b != m_options.end(); ++b)
+    for (b = m_options.begin(); b != m_options.end(); ++b)
     {
-        if( (*b).name == optionName &&
+        if ((*b).name == optionName &&
             (   -1 == type ||
                 type == (*b).type))
         {
@@ -441,7 +429,7 @@ inline S& operator <<(S &stm, cmdargs::option const& option)
     };
     char const      *dashes =   &s_dashes[(option.type == cmdargs::singleDash)];
 
-    if(option.value.empty())
+    if (option.value.empty())
     {
         stm << dashes << option.name;
     }
@@ -463,11 +451,17 @@ inline S& operator <<(S &stm, cmdargs::value const& value)
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_SYSTEM_HPP_CMDARGS */
 

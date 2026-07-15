@@ -5,47 +5,49 @@
  *              non_mutating_operator_adaptor classes.
  *
  * Created:     4th November 2003
- * Updated:     15th December 2023
+ * Updated:     29th January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file rangelib/operator_adaptors.hpp
  *
- * \brief [C++ only] Definition of the rangelib::mutating_operator_adaptor
+ * \brief [C++] Definition of the rangelib::mutating_operator_adaptor
  *   and rangelib::non_mutating_operator_adaptor classes, which are used to
  *   bolt in Range operators to classes that implement the range methods
- *   (\ref group__library__smart_pointers "Smart Pointers" Library).
+ *   (\ref group__library__SmartPointer "Smart Pointer" Library).
  */
 
 #ifndef RANGELIB_INCL_RANGELIB_HPP_OPERATOR_ADAPTORS
@@ -54,28 +56,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define RANGELIB_VER_RANGELIB_HPP_OPERATOR_ADAPTORS_MAJOR       1
 # define RANGELIB_VER_RANGELIB_HPP_OPERATOR_ADAPTORS_MINOR       5
-# define RANGELIB_VER_RANGELIB_HPP_OPERATOR_ADAPTORS_REVISION    4
-# define RANGELIB_VER_RANGELIB_HPP_OPERATOR_ADAPTORS_EDIT        31
+# define RANGELIB_VER_RANGELIB_HPP_OPERATOR_ADAPTORS_REVISION    8
+# define RANGELIB_VER_RANGELIB_HPP_OPERATOR_ADAPTORS_EDIT        44
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_MSVC:     _MSC_VER < 1200
-STLSOFT_COMPILER_IS_MWERKS:   (__MWERKS__ & 0xFF00) < 0x3000
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef RANGELIB_INCL_RANGELIB_HPP_RANGELIB
 # include <rangelib/rangelib.hpp>
 #endif /* !RANGELIB_INCL_RANGELIB_HPP_RANGELIB */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_META_HPP_CAPABILITIES
 # include <stlsoft/meta/capabilities.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_META_HPP_CAPABILITIES */
@@ -95,35 +90,32 @@ STLSOFT_COMPILER_IS_MWERKS:   (__MWERKS__ & 0xFF00) < 0x3000
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_INERT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
 #ifndef RANGELIB_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::rangelib */
 namespace rangelib
 {
 # else
 /* Define stlsoft::rangelib_project */
-
 namespace stlsoft
 {
-
 namespace rangelib_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !RANGELIB_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief This class facilitates specific definition of the \c const_iterator and
+/** This class facilitates specific definition of the \c const_iterator and
  * \c iterator member types
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  */
 template<   ss_typename_param_k CR
 #if defined(STLSOFT_COMPILER_IS_MSVC) && \
@@ -143,11 +135,11 @@ public:
 };
 
 
-/** \brief This class is a reverse bolt-in, which provides mutating and
+/** This class is a reverse bolt-in, which provides mutating and
  * non-mutating Range operators based on the method forms of its
- * parameterising (and deriving) class
+ * specialising (and deriving) class
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \note Because this is a reverse bolt-in, \c R is an incomplete type at the
  * time of the template parsing. Hence, we cannot deduce \c reference and
@@ -172,7 +164,7 @@ public:
     typedef ss_typename_type_k traits_type::const_reference const_reference;
 
 protected:
-    /// \brief Default constructor
+    /// Default constructor
     ///
     /// This is defined protected to ensure that the adaptor may only be used
     /// as a base class, and not instantiated directly
@@ -217,11 +209,11 @@ public:
 /// @}
 };
 
-/** \brief This class is a reverse bolt-in, which provides non-mutating Range
- * operators based on the method forms of its parameterising (and deriving)
+/** This class is a reverse bolt-in, which provides non-mutating Range
+ * operators based on the method forms of its specialising (and deriving)
  * class
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \note Because this is a reverse bolt-in, \c R is an incomplete type at the
  * time of the template parsing. Hence, we cannot deduce \c reference and
@@ -244,7 +236,7 @@ public:
     typedef ss_typename_type_k traits_type::const_reference const_reference;
 
 protected:
-    /// \brief Default constructor
+    /// Default constructor
     ///
     /// This is defined protected to ensure that the adaptor may only be used
     /// as a base class, and not instantiated directly
@@ -308,10 +300,10 @@ struct fixer_mutating_operator_adaptor<R, T, false>
 
 # endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief This type is used to select the mutating or non-mutating form of the
+/** This type is used to select the mutating or non-mutating form of the
  * operator adaptor
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  */
 template<   ss_typename_param_k R
         ,   ss_typename_param_k T
@@ -331,26 +323,25 @@ public:
 
 #endif /* STLSOFT_CF_HAS_MEMBER_TYPE_SUPPORTED */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/operator_adaptors_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef RANGELIB_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace rangelib
+} /* namespace rangelib */
 # else
-} // namespace rangelib_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
+} /* namespace rangelib_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !RANGELIB_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !RANGELIB_INCL_RANGELIB_HPP_OPERATOR_ADAPTORS */
 

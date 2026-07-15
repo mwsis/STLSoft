@@ -4,11 +4,11 @@
  * Purpose:     Traits for detecting characteristics of adapted iterators.
  *
  * Created:     9th July 2004
- * Updated:     15th December 2023
+ * Updated:     26th December 2020
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -21,9 +21,10 @@
  * - Redistributions in binary form must reproduce the above copyright
  *   notice, this list of conditions and the following disclaimer in the
  *   documentation and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the
- *   names of any contributors may be used to endorse or promote products
- *   derived from this software without specific prior written permission.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
  * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
@@ -42,9 +43,9 @@
 
 /** \file stlsoft/iterators/adapted_iterator_traits.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::adapted_iterator_traits
+ * \brief [C++] Definition of the stlsoft::adapted_iterator_traits
  *   class template
- *   (\ref group__library__iterators "Iterators" Library).
+ *   (\ref group__library__Iterator "Iterator" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_ITERATORS_HPP_ADAPTED_ITERATOR_TRAITS
@@ -53,29 +54,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_ITERATORS_HPP_ADAPTED_ITERATOR_TRAITS_MAJOR    2
 # define STLSOFT_VER_STLSOFT_ITERATORS_HPP_ADAPTED_ITERATOR_TRAITS_MINOR    5
-# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_ADAPTED_ITERATOR_TRAITS_REVISION 4
-# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_ADAPTED_ITERATOR_TRAITS_EDIT     50
+# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_ADAPTED_ITERATOR_TRAITS_REVISION 7
+# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_ADAPTED_ITERATOR_TRAITS_EDIT     61
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_BORLAND:
-STLSOFT_COMPILER_IS_MSVC:       _MSC_VER < 1310
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER
 # include <stlsoft/util/std/iterator_helper.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER */
@@ -116,27 +109,27 @@ STLSOFT_COMPILER_IS_WATCOM:
     STLSOFT_CF_STD_LIBRARY_DINKUMWARE_VC_VERSION < STLSOFT_CF_DINKUMWARE_VC_VERSION_7_1
 # ifndef STLSOFT_INCL_STLSOFT_UTIL_STD_DINKUMWARE_ITERATOR_TRAITS
 #  include <stlsoft/util/std/dinkumware_iterator_traits.hpp>
-# endif /* STLSOFT_INCL_STLSOFT_UTIL_STD_DINKUMWARE_ITERATOR_TRAITS */
+# endif /* !STLSOFT_INCL_STLSOFT_UTIL_STD_DINKUMWARE_ITERATOR_TRAITS */
 #endif /* partial-specialisation && old-dinkumware */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 #ifdef STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT
 
-/** \brief Traits for adapted_iterator_traits
+/** Traits for adapted_iterator_traits
  *
- * \ingroup group__library__iterators
+ * \ingroup group__library__Iterator
  */
 template <ss_typename_param_k I>
 struct adapted_iterator_traits
@@ -160,15 +153,15 @@ private:
     private:
 
 public:
-    /// \brief The iterator category
+    /// The iterator category
     ///
     /// This is simply the member <code>iterator_category</code> of the adapted iterator type
     typedef ss_typename_type_k I::iterator_category                                     iterator_category;
-    /// \brief The value type
+    /// The value type
     ///
     /// This is simply the member <code>value_type</code> of the adapted iterator type
     typedef ss_typename_type_k I::value_type                                            value_type;
-    /// \brief The difference type
+    /// The difference type
     ///
     /// This is the member <code>value_type</code> of the adapted iterator type, if it is defined, or <code>ptrdiff_t</code> if not.
     typedef ss_typename_type_k select_first_type_if<ss_typename_type_k typefixer::fixer_difference_type<I, HAS_MEMBER_DIFFERENCE_TYPE>::difference_type
@@ -178,25 +171,25 @@ public:
 private:
 # if defined(STLSOFT_CF_STD_LIBRARY_IS_DINKUMWARE_VC) && \
      STLSOFT_CF_STD_LIBRARY_DINKUMWARE_VC_VERSION < STLSOFT_CF_DINKUMWARE_VC_VERSION_7_1
-    /// \brief The Dinkumware list::/set::(const_)iterator's putative pointer type
+    /// The Dinkumware list::/set::(const_)iterator's putative pointer type
     typedef ss_typename_type_k select_first_type_if<value_type const*
                                                 ,   value_type*
                                                 ,   Dinkumware_iterator_test<I, IS_DINKUMWARE_OLD_FORM>::is_const
                                                 >::type                                 putative_dinkumware_pointer_;
-    /// \brief The Dinkumware list::/set::(const_)iterator's putative reference type
+    /// The Dinkumware list::/set::(const_)iterator's putative reference type
     typedef ss_typename_type_k select_first_type_if<value_type const&
                                                 ,   value_type&
                                                 ,   Dinkumware_iterator_test<I, IS_DINKUMWARE_OLD_FORM>::is_const
                                                 >::type                                 putative_dinkumware_reference_;
 
-    /// \brief The putative pointer type
+    /// The putative pointer type
     ///
     /// This is either the putative Dinkumware pointer, or the actual member pointer
     typedef ss_typename_type_k select_first_type_if<putative_dinkumware_pointer_
                                                 ,   ss_typename_type_k typefixer::fixer_pointer<I, HAS_MEMBER_POINTER>::pointer
                                                 ,   IS_DINKUMWARE_OLD_FORM
                                                 >::type                                 putative_pointer_;
-    /// \brief The putative reference type
+    /// The putative reference type
     ///
     /// This is either the putative Dinkumware reference, or the actual member reference
     typedef ss_typename_type_k select_first_type_if<putative_dinkumware_reference_
@@ -208,7 +201,7 @@ private:
     typedef ss_typename_type_k typefixer::fixer_reference<I, HAS_MEMBER_REFERENCE>::reference   putative_reference_;
 # endif /* Dinkumware */
 public:
-    /// \brief The pointer type
+    /// The pointer type
     ///
     /// This is the member <code>pointer</code> of the adapted iterator type, if it is defined. If not, it is defined to
     /// be <code>void</code>, so as to prevent any dangerous use of it. This will likely act as a compile-time constraint
@@ -222,7 +215,7 @@ public:
 //    enum { is_const           =   0 != member_traits<pointer>::is_const                                   };
 
 public:
-    /// \brief The reference type
+    /// The reference type
     ///
     /// This is the member <code>reference</code> of the adapted iterator type, if it is defined. If not, it is defined to
     /// be <code>void</code>, so as to prevent any dangerous use of it. This will likely act as a compile-time constraint
@@ -273,7 +266,7 @@ private:
 
 
 public:
-    /// \brief The const_pointer type
+    /// The const_pointer type
     ///
     /// This is either void, if the iterator element reference category is <b>Void</b> or <b>BVT</b>, otherwise
     /// it's <code>"<i>value_type</i>" const*</code>, where <code>"<i>value_type</i>"</code> is the
@@ -283,7 +276,7 @@ public:
                                                 ,   REF_CAT_IS_VOID || REF_CAT_IS_BVT
                                                 >::type                                 const_pointer;
 
-    /// \brief The const_reference type
+    /// The const_reference type
     ///
     /// This is either void, if the iterator element reference category is <b>Void</b> or <b>BVT</b>, otherwise
     /// it's <code>"<i>value_type</i>" const*</code>, where <code>"<i>value_type</i>"</code> is the
@@ -294,7 +287,7 @@ public:
                                                 >::type                                 const_reference;
 
 public:
-    /// \brief The effective reference type
+    /// The effective reference type
     ///
     /// If the base iterator element reference category is <b>Transient</b> or higher, then this is
     /// the reference member of the base iterator. Otherwise, if the reference category is <b>BVT</b>
@@ -303,7 +296,7 @@ public:
                                                 ,   reference
                                                 ,   REF_CAT_IS_BVT
                                                 >::type                                 effective_reference;
-    /// \brief The effective const_reference type
+    /// The effective const_reference type
     ///
     /// If the base iterator element reference category is <b>Transient</b> or higher, then this is
     /// const_reference. Otherwise, if the reference category is <b>BVT</b> then this is value_type. Otherwise
@@ -313,7 +306,7 @@ public:
                                                 ,   REF_CAT_IS_BVT
                                                 >::type                                 effective_const_reference;
 
-    /// \brief The effective pointer type
+    /// The effective pointer type
     ///
     /// If the base iterator element pointer category is <b>Transient</b> or higher, then this is
     /// the pointer member of the base iterator. Otherwise, if the pointer category is <b>BVT</b>
@@ -322,7 +315,7 @@ public:
                                                 ,   pointer
                                                 ,   REF_CAT_IS_BVT
                                                 >::type                                 effective_pointer;
-    /// \brief The effective const_pointer type
+    /// The effective const_pointer type
     ///
     /// If the base iterator element pointer category is <b>Transient</b> or higher, then this is
     /// const_pointer. Otherwise, if the pointer category is <b>BVT</b> then this is void. Otherwise
@@ -338,7 +331,7 @@ public:
 template <ss_typename_param_k T>
 struct adapted_iterator_traits<T*>
 {
-    typedef stlsoft_ns_qual_std(random_access_iterator_tag) iterator_category;
+    typedef STLSOFT_NS_QUAL_STD(random_access_iterator_tag) iterator_category;
     typedef T                                               value_type;
     typedef ss_ptrdiff_t                                    difference_type;
     typedef value_type*                                     pointer;
@@ -354,7 +347,7 @@ struct adapted_iterator_traits<T*>
 template <ss_typename_param_k T>
 struct adapted_iterator_traits<T const*>
 {
-    typedef stlsoft_ns_qual_std(random_access_iterator_tag) iterator_category;
+    typedef STLSOFT_NS_QUAL_STD(random_access_iterator_tag) iterator_category;
     typedef T                                               value_type;
     typedef ss_ptrdiff_t                                    difference_type;
     typedef value_type const*                               pointer;
@@ -370,7 +363,7 @@ struct adapted_iterator_traits<T const*>
 template <ss_typename_param_k T>
 struct adapted_iterator_traits<T volatile*>
 {
-    typedef stlsoft_ns_qual_std(random_access_iterator_tag) iterator_category;
+    typedef STLSOFT_NS_QUAL_STD(random_access_iterator_tag) iterator_category;
     typedef T                                               value_type;
     typedef ss_ptrdiff_t                                    difference_type;
     typedef value_type volatile*                            pointer;
@@ -386,7 +379,7 @@ struct adapted_iterator_traits<T volatile*>
 template <ss_typename_param_k T>
 struct adapted_iterator_traits<T const volatile*>
 {
-    typedef stlsoft_ns_qual_std(random_access_iterator_tag) iterator_category;
+    typedef STLSOFT_NS_QUAL_STD(random_access_iterator_tag) iterator_category;
     typedef T                                               value_type;
     typedef ss_ptrdiff_t                                    difference_type;
     typedef value_type volatile const*                      pointer;
@@ -407,11 +400,17 @@ struct adapted_iterator_traits<T const volatile*>
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_ITERATORS_HPP_ADAPTED_ITERATOR_TRAITS */
 

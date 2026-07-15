@@ -4,7 +4,7 @@
  * Purpose:     STL sequence for IEnumXXXX enumerator interfaces.
  *
  * Created:     17th September 1998
- * Updated:     15th December 2023
+ * Updated:     29th January 2024
  *
  * Thanks:      To Eduardo Bezerra and Vivi Orunitia for reporting
  *              incompatibilities with Borland's 5.82 (Turbo C++). The awful
@@ -12,42 +12,44 @@
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1998-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file comstl/collections/enumerator_sequence.hpp
  *
- * \brief [C++ only] Definition of the comstl::enumerator_sequence
+ * \brief [C++] Definition of the comstl::enumerator_sequence
  *   collection class template
- *   (\ref group__library__collections "Collections" Library).
+ *   (\ref group__library__Collection "Collection" Library).
  */
 
 #ifndef COMSTL_INCL_COMSTL_COLLECTIONS_HPP_ENUMERATOR_SEQUENCE
@@ -56,27 +58,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATOR_SEQUENCE_MAJOR    6
 # define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATOR_SEQUENCE_MINOR    1
-# define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATOR_SEQUENCE_REVISION 6
-# define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATOR_SEQUENCE_EDIT     254
+# define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATOR_SEQUENCE_REVISION 12
+# define COMSTL_VER_COMSTL_COLLECTIONS_HPP_ENUMERATOR_SEQUENCE_EDIT     273
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef COMSTL_INCL_COMSTL_H_COMSTL
 # include <comstl/comstl.h>
 #endif /* !COMSTL_INCL_COMSTL_H_COMSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef COMSTL_INCL_COMSTL_COLLECTIONS_HPP_ENUMERATION_POLICIES
 # include <comstl/collections/enumeration_policies.hpp>
 #endif /* !COMSTL_INCL_COMSTL_COLLECTIONS_HPP_ENUMERATION_POLICIES */
@@ -103,46 +99,33 @@ STLSOFT_COMPILER_IS_WATCOM:
 # include <algorithm>
 #endif /* !STLSOFT_INCL_ALGORITHM */
 
-#ifdef STLSOFT_UNITTEST
-# include <comstl/util/value_policies.hpp>
-# if !defined(STLSOFT_COMPILER_IS_DMC)
-#  include "./unittest/_recls_COM_decl_.h"
-# endif /* compiler */
-# if !defined(STLSOFT_COMPILER_IS_COMO)
-#  include <winstl/dl/dl_call.hpp>
-# endif /* compiler */
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::comstl */
 namespace comstl
 {
 # else
 /* Define stlsoft::comstl_project */
-
 namespace stlsoft
 {
-
 namespace comstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief A template for adapting COM enumerators to STL-compatible
+/** A template for adapting COM enumerators to STL-compatible
  *    sequence iteration.
  *
- * \ingroup group__library__collections
+ * \ingroup group__library__Collection
  *
  * \param I Interface
  * \param V Value type
@@ -154,20 +137,21 @@ namespace comstl_project
  * \param Q Quanta. The number of elements retrieved from the enumerator
  *   with each invocation of Next(). Defaults to 10
  *
- * The various parameterising types are used to stipulate the interface and
+ * The various specialising types are used to stipulate the interface and
  * the value type, and how they are to be handled.
  *
- * For example, the following parameterisation defines a sequence operating
+ * For example, the following specialisation defines a sequence operating
  * over an <code>IEnumGUID</code> enumerator instance.
  *
 \code
-typedef enumerator_sequence<IEnumGUID
-                          , GUID
-                          , GUID_policy
-                          , GUID const&
-                          , forward_cloning_policy<IEnumGUID>
-                          , 5
-                          >    enum_sequence_t;
+typedef enumerator_sequence<
+    IEnumGUID
+,   GUID
+,   GUID_policy
+,   GUID const&
+,   forward_cloning_policy<IEnumGUID>
+,   5
+>           enum_sequence_t;
 \endcode
  *
  * The value type is <code>GUID</code> and it is returned as a reference, as
@@ -214,58 +198,67 @@ template<   ss_typename_param_k I                                   /* Interface
         ,   cs_size_t           Q   =   10                          /* Quanta */
         >
 class enumerator_sequence
-    : public stlsoft_ns_qual(stl_collection_tag)
+    : public STLSOFT_NS_QUAL(stl_collection_tag)
 {
 /// \name Member Types
 /// @{
 public:
-    /// \brief Interface type
-    typedef I                                                                   interface_type;
-    /// \brief Value type
-    typedef V                                                                   value_type;
-    /// \brief Value policy type
-    typedef value_policy_adaptor<VP>                                            value_policy_type;
-    /// \brief Reference type
-    typedef R                                                                   reference;
+    /// Interface type
+    typedef I                                               interface_type;
+    /// Value type
+    typedef V                                               value_type;
+    /// Value policy type
+    typedef value_policy_adaptor<VP>                        value_policy_type;
+    /// Reference type
+    typedef R                                               reference;
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-    typedef R                                                                   reference_type; // For backwards compatiblity
+    typedef R                                               reference_type; // For backwards compatiblity
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
-    /// \brief The mutating (non-const) pointer type
+    /// The mutating (non-const) pointer type
 #if defined(STLSOFT_META_HAS_SELECT_FIRST_TYPE_IF) && \
        !defined(STLSOFT_COMPILER_IS_BORLAND)
-    typedef ss_typename_type_k stlsoft_ns_qual(select_first_type_if)<   value_type const*
-                                                                    ,   value_type*
-                                                                    ,   stlsoft_ns_qual(base_type_traits)<R>::is_const
-                                                                    >::type     pointer;
+    typedef ss_typename_type_k STLSOFT_NS_QUAL(select_first_type_if)<
+        value_type const*
+    ,   value_type*
+    ,   STLSOFT_NS_QUAL(base_type_traits)<R>::is_const
+    >::type                                                 pointer;
 #else /* ? STLSOFT_META_HAS_SELECT_FIRST_TYPE_IF */
-    typedef value_type*                                                         pointer;
+    typedef value_type*                                     pointer;
 #endif /* !STLSOFT_META_HAS_SELECT_FIRST_TYPE_IF */
-    /// \brief The non-mutating (const) pointer type
-    typedef value_type const*                                                   const_pointer;
-    /// \brief Cloning policy type
-    typedef CP                                                                  cloning_policy_type;
-    /// \brief Iterator tag type
-    typedef ss_typename_type_k cloning_policy_type::iterator_tag_type           iterator_tag_type;
+    /// The non-mutating (const) pointer type
+    typedef value_type const*                               const_pointer;
+    /// Cloning policy type
+    typedef CP                                              cloning_policy_type;
+    /// Iterator tag type
+    typedef ss_typename_type_k cloning_policy_type::iterator_tag_type
+                                                            iterator_tag_type;
 #ifdef STLSOFT_COMPILER_IS_BORLAND
-# define retrievalQuanta                                                        Q
+# define retrievalQuanta                                    Q
 #else /* ? compiler */
-    /// \brief Retrieval quanta
-    enum                                                                      { retrievalQuanta = Q };
+    /// Retrieval quanta
+    enum                                                    { retrievalQuanta = Q };
 #endif /* compiler */
-    /// \brief Type of the current parameterisation
-    typedef enumerator_sequence<I, V, VP, R, CP, Q>                             class_type;
-    /// \brief Type of the current parameterisation
-    typedef class_type                                                          sequence_type;
-    /// \brief The size type
-    typedef cs_size_t                                                           size_type;
-    /// \brief The difference type
-    typedef cs_ptrdiff_t                                                        difference_type;
-    /// \brief The Boolean type
-    typedef cs_bool_t                                                           bool_type;
+    /// The current specialisation of the type
+    typedef enumerator_sequence<
+        I
+    ,   V
+    ,   VP
+    ,   R
+    ,   CP
+    ,   Q
+    >                                                       class_type;
+    /// The current specialisation of the type
+    typedef class_type                                      sequence_type;
+    /// The size type
+    typedef cs_size_t                                       size_type;
+    /// The difference type
+    typedef cs_ptrdiff_t                                    difference_type;
+    /// The Boolean type
+    typedef cs_bool_t                                       bool_type;
 /// @}
 
 public:
-    /// \brief Conversion constructor
+    /// Conversion constructor
     ///
     /// \param i The enumeration interface pointer to adapt
     /// \param bAddRef Causes a reference to be added if \c true, otherwise the sequence is deemed to <i>sink</i>, or consume, the interface pointer
@@ -287,11 +280,11 @@ public:
     {
         COMSTL_MESSAGE_ASSERT("Precondition violation: interface cannot be NULL!", NULL != i);
 
-        if(bAddRef)
+        if (bAddRef)
         {
             m_root->AddRef();
         }
-        if(bReset)
+        if (bReset)
         {
             m_root->Reset();
         }
@@ -307,20 +300,20 @@ public:
         // invocations of begin() must be directed to throw.
         m_enumerator = cloning_policy_type::get_working_instance(m_root);
 
-        if(NULL != m_enumerator)
+        if (NULL != m_enumerator)
         {
             m_bFirst = false;
         }
 
         COMSTL_ASSERT(is_valid());
     }
-    /// \brief Releases the adapted interface pointer
+    /// Releases the adapted interface pointer
     ~enumerator_sequence() STLSOFT_NOEXCEPT
     {
         COMSTL_ASSERT(is_valid());
 
         m_root->Release();
-        if(NULL != m_enumerator)
+        if (NULL != m_enumerator)
         {
             m_enumerator->Release();
         }
@@ -332,9 +325,9 @@ private:
 /// \name Iteration
 /// @{
 public:
-    /// \brief Iterator for the enumerator_sequence class
+    /// Iterator for the enumerator_sequence class
     class iterator
-        : public stlsoft_ns_qual(iterator_base)<iterator_tag_type
+        : public STLSOFT_NS_QUAL(iterator_base)<iterator_tag_type
                                             ,   value_type
                                             ,   difference_type
                                             ,   pointer
@@ -362,7 +355,7 @@ public:
         /// \name Construction
         /// @{
         private:
-            /// \brief Copying constructor
+            /// Copying constructor
             ///
             /// This constructor copies the state of rhs, and is given a new
             /// cloned enumerator instance pointer.
@@ -390,7 +383,7 @@ public:
                     value_type const*   src_end    =   &rhs.m_values[0] + rhs.m_acquired;
 
                     // Copy each element up to the common extent ...
-                    for(; src_begin != src_end; ++begin, ++src_begin)
+                    for (; src_begin != src_end; ++begin, ++src_begin)
                     {
                         value_policy_type::copy(begin, src_begin);
                     }
@@ -414,7 +407,7 @@ public:
                 COMSTL_ASSERT(this->index() == rhs.index());
             }
         public:
-            /// \brief Sharing constructor
+            /// Sharing constructor
             ///
             /// The iterator is
             enumeration_context(interface_type* i, size_type quanta, bool_type bFirst)
@@ -429,7 +422,7 @@ public:
 
                 init_elements_(m_quanta);
 
-                // Note: We don't add a reference here, because share() increments the reference count.
+                // NOTE: We don't add a reference here, because share() increments the reference count.
 
                 acquire_next_();
 
@@ -444,7 +437,7 @@ public:
 
                 clear_elements_();
 
-                if(NULL != m_enumerator)
+                if (NULL != m_enumerator)
                 {
                     m_enumerator->Release();
                 }
@@ -456,7 +449,7 @@ public:
             }
             void Release()
             {
-                if(0 == --m_refCount)
+                if (0 == --m_refCount)
                 {
                     delete this;
                 }
@@ -464,7 +457,7 @@ public:
 
             static class_type* make_clone(class_type* ctxt)
             {
-                if(NULL == ctxt)
+                if (NULL == ctxt)
                 {
                     return NULL;
                 }
@@ -475,7 +468,7 @@ public:
                     interface_type* copy;
                     const bool      bTrueClone  =   cloning_policy_type::clone(ctxt->m_enumerator, &copy);
 
-                    if(!bTrueClone)
+                    if (!bTrueClone)
                     {
                         COMSTL_ASSERT(NULL == copy);
 
@@ -505,7 +498,7 @@ public:
                         {
                             newCtxt = new class_type(copy, *ctxt);
 
-                            if(NULL == newCtxt)
+                            if (NULL == newCtxt)
                             {
                                 copy->Release();
                             }
@@ -548,7 +541,7 @@ public:
                 COMSTL_MESSAGE_ASSERT("Attempting to increment an invalid iterator: m_acquired > m_quanta", m_acquired <= m_quanta);
                 COMSTL_MESSAGE_ASSERT("Attempting to increment an invalid iterator: m_quanta > dimensionof(m_values)", m_quanta <= STLSOFT_NUM_ELEMENTS(m_values));
 
-                if(++m_current < m_acquired)
+                if (++m_current < m_acquired)
                 {
                     // 2.
 
@@ -590,57 +583,39 @@ public:
         public:
             bool_type is_valid() const
             {
-                if(m_refCount < 1)
+                if (m_refCount < 1)
                 {
-#ifdef STLSOFT_UNITTEST
-                    fprintf(err, "invalid reference count (%ld) \n", m_refCount);
-#endif /* STLSOFT_UNITTEST */
                     return false;
                 }
 
-                if( NULL == m_enumerator &&
+                if (NULL == m_enumerator &&
                     0 == m_quanta)
                 {
-                    if(0 != m_acquired)
+                    if (0 != m_acquired)
                     {
-#ifdef STLSOFT_UNITTEST
-                        fprintf(err, "m_acquired == %lu when m_quanta == 0\n", m_acquired);
-#endif /* STLSOFT_UNITTEST */
                         return false;
                     }
-                    if(0 != m_current)
+                    if (0 != m_current)
                     {
-#ifdef STLSOFT_UNITTEST
-                        fprintf(err, "m_current == %lu when m_quanta == 0\n", m_current);
-#endif /* STLSOFT_UNITTEST */
                         return false;
                     }
-                    if(0 != m_quanta)
+                    if (0 != m_quanta)
                     {
                         return false;
                     }
                 }
                 else
                 {
-                    if(m_acquired < m_current)
+                    if (m_acquired < m_current)
                     {
-#ifdef STLSOFT_UNITTEST
-                        fprintf(err, "m_acquired (%lu) not less than m_current (%lu)\n", m_acquired, m_current);
-#endif /* STLSOFT_UNITTEST */
                         return false;
                     }
-                    if(m_quanta < m_current)
+                    if (m_quanta < m_current)
                     {
-#ifdef STLSOFT_UNITTEST
-                        fprintf(err, "m_quanta (%lu) not less than m_current (%lu)\n", m_quanta, m_current);
-#endif /* STLSOFT_UNITTEST */
                         return false;
                     }
-                    if(m_quanta < m_acquired)
+                    if (m_quanta < m_acquired)
                     {
-#ifdef STLSOFT_UNITTEST
-                        fprintf(err, "m_quanta (%lu) not less than m_acquired (%lu)\n", m_quanta, m_acquired);
-#endif /* STLSOFT_UNITTEST */
                         return false;
                     }
                 }
@@ -675,7 +650,7 @@ public:
 
                 typedef ss_typename_type_k value_policy_type::clear_element clear_t;
 
-                comstl_ns_qual_std(for_each)(&m_values[0], &m_values[0] + m_acquired, clear_t());
+                STLSOFT_NS_QUAL_STD(for_each)(&m_values[0], &m_values[0] + m_acquired, clear_t());
             }
 
             void init_elements_(size_type n) STLSOFT_NOEXCEPT
@@ -684,7 +659,7 @@ public:
 
                 typedef ss_typename_type_k value_policy_type::init_element  init_t;
 
-                comstl_ns_qual_std(for_each)(&m_values[0], &m_values[0] + n, init_t());
+                STLSOFT_NS_QUAL_STD(for_each)(&m_values[0], &m_values[0] + n, init_t());
             }
         /// @}
 
@@ -712,7 +687,7 @@ public:
     private:
         friend class enumerator_sequence<I, V, VP, R, CP, Q>;
 
-        /// \brief Constructor
+        /// Constructor
         iterator(interface_type* i, size_type quanta, bool_type &bFirst)
             : m_ctxt(new enumeration_context(i, quanta, bFirst))
         {
@@ -721,25 +696,25 @@ public:
             COMSTL_ASSERT(is_valid());
         }
     public:
-        /// \brief Default constructor
+        /// Default constructor
         iterator()
             : m_ctxt(NULL)
         {
             COMSTL_ASSERT(is_valid());
         }
-        /// \brief Copy constructor
+        /// Copy constructor
         iterator(class_type const& rhs)
             : m_ctxt(enumeration_context::make_clone(rhs.m_ctxt))
         {
             COMSTL_ASSERT(is_valid());
         }
 
-        /// \brief Releases any internal storage
+        /// Releases any internal storage
         ~iterator() STLSOFT_NOEXCEPT
         {
             COMSTL_ASSERT(is_valid());
 
-            if(NULL != m_ctxt)
+            if (NULL != m_ctxt)
             {
                 m_ctxt->Release();
             }
@@ -749,7 +724,7 @@ public:
         {
             enumeration_context *newCtxt    =   enumeration_context::make_clone(rhs.m_ctxt);
 
-            if(NULL != m_ctxt)
+            if (NULL != m_ctxt)
             {
                 m_ctxt->Release();
             }
@@ -763,7 +738,7 @@ public:
     /// \name Forward Iterator Methods
     /// @{
     public:
-        /// \brief Pre-increment operator
+        /// Pre-increment operator
         class_type& operator ++()
         {
             COMSTL_ASSERT(is_valid());
@@ -775,7 +750,7 @@ public:
             return *this;
         }
 
-        /// \brief Post-increment operator
+        /// Post-increment operator
         class_type operator ++(int)
         {
             COMSTL_ASSERT(is_valid());
@@ -789,7 +764,7 @@ public:
             return r;
         }
 
-        /// \brief Returns the value represented by the current iteration position
+        /// Returns the value represented by the current iteration position
         reference operator *()
         {
             COMSTL_ASSERT(is_valid());
@@ -798,7 +773,7 @@ public:
             return m_ctxt->current();
         }
 
-        /// \brief Returns the value represented by the current iteration position
+        /// Returns the value represented by the current iteration position
         pointer operator ->()
         {
             COMSTL_ASSERT(is_valid());
@@ -808,12 +783,12 @@ public:
         }
 
     private:
-        static bool_type equal_(class_type const& lhs, class_type const& rhs, stlsoft_ns_qual_std(input_iterator_tag))
+        static bool_type equal_(class_type const& lhs, class_type const& rhs, STLSOFT_NS_QUAL_STD(input_iterator_tag))
         {
             // The only valid comparison is when they both represent the end values.
             return lhs.is_end_point() && rhs.is_end_point();
         }
-        static bool_type equal_(class_type const& lhs, class_type const& rhs, stlsoft_ns_qual_std(forward_iterator_tag))
+        static bool_type equal_(class_type const& lhs, class_type const& rhs, STLSOFT_NS_QUAL_STD(forward_iterator_tag))
         {
             // The iterators can be equal under two conditions:
             //
@@ -824,13 +799,13 @@ public:
             //
             // 3. They're not equal
 
-            if(lhs.is_end_point())
+            if (lhs.is_end_point())
             {
                 return rhs.is_end_point(); // 1 or 3
             }
             else
             {
-                if(rhs.is_end_point())
+                if (rhs.is_end_point())
                 {
                     return false; // 3
                 }
@@ -845,22 +820,22 @@ public:
         }
     public:
 
-        /// \brief Evaluates whether \c this and \c rhs are equivalent
+        /// Evaluates whether \c this and \c rhs are equivalent
         bool_type equal(class_type const& rhs) const
         {
             COMSTL_ASSERT(is_valid());
 
             return class_type::equal_(*this, rhs, iterator_tag_type());
         }
-        /// \brief Evaluates whether \c this and \c rhs are equivalent
-        bool_type operator == (class_type const& rhs) const
+        /// Evaluates whether \c this and \c rhs are equivalent
+        bool_type operator ==(class_type const& rhs) const
         {
             COMSTL_ASSERT(is_valid());
 
             return this->equal(rhs);
         }
-        /// \brief Evaluates whether \c this and \c rhs are not equivalent
-        bool_type operator != (class_type const& rhs) const
+        /// Evaluates whether \c this and \c rhs are not equivalent
+        bool_type operator !=(class_type const& rhs) const
         {
             COMSTL_ASSERT(is_valid());
 
@@ -892,11 +867,11 @@ public:
         enumeration_context *m_ctxt;
     /// @}
     };
-    /// \brief The non-mutating (const) iterator type
+    /// The non-mutating (const) iterator type
     typedef iterator                                                            const_iterator;
 
 public:
-    /// \brief Begins the iteration
+    /// Begins the iteration
     ///
     /// \return An iterator representing the start of the sequence
     ///
@@ -912,13 +887,13 @@ public:
 
         interface_type* en = NULL;
 
-        if(NULL != m_enumerator)
+        if (NULL != m_enumerator)
         {
             en = m_enumerator;
         }
         else
         {
-            if(!m_bFirst)
+            if (!m_bFirst)
             {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
                 STLSOFT_THROW_X(clone_failure(E_NOTIMPL));
@@ -936,7 +911,7 @@ public:
 
         return iterator(en, m_quanta, m_bFirst);
     }
-    /// \brief Ends the iteration
+    /// Ends the iteration
     ///
     /// \return An iterator representing the end of the sequence
     iterator end() const
@@ -961,14 +936,8 @@ public:
 private:
     bool_type is_valid() const
     {
-        if(NULL == m_root)
+        if (NULL == m_root)
         {
-#ifdef STLSOFT_UNITTEST
-            fprintf(err, "enumerator_sequence: m_root is NULL\n");
-
-            COMSTL_ASSERT(0);
-#endif /* STLSOFT_UNITTEST */
-
             return false;
         }
 
@@ -982,7 +951,7 @@ private:
     {
         COMSTL_MESSAGE_ASSERT("Cannot set a quantum that exceeds the value specified in the template specialisation", quanta <= retrievalQuanta); // Could have named these things better!
 
-        if( 0 == quanta ||
+        if (0 == quanta ||
             quanta > retrievalQuanta)
         {
             quanta = retrievalQuanta;
@@ -1006,26 +975,25 @@ private:
 # undef retrievalQuanta
 #endif /* compiler */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/enumerator_sequence_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace comstl
+} /* namespace comstl */
 # else
-} // namespace stlsoft::comstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+} /* namespace stlsoft::comstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !COMSTL_INCL_COMSTL_COLLECTIONS_HPP_ENUMERATOR_SEQUENCE */
 

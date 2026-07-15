@@ -4,45 +4,47 @@
  * Purpose:     Invocation of functions in dynamic libraries.
  *
  * Created:     sometime in 1998
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1998-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file unixstl/dl/dl_call.hpp
  *
- * \brief [C++ only] Definition of the unixstl::dl_call() function suite
- *   (\ref group__library__dl "DL" Library).
+ * \brief [C++] Definition of the unixstl::dl_call() function suite
+ *   (\ref group__library__DL "DL" Library).
  */
 
 #ifndef UNIXSTL_INCL_UNIXSTL_DL_HPP_DL_CALL
@@ -51,20 +53,24 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define UNIXSTL_VER_UNIXSTL_DL_HPP_DL_CALL_MAJOR       2
 # define UNIXSTL_VER_UNIXSTL_DL_HPP_DL_CALL_MINOR       3
-# define UNIXSTL_VER_UNIXSTL_DL_HPP_DL_CALL_REVISION    7
-# define UNIXSTL_VER_UNIXSTL_DL_HPP_DL_CALL_EDIT        43
+# define UNIXSTL_VER_UNIXSTL_DL_HPP_DL_CALL_REVISION    13
+# define UNIXSTL_VER_UNIXSTL_DL_HPP_DL_CALL_EDIT        57
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef UNIXSTL_INCL_UNIXSTL_H_UNIXSTL
 # include <unixstl/unixstl.h>
 #endif /* !UNIXSTL_INCL_UNIXSTL_H_UNIXSTL */
-#ifndef UNIXSTL_INCL_UNIXSTL_HPP_ERROR_UNIX_EXCEPTIONS
-# include <unixstl/error/exceptions.hpp>
-#endif /* !UNIXSTL_INCL_UNIXSTL_ERROR_HPP_UNIX_EXCEPTIONS */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
+# ifndef UNIXSTL_INCL_UNIXSTL_HPP_EXCEPTION_UNIXSTL_EXCEPTION
+#  include <unixstl/exception/unixstl_exception.hpp>
+# endif /* !UNIXSTL_INCL_UNIXSTL_HPP_EXCEPTION_UNIXSTL_EXCEPTION */
 #ifndef UNIXSTL_INCL_UNIXSTL_DL_HPP_MODULE
 # include <unixstl/dl/module.hpp>
 #endif /* !UNIXSTL_INCL_UNIXSTL_D:_HPP_MODULE */
@@ -82,61 +88,64 @@
 #endif /* !STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_HPP_STRING */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _UNIXSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef UNIXSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::unixstl */
 namespace unixstl
 {
 # else
 /* Define stlsoft::unixstl_project */
-
 namespace stlsoft
 {
-
 namespace unixstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_UNIXSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !UNIXSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Indicates an entry point cannot be located in a dynamic library.
+/** Indicates an entry point cannot be located in a dynamic library.
  *
- * \ingroup group__library__dl__error
+ * \ingroup group__library__DL
  */
 class missing_entry_point_exception
-    : public unix_exception
+    : public unixstl_exception
 {
 /// \name Types
 /// @{
 public:
-    typedef unix_exception                      parent_class_type;
-    typedef missing_entry_point_exception       class_type;
+    typedef unixstl_exception                               parent_class_type;
+    typedef missing_entry_point_exception                   class_type;
 private:
-    typedef parent_class_type::string_type      string_type;
+    typedef parent_class_type::string_type                  string_type;
 public:
-    typedef parent_class_type::error_code_type  error_code_type;
+    /// The status code type
+    typedef parent_class_type::status_code_type             status_code_type;
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+    typedef status_code_type                                error_code_type;
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 /// @}
 
 /// \name Construction
 /// @{
 public:
-    /// \brief Constructs an instance of the exception based on the given missing
-    /// function name, and Windows error code.
-    missing_entry_point_exception(char const* functionName, error_code_type err)
-        : parent_class_type(class_type::create_reason_(functionName), err)
+    /// Constructs an instance of the exception based on the given missing
+    /// function name, and system error code.
+    missing_entry_point_exception(char const* functionName, status_code_type sc)
+        : parent_class_type(class_type::create_reason_(functionName), sc)
     {}
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-    virtual ~missing_entry_point_exception() STLSOFT_NOEXCEPT
+    virtual ~missing_entry_point_exception() STLSOFT_NOEXCEPT_STDOVR
     {}
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+private:
+    class_type& operator =(class_type const&);  // copy-assignment proscribed
 /// @}
 
 // Implementation
@@ -150,21 +159,17 @@ private:
 
         return reason;
     }
-
-// Not to be implemented
-private:
-    class_type& operator =(class_type const&);
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Traits
+ * traits
  */
 
-/** \brief Traits class that provides a mechanism for declaring specific
+/** Traits class that provides a mechanism for declaring specific
  *   (e.g. aggregate and user-defined) types to be compatible with
  *   \link unixstl::dl_call dl_call()\endlink.
  *
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  *
  * To specify your type being dl_call()-compatible, simply specialise the
  * traits template as follows (for the notional type <code>MyType</code>):
@@ -184,7 +189,7 @@ namespace unixstl
   {
     enum { value = 1 };
   };
-} // namespace unixstl
+} /&zwj;* namespace unixstl *&zwj;/
 \endcode
  */
 template<ss_typename_param_k T>
@@ -279,14 +284,14 @@ inline dl_call_traits::library_is_not_handle test_library_(T const&)
 }
 
 /* /////////////////////////////////////////////////////////////////////////
- * Helper functions
+ * helper functions
  */
 
 inline dl_call_traits::entry_point_type lookup_symbol_(dl_call_traits::library_handle_type hinst, char const* functionName)
 {
     dl_call_traits::entry_point_type    fp  =   dl_call_traits::get_symbol(hinst, functionName);
 
-    if(dl_call_traits::entry_point_type() == fp)
+    if (dl_call_traits::entry_point_type() == fp)
     {
         STLSOFT_THROW_X(missing_entry_point_exception(functionName, errno));
     }
@@ -298,7 +303,7 @@ inline dl_call_traits::entry_point_type lookup_symbol_(dl_call_traits::library_h
 
 /** \name Invocators
  *
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  *
  * These calling convention-specific functions perform the invocation of the
  * given function pointer with the requisite arguments.
@@ -777,7 +782,7 @@ inline R dl_call_invoke_cdecl(dl_call_traits::entry_point_type fp, A0 a0, A1 a1,
 
 /** \name Dispatchers
  *
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  *
  * These calling convention-agnostic functions dispatch the function to the
  * appropriate invocator, with the requisite arguments.
@@ -1190,7 +1195,7 @@ inline R dl_call_dispatch_32(dl_call_traits::entry_point_type fp, A0 a0, A1 a1, 
 
 /** \name Lookup-ers
  *
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  *
  * These calling convention-agnostic functions look up the symbol from the
  * library handle, and then call the dispatcher.
@@ -1734,7 +1739,7 @@ inline R dl_call_lookup_32( void*       hinst
 
 /** \name Module-ers
  *
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  *
  * These calling convention-agnostic functions acquire the instance handle for
  * the library, and then call the lookup-ers.
@@ -2542,7 +2547,7 @@ inline R dl_call_MOD(dl_call_traits::library_is_not_handle, S const& library, FD
 
 /** \name API functions
  *
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  *
  * Their action is to determine (at compile-time) the type of the library
  * argument, and then invoke the appropriate dl_call_MOD() overload
@@ -2556,7 +2561,7 @@ inline R dl_call_MOD(dl_call_traits::library_is_not_handle, S const& library, FD
 // 0 params
 
 /** Invoke a dynamic function with 0 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -2574,7 +2579,7 @@ inline R dl_call(L const& library, FD const& fd)
 // 1 param
 
 /** Invoke a dynamic function with 1 parameter
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -2594,7 +2599,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0)
 // 2 params
 
 /** Invoke a dynamic function with 2 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -2615,7 +2620,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1)
 // 3 params
 
 /** Invoke a dynamic function with 3 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -2637,7 +2642,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2)
 // 4 params
 
 /** Invoke a dynamic function with 4 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -2660,7 +2665,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3)
 // 5 params
 
 /** Invoke a dynamic function with 5 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -2684,7 +2689,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 6 params
 
 /** Invoke a dynamic function with 6 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -2709,7 +2714,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 7 params
 
 /** Invoke a dynamic function with 7 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -2735,7 +2740,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 8 params
 
 /** Invoke a dynamic function with 8 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -2762,7 +2767,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 9 params
 
 /** Invoke a dynamic function with 9 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -2790,7 +2795,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 10 params
 
 /** Invoke a dynamic function with 10 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -2819,7 +2824,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 11 params
 
 /** Invoke a dynamic function with 11 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -2849,7 +2854,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 12 params
 
 /** Invoke a dynamic function with 12 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -2880,7 +2885,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 13 params
 
 /** Invoke a dynamic function with 13 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -2912,7 +2917,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 14 params
 
 /** Invoke a dynamic function with 14 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -2945,7 +2950,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 15 params
 
 /** Invoke a dynamic function with 15 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -2979,7 +2984,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 16 params
 
 /** Invoke a dynamic function with 16 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3014,7 +3019,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 17 params
 
 /** Invoke a dynamic function with 17 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3050,7 +3055,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 18 params
 
 /** Invoke a dynamic function with 18 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3087,7 +3092,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 19 params
 
 /** Invoke a dynamic function with 19 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3125,7 +3130,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 20 params
 
 /** Invoke a dynamic function with 20 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3164,7 +3169,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 21 params
 
 /** Invoke a dynamic function with 21 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3204,7 +3209,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 22 params
 
 /** Invoke a dynamic function with 22 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3245,7 +3250,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 23 params
 
 /** Invoke a dynamic function with 23 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3287,7 +3292,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 24 params
 
 /** Invoke a dynamic function with 24 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3330,7 +3335,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 25 params
 
 /** Invoke a dynamic function with 25 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3374,7 +3379,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 26 params
 
 /** Invoke a dynamic function with 26 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3419,7 +3424,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 27 params
 
 /** Invoke a dynamic function with 27 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3465,7 +3470,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 28 params
 
 /** Invoke a dynamic function with 28 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3512,7 +3517,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 29 params
 
 /** Invoke a dynamic function with 29 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3560,7 +3565,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 30 params
 
 /** Invoke a dynamic function with 30 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3609,7 +3614,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 31 params
 
 /** Invoke a dynamic function with 31 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3659,7 +3664,7 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 // 32 params
 
 /** Invoke a dynamic function with 32 parameters
- * \ingroup group__library__dl
+ * \ingroup group__library__DL
  */
 template< ss_typename_param_k R
         , ss_typename_param_k L
@@ -3710,28 +3715,29 @@ inline R dl_call(L const& library, FD const& fd, A0 a0, A1 a1, A2 a2, A3 a3, A4 
 
 /// @}
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/dl_call_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
-/* ////////////////////////////////////////////////////////////////////// */
-
-#ifndef _UNIXSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef UNIXSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace unixstl
+} /* namespace unixstl */
 # else
-} // namespace unixstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_UNIXSTL_NO_NAMESPACE */
+} /* namespace unixstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !UNIXSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* UNIXSTL_INCL_UNIXSTL_DL_HPP_DL_CALL */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !UNIXSTL_INCL_UNIXSTL_DL_HPP_DL_CALL */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

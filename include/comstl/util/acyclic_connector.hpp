@@ -4,46 +4,48 @@
  * Purpose:     A component for relating two COM objects without cycles.
  *
  * Created:     25th March 2006
- * Updated:     15th December 2023
+ * Updated:     30th November 2020
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file comstl/util/acyclic_connector.hpp
  *
- * \brief [C++ only; requires COM] Definition of the
+ * \brief [C++; requires COM] Definition of the
  *   comstl::acyclic_connector class template
- *   (\ref group__library__utility__com "COM Utility" Library).
+ *   (\ref group__library__COM_Utility "COM Utility" Library).
  */
 
 #ifndef COMSTL_INCL_COMSTL_UTIL_HPP_ACYCLIC_CONNECTOR
@@ -52,17 +54,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define COMSTL_VER_COMSTL_UTIL_HPP_ACYCLIC_CONNECTOR_MAJOR     1
 # define COMSTL_VER_COMSTL_UTIL_HPP_ACYCLIC_CONNECTOR_MINOR     2
-# define COMSTL_VER_COMSTL_UTIL_HPP_ACYCLIC_CONNECTOR_REVISION  8
-# define COMSTL_VER_COMSTL_UTIL_HPP_ACYCLIC_CONNECTOR_EDIT      23
+# define COMSTL_VER_COMSTL_UTIL_HPP_ACYCLIC_CONNECTOR_REVISION  12
+# define COMSTL_VER_COMSTL_UTIL_HPP_ACYCLIC_CONNECTOR_EDIT      33
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef COMSTL_INCL_COMSTL_H_COMSTL
 # include <comstl/comstl.h>
 #endif /* !COMSTL_INCL_COMSTL_H_COMSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef COMSTL_INCL_COMSTL_UTIL_HPP_OBJECT_FUNCTIONS
 # include <comstl/util/object_functions.h>
 #endif /* !COMSTL_INCL_COMSTL_UTIL_HPP_OBJECT_FUNCTIONS */
@@ -71,32 +77,29 @@
 #endif /* !STLSOFT_INCL_STLSOFT_SYNCH_HPP_LOCK_SCOPE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::comstl */
 namespace comstl
 {
 # else
 /* Define stlsoft::comstl_project */
-
 namespace stlsoft
 {
-
 namespace comstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Interface for acyclic communication.
+/** Interface for acyclic communication.
  */
 #ifdef STLSOFT_DOCUMENTATION_SKIP_SECTION
 struct IAcyclicSide
@@ -105,19 +108,19 @@ struct IAcyclicSide
 DECLARE_INTERFACE_(IAcyclicSide, IUnknown)
 #endif /* STLSOFT_DOCUMENTATION_SKIP_SECTION */
 {
-    /** \brief Causes knowledge of the presence of the peer to be discarded
+    /** Causes knowledge of the presence of the peer to be discarded
      */
     STDMETHOD_(void, Clear)() PURE;
-    /** \brief Queries for the given interface on the peer.
+    /** Queries for the given interface on the peer.
      *
      * \param riid The interface identifier of the requested interface.
      * \param ppv Address of the interface pointer.
      *
      * \return A standard HRESULT status code indicating success/failure.
      */
-    STDMETHOD(QueryPeer)(THIS_ REFIID riid, void **ppv) PURE;
+    STDMETHOD(QueryPeer)(THIS_ REFIID riid, void** ppv) PURE;
 
-    /** \brief returns the IID for the IAcyclicSide interface. */
+    /** returns the IID for the IAcyclicSide interface. */
     static REFIID iid()
     {
         static IID s_iid = { 0x8D5D0B0A, 0x4429, 0x4be1, { 0x8C, 0x00, 0xDE, 0xE0, 0xA8, 0xFF, 0xD0, 0xAF } };
@@ -126,7 +129,7 @@ DECLARE_INTERFACE_(IAcyclicSide, IUnknown)
     }
 };
 
-/** \brief A component that allows two objects to be connected without
+/** A component that allows two objects to be connected without
  *   creating cyclic dependencies.
  *
  * Reference counting architectures, such as COM, rely on there being no
@@ -193,11 +196,11 @@ private:
         {
             class_type  &other  =   (this == &m_connector.m_left) ? m_connector.m_right : m_connector.m_left;
 
-            if(0 == --m_refCount)
+            if (0 == --m_refCount)
             {
                 m_peer = NULL;
 
-                if(0 == other.m_refCount)
+                if (0 == other.m_refCount)
                 {
                     delete &m_connector;
 
@@ -207,9 +210,9 @@ private:
 
             return m_refCount;
         }
-        STDMETHOD(QueryInterface)(REFIID riid, void **ppv)
+        STDMETHOD(QueryInterface)(REFIID riid, void** ppv)
         {
-            if( IID_IUnknown == riid ||
+            if (IID_IUnknown == riid ||
                 IAcyclicSide::iid() == riid)
             {
                 *ppv = static_cast<LPUNKNOWN>(this);
@@ -230,14 +233,14 @@ private:
 
             m_peer = NULL;
         }
-        STDMETHOD(QueryPeer)(THIS_ REFIID riid, void **ppv)
+        STDMETHOD(QueryPeer)(THIS_ REFIID riid, void** ppv)
         {
             COMSTL_ASSERT(NULL != ppv);
 
             stlsoft::lock_scope<mutex_type> lock(m_connector.m_mx);
             class_type                      &other  =   (this == &m_connector.m_left) ? m_connector.m_right : m_connector.m_left;
 
-            if(NULL == other.m_peer)
+            if (NULL == other.m_peer)
             {
                 return E_POINTER;
             }
@@ -293,7 +296,7 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Implementation
+ * implementation
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -322,7 +325,7 @@ inline STDMETHODIMP_(ULONG) acyclic_connector<MX>::side::Release()
 {
     class_type  &other  =   (this == &m_connector.m_left) ? m_connector.m_right : m_connector.m_left;
 
-    if( 0 == --m_refCount &&
+    if (0 == --m_refCount &&
         0 == other.m_refCount)
     {
         delete &m_connector;
@@ -334,9 +337,9 @@ inline STDMETHODIMP_(ULONG) acyclic_connector<MX>::side::Release()
 }
 
 template <ss_typename_param_k MX>
-inline STDMETHODIMP acyclic_connector<MX>::side::QueryInterface(REFIID riid, void **ppv)
+inline STDMETHODIMP acyclic_connector<MX>::side::QueryInterface(REFIID riid, void** ppv)
 {
-    if( IID_IUnknown == riid ||
+    if (IID_IUnknown == riid ||
         IAcyclicSide::iid() == riid)
     {
         *ppv = static_cast<LPUNKNOWN>(this);
@@ -358,13 +361,13 @@ inline STDMETHODIMP_(void) acyclic_connector<MX>::side::Clear()
 }
 
 template <ss_typename_param_k MX>
-inline STDMETHODIMP acyclic_connector<MX>::side::QueryPeer(THIS_ REFIID riid, void **ppv)
+inline STDMETHODIMP acyclic_connector<MX>::side::QueryPeer(THIS_ REFIID riid, void** ppv)
 {
     COMSTL_ASSERT(NULL != ppv);
 
     stlsoft::lock_scope<mutex_type> lock(m_mx);
 
-    if(NULL == m_peer)
+    if (NULL == m_peer)
     {
         return E_POINTER;
     }
@@ -395,22 +398,22 @@ inline acyclic_connector<MX>::acyclic_connector(LPUNKNOWN       leftPeer
     HRESULT hr;
 
     hr = get_object_identity(left, &m_left);
-    if(FAILED(hr))
+    if (FAILED(hr))
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-        STLSOFT_THROW_X(com_exception("Could not acquire left-side identity", hr));
+        STLSOFT_THROW_X(comstl_exception("Could not acquire left-side identity", hr));
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
     }
     else
     {
         hr = get_object_identity(right, &m_right);
 
-        if(FAILED(hr))
+        if (FAILED(hr))
         {
             m_left->Release();
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-            STLSOFT_THROW_X(com_exception("Could not acquire right-side identity", hr));
+            STLSOFT_THROW_X(comstl_exception("Could not acquire right-side identity", hr));
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
             m_left = NULL;
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
@@ -433,17 +436,23 @@ inline ss_typename_type_ret_k acyclic_connector<MX>::class_type& acyclic_connect
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace comstl
+} /* namespace comstl */
 # else
-} // namespace comstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+} /* namespace comstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !COMSTL_INCL_COMSTL_UTIL_HPP_ACYCLIC_CONNECTOR */
 

@@ -4,11 +4,12 @@
  * Purpose:     Windows console functions.
  *
  * Created:     6th August 2015
- * Updated:     15th December 2023
+ * Updated:     23rd January 2021
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2015, Matthew Wilson and Synesis Software
+ * Copyright (c) 2019-2021, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2015-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -20,9 +21,10 @@
  * - Redistributions in binary form must reproduce the above copyright
  *   notice, this list of conditions and the following disclaimer in the
  *   documentation and/or other materials provided with the distribution.
- * - Neither the names of Matthew Wilson and Synesis Software nor the names
- *   of any contributors may be used to endorse or promote products derived
- *   from this software without specific prior written permission.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
  * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
@@ -42,7 +44,7 @@
 /** \file unixstl/system/console_functions.h
  *
  * \brief [C, C++] Windows console functions.
- *   (\ref group__library__system "System" Library).
+ *   (\ref group__library__System "System" Library).
  */
 
 #ifndef UNIXSTL_INCL_UNIXSTL_SYSTEM_H_CONSOLE_FUNCTIONS
@@ -51,27 +53,32 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define UNIXSTL_VER_UNIXSTL_SYSTEM_H_CONSOLE_FUNCTIONS_MAJOR       1
 # define UNIXSTL_VER_UNIXSTL_SYSTEM_H_CONSOLE_FUNCTIONS_MINOR       0
-# define UNIXSTL_VER_UNIXSTL_SYSTEM_H_CONSOLE_FUNCTIONS_REVISION    1
-# define UNIXSTL_VER_UNIXSTL_SYSTEM_H_CONSOLE_FUNCTIONS_EDIT        2
+# define UNIXSTL_VER_UNIXSTL_SYSTEM_H_CONSOLE_FUNCTIONS_REVISION    9
+# define UNIXSTL_VER_UNIXSTL_SYSTEM_H_CONSOLE_FUNCTIONS_EDIT        13
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef UNIXSTL_INCL_UNIXSTL_H_UNIXSTL
 # include <unixstl/unixstl.h>
 #endif /* !UNIXSTL_INCL_UNIXSTL_H_UNIXSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #ifndef STLSOFT_INCL_H_UNISTD
 # define STLSOFT_INCL_H_UNISTD
 # include <unistd.h>                    /* for istty() */
 #endif /* !STLSOFT_INCL_H_UNISTD */
 
-#ifndef STLSOFT_INCL_SYS_H_IOCTL
-# define STLSOFT_INCL_SYS_H_IOCTL
-# include <sys/ioctl.h>                 /* for ioctl() */
-#endif /* !STLSOFT_INCL_SYS_H_IOCTL */
+#if !defined(_WIN32)
+# ifndef STLSOFT_INCL_SYS_H_IOCTL
+#  define STLSOFT_INCL_SYS_H_IOCTL
+#  include <sys/ioctl.h>                /* for ioctl() */
+# endif /* !STLSOFT_INCL_SYS_H_IOCTL */
+#endif
 
 #ifndef STLSOFT_INCL_H_STDIO
 # define STLSOFT_INCL_H_STDIO
@@ -80,7 +87,7 @@
 
 #ifndef STLSOFT_INCL_H_STDLIB
 # define STLSOFT_INCL_H_STDLIB
-# include <stdlib.h>                     /* for atoi(), getenv() */
+# include <stdlib.h>                    /* for atoi(), getenv() */
 #endif /* !STLSOFT_INCL_H_STDLIB */
 
 #if defined(_MSC_VER) && \
@@ -88,13 +95,25 @@
 # include <io.h>
 #endif
 
+#if 0
+#elif defined(_WIN32) && \
+      defined(_STLSOFT_FORCE_ANY_COMPILER)
+# ifndef WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_
+#  include <winstl/api/winstl_win32_winnt_.h>
+# endif /* !WINSTL_INCL_WINSTL_API_H_winstl_win32_winnt_ */
+# ifndef WINSTL_INCL_WINSTL_API_external_h_Console
+#  include <winstl/api/external/Console.h>
+# endif /* !WINSTL_INCL_WINSTL_API_external_h_Console */
+# include <windows.h>
+#endif
+
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#if !defined(_UNIXSTL_NO_NAMESPACE) && \
+#if !defined(UNIXSTL_NO_NAMESPACE) && \
     !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# if defined(_STLSOFT_NO_NAMESPACE)
+# if defined(STLSOFT_NO_NAMESPACE)
 /* There is no stlsoft namespace, so must define ::unixstl */
 namespace unixstl
 {
@@ -104,16 +123,16 @@ namespace stlsoft
 {
 namespace unixstl_project
 {
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_UNIXSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !UNIXSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Functions
+ * functions
  */
 
-/** \brief Evalutes the current width of the console.
+/** Evalutes the current width of the console.
  *
- * \ingroup group__library__system
+ * \ingroup group__library__System
  */
 STLSOFT_INLINE
 us_size_t
@@ -126,27 +145,43 @@ unixstl_C_get_console_width(void)
      *
      */
 
-    int const fn_stdout = STLSOFT_NS_GLOBAL(fileno)(stdout);
+    int (*pfn_fileno)(FILE*);
+    int (*pfn_isatty)(int);
+    char* (*pfn_getenv)(char const*);
+
+#if defined(_MSC_VER) && \
+    defined(_STLSOFT_FORCE_ANY_COMPILER)
+
+# include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
+
+    pfn_fileno  =   STLSOFT_NS_GLOBAL(_fileno);
+    pfn_isatty  =   STLSOFT_NS_GLOBAL(_isatty);
+    pfn_getenv  =   STLSOFT_NS_GLOBAL(getenv);
+
+# include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
+#else
+
+    pfn_fileno  =   STLSOFT_NS_GLOBAL(fileno);
+    pfn_isatty  =   STLSOFT_NS_GLOBAL(isatty);
+    pfn_getenv  =   STLSOFT_NS_GLOBAL(getenv);
+#endif
+
+    int const fn_stdout = (*pfn_fileno)(stdout);
 
 
 
     /* 1. Try the environment variable COLUMNS, if we're a tty */
 
-#if defined(_MSC_VER) && \
-    defined(_STLSOFT_FORCE_ANY_COMPILER)
-    if(STLSOFT_NS_GLOBAL(_isatty(fn_stdout)))
-#else
-    if(STLSOFT_NS_GLOBAL(isatty(fn_stdout)))
-#endif
+    if ((*pfn_isatty)(fn_stdout))
     {
-        char const* const columns = STLSOFT_NS_GLOBAL(getenv)("COLUMNS");
+        char const* const columns = (*pfn_getenv)("COLUMNS");
 
-        if(NULL != columns)
+        if (NULL != columns)
         {
             char *      ep  =   NULL;
             long const  n   =   STLSOFT_NS_GLOBAL(strtol)(columns, &ep, 10);
 
-            if( NULL != ep &&
+            if (NULL != ep &&
                 '\0' == *ep)
             {
                 return STLSOFT_STATIC_CAST(us_size_t, n);
@@ -155,15 +190,36 @@ unixstl_C_get_console_width(void)
     }
 
 
+#if 0
+#elif defined(_WIN32) && \
+      defined(_STLSOFT_FORCE_ANY_COMPILER)
+
+    /* 2. get x from Windows' screen buffer */
+    {
+        HANDLE hStdOut = WINSTL_API_EXTERNAL_Console_GetStdHandle(STD_OUTPUT_HANDLE);
+
+        if (INVALID_HANDLE_VALUE != hStdOut)
+        {
+            CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+            if (WINSTL_API_EXTERNAL_Console_GetConsoleScreenBufferInfo(hStdOut, &csbi))
+            {
+                return csbi.dwMaximumWindowSize.X;
+            }
+        }
+    }
+#else
+
     /* 2. get TIOCGWINSZ from ioctl */
     {
         struct winsize ws;
 
-        if(-1 != STLSOFT_NS_GLOBAL(ioctl)(STDOUT_FILENO, TIOCGWINSZ, &ws))
+        if (-1 != STLSOFT_NS_GLOBAL(ioctl)(STDOUT_FILENO, TIOCGWINSZ, &ws))
         {
             return STLSOFT_STATIC_CAST(us_size_t, ws.ws_col);
         }
     }
+#endif
 
 
 
@@ -171,7 +227,7 @@ unixstl_C_get_console_width(void)
 }
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
 #ifdef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -185,9 +241,9 @@ namespace unixstl
 
 #if defined(__cplusplus)
 
-/** \brief Evalutes the current width of the console.
+/** Evalutes the current width of the console.
  *
- * \ingroup group__library__system
+ * \ingroup group__library__System
  */
 inline
 us_size_t
@@ -200,19 +256,25 @@ get_console_width()
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _UNIXSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef UNIXSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 } /* namespace unixstl */
 # else
 } /* namespace unixstl_project */
 } /* namespace stlsoft */
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_UNIXSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !UNIXSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* UNIXSTL_INCL_UNIXSTL_SYSTEM_H_CONSOLE_FUNCTIONS */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !UNIXSTL_INCL_UNIXSTL_SYSTEM_H_CONSOLE_FUNCTIONS */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

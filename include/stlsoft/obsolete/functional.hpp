@@ -4,37 +4,39 @@
  * Purpose:     Mappings to stdlib string functions
  *
  * Created:     2nd December 2004
- * Updated:     15th December 2023
+ * Updated:     26th December 2020
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -50,27 +52,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_OBSOLETE_HPP_FUNCTIONAL_MAJOR      2
 # define STLSOFT_VER_STLSOFT_OBSOLETE_HPP_FUNCTIONAL_MINOR      0
-# define STLSOFT_VER_STLSOFT_OBSOLETE_HPP_FUNCTIONAL_REVISION   2
-# define STLSOFT_VER_STLSOFT_OBSOLETE_HPP_FUNCTIONAL_EDIT       18
+# define STLSOFT_VER_STLSOFT_OBSOLETE_HPP_FUNCTIONAL_REVISION   5
+# define STLSOFT_VER_STLSOFT_OBSOLETE_HPP_FUNCTIONAL_EDIT       28
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_SHIMS_ATTRIBUTE_HPP_GET_PTR
 # include <stlsoft/shims/attribute/get_ptr.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SHIMS_ATTRIBUTE_HPP_GET_PTR */
@@ -81,23 +77,23 @@ STLSOFT_COMPILER_IS_WATCOM:
 #endif /* !STLSOFT_INCL_FUNCTIONAL */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Functors
+ * functors
  */
 
 template<   ss_typename_param_k R
         ,   ss_typename_param_k C
         >
 class mem_fun_t
-    : public stlsoft_ns_qual_std(unary_function)<C *, R>
+    : public STLSOFT_NS_QUAL_STD(unary_function)<C *, R>
 {
 public:
     ss_explicit_k mem_fun_t(R (C::*PFn)())
@@ -132,7 +128,7 @@ template<   ss_typename_param_k R
         ,   ss_typename_param_k C
         >
 class mem_fun_const_t
-    : public stlsoft_ns_qual_std(unary_function)<C *, R>
+    : public STLSOFT_NS_QUAL_STD(unary_function)<C *, R>
 {
 public:
     ss_explicit_k mem_fun_const_t(R (C::*PFn)() const)
@@ -166,7 +162,7 @@ private:
 template<   ss_typename_param_k C
         >
 class mem_fun_void_t
-    : public stlsoft_ns_qual_std(unary_function)<C *, void>
+    : public STLSOFT_NS_QUAL_STD(unary_function)<C *, void>
 {
 public:
     ss_explicit_k mem_fun_void_t(void (C::*PFn)())
@@ -200,7 +196,7 @@ private:
 template<   ss_typename_param_k C
         >
 class mem_fun_void_const_t
-    : public stlsoft_ns_qual_std(unary_function)<C const*, void>
+    : public STLSOFT_NS_QUAL_STD(unary_function)<C const*, void>
 {
 public:
     ss_explicit_k mem_fun_void_const_t(void (C::*PFn)() const)
@@ -291,7 +287,7 @@ template<   ss_typename_param_k R
         ,   ss_typename_param_k A
         >
 class mem_fun1_t
-    : public stlsoft_ns_qual_std(binary_function)<C *, A, R>
+    : public STLSOFT_NS_QUAL_STD(binary_function)<C *, A, R>
 {
 public:
     ss_explicit_k mem_fun1_t(R (C::*PFn)(A))
@@ -323,7 +319,7 @@ template<   ss_typename_param_k R
         ,   ss_typename_param_k C
         >
 class mem_fun_ref_t
-    : public stlsoft_ns_qual_std(unary_function)<C, R>
+    : public STLSOFT_NS_QUAL_STD(unary_function)<C, R>
 {
 public:
     ss_explicit_k mem_fun_ref_t(R (C::*PFn)())
@@ -343,7 +339,7 @@ template<   ss_typename_param_k R
         ,   ss_typename_param_k C
         >
 class mem_fun_ref_const_t
-    : public stlsoft_ns_qual_std(unary_function)<C, R>
+    : public STLSOFT_NS_QUAL_STD(unary_function)<C, R>
 {
 public:
     ss_explicit_k mem_fun_ref_const_t(R (C::*PFn)() const)
@@ -363,7 +359,7 @@ private:
 template<   ss_typename_param_k C
         >
 class mem_fun_ref_void_t
-    : public stlsoft_ns_qual_std(unary_function)<C, void>
+    : public STLSOFT_NS_QUAL_STD(unary_function)<C, void>
 {
 public:
     ss_explicit_k mem_fun_ref_void_t(void (C::*PFn)())
@@ -382,7 +378,7 @@ private:
 template<   ss_typename_param_k C
         >
 class mem_fun_ref_void_const_t
-    : public stlsoft_ns_qual_std(unary_function)<C, void>
+    : public STLSOFT_NS_QUAL_STD(unary_function)<C, void>
 {
 public:
     ss_explicit_k mem_fun_ref_void_const_t(void (C::*PFn)() const)
@@ -459,7 +455,7 @@ template<   ss_typename_param_k R
         ,   ss_typename_param_k A
         >
 class mem_fun1_ref_t
-    : public stlsoft_ns_qual_std(binary_function)<C *, A, R>
+    : public STLSOFT_NS_QUAL_STD(binary_function)<C *, A, R>
 {
 public:
     ss_explicit_k mem_fun1_ref_t(R (C::*PFn)(A))
@@ -488,10 +484,10 @@ inline mem_fun1_ref_t<R, C, A> mem_fun1_ref(R (C::*PFn)(A))
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-/** \brief
+/**
  * \alpha
  *
- * \ingroup group__library__functional
+ * \ingroup group__library__Functional
  *
  * \note This is an alpha form, and *will* be changed in a future release
  */
@@ -531,11 +527,17 @@ inline mem_fun_ref_1_t<R, C, V> mem_fun_ref_1(R (C::*pfn)(V), V value)
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_OBSOLETE_HPP_FUNCTIONAL */
 

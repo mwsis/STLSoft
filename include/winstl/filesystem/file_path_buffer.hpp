@@ -5,49 +5,51 @@
  *              and Unicode specialisations thereof.
  *
  * Created:     7th February 2002
- * Updated:     15th December 2023
+ * Updated:     20th January 2024
  *
  * Thanks to:   Pablo Aguilar for discovering the Borland weirdness which is now
  *              addressed with the calc_path_max_() method.
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/filesystem/file_path_buffer.hpp
  *
- * \brief [C++ only] Definition of the winstl::basic_file_path_buffer class
+ * \brief [C++] Definition of the winstl::basic_file_path_buffer class
  *  template
- *   (\ref group__library__filesystem "File System" Library).
+ *   (\ref group__library__FileSystem "File System" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER
@@ -56,27 +58,24 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER_MAJOR    4
 # define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER_MINOR    6
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER_REVISION 1
-# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER_EDIT     128
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER_REVISION 15
+# define WINSTL_VER_WINSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER_EDIT     150
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_MSVC: _MSC_VER<1200
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
+#ifdef STLSOFT_PPF_pragma_message_SUPPORT
+# pragma message(STLSOFT_FILELINE_MESSAGE("This file and the (basic_)file_path_buffer<> component are deprecated, and will be removed from a future version"))
+#endif /* STLSOFT_PPF_pragma_message_SUPPORT */
 
 #ifndef WINSTL_FILE_PATH_BUFFER_NO_USE_AUTO_BUFFER
 # define WINSTL_FILE_PATH_BUFFER_USE_AUTO_BUFFER
@@ -96,9 +95,9 @@ STLSOFT_COMPILER_IS_MSVC: _MSC_VER<1200
 # include <stlsoft/shims/access/string.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_HPP_STRING */
 #ifdef WINSTL_FILE_PATH_BUFFER_USE_AUTO_BUFFER
-# ifndef STLSOFT_INCL_STLSOFT_HPP_MEMORY_AUTO_BUFFER
+# ifndef STLSOFT_INCL_STLSOFT_MEMORY_HPP_AUTO_BUFFER
 #  include <stlsoft/memory/auto_buffer.hpp>
-# endif /* !STLSOFT_INCL_STLSOFT_HPP_MEMORY_AUTO_BUFFER */
+# endif /* !STLSOFT_INCL_STLSOFT_MEMORY_HPP_AUTO_BUFFER */
 #else /* ? WINSTL_FILE_PATH_BUFFER_USE_AUTO_BUFFER */
 # include <vector>
 #endif /* WINSTL_FILE_PATH_BUFFER_USE_AUTO_BUFFER */
@@ -108,38 +107,39 @@ STLSOFT_COMPILER_IS_MSVC: _MSC_VER<1200
 #ifndef STLSOFT_INCL_STLSOFT_STRING_HPP_COPY_FUNCTIONS
 # include <stlsoft/string/copy_functions.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_COPY_FUNCTIONS */
-#ifndef WINSTL_INCL_WINSTL_INTERNAL_H_WINDOWS_VERSION
-# include <winstl/internal/windows_version.h>
-#endif /* !WINSTL_INCL_WINSTL_INTERNAL_H_WINDOWS_VERSION */
+#ifndef WINSTL_INCL_WINSTL_INTERNAL_H_WINDOWS_VERSION_
+# include <winstl/internal/windows_version_.h>
+#endif /* !WINSTL_INCL_WINSTL_INTERNAL_H_WINDOWS_VERSION_ */
 
 #ifdef STLSOFT_DEBUG
 # include <stlsoft/algorithms/pod.hpp>
 #endif
 
+#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
+# include <stlsoft/api/internal/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -157,9 +157,9 @@ struct is_ansi<ws_char_a_t>
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 // class basic_file_path_buffer
-/** \brief Acts as a buffer with sufficient size for any drive on the host machine
+/** Acts as a buffer with sufficient size for any drive on the host machine
  *
- * \ingroup group__library__filesystem
+ * \ingroup group__library__FileSystem
  *
  * This class is a non-template class primarily so that separate instantiations
  * are not created for each instantiation of the basic_file_path_buffer.
@@ -169,17 +169,17 @@ struct is_ansi<ws_char_a_t>
  * of the get_drivesvar_() method, although it can be reset by calling the
  * refresh() method on the buffer class.
  *
- * \param C The character type
- * \param A The allocator type
- * \param CCH The size of the internal member path structure. On translators that support default template arguments this default to (\c 1 + \c WINSTL_CONST_MAX_PATH)
+ * \tparam C The character type
+ * \tparam A The allocator type
  */
-template<   ss_typename_param_k C
+template <
+    ss_typename_param_k C
 #ifdef STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT
-        ,   ss_typename_param_k A = processheap_allocator<C>
+,   ss_typename_param_k A = processheap_allocator<C>
 #else /* ? STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
-        ,   ss_typename_param_k A /* = processheap_allocator<C> */
+,   ss_typename_param_k A /* = processheap_allocator<C> */
 #endif /* STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
-        >
+>
 class basic_file_path_buffer
 {
 /// \name Member Constants
@@ -196,46 +196,48 @@ private:
         ,   CCH_NT = (is_ansi<C>::value ? WINSTL_CONST_MAX_PATH : CONST_NT_MAX_PATH)
     };
 
-    /// \brief The buffer type
+    /// The buffer type
 #ifdef WINSTL_FILE_PATH_BUFFER_USE_AUTO_BUFFER
-    typedef stlsoft_ns_qual(auto_buffer)<   C
+    typedef STLSOFT_NS_QUAL(auto_buffer)<
+        C
 # if defined(STLSOFT_COMPILER_IS_BORLAND)
     // This is necessary, since Borland will attempt an auto_buffer with what
     // seems like 0 size, or maybe it just can't define the type. Who can tell?
-                                            ,   1 + WINSTL_CONST_MAX_PATH
+    ,   1 + WINSTL_CONST_MAX_PATH
 # else /* ? compiler */
-                                            ,   internalBufferSize
+    ,   internalBufferSize
 # endif /* compiler */
-                                            ,   A
-                                            >                       buffer_type;
+    ,   A
+    >                                                       buffer_type;
 #else /* ? WINSTL_FILE_PATH_BUFFER_USE_AUTO_BUFFER */
-    typedef stlsoft_ns_qual_std(vector)<C, A>                       buffer_type;
+    typedef STLSOFT_NS_QUAL_STD(vector)<C, A>               buffer_type;
 #endif /* WINSTL_FILE_PATH_BUFFER_USE_AUTO_BUFFER */
 /// @}
 
 /// \name Member Types
 /// @{
 public:
-    /// \brief The character type
-    typedef C                                                       char_type;
-    /// \brief The allocator type
-    typedef A                                                       allocator_type;
-    /// \brief The current parameterisation of the type
-    typedef basic_file_path_buffer<C, A>                            class_type;
-    /// \brief The value type
-    typedef ss_typename_type_k buffer_type::value_type              value_type;
-    /// \brief The reference type
-    typedef value_type&                                             reference;
-    /// \brief The non-mutating (const) reference type
-    typedef value_type const&                                       const_reference;
-    /// \brief The size type
-    typedef ss_typename_type_k buffer_type::size_type               size_type;
+    /// The character type
+    typedef C                                               char_type;
+    /// The allocator type
+    typedef A                                               allocator_type;
+    /// The current specialisation of the type
+    typedef basic_file_path_buffer<C, A>                    class_type;
+    /// The value type
+    typedef ss_typename_type_k buffer_type::value_type      value_type;
+    /// The reference type
+    typedef value_type&                                     reference;
+    /// The non-mutating (const) reference type
+    typedef value_type const&                               const_reference;
+    /// The size type
+    typedef ss_typename_type_k buffer_type::size_type       size_type;
 /// @}
 
 /// \name Construction
 /// @{
 public:
-    /// \brief Default constructor
+    /// Default constructor
+    STLSOFT_DEPRECATED_("basic_file_path_buffer is deprecated, and will be removed from a future release") // applied here rather than on template because above class_type precipitates
     basic_file_path_buffer()
         : m_buffer(1 + calc_path_max_internal_())
     {
@@ -248,7 +250,7 @@ public:
 
         WINSTL_ASSERT(is_valid_());
     }
-    /// \brief Copy constructor
+    /// Copy constructor
     basic_file_path_buffer(class_type const& rhs)
         : m_buffer(rhs.internal_size_())
     {
@@ -258,17 +260,17 @@ public:
         set_eyecatcher_();
 #endif /* STLSOFT_DEBUG */
 
-        stlsoft_ns_qual(pod_copy_n)(&m_buffer[0], &rhs.m_buffer[0], external_size_());
+        STLSOFT_NS_QUAL(pod_copy_n)(&m_buffer[0], &rhs.m_buffer[0], external_size_());
 
         WINSTL_ASSERT(is_valid_());
     }
-    /// \brief Copy assignment operator
+    /// Copy assignment operator
     class_type& operator =(class_type const& rhs)
     {
         WINSTL_ASSERT(is_valid_());
 
-        m_buffer.resize(rhs.external_size_());
-        stlsoft_ns_qual(pod_copy_n)(&m_buffer[0], &rhs.m_buffer[0], external_size_());
+        m_buffer.resize(rhs.internal_size_());
+        STLSOFT_NS_QUAL(pod_copy_n)(&m_buffer[0], &rhs.m_buffer[0], external_size_());
 
         WINSTL_ASSERT(is_valid_());
 
@@ -279,7 +281,7 @@ public:
 /// \name Operations
 /// @{
 public:
-    /// \brief Swaps the contents with those of another instance
+    /// Swaps the contents with those of another instance
     ///
     /// \param rhs The instance whose contents will be swapped with the
     ///  callee
@@ -292,6 +294,9 @@ public:
     {
         m_buffer.swap(rhs.m_buffer);
     }
+
+    void resize(size_type )
+    {}
 /// @}
 
 /// \name Accessors
@@ -320,7 +325,7 @@ public:
     }
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-    /// \brief Returns a pointer to a nul-terminated string
+    /// Returns a pointer to a nul-terminated string
     value_type const* c_str() const
     {
         WINSTL_ASSERT(is_valid_());
@@ -328,7 +333,7 @@ public:
         return this->data();
     }
 
-    /// \brief Returns a mutable (non-const) pointer to an element in the buffer
+    /// Returns a mutable (non-const) pointer to an element in the buffer
     reference operator [](ws_size_t index)
     {
         WINSTL_ASSERT(is_valid_());
@@ -339,7 +344,7 @@ public:
     }
 #if !defined(STLSOFT_COMPILER_IS_COMO) || \
     __COMO_VERSION__ >= 4303
-    /// \brief Returns a non-mutable (const) pointer to an element in the buffer
+    /// Returns a non-mutable (const) pointer to an element in the buffer
     const_reference operator [](ws_size_t index) const
     {
         WINSTL_MESSAGE_ASSERT("Index out of range", !(size() < index));
@@ -349,7 +354,7 @@ public:
 #else /* ? compiler */
 #endif /* compiler */
 
-    /// \brief Returns the size of the buffer
+    /// Returns the size of the buffer
     size_type size() const
     {
         WINSTL_ASSERT(is_valid_());
@@ -357,7 +362,7 @@ public:
         return external_size_();
     }
 
-    /// \brief Returns the capacity of the buffer
+    /// Returns the capacity of the buffer
     size_type capacity() const
     {
         WINSTL_ASSERT(is_valid_());
@@ -365,13 +370,13 @@ public:
         return external_size_();
     }
 
-    /// \brief Returns the maximum size of the buffer
+    /// Returns the maximum size of the buffer
     static size_type max_size()
     {
         return calc_path_max_external_();
     }
 
-    /// \brief Copies the contents into a caller supplied buffer
+    /// Copies the contents into a caller supplied buffer
     ///
     /// \param buffer Pointer to character buffer to receive the contents.
     ///  May be NULL, in which case the method returns size().
@@ -380,14 +385,14 @@ public:
     {
         WINSTL_ASSERT(is_valid_());
 
-        return stlsoft_ns_qual(copy_contents)(buffer, cchBuffer, m_buffer.data(), external_size_());
+        return STLSOFT_NS_QUAL(copy_contents)(buffer, cchBuffer, m_buffer.data(), external_size_());
     }
 /// @}
 
 /// \name Operations
 /// @{
 public:
-    /// \brief Causes the drives to be examined again for the next instance.
+    /// Causes the drives to be examined again for the next instance.
     ///
     /// \deprecated
     static void refresh() STLSOFT_NOEXCEPT
@@ -419,7 +424,7 @@ private:
         size_type const         n   =   m_buffer.size() - ecs;
         char_type *             p   =   &m_buffer[0] + n;
 
-        ::memcpy(p, ec, sizeof(char_type) * ecs);
+        STLSOFT_API_INTERNAL_memfns_memcpy(p, ec, sizeof(char_type) * ecs);
     }
 
     static
@@ -443,7 +448,7 @@ private:
             size_type const         n   =   m_buffer.size() - ecs;
             char_type const*        p   =   &m_buffer[0] + n;
 
-            if(0 != ::memcmp(p, ec, sizeof(char_type) * ecs))
+            if (0 != ::memcmp(p, ec, sizeof(char_type) * ecs))
             {
                 return false;
             }
@@ -460,7 +465,7 @@ private:
     {
         size_type   n;
 
-        if(WinSTL_C_internal_IsWindows9x(NULL, NULL, NULL))
+        if (winstl_C_internal_IsWindows9x(NULL, NULL, NULL))
         {
             n = CCH_9x;
         }
@@ -476,7 +481,7 @@ private:
     {
         size_type n = calc_path_max_external_();
 
-#ifdef _DEBUG
+#ifdef STLSOFT_DEBUG
         // add bytes for eye catcher
         n += get_eyecatcher_size_();
 #endif
@@ -495,7 +500,7 @@ private:
     {
         size_type n = internal_size_();
 
-#ifdef _DEBUG
+#ifdef STLSOFT_DEBUG
         // add bytes for eye catcher
         n -= get_eyecatcher_size_();
 #endif
@@ -512,21 +517,30 @@ private:
 };
 
 /* Typedefs to commonly encountered types. */
-/** \brief Specialisation of the basic_file_path_buffer template for the ANSI character type \c char
+/** Specialisation of the basic_file_path_buffer template for the ANSI character type \c char
  *
- * \ingroup group__library__filesystem
+ * \ingroup group__library__FileSystem
  */
-typedef basic_file_path_buffer<ws_char_a_t, processheap_allocator<ws_char_a_t> >    file_path_buffer_a;
-/** \brief Specialisation of the basic_file_path_buffer template for the Unicode character type \c wchar_t
+typedef basic_file_path_buffer<
+    ws_char_a_t
+,   processheap_allocator<ws_char_a_t>
+>                                                           file_path_buffer_a;
+/** Specialisation of the basic_file_path_buffer template for the Unicode character type \c wchar_t
  *
- * \ingroup group__library__filesystem
+ * \ingroup group__library__FileSystem
  */
-typedef basic_file_path_buffer<ws_char_w_t, processheap_allocator<ws_char_w_t> >    file_path_buffer_w;
-/** \brief Specialisation of the basic_file_path_buffer template for the ambeint character type \c TCHAR
+typedef basic_file_path_buffer<
+    ws_char_w_t
+,   processheap_allocator<ws_char_w_t>
+>                                                           file_path_buffer_w;
+/** Specialisation of the basic_file_path_buffer template for the ambient character type \c TCHAR
  *
- * \ingroup group__library__filesystem
+ * \ingroup group__library__FileSystem
  */
-typedef basic_file_path_buffer<TCHAR, processheap_allocator<TCHAR> >                file_path_buffer;
+typedef basic_file_path_buffer<
+    TCHAR
+,   processheap_allocator<TCHAR>
+>                                                           file_path_buffer;
 
 /* /////////////////////////////////////////////////////////////////////////
  * Support for PlatformSTL redefinition by inheritance+namespace, for confused
@@ -537,16 +551,16 @@ typedef basic_file_path_buffer<TCHAR, processheap_allocator<TCHAR> >            
 
     template<   ss_typename_param_k C
 #ifdef STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT
-            ,   ss_typename_param_k A = winstl_ns_qual(processheap_allocator)<C>
+            ,   ss_typename_param_k A = WINSTL_NS_QUAL(processheap_allocator)<C>
 #else /* ? STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
             ,   ss_typename_param_k A /* = processheap_allocator<C> */
 #endif /* STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
             >
     class basic_file_path_buffer__
-        : public winstl_ns_qual(basic_file_path_buffer)<C, A>
+        : public WINSTL_NS_QUAL(basic_file_path_buffer)<C, A>
     {
     private:
-        typedef winstl_ns_qual(basic_file_path_buffer)<C, A>            parent_class_type;
+        typedef WINSTL_NS_QUAL(basic_file_path_buffer)<C, A>            parent_class_type;
     public:
         typedef basic_file_path_buffer__<C, A>                          class_type;
         typedef ss_typename_type_k parent_class_type::value_type        value_type;
@@ -570,32 +584,32 @@ inline void swap(basic_file_path_buffer<C, A>& lhs, basic_file_path_buffer<C, A>
 }
 
 /* /////////////////////////////////////////////////////////////////////////
- * Shims
+ * shims
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 template <ss_typename_param_k A>
-inline ws_char_a_t const* c_str_data_a(winstl_ns_qual(basic_file_path_buffer)<ws_char_a_t, A> const& b)
+inline ws_char_a_t const* c_str_data_a(WINSTL_NS_QUAL(basic_file_path_buffer)<ws_char_a_t, A> const& b)
 {
     return b.c_str();
 }
 template <ss_typename_param_k A>
-inline ws_char_w_t const* c_str_data_w(winstl_ns_qual(basic_file_path_buffer)<ws_char_w_t, A> const& b)
+inline ws_char_w_t const* c_str_data_w(WINSTL_NS_QUAL(basic_file_path_buffer)<ws_char_w_t, A> const& b)
 {
     return b.c_str();
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_data for winstl::basic_file_path_buffer
+/** \ref group__concept__Shim__string_access__c_str_data for winstl::basic_file_path_buffer
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
 template<   ss_typename_param_k C
         ,   ss_typename_param_k A
         >
-inline C const* c_str_data(winstl_ns_qual(basic_file_path_buffer)<C, A> const& b)
+inline C const* c_str_data(WINSTL_NS_QUAL(basic_file_path_buffer)<C, A> const& b)
 {
     return b.c_str();
 }
@@ -604,54 +618,54 @@ inline C const* c_str_data(winstl_ns_qual(basic_file_path_buffer)<C, A> const& b
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 template <ss_typename_param_k A>
-inline ws_size_t c_str_len_a(winstl_ns_qual(basic_file_path_buffer)<ws_char_a_t, A> const& b)
+inline ws_size_t c_str_len_a(WINSTL_NS_QUAL(basic_file_path_buffer)<ws_char_a_t, A> const& b)
 {
-    return stlsoft_ns_qual(c_str_len_a)(b.c_str());
+    return STLSOFT_NS_QUAL(c_str_len_a)(b.c_str());
 }
 template <ss_typename_param_k A>
-inline ws_size_t c_str_len_w(winstl_ns_qual(basic_file_path_buffer)<ws_char_w_t, A> const& b)
+inline ws_size_t c_str_len_w(WINSTL_NS_QUAL(basic_file_path_buffer)<ws_char_w_t, A> const& b)
 {
-    return stlsoft_ns_qual(c_str_len_w)(b.c_str());
+    return STLSOFT_NS_QUAL(c_str_len_w)(b.c_str());
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_len for winstl::basic_file_path_buffer
+/** \ref group__concept__Shim__string_access__c_str_len for winstl::basic_file_path_buffer
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
 template<   ss_typename_param_k C
         ,   ss_typename_param_k A
         >
-inline ws_size_t c_str_len(winstl_ns_qual(basic_file_path_buffer)<C, A> const& b)
+inline ws_size_t c_str_len(WINSTL_NS_QUAL(basic_file_path_buffer)<C, A> const& b)
 {
-    return stlsoft_ns_qual(c_str_len)(b.c_str());
+    return STLSOFT_NS_QUAL(c_str_len)(b.c_str());
 }
 
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 template <ss_typename_param_k A>
-inline ws_char_a_t const* c_str_ptr_a(winstl_ns_qual(basic_file_path_buffer)<ws_char_a_t, A> const& b)
+inline ws_char_a_t const* c_str_ptr_a(WINSTL_NS_QUAL(basic_file_path_buffer)<ws_char_a_t, A> const& b)
 {
     return b.c_str();
 }
 template <ss_typename_param_k A>
-inline ws_char_w_t const* c_str_ptr_w(winstl_ns_qual(basic_file_path_buffer)<ws_char_w_t, A> const& b)
+inline ws_char_w_t const* c_str_ptr_w(WINSTL_NS_QUAL(basic_file_path_buffer)<ws_char_w_t, A> const& b)
 {
     return b.c_str();
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr for winstl::basic_file_path_buffer
+/** \ref group__concept__Shim__string_access__c_str_ptr for winstl::basic_file_path_buffer
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
 template<   ss_typename_param_k C
         ,   ss_typename_param_k A
         >
-inline C const* c_str_ptr(winstl_ns_qual(basic_file_path_buffer)<C, A> const& b)
+inline C const* c_str_ptr(WINSTL_NS_QUAL(basic_file_path_buffer)<C, A> const& b)
 {
     return b.c_str();
 }
@@ -661,67 +675,59 @@ inline C const* c_str_ptr(winstl_ns_qual(basic_file_path_buffer)<C, A> const& b)
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 template <ss_typename_param_k A>
-inline ws_char_a_t const* c_str_ptr_null_a(winstl_ns_qual(basic_file_path_buffer)<ws_char_a_t, A> const& b)
+inline ws_char_a_t const* c_str_ptr_null_a(WINSTL_NS_QUAL(basic_file_path_buffer)<ws_char_a_t, A> const& b)
 {
-    return stlsoft_ns_qual(c_str_ptr_null)(b.c_str());
+    return STLSOFT_NS_QUAL(c_str_ptr_null)(b.c_str());
 }
 template <ss_typename_param_k A>
-inline ws_char_w_t const* c_str_ptr_null_w(winstl_ns_qual(basic_file_path_buffer)<ws_char_w_t, A> const& b)
+inline ws_char_w_t const* c_str_ptr_null_w(WINSTL_NS_QUAL(basic_file_path_buffer)<ws_char_w_t, A> const& b)
 {
-    return stlsoft_ns_qual(c_str_ptr_null)(b.c_str());
+    return STLSOFT_NS_QUAL(c_str_ptr_null)(b.c_str());
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr_null for winstl::basic_file_path_buffer
+/** \ref group__concept__Shim__string_access__c_str_ptr_null for winstl::basic_file_path_buffer
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
 template<   ss_typename_param_k C
         ,   ss_typename_param_k A
         >
-inline C const* c_str_ptr_null(winstl_ns_qual(basic_file_path_buffer)<C, A> const& b)
+inline C const* c_str_ptr_null(WINSTL_NS_QUAL(basic_file_path_buffer)<C, A> const& b)
 {
-    return stlsoft_ns_qual(c_str_ptr_null)(b.c_str());
+    return STLSOFT_NS_QUAL(c_str_ptr_null)(b.c_str());
 }
 
 
 
 
-/** \brief \ref group__concept__shim__stream_insertion "stream insertion shim" for winstl::basic_file_path_buffer
+/** \ref group__concept__Shim__stream_insertion "stream insertion shim" for winstl::basic_file_path_buffer
  *
- * \ingroup group__concept__shim__stream_insertion
+ * \ingroup group__concept__Shim__stream_insertion
  */
 template<   ss_typename_param_k S
         ,   ss_typename_param_k C
         ,   ss_typename_param_k A
         >
-inline S& operator <<(S& s, winstl_ns_qual(basic_file_path_buffer)<C, A> const& b)
+inline S& operator <<(S& s, WINSTL_NS_QUAL(basic_file_path_buffer)<C, A> const& b)
 {
     s << b.c_str();
 
     return s;
 }
 
-/* /////////////////////////////////////////////////////////////////////////
- * Unit-testing
- */
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/file_path_buffer_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* In the special case of Intel behaving as VC++ 7.0 or earlier on Win32, we
  * illegally insert into the std namespace.
@@ -735,30 +741,30 @@ namespace std
     template<   ss_typename_param_k C
             ,   ss_typename_param_k A
             >
-    inline void swap(winstl_ns_qual(basic_file_path_buffer)<C, A>& lhs, winstl_ns_qual(basic_file_path_buffer)<C, A>& rhs)
+    inline void swap(WINSTL_NS_QUAL(basic_file_path_buffer)<C, A>& lhs, WINSTL_NS_QUAL(basic_file_path_buffer)<C, A>& rhs)
     {
         lhs.swap(rhs);
     }
-} // namespace std
+} /* namespace std */
 # endif /* INTEL && _MSC_VER < 1310 */
 #endif /* STLSOFT_CF_std_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The string access shims exist either in the stlsoft namespace, or in the
  * global namespace. This is required by the lookup rules.
  *
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+#ifndef WINSTL_NO_NAMESPACE
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 namespace stlsoft
 {
-# else /* ? _STLSOFT_NO_NAMESPACE */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
 
 using ::winstl::c_str_ptr_null;
 using ::winstl::c_str_ptr_null_a;
@@ -774,17 +780,23 @@ using ::winstl::c_str_data_w;
 
 using ::winstl::c_str_len;
 
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace stlsoft
-# else /* ? _STLSOFT_NO_NAMESPACE */
+} /* namespace stlsoft */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_FILESYSTEM_HPP_FILE_PATH_BUFFER */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

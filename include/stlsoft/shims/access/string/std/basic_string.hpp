@@ -1,44 +1,46 @@
 /* /////////////////////////////////////////////////////////////////////////
  * File:        stlsoft/shims/access/string/std/basic_string.hpp
  *
- * Purpose:     Contains the c_str_ptr, c_str_ptr_null, c_str_len, and
- *              c_str_size accessors.
+ * Purpose:     Contains the c_str_data, c_str_len, c_str_ptr,
+ *              c_str_ptr_null, and c_str_size accessors.
  *
  * Created:     16th January 2002
- * Updated:     15th December 2023
+ * Updated:     10th January 2021
  *
  * Thanks to:   Robert Kreger for spotting a defect in the discrimination of
  *              wide character support on GCC 3.3.3.
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2021, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -47,7 +49,7 @@
  *
  * \brief [C++] Definition of the string access shims for
  *   std::basic_string (and its related compiler/library-dependent forms)
- *   (\ref group__concept__shim__string_access "String Access Shims" Concept).
+ *   (\ref group__concept__Shim__string_access "String Access Shims" Concept).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_BASIC_STRING
@@ -56,17 +58,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_BASIC_STRING_MAJOR     4
 # define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_BASIC_STRING_MINOR     0
-# define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_BASIC_STRING_REVISION  4
-# define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_BASIC_STRING_EDIT      95
+# define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_BASIC_STRING_REVISION  9
+# define STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_BASIC_STRING_EDIT      107
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_STRING_H_FWD
 # include <stlsoft/shims/access/string/fwd.h>
 #endif /* !STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_STRING_H_FWD */
@@ -92,7 +98,7 @@
  * included, and STLSOFT_CF_STRING_ACCESS_USE_std_char_traits is not
  * defined.
  *
- * If _STLSOFT_NO_NAMESPACE is defined then
+ * If STLSOFT_NO_NAMESPACE is defined then
  * STLSOFT_CF_STRING_ACCESS_USE_std_char_traits is not defined.
  *
  * If STLSOFT_CF_std_char_traits_AVAILABLE is not defined then
@@ -106,7 +112,7 @@
 
 #if defined(STLSOFT_STRING_ACCESS_NO_STD_STRING)
 # undef STLSOFT_CF_STRING_ACCESS_USE_std_char_traits
-#elif defined(_STLSOFT_NO_NAMESPACE)
+#elif defined(STLSOFT_NO_NAMESPACE)
 # undef STLSOFT_CF_STRING_ACCESS_USE_std_char_traits
 #elif !defined(STLSOFT_CF_std_char_traits_AVAILABLE)
 # undef STLSOFT_CF_STRING_ACCESS_USE_std_char_traits
@@ -135,10 +141,6 @@
 # include <wchar.h>
 #endif /* compiler */
 
-#ifdef STLSOFT_UNITTEST
-# include <stdio.h>
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
  * Pre-processor control
  *
@@ -154,16 +156,16 @@
  */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Typedefs
+ * typedefs
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -172,9 +174,9 @@ namespace stlsoft
 # if defined(STLSOFT_COMPILER_IS_GCC) && \
      (   __GNUC__ < 3 /* TODO: This is probably not needed now, so may remove it in a future version ... */ || \
          !defined(_GLIBCPP_USE_WCHAR_T)) // Thanks to Robert Kreger for suggesting this fix for GCC 3.3.3 on HP UX
-  typedef stlsoft_ns_qual_std(basic_string)<ss_char_w_t>    stlsoft_wstring_t_;
+  typedef STLSOFT_NS_QUAL_STD(basic_string)<ss_char_w_t>    stlsoft_wstring_t_;
 # else /* ? GCC */
-  typedef stlsoft_ns_qual_std(wstring)                      stlsoft_wstring_t_;
+  typedef STLSOFT_NS_QUAL_STD(wstring)                      stlsoft_wstring_t_;
 # endif /* STLSOFT_COMPILER_IS_GCC) && __GNUC__ < 3 */
 #endif /* STLSOFT_STRING_ACCESS_NO_STD_STRING */
 
@@ -219,25 +221,25 @@ inline ss_char_w_t const* c_str_data(wstring const& s)
   /* Compilers other than MSVC++ <5.
    */
 
-/** \brief \ref group__concept__shim__string_access__c_str_data function
+/** \ref group__concept__Shim__string_access__c_str_data function
  *    for <code>std::string</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return None-NULL, non-mutating pointer to a C-style
  *   string of <code>char</code>.
  */
-inline ss_char_a_t const* c_str_data_a(stlsoft_ns_qual_std(string) const& s)
+inline ss_char_a_t const* c_str_data_a(STLSOFT_NS_QUAL_STD(string) const& s)
 {
     return s.data();
 }
 
 #  if !defined(STLSOFT_COMPILER_IS_GCC) || \
       !(__GNUC__ < 3)
-/** \brief \ref group__concept__shim__string_access__c_str_data function
+/** \ref group__concept__Shim__string_access__c_str_data function
  *    for <code>std::wstring</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return None-NULL, non-mutating pointer to a C-style
  *   string of <code>wchar_t</code>.
@@ -248,11 +250,11 @@ inline ss_char_w_t const* c_str_data_w(stlsoft_wstring_t_ const& s)
 }
 #  endif /* compiler */
 
-/** \brief \ref group__concept__shim__string_access__c_str_data function
+/** \ref group__concept__Shim__string_access__c_str_data function
  *    for specialisations of <code>std::basic_string</code> with
  *    <code>char</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return None-NULL, non-mutating pointer to a C-style
  *   string of <code>char</code>.
@@ -260,16 +262,16 @@ inline ss_char_w_t const* c_str_data_w(stlsoft_wstring_t_ const& s)
 template<   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline ss_char_a_t const* c_str_data_a(stlsoft_ns_qual_std(basic_string)<ss_char_a_t, T, A> const& s)
+inline ss_char_a_t const* c_str_data_a(STLSOFT_NS_QUAL_STD(basic_string)<ss_char_a_t, T, A> const& s)
 {
     return s.data();
 }
 
-/** \brief \ref group__concept__shim__string_access__c_str_data function
+/** \ref group__concept__Shim__string_access__c_str_data function
  *    for specialisations of <code>std::basic_string</code> with
  *    <code>wchar_t</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return None-NULL, non-mutating pointer to a C-style
  *   string of <code>wchar_t</code>.
@@ -277,15 +279,15 @@ inline ss_char_a_t const* c_str_data_a(stlsoft_ns_qual_std(basic_string)<ss_char
 template<   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline ss_char_w_t const* c_str_data_w(stlsoft_ns_qual_std(basic_string)<ss_char_w_t, T, A> const& s)
+inline ss_char_w_t const* c_str_data_w(STLSOFT_NS_QUAL_STD(basic_string)<ss_char_w_t, T, A> const& s)
 {
     return s.data();
 }
 
-/** \brief \ref group__concept__shim__string_access__c_str_data function
+/** \ref group__concept__Shim__string_access__c_str_data function
  *    for arbitrary specialisations of <code>std::basic_string</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return None-NULL, non-mutating pointer to a C-style string.
  */
@@ -293,7 +295,7 @@ template<   ss_typename_param_k C
         ,   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline C const* c_str_data(stlsoft_ns_qual_std(basic_string)<C, T, A> const& s)
+inline C const* c_str_data(STLSOFT_NS_QUAL_STD(basic_string)<C, T, A> const& s)
 {
     return s.data();
 }
@@ -326,29 +328,27 @@ inline C const* c_str_data(stlport::basic_string<C> const& s)
 #endif /* _STLP_USE_NAMESPACES && _STLP_USE_OWN_NAMESPACE */
 
 #if 0
-/** \brief Function template that provide generic implementations of
+/** Function template that provide generic implementations of
  *   c_str_data_a for any type for which c_str_ptr_a is defined.
  *
- * \ingroup group__shims__string_access
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 template <ss_typename_param_k S>
 inline ss_char_a_t const* c_str_data_a(S const& s)
 {
-    return stlsoft_ns_qual(c_str_data_a)(static_cast<ss_char_a_t const*>(stlsoft_ns_qual(c_str_ptr_a)(s))));
+    return STLSOFT_NS_QUAL(c_str_data_a)(static_cast<ss_char_a_t const*>(STLSOFT_NS_QUAL(c_str_ptr_a)(s))));
 }
-/** \brief Function template that provide generic implementations of
+/** Function template that provide generic implementations of
  *   c_str_data_w for any type for which c_str_ptr_w is defined.
  *
- * \ingroup group__shims__string_access
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 template <ss_typename_param_k S>
 inline ss_char_w_t const* c_str_data_w(S const& s)
 {
-    return stlsoft_ns_qual(c_str_data_w)(static_cast<ss_char_w_t const*>(stlsoft_ns_qual(c_str_ptr_w)(s))));
+    return STLSOFT_NS_QUAL(c_str_data_w)(static_cast<ss_char_w_t const*>(STLSOFT_NS_QUAL(c_str_ptr_w)(s))));
 }
 #endif /* 0 */
 
@@ -386,24 +386,24 @@ inline ss_size_t c_str_len(wstring const& s)
 
 # else /* ? compiler */
 
-/** \brief \ref group__concept__shim__string_access__c_str_len function
+/** \ref group__concept__Shim__string_access__c_str_len function
  *    for <code>std::string</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return Length (in bytes) of the string <code>s</code>.
  */
-inline ss_size_t c_str_len_a(stlsoft_ns_qual_std(string) const& s)
+inline ss_size_t c_str_len_a(STLSOFT_NS_QUAL_STD(string) const& s)
 {
     return s.length();
 }
 
 #  if !defined(STLSOFT_COMPILER_IS_GCC) || \
       !(__GNUC__ < 3)
-/** \brief \ref group__concept__shim__string_access__c_str_len function
+/** \ref group__concept__Shim__string_access__c_str_len function
  *    for <code>std::wstring</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return Length (in characters) of the string <code>s</code>.
  */
@@ -413,42 +413,42 @@ inline ss_size_t c_str_len_w(stlsoft_wstring_t_ const& s)
 }
 #  endif /* compiler */
 
-/** \brief \ref group__concept__shim__string_access__c_str_len function
+/** \ref group__concept__Shim__string_access__c_str_len function
  *    for specialisations of <code>std::basic_string</code> with
  *    <code>char</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return Length (in bytes) of the string <code>s</code>.
  */
 template<   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline ss_size_t c_str_len_a(stlsoft_ns_qual_std(basic_string)<ss_char_a_t, T, A> const& s)
+inline ss_size_t c_str_len_a(STLSOFT_NS_QUAL_STD(basic_string)<ss_char_a_t, T, A> const& s)
 {
     return s.length();
 }
 
-/** \brief \ref group__concept__shim__string_access__c_str_len function
+/** \ref group__concept__Shim__string_access__c_str_len function
  *    for specialisations of <code>std::basic_string</code> with
  *    <code>wchar_t</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return Length (in characters) of the string <code>s</code>.
  */
 template<   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline ss_size_t c_str_len_w(stlsoft_ns_qual_std(basic_string)<ss_char_w_t, T, A> const& s)
+inline ss_size_t c_str_len_w(STLSOFT_NS_QUAL_STD(basic_string)<ss_char_w_t, T, A> const& s)
 {
     return s.length();
 }
 
-/** \brief \ref group__concept__shim__string_access__c_str_len function
+/** \ref group__concept__Shim__string_access__c_str_len function
  *    for arbitrary specialisations of <code>std::basic_string</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return Length of the string <code>s</code>.
  */
@@ -456,7 +456,7 @@ template<   ss_typename_param_k C
         ,   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline ss_size_t c_str_len(stlsoft_ns_qual_std(basic_string)<C, T, A> const& s)
+inline ss_size_t c_str_len(STLSOFT_NS_QUAL_STD(basic_string)<C, T, A> const& s)
 {
     return s.length();
 }
@@ -521,25 +521,25 @@ inline ss_char_w_t const* c_str_ptr(wstring const& s)
 }
 
 # else /* ? compiler */
-/** \brief \ref group__concept__shim__string_access__c_str_ptr function
+/** \ref group__concept__Shim__string_access__c_str_ptr function
  *    for <code>std::string</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return None-NULL, non-mutating pointer to a nul-terminated C-style
  *   string of <code>char</code>.
  */
-inline ss_char_a_t const* c_str_ptr_a(stlsoft_ns_qual_std(string) const& s)
+inline ss_char_a_t const* c_str_ptr_a(STLSOFT_NS_QUAL_STD(string) const& s)
 {
     return s.c_str();
 }
 
 #  if !defined(STLSOFT_COMPILER_IS_GCC) || \
       !(__GNUC__ < 3)
-/** \brief \ref group__concept__shim__string_access__c_str_ptr function
+/** \ref group__concept__Shim__string_access__c_str_ptr function
  *    for <code>std::wstring</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return None-NULL, non-mutating pointer to a nul-terminated C-style
  *   string of <code>wchar_t</code>.
@@ -550,11 +550,11 @@ inline ss_char_w_t const* c_str_ptr_w(stlsoft_wstring_t_ const& s)
 }
 #  endif /* compiler */
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr function
+/** \ref group__concept__Shim__string_access__c_str_ptr function
  *    for specialisations of <code>std::basic_string</code> with
  *    <code>char</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return None-NULL, non-mutating pointer to a nul-terminated C-style
  *   string of <code>char</code>.
@@ -562,16 +562,16 @@ inline ss_char_w_t const* c_str_ptr_w(stlsoft_wstring_t_ const& s)
 template<   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline ss_char_a_t const* c_str_ptr_a(stlsoft_ns_qual_std(basic_string)<ss_char_a_t, T, A> const& s)
+inline ss_char_a_t const* c_str_ptr_a(STLSOFT_NS_QUAL_STD(basic_string)<ss_char_a_t, T, A> const& s)
 {
     return s.c_str();
 }
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr function
+/** \ref group__concept__Shim__string_access__c_str_ptr function
  *    for specialisations of <code>std::basic_string</code> with
  *    <code>wchar_t</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return None-NULL, non-mutating pointer to a nul-terminated C-style
  *   string of <code>wchar_t</code>.
@@ -579,15 +579,15 @@ inline ss_char_a_t const* c_str_ptr_a(stlsoft_ns_qual_std(basic_string)<ss_char_
 template<   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline ss_char_w_t const* c_str_ptr_w(stlsoft_ns_qual_std(basic_string)<ss_char_w_t, T, A> const& s)
+inline ss_char_w_t const* c_str_ptr_w(STLSOFT_NS_QUAL_STD(basic_string)<ss_char_w_t, T, A> const& s)
 {
     return s.c_str();
 }
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr function
+/** \ref group__concept__Shim__string_access__c_str_ptr function
  *    for arbitrary specialisations of <code>std::basic_string</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return None-NULL, non-mutating pointer to a nul-terminated C-style
  *   string.
@@ -596,7 +596,7 @@ template<   ss_typename_param_k C
         ,   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline C const* c_str_ptr(stlsoft_ns_qual_std(basic_string)<C, T, A> const& s)
+inline C const* c_str_ptr(STLSOFT_NS_QUAL_STD(basic_string)<C, T, A> const& s)
 {
     return s.c_str();
 }
@@ -661,25 +661,25 @@ inline ss_char_w_t const* c_str_ptr_null(wstring const& s)
 }
 
 # else /* ? compiler */
-/** \brief \ref group__concept__shim__string_access__c_str_ptr_null function
+/** \ref group__concept__Shim__string_access__c_str_ptr_null function
  *    for <code>std::string</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
  *   string of <code>char</code>.
  */
-inline ss_char_a_t const* c_str_ptr_null_a(stlsoft_ns_qual_std(string) const& s)
+inline ss_char_a_t const* c_str_ptr_null_a(STLSOFT_NS_QUAL_STD(string) const& s)
 {
     return (0 == s.length()) ? 0 : s.c_str();
 }
 
 #  if !defined(STLSOFT_COMPILER_IS_GCC) || \
       !(__GNUC__ < 3)
-/** \brief \ref group__concept__shim__string_access__c_str_ptr_null function
+/** \ref group__concept__Shim__string_access__c_str_ptr_null function
  *    for <code>std::wstring</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
  *   string of <code>wchar_t</code>.
@@ -690,11 +690,11 @@ inline ss_char_w_t const* c_str_ptr_null_w(stlsoft_wstring_t_ const& s)
 }
 #  endif /* compiler */
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr_null function
+/** \ref group__concept__Shim__string_access__c_str_ptr_null function
  *    for specialisations of <code>std::basic_string</code> with
  *    <code>char</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
  *   string of <code>char</code>.
@@ -702,16 +702,16 @@ inline ss_char_w_t const* c_str_ptr_null_w(stlsoft_wstring_t_ const& s)
 template<   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline ss_char_a_t const* c_str_ptr_null_a(stlsoft_ns_qual_std(basic_string)<ss_char_a_t, T, A> const& s)
+inline ss_char_a_t const* c_str_ptr_null_a(STLSOFT_NS_QUAL_STD(basic_string)<ss_char_a_t, T, A> const& s)
 {
     return (0 == s.length()) ? 0 : s.c_str();
 }
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr_null function
+/** \ref group__concept__Shim__string_access__c_str_ptr_null function
  *    for specialisations of <code>std::basic_string</code> with
  *    <code>wchar_t</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
  *   string of <code>wchar_t</code>.
@@ -719,15 +719,15 @@ inline ss_char_a_t const* c_str_ptr_null_a(stlsoft_ns_qual_std(basic_string)<ss_
 template<   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline ss_char_w_t const* c_str_ptr_null_w(stlsoft_ns_qual_std(basic_string)<ss_char_w_t, T, A> const& s)
+inline ss_char_w_t const* c_str_ptr_null_w(STLSOFT_NS_QUAL_STD(basic_string)<ss_char_w_t, T, A> const& s)
 {
     return (0 == s.length()) ? 0 : s.c_str();
 }
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr_null function
+/** \ref group__concept__Shim__string_access__c_str_ptr_null function
  *    for arbitrary specialisations of <code>std::basic_string</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
  *   string.
@@ -736,7 +736,7 @@ template<   ss_typename_param_k C
         ,   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline C const* c_str_ptr_null(stlsoft_ns_qual_std(basic_string)<C, T, A> const& s)
+inline C const* c_str_ptr_null(STLSOFT_NS_QUAL_STD(basic_string)<C, T, A> const& s)
 {
     return (0 == s.length()) ? 0 : s.c_str();
 }
@@ -770,44 +770,43 @@ inline C const* c_str_ptr_null(stlport::basic_string<C> const& s)
 #endif /* _STLP_USE_NAMESPACES && _STLP_USE_OWN_NAMESPACE */
 
 #if 0
-/** \brief Function template that provide generic implementations of
+/** Function template that provide generic implementations of
  *   c_str_ptr_null_a for any type for which c_str_ptr_a is defined.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 template <ss_typename_param_k S>
 inline ss_char_a_t const* c_str_ptr_null_a(S const& s)
 {
-    return stlsoft_ns_qual(c_str_ptr_null_a)(static_cast<ss_char_a_t const*>(stlsoft_ns_qual(c_str_ptr_a)(s))));
+    return STLSOFT_NS_QUAL(c_str_ptr_null_a)(static_cast<ss_char_a_t const*>(STLSOFT_NS_QUAL(c_str_ptr_a)(s))));
 }
-/** \brief Function template that provide generic implementations of
+/** Function template that provide generic implementations of
  *   c_str_ptr_null_w for any type for which c_str_ptr_w is defined.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 template <ss_typename_param_k S>
 inline ss_char_w_t const* c_str_ptr_null_w(S const& s)
 {
-    return stlsoft_ns_qual(c_str_ptr_null_w)(static_cast<ss_char_w_t const*>(stlsoft_ns_qual(c_str_ptr_w)(s))));
+    return STLSOFT_NS_QUAL(c_str_ptr_null_w)(static_cast<ss_char_w_t const*>(STLSOFT_NS_QUAL(c_str_ptr_w)(s))));
 }
 #endif /* 0 */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/basic_string_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_BASIC_STRING */
 

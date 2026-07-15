@@ -4,46 +4,48 @@
  * Purpose:     Adaptor classes for creating COM collection instances.
  *
  * Created:     16th April 1999
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1999-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file atlstl/automation/automation_collections.hpp
- * \brief [C++ only; requires ATL library] Definition of the
+ * \brief [C++; requires ATL library] Definition of the
  *  atlstl::generic_automation_collection class template, with which
  *  COM Collections may be readily defined
- *   (\ref group__library__com_automation "COM Automation" Library).
+ *   (\ref group__library__COM_Automation "COM Automation" Library).
  */
 
 #ifndef ATLSTL_INCL_ATLSTL_AUTOMATION_HPP_AUTOMATION_COLLECTIONS
@@ -52,27 +54,20 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_AUTOMATION_COLLECTIONS_MAJOR     3
 # define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_AUTOMATION_COLLECTIONS_MINOR     2
-# define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_AUTOMATION_COLLECTIONS_REVISION  3
-# define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_AUTOMATION_COLLECTIONS_EDIT      110
+# define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_AUTOMATION_COLLECTIONS_REVISION  7
+# define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_AUTOMATION_COLLECTIONS_EDIT      122
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_DMC:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef ATLSTL_INCL_ATLSTL_HPP_ATLSTL
 # include <atlstl/atlstl.hpp>
 #endif /* !ATLSTL_INCL_ATLSTL_HPP_ATLSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #ifndef STLSOFT_INCL_SYS_H_ATLCOM
 # define STLSOFT_INCL_SYS_H_ATLCOM
@@ -80,29 +75,26 @@ STLSOFT_COMPILER_IS_DMC:
 #endif /* !STLSOFT_INCL_SYS_H_ATLCOM */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _ATLSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef ATLSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::atlstl */
 namespace atlstl
 {
 # else
 /* Define stlsoft::atlstl_project */
-
 namespace stlsoft
 {
-
 namespace atlstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_ATLSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !ATLSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 // [[synesis:class:collection: atlstl::generic_collection_base<T<D>, T<ThreadModel>, T<I>, int>]]
@@ -149,11 +141,11 @@ protected:
     }
     STDMETHOD(GetTypeInfo)(UINT iTInfo, LCID /* lcid */, ITypeInfo** ppTInfo)
     {
-        if(0 != iTInfo)
+        if (0 != iTInfo)
         {
             return DISP_E_BADINDEX;
         }
-        else if(NULL == ppTInfo)
+        else if (NULL == ppTInfo)
         {
             return E_POINTER;
         }
@@ -170,14 +162,14 @@ protected:
                             ,   LCID        /* lcid */
                             ,   DISPID*     rgDispId)
     {
-        if(1 == cNames)
+        if (1 == cNames)
         {
-            if(0 == ::wcscmp(rgszNames[0], L"Count"))
+            if (0 == ::wcscmp(rgszNames[0], L"Count"))
             {
                 derived_class_type* pThis   =   static_cast<derived_class_type*>(this);
                 HRESULT             hr      =   pThis->SupportsCount();
 
-                if(S_OK == hr)
+                if (S_OK == hr)
                 {
                     rgDispId[0] = DispidCount;
 
@@ -197,11 +189,11 @@ protected:
                     ,   EXCEPINFO*  /* pExcepInfo */
                     ,   UINT*       /* puArgErr */)
     {
-        if(DISPID_NEWENUM == dispidMember)
+        if (DISPID_NEWENUM == dispidMember)
         {
             derived_class_type* pThis = static_cast<derived_class_type*>(this);
 
-            if(0 != pDispParams->cArgs)
+            if (0 != pDispParams->cArgs)
             {
                 return DISP_E_BADPARAMCOUNT;
             }
@@ -215,7 +207,7 @@ protected:
 //              hr  =   (pThis->*pfn)(&punkEnumerator);
                 hr  =   pThis->get__NewEnum(&punkEnumerator);
 
-                if(SUCCEEDED(hr))
+                if (SUCCEEDED(hr))
                 {
                     pVarResult->vt      =   VT_UNKNOWN;
                     pVarResult->punkVal =   punkEnumerator;
@@ -224,7 +216,7 @@ protected:
                 return hr;
             }
         }
-        else if(DispidCount == dispidMember)
+        else if (DispidCount == dispidMember)
         {
             derived_class_type* pThis = static_cast<derived_class_type*>(this);
             HRESULT             hr;
@@ -233,7 +225,7 @@ protected:
 
             hr  =   pThis->get_Count(&pVarResult->lVal);
 
-            if(SUCCEEDED(hr))
+            if (SUCCEEDED(hr))
             {
                 pVarResult->vt = VT_I4;
             }
@@ -259,7 +251,7 @@ inline LPUNKNOWN get_clone(I1* instance, HRESULT (STDAPICALLTYPE I3::*pfn)(I2**)
 
     hr = (instance->*pfn)(&clone);
 
-    if(FAILED(hr))
+    if (FAILED(hr))
     {
         clone = NULL;
     }
@@ -295,7 +287,7 @@ public:
         ATLSTL_ASSERT(NULL == m_enumerator);
 
         m_enumerator = enumerator;
-        if(bAddRef)
+        if (bAddRef)
         {
             m_enumerator->AddRef();
         }
@@ -378,7 +370,7 @@ public:
     {
         ATLSTL_ASSERT(NULL != pVal);
 
-        if(sentinel_NoCount_() == m_count)
+        if (sentinel_NoCount_() == m_count)
         {
             return E_UNEXPECTED;
         }
@@ -408,26 +400,25 @@ private:
 /// @}
 };
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/automation_collections_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _ATLSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef ATLSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace atlstl
+} /* namespace atlstl */
 # else
-} // namespace atlstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_ATLSTL_NO_NAMESPACE */
+} /* namespace atlstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !ATLSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !ATLSTL_INCL_ATLSTL_AUTOMATION_HPP_AUTOMATION_COLLECTIONS */
 

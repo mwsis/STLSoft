@@ -4,37 +4,39 @@
  * Purpose:     Functionals for application to controls.
  *
  * Created:     8th October 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -42,7 +44,7 @@
 /** \file winstl/controls/functionals.hpp
  *
  * \brief [C++] Functionals for application to controls
- *   (\ref group__library__windows_controls "Windows Controls" Library).
+ *   (\ref group__library__Windows_Control "Windows Control" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_CONTROL_HPP_FUNCTIONALS
@@ -51,29 +53,20 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_CONTROL_HPP_FUNCTIONALS_MAJOR    4
 # define WINSTL_VER_WINSTL_CONTROL_HPP_FUNCTIONALS_MINOR    2
-# define WINSTL_VER_WINSTL_CONTROL_HPP_FUNCTIONALS_REVISION 1
-# define WINSTL_VER_WINSTL_CONTROL_HPP_FUNCTIONALS_EDIT     79
+# define WINSTL_VER_WINSTL_CONTROL_HPP_FUNCTIONALS_REVISION 9
+# define WINSTL_VER_WINSTL_CONTROL_HPP_FUNCTIONALS_EDIT     94
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_DMC:    __DMC__<0x0850
-STLSOFT_COMPILER_IS_GCC:  __GNUC__<3
-STLSOFT_COMPILER_IS_MSVC: _MSC_VER<1100
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #if defined(STLSOFT_COMPILER_IS_GCC) && \
     __GNUC__ < 3
@@ -106,6 +99,14 @@ STLSOFT_COMPILER_IS_MSVC: _MSC_VER<1100
 # include <winstl/system/system_traits.hpp>
 #endif /* !WINSTL_INCL_WINSTL_SYSTEM_HPP_SYSTEM_TRAITS */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
+# include <stlsoft/api/internal/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
+
 #ifndef _WINSTL_CONTROL_FUNCTIONALS_NO_STD
 # include <functional>
 #else /* ? _WINSTL_CONTROL_FUNCTIONALS_NO_STD */
@@ -113,29 +114,26 @@ STLSOFT_COMPILER_IS_MSVC: _MSC_VER<1100
 #endif /* _WINSTL_CONTROL_FUNCTIONALS_NO_STD */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Workarounds
+ * workarounds
  */
 
 #if defined(STLSOFT_COMPILER_IS_DMC)
@@ -143,16 +141,16 @@ namespace winstl_project
 #endif /* STLSOFT_COMPILER_IS_DMC */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Functor used to (un)check buttons
+/** Functor used to (un)check buttons
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  */
 // [[synesis:class:unary-functor: button_check]]
 class button_check
-    : public stlsoft_ns_qual_std(unary_function)<HWND, void>
+    : public STLSOFT_NS_QUAL_STD(unary_function)<HWND, void>
 {
 public:
     /// This type
@@ -173,7 +171,7 @@ public:
     template <ss_typename_param_k W>
     void operator ()(W &wnd) const
     {
-        check_(winstl_ns_qual(get_HWND)(wnd), m_nCheck);
+        check_(WINSTL_NS_QUAL(get_HWND)(wnd), m_nCheck);
     }
 private:
     static void check_(HWND hwnd, int nCheck)
@@ -189,13 +187,13 @@ private:
 };
 
 
-/** \brief Predicate used to indicate the check-state of buttons
+/** Predicate used to indicate the check-state of buttons
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  */
 // [[synesis:class:unary-predicate: is_checked]]
 class is_checked
-    : public stlsoft_ns_qual_std(unary_function)<HWND, BOOL>
+    : public STLSOFT_NS_QUAL_STD(unary_function)<HWND, BOOL>
 {
 public:
     /// This type
@@ -216,14 +214,14 @@ public:
     template <ss_typename_param_k W>
     BOOL operator ()(W &wnd) const
     {
-        return is_checked_(winstl_ns_qual(get_HWND)(wnd));
+        return is_checked_(WINSTL_NS_QUAL(get_HWND)(wnd));
     }
 private:
     BOOL is_checked_(HWND hwnd) const
     {
         int nCheck  =   static_cast<int>(::SendMessage(hwnd, BM_GETCHECK, 0, 0L));
 
-        if(-1 == m_nCheckType)
+        if (-1 == m_nCheckType)
         {
             return nCheck;
         }
@@ -241,13 +239,13 @@ private:
 };
 
 
-/** \brief Predicate used to detect whether the window is of a given class
+/** Predicate used to detect whether the window is of a given class
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  */
 // [[synesis:class:unary-predicate: is_class]]
 class is_class
-    : public stlsoft_ns_qual_std(unary_function)<HWND, BOOL>
+    : public STLSOFT_NS_QUAL_STD(unary_function)<HWND, BOOL>
 {
 public:
     /// This type
@@ -265,7 +263,7 @@ public:
 
         WINSTL_ASSERT(cchClass < STLSOFT_NUM_ELEMENTS(m_name.sza));
 
-        ::memcpy(&m_name.sza[0], windowClass, cchClass);
+        STLSOFT_API_INTERNAL_memfns_memcpy(&m_name.sza[0], windowClass, cchClass);
         m_name.sza[cchClass] = '\0';
     }
     ss_explicit_k is_class(ws_char_w_t const* windowClass)
@@ -279,7 +277,7 @@ public:
 
         WINSTL_ASSERT(cchClass < STLSOFT_NUM_ELEMENTS(m_name.szw));
 
-        ::memcpy(&m_name.szw[0], windowClass, cchClass);
+        STLSOFT_API_INTERNAL_memfns_memcpy(&m_name.szw[0], windowClass, cchClass);
         m_name.szw[cchClass] = '\0';
     }
 
@@ -291,7 +289,7 @@ public:
     template <ss_typename_param_k W>
     BOOL operator ()(W &wnd) const
     {
-        return is_class_(winstl_ns_qual(get_HWND)(wnd));
+        return is_class_(WINSTL_NS_QUAL(get_HWND)(wnd));
     }
 private:
     BOOL is_class_(HWND hwnd) const
@@ -303,14 +301,14 @@ private:
         ws_char_w_t szw[256];
 
         return  ::GetClassNameW(hwnd, &szw[0], STLSOFT_NUM_ELEMENTS(szw)) &&
-                0 == ::lstrcmpiW(&szw[0], &m_name.szw[0]);
+                0 == STLSOFT_API_EXTERNAL_string_wcsicmp(&szw[0], &m_name.szw[0]);
     }
     BOOL is_class_a_(HWND hwnd) const
     {
         ws_char_a_t sza[256];
 
         return  ::GetClassNameA(hwnd, &sza[0], STLSOFT_NUM_ELEMENTS(sza)) &&
-                0 == ::lstrcmpiA(&sza[0], &m_name.sza[0]);
+                0 == STLSOFT_API_EXTERNAL_string_stricmp(&sza[0], &m_name.sza[0]);
     }
 
 private:
@@ -326,15 +324,15 @@ private:
     class_type& operator =(class_type const&);
 };
 
-/** \brief A function class used to insert items at the front of list-box
+/** A function class used to insert items at the front of list-box
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  */
 // [[synesis:class:unary-functor: listbox_front_inserter]]
 struct listbox_front_inserter
 #if !defined(STLSOFT_COMPILER_IS_DMC) || \
         __DMC__ > 0x0850
-    : public stlsoft_ns_qual(unary_function_output_iterator_adaptor)<listbox_front_inserter>
+    : public STLSOFT_NS_QUAL(unary_function_output_iterator_adaptor)<listbox_front_inserter>
 #endif /* compiler */
 {
 public:
@@ -358,7 +356,7 @@ public:
     template <ss_typename_param_k S>
     void operator ()(S const& s)
     {
-        insert(stlsoft_ns_qual(c_str_ptr)(s));
+        insert(STLSOFT_NS_QUAL(c_str_ptr)(s));
     }
 #endif // STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT
     /// Function call operator taking the item string
@@ -376,7 +374,7 @@ public:
 private:
     void insert(ws_char_a_t const* s)
     {
-        if(m_bUnicode)
+        if (m_bUnicode)
         {
             listbox_insertstring_w(m_hwndListbox, a2w(s), 0);
         }
@@ -387,7 +385,7 @@ private:
     }
     void insert(ws_char_w_t const* s)
     {
-        if(m_bUnicode)
+        if (m_bUnicode)
         {
             listbox_insertstring_w(m_hwndListbox, s, 0);
         }
@@ -402,15 +400,15 @@ private:
     ws_int32_t  m_bUnicode;
 };
 
-/** \brief A function class used to add items to a list-box
+/** A function class used to add items to a list-box
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  */
 // [[synesis:class:unary-functor: listbox_add_inserter]]
 struct listbox_add_inserter
 #if !defined(STLSOFT_COMPILER_IS_DMC) || \
         __DMC__ > 0x0850
-    : public stlsoft_ns_qual(unary_function_output_iterator_adaptor)<listbox_add_inserter>
+    : public STLSOFT_NS_QUAL(unary_function_output_iterator_adaptor)<listbox_add_inserter>
 #endif /* compiler */
 {
 public:
@@ -434,7 +432,7 @@ public:
     template <ss_typename_param_k S>
     void operator ()(S const& s)
     {
-        add(stlsoft_ns_qual(c_str_ptr)(s));
+        add(STLSOFT_NS_QUAL(c_str_ptr)(s));
     }
 #endif // STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT
     /// Function call operator taking the item string
@@ -452,7 +450,7 @@ public:
 private:
     void add(ws_char_a_t const* s)
     {
-        if(m_bUnicode)
+        if (m_bUnicode)
         {
             listbox_addstring_w(m_hwndListbox, a2w(s));
         }
@@ -463,7 +461,7 @@ private:
     }
     void add(ws_char_w_t const* s)
     {
-        if(m_bUnicode)
+        if (m_bUnicode)
         {
             listbox_addstring_w(m_hwndListbox, s);
         }
@@ -478,15 +476,15 @@ private:
     ws_int32_t  m_bUnicode;
 };
 
-/** \brief A function class used to insert items to the back of a list-box
+/** A function class used to insert items to the back of a list-box
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  */
 // [[synesis:class:unary-functor: listbox_back_inserter]]
 struct listbox_back_inserter
 #if !defined(STLSOFT_COMPILER_IS_DMC) || \
         __DMC__ > 0x0850
-    : public stlsoft_ns_qual(unary_function_output_iterator_adaptor)<listbox_back_inserter>
+    : public STLSOFT_NS_QUAL(unary_function_output_iterator_adaptor)<listbox_back_inserter>
 #endif /* compiler */
 {
 public:
@@ -510,7 +508,7 @@ public:
     template <ss_typename_param_k S>
     void operator ()(S const& s)
     {
-        insert(stlsoft_ns_qual(c_str_ptr)(s));
+        insert(STLSOFT_NS_QUAL(c_str_ptr)(s));
     }
 #endif // STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT
     /// Function call operator taking the item string
@@ -528,7 +526,7 @@ public:
 private:
     void insert(ws_char_a_t const* s)
     {
-        if(m_bUnicode)
+        if (m_bUnicode)
         {
             listbox_insertstring_w(m_hwndListbox, a2w(s), -1);
         }
@@ -539,7 +537,7 @@ private:
     }
     void insert(ws_char_w_t const* s)
     {
-        if(m_bUnicode)
+        if (m_bUnicode)
         {
             listbox_insertstring_w(m_hwndListbox, s, -1);
         }
@@ -556,15 +554,15 @@ private:
 
 
 
-/** \brief A function class used to insert items at the front of combo-box
+/** A function class used to insert items at the front of combo-box
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  */
 // [[synesis:class:unary-functor: combobox_front_inserter]]
 struct combobox_front_inserter
 #if !defined(STLSOFT_COMPILER_IS_DMC) || \
         __DMC__ > 0x0850
-    : public stlsoft_ns_qual(unary_function_output_iterator_adaptor)<combobox_front_inserter>
+    : public STLSOFT_NS_QUAL(unary_function_output_iterator_adaptor)<combobox_front_inserter>
 #endif /* compiler */
 {
 public:
@@ -588,7 +586,7 @@ public:
     template <ss_typename_param_k S>
     void operator ()(S const& s)
     {
-        insert(stlsoft_ns_qual(c_str_ptr)(s));
+        insert(STLSOFT_NS_QUAL(c_str_ptr)(s));
     }
 #endif // STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT
     /// Function call operator taking the item string
@@ -606,7 +604,7 @@ public:
 private:
     void insert(ws_char_a_t const* s)
     {
-        if(m_bUnicode)
+        if (m_bUnicode)
         {
             combobox_insertstring_w(m_hwndListbox, a2w(s), 0);
         }
@@ -617,7 +615,7 @@ private:
     }
     void insert(ws_char_w_t const* s)
     {
-        if(m_bUnicode)
+        if (m_bUnicode)
         {
             combobox_insertstring_w(m_hwndListbox, s, 0);
         }
@@ -632,15 +630,15 @@ private:
     ws_int32_t  m_bUnicode;
 };
 
-/** \brief A function class used to add items to a combo-box
+/** A function class used to add items to a combo-box
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  */
 // [[synesis:class:unary-functor: combobox_add_inserter]]
 struct combobox_add_inserter
 #if !defined(STLSOFT_COMPILER_IS_DMC) || \
         __DMC__ > 0x0850
-    : public stlsoft_ns_qual(unary_function_output_iterator_adaptor)<combobox_add_inserter>
+    : public STLSOFT_NS_QUAL(unary_function_output_iterator_adaptor)<combobox_add_inserter>
 #endif /* compiler */
 {
 public:
@@ -664,7 +662,7 @@ public:
     template <ss_typename_param_k S>
     void operator ()(S const& s)
     {
-        add(stlsoft_ns_qual(c_str_ptr)(s));
+        add(STLSOFT_NS_QUAL(c_str_ptr)(s));
     }
 #endif // STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT
     /// Function call operator taking the item string
@@ -682,7 +680,7 @@ public:
 private:
     void add(ws_char_a_t const* s)
     {
-        if(m_bUnicode)
+        if (m_bUnicode)
         {
             combobox_addstring_w(m_hwndListbox, a2w(s));
         }
@@ -693,7 +691,7 @@ private:
     }
     void add(ws_char_w_t const* s)
     {
-        if(m_bUnicode)
+        if (m_bUnicode)
         {
             combobox_addstring_w(m_hwndListbox, s);
         }
@@ -708,15 +706,15 @@ private:
     ws_int32_t  m_bUnicode;
 };
 
-/** \brief A function class used to insert items to the back of a combo-box
+/** A function class used to insert items to the back of a combo-box
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  */
 // [[synesis:class:unary-functor: combobox_back_inserter]]
 struct combobox_back_inserter
 #if !defined(STLSOFT_COMPILER_IS_DMC) || \
         __DMC__ > 0x0850
-    : public stlsoft_ns_qual(unary_function_output_iterator_adaptor)<combobox_back_inserter>
+    : public STLSOFT_NS_QUAL(unary_function_output_iterator_adaptor)<combobox_back_inserter>
 #endif /* compiler */
 {
 public:
@@ -740,7 +738,7 @@ public:
     template <ss_typename_param_k S>
     void operator ()(S const& s)
     {
-        insert(stlsoft_ns_qual(c_str_ptr)(s));
+        insert(STLSOFT_NS_QUAL(c_str_ptr)(s));
     }
 #endif // STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT
     /// Function call operator taking the item string
@@ -758,7 +756,7 @@ public:
 private:
     void insert(ws_char_a_t const* s)
     {
-        if(m_bUnicode)
+        if (m_bUnicode)
         {
             combobox_insertstring_w(m_hwndListbox, a2w(s), -1);
         }
@@ -769,7 +767,7 @@ private:
     }
     void insert(ws_char_w_t const* s)
     {
-        if(m_bUnicode)
+        if (m_bUnicode)
         {
             combobox_insertstring_w(m_hwndListbox, s, -1);
         }
@@ -784,28 +782,27 @@ private:
     ws_int32_t  m_bUnicode;
 };
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/functionals_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_CONTROL_HPP_FUNCTIONALS */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_CONTROL_HPP_FUNCTIONALS */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

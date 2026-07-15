@@ -4,48 +4,49 @@
  * Purpose:     Shell file operations.
  *
  * Created:     12th December 1996
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks:      To Pablo Aguilar for default folder enhancements.
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1996-2019, Matthew Wilson and Synesis Software
- * Copyright (c) 2005, Pablo Aguilar
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/shell/file_operations.hpp
  *
- * \brief [C++ only] Definition of Windows Shell file operation functions
- *   (\ref group__library__windows_shell "Windows Shell" Library).
+ * \brief [C++] Definition of Windows Shell file operation functions
+ *   (\ref group__library__Windows_Shell "Windows Shell" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_SHELL_HPP_FILE_OPERATIONS
@@ -54,17 +55,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SHELL_HPP_FILE_OPERATIONS_MAJOR      2
 # define WINSTL_VER_WINSTL_SHELL_HPP_FILE_OPERATIONS_MINOR      1
-# define WINSTL_VER_WINSTL_SHELL_HPP_FILE_OPERATIONS_REVISION   5
-# define WINSTL_VER_WINSTL_SHELL_HPP_FILE_OPERATIONS_EDIT       92
+# define WINSTL_VER_WINSTL_SHELL_HPP_FILE_OPERATIONS_REVISION   9
+# define WINSTL_VER_WINSTL_SHELL_HPP_FILE_OPERATIONS_EDIT       103
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes.
+ * includes.
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef WINSTL_INCL_WINSTL_MEMORY_HPP_SHELL_ALLOCATOR
 # include <winstl/memory/shell_allocator.hpp>
 #endif /* !WINSTL_INCL_WINSTL_MEMORY_HPP_SHELL_ALLOCATOR */
@@ -75,12 +80,21 @@
 # include <winstl/winstl.h>
 #endif /* !STLSOFT_INCL_STLSOFT_HPP_AUTO_BUFFER */
 
+#ifndef STLSOFT_INCL_H_SHELLAPI
+# define STLSOFT_INCL_H_SHELLAPI
+# include <shellapi.h>
+#endif /* !STLSOFT_INCL_H_SHELLAPI */
+
+#ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
+# include <winstl/api/external/ErrorHandling.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
@@ -91,11 +105,11 @@ namespace stlsoft
 {
 namespace winstl_project
 {
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Functions
+ * functions
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -120,9 +134,9 @@ shell_delete_a_(
     ws_size_t   cch =   static_cast<ws_size_t>(::lstrlenA(from));
     buffer_t    buff(1 + cch + 1);
 
-    if(buff.empty())
+    if (buff.empty())
     {
-        ::SetLastError(ERROR_NOT_ENOUGH_MEMORY);
+        WINSTL_API_EXTERNAL_ErrorHandling_SetLastError(ERROR_NOT_ENOUGH_MEMORY);
 
         return ERROR_NOT_ENOUGH_MEMORY;
     }
@@ -147,9 +161,9 @@ shell_delete_a_(
 
         int res =   ::SHFileOperationA(&sos);
 
-        if(0 == res)
+        if (0 == res)
         {
-            if(NULL != pbAborted)
+            if (NULL != pbAborted)
             {
                 *pbAborted = (FALSE != sos.fAnyOperationsAborted);
             }
@@ -176,9 +190,9 @@ shell_delete_w_(
     ws_size_t   cch =   static_cast<ws_size_t>(::lstrlenW(from));
     buffer_t    buff(1 + cch + 1);
 
-    if(buff.empty())
+    if (buff.empty())
     {
-        ::SetLastError(ERROR_NOT_ENOUGH_MEMORY);
+        WINSTL_API_EXTERNAL_ErrorHandling_SetLastError(ERROR_NOT_ENOUGH_MEMORY);
 
         return ERROR_NOT_ENOUGH_MEMORY;
     }
@@ -203,9 +217,9 @@ shell_delete_w_(
 
         int res =   ::SHFileOperationW(&sos);
 
-        if(0 == res)
+        if (0 == res)
         {
-            if(NULL != pbAborted)
+            if (NULL != pbAborted)
             {
                 *pbAborted = (FALSE != sos.fAnyOperationsAborted);
             }
@@ -221,7 +235,7 @@ shell_delete_w_(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param from The file to delete
  *
@@ -246,7 +260,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param from The file to delete
  * \param bAborted A Boolean that will indicate whether the operation was aborted
@@ -273,7 +287,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param from The file to delete
  * \param flags One or more of the FILEOP_FLAGS values.
@@ -302,7 +316,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param from The file to delete
  * \param flags One or more of the FILEOP_FLAGS values.
@@ -333,7 +347,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param from The file to delete
  * \param progressTitle String to be displayed describing the operation
@@ -362,7 +376,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param from The file to delete
  * \param progressTitle String to be displayed describing the operation
@@ -393,7 +407,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param from The file to delete
  * \param progressTitle String to be displayed describing the operation
@@ -424,7 +438,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param from The file to delete
  * \param progressTitle String to be displayed describing the operation
@@ -457,7 +471,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param hwnd Handle to the window that will act as the parent to any dialogs displayed
  * \param from The file to delete
@@ -484,7 +498,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param hwnd Handle to the window that will act as the parent to any dialogs displayed
  * \param from The file to delete
@@ -513,7 +527,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param hwnd Handle to the window that will act as the parent to any dialogs displayed
  * \param from The file to delete
@@ -544,7 +558,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param hwnd Handle to the window that will act as the parent to any dialogs displayed
  * \param from The file to delete
@@ -577,7 +591,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param hwnd Handle to the window that will act as the parent to any dialogs displayed
  * \param from The file to delete
@@ -608,7 +622,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param hwnd Handle to the window that will act as the parent to any dialogs displayed
  * \param from The file to delete
@@ -641,7 +655,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param hwnd Handle to the window that will act as the parent to any dialogs displayed
  * \param from The file to delete
@@ -674,7 +688,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param hwnd Handle to the window that will act as the parent to any dialogs displayed
  * \param from The file to delete
@@ -711,7 +725,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param from The file to delete
  *
@@ -736,7 +750,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param from The file to delete
  * \param bAborted A Boolean that will indicate whether the operation was aborted
@@ -763,7 +777,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param from The file to delete
  * \param flags One or more of the FILEOP_FLAGS values.
@@ -792,7 +806,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param from The file to delete
  * \param flags One or more of the FILEOP_FLAGS values.
@@ -823,7 +837,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param from The file to delete
  * \param progressTitle String to be displayed describing the operation
@@ -852,7 +866,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param from The file to delete
  * \param progressTitle String to be displayed describing the operation
@@ -883,7 +897,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param from The file to delete
  * \param progressTitle String to be displayed describing the operation
@@ -914,7 +928,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param from The file to delete
  * \param progressTitle String to be displayed describing the operation
@@ -947,7 +961,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param hwnd Handle to the window that will act as the parent to any dialogs displayed
  * \param from The file to delete
@@ -974,7 +988,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param hwnd Handle to the window that will act as the parent to any dialogs displayed
  * \param from The file to delete
@@ -1003,7 +1017,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param hwnd Handle to the window that will act as the parent to any dialogs displayed
  * \param from The file to delete
@@ -1034,7 +1048,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param hwnd Handle to the window that will act as the parent to any dialogs displayed
  * \param from The file to delete
@@ -1067,7 +1081,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param hwnd Handle to the window that will act as the parent to any dialogs displayed
  * \param from The file to delete
@@ -1098,7 +1112,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param hwnd Handle to the window that will act as the parent to any dialogs displayed
  * \param from The file to delete
@@ -1131,7 +1145,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param hwnd Handle to the window that will act as the parent to any dialogs displayed
  * \param from The file to delete
@@ -1164,7 +1178,7 @@ shell_delete(
 
 /** Requests the shell to delete the given file
  *
- * \ingroup group__library__windows_shell
+ * \ingroup group__library__Windows_Shell
  *
  * \param hwnd Handle to the window that will act as the parent to any dialogs displayed
  * \param from The file to delete
@@ -1199,19 +1213,25 @@ shell_delete(
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 } /* namespace winstl */
 # else
 } /* namespace winstl_project */
 } /* namespace stlsoft */
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_SHELL_HPP_FILE_OPERATIONS */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_SHELL_HPP_FILE_OPERATIONS */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

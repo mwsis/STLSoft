@@ -4,48 +4,50 @@
  * Purpose:     Enumerator classes.
  *
  * Created:     11th November 1998
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1998-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file atlstl/automation/enumerators.hpp
- * \brief [C++ only; requires ATL library] Definition of the
+ * \brief [C++; requires ATL library] Definition of the
  *  atlstl::copy_enumerator class template (and its supporting components),
  *  which provides a copying alternative to the stock <code>CComEnum</code>
  *  ATL component that may be initialised from any range and whose contents
  *  may be modified subsequent to initialisation
- *   (\ref group__library__com_automation "COM Automation" Library).
+ *   (\ref group__library__COM_Automation "COM Automation" Library).
  */
 
 #ifndef ATLSTL_INCL_ATLSTL_AUTOMATION_HPP_ENUMERATORS
@@ -54,8 +56,8 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_ENUMERATORS_MAJOR    4
 # define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_ENUMERATORS_MINOR    0
-# define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_ENUMERATORS_REVISION 6
-# define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_ENUMERATORS_EDIT     69
+# define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_ENUMERATORS_REVISION 9
+# define ATLSTL_VER_ATLSTL_AUTOMATION_HPP_ENUMERATORS_EDIT     81
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 ////////////////////////////////////////////////////////////////////////////
@@ -64,6 +66,10 @@
 #ifndef ATLSTL_INCL_ATLSTL_HPP_ATLSTL
 # include <atlstl/atlstl.hpp>
 #endif /* !ATLSTL_INCL_ATLSTL_HPP_ATLSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_SMARTPTR_HPP_REF_PTR
 # include <stlsoft/smartptr/ref_ptr.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SMARTPTR_HPP_REF_PTR */
@@ -85,29 +91,26 @@
 #endif /* !STLSOFT_INCL_LIST */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _ATLSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef ATLSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::atlstl */
 namespace atlstl
 {
 # else
 /* Define stlsoft::atlstl_project */
-
 namespace stlsoft
 {
-
 namespace atlstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_ATLSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !ATLSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 /** A policy that indicates that values should be copied between internal
@@ -150,9 +153,9 @@ public:
 // Classes
 
 
-/** \brief Modifiable, copying enumerator class template
+/** Modifiable, copying enumerator class template
  *
- * \ingroup group__library__com_automation
+ * \ingroup group__library__COM_Automation
  *
  * copy_enumerator_impl is the analogue to CComEnumImpl, but the advantages
  * over the ATL class is that it can be added to/removed from after
@@ -208,7 +211,7 @@ public:
     typedef ss_size_t                                       size_type;
     typedef ss_ptrdiff_t                                    difference_type;
 private:
-    typedef stlsoft_ns_qual_std(list)<internal_value_type>  values_type;
+    typedef STLSOFT_NS_QUAL_STD(list)<internal_value_type>  values_type;
 public:
     typedef ss_typename_type_k values_type::iterator        iterator;
     typedef ss_typename_type_k values_type::const_iterator  const_iterator;
@@ -242,7 +245,7 @@ public:
 # endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
             m_values.clear();
 
-            for(; begin != end; ++begin)
+            for (; begin != end; ++begin)
             {
                 m_values.push_back(fn(*begin));
             }
@@ -271,7 +274,7 @@ public:
 # endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
             m_values.clear();
 
-            for(; begin != end; ++begin)
+            for (; begin != end; ++begin)
             {
                 m_values.push_back(*begin);
             }
@@ -313,7 +316,7 @@ private:
         T               begin   =   b;
         T               end     =   e;
 
-        for(; begin != end; ++begin)
+        for (; begin != end; ++begin)
         {
             ++d;
         }
@@ -324,7 +327,7 @@ private:
     template <typename T>
     static T increment_by(T it, difference_type by)
     {
-        for(; by-- > 0; )
+        for (; by-- > 0; )
         {
             ++it;
         }
@@ -431,7 +434,7 @@ inline STDMETHODIMP copy_enumerator_impl<I, piid, V, IV, I2ETx>::Next(ULONG celt
 {
     HRESULT hr;
 
-    if( rgelt == NULL ||
+    if (rgelt == NULL ||
         (   celt != 1 &&
             pceltFetched == NULL))
     {
@@ -441,31 +444,31 @@ inline STDMETHODIMP copy_enumerator_impl<I, piid, V, IV, I2ETx>::Next(ULONG celt
     {
         ULONG   celtFetched_;
 
-        if(NULL == pceltFetched)
+        if (NULL == pceltFetched)
         {
             pceltFetched = &celtFetched_;
         }
 
-        { for(*pceltFetched = 0, hr = S_OK; /* SUCCEEDED(hr) && */ celt > 0 && m_current != m_values.end(); --celt, ++m_current, ++rgelt, ++*pceltFetched)
+        { for (*pceltFetched = 0, hr = S_OK; /* SUCCEEDED(hr) && */ celt > 0 && m_current != m_values.end(); --celt, ++m_current, ++rgelt, ++*pceltFetched)
         {
             internal_to_external_transformer_type::init(rgelt);
             hr = internal_to_external_transformer_type::copy(rgelt, *m_current);
 
-            if(FAILED(hr))
+            if (FAILED(hr))
             {
                 break;
             }
         }}
 
-        if(FAILED(hr))
+        if (FAILED(hr))
         {
-            for(; 0 != *pceltFetched; --*pceltFetched)
+            for (; 0 != *pceltFetched; --*pceltFetched)
             {
                 internal_to_external_transformer_type::clear(--rgelt);
             }
         }
 
-        if(SUCCEEDED(hr))
+        if (SUCCEEDED(hr))
         {
             hr = (0 == celt) ? S_OK : S_FALSE;
         }
@@ -482,7 +485,7 @@ template<   ss_typename_param_k I
         >
 inline STDMETHODIMP copy_enumerator_impl<I, piid, V, IV, I2ETx>::Skip(ULONG celt)
 {
-    { for(; celt > 0 && m_current == m_values.end(); --celt, ++m_current)
+    { for (; celt > 0 && m_current == m_values.end(); --celt, ++m_current)
     {
     }}
 
@@ -514,7 +517,7 @@ inline STDMETHODIMP copy_enumerator_impl<I, piid, V, IV, I2ETx>::Clone(I** ppEnu
     try
     {
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
-        if(NULL == ppEnum)
+        if (NULL == ppEnum)
         {
             return E_POINTER;
         }
@@ -526,7 +529,7 @@ inline STDMETHODIMP copy_enumerator_impl<I, piid, V, IV, I2ETx>::Clone(I** ppEnu
             class_type  *pThis  =   this;
             class_type  *p      =   pThis->CreateEmptyClone();
 
-            if(p == NULL)
+            if (p == NULL)
             {
                 hr = E_OUTOFMEMORY;
             }
@@ -536,7 +539,7 @@ inline STDMETHODIMP copy_enumerator_impl<I, piid, V, IV, I2ETx>::Clone(I** ppEnu
 
                 hr = p->Init(this->begin(), this->end());
 
-                if(SUCCEEDED(hr))
+                if (SUCCEEDED(hr))
                 {
                     const_iterator  begin   =   this->m_values.begin();
                     const_iterator  current =   this->m_current;
@@ -621,19 +624,25 @@ inline ss_typename_type_ret_k copy_enumerator_impl<I, piid, V, IV, I2ETx>::itera
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _ATLSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef ATLSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace atlstl
+} /* namespace atlstl */
 # else
-} // namespace atlstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_ATLSTL_NO_NAMESPACE */
+} /* namespace atlstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !ATLSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* ATLSTL_INCL_ATLSTL_AUTOMATION_HPP_ENUMERATORS */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !ATLSTL_INCL_ATLSTL_AUTOMATION_HPP_ENUMERATORS */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

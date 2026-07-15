@@ -14,46 +14,48 @@
  *              basic_reg_value_sequence).
  *
  * Created:     19th January 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/registry/reg_value_sequence.hpp
  *
- * \brief [C++ only] Definition of the winstl::basic_reg_value_sequence
+ * \brief [C++] Definition of the winstl::basic_reg_value_sequence
  *   class template
- *   (\ref group__library__windows_registry "Windows Registry" Library).
+ *   (\ref group__library__Windows_Registry "Windows Registry" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_REGISTRY_HPP_REG_VALUE_SEQUENCE
@@ -62,17 +64,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_SEQUENCE_MAJOR    3
 # define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_SEQUENCE_MINOR    7
-# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_SEQUENCE_REVISION 4
-# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_SEQUENCE_EDIT     128
+# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_SEQUENCE_REVISION 12
+# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_VALUE_SEQUENCE_EDIT     146
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef WINSTL_INCL_WINSTL_REGISTRY_HPP_REGFWD
 # include <winstl/registry/regfwd.hpp>
 #endif /* !WINSTL_INCL_WINSTL_REGISTRY_HPP_REGFWD */
@@ -107,34 +113,38 @@
 # include <stlsoft/smartptr/scoped_handle.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SMARTPTR_HPP_SCOPED_HANDLE */
 
+#ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
+# include <winstl/api/external/ErrorHandling.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
+#ifndef WINSTL_INCL_WINSTL_API_external_h_Registry
+# include <winstl/api/external/Registry.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_Registry */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 // class basic_reg_value_sequence
-/** \brief Presents an STL-like sequence interface over the values of a given registry key
+/** Presents an STL-like sequence interface over the values of a given registry key
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  *
  * \param C The character type
  * \param T The traits type. On translators that support default template arguments this defaults to reg_traits<C>
@@ -150,36 +160,36 @@ template<   ss_typename_param_k C
 #endif /* STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
         >
 class basic_reg_value_sequence
-    : public stlsoft_ns_qual(stl_collection_tag)
+    : public STLSOFT_NS_QUAL(stl_collection_tag)
 {
 /// \name Member Types
 /// @{
 public:
-    /// \brief The character type
+    /// The character type
     typedef C                                                                   char_type;
-    /// \brief The traits type
+    /// The traits type
     typedef T                                                                   traits_type;
-    /// \brief The allocator type
+    /// The allocator type
     typedef A                                                                   allocator_type;
-    /// \brief The current parameterisation of the type
+    /// The current specialisation of the type
     typedef basic_reg_value_sequence<C, T, A>                                   class_type;
-    /// \brief The value type
+    /// The value type
     typedef basic_reg_value<C, T, A>                                            value_type;
-    /// \brief The size type
+    /// The size type
     typedef ss_typename_type_k traits_type::size_type                           size_type;
-    /// \brief The get key type
+    /// The get key type
     typedef basic_reg_key<C, T, A>                                              reg_key_type;
-    /// \brief The non-mutating (const) iterator type
+    /// The non-mutating (const) iterator type
     typedef basic_reg_value_sequence_iterator<C, T, value_type, A>              iterator;
-    /// \brief The non-mutating (const) iterator type
+    /// The non-mutating (const) iterator type
     ///
     /// \note This is retained for backwards compatibility
     typedef iterator                                                            const_iterator;
-    /// \brief The reference type
+    /// The reference type
     typedef value_type&                                                         reference;
-    /// \brief The non-mutable (const) reference type
+    /// The non-mutable (const) reference type
     typedef value_type const&                                                   const_reference;
-    /// \brief The hkey type
+    /// The hkey type
 #if defined(STLSOFT_COMPILER_IS_MSVC) && \
     _MSC_VER == 1100
     /* WSCB: VC5 has an unresolved external linker error if use traits_type::hkey_type */
@@ -187,24 +197,24 @@ public:
 #else /* ? compiler */
     typedef ss_typename_type_k traits_type::hkey_type                           hkey_type;
 #endif /* compiler */
-    /// \brief The difference type
+    /// The difference type
     typedef ws_ptrdiff_t                                                        difference_type;
-    /// \brief The non-mutating (const) reverse iterator type
+    /// The non-mutating (const) reverse iterator type
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
-    typedef stlsoft_ns_qual(reverse_bidirectional_iterator_base)  <   iterator
+    typedef STLSOFT_NS_QUAL(reverse_bidirectional_iterator_base)  <   iterator
                                                                   ,   value_type
                                                                   ,   value_type  // By-Value Temporary reference category
                                                                   ,   void        // By-Value Temporary reference category
                                                                   ,   difference_type
                                                                   >             reverse_iterator;
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
-    /// \brief The Boolean type
+    /// The Boolean type
     typedef ws_bool_t                                                           bool_type;
 private:
-    /// \brief The results type of the Registry API
+    /// The results type of the Registry API
     typedef ss_typename_type_k traits_type::result_type                         result_type;
 private:
-    typedef stlsoft_ns_qual(auto_buffer_old)<   char_type
+    typedef STLSOFT_NS_QUAL(auto_buffer_old)<   char_type
                                             ,   allocator_type
                                             ,   CCH_REG_API_AUTO_BUFFER
                                             >                                   buffer_type_;
@@ -215,7 +225,7 @@ public:
 /// \name Construction
 /// @{
 public:
-    /// \brief Creates an instance which provides access to the values of the named sub-key of \c hkey
+    /// Creates an instance which provides access to the values of the named sub-key of \c hkey
     ///
     /// \param hkey A registry key handle representing the parent of \c subKeyName
     /// \param subKeyName The name of the sub-key whose values will be enumerated. If subKeyName is NULL or the empty string, then
@@ -227,7 +237,7 @@ public:
     basic_reg_value_sequence(   hkey_type           hkey
                             ,   char_type const     *subKeyName
                             ,   REGSAM              accessMask                      =   KEY_READ);
-    /// \brief Creates an instance which provides access to the values of the named sub-key of \c hkey
+    /// Creates an instance which provides access to the values of the named sub-key of \c hkey
     ///
     /// \param hkey A registry key handle representing the parent of \c subKeyName
     /// \param subKeyName The name of the sub-key whose values will be enumerated. If subKeyName is NULL or the empty string, then
@@ -242,14 +252,14 @@ public:
                             ,   char_type const     *subKeyName
                             ,   REGSAM              accessMask
                             ,   bool_type           bMonitorExternalInvalidation);
-    /// \brief Creates an instance which provides access to the values of of \c key
+    /// Creates an instance which provides access to the values of of \c key
     ///
     /// \param key A registry key handle representing the parent of \c subKeyName
     ///
     /// \note If the key's access mask contains KEY_NOTIFY, this method will construct a sequence whose iterators monitor for external iterator
     /// invalidation. Use the alternative (three-parameter) constructor form to explicitly suppress monitoring.
     ss_explicit_k basic_reg_value_sequence(reg_key_type const& key);
-    /// \brief Creates an instance which provides access to the values of of \c key
+    /// Creates an instance which provides access to the values of of \c key
     ///
     /// \param key A registry key handle representing the parent of \c subKeyName
     /// \param accessMask The security access mask with which the key will be used. Defaults to KEY_READ
@@ -258,7 +268,7 @@ public:
     /// invalidation. Use the alternative (three-parameter) constructor form to explicitly suppress monitoring.
     basic_reg_value_sequence(   reg_key_type const& key
                             ,   REGSAM              accessMask);
-    /// \brief Creates an instance which provides access to the values of of \c key
+    /// Creates an instance which provides access to the values of of \c key
     ///
     /// \param key A registry key handle representing the parent of \c subKeyName
     /// \param accessMask The security access mask with which the key will be used. Defaults to KEY_READ
@@ -270,28 +280,28 @@ public:
     basic_reg_value_sequence(   reg_key_type const& key
                             ,   REGSAM              accessMask
                             ,   bool_type           bMonitorExternalInvalidation);
-    /// \brief Destructor
+    /// Destructor
     ~basic_reg_value_sequence() STLSOFT_NOEXCEPT;
 /// @}
 
 /// \name Iteration
 /// @{
 public:
-    /// \brief Begins the iteration
+    /// Begins the iteration
     ///
     /// \return An iterator representing the start of the sequence
     iterator          begin();
-    /// \brief Ends the iteration
+    /// Ends the iteration
     ///
     /// \return An iterator representing the end of the sequence
     iterator          end();
 
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
-    /// \brief Begins the reverse iteration
+    /// Begins the reverse iteration
     ///
     /// \return An iterator representing the start of the reverse sequence
     reverse_iterator  rbegin();
-    /// \brief Ends the reverse iteration
+    /// Ends the reverse iteration
     ///
     /// \return An iterator representing the end of the reverse sequence
     reverse_iterator  rend();
@@ -301,21 +311,21 @@ public:
 /// \name Attributes
 /// @{
 public:
-    /// \brief Returns the number of values
+    /// Returns the number of values
     ///
     /// \note This gives a result valid only at the epoch of the call. A
     /// subsequent call may return a different result.
     size_type               current_size() const;
-    /// \brief Returns the number of values
+    /// Returns the number of values
     ///
     /// \deprecated This is equivalent to current_size()
     size_type               size() const;
-    /// \brief Evalulates whether there are no values
+    /// Evalulates whether there are no values
     ws_bool_t               empty() const;
 
-    /// \brief The key handle
+    /// The key handle
     hkey_type               get_key_handle() const;
-    /// \brief The key handle
+    /// The key handle
     hkey_type               get() const;
 /// @}
 
@@ -344,26 +354,26 @@ private:
 };
 
 /* Typedefs to commonly encountered types. */
-/** \brief Specialisation of the basic_reg_value_sequence template for the ANSI character type \c char
+/** Specialisation of the basic_reg_value_sequence template for the ANSI character type \c char
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  */
 typedef basic_reg_value_sequence<ws_char_a_t, reg_traits<ws_char_a_t>, processheap_allocator<ws_char_a_t> >     reg_value_sequence_a;
-/** \brief Specialisation of the basic_reg_value_sequence template for the Unicode character type \c wchar_t
+/** Specialisation of the basic_reg_value_sequence template for the Unicode character type \c wchar_t
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  */
 typedef basic_reg_value_sequence<ws_char_w_t, reg_traits<ws_char_w_t>, processheap_allocator<ws_char_w_t> >     reg_value_sequence_w;
-/** \brief Specialisation of the basic_reg_value_sequence template for the Win32 character type \c TCHAR
+/** Specialisation of the basic_reg_value_sequence template for the Win32 character type \c TCHAR
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  */
 typedef basic_reg_value_sequence<TCHAR, reg_traits<TCHAR>, processheap_allocator<TCHAR> >                       reg_value_sequence;
 
 // class basic_reg_value_sequence_iterator
-/** \brief Iterator for the basic_reg_value_sequence class
+/** Iterator for the basic_reg_value_sequence class
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  *
  * \param C The character type
  * \param T The traits type
@@ -376,7 +386,7 @@ template<   ss_typename_param_k C
         ,   ss_typename_param_k A
         >
 class basic_reg_value_sequence_iterator
-    : public stlsoft_ns_qual(iterator_base)<winstl_ns_qual_std(bidirectional_iterator_tag)
+    : public STLSOFT_NS_QUAL(iterator_base)<STLSOFT_NS_QUAL_STD(bidirectional_iterator_tag)
                                         ,   V
                                         ,   ws_ptrdiff_t
                                         ,   void    // By-Value Temporary reference
@@ -386,33 +396,33 @@ class basic_reg_value_sequence_iterator
 /// \name Member Types
 /// @{
 public:
-    /// \brief The character type
+    /// The character type
     typedef C                                                           char_type;
-    /// \brief The traits type
+    /// The traits type
     typedef T                                                           traits_type;
-    /// \brief The value type
+    /// The value type
     typedef V                                                           value_type;
-    /// \brief The allocator type
+    /// The allocator type
     typedef A                                                           allocator_type;
-    /// \brief The current parameterisation of the type
+    /// The current specialisation of the type
     typedef basic_reg_value_sequence_iterator<C, T, V, A>               class_type;
-    /// \brief The size type
+    /// The size type
     typedef ss_typename_type_k traits_type::size_type                   size_type;
-    /// \brief The difference type
+    /// The difference type
     typedef ss_typename_type_k traits_type::difference_type             difference_type;
-    /// \brief The string type
+    /// The string type
     typedef ss_typename_type_k traits_type::string_type                 string_type;
-    /// \brief The index type
+    /// The index type
     typedef ws_sint32_t                                                 index_type;
-    /// \brief The hkey type
+    /// The hkey type
     typedef ss_typename_type_k traits_type::hkey_type                   hkey_type;
 private:
-    /// \brief The results type of the Registry API
+    /// The results type of the Registry API
     typedef ss_typename_type_k traits_type::result_type                 result_type;
-    /// \brief The Boolean type
+    /// The Boolean type
     typedef ws_bool_t                                                   bool_type;
 private:
-    typedef stlsoft_ns_qual(auto_buffer_old)<   char_type
+    typedef STLSOFT_NS_QUAL(auto_buffer_old)<   char_type
                                             ,   allocator_type
                                             ,   CCH_REG_API_AUTO_BUFFER
                                             >                           buffer_type_;
@@ -435,14 +445,14 @@ private:
         m_handle->AddRef();
     }
 public:
-    /// \brief Default constructor
+    /// Default constructor
     basic_reg_value_sequence_iterator();
-    /// \brief Copy constructor
+    /// Copy constructor
     basic_reg_value_sequence_iterator(class_type const& rhs);
-    /// \brief Destructor
+    /// Destructor
     ~basic_reg_value_sequence_iterator() STLSOFT_NOEXCEPT;
 
-    /// \brief Copy assignment operator
+    /// Copy assignment operator
     class_type& operator =(class_type const& rhs);
 /// @}
 
@@ -455,21 +465,21 @@ public:
 /// \name Operators
 /// @{
 public:
-    /// \brief Pre-increment operator
+    /// Pre-increment operator
     class_type& operator ++();
-    /// \brief Pre-decrement operator
+    /// Pre-decrement operator
     class_type& operator --();
-    /// \brief Post-increment operator
+    /// Post-increment operator
     const class_type operator ++(int);
-    /// \brief Post-decrement operator
+    /// Post-decrement operator
     const class_type operator --(int);
-    /// \brief Dereference to return the value representing the current position
+    /// Dereference to return the value representing the current position
     const value_type operator *() const;
-    /// \brief Evaluates whether \c this and \c rhs are equivalent
+    /// Evaluates whether \c this and \c rhs are equivalent
     ws_bool_t equal(class_type const& rhs) const;
-    /// \brief Evaluates whether \c this and \c rhs are equivalent
+    /// Evaluates whether \c this and \c rhs are equivalent
     ws_bool_t operator ==(class_type const& rhs) const;
-    /// \brief Evaluates whether \c this and \c rhs are not equivalent
+    /// Evaluates whether \c this and \c rhs are not equivalent
     ws_bool_t operator !=(class_type const& rhs) const;
 /// @}
 
@@ -490,13 +500,6 @@ private:
 };
 
 ////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/reg_value_sequence_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
-////////////////////////////////////////////////////////////////////////////
 // Implementation
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -504,7 +507,11 @@ private:
 // basic_reg_value_sequence
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline registry_util::shared_handle* basic_reg_value_sequence<C, T, A>::create_shared_handle_(result_type& res)
+inline
+registry_util::shared_handle*
+basic_reg_value_sequence<C, T, A>::create_shared_handle_(
+    result_type& res
+)
 {
     // 1. Duplicate the registry handle
     //
@@ -513,12 +520,12 @@ inline registry_util::shared_handle* basic_reg_value_sequence<C, T, A>::create_s
     registry_util::shared_handle*   handle  =   NULL;
     hkey_type                       hkey2   =   traits_type::key_dup(m_hkey, m_accessMask, &res);
 
-    if(NULL == hkey2)
+    if (NULL == hkey2)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         static const char message[] = "could not duplicate key";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -533,17 +540,17 @@ inline registry_util::shared_handle* basic_reg_value_sequence<C, T, A>::create_s
     else
     {
         // Pop it in a scoped handle for RAII
-        scoped_handle<HKEY> sh(hkey2, ::RegCloseKey);
+        scoped_handle<HKEY> sh(hkey2, WINSTL_API_EXTERNAL_Registry_RegCloseKey);
 
         handle = registry_util::create_shared_handle(hkey2, m_bMonitorExternalInvalidation, REG_NOTIFY_CHANGE_LAST_SET);
 
-        if(NULL == handle)
+        if (NULL == handle)
         {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
             static const char   message[]   =   "could not create shared enumeration context";
-            DWORD               err         =   ::GetLastError();
+            DWORD const         err         =   WINSTL_API_EXTERNAL_ErrorHandling_GetLastError();
 
-            if(ERROR_ACCESS_DENIED == err)
+            if (ERROR_ACCESS_DENIED == err)
             {
                 STLSOFT_THROW_X(access_denied_exception(message, err));
             }
@@ -565,7 +572,7 @@ inline registry_util::shared_handle* basic_reg_value_sequence<C, T, A>::create_s
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
 inline /* static */ REGSAM basic_reg_value_sequence<C, T, A>::validate_access_mask_(REGSAM accessMask, ss_typename_type_k basic_reg_value_sequence<C, T, A>::bool_type bMonitorExternalInvalidation)
 {
-    if(bMonitorExternalInvalidation)
+    if (bMonitorExternalInvalidation)
     {
         return accessMask | KEY_NOTIFY;
     }
@@ -581,12 +588,12 @@ inline /* static */ ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::hk
     result_type res;
     HKEY        hkeyDup =   traits_type::key_dup(hkey, accessMask, &res);
 
-    if(ERROR_SUCCESS != res)
+    if (ERROR_SUCCESS != res)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         static const char message[] = "could not duplicate key";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -612,12 +619,12 @@ inline basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence( ss_typename_
 {
     result_type res;
 
-    if(ERROR_SUCCESS != (res = traits_type::reg_open_key(hkey, subKeyName, &m_hkey, accessMask)))
+    if (ERROR_SUCCESS != (res = traits_type::reg_open_key(hkey, subKeyName, &m_hkey, accessMask)))
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         static const char message[] = "could not open key";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -642,12 +649,12 @@ inline basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence( ss_typename_
 {
     result_type res;
 
-    if(ERROR_SUCCESS != (res = traits_type::reg_open_key(hkey, subKeyName, &m_hkey, accessMask)))
+    if (ERROR_SUCCESS != (res = traits_type::reg_open_key(hkey, subKeyName, &m_hkey, accessMask)))
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         static const char message[] = "could not open key";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -668,9 +675,9 @@ inline basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence(ss_typename_t
     , m_bMonitorExternalInvalidation(0 != (KEY_NOTIFY & key.get_access_mask()))
 {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if(NULL == m_hkey)
+    if (NULL == m_hkey)
     {
-        STLSOFT_THROW_X(registry_exception("failed to take duplicate of key", ::GetLastError()));
+        STLSOFT_THROW_X(registry_exception("failed to take duplicate of key", WINSTL_API_EXTERNAL_ErrorHandling_GetLastError()));
     }
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 }
@@ -683,9 +690,9 @@ inline basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence( ss_typename_
     , m_bMonitorExternalInvalidation(0 != (KEY_NOTIFY & accessMask))
 {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if(NULL == m_hkey)
+    if (NULL == m_hkey)
     {
-        STLSOFT_THROW_X(registry_exception("failed to take duplicate of key", ::GetLastError()));
+        STLSOFT_THROW_X(registry_exception("failed to take duplicate of key", WINSTL_API_EXTERNAL_ErrorHandling_GetLastError()));
     }
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 }
@@ -699,9 +706,9 @@ inline basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence( ss_typename_
     , m_bMonitorExternalInvalidation(bMonitorExternalInvalidation)
 {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if(NULL == m_hkey)
+    if (NULL == m_hkey)
     {
-        STLSOFT_THROW_X(registry_exception("failed to take duplicate of key", ::GetLastError()));
+        STLSOFT_THROW_X(registry_exception("failed to take duplicate of key", WINSTL_API_EXTERNAL_ErrorHandling_GetLastError()));
     }
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 }
@@ -709,9 +716,9 @@ inline basic_reg_value_sequence<C, T, A>::basic_reg_value_sequence( ss_typename_
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
 inline basic_reg_value_sequence<C, T, A>::~basic_reg_value_sequence() STLSOFT_NOEXCEPT
 {
-    if(m_hkey != NULL)
+    if (m_hkey != NULL)
     {
-        ::RegCloseKey(m_hkey);
+        WINSTL_API_EXTERNAL_Registry_RegCloseKey(m_hkey);
     }
 }
 
@@ -734,12 +741,12 @@ inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::iterator basic_
     ws_uint32_t numEntries  =   0;
     result_type res         =   traits_type::reg_query_info(m_hkey, NULL, NULL, NULL, NULL, NULL, &numEntries, &cchName, NULL, NULL, NULL);
 
-    if(ERROR_SUCCESS != res)
+    if (ERROR_SUCCESS != res)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         static const char message[] = "could not elicit value information";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -753,18 +760,18 @@ inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::iterator basic_
     }
     else
     {
-        if(0 != numEntries)
+        if (0 != numEntries)
         {
             // 2. Duplicate the registry key handle & create the shared handle
             registry_util::shared_handle    *handle =   create_shared_handle_(res);
             ws_sint32_t                     index   =   0;
 
-            if(NULL == handle)
+            if (NULL == handle)
             {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
                 static const char message[] = "could not create shared enumeration context";
 
-                if(ERROR_ACCESS_DENIED == res)
+                if (ERROR_ACCESS_DENIED == res)
                 {
                     STLSOFT_THROW_X(access_denied_exception(message, res));
                 }
@@ -783,15 +790,15 @@ inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::iterator basic_
                 // 4. Loop to get the full name
                 buffer_type_ buffer(++cchName); // This is increased so that the call to reg_enum_value is likely to succeed
 
-                for(; !buffer.empty(); )    // Need to loop because sub-keys can change, when we're not monitoring
+                for (; !buffer.empty(); )    // Need to loop because sub-keys can change, when we're not monitoring
                 {
                     cchName = buffer.size();
 
                     res = traits_type::reg_enum_value(m_hkey, 0, &buffer[0], &cchName);
 
-                    if(ERROR_MORE_DATA == res)
+                    if (ERROR_MORE_DATA == res)
                     {
-                        if(!buffer.resize(2 * buffer.size())) // Throws, or returns false
+                        if (!buffer.resize(2 * buffer.size())) // Throws, or returns false
                         {
                             cchName =   0;
                             index   =   const_iterator::sentinel_();
@@ -800,12 +807,12 @@ inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::iterator basic_
 
                         continue; // "Let's go round again"
                     }
-                    else if(ERROR_SUCCESS != res)
+                    else if (ERROR_SUCCESS != res)
                     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
                         static const char message[] = "could not enumerate values";
 
-                        if(ERROR_ACCESS_DENIED == res)
+                        if (ERROR_ACCESS_DENIED == res)
                         {
                             STLSOFT_THROW_X(access_denied_exception(message, res));
                         }
@@ -842,7 +849,7 @@ inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::iterator basic_
     ref_ptr<registry_util::shared_handle>   ref(handle, false); // Eat the reference here. The iterator will take another
     ws_sint32_t                             index   =   const_iterator::sentinel_();
 
-    if(NULL == handle)
+    if (NULL == handle)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         STLSOFT_THROW_X(registry_exception("failed to take duplicate of key", static_cast<DWORD>(res)));
@@ -880,12 +887,12 @@ inline ss_typename_type_ret_k basic_reg_value_sequence<C, T, A>::size_type basic
     ws_uint32_t numEntries;
     result_type res         =   traits_type::reg_query_info(m_hkey, NULL, NULL, NULL, NULL, NULL, &numEntries, NULL, NULL, NULL, NULL);
 
-    if(ERROR_SUCCESS != res)
+    if (ERROR_SUCCESS != res)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         static const char message[] = "could not elicit number of values";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -942,7 +949,7 @@ inline basic_reg_value_sequence_iterator<C, T, V, A>::basic_reg_value_sequence_i
     , m_name(rhs.m_name)
     , m_accessMask(rhs.m_accessMask)
 {
-    if(NULL != m_handle)
+    if (NULL != m_handle)
     {
         m_handle->AddRef();
     }
@@ -960,12 +967,12 @@ inline ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::cla
     m_handle        =   rhs.m_handle;
     m_accessMask    =   rhs.m_accessMask;
 
-    if(NULL != m_handle)
+    if (NULL != m_handle)
     {
         m_handle->AddRef();
     }
 
-    if(NULL != this_handle)
+    if (NULL != this_handle)
     {
         this_handle->Release();
     }
@@ -976,7 +983,7 @@ inline ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::cla
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k V, ss_typename_param_k A>
 inline basic_reg_value_sequence_iterator<C, T, V, A>::~basic_reg_value_sequence_iterator() STLSOFT_NOEXCEPT
 {
-    if(NULL != m_handle)
+    if (NULL != m_handle)
     {
         m_handle->Release();
     }
@@ -998,12 +1005,12 @@ inline ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::cla
     size_type   cchName =   0;
     result_type res     =   traits_type::reg_query_info(m_handle->m_hkey, NULL, NULL, NULL, NULL, NULL, NULL, &cchName, NULL, NULL, NULL);
 
-    if(ERROR_SUCCESS != res)
+    if (ERROR_SUCCESS != res)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         static const char message[] = "could not elicit value information";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -1019,27 +1026,27 @@ inline ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::cla
     {
         buffer_type_    buffer(++cchName);   // This is increased so that the call to reg_enum_value is likely to succeed
 
-        for(; !buffer.empty(); buffer.resize(2 * buffer.size()))    // Need to loop because values can change, when we're not monitoring
+        for (; !buffer.empty(); buffer.resize(2 * buffer.size()))    // Need to loop because values can change, when we're not monitoring
         {
             cchName  =   buffer.size();
 
             res = traits_type::reg_enum_value(m_handle->m_hkey, static_cast<ws_dword_t>(1 + m_index), &buffer[0], &cchName);
 
-            if(ERROR_MORE_DATA == res)
+            if (ERROR_MORE_DATA == res)
             {
                 continue; // "Let's go round again"
             }
-            else if(ERROR_NO_MORE_ITEMS == res)
+            else if (ERROR_NO_MORE_ITEMS == res)
             {
                 m_index = sentinel_();
                 break;
             }
-            else if(ERROR_SUCCESS != res)
+            else if (ERROR_SUCCESS != res)
             {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
                 static const char message[] = "could not enumerate values";
 
-                if(ERROR_ACCESS_DENIED == res)
+                if (ERROR_ACCESS_DENIED == res)
                 {
                     STLSOFT_THROW_X(access_denied_exception(message, res));
                 }
@@ -1078,12 +1085,12 @@ inline ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::cla
     ws_uint32_t numEntries      =   0;
     result_type res             =   traits_type::reg_query_info(m_handle->m_hkey, NULL, NULL, NULL, NULL, NULL, &numEntries, &cchName, NULL, NULL, NULL);
 
-    if(ERROR_SUCCESS != res)
+    if (ERROR_SUCCESS != res)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         static const char message[] = "could not elicit value information";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -1101,7 +1108,7 @@ inline ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::cla
         ws_dword_t      index;
 
         // If the iterator is currently at the "end()", ...
-        if(m_index == sentinel_())
+        if (m_index == sentinel_())
         {
             // ... then set the index to be one past the end
             index = numEntries - 1;
@@ -1112,22 +1119,22 @@ inline ss_typename_type_ret_k basic_reg_value_sequence_iterator<C, T, V, A>::cla
             index = m_index - 1;
         }
 
-        for(; !buffer.empty(); buffer.resize(2 * buffer.size()))    // Need to loop because values can change, when we're not monitoring
+        for (; !buffer.empty(); buffer.resize(2 * buffer.size()))    // Need to loop because values can change, when we're not monitoring
         {
             cchName = buffer.size();
 
             res = traits_type::reg_enum_value(m_handle->m_hkey, index, &buffer[0], &cchName);
 
-            if(ERROR_MORE_DATA == res)
+            if (ERROR_MORE_DATA == res)
             {
                 continue; // "Let's go round again"
             }
-            else if(ERROR_SUCCESS != res)
+            else if (ERROR_SUCCESS != res)
             {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
                 static const char message[] = "could not elicit value information";
 
-                if(ERROR_ACCESS_DENIED == res)
+                if (ERROR_ACCESS_DENIED == res)
                 {
                     STLSOFT_THROW_X(access_denied_exception(message, res));
                 }
@@ -1207,19 +1214,25 @@ inline ws_bool_t basic_reg_value_sequence_iterator<C, T, V, A>::operator !=(clas
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_REGISTRY_HPP_REG_VALUE_SEQUENCE */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_REGISTRY_HPP_REG_VALUE_SEQUENCE */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

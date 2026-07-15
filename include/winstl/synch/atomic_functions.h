@@ -4,45 +4,47 @@
  * Purpose:     WinSTL atomic functions.
  *
  * Created:     23rd October 1997
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1997-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/synch/atomic_functions.h
  *
- * \brief [C++ only] Definition of the atomic functions
- *   (\ref group__library__synch "Synchronisation" Library).
+ * \brief [C, C++] Definition of the atomic functions
+ *   (\ref group__library__Synch "Synchronisation" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS
@@ -50,39 +52,32 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS_MAJOR     4
-# define WINSTL_VER_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS_MINOR     4
-# define WINSTL_VER_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS_REVISION  1
-# define WINSTL_VER_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS_EDIT      204
+# define WINSTL_VER_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS_MINOR     8
+# define WINSTL_VER_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS_REVISION  3
+# define WINSTL_VER_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS_EDIT      231
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_MWERKS: __MWERKS__<0x3000
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef WINSTL_INCL_WINSTL_SYNCH_H_ATOMIC_TYPES
 # include <winstl/synch/atomic_types.h>
 #endif /* !WINSTL_INCL_WINSTL_SYNCH_H_ATOMIC_TYPES */
-#ifdef __cplusplus
-# ifndef WINSTL_INCL_WINSTL_SYNCH_HPP_SPIN_MUTEX
-#  include <winstl/synch/spin_mutex.hpp>
-# endif /* !WINSTL_INCL_WINSTL_SYNCH_HPP_SPIN_MUTEX */
-#endif /* __cplusplus */
+
+#ifndef WINSTL_INCL_WINSTL_API_external_h_Synchronization
+# include <winstl/api/external/Synchronization.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_Synchronization */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
+ * compatibility
  */
 
 #if !defined(WINSTL_ARCH_IS_X86) && \
@@ -114,10 +109,10 @@ STLSOFT_COMPILER_IS_MWERKS: __MWERKS__<0x3000
 # if defined(STLSOFT_CF_FASTCALL_SUPPORTED) && \
      !defined(STLSOFT_NO_FASTCALL)
 #  define WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL
-#  define WINSTL_ATOMIC_FNS_CALLCONV        __fastcall
+#  define WINSTL_ATOMIC_FNS_CALLCONV                        __fastcall
 # elif defined(STLSOFT_CF_STDCALL_SUPPORTED)
 #  define WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL
-#  define WINSTL_ATOMIC_FNS_CALLCONV        __stdcall
+#  define WINSTL_ATOMIC_FNS_CALLCONV                        __stdcall
 # else
 #  error Need to define calling convention
 # endif /* call-conv */
@@ -126,42 +121,103 @@ STLSOFT_COMPILER_IS_MWERKS: __MWERKS__<0x3000
       defined(WINSTL_ARCH_IS_X64)
 
 #  define WINSTL_ATOMIC_FNS_CALLCONV_IS_CDECL
-#  define WINSTL_ATOMIC_FNS_CALLCONV        __cdecl
+#  define WINSTL_ATOMIC_FNS_CALLCONV                        __cdecl
 
 #else /* ? arch */
 # error Only defined for the Intel x86 and IA64 architectures
 #endif /* arch */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * macros
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
+# if 1 &&\
+     !defined(_FILETIME_) &&\
+     !defined(EXCEPTION_POSSIBLE_DEADLOCK) &&\
+     !defined(FLAG_FILE_FIRST_PIPE_INSTANCE) &&\
+     !defined(COPY_FILE_ALLOW_DECRYPTED_DESTINATION) &&\
+     1
+
+STLSOFT_INLINE
+LONG*
+winstl_C_internal_synch_atomic_ptrconv32_(
+    WINSTL_NS_QUAL(atomic_int32_t) volatile* pv
+)
+{
+    STLSOFT_STATIC_ASSERT(sizeof(LONG) == sizeof(WINSTL_NS_QUAL(atomic_int32_t)));
+
+    return STLSOFT_C_CAST(LONG*, STLSOFT_CONST_CAST(WINSTL_NS_QUAL(atomic_int32_t*), pv));
+}
+#  if 0
+#  elif defined(WINSTL_OS_IS_WIN64)
+STLSOFT_INLINE
+LONGLONG*
+winstl_C_internal_synch_atomic_ptrconv64_(
+    WINSTL_NS_QUAL(atomic_int64_t) volatile* pv
+)
+{
+    STLSOFT_STATIC_ASSERT(sizeof(LONGLONG) == sizeof(WINSTL_NS_QUAL(atomic_int64_t)));
+
+    return STLSOFT_C_CAST(LONGLONG*, STLSOFT_CONST_CAST(WINSTL_NS_QUAL(atomic_int64_t*), pv));
+}
+#  else
+#  endif
+# else
+
+STLSOFT_INLINE
+LONG volatile*
+winstl_C_internal_synch_atomic_ptrconv32_(
+    WINSTL_NS_QUAL(atomic_int32_t) volatile* pv
+)
+{
+    return STLSOFT_C_CAST(LONG volatile*, pv);
+}
+#  if 0
+#  elif defined(WINSTL_OS_IS_WIN64)
+STLSOFT_INLINE
+LONGLONG volatile*
+winstl_C_internal_synch_atomic_ptrconv64_(
+    WINSTL_NS_QUAL(atomic_int64_t) volatile* pv
+)
+{
+    STLSOFT_STATIC_ASSERT(sizeof(LONGLONG) == sizeof(WINSTL_NS_QUAL(atomic_int64_t)));
+
+    return STLSOFT_C_CAST(LONGLONG volatile*, pv);
+}
+#  else
+#  endif
+# endif
+#endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
+
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Implementation options
+ * implementation options
  *
- * Because some compilers can make the code actually faster when it the naked
- * functions are not inline, we provide for that here. If you want to out-of-line
- * the functions, then you just need to define WINSTL_ATOMIC_FNS_DECLARATION_ONLY
- * in the code that uses it, and define WINSTL_ATOMIC_FNS_DEFINITION in one
- * implementation file.
+ * Because some compilers can make the code actually faster when the naked
+ * functions are not inline, we provide for that here. If you want to make
+ * out-of-line the functions, then you just need to define the symbol
+ * WINSTL_ATOMIC_FNS_DECLARATION_ONLY in the code that uses it, and define
+ * the symbol WINSTL_ATOMIC_FNS_DEFINITION in one implementation file.
  */
 
 #ifdef WINSTL_ATOMIC_FNS_DECL_
@@ -172,10 +228,13 @@ namespace winstl_project
 # undef WINSTL_ATOMIC_FNS_IMPL_
 #endif /* WINSTL_ATOMIC_FNS_IMPL_ */
 
+
 #if defined(WINSTL_ATOMIC_FNS_DECLARATION_ONLY)
+
 /* Only the function declarations are included */
 # define WINSTL_ATOMIC_FNS_DECL_(type)              type WINSTL_ATOMIC_FNS_CALLCONV
 #elif defined(WINSTL_ATOMIC_FNS_DEFINITION)
+
 /* Only the function definitions are included */
 # ifdef STSLSOFT_INLINE_ASM_SUPPORTED
 #  define WINSTL_ATOMIC_FNS_IMPL_(type)             __declspec(naked) type WINSTL_ATOMIC_FNS_CALLCONV
@@ -183,10 +242,12 @@ namespace winstl_project
 #  define WINSTL_ATOMIC_FNS_IMPL_(type)             type WINSTL_ATOMIC_FNS_CALLCONV
 # endif /* STSLSOFT_INLINE_ASM_SUPPORTED */
 #else /* ? declaration / definition */
+
 # if defined(STLSOFT_COMPILER_IS_MWERKS) && \
      (__MWERKS__ & 0xFF00) < 0x3000
 #  error CodeWarrior 7 and earlier does not generate correct code when inline naked functions are used
 # endif /* compiler */
+
 
 #if !defined(__cplusplus) && \
     defined(STSLSOFT_INLINE_ASM_SUPPORTED)
@@ -197,8 +258,8 @@ namespace winstl_project
 # ifdef STSLSOFT_INLINE_ASM_SUPPORTED
   /* The default is to define them inline */
 #  ifdef STSLSOFT_ASM_IN_INLINE_SUPPORTED
-#   define WINSTL_ATOMIC_FNS_DECL_(type)             inline type WINSTL_ATOMIC_FNS_CALLCONV
-#   define WINSTL_ATOMIC_FNS_IMPL_(type)             inline __declspec(naked) type WINSTL_ATOMIC_FNS_CALLCONV
+#   define WINSTL_ATOMIC_FNS_DECL_(type)             STLSOFT_INLINE type WINSTL_ATOMIC_FNS_CALLCONV
+#   define WINSTL_ATOMIC_FNS_IMPL_(type)             STLSOFT_INLINE __declspec(naked) type WINSTL_ATOMIC_FNS_CALLCONV
 #  else /* ? STSLSOFT_ASM_IN_INLINE_SUPPORTED */
 #   define WINSTL_ATOMIC_FNS_DECL_(type)             type WINSTL_ATOMIC_FNS_CALLCONV
 #   define WINSTL_ATOMIC_FNS_IMPL_(type)             static __declspec(naked) type WINSTL_ATOMIC_FNS_CALLCONV
@@ -206,8 +267,8 @@ namespace winstl_project
 # else /* ? STSLSOFT_INLINE_ASM_SUPPORTED */
   /* ASM not supported, so we're using the Win32 functions */
 #  if defined(__cplusplus)
-#   define WINSTL_ATOMIC_FNS_DECL_(type)             inline type WINSTL_ATOMIC_FNS_CALLCONV
-#   define WINSTL_ATOMIC_FNS_IMPL_(type)             inline type WINSTL_ATOMIC_FNS_CALLCONV
+#   define WINSTL_ATOMIC_FNS_DECL_(type)             STLSOFT_INLINE type WINSTL_ATOMIC_FNS_CALLCONV
+#   define WINSTL_ATOMIC_FNS_IMPL_(type)             STLSOFT_INLINE type WINSTL_ATOMIC_FNS_CALLCONV
 #  else /* ? __cplusplus */
 #   define WINSTL_ATOMIC_FNS_DECL_(type)             STLSOFT_INLINE type WINSTL_ATOMIC_FNS_CALLCONV
 #   define WINSTL_ATOMIC_FNS_IMPL_(type)             STLSOFT_INLINE type WINSTL_ATOMIC_FNS_CALLCONV
@@ -216,10 +277,13 @@ namespace winstl_project
 #endif /* declaration / definition */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Atomic function declarations
+ * atomic function declarations
  */
 
-#ifndef WINSTL_ATOMIC_FNS_DEFINITION
+#if !defined(WINSTL_ATOMIC_FNS_DEFINITION) || \
+    defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
+
+# ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 /* Uni-processor variants */
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_preincrement_up(atomic_int_t volatile* pl);
@@ -229,11 +293,13 @@ WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postdecrement_up(atomic_int_t volat
 WINSTL_ATOMIC_FNS_DECL_(void) atomic_increment_up(atomic_int_t volatile* pl);
 WINSTL_ATOMIC_FNS_DECL_(void) atomic_decrement_up(atomic_int_t volatile* pl);
 
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_exchange_up(atomic_int_t volatile* pl, atomic_int_t n);
+
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_write_up(atomic_int_t volatile* pl, atomic_int_t n);
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_read_up(atomic_int_t volatile const* pl);
 
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postadd_up(atomic_int_t volatile* pl, atomic_int_t n);
-STLSOFT_INLINE atomic_int_t atomic_preadd_up(atomic_int_t volatile* pl, atomic_int_t n);
+atomic_int_t atomic_preadd_up(atomic_int_t volatile* pl, atomic_int_t n);
 
 
 
@@ -242,36 +308,133 @@ WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_preincrement_smp(atomic_int_t volat
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_predecrement_smp(atomic_int_t volatile* pl);
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postincrement_smp(atomic_int_t volatile* pl);
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postdecrement_smp(atomic_int_t volatile* pl);
-STLSOFT_INLINE void atomic_increment_smp(atomic_int_t volatile* pl);
-STLSOFT_INLINE void atomic_decrement_smp(atomic_int_t volatile* pl);
+void atomic_increment_smp(atomic_int_t volatile* pl);
+void atomic_decrement_smp(atomic_int_t volatile* pl);
+
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_exchange_smp(atomic_int_t volatile* pl, atomic_int_t n);
 
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_write_smp(atomic_int_t volatile* pl, atomic_int_t n);
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_read_smp(atomic_int_t volatile const* pl);
 
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postadd_smp(atomic_int_t volatile* pl, atomic_int_t n);
-STLSOFT_INLINE atomic_int_t atomic_preadd_smp(atomic_int_t volatile* pl, atomic_int_t n);
+atomic_int_t atomic_preadd_smp(atomic_int_t volatile* pl, atomic_int_t n);
 
+
+# endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 
 /* Multi-processor detection variants */
-WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_preincrement(atomic_int_t volatile* pl);
-WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_predecrement(atomic_int_t volatile* pl);
-WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postincrement(atomic_int_t volatile* pl);
-WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postdecrement(atomic_int_t volatile* pl);
-WINSTL_ATOMIC_FNS_DECL_(void) atomic_increment(atomic_int_t volatile* pl);
-WINSTL_ATOMIC_FNS_DECL_(void) atomic_decrement(atomic_int_t volatile* pl);
 
+/** Increments the variable atomically, and returns the result of the
+ * operation
+ *
+ * \ingroup group__library__Synch
+ */
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_preincrement(atomic_int_t volatile* pl);
+/** Increments the (32-bit) variable atomically, and returns the result of
+ * the operation
+ *
+ * \ingroup group__library__Synch
+ */
+atomic_int32_t atomic_preincrement32(atomic_int32_t volatile* pv);
+
+/** Decrements the variable atomically, and returns the result of the
+ * operation
+ *
+ * \ingroup group__library__Synch
+ */
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_predecrement(atomic_int_t volatile* pl);
+/** Decrements the (32-bit) variable atomically, and returns the result of
+ * the operation
+ *
+ * \ingroup group__library__Synch
+ */
+atomic_int32_t atomic_predecrement32(atomic_int32_t volatile* pv);
+
+/** Increments the variable atomically, and returns the value prior to the
+ * operation
+ *
+ * \ingroup group__library__Synch
+ */
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postincrement(atomic_int_t volatile* pl);
+/** Increments the (32-bit) variable atomically, and returns the value prior
+ * to the operation
+ *
+ * \ingroup group__library__Synch
+ */
+atomic_int32_t atomic_postincrement32(atomic_int32_t volatile* pl);
+
+/** Decrements the variable atomically, and returns the value prior to the
+ * operation
+ *
+ * \ingroup group__library__Synch
+ */
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postdecrement(atomic_int_t volatile* pl);
+/** Decrements the (32-bit) variable atomically, and returns the value prior
+ * to the operation
+ *
+ * \ingroup group__library__Synch
+ */
+atomic_int32_t atomic_postdecrement32(atomic_int32_t volatile* pl);
+
+/** Increments the variable atomically
+ *
+ * \ingroup group__library__Synch
+ */
+WINSTL_ATOMIC_FNS_DECL_(void) atomic_increment(atomic_int_t volatile* pl);
+/** Increments the (32-bit) variable atomically
+ *
+ * \ingroup group__library__Synch
+ */
+void atomic_increment32(atomic_int32_t volatile* pl);
+
+/** Decrements the variable atomically
+ *
+ * \ingroup group__library__Synch
+ */
+WINSTL_ATOMIC_FNS_DECL_(void) atomic_decrement(atomic_int_t volatile* pl);
+/** Decrements the (32-bit) variable atomically
+ *
+ * \ingroup group__library__Synch
+ */
+void atomic_decrement32(atomic_int32_t volatile* pl);
+
+/** Exchanges atomically a value with the variable
+ *
+ * \ingroup group__library__Synch
+ */
+WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_exchange(atomic_int_t volatile* pl, atomic_int_t n);
+
+/** Writes to the variable atomically
+ *
+ * \ingroup group__library__Synch
+ */
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_write(atomic_int_t volatile* pl, atomic_int_t n);
+
+/** Reads from the variable atomically
+ *
+ * \ingroup group__library__Synch
+ */
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_read(atomic_int_t volatile const* pl);
 
+/** Add to the variable atomically, and returns the value prior to the
+ * operation
+ *
+ * \ingroup group__library__Synch
+ */
 WINSTL_ATOMIC_FNS_DECL_(atomic_int_t) atomic_postadd(atomic_int_t volatile* pl, atomic_int_t n);
-STLSOFT_INLINE atomic_int_t atomic_preadd(atomic_int_t volatile* pl, atomic_int_t n);
+
+/** Add to the variable atomically, and returns the result of the operation
+ *
+ * \ingroup group__library__Synch
+ */
+atomic_int_t atomic_preadd(atomic_int_t volatile* pl, atomic_int_t n);
 
 
 #endif /* !WINSTL_ATOMIC_FNS_DEFINITION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Atomic function definitions
+ * atomic function definitions
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -288,9 +451,9 @@ STLSOFT_INLINE atomic_int_t atomic_preadd(atomic_int_t volatile* pl, atomic_int_
 
 /* Uni-processor */
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement_up(atomic_int_t volatile* /* pl */)
 {
@@ -326,9 +489,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement_up(atomic_int_t volati
     }
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement_up(atomic_int_t volatile* /* pl */)
 {
@@ -364,9 +527,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement_up(atomic_int_t volati
     }
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement_up(atomic_int_t volatile* /* pl */)
 {
@@ -401,9 +564,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement_up(atomic_int_t volat
     }
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement_up(atomic_int_t volatile* /* pl */)
 {
@@ -438,9 +601,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement_up(atomic_int_t volat
     }
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(void) atomic_increment_up(atomic_int_t volatile* /* pl */)
 {
@@ -466,9 +629,9 @@ WINSTL_ATOMIC_FNS_IMPL_(void) atomic_increment_up(atomic_int_t volatile* /* pl *
     }
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(void) atomic_decrement_up(atomic_int_t volatile* /* pl */)
 {
@@ -494,9 +657,42 @@ WINSTL_ATOMIC_FNS_IMPL_(void) atomic_decrement_up(atomic_int_t volatile* /* pl *
     }
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
+ */
+WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange_up(atomic_int_t volatile* /* pl */, atomic_int_t /* n */)
+{
+    _asm
+    {
+#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+        /* __fastcall: ecx is pl, edx is n */
+
+        /* Just exchange *pl and n */
+        xchg dword ptr [ecx], edx
+
+        /* The previous value goes into edx, so me move it into eax for return */
+        mov eax, edx
+
+        ret
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+        /* __stdcall: arguments are on the stack: pl in esp+4, pl in esp+8 */
+        mov ecx, dword ptr [esp + 4]    /* Load the address of pl into ecx */
+        mov eax, dword ptr [esp + 8]    /* Load the value into eax, so the return value will be there waiting */
+
+        xchg dword ptr [ecx], eax
+
+        ret 8
+#else
+# error Need to define calling convention
+#endif /* call-conv */
+    }
+}
+
+
+/**
+ *
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read_up(atomic_int_t volatile const* /* pl */)
 {
@@ -530,9 +726,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read_up(atomic_int_t volatile const
     }
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write_up(atomic_int_t volatile* /* pl */, atomic_int_t /* n */)
 {
@@ -563,9 +759,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write_up(atomic_int_t volatile* /* 
 }
 
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_up(atomic_int_t volatile* /* pl */, atomic_int_t /* n */)
 {
@@ -606,9 +802,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_up(atomic_int_t volatile* /
 
 /* Symmetric multi-processor */
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement_smp(atomic_int_t volatile* /* pl */)
 {
@@ -644,9 +840,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement_smp(atomic_int_t volat
     }
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement_smp(atomic_int_t volatile* /* pl */)
 {
@@ -682,9 +878,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement_smp(atomic_int_t volat
     }
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement_smp(atomic_int_t volatile* /* pl */)
 {
@@ -719,9 +915,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement_smp(atomic_int_t vola
     }
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement_smp(atomic_int_t volatile* /* pl */)
 {
@@ -756,9 +952,41 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement_smp(atomic_int_t vola
     }
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
+ */
+WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange_smp(atomic_int_t volatile* /* pl */, atomic_int_t /* n */)
+{
+    _asm
+    {
+#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+        /* __fastcall: ecx is pl, edx is n */
+
+        /* Just exchange *pl and n */
+        /* lock */ xchg dword ptr [ecx], edx
+
+        /* The previous value goes into edx, so me move it into eax for return */
+        mov eax, edx
+
+        ret
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+        /* __stdcall: arguments are on the stack: pl in esp+4, pl in esp+8 */
+        mov ecx, dword ptr [esp + 4]    /* Load the address of pl into ecx */
+        mov eax, dword ptr [esp + 8]    /* Load the value into eax, so the return value will be there waiting */
+
+        /* lock */ xchg dword ptr [ecx], eax
+
+        ret 8
+#else
+# error Need to define calling convention
+#endif /* call-conv */
+    }
+}
+
+/**
+ *
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read_smp(atomic_int_t volatile const* /* pl */)
 {
@@ -792,9 +1020,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read_smp(atomic_int_t volatile cons
     }
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write_smp(atomic_int_t volatile* /* pl */, atomic_int_t /* n */)
 {
@@ -825,9 +1053,9 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write_smp(atomic_int_t volatile* /*
 }
 
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_smp(atomic_int_t volatile* /* pl */, atomic_int_t /* n */)
 {
@@ -868,22 +1096,23 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_smp(atomic_int_t volatile* 
 
 /* Processor detection */
 
-namespace
+namespace ximpl
 {
     inline ws_bool_t is_host_up()
     {
-        /* All these statics are guaranteed to be zero as a result of the module/process loading */
-        static atomic_int_t  s_spin; /* The spin variable */
+        /* All these statics are guaranteed to be zero by static initialisation */
+        static atomic_int_t s_spin; /* The spin variable */
         static ws_bool_t    s_init; /* This is guaranteed to be zero */
-        static ws_bool_t    s_up;   /* This is the flag variably, also guaranteed to be zero */
+        static ws_bool_t    s_up;   /* This is the flag variable, also guaranteed to be zero */
 
         /* Simple spin lock */
-        if(!s_init) /* Low cost pre-test. In the unlikely event that another thread does come in and */
-        {           /* also see this as false, the dual initialisation of all three statics is benign */
-            spin_mutex  smx(&s_spin);
+        if (!s_init) /* Low cost pre-test. In the unlikely event that another thread does come in and */
+        {           /* also sees this as false, the dual initialisation of all three statics is benign */
 
-            smx.lock();
-            if(!s_init)
+            for (; 0 != atomic_exchange_smp(&s_spin, 1); )
+            {}
+
+            if (!s_init)
             {
                 SYSTEM_INFO sys_info;
 
@@ -893,7 +1122,7 @@ namespace
 
                 s_up = 1 == sys_info.dwNumberOfProcessors;
             }
-            smx.unlock();
+            atomic_write_smp(&s_spin, 0);
         }
 
         return s_up;
@@ -902,7 +1131,7 @@ namespace
     /* s_up is guaranteed to be zero at load time.
      *
      * There is a race condition with all static variables, since multiple threads
-     * can come in and one can have set the hidden flag variable without prior to
+     * can come in and one can have set the hidden flag variable without first
      * setting the static variable itself, just at the time that an arbitrary number
      * of other threads pick up the pre-initialised value.
      *
@@ -914,13 +1143,15 @@ namespace
     static ws_bool_t    s_up = is_host_up();
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement(atomic_int_t volatile* /* pl */)
 {
-    if(s_up)
+    using namespace ximpl;
+
+    if (s_up)
     {
         _asm
         {
@@ -987,14 +1218,20 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement(atomic_int_t volatile*
         }
     }
 }
+STLSOFT_INLINE atomic_int32_t atomic_preincrement32(atomic_int32_t volatile* pv)
+{
+    return atomic_preincrement(pv);
+}
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement(atomic_int_t volatile* /* pl */)
 {
-    if(s_up)
+    using namespace ximpl;
+
+    if (s_up)
     {
         _asm
         {
@@ -1061,14 +1298,20 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement(atomic_int_t volatile*
         }
     }
 }
+STLSOFT_INLINE atomic_int32_t atomic_predecrement32(atomic_int32_t volatile* pv)
+{
+    return atomic_predecrement(pv);
+}
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement(atomic_int_t volatile* /* pl */)
 {
-    if(s_up)
+    using namespace ximpl;
+
+    if (s_up)
     {
         _asm
         {
@@ -1133,14 +1376,20 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement(atomic_int_t volatile
         }
     }
 }
+STLSOFT_INLINE atomic_int32_t atomic_postincrement32(atomic_int32_t volatile* pv)
+{
+    return atomic_postincrement(pv);
+}
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement(atomic_int_t volatile* /* pl */)
 {
-    if(s_up)
+    using namespace ximpl;
+
+    if (s_up)
     {
         _asm
         {
@@ -1205,14 +1454,20 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement(atomic_int_t volatile
         }
     }
 }
+STLSOFT_INLINE atomic_int32_t atomic_postdecrement32(atomic_int32_t volatile* pv)
+{
+    return atomic_postdecrement(pv);
+}
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(void) atomic_increment(atomic_int_t volatile* /* pl */)
 {
-    if(s_up)
+    using namespace ximpl;
+
+    if (s_up)
     {
         _asm
         {
@@ -1269,14 +1524,20 @@ WINSTL_ATOMIC_FNS_IMPL_(void) atomic_increment(atomic_int_t volatile* /* pl */)
         }
     }
 }
+STLSOFT_INLINE void atomic_increment32(atomic_int32_t volatile* pv)
+{
+    atomic_increment(pv);
+}
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(void) atomic_decrement(atomic_int_t volatile* /* pl */)
 {
-    if(s_up)
+    using namespace ximpl;
+
+    if (s_up)
     {
         _asm
         {
@@ -1329,14 +1590,56 @@ WINSTL_ATOMIC_FNS_IMPL_(void) atomic_decrement(atomic_int_t volatile* /* pl */)
         }
     }
 }
+STLSOFT_INLINE void atomic_decrement32(atomic_int32_t volatile* pv)
+{
+    atomic_decrement(pv);
+}
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
+ */
+WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange(atomic_int_t volatile* /* pl */, atomic_int_t /* n */)
+{
+    _asm
+    {
+#if defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_FASTCALL)
+        /* __fastcall: ecx is pl, edx is n */
+
+        /* Just exchange *pl and n */
+        lock xchg dword ptr [ecx], edx
+
+        /* The previous value goes into edx, so me move it into eax for return */
+        mov eax, edx
+
+        ret
+#elif defined(WINSTL_ATOMIC_FNS_CALLCONV_IS_STDCALL)
+        /* __stdcall: arguments are on the stack: pl in esp+4, pl in esp+8 */
+        mov ecx, dword ptr [esp + 4]    /* Load the address of pl into ecx */
+        mov eax, dword ptr [esp + 8]    /* Load the value into eax, so the return value will be there waiting */
+
+        xchg dword ptr [ecx], eax
+
+        ret 8
+#else
+# error Need to define calling convention
+#endif /* call-conv */
+    }
+}
+STLSOFT_INLINE atomic_int32_t atomic_exchange32(atomic_int32_t volatile* pv, atomic_int32_t n)
+{
+    return atomic_exchange(pv, n);
+}
+
+/**
+ *
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read(atomic_int_t volatile const* /* pl */)
 {
-    if(s_up)
+    using namespace ximpl;
+
+    if (s_up)
     {
         _asm
         {
@@ -1399,10 +1702,14 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read(atomic_int_t volatile const* /
         }
     }
 }
+STLSOFT_INLINE atomic_int32_t atomic_read32(atomic_int32_t volatile* pv)
+{
+    return atomic_read(pv);
+}
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write(atomic_int_t volatile* /* pl */, atomic_int_t /* n */)
 {
@@ -1431,16 +1738,21 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write(atomic_int_t volatile* /* pl 
 #endif /* call-conv */
     }
 }
+STLSOFT_INLINE atomic_int32_t atomic_write32(atomic_int32_t volatile* pv, atomic_int32_t n)
+{
+    return atomic_write(pv, n);
+}
 
-
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd(atomic_int_t volatile* /* pl */, atomic_int_t /* n */)
 {
+    using namespace ximpl;
+
     /* Thanks to Eugene Gershnik for the fast-call implementation */
-    if(s_up)
+    if (s_up)
     {
         __asm
         {
@@ -1511,6 +1823,10 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd(atomic_int_t volatile* /* p
         }
     }
 }
+STLSOFT_INLINE atomic_int32_t atomic_postadd32(atomic_int32_t volatile* pv, atomic_int32_t n)
+{
+    return atomic_postadd(pv, n);
+}
 
 #ifdef STLSOFT_COMPILER_IS_BORLAND
 # pragma warn .8070     /* Suppresses: "Function should return a value" */
@@ -1527,139 +1843,231 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd(atomic_int_t volatile* /* p
 
 
 /* Multi-processor detection variants */
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
+STLSOFT_INLINE atomic_int32_t atomic_preincrement32(atomic_int32_t volatile* pv)
+{
+    return WINSTL_API_EXTERNAL_Synchronization_InterlockedIncrement(winstl_C_internal_synch_atomic_ptrconv32_(pv));
+}
+
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement(atomic_int_t volatile* pl)
 {
-#if defined(WINSTL_OS_IS_WIN32)
-    return STLSOFT_NS_GLOBAL(InterlockedIncrement)((LPLONG)pl);
+#if 0
+#elif defined(WINSTL_OS_IS_WIN32)
+
+    return atomic_preincrement32(pl);
 #elif defined(WINSTL_OS_IS_WIN64)
-    return STLSOFT_NS_GLOBAL(InterlockedDecrement64)((LONGLONG*)pl);
+
+    return STLSOFT_NS_GLOBAL(InterlockedIncrement64)(winstl_C_internal_synch_atomic_ptrconv64_(pl));
 #else /* ? arch */
+
 # error Not valid for processors other than Intel
 #endif /* Win32 || Win64 */
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
+STLSOFT_INLINE atomic_int32_t atomic_predecrement32(atomic_int32_t volatile* pv)
+{
+    return WINSTL_API_EXTERNAL_Synchronization_InterlockedDecrement(winstl_C_internal_synch_atomic_ptrconv32_(pv));
+}
+
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement(atomic_int_t volatile* pl)
 {
-#if defined(WINSTL_OS_IS_WIN32)
-    return STLSOFT_NS_GLOBAL(InterlockedDecrement)((LPLONG)pl);
+#if 0
+#elif defined(WINSTL_OS_IS_WIN32)
+
+    return atomic_predecrement32(pl);
 #elif defined(WINSTL_OS_IS_WIN64)
-    return STLSOFT_NS_GLOBAL(InterlockedDecrement64)((LONGLONG*)pl);
+
+    return STLSOFT_NS_GLOBAL(InterlockedDecrement64)(winstl_C_internal_synch_atomic_ptrconv64_(pl));
 #else /* ? arch */
+
 # error Not valid for processors other than Intel
 #endif /* Win32 || Win64 */
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
+STLSOFT_INLINE atomic_int32_t atomic_postincrement32(atomic_int32_t volatile* pv)
+{
+    return WINSTL_API_EXTERNAL_Synchronization_InterlockedIncrement(winstl_C_internal_synch_atomic_ptrconv32_(pv)) - 1;
+}
+
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement(atomic_int_t volatile* pl)
 {
-    atomic_int_t pre = *pl;
+#if 0
+#elif defined(WINSTL_OS_IS_WIN32)
 
-#if defined(WINSTL_OS_IS_WIN32)
-    STLSOFT_NS_GLOBAL(InterlockedIncrement)((LPLONG)pl);
+    return atomic_postincrement32(pl);
 #elif defined(WINSTL_OS_IS_WIN64)
-    STLSOFT_NS_GLOBAL(InterlockedIncrement64)((LONGLONG*)pl);
+
+    return STLSOFT_NS_GLOBAL(InterlockedIncrement64)(winstl_C_internal_synch_atomic_ptrconv64_(pl)) - 1;
 #else /* ? arch */
+
 # error Not valid for processors other than Intel
 #endif /* Win32 || Win64 */
-
-    return pre;
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
+STLSOFT_INLINE atomic_int32_t atomic_postdecrement32(atomic_int32_t volatile* pv)
+{
+    return WINSTL_API_EXTERNAL_Synchronization_InterlockedDecrement(winstl_C_internal_synch_atomic_ptrconv32_(pv)) + 1;
+}
+
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement(atomic_int_t volatile* pl)
 {
-    atomic_int_t pre = *pl;
+#if 0
+#elif defined(WINSTL_OS_IS_WIN32)
 
-#if defined(WINSTL_OS_IS_WIN32)
-    STLSOFT_NS_GLOBAL(InterlockedDecrement)((LPLONG)pl);
+    return atomic_postdecrement32(pl);
 #elif defined(WINSTL_OS_IS_WIN64)
-    STLSOFT_NS_GLOBAL(InterlockedDecrement64)((LONGLONG*)pl);
+
+    return STLSOFT_NS_GLOBAL(InterlockedDecrement64)(winstl_C_internal_synch_atomic_ptrconv64_(pl)) + 1;
 #else /* ? arch */
+
 # error Not valid for processors other than Intel
 #endif /* Win32 || Win64 */
-
-    return pre;
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
+STLSOFT_INLINE void atomic_increment32(atomic_int32_t volatile* pv)
+{
+    WINSTL_API_EXTERNAL_Synchronization_InterlockedIncrement(winstl_C_internal_synch_atomic_ptrconv32_(pv));
+}
+
 WINSTL_ATOMIC_FNS_IMPL_(void) atomic_increment(atomic_int_t volatile* pl)
 {
-#if defined(WINSTL_OS_IS_WIN32)
-    STLSOFT_NS_GLOBAL(InterlockedIncrement)((LPLONG)pl);
+#if 0
+#elif defined(WINSTL_OS_IS_WIN32)
+
+    atomic_increment32(pl);
 #elif defined(WINSTL_OS_IS_WIN64)
-    STLSOFT_NS_GLOBAL(InterlockedIncrement64)((LONGLONG*)pl);
+
+    STLSOFT_NS_GLOBAL(InterlockedIncrement64)(winstl_C_internal_synch_atomic_ptrconv64_(pl));
 #else /* ? arch */
+
 # error Not valid for processors other than Intel
 #endif /* Win32 || Win64 */
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
+STLSOFT_INLINE void atomic_decrement32(atomic_int32_t volatile* pv)
+{
+    WINSTL_API_EXTERNAL_Synchronization_InterlockedDecrement(winstl_C_internal_synch_atomic_ptrconv32_(pv));
+}
+
 WINSTL_ATOMIC_FNS_IMPL_(void) atomic_decrement(atomic_int_t volatile* pl)
 {
-#if defined(WINSTL_OS_IS_WIN32)
-    STLSOFT_NS_GLOBAL(InterlockedDecrement)((LPLONG)pl);
+#if 0
+#elif defined(WINSTL_OS_IS_WIN32)
+
+    atomic_decrement32(pl);
 #elif defined(WINSTL_OS_IS_WIN64)
-    STLSOFT_NS_GLOBAL(InterlockedDecrement64)((LONGLONG*)pl);
+
+    STLSOFT_NS_GLOBAL(InterlockedDecrement64)(winstl_C_internal_synch_atomic_ptrconv64_(pl));
 #else /* ? arch */
+
 # error Not valid for processors other than Intel
 #endif /* Win32 || Win64 */
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
+STLSOFT_INLINE atomic_int32_t atomic_exchange32(atomic_int32_t volatile* pv, atomic_int32_t n)
+{
+    return WINSTL_API_EXTERNAL_Synchronization_InterlockedExchange(winstl_C_internal_synch_atomic_ptrconv32_(pv), n);
+}
+
+WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange(atomic_int_t volatile* pl, atomic_int_t n)
+{
+#if 0
+#elif defined(WINSTL_OS_IS_WIN32)
+
+    return atomic_exchange32(pl, n);
+#elif defined(WINSTL_OS_IS_WIN64)
+
+    return STLSOFT_NS_GLOBAL(InterlockedExchange64)(winstl_C_internal_synch_atomic_ptrconv64_(pl), n);
+#else /* ? arch */
+
+# error Not valid for processors other than Intel
+#endif /* Win32 || Win64 */
+}
+
+/**
+ *
+ * \ingroup group__library__Synch
+ */
+STLSOFT_INLINE atomic_int32_t atomic_write32(atomic_int32_t volatile* pv, atomic_int32_t n)
+{
+    return WINSTL_API_EXTERNAL_Synchronization_InterlockedExchange(winstl_C_internal_synch_atomic_ptrconv32_(pv), n);
+}
+
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write(atomic_int_t volatile* pl, atomic_int_t n)
 {
-#if defined(WINSTL_OS_IS_WIN32)
-    return STLSOFT_NS_GLOBAL(InterlockedExchange)((LPLONG)pl, n);
+#if 0
+#elif defined(WINSTL_OS_IS_WIN32)
+
+    return atomic_write32(pl, n);
 #elif defined(WINSTL_OS_IS_WIN64)
-    return STLSOFT_NS_GLOBAL(InterlockedExchange64)((LONGLONG*)pl, n);
+
+    return STLSOFT_NS_GLOBAL(InterlockedExchange64)(winstl_C_internal_synch_atomic_ptrconv64_(pl), n);
 #else /* ? arch */
+
 # error Not valid for processors other than Intel
 #endif /* Win32 || Win64 */
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read(atomic_int_t volatile const* pl)
 {
     return *pl;
 }
 
-/** \brief
+WINSTL_ATOMIC_FNS_IMPL_(atomic_int32_t) atomic_read32(atomic_int32_t volatile const* pl)
+{
+    return *pl;
+}
+
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
+STLSOFT_INLINE atomic_int32_t atomic_postadd32(atomic_int32_t volatile* pv, atomic_int32_t n)
+{
+    return WINSTL_API_EXTERNAL_Synchronization_InterlockedExchangeAdd(winstl_C_internal_synch_atomic_ptrconv32_(pv), n);
+}
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd(atomic_int_t volatile* pl, atomic_int_t n)
 {
-#if defined(WINSTL_OS_IS_WIN32)
-    return (atomic_int_t)STLSOFT_NS_GLOBAL(InterlockedExchangeAdd)((LPLONG)pl, n);
+#if 0
+#elif defined(WINSTL_OS_IS_WIN32)
+
+    return atomic_postadd32(pl, n);
 #elif defined(WINSTL_OS_IS_WIN64)
-    return (atomic_int_t)STLSOFT_NS_GLOBAL(InterlockedExchangeAdd64)((LONGLONG*)pl, n);
+
+    return STLSOFT_NS_GLOBAL(InterlockedExchangeAdd64)(winstl_C_internal_synch_atomic_ptrconv64_(pl), n);
 #else /* ? arch */
+
 # error Not valid for processors other than Intel
 #endif /* Win32 || Win64 */
 }
@@ -1667,160 +2075,186 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd(atomic_int_t volatile* pl, 
 
 /* Uni-processor variants */
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement_up(atomic_int_t volatile* pl)
 {
     return atomic_preincrement(pl);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement_up(atomic_int_t volatile* pl)
 {
     return atomic_predecrement(pl);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement_up(atomic_int_t volatile* pl)
 {
     return atomic_postincrement(pl);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement_up(atomic_int_t volatile* pl)
 {
     return atomic_postdecrement(pl);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(void) atomic_increment_up(atomic_int_t volatile* pl)
 {
     atomic_increment(pl);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(void) atomic_decrement_up(atomic_int_t volatile* pl)
 {
     atomic_decrement(pl);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
+ */
+WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange_up(atomic_int_t volatile* pl, atomic_int_t n)
+{
+    return atomic_exchange(pl, n);
+}
+
+/**
+ *
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write_up(atomic_int_t volatile* pl, atomic_int_t n)
 {
     return atomic_write(pl, n);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read_up(atomic_int_t volatile const* pl)
 {
     return *pl;
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_up(atomic_int_t volatile* pl, atomic_int_t n)
 {
-#if defined(WINSTL_OS_IS_WIN32)
-    return (atomic_int_t)STLSOFT_NS_GLOBAL(InterlockedExchangeAdd)((LPLONG)pl, n);
+#if 0
+#elif defined(WINSTL_OS_IS_WIN32)
+
+    return WINSTL_API_EXTERNAL_Synchronization_InterlockedExchangeAdd(winstl_C_internal_synch_atomic_ptrconv32_(pl), n);
 #elif defined(WINSTL_OS_IS_WIN64)
-    return (atomic_int_t)STLSOFT_NS_GLOBAL(InterlockedExchangeAdd64)((LONGLONG*)pl, n);
+
+    return STLSOFT_NS_GLOBAL(InterlockedExchangeAdd64)(winstl_C_internal_synch_atomic_ptrconv64_(pl), n);
 #else /* ? arch */
+
 # error Not valid for processors other than Intel
 #endif /* Win32 || Win64 */
 }
 
 /* SMP variants */
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_preincrement_smp(atomic_int_t volatile* pl)
 {
     return atomic_preincrement(pl);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_predecrement_smp(atomic_int_t volatile* pl)
 {
     return atomic_predecrement(pl);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postincrement_smp(atomic_int_t volatile* pl)
 {
     return atomic_postincrement(pl);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postdecrement_smp(atomic_int_t volatile* pl)
 {
     return atomic_postdecrement(pl);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
+ */
+WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_exchange_smp(atomic_int_t volatile* pl, atomic_int_t n)
+{
+    return atomic_exchange(pl, n);
+}
+
+/**
+ *
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_write_smp(atomic_int_t volatile* pl, atomic_int_t n)
 {
     return atomic_write(pl, n);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_read_smp(atomic_int_t volatile const* pl)
 {
     return *pl;
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_smp(atomic_int_t volatile* pl, atomic_int_t n)
 {
-#if defined(WINSTL_OS_IS_WIN32)
-    return (atomic_int_t)STLSOFT_NS_GLOBAL(InterlockedExchangeAdd)((LPLONG)pl, n);
+#if 0
+#elif defined(WINSTL_OS_IS_WIN32)
+
+    return WINSTL_API_EXTERNAL_Synchronization_InterlockedExchangeAdd(winstl_C_internal_synch_atomic_ptrconv32_(pl), n);
 #elif defined(WINSTL_OS_IS_WIN64)
-    return (atomic_int_t)STLSOFT_NS_GLOBAL(InterlockedExchangeAdd64)((LONGLONG*)pl, n);
+
+    return STLSOFT_NS_GLOBAL(InterlockedExchangeAdd64)(winstl_C_internal_synch_atomic_ptrconv64_(pl), n);
 #else /* ? arch */
+
 # error Not valid for processors other than Intel
 #endif /* Win32 || Win64 */
 }
@@ -1830,77 +2264,138 @@ WINSTL_ATOMIC_FNS_IMPL_(atomic_int_t) atomic_postadd_smp(atomic_int_t volatile* 
 # endif /* !WINSTL_ATOMIC_FNS_DECLARATION_ONLY */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Other inline atomic function
+ * other inline atomic function
  */
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 STLSOFT_INLINE atomic_int_t atomic_preadd_up(atomic_int_t volatile* pl, atomic_int_t n)
 {
     return n + atomic_postadd_up(pl, n);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 STLSOFT_INLINE void atomic_increment_smp(atomic_int_t volatile* pl)
 {
     atomic_postincrement_smp(pl);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 STLSOFT_INLINE void atomic_decrement_smp(atomic_int_t volatile* pl)
 {
     atomic_postdecrement_smp(pl);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 STLSOFT_INLINE atomic_int_t atomic_preadd_smp(atomic_int_t volatile* pl, atomic_int_t n)
 {
     return n + atomic_postadd_smp(pl, n);
 }
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
 STLSOFT_INLINE atomic_int_t atomic_preadd(atomic_int_t volatile* pl, atomic_int_t n)
 {
     return n + atomic_postadd(pl, n);
 }
 
+STLSOFT_INLINE atomic_int32_t atomic_preadd32(atomic_int32_t volatile* pl, atomic_int32_t n)
+{
+    return n + atomic_postadd32(pl, n);
+}
+
+# ifdef __cplusplus
+#  if 0
+#  elif defined(WINSTL_OS_IS_WIN64)
+
+inline atomic_int_t atomic_postdecrement(atomic_int32_t volatile* pv)
+{
+    return atomic_postdecrement32(pv);
+}
+
+inline atomic_int32_t atomic_postincrement(atomic_int32_t volatile* pv)
+{
+    return atomic_postincrement32(pv);
+}
+
+inline atomic_int32_t atomic_predecrement(atomic_int32_t volatile* pv)
+{
+    return atomic_predecrement32(pv);
+}
+
+inline atomic_int32_t atomic_preincrement(atomic_int32_t volatile* pv)
+{
+    return atomic_preincrement32(pv);
+}
+
+inline void atomic_increment(atomic_int32_t volatile* pv)
+{
+    atomic_increment32(pv);
+}
+inline void atomic_decrement(atomic_int32_t volatile* pv)
+{
+    atomic_decrement32(pv);
+}
+
+inline atomic_int32_t atomic_exchange(atomic_int32_t volatile* pv, atomic_int32_t n)
+{
+    return atomic_exchange32(pv, n);
+}
+
+inline atomic_int32_t atomic_read(atomic_int32_t volatile* pv)
+{
+    return atomic_read32(pv);
+}
+
+inline atomic_int32_t atomic_write(atomic_int32_t volatile* pv, atomic_int32_t n)
+{
+    return atomic_write32(pv, n);
+}
+
+inline atomic_int32_t atomic_postadd(atomic_int32_t volatile* pv, atomic_int32_t n)
+{
+    return atomic_postadd32(pv, n);
+}
+
+#  endif
+# endif /* __cplusplus */
+
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Unit-testing
+ * namespace
  */
 
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/atomic_functions_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
-/* ////////////////////////////////////////////////////////////////////// */
-
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 } /* namespace winstl */
 # else
 } /* namespace winstl_project */
 } /* namespace stlsoft */
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !WINSTL_INCL_WINSTL_SYNCH_H_ATOMIC_FUNCTIONS */
 

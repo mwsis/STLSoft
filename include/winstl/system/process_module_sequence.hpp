@@ -4,7 +4,7 @@
  * Purpose:     Process Id sequence class.
  *
  * Created:     24th June 2005
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks to:   Adi Shavit for spotting a small inefficiency in the
  *              resize()-ing, during the review of Extended STL volume 1
@@ -12,42 +12,44 @@
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/system/process_module_sequence.hpp
  *
- * \brief [C++ only] Definition of the winstl::process_module_sequence
+ * \brief [C++] Definition of the winstl::process_module_sequence
  *  class
- *   (\ref group__library__system "System" Library).
+ *   (\ref group__library__System "System" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_SYSTEM_HPP_PROCESS_MODULE_SEQUENCE
@@ -56,31 +58,25 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SYSTEM_HPP_PROCESS_MODULE_SEQUENCE_MAJOR     2
 # define WINSTL_VER_WINSTL_SYSTEM_HPP_PROCESS_MODULE_SEQUENCE_MINOR     2
-# define WINSTL_VER_WINSTL_SYSTEM_HPP_PROCESS_MODULE_SEQUENCE_REVISION  3
-# define WINSTL_VER_WINSTL_SYSTEM_HPP_PROCESS_MODULE_SEQUENCE_EDIT      50
+# define WINSTL_VER_WINSTL_SYSTEM_HPP_PROCESS_MODULE_SEQUENCE_REVISION  10
+# define WINSTL_VER_WINSTL_SYSTEM_HPP_PROCESS_MODULE_SEQUENCE_EDIT      65
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_COMO:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-# ifndef WINSTL_INCL_WINSTL_ERROR_HPP_WINDOWS_EXCEPTIONS
-#  include <winstl/error/exceptions.hpp>
-# endif /* !WINSTL_INCL_WINSTL_ERROR_HPP_WINDOWS_EXCEPTIONS */
+# ifndef WINSTL_INCL_WINSTL_EXCEPTION_HPP_WINSTL_EXCEPTION
+#  include <winstl/exception/winstl_exception.hpp>
+# endif /* !WINSTL_INCL_WINSTL_EXCEPTION_HPP_WINSTL_EXCEPTION */
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 #ifndef WINSTL_INCL_WINSTL_MEMORY_HPP_PROCESSHEAP_ALLOCATOR
 # include <winstl/memory/processheap_allocator.hpp>
@@ -101,42 +97,39 @@ STLSOFT_COMPILER_IS_COMO:
 # endif /* !WINSTL_INCL_WINSTL_DL_HPP_DL_CALL */
 #endif /* psapi */
 
-#if !defined(STLSOFT_UNITTEST)
-# include <algorithm>
-#endif /* !STLSOFT_UNITTEST */
+#ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
+# include <winstl/api/external/ErrorHandling.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Process module (constituent DLLs) sequence
+/** Process module (constituent DLLs) sequence
  *
- * \ingroup group__library__system
+ * \ingroup group__library__System
  */
 class process_module_sequence
-    : public stlsoft_ns_qual(stl_collection_tag)
+    : public STLSOFT_NS_QUAL(stl_collection_tag)
 {
 /// \name Member Types
 /// @{
@@ -152,7 +145,7 @@ public:
     /// The non-mutating (const) reference type
     typedef value_type const&                                               const_reference;
     /// The non-mutating (const) iterator type
-    typedef stlsoft_ns_qual(pointer_iterator)<  value_type
+    typedef STLSOFT_NS_QUAL(pointer_iterator)<  value_type
                                             ,   const_pointer
                                             ,   const_reference
                                             >::type                         const_iterator;
@@ -162,7 +155,7 @@ public:
     typedef ws_ptrdiff_t                                                    difference_type;
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
     /// The non-mutating (const) reverse iterator type
-    typedef stlsoft_ns_qual(const_reverse_bidirectional_iterator_base)< const_iterator
+    typedef STLSOFT_NS_QUAL(const_reverse_bidirectional_iterator_base)< const_iterator
                                                                     ,   value_type
                                                                     ,   const_reference
                                                                     ,   const_pointer
@@ -227,7 +220,7 @@ public:
 /// \name Members
 /// @{
 private:
-    typedef stlsoft_ns_qual(auto_buffer_old)<   value_type
+    typedef STLSOFT_NS_QUAL(auto_buffer_old)<   value_type
                                             ,   allocator_type
                                             ,   64
                                             >       buffer_type_;
@@ -242,15 +235,8 @@ private:
 /// @}
 };
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/process_module_sequence_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Implementation
+ * implementation
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -260,13 +246,13 @@ inline process_module_sequence::process_module_sequence(HANDLE hProcess)
 {
     DWORD   cbReturned;
 
-    for(;;)
+    for (;;)
     {
 #if defined(_PSAPI_H_) || \
     defined(_PSAPI_H)
-        if(!::EnumProcessModules(hProcess, &m_modules[0], sizeof(value_type) * m_modules.size(), &cbReturned))
+        if (!::EnumProcessModules(hProcess, &m_modules[0], sizeof(value_type) * m_modules.size(), &cbReturned))
 #else /* ? psapi */
-        if(!dl_call<BOOL>(  "PSAPI.DLL"
+        if (!dl_call<BOOL>(  "PSAPI.DLL"
                         ,   WINSTL_DL_CALL_WINx_STDCALL_LITERAL("EnumProcessModules")
                         ,   hProcess
                         ,   &m_modules[0]
@@ -275,7 +261,7 @@ inline process_module_sequence::process_module_sequence(HANDLE hProcess)
 #endif /* psapi */
         {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-            STLSOFT_THROW_X(windows_exception("Failed to enumerate processes", ::GetLastError()));
+            STLSOFT_THROW_X(winstl_exception("Failed to enumerate processes", WINSTL_API_EXTERNAL_ErrorHandling_GetLastError()));
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
             m_modules.resize(0);
 
@@ -286,7 +272,7 @@ inline process_module_sequence::process_module_sequence(HANDLE hProcess)
         {
             const ws_size_t n   =   cbReturned / sizeof(value_type);
 
-            if(n < m_modules.size())
+            if (n < m_modules.size())
             {
                 m_modules.resize(n);
 
@@ -298,7 +284,7 @@ inline process_module_sequence::process_module_sequence(HANDLE hProcess)
 
                 m_modules.resize(1); // Read "Extended STL, volume 1" to find out what this is for
 
-                if(!m_modules.resize(2 * size))
+                if (!m_modules.resize(2 * size))
                 {
                     // This will only ever be executed when compiled in the
                     // absence of throwing bad_alloc on memory exhaustion
@@ -314,7 +300,7 @@ inline process_module_sequence::process_module_sequence(HANDLE hProcess)
 inline process_module_sequence::process_module_sequence(process_module_sequence const& rhs)
     : m_modules(rhs.m_modules.size())
 {
-    stlsoft_ns_qual_std(copy)(rhs.m_modules.begin(), rhs.m_modules.end(), m_modules.begin());
+    STLSOFT_NS_QUAL_STD(copy)(rhs.m_modules.begin(), rhs.m_modules.end(), m_modules.begin());
 }
 
 inline process_module_sequence::~process_module_sequence() STLSOFT_NOEXCEPT
@@ -362,20 +348,26 @@ inline process_module_sequence::size_type process_module_sequence::size() const
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !WINSTL_INCL_WINSTL_SYSTEM_HPP_PROCESS_MODULE_SEQUENCE */
 

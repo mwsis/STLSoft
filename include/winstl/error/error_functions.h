@@ -4,37 +4,39 @@
  * Purpose:     Error functions.
  *
  * Created:     7th May 2000
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2000-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -51,61 +53,66 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_ERROR_H_ERROR_FUNCTIONS_MAJOR     4
-# define WINSTL_VER_WINSTL_ERROR_H_ERROR_FUNCTIONS_MINOR     4
-# define WINSTL_VER_WINSTL_ERROR_H_ERROR_FUNCTIONS_REVISION  4
-# define WINSTL_VER_WINSTL_ERROR_H_ERROR_FUNCTIONS_EDIT      72
+# define WINSTL_VER_WINSTL_ERROR_H_ERROR_FUNCTIONS_MINOR     5
+# define WINSTL_VER_WINSTL_ERROR_H_ERROR_FUNCTIONS_REVISION  3
+# define WINSTL_VER_WINSTL_ERROR_H_ERROR_FUNCTIONS_EDIT      85
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
+#ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
+# include <winstl/api/external/ErrorHandling.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
+#ifndef WINSTL_INCL_WINSTL_API_external_h_MemoryManagement
+# include <winstl/api/external/MemoryManagement.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_MemoryManagement */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#if !defined(_WINSTL_NO_NAMESPACE) && \
+#if !defined(WINSTL_NO_NAMESPACE) && \
     !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# if defined(_STLSOFT_NO_NAMESPACE)
+# if defined(STLSOFT_NO_NAMESPACE)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Constants
+ * constants
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-#define WINSTL_ERROR_FUNCTIONS_ELIDE_DOT                (0x0001)
-#define WINSTL_ERROR_FUNCTIONS_ELIDE_DOT_IF_LAST_ONLY   (0x0002)
+#define WINSTL_ERROR_FUNCTIONS_ELIDE_DOT                    (0x0001)
+#define WINSTL_ERROR_FUNCTIONS_ELIDE_DOT_IF_LAST_ONLY       (0x0002)
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Helper functions
+ * helper functions
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-
-
-/**
+/** [UNDOCUMENTED]
  *
  * \ingroup group__library__error
  */
@@ -118,7 +125,20 @@ winstl_C_fmtmsg_empty_reason_unknown_a()
     return s_reason_unknown;
 }
 
-/**
+/** [UNDOCUMENTED]
+ *
+ * \ingroup group__library__error
+ */
+STLSOFT_INLINE
+ws_char_w_t const*
+winstl_C_fmtmsg_empty_reason_unknown_w()
+{
+    static ws_char_w_t const s_reason_unknown[] = L"reason unknown";
+
+    return s_reason_unknown;
+}
+
+/** [UNDOCUMENTED]
  *
  * \ingroup group__library__error
  */
@@ -131,7 +151,20 @@ winstl_C_fmtmsg_empty_string_a()
     return s_empty;
 }
 
-/**
+/** [UNDOCUMENTED]
+ *
+ * \ingroup group__library__error
+ */
+STLSOFT_INLINE
+ws_char_w_t const*
+winstl_C_fmtmsg_empty_string_w()
+{
+    static ws_char_w_t const s_empty[1] = { '\0' };
+
+    return s_empty;
+}
+
+/** [UNDOCUMENTED]
  *
  * \ingroup group__library__error
  */
@@ -145,13 +178,13 @@ winstl_C_fmtmsg_elide_message_a_(
 {
     ws_char_a_t const* firstDot = NULL;
 
-    if(WINSTL_ERROR_FUNCTIONS_ELIDE_DOT_IF_LAST_ONLY & elisionFlags)
+    if (WINSTL_ERROR_FUNCTIONS_ELIDE_DOT_IF_LAST_ONLY & elisionFlags)
     {
         ws_char_a_t const* s;
 
-        for(s = first; s != last; ++s)
+        for (s = first; s != last; ++s)
         {
-            if('.' == *s)
+            if ('.' == *s)
             {
                 firstDot = s;
                 break;
@@ -159,12 +192,12 @@ winstl_C_fmtmsg_elide_message_a_(
         }
     }
 
-    for(; first != last; )
+    for (; first != last; )
     {
-        switch(*(last - 1))
+        switch (*(last - 1))
         {
             case    '.':
-                if( (WINSTL_ERROR_FUNCTIONS_ELIDE_DOT & elisionFlags) &&
+                if ((WINSTL_ERROR_FUNCTIONS_ELIDE_DOT & elisionFlags) &&
                     (   0 == (WINSTL_ERROR_FUNCTIONS_ELIDE_DOT_IF_LAST_ONLY & elisionFlags) ||
                         NULL == firstDot ||
                         firstDot == last - 1))
@@ -189,7 +222,7 @@ winstl_C_fmtmsg_elide_message_a_(
     return last;
 }
 
-/**
+/** [UNDOCUMENTED]
  *
  * \ingroup group__library__error
  */
@@ -203,13 +236,13 @@ winstl_C_fmtmsg_elide_message_w_(
 {
     ws_char_w_t const* firstDot = NULL;
 
-    if(WINSTL_ERROR_FUNCTIONS_ELIDE_DOT_IF_LAST_ONLY & elisionFlags)
+    if (WINSTL_ERROR_FUNCTIONS_ELIDE_DOT_IF_LAST_ONLY & elisionFlags)
     {
         ws_char_w_t const* s;
 
-        for(s = first; s != last; ++s)
+        for (s = first; s != last; ++s)
         {
-            if(L'.' == *s)
+            if (L'.' == *s)
             {
                 firstDot = s;
                 break;
@@ -217,12 +250,12 @@ winstl_C_fmtmsg_elide_message_w_(
         }
     }
 
-    for(; first != last; )
+    for (; first != last; )
     {
-        switch(*(last - 1))
+        switch (*(last - 1))
         {
             case    L'.':
-                if( (WINSTL_ERROR_FUNCTIONS_ELIDE_DOT & elisionFlags) &&
+                if ((WINSTL_ERROR_FUNCTIONS_ELIDE_DOT & elisionFlags) &&
                     (   0 == (WINSTL_ERROR_FUNCTIONS_ELIDE_DOT_IF_LAST_ONLY & elisionFlags) ||
                         NULL == firstDot ||
                         firstDot == last - 1))
@@ -247,8 +280,7 @@ winstl_C_fmtmsg_elide_message_w_(
     return last;
 }
 
-/** TBC
- *
+/** [UNDOCUMENTED]
  *
  * \param flags. Automatically added to this are FORMAT_MESSAGE_ALLOCATE_BUFFER and, if source is NULL, FORMAT_MESSAGE_FROM_SYSTEM
  * \param source
@@ -272,13 +304,13 @@ winstl_C_FormatMessageA_INVOKE_for_alloc_(
 ,   va_list*        arguments
 )
 {
-    if(NULL == source)
+    if (NULL == source)
     {
         flags |= FORMAT_MESSAGE_FROM_SYSTEM;
     }
     flags |= FORMAT_MESSAGE_ALLOCATE_BUFFER;
 
-    return STLSOFT_NS_GLOBAL(FormatMessageA)(
+    return WINSTL_API_EXTERNAL_ErrorHandling_FormatMessageA(
         flags
     ,   source
     ,   code
@@ -289,8 +321,7 @@ winstl_C_FormatMessageA_INVOKE_for_alloc_(
     );
 }
 
-/** TBC
- *
+/** [UNDOCUMENTED]
  *
  * \param flags. Automatically added to this are FORMAT_MESSAGE_ALLOCATE_BUFFER and, if source is NULL, FORMAT_MESSAGE_FROM_SYSTEM
  * \param source
@@ -314,13 +345,13 @@ winstl_C_FormatMessageW_INVOKE_for_alloc_(
 ,   va_list*        arguments
 )
 {
-    if(NULL == source)
+    if (NULL == source)
     {
         flags |= FORMAT_MESSAGE_FROM_SYSTEM;
     }
     flags |= FORMAT_MESSAGE_ALLOCATE_BUFFER;
 
-    return STLSOFT_NS_GLOBAL(FormatMessageW)(
+    return WINSTL_API_EXTERNAL_ErrorHandling_FormatMessageW(
         flags
     ,   source
     ,   code
@@ -332,8 +363,7 @@ winstl_C_FormatMessageW_INVOKE_for_alloc_(
 }
 
 
-/** TBC
- *
+/** [UNDOCUMENTED]
  *
  * \param flags. Automatically removed from this is FORMAT_MESSAGE_ALLOCATE_BUFFER and added to this, if source is NULL, is FORMAT_MESSAGE_FROM_SYSTEM
  * \param source
@@ -357,13 +387,13 @@ winstl_C_FormatMessageA_INVOKE_in_buffer_(
 ,   va_list*        arguments
 )
 {
-    if(NULL == source)
+    if (NULL == source)
     {
         flags |= FORMAT_MESSAGE_FROM_SYSTEM;
     }
     flags &= ~(FORMAT_MESSAGE_ALLOCATE_BUFFER);
 
-    return STLSOFT_NS_GLOBAL(FormatMessageA)(
+    return WINSTL_API_EXTERNAL_ErrorHandling_FormatMessageA(
         flags
     ,   source
     ,   code
@@ -374,8 +404,7 @@ winstl_C_FormatMessageA_INVOKE_in_buffer_(
     );
 }
 
-/** TBC
- *
+/** [UNDOCUMENTED]
  *
  * \param flags. Automatically removed from this is FORMAT_MESSAGE_ALLOCATE_BUFFER and added to this, if source is NULL, is FORMAT_MESSAGE_FROM_SYSTEM
  * \param source
@@ -399,13 +428,13 @@ winstl_C_FormatMessageW_INVOKE_in_buffer_(
 ,   va_list*        arguments
 )
 {
-    if(NULL == source)
+    if (NULL == source)
     {
         flags |= FORMAT_MESSAGE_FROM_SYSTEM;
     }
     flags &= ~(FORMAT_MESSAGE_ALLOCATE_BUFFER);
 
-    return STLSOFT_NS_GLOBAL(FormatMessageW)(
+    return WINSTL_API_EXTERNAL_ErrorHandling_FormatMessageW(
         flags
     ,   source
     ,   code
@@ -416,8 +445,15 @@ winstl_C_FormatMessageW_INVOKE_in_buffer_(
     );
 }
 
+#endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/**
+/* /////////////////////////////////////////////////////////////////////////
+ * C functions (deprecated)
+ */
+
+#ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
+/** [UNDOCUMENTED]
  *
  * \ingroup group__library__error
  *
@@ -436,7 +472,7 @@ winstl_C_FormatMessageA__buff_inst(
 ,   ws_uint_t       cchBuffer
 )
 {
-    if(NULL != hinst)
+    if (NULL != hinst)
     {
         flags = flags & ~(FORMAT_MESSAGE_FROM_SYSTEM);
         flags = flags | (FORMAT_MESSAGE_FROM_HMODULE);
@@ -457,7 +493,7 @@ winstl_C_FormatMessageA__buff_inst(
     );
 }
 
-/**
+/** [UNDOCUMENTED]
  *
  * \ingroup group__library__error
  *
@@ -476,7 +512,7 @@ winstl_C_FormatMessageW__buff_inst(
 ,   ws_uint_t       cchBuffer
 )
 {
-    if(NULL != hinst)
+    if (NULL != hinst)
     {
         flags = flags & ~(FORMAT_MESSAGE_FROM_SYSTEM);
         flags = flags | (FORMAT_MESSAGE_FROM_HMODULE);
@@ -497,7 +533,7 @@ winstl_C_FormatMessageW__buff_inst(
     );
 }
 
-/**
+/** [UNDOCUMENTED]
  *
  * \ingroup group__library__error
  *
@@ -515,7 +551,7 @@ winstl_C_FormatMessageA__alloc_inst(
 ,   ws_char_a_t**   buffer
 )
 {
-    if(NULL != hinst)
+    if (NULL != hinst)
     {
         flags = flags & ~(FORMAT_MESSAGE_FROM_SYSTEM);
         flags = flags | (FORMAT_MESSAGE_FROM_HMODULE);
@@ -536,7 +572,7 @@ winstl_C_FormatMessageA__alloc_inst(
     );
 }
 
-/**
+/** [UNDOCUMENTED]
  *
  * \ingroup group__library__error
  *
@@ -554,7 +590,7 @@ winstl_C_FormatMessageW__alloc_inst(
 ,   ws_char_w_t**   buffer
 )
 {
-    if(NULL != hinst)
+    if (NULL != hinst)
     {
         flags = flags & ~(FORMAT_MESSAGE_FROM_SYSTEM);
         flags = flags | (FORMAT_MESSAGE_FROM_HMODULE);
@@ -575,15 +611,15 @@ winstl_C_FormatMessageW__alloc_inst(
     );
 }
 
-/**
+/** [UNDOCUMENTED]
  *
  * \ingroup group__library__error
  */
 STLSOFT_INLINE
 void
-winstl_C_fmtmsg_LocalFree__(void *pv)
+winstl_C_fmtmsg_LocalFree__(void* pv)
 {
-    STLSOFT_NS_GLOBAL(LocalFree)(pv);
+    WINSTL_API_EXTERNAL_MemoryManagement_LocalFree(pv);
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
@@ -592,11 +628,23 @@ winstl_C_fmtmsg_LocalFree__(void *pv)
  * C functions
  */
 
-/** TBC
+/** Obtains the translation of \c code form the message strings
+ * in \c hModule (or the system libraries, if \c nullptr), passing the
+ * created string to the caller via the pointer \c ppBuffer, according to
+ * the <code>FormatMessage()</code> \c flags and the \c elisionFlags
  *
  * \ingroup group__library__error
  *
+ * \param flags <code>FormatMessage()</code> flags
+ * \param hModule The message strings module. May be \c nullptr
+ * \param code The code to be translated
+ * \param ppBuffer Pointer to the pointer to receive the results. May not
+ *  be \c nullptr
+ * \param elisionFlags Any combination
+ *   of \c WINSTL_ERROR_FUNCTIONS_ELIDE_DOT
+ *   and \c WINSTL_ERROR_FUNCTIONS_ELIDE_DOT_IF_LAST_ONLY
  *
+ * \return The number of characters written to <code>*ppBuffer</code>
  */
 STLSOFT_INLINE
 ws_dword_t
@@ -618,7 +666,7 @@ winstl_C_format_message_from_module_to_allocated_buffer_a(
     ,   NULL
     );
 
-    if( 0 != r &&
+    if (0 != r &&
         0 != elisionFlags)
     {
         ws_char_a_t* newLast =
@@ -634,11 +682,23 @@ winstl_C_format_message_from_module_to_allocated_buffer_a(
     return r;
 }
 
-/** TBC
+/** Obtains the translation of \c code form the message strings
+ * in \c hModule (or the system libraries, if \c nullptr), passing the
+ * created string to the caller via the pointer \c ppBuffer, according to
+ * the <code>FormatMessage()</code> \c flags and the \c elisionFlags
  *
  * \ingroup group__library__error
  *
+ * \param flags <code>FormatMessage()</code> flags
+ * \param hModule The message strings module. May be \c nullptr
+ * \param code The code to be translated
+ * \param ppBuffer Pointer to the pointer to receive the results. May not
+ *  be \c nullptr
+ * \param elisionFlags Any combination
+ *   of \c WINSTL_ERROR_FUNCTIONS_ELIDE_DOT
+ *   and \c WINSTL_ERROR_FUNCTIONS_ELIDE_DOT_IF_LAST_ONLY
  *
+ * \return The number of characters written to <code>*ppBuffer</code>
  */
 STLSOFT_INLINE
 ws_dword_t
@@ -660,7 +720,7 @@ winstl_C_format_message_from_module_to_allocated_buffer_w(
     ,   NULL
     );
 
-    if( 0 != r &&
+    if (0 != r &&
         0 != elisionFlags)
     {
         ws_char_w_t* newLast =
@@ -676,8 +736,11 @@ winstl_C_format_message_from_module_to_allocated_buffer_w(
     return r;
 }
 
+/* /////////////////////////////////////////////////////////////////////////
+ * C functions (deprecated)
+ */
 
-/** \brief Translates the given error to an error string and
+/** Translates the given error to an error string and
  *
  * \ingroup group__library__error
  *
@@ -693,9 +756,11 @@ STLSOFT_INLINE ws_dword_t winstl_C_format_message_buff_inst_a(
 ,   ws_uint_t       cchBuffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     ws_dword_t res = winstl_C_FormatMessageA__buff_inst(FORMAT_MESSAGE_MAX_WIDTH_MASK, hinst, error, buffer, cchBuffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 
-    if(res != 0)
+    if (res != 0)
     {
         /* Now trim the trailing space */
         ws_char_a_t* last_good = winstl_C_fmtmsg_elide_message_a_(buffer, buffer + res, WINSTL_ERROR_FUNCTIONS_ELIDE_DOT);
@@ -725,9 +790,11 @@ STLSOFT_INLINE ws_dword_t winstl_C_format_message_buff_inst_w(
 ,   ws_uint_t       cchBuffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     ws_dword_t res = winstl_C_FormatMessageW__buff_inst(FORMAT_MESSAGE_MAX_WIDTH_MASK, hinst, error, buffer, cchBuffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 
-    if(res != 0)
+    if (res != 0)
     {
         /* Now trim the trailing space */
         ws_char_w_t* last_good = winstl_C_fmtmsg_elide_message_w_(buffer, buffer + res, WINSTL_ERROR_FUNCTIONS_ELIDE_DOT);
@@ -756,7 +823,9 @@ STLSOFT_INLINE ws_dword_t winstl_C_format_message_buff_a(
 ,   ws_uint_t       cchBuffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     return winstl_C_format_message_buff_inst_a(error, NULL, buffer, cchBuffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 }
 
 /**
@@ -774,7 +843,9 @@ STLSOFT_INLINE ws_dword_t winstl_C_format_message_buff_w(
 ,   ws_uint_t       cchBuffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     return winstl_C_format_message_buff_inst_w(error, NULL, buffer, cchBuffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 }
 
 /**
@@ -792,9 +863,11 @@ STLSOFT_INLINE ws_dword_t winstl_C_format_message_alloc_a(
 ,   ws_char_a_t**   buffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     ws_dword_t res = winstl_C_FormatMessageA__alloc_inst(FORMAT_MESSAGE_MAX_WIDTH_MASK, hinst, error, buffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 
-    if(res != 0)
+    if (res != 0)
     {
         /* Now trim the trailing space */
         ws_char_a_t* last_good = winstl_C_fmtmsg_elide_message_a_(*buffer, *buffer + res, WINSTL_ERROR_FUNCTIONS_ELIDE_DOT);
@@ -812,15 +885,20 @@ STLSOFT_INLINE ws_dword_t winstl_C_format_message_alloc_a(
  *
  * \ingroup group__library__error
  */
+#if _STLSOFT_VER >= 0x010a0000
+STLSOFT_DECLARE_FUNCTION_DEPRECATION(winstl_C_format_message_alloc_w)
+#endif
 STLSOFT_INLINE ws_dword_t winstl_C_format_message_alloc_w(
     DWORD           error
 ,   HINSTANCE       hinst
 ,   ws_char_w_t**   buffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     ws_dword_t res = winstl_C_FormatMessageW__alloc_inst(FORMAT_MESSAGE_MAX_WIDTH_MASK, hinst, error, buffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 
-    if(res != 0)
+    if (res != 0)
     {
         /* Now trim the trailing space */
         ws_char_w_t* last_good = winstl_C_fmtmsg_elide_message_w_(*buffer, *buffer + res, WINSTL_ERROR_FUNCTIONS_ELIDE_DOT);
@@ -854,15 +932,15 @@ winstl_C_format_message_strerror_a(
     ws_char_a_t*    p;
     DWORD const     n = winstl_C_format_message_from_module_to_allocated_buffer_a(0, NULL, code, &p, WINSTL_ERROR_FUNCTIONS_ELIDE_DOT | WINSTL_ERROR_FUNCTIONS_ELIDE_DOT_IF_LAST_ONLY);
 
-    if(0 == n)
+    if (0 == n)
     {
         /* If nothing was retrieved, we try to write a number into it */
 
         WINSTL_ASSERT(NULL == p);
 
-        p = stlsoft_static_cast(ws_char_a_t*, STLSOFT_NS_GLOBAL(LocalAlloc)(LMEM_FIXED, sizeof(ws_char_a_t) * 21));
+        p = stlsoft_static_cast(ws_char_a_t*, WINSTL_API_EXTERNAL_MemoryManagement_LocalAlloc(LMEM_FIXED, sizeof(ws_char_a_t) * 21));
 
-        if(NULL == p)
+        if (NULL == p)
         {
             return stlsoft_const_cast(ws_char_a_t*, winstl_C_fmtmsg_empty_reason_unknown_a());
         }
@@ -879,9 +957,43 @@ winstl_C_format_message_strerror_a(
     return p;
 }
 
+STLSOFT_INLINE
+ws_char_w_t*
+winstl_C_format_message_strerror_w(
+    DWORD           code
+)
+{
+    ws_char_w_t*    p;
+    DWORD const     n = winstl_C_format_message_from_module_to_allocated_buffer_w(0, NULL, code, &p, WINSTL_ERROR_FUNCTIONS_ELIDE_DOT | WINSTL_ERROR_FUNCTIONS_ELIDE_DOT_IF_LAST_ONLY);
 
+    if (0 == n)
+    {
+        /* If nothing was retrieved, we try to write a number into it */
 
-/**
+        WINSTL_ASSERT(NULL == p);
+
+        p = stlsoft_static_cast(ws_char_w_t*, WINSTL_API_EXTERNAL_MemoryManagement_LocalAlloc(LMEM_FIXED, sizeof(ws_char_w_t) * 21));
+
+        if (NULL == p)
+        {
+            return stlsoft_const_cast(ws_char_w_t*, winstl_C_fmtmsg_empty_reason_unknown_w());
+        }
+        else
+        {
+            wsprintfW(p, L"%lu", stlsoft_static_cast(unsigned long, code));
+        }
+    }
+    else
+    {
+        WINSTL_ASSERT(NULL != p);
+    }
+
+    return p;
+}
+
+/** Releases an allocated string
+ *
+ * \param buffer The string to be released. May be \c nullptr
  *
  * \ingroup group__library__error
  */
@@ -889,11 +1001,11 @@ STLSOFT_INLINE
 void
 winstl_C_format_message_free_buff_a(ws_char_a_t* buffer)
 {
-    if(winstl_C_fmtmsg_empty_reason_unknown_a() == buffer)
+    if (winstl_C_fmtmsg_empty_reason_unknown_a() == buffer)
     {
         return;
     }
-    if(winstl_C_fmtmsg_empty_string_a() == buffer)
+    if (winstl_C_fmtmsg_empty_string_a() == buffer)
     {
         return;
     }
@@ -901,7 +1013,9 @@ winstl_C_format_message_free_buff_a(ws_char_a_t* buffer)
     winstl_C_fmtmsg_LocalFree__(buffer);
 }
 
-/**
+/** Releases an allocated string
+ *
+ * \param buffer The string to be released. May be \c nullptr
  *
  * \ingroup group__library__error
  */
@@ -959,7 +1073,9 @@ inline ws_dword_t winstl_C_format_message_buff_inst(
 ,   ws_uint_t       cchBuffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     return winstl_C_format_message_buff_inst_a(error, hinst, buffer, cchBuffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 }
 
 /**
@@ -976,7 +1092,9 @@ inline ws_dword_t winstl_C_format_message_buff_inst(
 ,   ws_uint_t       cchBuffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     return winstl_C_format_message_buff_inst_w(error, hinst, buffer, cchBuffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 }
 
 /**
@@ -992,7 +1110,9 @@ inline ws_dword_t winstl_C_format_message_buff(
 ,   ws_uint_t       cchBuffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     return winstl_C_format_message_buff_a(error, buffer, cchBuffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 }
 
 /**
@@ -1008,7 +1128,9 @@ inline ws_dword_t winstl_C_format_message_buff(
 ,   ws_uint_t       cchBuffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     return winstl_C_format_message_buff_w(error, buffer, cchBuffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 }
 
 /**
@@ -1024,7 +1146,9 @@ inline ws_dword_t winstl_C_format_message_alloc(
 ,   ws_char_a_t**   buffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     return winstl_C_format_message_alloc_a(error, hinst, buffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 }
 
 /**
@@ -1040,7 +1164,9 @@ inline ws_dword_t winstl_C_format_message_alloc(
 ,   ws_char_w_t**   buffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     return winstl_C_format_message_alloc_w(error, hinst, buffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 }
 
 inline void winstl_C_format_message_free_buff(ws_char_a_t* buffer)
@@ -1056,21 +1182,21 @@ inline void winstl_C_format_message_free_buff(ws_char_w_t* buffer)
 #else /* ? __cplusplus */
 
 # ifdef UNICODE
-#  define winstl_C_format_message_buff_inst     winstl_C_format_message_buff_inst_w
-#  define winstl_C_format_message_buff          winstl_C_format_message_buff_w
-#  define winstl_C_format_message_alloc         winstl_C_format_message_alloc_w
-#  define winstl_C_format_message_free_buff     winstl_C_format_message_free_buff_w
+#  define winstl_C_format_message_buff_inst                 winstl_C_format_message_buff_inst_w
+#  define winstl_C_format_message_buff                      winstl_C_format_message_buff_w
+#  define winstl_C_format_message_alloc                     winstl_C_format_message_alloc_w
+#  define winstl_C_format_message_free_buff                 winstl_C_format_message_free_buff_w
 # else /* ? UNICODE */
-#  define winstl_C_format_message_buff_inst     winstl_C_format_message_buff_inst_a
-#  define winstl_C_format_message_buff          winstl_C_format_message_buff_a
-#  define winstl_C_format_message_alloc         winstl_C_format_message_alloc_a
-#  define winstl_C_format_message_free_buff     winstl_C_format_message_free_buff_a
+#  define winstl_C_format_message_buff_inst                 winstl_C_format_message_buff_inst_a
+#  define winstl_C_format_message_buff                      winstl_C_format_message_buff_a
+#  define winstl_C_format_message_alloc                     winstl_C_format_message_alloc_a
+#  define winstl_C_format_message_free_buff                 winstl_C_format_message_free_buff_a
 # endif /* UNICODE */
 
 #endif /* __cplusplus */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Obsolete symbols
+ * obsolete symbols
  *
  * NOTE: these are only defined if:
  *
@@ -1088,61 +1214,61 @@ inline void winstl_C_format_message_free_buff(ws_char_w_t* buffer)
  * \deprecated Use winstl_C_format_message_buff_inst_a
  */
 STLSOFT_DECLARE_MACRO_DEPRECATION_IN_FAVOUR_OF(winstl__format_message_buff_inst_a, winstl_C_format_message_buff_inst_a)
-# define winstl__format_message_buff_inst_a  winstl_C_format_message_buff_inst_a
+# define winstl__format_message_buff_inst_a                 winstl_C_format_message_buff_inst_a
 
 /** \def winstl__format_message_buff_inst_w
  *
  * \deprecated Use winstl_C_format_message_buff_inst_w
  */
 STLSOFT_DECLARE_MACRO_DEPRECATION_IN_FAVOUR_OF(winstl__format_message_buff_inst_w, winstl_C_format_message_buff_inst_w)
-# define winstl__format_message_buff_inst_w  winstl_C_format_message_buff_inst_w
+# define winstl__format_message_buff_inst_w                 winstl_C_format_message_buff_inst_w
 
 /** \def winstl__format_message_buff_a
  *
  * \deprecated Use winstl_C_format_message_buff_a
  */
 STLSOFT_DECLARE_MACRO_DEPRECATION_IN_FAVOUR_OF(winstl__format_message_buff_a, winstl_C_format_message_buff_a)
-# define winstl__format_message_buff_a       winstl_C_format_message_buff_a
+# define winstl__format_message_buff_a                      winstl_C_format_message_buff_a
 
 /** \def winstl__format_message_buff_w
  *
  * \deprecated Use winstl_C_format_message_buff_w
  */
 STLSOFT_DECLARE_MACRO_DEPRECATION_IN_FAVOUR_OF(winstl__format_message_buff_w, winstl_C_format_message_buff_w)
-# define winstl__format_message_buff_w       winstl_C_format_message_buff_w
+# define winstl__format_message_buff_w                      winstl_C_format_message_buff_w
 
 /** \def winstl__format_message_alloc_a
  *
  * \deprecated Use winstl_C_format_message_alloc_a
  */
 STLSOFT_DECLARE_MACRO_DEPRECATION_IN_FAVOUR_OF(winstl__format_message_alloc_a, winstl_C_format_message_alloc_a)
-# define winstl__format_message_alloc_a      winstl_C_format_message_alloc_a
+# define winstl__format_message_alloc_a                     winstl_C_format_message_alloc_a
 
 /** \def winstl__format_message_alloc_w
  *
  * \deprecated Use winstl_C_format_message_alloc_w
  */
 STLSOFT_DECLARE_MACRO_DEPRECATION_IN_FAVOUR_OF(winstl__format_message_alloc_w, winstl_C_format_message_alloc_w)
-# define winstl__format_message_alloc_w      winstl_C_format_message_alloc_w
+# define winstl__format_message_alloc_w                     winstl_C_format_message_alloc_w
 
 /** \def winstl__format_message_free_buff_a
  *
  * \deprecated Use winstl_C_format_message_free_buff_a
  */
 STLSOFT_DECLARE_MACRO_DEPRECATION_IN_FAVOUR_OF(winstl__format_message_free_buff_a, winstl_C_format_message_free_buff_a)
-# define winstl__format_message_free_buff_a  winstl_C_format_message_free_buff_a
+# define winstl__format_message_free_buff_a                 winstl_C_format_message_free_buff_a
 
 /** \def winstl__format_message_free_buff_w
  *
  * \deprecated Use winstl_C_format_message_free_buff_w
  */
 STLSOFT_DECLARE_MACRO_DEPRECATION_IN_FAVOUR_OF(winstl__format_message_free_buff_w, winstl_C_format_message_free_buff_w)
-# define winstl__format_message_free_buff_w  winstl_C_format_message_free_buff_w
+# define winstl__format_message_free_buff_w                 winstl_C_format_message_free_buff_w
 
 #endif /* obsolete || 1.9 */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
 #ifdef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -1199,7 +1325,9 @@ format_message(
 ,   ws_uint_t       cchBuffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     return winstl_C_format_message_buff_inst_a(error, hinst, buffer, cchBuffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 }
 
 /**
@@ -1218,7 +1346,9 @@ format_message(
 ,   ws_uint_t       cchBuffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     return winstl_C_format_message_buff_inst_w(error, hinst, buffer, cchBuffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 }
 
 /**
@@ -1236,7 +1366,9 @@ format_message(
 ,   ws_uint_t       cchBuffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     return winstl_C_format_message_buff_a(error, buffer, cchBuffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 }
 
 /**
@@ -1254,7 +1386,9 @@ format_message(
 ,   ws_uint_t       cchBuffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     return winstl_C_format_message_buff_w(error, buffer, cchBuffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 }
 
 /**
@@ -1272,7 +1406,9 @@ format_message(
 ,   ws_char_a_t**   buffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     return winstl_C_format_message_alloc_a(error, hinst, buffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 }
 
 /**
@@ -1290,7 +1426,9 @@ format_message(
 ,   ws_char_w_t**   buffer
 )
 {
+#include <stlsoft/internal/warnings/push/suppress_deprecation_.h>
     return winstl_C_format_message_alloc_w(error, hinst, buffer);
+#include <stlsoft/internal/warnings/pop/suppress_deprecation_.h>
 }
 
 /**
@@ -1323,19 +1461,25 @@ format_message_free_buff(
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 } /* namespace winstl */
 # else
 } /* namespace winstl_project */
 } /* namespace stlsoft */
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_ERROR_H_ERROR_FUNCTIONS */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_ERROR_H_ERROR_FUNCTIONS */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

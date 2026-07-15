@@ -5,47 +5,49 @@
  *              and Unicode specialisations thereof.
  *
  * Created:     19th January 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks to:   Sam Fisher for requesting reg_delete_tree().
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/registry/reg_traits.hpp
  *
- * \brief [C++ only] Definition of the winstl::reg_traits class template
- *   (\ref group__library__windows_registry "Windows Registry" Library).
+ * \brief [C++] Definition of the winstl::reg_traits class template
+ *   (\ref group__library__Windows_Registry "Windows Registry" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_REGISTRY_HPP_REG_TRAITS
@@ -54,17 +56,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_TRAITS_MAJOR    3
 # define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_TRAITS_MINOR    5
-# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_TRAITS_REVISION 1
-# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_TRAITS_EDIT     79
+# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_TRAITS_REVISION 8
+# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_TRAITS_EDIT     93
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef WINSTL_INCL_WINSTL_REGISTRY_UTIL_HPP_DEFS
 # include <winstl/registry/util/defs.hpp>
 #endif /* !WINSTL_INCL_WINSTL_REGISTRY_UTIL_HPP_DEFS */
@@ -72,34 +78,41 @@
 # include <winstl/system/system_traits.hpp>
 #endif /* !WINSTL_INCL_WINSTL_SYSTEM_HPP_SYSTEM_TRAITS */
 
+#ifndef WINSTL_INCL_WINSTL_API_external_h_DynamicLinkLibrary
+# include <winstl/api/external/DynamicLinkLibrary.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_DynamicLinkLibrary */
+#ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
+# include <winstl/api/external/ErrorHandling.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
+#ifndef WINSTL_INCL_WINSTL_API_external_h_Registry
+# include <winstl/api/external/Registry.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_Registry */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifdef STLSOFT_DOCUMENTATION_SKIP_SECTION
 /** Traits for accessing the correct registry functions for a given character type
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  *
  * reg_traits is a traits class for determining the correct registry
  * structures and functions for a given character type.
@@ -252,14 +265,14 @@ public:
     static hkey_type reg_dup_key(hkey_type hkey, REGSAM samDesired, result_type *result = NULL)
     {
         hkey_type   hkeyDup;
-        result_type res = ::RegOpenKeyExA(hkey, "", 0, samDesired, &hkeyDup);
+        result_type res = WINSTL_API_EXTERNAL_Registry_RegOpenKeyExA(hkey, "", 0, samDesired, &hkeyDup);
 
-        if(ERROR_SUCCESS != res)
+        if (ERROR_SUCCESS != res)
         {
             hkeyDup = NULL;
         }
 
-        if(NULL != result)
+        if (NULL != result)
         {
             *result = res;
         }
@@ -269,18 +282,18 @@ public:
 
     static result_type reg_open_key(hkey_type hkey, char_type const* sub_key_name, hkey_type *hkey_result, REGSAM samDesired = KEY_ALL_ACCESS)
     {
-        return ::RegOpenKeyExA(hkey, sub_key_name, 0, samDesired, hkey_result);
+        return WINSTL_API_EXTERNAL_Registry_RegOpenKeyExA(hkey, sub_key_name, 0, samDesired, hkey_result);
     }
 
     static result_type reg_create_key(hkey_type hkey, char_type const* sub_key_name, hkey_type *hkey_result, REGSAM samDesired = KEY_ALL_ACCESS)
     {
-        return ::RegCreateKeyExA(hkey, sub_key_name, 0, NULL, 0, samDesired, NULL, hkey_result, NULL);
+        return WINSTL_API_EXTERNAL_Registry_RegCreateKeyExA(hkey, sub_key_name, 0, NULL, 0, samDesired, NULL, hkey_result, NULL);
     }
 
     static result_type reg_create_key(hkey_type hkey, char_type const* sub_key_name, hkey_type *hkey_result, ws_bool_t &bCreated, REGSAM samDesired = KEY_ALL_ACCESS)
     {
         DWORD       disposition;
-        result_type res =   ::RegCreateKeyExA(hkey, sub_key_name, 0, NULL, 0, samDesired, NULL, hkey_result, &disposition);
+        result_type res =   WINSTL_API_EXTERNAL_Registry_RegCreateKeyExA(hkey, sub_key_name, 0, NULL, 0, samDesired, NULL, hkey_result, &disposition);
 
         bCreated = (ERROR_SUCCESS == res) && (REG_CREATED_NEW_KEY == disposition);
 
@@ -289,22 +302,22 @@ public:
 
     static result_type reg_delete_key(hkey_type hkey, char_type const* sub_key_name)
     {
-        return ::RegDeleteKeyA(hkey, sub_key_name);
+        return WINSTL_API_EXTERNAL_Registry_RegDeleteKeyA(hkey, sub_key_name);
     }
 
     static result_type reg_query_value(hkey_type hkey, char_type const* valueName, ws_dword_t& valueType, void* data, size_type &cbData)
     {
-        return ::RegQueryValueExA(hkey, valueName, NULL, &valueType, static_cast<LPBYTE>(data), reinterpret_cast<LPDWORD>(&cbData));
+        return WINSTL_API_EXTERNAL_Registry_RegQueryValueExA(hkey, valueName, NULL, &valueType, static_cast<LPBYTE>(data), reinterpret_cast<LPDWORD>(&cbData));
     }
 
     static result_type reg_set_value(hkey_type hkey, char_type const* valueName, ws_dword_t valueType, void const* data, size_type cbData)
     {
-        return ::RegSetValueExA(hkey, valueName, 0, valueType, static_cast<BYTE const*>(data), static_cast<DWORD>(cbData));
+        return WINSTL_API_EXTERNAL_Registry_RegSetValueExA(hkey, valueName, 0, valueType, static_cast<BYTE const*>(data), static_cast<DWORD>(cbData));
     }
 
     static result_type reg_delete_value(hkey_type hkey, char_type const* valueName)
     {
-        return ::RegDeleteValueA(hkey, valueName);
+        return WINSTL_API_EXTERNAL_Registry_RegDeleteValueA(hkey, valueName);
     }
 
     static result_type reg_delete_tree(
@@ -314,7 +327,7 @@ public:
     {
         result_type res = execute_dynamic_("advapi32.dll", "RegDeleteTreeA", hkey, sub_key_name);
 
-        if(ERROR_PROC_NOT_FOUND == res)
+        if (ERROR_PROC_NOT_FOUND == res)
         {
             res = execute_dynamic_("shlwapi.dll", "SHDeleteKeyA", hkey, sub_key_name);
         }
@@ -334,13 +347,13 @@ public:
                                         size_type*      cb_security_descriptor_max,
                                         time_type*      time_last_write)
     {
-        if( NULL == cch_key_class &&
+        if (NULL == cch_key_class &&
             NULL != key_class)
         {
             return ERROR_INVALID_PARAMETER;
         }
 
-        return ::RegQueryInfoKeyA(hkey, key_class, reinterpret_cast<LPDWORD>(cch_key_class), NULL, reinterpret_cast<LPDWORD>(c_sub_keys), reinterpret_cast<LPDWORD>(cch_sub_key_max), reinterpret_cast<LPDWORD>(cch_key_class_max), reinterpret_cast<LPDWORD>(c_values), reinterpret_cast<LPDWORD>(cch_valueName_max), reinterpret_cast<LPDWORD>(cb_value_data_max), reinterpret_cast<LPDWORD>(cb_security_descriptor_max), time_last_write);
+        return WINSTL_API_EXTERNAL_Registry_RegQueryInfoKeyA(hkey, key_class, reinterpret_cast<LPDWORD>(cch_key_class), NULL, reinterpret_cast<LPDWORD>(c_sub_keys), reinterpret_cast<LPDWORD>(cch_sub_key_max), reinterpret_cast<LPDWORD>(cch_key_class_max), reinterpret_cast<LPDWORD>(c_values), reinterpret_cast<LPDWORD>(cch_valueName_max), reinterpret_cast<LPDWORD>(cb_value_data_max), reinterpret_cast<LPDWORD>(cb_security_descriptor_max), time_last_write);
     }
 
     static result_type reg_enum_key(    hkey_type       hkey,
@@ -349,7 +362,7 @@ public:
                                         size_type*      cch_key_name,
                                         time_type*      time_last_write    =   NULL)
     {
-        return ::RegEnumKeyExA(hkey, index, key_name, reinterpret_cast<LPDWORD>(cch_key_name), NULL, NULL, NULL, time_last_write);
+        return WINSTL_API_EXTERNAL_Registry_RegEnumKeyExA(hkey, index, key_name, reinterpret_cast<LPDWORD>(cch_key_name), NULL, NULL, NULL, time_last_write);
     }
 
     static result_type reg_enum_key(    hkey_type       hkey,
@@ -360,7 +373,7 @@ public:
                                         size_type*      cch_key_class,
                                         time_type*      time_last_write)
     {
-        return ::RegEnumKeyExA(hkey, index, key_name, reinterpret_cast<LPDWORD>(cch_key_name), NULL, key_class, reinterpret_cast<LPDWORD>(cch_key_class), time_last_write);
+        return WINSTL_API_EXTERNAL_Registry_RegEnumKeyExA(hkey, index, key_name, reinterpret_cast<LPDWORD>(cch_key_name), NULL, key_class, reinterpret_cast<LPDWORD>(cch_key_class), time_last_write);
     }
 
     static result_type reg_enum_value(  hkey_type       hkey,
@@ -371,7 +384,7 @@ public:
                                         void*           data,
                                         size_type       &cbData)
     {
-        return ::RegEnumValueA(hkey, index, valueName, reinterpret_cast<LPDWORD>(cch_valueName), NULL, valueType, reinterpret_cast<LPBYTE>(data), reinterpret_cast<LPDWORD>(&cbData));
+        return WINSTL_API_EXTERNAL_Registry_RegEnumValueA(hkey, index, valueName, reinterpret_cast<LPDWORD>(cch_valueName), NULL, valueType, reinterpret_cast<LPBYTE>(data), reinterpret_cast<LPDWORD>(&cbData));
     }
 
     static result_type reg_enum_value(  hkey_type       hkey,
@@ -379,7 +392,7 @@ public:
                                         char_type*      valueName,
                                         size_type*      cch_valueName)
     {
-        return ::RegEnumValueA(hkey, index, valueName, reinterpret_cast<LPDWORD>(cch_valueName), NULL, NULL, NULL, NULL);
+        return WINSTL_API_EXTERNAL_Registry_RegEnumValueA(hkey, index, valueName, reinterpret_cast<LPDWORD>(cch_valueName), NULL, NULL, NULL, NULL);
     }
 
 private:
@@ -391,11 +404,11 @@ private:
     )
     {
         result_type r       =   ERROR_SUCCESS;
-        HINSTANCE   hinst   =   ::LoadLibraryA(module);
+        HINSTANCE   hinst   =   WINSTL_API_EXTERNAL_DynamicLinkLibrary_LoadLibraryA(module);
 
-        if(NULL == hinst)
+        if (NULL == hinst)
         {
-            r = static_cast<result_type>(::GetLastError());
+            r = static_cast<result_type>(WINSTL_API_EXTERNAL_ErrorHandling_GetLastError());
         }
         else
         {
@@ -405,18 +418,18 @@ private:
                 DWORD (STLSOFT_STDCALL* pfn)(HKEY, LPCSTR);
             } u;
 
-            u.fp = ::GetProcAddress(hinst, function);
+            u.fp = WINSTL_API_EXTERNAL_DynamicLinkLibrary_GetProcAddress(hinst, function);
 
-            if(NULL == u.fp)
+            if (NULL == u.fp)
             {
-                r = static_cast<result_type>(::GetLastError());
+                r = static_cast<result_type>(WINSTL_API_EXTERNAL_ErrorHandling_GetLastError());
             }
             else
             {
                 r = static_cast<result_type>((*u.pfn)(a1, a2));
             }
 
-            ::FreeLibrary(hinst);
+            WINSTL_API_EXTERNAL_DynamicLinkLibrary_FreeLibrary(hinst);
         }
 
         return r;
@@ -444,14 +457,14 @@ public:
     static hkey_type reg_dup_key(hkey_type hkey, REGSAM samDesired, result_type *result = NULL)
     {
         hkey_type   hkeyDup;
-        result_type res = ::RegOpenKeyExW(hkey, L"", 0, samDesired, &hkeyDup);
+        result_type res = WINSTL_API_EXTERNAL_Registry_RegOpenKeyExW(hkey, L"", 0, samDesired, &hkeyDup);
 
-        if(ERROR_SUCCESS != res)
+        if (ERROR_SUCCESS != res)
         {
             hkeyDup = NULL;
         }
 
-        if(NULL != result)
+        if (NULL != result)
         {
             *result = res;
         }
@@ -461,18 +474,18 @@ public:
 
     static result_type reg_open_key(hkey_type hkey, char_type const* sub_key_name, hkey_type *hkey_result, REGSAM samDesired = KEY_ALL_ACCESS)
     {
-        return ::RegOpenKeyExW(hkey, sub_key_name, 0, samDesired, hkey_result);
+        return WINSTL_API_EXTERNAL_Registry_RegOpenKeyExW(hkey, sub_key_name, 0, samDesired, hkey_result);
     }
 
     static result_type reg_create_key(hkey_type hkey, char_type const* sub_key_name, hkey_type *hkey_result, REGSAM samDesired = KEY_ALL_ACCESS)
     {
-        return ::RegCreateKeyExW(hkey, sub_key_name, 0, NULL, 0, samDesired, NULL, hkey_result, NULL);
+        return WINSTL_API_EXTERNAL_Registry_RegCreateKeyExW(hkey, sub_key_name, 0, NULL, 0, samDesired, NULL, hkey_result, NULL);
     }
 
     static result_type reg_create_key(hkey_type hkey, char_type const* sub_key_name, hkey_type *hkey_result, ws_bool_t &bCreated, REGSAM samDesired = KEY_ALL_ACCESS)
     {
         DWORD       disposition;
-        result_type res =   ::RegCreateKeyExW(hkey, sub_key_name, 0, NULL, 0, samDesired, NULL, hkey_result, &disposition);
+        result_type res =   WINSTL_API_EXTERNAL_Registry_RegCreateKeyExW(hkey, sub_key_name, 0, NULL, 0, samDesired, NULL, hkey_result, &disposition);
 
         bCreated = (ERROR_SUCCESS == res) && (REG_CREATED_NEW_KEY == disposition);
 
@@ -481,22 +494,22 @@ public:
 
     static result_type reg_delete_key(hkey_type hkey, char_type const* sub_key_name)
     {
-        return ::RegDeleteKeyW(hkey, sub_key_name);
+        return WINSTL_API_EXTERNAL_Registry_RegDeleteKeyW(hkey, sub_key_name);
     }
 
     static result_type reg_query_value(hkey_type hkey, char_type const* valueName, ws_dword_t& valueType, void* data, size_type &cbData)
     {
-        return ::RegQueryValueExW(hkey, valueName, NULL, &valueType, static_cast<LPBYTE>(data), reinterpret_cast<LPDWORD>(&cbData));
+        return WINSTL_API_EXTERNAL_Registry_RegQueryValueExW(hkey, valueName, NULL, &valueType, static_cast<LPBYTE>(data), reinterpret_cast<LPDWORD>(&cbData));
     }
 
     static result_type reg_set_value(hkey_type hkey, char_type const* valueName, ws_dword_t valueType, void const* data, size_type cbData)
     {
-        return ::RegSetValueExW(hkey, valueName, 0, valueType, static_cast<BYTE const*>(data), static_cast<DWORD>(cbData));
+        return WINSTL_API_EXTERNAL_Registry_RegSetValueExW(hkey, valueName, 0, valueType, static_cast<BYTE const*>(data), static_cast<DWORD>(cbData));
     }
 
     static result_type reg_delete_value(hkey_type hkey, char_type const* valueName)
     {
-        return ::RegDeleteValueW(hkey, valueName);
+        return WINSTL_API_EXTERNAL_Registry_RegDeleteValueW(hkey, valueName);
     }
 
     static result_type reg_delete_tree(
@@ -506,7 +519,7 @@ public:
     {
         result_type res = execute_dynamic_("advapi32.dll", "RegDeleteTreeW", hkey, sub_key_name);
 
-        if(ERROR_PROC_NOT_FOUND == res)
+        if (ERROR_PROC_NOT_FOUND == res)
         {
             res = execute_dynamic_("shlwapi.dll", "SHDeleteKeyW", hkey, sub_key_name);
         }
@@ -526,13 +539,13 @@ public:
                                         size_type*      cb_security_descriptor_max,
                                         time_type*      time_last_write)
     {
-        if( NULL == cch_key_class &&
+        if (NULL == cch_key_class &&
             NULL != key_class)
         {
             return ERROR_INVALID_PARAMETER;
         }
 
-        return ::RegQueryInfoKeyW(hkey, key_class, reinterpret_cast<LPDWORD>(cch_key_class), NULL, reinterpret_cast<LPDWORD>(c_sub_keys), reinterpret_cast<LPDWORD>(cch_sub_key_max), reinterpret_cast<LPDWORD>(cch_key_class_max), reinterpret_cast<LPDWORD>(c_values), reinterpret_cast<LPDWORD>(cch_valueName_max), reinterpret_cast<LPDWORD>(cb_value_data_max), reinterpret_cast<LPDWORD>(cb_security_descriptor_max), time_last_write);
+        return WINSTL_API_EXTERNAL_Registry_RegQueryInfoKeyW(hkey, key_class, reinterpret_cast<LPDWORD>(cch_key_class), NULL, reinterpret_cast<LPDWORD>(c_sub_keys), reinterpret_cast<LPDWORD>(cch_sub_key_max), reinterpret_cast<LPDWORD>(cch_key_class_max), reinterpret_cast<LPDWORD>(c_values), reinterpret_cast<LPDWORD>(cch_valueName_max), reinterpret_cast<LPDWORD>(cb_value_data_max), reinterpret_cast<LPDWORD>(cb_security_descriptor_max), time_last_write);
     }
 
     static result_type reg_enum_key(    hkey_type       hkey,
@@ -541,7 +554,7 @@ public:
                                         size_type*      cch_key_name,
                                         time_type*      time_last_write    =   NULL)
     {
-        return ::RegEnumKeyExW(hkey, index, key_name, reinterpret_cast<LPDWORD>(cch_key_name), NULL, NULL, NULL, time_last_write);
+        return WINSTL_API_EXTERNAL_Registry_RegEnumKeyExW(hkey, index, key_name, reinterpret_cast<LPDWORD>(cch_key_name), NULL, NULL, NULL, time_last_write);
     }
 
     static result_type reg_enum_key(    hkey_type       hkey,
@@ -552,7 +565,7 @@ public:
                                         size_type*      cch_key_class,
                                         time_type*      time_last_write)
     {
-        return ::RegEnumKeyExW(hkey, index, key_name, reinterpret_cast<LPDWORD>(cch_key_name), NULL, key_class, reinterpret_cast<LPDWORD>(cch_key_class), time_last_write);
+        return WINSTL_API_EXTERNAL_Registry_RegEnumKeyExW(hkey, index, key_name, reinterpret_cast<LPDWORD>(cch_key_name), NULL, key_class, reinterpret_cast<LPDWORD>(cch_key_class), time_last_write);
     }
 
     static result_type reg_enum_value(  hkey_type       hkey,
@@ -583,11 +596,11 @@ private:
     )
     {
         result_type r       =   ERROR_SUCCESS;
-        HINSTANCE   hinst   =   ::LoadLibraryA(module);
+        HINSTANCE   hinst   =   WINSTL_API_EXTERNAL_DynamicLinkLibrary_LoadLibraryA(module);
 
-        if(NULL == hinst)
+        if (NULL == hinst)
         {
-            r = static_cast<result_type>(::GetLastError());
+            r = static_cast<result_type>(WINSTL_API_EXTERNAL_ErrorHandling_GetLastError());
         }
         else
         {
@@ -597,41 +610,48 @@ private:
                 DWORD (STLSOFT_STDCALL* pfn)(HKEY, LPCWSTR);
             } u;
 
-            u.fp = ::GetProcAddress(hinst, function);
+            u.fp = WINSTL_API_EXTERNAL_DynamicLinkLibrary_GetProcAddress(hinst, function);
 
-            if(NULL == u.fp)
+            if (NULL == u.fp)
             {
-                r = static_cast<result_type>(::GetLastError());
+                r = static_cast<result_type>(WINSTL_API_EXTERNAL_ErrorHandling_GetLastError());
             }
             else
             {
                 r = static_cast<result_type>((*u.pfn)(a1, a2));
             }
 
-            ::FreeLibrary(hinst);
+            WINSTL_API_EXTERNAL_DynamicLinkLibrary_FreeLibrary(hinst);
         }
 
         return r;
     }
+
 };
 
 #endif /* STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_REGISTRY_HPP_REG_TRAITS */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_REGISTRY_HPP_REG_TRAITS */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

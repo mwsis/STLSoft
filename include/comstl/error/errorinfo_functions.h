@@ -4,37 +4,39 @@
  * Purpose:     Error info functions.
  *
  * Created:     5th February 2004
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -51,17 +53,25 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define COMSTL_VER_COMSTL_ERROR_H_ERRORINFO_FUNCTIONS_MAJOR    4
 # define COMSTL_VER_COMSTL_ERROR_H_ERRORINFO_FUNCTIONS_MINOR    2
-# define COMSTL_VER_COMSTL_ERROR_H_ERRORINFO_FUNCTIONS_REVISION 4
-# define COMSTL_VER_COMSTL_ERROR_H_ERRORINFO_FUNCTIONS_EDIT     44
+# define COMSTL_VER_COMSTL_ERROR_H_ERRORINFO_FUNCTIONS_REVISION 11
+# define COMSTL_VER_COMSTL_ERROR_H_ERRORINFO_FUNCTIONS_EDIT     59
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef COMSTL_INCL_COMSTL_H_COMSTL
 # include <comstl/comstl.h>
 #endif /* !COMSTL_INCL_COMSTL_H_COMSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
 #ifndef STLSOFT_INCL_H_OLEAUTO
 # define STLSOFT_INCL_H_OLEAUTO
 # include <oleauto.h>
@@ -71,31 +81,31 @@
 # include <oaidl.h>
 #endif /* !STLSOFT_INCL_H_OAIDL */
 
-#ifdef STLSOFT_UNITTEST
-# include <wchar.h>
-#endif /* STLSOFT_UNITTEST */
+#ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
+# include <winstl/api/external/ErrorHandling.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
+#ifndef WINSTL_INCL_WINSTL_API_external_h_UnicodeAndCharacterSet
+# include <winstl/api/external/UnicodeAndCharacterSet.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_UnicodeAndCharacterSet */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#if !defined(_COMSTL_NO_NAMESPACE) && \
+#if !defined(COMSTL_NO_NAMESPACE) && \
     !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# if defined(_STLSOFT_NO_NAMESPACE)
+# if defined(STLSOFT_NO_NAMESPACE)
 /* There is no stlsoft namespace, so must define ::comstl */
 namespace comstl
 {
 # else
 /* Define stlsoft::comstl_project */
-
 namespace stlsoft
 {
-
 namespace comstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
  * C functions
@@ -114,7 +124,7 @@ STLSOFT_INLINE HRESULT comstl__set_error_info_w_(   cs_char_w_t const*  descript
 
     hr = STLSOFT_NS_GLOBAL(CreateErrorInfo)(&pCEI);
 
-    if(SUCCEEDED(hr))
+    if (SUCCEEDED(hr))
     {
         IErrorInfo  *pEI;
 
@@ -123,34 +133,34 @@ STLSOFT_INLINE HRESULT comstl__set_error_info_w_(   cs_char_w_t const*  descript
                                                     COMSTL_IID_2_REF(IID_IErrorInfo)
                                                 ,   stlsoft_reinterpret_cast(void**, &pEI));
 
-        if(SUCCEEDED(hr))
+        if (SUCCEEDED(hr))
         {
-            if(NULL != description)
+            if (NULL != description)
             {
                 hr = COMSTL_ITF_CALL(pCEI)->SetDescription(COMSTL_ITF_THIS(pCEI) stlsoft_const_cast(LPOLESTR, description));
             }
 
-            if(NULL != source)
+            if (NULL != source)
             {
                 hr = COMSTL_ITF_CALL(pCEI)->SetSource(COMSTL_ITF_THIS(pCEI) stlsoft_const_cast(LPOLESTR, source));
             }
 
-            if(NULL != guid)
+            if (NULL != guid)
             {
                 hr = COMSTL_ITF_CALL(pCEI)->SetGUID(COMSTL_ITF_THIS(pCEI) COMSTL_IID_2_REF(*guid));
             }
 
-            if(NULL != helpFile)
+            if (NULL != helpFile)
             {
                 hr = COMSTL_ITF_CALL(pCEI)->SetHelpFile(COMSTL_ITF_THIS(pCEI) stlsoft_const_cast(LPOLESTR, helpFile));
             }
 
-            if(NULL != helpContext)
+            if (NULL != helpContext)
             {
                 hr = COMSTL_ITF_CALL(pCEI)->SetHelpContext(COMSTL_ITF_THIS(pCEI) *helpContext);
             }
 
-            if(SUCCEEDED(hr))
+            if (SUCCEEDED(hr))
             {
                 hr = STLSOFT_NS_GLOBAL(SetErrorInfo)(0, pEI);
             }
@@ -168,7 +178,7 @@ STLSOFT_INLINE HRESULT comstl__set_error_info_a_helper_(cs_char_a_t const* s_a, 
 {
     COMSTL_ASSERT(NULL != ps_w);
 
-    if(NULL == s_a)
+    if (NULL == s_a)
     {
         return S_FALSE;
     }
@@ -176,21 +186,21 @@ STLSOFT_INLINE HRESULT comstl__set_error_info_a_helper_(cs_char_a_t const* s_a, 
     {
         const cs_size_t len = STLSOFT_NS_GLOBAL(strlen)(s_a);
 
-        if(NULL == (*ps_w = stlsoft_static_cast(cs_char_w_t*, STLSOFT_NS_GLOBAL(CoTaskMemAlloc)((1 + len) * sizeof(cs_char_w_t)))))
+        if (NULL == (*ps_w = stlsoft_static_cast(cs_char_w_t*, STLSOFT_NS_GLOBAL(CoTaskMemAlloc)((1 + len) * sizeof(cs_char_w_t)))))
         {
             return E_OUTOFMEMORY;
         }
         else
         {
-            int n = STLSOFT_NS_GLOBAL(MultiByteToWideChar)(0, 0, s_a, -1, *ps_w, stlsoft_static_cast(int, 1 + len));
+            int n = WINSTL_API_EXTERNAL_UnicodeAndCharacterSet_MultiByteToWideChar(0, 0, s_a, -1, *ps_w, stlsoft_static_cast(int, 1 + len));
 
-            if(0 == n)
+            if (0 == n)
             {
-                return HRESULT_FROM_WIN32(STLSOFT_NS_GLOBAL(GetLastError)());
+                return HRESULT_FROM_WIN32(WINSTL_API_EXTERNAL_ErrorHandling_GetLastError());
             }
             else
             {
-                if(stlsoft_static_cast(cs_size_t, n) < len)
+                if (stlsoft_static_cast(cs_size_t, n) < len)
                 {
                     (*ps_w)[n] = L'\0';
                 }
@@ -212,20 +222,20 @@ STLSOFT_INLINE HRESULT comstl__set_error_info_a_(   cs_char_a_t const*  descript
     cs_char_w_t     *source_w       =   NULL;
     cs_char_w_t     *helpFile_w     =   NULL;
 
-    if(SUCCEEDED(hr))
+    if (SUCCEEDED(hr))
     {
         hr = comstl__set_error_info_a_helper_(description, &description_w);
     }
-    if(SUCCEEDED(hr))
+    if (SUCCEEDED(hr))
     {
         hr = comstl__set_error_info_a_helper_(source, &source_w);
     }
-    if(SUCCEEDED(hr))
+    if (SUCCEEDED(hr))
     {
         hr = comstl__set_error_info_a_helper_(helpFile, &helpFile_w);
     }
 
-    if(SUCCEEDED(hr))
+    if (SUCCEEDED(hr))
     {
         hr = comstl__set_error_info_w_(description_w, source_w, guid, helpFile_w, helpContext);
     }
@@ -239,7 +249,7 @@ STLSOFT_INLINE HRESULT comstl__set_error_info_a_(   cs_char_a_t const*  descript
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief [C only] Sets the description of the current error object to the given Unicode string
+/** [C] Sets the description of the current error object to the given Unicode string
  *
  * \ingroup group__library__error
  *
@@ -252,7 +262,7 @@ STLSOFT_INLINE HRESULT comstl__set_error_info_description_w(cs_char_w_t const* d
     return comstl__set_error_info_w_(description, NULL, NULL, NULL, NULL);
 }
 
-/** \brief [C only] Sets the description of the current error object to the given ANSI string
+/** [C] Sets the description of the current error object to the given ANSI string
  *
  * \ingroup group__library__error
  *
@@ -265,7 +275,7 @@ STLSOFT_INLINE HRESULT comstl__set_error_info_description_a(cs_char_a_t const* d
     return comstl__set_error_info_a_(description, NULL, NULL, NULL, NULL);
 }
 
-/** \brief [C only] Sets the description and source of the current error object to the given Unicode strings
+/** [C] Sets the description and source of the current error object to the given Unicode strings
  *
  * \ingroup group__library__error
  *
@@ -279,7 +289,7 @@ STLSOFT_INLINE HRESULT comstl__set_error_info_description_and_source_w(cs_char_w
     return comstl__set_error_info_w_(description, source, NULL, NULL, NULL);
 }
 
-/** \brief [C only] Sets the description and source of the current error object to the given ANSI strings
+/** [C] Sets the description and source of the current error object to the given ANSI strings
  *
  * \ingroup group__library__error
  *
@@ -293,7 +303,7 @@ STLSOFT_INLINE HRESULT comstl__set_error_info_description_and_source_a(cs_char_a
     return comstl__set_error_info_a_(description, source, NULL, NULL, NULL);
 }
 
-/** \brief [C only] Sets the description, source, interface ID and help information of the current error object
+/** [C] Sets the description, source, interface ID and help information of the current error object
  *
  * \ingroup group__library__error
  *
@@ -312,7 +322,7 @@ STLSOFT_INLINE HRESULT comstl__set_error_info_w(cs_char_w_t const*  description
     return comstl__set_error_info_w_(description, source, COMSTL_REF_2_PTR(guid), helpFile, &helpContext);
 }
 
-/** \brief [C only] Sets the description, source, interface ID and help information of the current error object
+/** [C] Sets the description, source, interface ID and help information of the current error object
  *
  * \ingroup group__library__error
  *
@@ -332,7 +342,7 @@ STLSOFT_INLINE HRESULT comstl__set_error_info_a(cs_char_a_t const*  description
 }
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
 #ifdef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -346,7 +356,7 @@ namespace comstl
 
 #ifdef __cplusplus
 
-/** \brief Sets the description of the current error object to the given ANSI string
+/** Sets the description of the current error object to the given ANSI string
  *
  * \ingroup group__library__error
  */
@@ -355,7 +365,7 @@ inline HRESULT set_error_info(cs_char_a_t const* description)
     return comstl__set_error_info_description_a(description);
 }
 
-/** \brief Sets the description of the current error object to the given Unicode string
+/** Sets the description of the current error object to the given Unicode string
  *
  * \ingroup group__library__error
  *
@@ -366,7 +376,7 @@ inline HRESULT set_error_info(cs_char_w_t const* description)
     return comstl__set_error_info_description_w(description);
 }
 
-/** \brief Sets the description and source of the current error object to the given ANSI string
+/** Sets the description and source of the current error object to the given ANSI string
  *
  * \ingroup group__library__error
  *
@@ -378,7 +388,7 @@ inline HRESULT set_error_info(cs_char_a_t const* description, cs_char_a_t const*
     return comstl__set_error_info_description_and_source_a(description, source);
 }
 
-/** \brief Sets the description and source of the current error object to the given Unicode string
+/** Sets the description and source of the current error object to the given Unicode string
  *
  * \ingroup group__library__error
  *
@@ -390,7 +400,7 @@ inline HRESULT set_error_info(cs_char_w_t const* description, cs_char_w_t const*
     return comstl__set_error_info_description_and_source_w(description, source);
 }
 
-/** \brief Sets the description, source and GUID of the current error object to the given ANSI string
+/** Sets the description, source and GUID of the current error object to the given ANSI string
  *
  * \ingroup group__library__error
  *
@@ -403,7 +413,7 @@ inline HRESULT set_error_info(cs_char_a_t const* description, cs_char_a_t const*
     return comstl__set_error_info_a_(description, source, &guid, NULL, NULL);
 }
 
-/** \brief Sets the description, source and GUID of the current error object to the given Unicode string
+/** Sets the description, source and GUID of the current error object to the given Unicode string
  *
  * \ingroup group__library__error
  *
@@ -418,27 +428,25 @@ inline HRESULT set_error_info(cs_char_w_t const* description, cs_char_w_t const*
 
 #endif /* __cplusplus */
 
-/* /////////////////////////////////////////////////////////////////////////
- * Unit-testing
- */
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/errorinfo_functions_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 } /* namespace comstl */
 # else
 } /* namespace comstl_project */
 } /* namespace stlsoft */
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !COMSTL_INCL_COMSTL_ERROR_H_ERRORINFO_FUNCTIONS */
 

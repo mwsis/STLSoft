@@ -4,46 +4,48 @@
  * Purpose:     Event handler class for custom event notifications.
  *
  * Created:     1st October 2004
- * Updated:     15th December 2023
+ * Updated:     29th January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file acestl/reactor/custom_event_handler.hpp
  *
- * \brief [C++ only] Definition of the acestl::custom_event_handler
+ * \brief [C++] Definition of the acestl::custom_event_handler
  *   class template
- *   (\ref group__library__ace_reactor "ACE Reactor" Library).
+ *   (\ref group__library__ACE_Reactor "ACE Reactor" Library).
  */
 
 #ifndef ACESTL_INCL_ACESTL_REACTOR_HPP_CUSTOM_EVENT_HANDLER
@@ -52,17 +54,20 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define ACESTL_VER_ACESTL_REACTOR_HPP_CUSTOM_EVENT_HANDLER_MAJOR     2
 # define ACESTL_VER_ACESTL_REACTOR_HPP_CUSTOM_EVENT_HANDLER_MINOR     1
-# define ACESTL_VER_ACESTL_REACTOR_HPP_CUSTOM_EVENT_HANDLER_REVISION  5
-# define ACESTL_VER_ACESTL_REACTOR_HPP_CUSTOM_EVENT_HANDLER_EDIT      24
+# define ACESTL_VER_ACESTL_REACTOR_HPP_CUSTOM_EVENT_HANDLER_REVISION  10
+# define ACESTL_VER_ACESTL_REACTOR_HPP_CUSTOM_EVENT_HANDLER_EDIT      39
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef ACESTL_INCL_ACESTL_HPP_ACESTL
 # include <acestl/acestl.hpp>
 #endif /* !ACESTL_INCL_ACESTL_HPP_ACESTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #ifndef STLSOFT_INCL_ACE_H_EVENT_HANDLER
 # define STLSOFT_INCL_ACE_H_EVENT_HANDLER
@@ -83,7 +88,7 @@
 #endif /* !STLSOFT_INCL_MAP */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
+ * compatibility
  */
 
 #if defined(STLSOFT_COMPILER_IS_INTEL) || \
@@ -93,26 +98,23 @@
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _ACESTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef ACESTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::acestl */
 namespace acestl
 {
 # else
 /* Define stlsoft::acestl_project */
-
 namespace stlsoft
 {
-
 namespace acestl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_ACESTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !ACESTL_NO_NAMESPACE */
 
 /* ////////////////////////////////////////////////////////////////////// */
 
@@ -120,7 +122,7 @@ namespace acestl_project
 
 /** Utility class that establishes a root type for the
  *    acestl::cancel_adaptor and acestl::custom_event_handler classes.
- * \ingroup group__library__ace_reactor
+ * \ingroup group__library__ACE_Reactor
  */
 struct ceh_root
 {
@@ -133,7 +135,7 @@ public:
 /** Adaptor class that facilitates the
  *    acestl::custom_event_handler::cancel_custom_events() member function
  *    template.
- * \ingroup group__library__ace_reactor
+ * \ingroup group__library__ACE_Reactor
  */
 template<ss_typename_param_k C>
 struct cancel_adapter
@@ -163,15 +165,15 @@ private:
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 /** This class enhances
- *    the \ref group__library__ace_reactor "ACE Reactor" framework by
+ *    the \ref group__library__ACE_Reactor "ACE Reactor" framework by
  *    providing custom event notifications for event handlers, with zero
  *    interference with existing reactor/handler functionality.
  *
- * \ingroup group__library__ace_reactor
+ * \ingroup group__library__ACE_Reactor
  *
  * It provides the ability to schedule a custom event with a code, an optional
  * delay, and an optional argument
@@ -192,9 +194,9 @@ private:
                               ,   long                  code
                               ,   void*                 arg)
   {
-    fprintf(stdout, "Received custom event: %ld, %p\n", code, arg);
+    printf("Received custom event: %ld, %p\n", code, arg);
 
-    if(300 == code)
+    if (300 == code)
     {
       std::string* str = static_cast<std::string*>(arg);
 
@@ -214,7 +216,7 @@ private:
 
 // 4. A cleanup function to ensure that the custom data associated with
 // 300 events is not lost; see step 10.
-void cleanup_300_proc(void *param, long code, custom_event_handler::event_id id, void *arg)
+void cleanup_300_proc(void* param, long code, custom_event_handler::event_id id, void* arg)
 {
   assert(300 == code);
 
@@ -232,7 +234,7 @@ custom_event_handler* mh = new MyHandler();
 
 // 6. Schedule an event with id 100, testing the return to ensure it's
 // been scheduled without error
-if(NULL == mh->schedule_custom_event(100))
+if (NULL == mh->schedule_custom_event(100))
 {
   std::err << "Failed to scheduled event (code=100)!" << std::endl;
 }
@@ -243,7 +245,7 @@ else
   // This assert simply enforces what we know: that there is 1 or more
   // (1 in this case) pending events whose event code is 100
   //
-  // Note: we can only assert this here because we have not yet
+  // NOTE: we can only assert this here because we have not yet
   // started the reactor event loop; see step 11.
   assert(mh->has_custom_events(100));
 }
@@ -257,7 +259,7 @@ mh->schedule_custom_event(300, ACE_Time_Value(20), new std::string("300"));
 
 // 9. Cancel the 200 event
 //
-// Note: you can only cancel a single event via its unique event id.
+// NOTE: you can only cancel a single event via its unique event id.
 mh->cancel_custom_event(id200);
 
 // 10. Cancel all 300 events
@@ -267,7 +269,7 @@ mh->cancel_custom_event(id200);
 // the std::string instance would not be destroyed, and we'd have a
 // memory leak
 //
-// Note: Cancelling via an event code cancels *all* pending events with
+// NOTE: Cancelling via an event code cancels *all* pending events with
 // that code.
 int num300sCancelled = 0;
 
@@ -394,7 +396,7 @@ public:
     . . .
   };
 
-  void cancel_proc(void *param, long code, custom_event_handler::event_id id, void *arg)
+  void cancel_proc(void* param, long code, custom_event_handler::event_id id, void* arg)
   {
     ++*static_cast<int*>(arg);
   }
@@ -461,7 +463,7 @@ public:
   class CancelHandler
   {
   public:
-    void report(long code, custom_event_handler::event_id id, void *arg);
+    void report(long code, custom_event_handler::event_id id, void* arg);
     . . .
   };
 
@@ -594,7 +596,7 @@ private:
         void        *arg;   //!< The custom event argument
         event_id    id;     //!< The id of the event registered in the reactor
 
-        event_info(long code_, void *arg_)
+        event_info(long code_, void* arg_)
             : code(code_)
             , arg(arg_)
             , id(NULL)
@@ -642,15 +644,8 @@ private:
     class_type& operator =(class_type const&);
 };
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/custom_event_handler_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Implementation
+ * implementation
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -699,7 +694,7 @@ inline custom_event_handler::~custom_event_handler() STLSOFT_NOEXCEPT
     ACESTL_MESSAGE_ASSERT("Custom event handler destroyed with outstanding entries: derived classes should cancel all notifications", m_entries.empty());
 }
 
-inline custom_event_handler::event_id custom_event_handler::schedule_custom_event(long code, ACE_Time_Value const& delay, void *arg /* = 0 */)
+inline custom_event_handler::event_id custom_event_handler::schedule_custom_event(long code, ACE_Time_Value const& delay, void* arg /* = 0 */)
 {
     ACESTL_MESSAGE_ASSERT("invariant violation", is_valid());
 
@@ -709,7 +704,7 @@ inline custom_event_handler::event_id custom_event_handler::schedule_custom_even
 
     ACE_NEW_NORETURN(entry_, event_info(code, arg));
 
-    if(NULL == entry_)
+    if (NULL == entry_)
     {
         ACESTL_MESSAGE_ASSERT("invariant violation", is_valid());
 
@@ -722,7 +717,7 @@ inline custom_event_handler::event_id custom_event_handler::schedule_custom_even
         info_ptr    entry(entry_);
         event_id    timerId =   schedule_event_(entry.get(), delay);
 
-        if(NULL == timerId)
+        if (NULL == timerId)
         {
             ACESTL_MESSAGE_ASSERT("invariant violation", is_valid());
 
@@ -771,7 +766,7 @@ inline custom_event_handler::event_id custom_event_handler::schedule_custom_even
     }
 }
 
-inline custom_event_handler::event_id custom_event_handler::schedule_custom_event(long code, void *arg /* = 0 */)
+inline custom_event_handler::event_id custom_event_handler::schedule_custom_event(long code, void* arg /* = 0 */)
 {
     ACESTL_MESSAGE_ASSERT("invariant violation", is_valid());
 
@@ -784,7 +779,7 @@ inline int custom_event_handler::cancel_custom_events(long code, custom_event_ha
 
     event_code_map_type::iterator it = m_entries.find(code);
 
-    if(m_entries.end() == it)
+    if (m_entries.end() == it)
     {
         ACESTL_MESSAGE_ASSERT("invariant violation", is_valid());
 
@@ -798,16 +793,16 @@ inline int custom_event_handler::cancel_custom_events(long code, custom_event_ha
         event_map_type::iterator    end     =   codes.end();
         as_int_t                    n;
 
-        for(n = 0; begin != end; ++begin)
+        for (n = 0; begin != end; ++begin)
         {
             info_ptr entry = (*begin).second;
 
-            if(NULL != pfn)
+            if (NULL != pfn)
             {
                 (*pfn)(param, entry->code, entry->id, entry->arg);
             }
 
-            if(cancel_event_(entry->id))
+            if (cancel_event_(entry->id))
             {
                 ++n;
             }
@@ -826,7 +821,7 @@ inline int custom_event_handler::cancel_custom_events(long code)
     return cancel_custom_events(code, NULL, NULL);
 }
 
-inline int custom_event_handler::cancel_custom_event(custom_event_handler::event_id event, void **parg /* = NULL */)
+inline int custom_event_handler::cancel_custom_event(custom_event_handler::event_id event, void** parg /* = NULL */)
 {
     ACESTL_MESSAGE_ASSERT("invariant violation", is_valid());
 
@@ -835,14 +830,14 @@ inline int custom_event_handler::cancel_custom_event(custom_event_handler::event
     event_code_map_type::iterator    be  =   m_entries.begin();
     event_code_map_type::iterator    ee  =   m_entries.end();
 
-    for(; be != ee; ++be)
+    for (; be != ee; ++be)
     {
         event_map_type&             event_map   =   (*be).second;
         event_map_type::iterator    it          =   event_map.find(event);
 
-        if(event_map.end() != it)
+        if (event_map.end() != it)
         {
-            if(NULL != parg)
+            if (NULL != parg)
             {
                 *parg = (*it).second->arg;
             }
@@ -879,12 +874,12 @@ inline as_int_t custom_event_handler::has_custom_event(event_id event) const
     event_code_map_type::const_iterator  be      =   m_entries.begin();
     event_code_map_type::const_iterator  ee      =   m_entries.end();
 
-    for(; be != ee; ++be)
+    for (; be != ee; ++be)
     {
         event_map_type const&           event_map   =   (*be).second;
         event_map_type::const_iterator  it          =   event_map.find(event);
 
-        if(event_map.end() != it)
+        if (event_map.end() != it)
         {
             return 1;
         }
@@ -901,7 +896,7 @@ inline int custom_event_handler::handle_callback_timeout(ACE_Time_Value const& c
     event_code_map_type::iterator   itc     =   m_entries.find(entry->code);
 
     // Is it one of ours?
-    if(m_entries.end() == itc)
+    if (m_entries.end() == itc)
     {
         ACESTL_MESSAGE_ASSERT("invariant violation", is_valid());
 
@@ -926,7 +921,7 @@ inline int custom_event_handler::handle_callback_timeout(ACE_Time_Value const& c
         event_map.erase(ite);
 
         // ... check whether we need to erase the entries map, and ...
-        if(event_map.empty())
+        if (event_map.empty())
         {
             m_entries.erase(itc);
         }
@@ -948,21 +943,29 @@ inline int custom_event_handler::handle_callback_timeout(ACE_Time_Value const& c
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
-#ifndef _ACESTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef ACESTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace acestl
+} /* namespace acestl */
 # else
-} // namespace acestl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_ACESTL_NO_NAMESPACE */
+} /* namespace acestl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !ACESTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* ACESTL_INCL_ACESTL_REACTOR_HPP_CUSTOM_EVENT_HANDLER */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !ACESTL_INCL_ACESTL_REACTOR_HPP_CUSTOM_EVENT_HANDLER */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

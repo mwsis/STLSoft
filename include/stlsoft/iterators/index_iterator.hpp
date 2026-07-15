@@ -4,46 +4,48 @@
  * Purpose:     index_iterator class template.
  *
  * Created:     5th April 2005
- * Updated:     15th December 2023
+ * Updated:     26th December 2020
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/iterators/index_iterator.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::index_iterator iterator
+ * \brief [C++] Definition of the stlsoft::index_iterator iterator
  *   adaptor class template
- *   (\ref group__library__iterators "Iterators" Library).
+ *   (\ref group__library__Iterator "Iterator" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_ITERATORS_HPP_INDEX_ITERATOR
@@ -52,29 +54,20 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_ITERATORS_HPP_INDEX_ITERATOR_MAJOR     1
 # define STLSOFT_VER_STLSOFT_ITERATORS_HPP_INDEX_ITERATOR_MINOR     3
-# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_INDEX_ITERATOR_REVISION  5
-# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_INDEX_ITERATOR_EDIT      26
+# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_INDEX_ITERATOR_REVISION  10
+# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_INDEX_ITERATOR_EDIT      38
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_BORLAND:
-STLSOFT_COMPILER_IS_MSVC: _MSC_VER<1310
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #if !defined(STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT)
 # error index_iterator cannot be used with compilers that do not support partial template specialisation
@@ -91,7 +84,7 @@ STLSOFT_COMPILER_IS_WATCOM:
 #endif /* !STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Feature discrimination
+ * feature discrimination
  */
 
 #ifdef STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT
@@ -108,16 +101,16 @@ STLSOFT_COMPILER_IS_WATCOM:
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 /** An indexed iterator class.
@@ -184,7 +177,7 @@ public:
         , m_index(rhs.m_index)
     {}
 
-    /// \brief A copy of the base iterator
+    /// A copy of the base iterator
     base_iterator_type  base() const
     {
         return m_it;
@@ -391,12 +384,12 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Creator functions
+ * creator functions
  */
 
-/** \brief Creator function for index_iterator
+/** Creator function for index_iterator
  *
- * \ingroup group__library__iterators
+ * \ingroup group__library__Iterator
  *
  * \param it The iterator to index
  * \param index The initial index of the iterator. Defaults to 0
@@ -410,9 +403,9 @@ inline index_iterator<I> make_index_iterator(I it, ss_ptrdiff_t index = 0)
     return index_iterator<I>(it, index);
 }
 
-/** \brief Creator function for index_iterator
+/** Creator function for index_iterator
  *
- * \ingroup group__library__iterators
+ * \ingroup group__library__Iterator
  *
  * \param it The iterator to index
  * \param index The initial index of the iterator. Defaults to 0
@@ -429,7 +422,7 @@ inline index_iterator<I> indexer(I it, ss_ptrdiff_t index = 0)
 }
 
 /* /////////////////////////////////////////////////////////////////////////
- * Operators
+ * operators
  */
 
 // operator ==
@@ -524,18 +517,11 @@ inline ss_bool_t operator >=(index_iterator<I, T> const& lhs, index_iterator<I, 
     return lhs.compare(rhs) >= 0;
 }
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/index_iterator_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 #if defined(STLSOFT_CF_STD_LIBRARY_IS_DINKUMWARE_VC) && \
     STLSOFT_CF_STD_LIBRARY_DINKUMWARE_VC_VERSION < STLSOFT_CF_DINKUMWARE_VC_VERSION_7_1
@@ -545,37 +531,43 @@ namespace std
     template<   ss_typename_param_k I
             ,   ss_typename_param_k T
             >
-    inline ss_typename_type_ret_k stlsoft_ns_qual(index_iterator)<I, T>::iterator_category _Iter_cat(stlsoft_ns_qual(index_iterator)<I, T> const&)
+    inline ss_typename_type_ret_k STLSOFT_NS_QUAL(index_iterator)<I, T>::iterator_category _Iter_cat(STLSOFT_NS_QUAL(index_iterator)<I, T> const&)
     {
-        return ss_typename_type_k stlsoft_ns_qual(index_iterator)<I, T>::iterator_category();
+        return ss_typename_type_k STLSOFT_NS_QUAL(index_iterator)<I, T>::iterator_category();
     }
     template<   ss_typename_param_k I
             ,   ss_typename_param_k T
             >
-    inline ss_typename_type_ret_k stlsoft_ns_qual(index_iterator)<I, T>::value_type *_Val_type(stlsoft_ns_qual(index_iterator)<I, T> const&)
+    inline ss_typename_type_ret_k STLSOFT_NS_QUAL(index_iterator)<I, T>::value_type *_Val_type(STLSOFT_NS_QUAL(index_iterator)<I, T> const&)
     {
-        return static_cast</* ss_typename_type_k  */stlsoft_ns_qual(index_iterator)<I, T>::value_type*>(0);
+        return static_cast</* ss_typename_type_k  */STLSOFT_NS_QUAL(index_iterator)<I, T>::value_type*>(0);
     }
 
 # if STLSOFT_CF_STD_LIBRARY_DINKUMWARE_VC_VERSION == STLSOFT_CF_DINKUMWARE_VC_VERSION_7_0
     template<   ss_typename_param_k I
             ,   ss_typename_param_k T
             >
-    inline ss_typename_type_ret_k stlsoft_ns_qual(index_iterator)<I, T>::difference_type *_Dist_type(stlsoft_ns_qual(index_iterator)<I, T> const&)
+    inline ss_typename_type_ret_k STLSOFT_NS_QUAL(index_iterator)<I, T>::difference_type *_Dist_type(STLSOFT_NS_QUAL(index_iterator)<I, T> const&)
     {
-        return static_cast</* ss_typename_type_k  */stlsoft_ns_qual(index_iterator)<I, T>::difference_type*>(0);
+        return static_cast</* ss_typename_type_k  */STLSOFT_NS_QUAL(index_iterator)<I, T>::difference_type*>(0);
     }
 # elif STLSOFT_CF_STD_LIBRARY_DINKUMWARE_VC_VERSION < STLSOFT_CF_DINKUMWARE_VC_VERSION_7_1
 # else
 #  error Error in discrimination
 # endif
 
-} // namespace std
+} /* namespace std */
 
 
 #endif /* old-dinkumware */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_ITERATORS_HPP_INDEX_ITERATOR */
 

@@ -1,41 +1,43 @@
 /* /////////////////////////////////////////////////////////////////////////
  * File:        atlstl/atlstl.hpp
  *
- * Purpose:     Root header for the ATLSTL libraries. Performs various compiler
+ * Purpose:     Root header for the ATLSTL libraries. Performs compiler
  *              and platform discriminations, and definitions of types.
  *
  * Created:     15th January 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -47,14 +49,15 @@
 /* File version */
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define ATLSTL_VER_ATLSTL_HPP_ATLSTL_MAJOR     3
-# define ATLSTL_VER_ATLSTL_HPP_ATLSTL_MINOR     5
+# define ATLSTL_VER_ATLSTL_HPP_ATLSTL_MINOR     7
 # define ATLSTL_VER_ATLSTL_HPP_ATLSTL_REVISION  2
-# define ATLSTL_VER_ATLSTL_HPP_ATLSTL_EDIT      108
+# define ATLSTL_VER_ATLSTL_HPP_ATLSTL_EDIT      123
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \file atlstl/atlstl.hpp
  *
- * \brief [C++ only; requires ATL library] The root header for the \ref group__project__atlstl "ATLSTL" project.
+ * \brief [C++; requires ATL library] Root header for the
+ * \ref group__project__atlstl "ATLSTL" project.
  */
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -128,20 +131,40 @@
 # define _ATLSTL_VER_1_6_1      0x00010601  /*!< Version 1.6.1 (with STLSoft 1.9.1) */
 # define _ATLSTL_VER_1_6_2      0x00010602  /*!< Version 1.6.2 (with STLSoft 1.9.25) */
 # define _ATLSTL_VER_1_6_3      0x010603ff  /*!< Version 1.6.3 (with STLSoft 1.9.113) */
+# define _ATLSTL_VER_1_7_1_B01  0x01070181  /*!< Version 1.7.1 beta 1 (with STLSoft 1.10.1 beta 1) */
+# define _ATLSTL_VER_1_7_1_B02  0x01070182  /*!< Version 1.7.1 beta 2 (with STLSoft 1.10.1 beta 4) */
+# define _ATLSTL_VER_1_7_1_B03  0x01070183  /*!< Version 1.7.1 beta 3 (with STLSoft 1.10.1 beta 10) */
+# define _ATLSTL_VER_1_7_1_B04  0x01070184  /*!< Version 1.7.1 beta 4 (with STLSoft 1.10.1 beta 26) */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #define _ATLSTL_VER_MAJOR       1
-#define _ATLSTL_VER_MINOR       6
-#define _ATLSTL_VER_REVISION    3
-#define _ATLSTL_VER             _ATLSTL_VER_1_6_3
+#define _ATLSTL_VER_MINOR       7
+#define _ATLSTL_VER_REVISION    1
+#define _ATLSTL_VER             _ATLSTL_VER_1_7_1_B04
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
+
+/* Strict */
+#ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+# if 1 &&\
+     !defined(STRICT) &&\
+     !defined(_ATLSTL_NO_STRICT) &&\
+     !defined(NO_STRICT) &&\
+     1
+#  ifdef _ATLSTL_STRICT
+#   define STRICT                                           1
+#  endif /* _ATLSTL_STRICT */
+# endif /* !NO_STRICT && !_ATLSTL_NO_STRICT && !STRICT */
+#endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #if defined(STLSOFT_COMPILER_IS_BORLAND)
 # pragma warn -8013 /* Suppresses "Possible use of 'f' before definition in '. . .'" */
@@ -158,23 +181,16 @@
 # pragma warn .8084 /* Suppresses "Suggest parentheses to clarify precedence in function 'f()'" */
 #endif /* compiler */
 
-#ifdef STLSOFT_UNITTEST
-extern CComModule _Module;
-
-# include <stdio.h>
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * STLSoft version compatibility
+ * STLSoft version compatibility check(s)
  */
 
-#if !defined(_STLSOFT_VER) || \
-    _STLSOFT_VER < 0x010971ff
-# error This version of the ATLSTL libraries requires STLSoft version 1.9.113, or later
+#if _STLSOFT_VER < 0x010a019a
+# error This version of the ATLSTL libraries requires STLSoft version 1.10.1 beta 26, or later
 #endif /* _STLSOFT_VER */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler compatibility
+ * compiler compatibility
  *
  * Currently the only compilers supported by the ATLSTL libraries are
  *
@@ -228,31 +244,31 @@ extern CComModule _Module;
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Contract Enforcement
+ * contract enforcement
  *
  * The macro atlstl_assert provides standard debug-mode assert functionality.
  */
 
-/** \brief Defines a runtime assertion
+/** Defines a runtime assertion
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or an assertion will be fired
  */
 #define ATLSTL_ASSERT(expr)                 STLSOFT_ASSERT(expr)
 
-/** \brief Defines a runtime assertion, with message
+/** Defines a runtime assertion, with message
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or an assertion will be fired
  * \param msg The literal character string message to be included in the assertion
  */
 #define ATLSTL_MESSAGE_ASSERT(msg, expr)    STLSOFT_MESSAGE_ASSERT(msg, expr)
 
-/** \brief Defines a compile-time assertion
+/** Defines a compile-time assertion
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or compilation will fail
  */
@@ -267,7 +283,7 @@ extern CComModule _Module;
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The ATLSTL components are contained within the atlstl namespace. This is
  * usually an alias for stlsoft::atlstl_project,
@@ -275,19 +291,19 @@ extern CComModule _Module;
  * When compilers support namespaces they are defined by default. They can be
  * undefined using a cascasing system, as follows:
  *
- * If _STLSOFT_NO_NAMESPACES is defined, then _ATLSTL_NO_NAMESPACES is defined.
+ * If STLSOFT_NO_NAMESPACES is defined, then ATLSTL_NO_NAMESPACES is defined.
  *
- * If _ATLSTL_NO_NAMESPACES is defined, then _ATLSTL_NO_NAMESPACE is defined.
+ * If ATLSTL_NO_NAMESPACES is defined, then ATLSTL_NO_NAMESPACE is defined.
  *
- * If _ATLSTL_NO_NAMESPACE is defined, then the ATLSTL constructs are defined
+ * If ATLSTL_NO_NAMESPACE is defined, then the ATLSTL constructs are defined
  * in the global scope.
  *
- * If _STLSOFT_NO_NAMESPACES, _ATLSTL_NO_NAMESPACES and _ATLSTL_NO_NAMESPACE are
- * all undefined but the symbol _STLSOFT_NO_NAMESPACE is defined (whence the
+ * If STLSOFT_NO_NAMESPACES, ATLSTL_NO_NAMESPACES and ATLSTL_NO_NAMESPACE are
+ * all undefined but the symbol STLSOFT_NO_NAMESPACE is defined (whence the
  * namespace stlsoft does not exist), then the ATLSTL constructs are defined
  * within the atlstl namespace. The definition matrix is as follows:
  *
- * _STLSOFT_NO_NAMESPACE    _ATLSTL_NO_NAMESPACE    atlstl definition
+ * STLSOFT_NO_NAMESPACE     ATLSTL_NO_NAMESPACE     atlstl definition
  * ---------------------    --------------------    -----------------
  *  not defined              not defined             = stlsoft::atlstl_project
  *  not defined              defined                 not defined
@@ -296,59 +312,105 @@ extern CComModule _Module;
  *
  *
  *
- * The macro atlstl_ns_qual() macro can be used to refer to elements in the
+ * The macro ATLSTL_NS_QUAL() macro can be used to refer to elements in the
  * ATLSTL libraries irrespective of whether they are in the
  * stlsoft::atlstl_project (or atlstl) namespace or in the global namespace.
  *
  * Furthermore, some compilers do not support the standard library in the std
- * namespace, so the atlstl_ns_qual_std() macro can be used to refer to elements
+ * namespace, so the STLSOFT_NS_QUAL_STD() macro can be used to refer to elements
  * in the ATLSTL libraries irrespective of whether they are in the std namespace
  * or in the global namespace.
  *
  *
  * The ATL libraries themselves may or may not be defined within the ATL
- * namespace, so the atlstl_ns_qual_stl() macro can be used to refer to
- * elements in the ATLSTL libraries irrespective of whether they are in the std
+ * namespace, so the STLSOFT_NS_QUAL_STD() macro can be used to refer to
+ * elements in the standard library irrespective of whether they are in the std
  * namespace or in the global namespace.
  */
 
-/* No STLSoft namespaces means no ATLSTL namespaces */
-#ifdef _STLSOFT_NO_NAMESPACES
-# define _ATLSTL_NO_NAMESPACES
-#endif /* _STLSOFT_NO_NAMESPACES */
+/* /////////////////////////////////////
+ * obsolete preprocessor symbol detection
+ */
 
-/* No ATLSTL namespaces means no atlstl namespace */
 #ifdef _ATLSTL_NO_NAMESPACES
-# define _ATLSTL_NO_NAMESPACE
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _ATLSTL_NO_NAMESPACES. This symbol is now deprecated, and may be ignored by a future release : instead define ATLSTL_NO_NAMESPACES")
+# endif
+# if !defined(ATLSTL_NO_NAMESPACES)
+#  define ATLSTL_NO_NAMESPACES
+# endif /* !ATLSTL_NO_NAMESPACES */
 #endif /* _ATLSTL_NO_NAMESPACES */
 
-#ifndef _ATLSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifdef _ATLSTL_NO_NAMESPACE
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _ATLSTL_NO_NAMESPACE. This symbol is now deprecated, and may be ignored by a future release : instead define ATLSTL_NO_NAMESPACE")
+# endif
+# if !defined(ATLSTL_NO_NAMESPACE)
+#  define ATLSTL_NO_NAMESPACE
+# endif /* !ATLSTL_NO_NAMESPACE */
+#endif /* _ATLSTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////
+ * namespace support discrimination
+ */
+
+/* No STLSoft namespaces means no ATLSTL namespaces */
+#ifdef STLSOFT_NO_NAMESPACES
+# define ATLSTL_NO_NAMESPACES
+#endif /* STLSOFT_NO_NAMESPACES */
+
+/* No ATLSTL namespaces means no atlstl namespace */
+#ifdef ATLSTL_NO_NAMESPACES
+# define ATLSTL_NO_NAMESPACE
+#endif /* ATLSTL_NO_NAMESPACES */
+
+#ifdef ATLSTL_NO_NAMESPACES
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_ATLSTL_NO_NAMESPACES)
+#   define _ATLSTL_NO_NAMESPACES
+#  endif /* !_ATLSTL_NO_NAMESPACES */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* ATLSTL_NO_NAMESPACES */
+
+#ifdef ATLSTL_NO_NAMESPACE
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_ATLSTL_NO_NAMESPACE)
+#   define _ATLSTL_NO_NAMESPACE
+#  endif /* !_ATLSTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* ATLSTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////
+ * declaration '*stl*' namespace
+ */
+
+#ifndef ATLSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::atlstl */
-/** \brief The <code class="namespace">atlstl</code> namespace contains all components
+/** The \c atlstl namespace contains all components
  *   in the \ref group__project__atlstl "ATLSTL" project.
  *
- * By default, the <code>atlstl</code> namespace is actually an alias for
+ * By default, the \c atlstl namespace is actually an alias for
  * the namespace <code>stlsoft::atlstl_project</code>, which is where all
  * the \ref group__project__atlstl "ATLSTL" components actually reside. This
  * measure allows all components within the main the
  * \ref group__project__stlsoft "STLSoft" project (which are defined within
- * the <code>stlsoft</code> namespace) to be visible to all components
- * "within" the <code>atlstl</code> namespace. (Otherwise, there would be a
+ * the \c stlsoft namespace) to be visible to all components
+ * "within" the \c atlstl namespace. (Otherwise, there would be a
  * whole lot of onerous qualification throughout the code of all
  * \ref group__projects "sub-projects".)
  *
- * \note If either/both of the symbols <code>_STLSOFT_NO_NAMESPACES</code>
- * and <code>_ATLSTL_NO_NAMESPACE</code> are defined, all
+ * \note If either/both of the symbols \c STLSOFT_NO_NAMESPACES
+ * and \c ATLSTL_NO_NAMESPACE are defined, all
  * \ref group__project__atlstl "ATLSTL" components will be defined in the
- * global namespace. Conversely, if the <code>_STLSOFT_NO_NAMESPACE</code>
+ * global namespace. Conversely, if the \c STLSOFT_NO_NAMESPACE
  * symbol (not to be confused with the
- * <code>_STLSOFT_NO_NAMESPACES</code> symbol!) is defined - meaning that
+ * \c STLSOFT_NO_NAMESPACES symbol!) is defined - meaning that
  * all \ref group__project__stlsoft "main project" components are to be
- * defined in the global namespace, and <code>_ATLSTL_NO_NAMESPACE</code>
+ * defined in the global namespace, and \c ATLSTL_NO_NAMESPACE
  * is <b>not</b> defined, then all \ref group__project__atlstl "ATLSTL"
- * components will be defined within a bona fide <code>atlstl</code>
+ * components will be defined within a bona fide \c atlstl
  * namespace.
  *
  * \note This is a vestige of compatibility with compilers with
@@ -360,19 +422,16 @@ namespace atlstl
 {
 # else
 /* Define stlsoft::atlstl_project */
-
 namespace stlsoft
 {
-
 namespace atlstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
 #else
-stlsoft_ns_using(move_lhs_from_rhs)
-#endif /* !_ATLSTL_NO_NAMESPACE */
+STLSOFT_NS_USING(move_lhs_from_rhs)
+#endif /* !ATLSTL_NO_NAMESPACE */
 
-/** \def atlstl_ns_qual(x)
+/** \def ATLSTL_NS_QUAL(x)
  * Qualifies with <b>atlstl::</b> if ATLSTL is using namespaces or, if not, does not qualify
  */
 
@@ -380,48 +439,39 @@ stlsoft_ns_using(move_lhs_from_rhs)
  * Declares a using directive (with respect to <b>atlstl</b>) if ATLSTL is using namespaces or, if not, does nothing
  */
 
-#ifndef _ATLSTL_NO_NAMESPACE
-# define atlstl_ns_qual(x)          ::atlstl::x
-# define atlstl_ns_using(x)         using ::atlstl::x;
-#else /* ? _ATLSTL_NO_NAMESPACE */
-# define atlstl_ns_qual(x)          x
-# define atlstl_ns_using(x)
-#endif /* !_ATLSTL_NO_NAMESPACE */
+#ifndef ATLSTL_NO_NAMESPACE
+# define ATLSTL_NS_QUAL(x)          ::atlstl::x
+# define ATLSTL_NS_USING(x)         using ::atlstl::x;
+#else /* ? ATLSTL_NO_NAMESPACE */
+# define ATLSTL_NS_QUAL(x)          x
+# define ATLSTL_NS_USING(x)
+#endif /* !ATLSTL_NO_NAMESPACE */
 
-/** \def atlstl_ns_qual_std(x)
- * Qualifies with <b>std::</b> if ATLSTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does not qualify
- */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define atlstl_ns_qual(x)                                  ATLSTL_NS_QUAL(x)
+# define atlstl_ns_using(x)                                 ATLSTL_NS_USING(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
-/** \def atlstl_ns_using_std(x)
- * Declares a using directive (with respect to <b>std</b>) if ATLSTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does nothing
- */
-
-#ifdef STLSOFT_CF_std_NAMESPACE
-# define atlstl_ns_qual_std(x)      ::std::x
-# define atlstl_ns_using_std(x)     using ::std::x;
-#else /* ? STLSOFT_CF_std_NAMESPACE */
-# define atlstl_ns_qual_std(x)      x
-# define atlstl_ns_using_std(x)
-#endif /* !STLSOFT_CF_std_NAMESPACE */
-
-/** \def atlstl_ns_qual_atl(x)
- * Qualifies with <b>ATL::</b> if ATLSTL is being translated in the context of ATL being within the <b>ATL</b> namespace or, if not, does not qualify
- */
-
-/** \def atlstl_ns_using_atl(x)
- * Declares a using directive (with respect to <b>ATL</b>) if ATLSTL is being translated in the context of ATL being within the <b>ATL</b> namespace or, if not, does nothing
- */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define atlstl_ns_qual_std(x)                              STLSOFT_NS_QUAL_STD(x)
+# define atlstl_ns_using_std(x)                             STLSOFT_NS_USING_STD(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
 #ifndef ATL_NO_NAMESPACE
-# define atlstl_ns_qual_atl(x)       ::ATL::x
-# define atlstl_ns_using_atl(x)      using ::ATL::x;
+# define ATLSTL_NS_QUAL_ATL(x)       ::ATL::x
+# define ATLSTL_NS_USING_ATL(x)      using ::ATL::x;
 #else /* ? ATL_NO_NAMESPACE */
 # define atlstl_ns_qual_atl(x)       x
-# define atlstl_ns_using_atl(x)
+# define ATLSTL_NS_USING_ATL(x)
 #endif /* !ATL_NO_NAMESPACE */
 
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define atlstl_ns_qual_atl(x)                              ATLSTL_NS_QUAL_ATL(x)
+# define atlstl_ns_using_atl(x)                             ATLSTL_NS_USING_ATL(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Typedefs
+ * typedefs
  *
  * The ATLSTL uses a number of typedefs to aid in compiler-independence in the
  * libraries' main code.
@@ -429,36 +479,36 @@ stlsoft_ns_using(move_lhs_from_rhs)
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-typedef stlsoft_ns_qual(ss_char_a_t)        as_char_a_t;    //!< Ansi char type
-typedef stlsoft_ns_qual(ss_char_w_t)        as_char_w_t;    //!< Unicode char type
-typedef stlsoft_ns_qual(ss_sint8_t)         as_sint8_t;     //!< 8-bit signed integer
-typedef stlsoft_ns_qual(ss_uint8_t)         as_uint8_t;     //!< 8-bit unsigned integer
-typedef stlsoft_ns_qual(ss_int16_t)         as_int16_t;     //!< 16-bit integer
-typedef stlsoft_ns_qual(ss_sint16_t)        as_sint16_t;    //!< 16-bit signed integer
-typedef stlsoft_ns_qual(ss_uint16_t)        as_uint16_t;    //!< 16-bit unsigned integer
-typedef stlsoft_ns_qual(ss_int32_t)         as_int32_t;     //!< 32-bit integer
-typedef stlsoft_ns_qual(ss_sint32_t)        as_sint32_t;    //!< 32-bit signed integer
-typedef stlsoft_ns_qual(ss_uint32_t)        as_uint32_t;    //!< 32-bit unsigned integer
+typedef STLSOFT_NS_QUAL(ss_char_a_t)        as_char_a_t;    //!< Ansi char type
+typedef STLSOFT_NS_QUAL(ss_char_w_t)        as_char_w_t;    //!< Unicode char type
+typedef STLSOFT_NS_QUAL(ss_sint8_t)         as_sint8_t;     //!< 8-bit signed integer
+typedef STLSOFT_NS_QUAL(ss_uint8_t)         as_uint8_t;     //!< 8-bit unsigned integer
+typedef STLSOFT_NS_QUAL(ss_int16_t)         as_int16_t;     //!< 16-bit integer
+typedef STLSOFT_NS_QUAL(ss_sint16_t)        as_sint16_t;    //!< 16-bit signed integer
+typedef STLSOFT_NS_QUAL(ss_uint16_t)        as_uint16_t;    //!< 16-bit unsigned integer
+typedef STLSOFT_NS_QUAL(ss_int32_t)         as_int32_t;     //!< 32-bit integer
+typedef STLSOFT_NS_QUAL(ss_sint32_t)        as_sint32_t;    //!< 32-bit signed integer
+typedef STLSOFT_NS_QUAL(ss_uint32_t)        as_uint32_t;    //!< 32-bit unsigned integer
 #ifdef STLSOFT_CF_64BIT_INT_SUPPORT
-typedef stlsoft_ns_qual(ss_int64_t)         as_int64_t;     //!< 64-bit integer
-typedef stlsoft_ns_qual(ss_sint64_t)        as_sint64_t;    //!< 64-bit signed integer
-typedef stlsoft_ns_qual(ss_uint64_t)        as_uint64_t;    //!< 64-bit unsigned integer
+typedef STLSOFT_NS_QUAL(ss_int64_t)         as_int64_t;     //!< 64-bit integer
+typedef STLSOFT_NS_QUAL(ss_sint64_t)        as_sint64_t;    //!< 64-bit signed integer
+typedef STLSOFT_NS_QUAL(ss_uint64_t)        as_uint64_t;    //!< 64-bit unsigned integer
 #endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
-typedef stlsoft_ns_qual(ss_int_t)           as_int_t;       //!< integer
-typedef stlsoft_ns_qual(ss_sint_t)          as_sint_t;      //!< signed integer
-typedef stlsoft_ns_qual(ss_uint_t)          as_uint_t;      //!< unsigned integer
-typedef stlsoft_ns_qual(ss_long_t)          as_long_t;      //!< long
-typedef stlsoft_ns_qual(ss_bool_t)          as_bool_t;      //!< bool
+typedef STLSOFT_NS_QUAL(ss_int_t)           as_int_t;       //!< integer
+typedef STLSOFT_NS_QUAL(ss_sint_t)          as_sint_t;      //!< signed integer
+typedef STLSOFT_NS_QUAL(ss_uint_t)          as_uint_t;      //!< unsigned integer
+typedef STLSOFT_NS_QUAL(ss_long_t)          as_long_t;      //!< long
+typedef STLSOFT_NS_QUAL(ss_bool_t)          as_bool_t;      //!< bool
 typedef DWORD                               as_dword_t;     //!< dword
-typedef stlsoft_ns_qual(ss_size_t)          as_size_t;      //!< size
-typedef stlsoft_ns_qual(ss_ptrdiff_t)       as_ptrdiff_t;   //!< ptr diff
-typedef stlsoft_ns_qual(ss_streampos_t)     as_streampos_t; //!< streampos
-typedef stlsoft_ns_qual(ss_streamoff_t)     as_streamoff_t; //!< streamoff
+typedef STLSOFT_NS_QUAL(ss_size_t)          as_size_t;      //!< size
+typedef STLSOFT_NS_QUAL(ss_ptrdiff_t)       as_ptrdiff_t;   //!< ptr diff
+typedef STLSOFT_NS_QUAL(ss_streampos_t)     as_streampos_t; //!< streampos
+typedef STLSOFT_NS_QUAL(ss_streamoff_t)     as_streamoff_t; //!< streamoff
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Values
+ * values
  *
  * Since the boolean type may not be supported natively on all compilers, the
  * values of true and false may also not be provided. Hence the values of
@@ -467,12 +517,12 @@ typedef stlsoft_ns_qual(ss_streamoff_t)     as_streamoff_t; //!< streamoff
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-#define as_true_v       ss_true_v
-#define as_false_v      ss_false_v
+#define as_true_v                                           ss_true_v
+#define as_false_v                                          ss_false_v
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 /* /////////////////////////////////////////////////////////////////////////
- * Code modification macros
+ * code modification macros
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -493,20 +543,20 @@ typedef stlsoft_ns_qual(ss_streamoff_t)     as_streamoff_t; //!< streamoff
 # define atlstl_num_elements(ar)                        ATLSTL_NUM_ELEMENTS(ar)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
+/** [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_DESTROY_INSTANCE().
  */
 #define atlstl_destroy_instance(t, type, p)             STLSOFT_DESTROY_INSTANCE(t, type, p)
 
-/** \brief [DEPRECATED] Generates an opaque type with the name \c _htype
+/** [DEPRECATED] Generates an opaque type with the name \c _htype
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_GEN_OPAQUE().
  */
 #define atlstl_gen_opaque(htype)                        STLSOFT_GEN_OPAQUE(htype)
 
 /* /////////////////////////////////////////////////////////////////////////
- * Functions
+ * functions
  */
 
 /** This function is needed since there are ambiguities between COM headers and
@@ -522,29 +572,21 @@ inline as_bool_t InlineIsEqualGUID(REFGUID rguid1, REFGUID rguid2)
 }
 #endif /* _ATL_VER < 0x0700 */
 
-/* /////////////////////////////////////////////////////////////////////////
- * Unit-testing
- */
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/atlstl_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _ATLSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef ATLSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace atlstl
+} /* namespace atlstl */
 # else
-} // namespace atlstl_project
-} // namespace stlsoft
+} /* namespace atlstl_project */
+} /* namespace stlsoft */
 namespace atlstl = ::stlsoft::atlstl_project;
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_ATLSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !ATLSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Inclusion
+ * inclusion control
  */
 
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
@@ -553,7 +595,7 @@ namespace atlstl = ::stlsoft::atlstl_project;
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#endif /* ATLSTL_INCL_ATLSTL_HPP_ATLSTL */
+#endif /* !ATLSTL_INCL_ATLSTL_HPP_ATLSTL */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

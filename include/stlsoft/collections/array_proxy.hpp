@@ -6,65 +6,71 @@
  *              problems.
  *
  * Created:     11th November 2002
- * Updated:     15th December 2023
+ * Updated:     17th January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/collections/array_proxy.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::array_proxy
+ * \brief [C++] Definition of the stlsoft::array_proxy
  *   class template
- *   (\ref group__library__collections "Collections" Library).
+ *   (\ref group__library__Collection "Collection" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_COLLECTIONS_HPP_ARRAY_PROXY
 #define STLSOFT_INCL_STLSOFT_COLLECTIONS_HPP_ARRAY_PROXY
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define STLSOFT_VER_STLSOFT_COLLECTIONS_HPP_ARRAY_PROXY_MAJOR    4
-# define STLSOFT_VER_STLSOFT_COLLECTIONS_HPP_ARRAY_PROXY_MINOR    0
-# define STLSOFT_VER_STLSOFT_COLLECTIONS_HPP_ARRAY_PROXY_REVISION 4
-# define STLSOFT_VER_STLSOFT_COLLECTIONS_HPP_ARRAY_PROXY_EDIT     58
+# define STLSOFT_VER_STLSOFT_COLLECTIONS_HPP_ARRAY_PROXY_MAJOR      4
+# define STLSOFT_VER_STLSOFT_COLLECTIONS_HPP_ARRAY_PROXY_MINOR      0
+# define STLSOFT_VER_STLSOFT_COLLECTIONS_HPP_ARRAY_PROXY_REVISION   8
+# define STLSOFT_VER_STLSOFT_COLLECTIONS_HPP_ARRAY_PROXY_EDIT       69
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_HPP_CONSTRAINTS
 # include <stlsoft/util/constraints.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_CONSTRAINTS */
@@ -73,27 +79,31 @@
 #endif /* !STLSOFT_INCL_STLSOFT_COLLECTIONS_UTIL_HPP_COLLECTIONS */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Acts as a proxy for built-in arrays, ensuring functions passed array proxies
+/** Acts as a proxy for built-in arrays, ensuring functions passed array proxies
  * have safe access to both array pointer and length
  *
- * \ingroup group__library__collections
+ * \ingroup group__library__Collection
+ *
+ * \tparam T The element type of the collection
  *
  * \note This is described in detail in section 14.4 of
  *  <a href = "http://www.imperfectcplusplus.com/">Imperfect C++</a>.
  */
-template <ss_typename_param_k T>
+template<
+    ss_typename_param_k T
+>
 class array_proxy
     : public stl_collection_tag
 {
@@ -116,8 +126,10 @@ public:
     /// types of the same size
     ///
     /// \param d The array proxy of a derived type
-    template <ss_typename_param_k D>
-    array_proxy(array_proxy<D> &d)
+    template<
+        ss_typename_param_k D
+    >
+    array_proxy(array_proxy<D>& d)
         : m_begin(d.begin())
         , m_end(d.end())
     {
@@ -133,11 +145,15 @@ public:
 # ifdef STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT
     /// Constructs an instance of the array proxy from the given array
     ///
-    /// \param d The array
-    template <ss_typename_param_k D, ss_size_t N>
-    ss_explicit_k array_proxy(D (&d)[N])
-        : m_begin(&d[0])
-        , m_end(&d[N])
+    /// \param ar The array
+    template<
+        ss_typename_param_k D
+    ,   ss_size_t           V_dimension
+    >
+    ss_explicit_k
+    array_proxy(D (&ar)[V_dimension])
+        : m_begin(&ar[0])
+        , m_end(&ar[0] + V_dimension)
     {
         // Ensures that D is a derived type of T. (Actually that is
         // handled in the initialiser list, but putting it here
@@ -148,14 +164,17 @@ public:
         stlsoft_constraint_must_be_same_size(D, T);
     }
 
+#  if defined(STLSOFT_CF_NON_TEMPLATE_CTOR_REQUIRED_WITH_TEMPLATE_CTOR)
     /// Constructs an instance of the array proxy from the given array
     ///
-    /// \param t The array
-#  if defined(STLSOFT_CF_NON_TEMPLATE_CTOR_REQUIRED_WITH_TEMPLATE_CTOR)
-    template <ss_size_t N>
-    ss_explicit_k array_proxy(T (&t)[N])
-        : m_begin(&t[0])
-        , m_end(&t[N])
+    /// \param ar The array
+    template<
+        ss_size_t V_dimension
+    >
+    ss_explicit_k
+    array_proxy(T (&ar)[V_dimension])
+        : m_begin(&ar[0])
+        , m_end(&ar[0] + V_dimension)
     {}
 #  endif /* STLSOFT_CF_NON_TEMPLATE_CTOR_REQUIRED_WITH_TEMPLATE_CTOR */
 # endif /* STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT */
@@ -167,7 +186,10 @@ public:
     /// \param end The end point of the range [begin, end)
 #if !defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT) || \
     defined(STLSOFT_CF_NON_TEMPLATE_CTOR_REQUIRED_WITH_TEMPLATE_CTOR)
-    array_proxy(pointer begin, pointer end)
+    array_proxy(
+        pointer begin
+    ,   pointer end
+    )
         : m_begin(begin)
         , m_end(end)
     {}
@@ -176,12 +198,19 @@ public:
 #ifdef STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT
     /// Constructs an instance of the array proxy from the given range
     ///
-    /// \param b The start point of the range [begin, end)
-    /// \param e The end point of the range [begin, end)
-    template <ss_typename_param_k D>
-    array_proxy(D *b, D *e)
-        : m_begin(b)
-        , m_end(e)
+    /// \tparam D A type compatible with T
+    ///
+    /// \param begin The start point of the range [begin, end)
+    /// \param end The end point of the range [begin, end)
+    template<
+        ss_typename_param_k D
+    >
+    array_proxy(
+        D*  begin
+    ,   D*  end
+    )
+        : m_begin(begin)
+        , m_end(end)
     {
         // Ensures that D is a derived type of T. (Actually that is
         // handled in the initialiser list, but putting it here
@@ -210,7 +239,9 @@ public:
     ///
     /// \param p The start of the range
     /// \param n The number of elements in the range
-    template <ss_typename_param_k D>
+    template<
+        ss_typename_param_k D
+    >
     array_proxy(D *p, ss_size_t n)
         : m_begin(p)
         , m_end(p + n)
@@ -224,6 +255,8 @@ public:
         stlsoft_constraint_must_be_same_size(D, T);
     }
 #endif // STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT
+private:
+    class_type& operator =(class_type const&);  // not to be implemented
 ///  @}
 
 /// \name Attributes
@@ -320,63 +353,95 @@ public:
 private:
     pointer const m_begin;
     pointer const m_end;
-
-// Not to be implemented
-private:
-    array_proxy& operator =(array_proxy const&);
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Creator functions
+ * creator functions
  */
 
 #ifdef STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT
-template <ss_typename_param_k T, ss_size_t N>
-inline array_proxy<T> make_array_proxy(T (&t)[N])
+template<
+    ss_typename_param_k T
+,   ss_size_t           V_dimension
+>
+inline
+array_proxy<T>
+make_array_proxy(
+    T (&t)[V_dimension]
+)
 {
-    return array_proxy<T>(&t[0], &t[N]);
+    return array_proxy<T>(&t[0], &t[V_dimension]);
 //    return array_proxy<T>(t); // This one not used, because CodeWarrior gets confused
 }
 #endif /* STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT */
 
-template <ss_typename_param_k T>
-inline array_proxy<T> make_array_proxy(T *begin, T *end)
+template<
+    ss_typename_param_k T
+>
+inline
+array_proxy<T>
+make_array_proxy(
+    T*  begin
+,   T*  end
+)
 {
     return array_proxy<T>(begin, end);
 }
 
-template <ss_typename_param_k T>
-inline array_proxy<const T> make_array_proxy(T const* begin, T const* end)
+template<
+    ss_typename_param_k T
+>
+inline
+array_proxy<const T>
+make_array_proxy(
+    T const*    begin
+,   T const*    end
+)
 {
     return array_proxy<const T>(begin, end);
 }
 
-template <ss_typename_param_k T>
-inline array_proxy<T> make_array_proxy(T *p, ss_size_t n)
+template<
+    ss_typename_param_k T
+>
+inline
+array_proxy<T>
+make_array_proxy(
+    T*          p
+,   ss_size_t   n
+)
 {
     return array_proxy<T>(p, n);
 }
 
 #if 0
-template <ss_typename_param_k T>
-inline array_proxy<const T> make_array_proxy(T const* p, ss_size_t n)
+template<
+    ss_typename_param_k T
+>
+inline
+array_proxy<const T>
+make_array_proxy(
+    T const*    p
+,   ss_size_t   n
+)
 {
     return array_proxy<const T>(p, n);
 }
 #endif /* 0 */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/array_proxy_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 /* ////////////////////////////////////////////////////////////////////// */
 

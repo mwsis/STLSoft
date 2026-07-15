@@ -6,40 +6,42 @@
  *              types.
  *
  * Created:     15th January 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks:      To Cláudio Albuquerque for suggesting the inclusion of
  *              atlstr.h.
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -52,13 +54,14 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define MFCSTL_VER_MFCSTL_HPP_MFCSTL_MAJOR     3
 # define MFCSTL_VER_MFCSTL_HPP_MFCSTL_MINOR     5
-# define MFCSTL_VER_MFCSTL_HPP_MFCSTL_REVISION  2
-# define MFCSTL_VER_MFCSTL_HPP_MFCSTL_EDIT      96
+# define MFCSTL_VER_MFCSTL_HPP_MFCSTL_REVISION  6
+# define MFCSTL_VER_MFCSTL_HPP_MFCSTL_EDIT      108
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \file mfcstl/mfcstl.hpp
  *
- * \brief [C++ only; requires MFC library] The root header for the \ref group__project__mfcstl "MFCSTL" project.
+ * \brief [C++; requires MFC library] Root header for the
+ * \ref group__project__mfcstl "MFCSTL" project.
  */
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -129,20 +132,25 @@
 # define _MFCSTL_VER_1_5_2      0x00010502  /*!< Version 1.5.2 (with STLSoft 1.9.10) */
 # define _MFCSTL_VER_1_5_3      0x00010503  /*!< Version 1.5.3 (with STLSoft 1.9.25) */
 # define _MFCSTL_VER_1_5_4      0x010504ff  /*!< Version 1.5.4 (with STLSoft 1.9.113) */
+# define _MFCSTL_VER_1_6_1_B01  0x01060181  /*!< Version 1.6.1 beta 1 (with STLSoft 1.10.1 beta 1) */
+# define _MFCSTL_VER_1_6_1_B02  0x01060182  /*!< Version 1.6.1 beta 2 (with STLSoft 1.10.1 beta 26) */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #define _MFCSTL_VER_MAJOR       1
-#define _MFCSTL_VER_MINOR       5
-#define _MFCSTL_VER_REVISION    4
-#define _MFCSTL_VER             _MFCSTL_VER_1_5_4
+#define _MFCSTL_VER_MINOR       6
+#define _MFCSTL_VER_REVISION    1
+#define _MFCSTL_VER             _MFCSTL_VER_1_6_1_B02
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #if defined(STLSOFT_COMPILER_IS_BORLAND)
 # pragma warn -8022 /* Suppresses "'f()' hides virtual function 'g()'" */
@@ -164,16 +172,15 @@
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * STLSoft version compatibility
+ * STLSoft version compatibility check(s)
  */
 
-#if !defined(_STLSOFT_VER) || \
-    _STLSOFT_VER < 0x010971ff
-# error This version of the MFCSTL libraries requires STLSoft version 1.9.113, or later
+#if _STLSOFT_VER < 0x010a019a
+# error This version of the MFCSTL libraries requires STLSoft version 1.10.1 beta 26, or later
 #endif /* _STLSOFT_VER */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler compatibility
+ * compiler compatibility
  *
  * Currently the only compilers supported by the MFCSTL libraries are
  *
@@ -227,31 +234,31 @@
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Contract Enforcement
+ * contract enforcement
  *
  * The macro mfcstl_assert provides standard debug-mode assert functionality.
  */
 
-/** \brief Defines a runtime assertion
+/** Defines a runtime assertion
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or an assertion will be fired
  */
 #define MFCSTL_ASSERT(expr)                 STLSOFT_ASSERT(expr)
 
-/** \brief Defines a runtime assertion, with message
+/** Defines a runtime assertion, with message
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or an assertion will be fired
  * \param msg The literal character string message to be included in the assertion
  */
 #define MFCSTL_MESSAGE_ASSERT(msg, expr)    STLSOFT_MESSAGE_ASSERT(msg, expr)
 
-/** \brief Defines a compile-time assertion
+/** Defines a compile-time assertion
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or compilation will fail
  */
@@ -266,7 +273,7 @@
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The MFCSTL components are contained within the mfcstl namespace. This is
  * usually an alias for stlsoft::mfcstl_project,
@@ -274,19 +281,19 @@
  * When compilers support namespaces they are defined by default. They can be
  * undefined using a cascasing system, as follows:
  *
- * If _STLSOFT_NO_NAMESPACES is defined, then _MFCSTL_NO_NAMESPACES is defined.
+ * If STLSOFT_NO_NAMESPACES is defined, then MFCSTL_NO_NAMESPACES is defined.
  *
- * If _MFCSTL_NO_NAMESPACES is defined, then _MFCSTL_NO_NAMESPACE is defined.
+ * If MFCSTL_NO_NAMESPACES is defined, then MFCSTL_NO_NAMESPACE is defined.
  *
- * If _MFCSTL_NO_NAMESPACE is defined, then the MFCSTL constructs are defined
+ * If MFCSTL_NO_NAMESPACE is defined, then the MFCSTL constructs are defined
  * in the global scope.
  *
- * If _STLSOFT_NO_NAMESPACES, _MFCSTL_NO_NAMESPACES and _MFCSTL_NO_NAMESPACE are
- * all undefined but the symbol _STLSOFT_NO_NAMESPACE is defined (whence the
+ * If STLSOFT_NO_NAMESPACES, MFCSTL_NO_NAMESPACES and MFCSTL_NO_NAMESPACE are
+ * all undefined but the symbol STLSOFT_NO_NAMESPACE is defined (whence the
  * namespace stlsoft does not exist), then the MFCSTL constructs are defined
  * within the mfcstl namespace. The definition matrix is as follows:
  *
- * _STLSOFT_NO_NAMESPACE    _MFCSTL_NO_NAMESPACE    mfcstl definition
+ * STLSOFT_NO_NAMESPACE     MFCSTL_NO_NAMESPACE     mfcstl definition
  * ---------------------    --------------------    -----------------
  *  not defined              not defined             = stlsoft::mfcstl_project
  *  not defined              defined                 not defined
@@ -295,59 +302,99 @@
  *
  *
  *
- * The macro mfcstl_ns_qual() macro can be used to refer to elements in the
+ * The macro MFCSTL_NS_QUAL() macro can be used to refer to elements in the
  * MFCSTL libraries irrespective of whether they are in the
  * stlsoft::mfcstl_project (or mfcstl) namespace or in the global namespace.
  *
  * Furthermore, some compilers do not support the standard library in the std
- * namespace, so the mfcstl_ns_qual_std() macro can be used to refer to elements
- * in the MFCSTL libraries irrespective of whether they are in the std namespace
+ * namespace, so the STLSOFT_NS_QUAL_STD() macro can be used to refer to elements
+ * in the standard library irrespective of whether they are in the std namespace
  * or in the global namespace.
- *
- *
- * The MFC libraries themselves may or may not be defined within the MFC
- * namespace, so the mfcstl_ns_qual_stl() macro can be used to refer to
- * elements in the MFCSTL libraries irrespective of whether they are in the std
- * namespace or in the global namespace.
+ */
+
+/* /////////////////////////////////////
+ * obsolete preprocessor symbol detection
+ */
+
+#ifdef _MFCSTL_NO_NAMESPACES
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _MFCSTL_NO_NAMESPACES. This symbol is now deprecated, and may be ignored by a future release : instead define MFCSTL_NO_NAMESPACES")
+# endif
+# if !defined(MFCSTL_NO_NAMESPACES)
+#  define MFCSTL_NO_NAMESPACES
+# endif /* !MFCSTL_NO_NAMESPACES */
+#endif /* _MFCSTL_NO_NAMESPACES */
+
+#ifdef _MFCSTL_NO_NAMESPACE
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _MFCSTL_NO_NAMESPACE. This symbol is now deprecated, and may be ignored by a future release : instead define MFCSTL_NO_NAMESPACE")
+# endif
+# if !defined(MFCSTL_NO_NAMESPACE)
+#  define MFCSTL_NO_NAMESPACE
+# endif /* !MFCSTL_NO_NAMESPACE */
+#endif /* _MFCSTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////
+ * namespace support discrimination
  */
 
 /* No STLSoft namespaces means no MFCSTL namespaces */
-#ifdef _STLSOFT_NO_NAMESPACES
-# define _MFCSTL_NO_NAMESPACES
-#endif /* _STLSOFT_NO_NAMESPACES */
+#ifdef STLSOFT_NO_NAMESPACES
+# define MFCSTL_NO_NAMESPACES
+#endif /* STLSOFT_NO_NAMESPACES */
 
 /* No MFCSTL namespaces means no mfcstl namespace */
-#ifdef _MFCSTL_NO_NAMESPACES
-# define _MFCSTL_NO_NAMESPACE
-#endif /* _MFCSTL_NO_NAMESPACES */
+#ifdef MFCSTL_NO_NAMESPACES
+# define MFCSTL_NO_NAMESPACE
+#endif /* MFCSTL_NO_NAMESPACES */
 
-#ifndef _MFCSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifdef MFCSTL_NO_NAMESPACES
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_MFCSTL_NO_NAMESPACES)
+#   define _MFCSTL_NO_NAMESPACES
+#  endif /* !_MFCSTL_NO_NAMESPACES */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* MFCSTL_NO_NAMESPACES */
+
+#ifdef MFCSTL_NO_NAMESPACE
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_MFCSTL_NO_NAMESPACE)
+#   define _MFCSTL_NO_NAMESPACE
+#  endif /* !_MFCSTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* MFCSTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////
+ * declaration '*stl*' namespace
+ */
+
+#ifndef MFCSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::mfcstl */
-/** \brief The <code class="namespace">mfcstl</code> namespace contains all components
+/** The \c mfcstl namespace contains all components
  *   in the \ref group__project__mfcstl "MFCSTL" project.
  *
- * By default, the <code>mfcstl</code> namespace is actually an alias for
+ * By default, the \c mfcstl namespace is actually an alias for
  * the namespace <code>stlsoft::mfcstl_project</code>, which is where all
  * the \ref group__project__mfcstl "MFCSTL" components actually reside. This
  * measure allows all components within the main the
  * \ref group__project__stlsoft "STLSoft" project (which are defined within
- * the <code>stlsoft</code> namespace) to be visible to all components
- * "within" the <code>mfcstl</code> namespace. (Otherwise, there would be a
+ * the \c stlsoft namespace) to be visible to all components
+ * "within" the \c mfcstl namespace. (Otherwise, there would be a
  * whole lot of onerous qualification throughout the code of all
  * \ref group__projects "sub-projects".)
  *
- * \note If either/both of the symbols <code>_STLSOFT_NO_NAMESPACES</code>
- * and <code>_MFCSTL_NO_NAMESPACE</code> are defined, all
+ * \note If either/both of the symbols \c STLSOFT_NO_NAMESPACES
+ * and \c MFCSTL_NO_NAMESPACE are defined, all
  * \ref group__project__mfcstl "MFCSTL" components will be defined in the
- * global namespace. Conversely, if the <code>_STLSOFT_NO_NAMESPACE</code>
+ * global namespace. Conversely, if the \c STLSOFT_NO_NAMESPACE
  * symbol (not to be confused with the
- * <code>_STLSOFT_NO_NAMESPACES</code> symbol!) is defined - meaning that
+ * \c STLSOFT_NO_NAMESPACES symbol!) is defined - meaning that
  * all \ref group__project__stlsoft "main project" components are to be
- * defined in the global namespace, and <code>_MFCSTL_NO_NAMESPACE</code>
+ * defined in the global namespace, and \c MFCSTL_NO_NAMESPACE
  * is <b>not</b> defined, then all \ref group__project__mfcstl "MFCSTL"
- * components will be defined within a bona fide <code>mfcstl</code>
+ * components will be defined within a bona fide \c mfcstl
  * namespace.
  *
  * \note This is a vestige of compatibility with compilers with
@@ -359,52 +406,43 @@ namespace mfcstl
 {
 # else
 /* Define stlsoft::mfcstl_project */
-
 namespace stlsoft
 {
-
 namespace mfcstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
 #else
-stlsoft_ns_using(move_lhs_from_rhs)
-#endif /* !_MFCSTL_NO_NAMESPACE */
+STLSOFT_NS_USING(move_lhs_from_rhs)
+#endif /* !MFCSTL_NO_NAMESPACE */
 
-/** \def mfcstl_ns_qual(x)
+/** \def MFCSTL_NS_QUAL(x)
  * Qualifies with <b>mfcstl::</b> if MFCSTL is using namespaces or, if not, does not qualify
  */
 
-/** \def mfcstl_ns_using(x)
+/** \def MFCSTL_NS_USING(x)
  * Declares a using directive (with respect to <b>mfcstl</b>) if MFCSTL is using namespaces or, if not, does nothing
  */
 
-#ifndef _MFCSTL_NO_NAMESPACE
-# define mfcstl_ns_qual(x)          ::mfcstl::x
-# define mfcstl_ns_using(x)         using ::mfcstl::x;
-#else /* ? _MFCSTL_NO_NAMESPACE */
-# define mfcstl_ns_qual(x)          x
-# define mfcstl_ns_using(x)
-#endif /* !_MFCSTL_NO_NAMESPACE */
+#ifndef MFCSTL_NO_NAMESPACE
+# define MFCSTL_NS_QUAL(x)          ::mfcstl::x
+# define MFCSTL_NS_USING(x)         using ::mfcstl::x;
+#else /* ? MFCSTL_NO_NAMESPACE */
+# define MFCSTL_NS_QUAL(x)          x
+# define MFCSTL_NS_USING(x)
+#endif /* !MFCSTL_NO_NAMESPACE */
 
-/** \def mfcstl_ns_qual_std(x)
- * Qualifies with <b>std::</b> if MFCSTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does not qualify
- */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define mfcstl_ns_qual(x)                                  MFCSTL_NS_QUAL(x)
+# define mfcstl_ns_using(x)                                 MFCSTL_NS_USING(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
-/** \def mfcstl_ns_using_std(x)
- * Declares a using directive (with respect to <b>std</b>) if MFCSTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does nothing
- */
-
-#ifdef STLSOFT_CF_std_NAMESPACE
-# define mfcstl_ns_qual_std(x)      ::std::x
-# define mfcstl_ns_using_std(x)     using ::std::x;
-#else /* ? STLSOFT_CF_std_NAMESPACE */
-# define mfcstl_ns_qual_std(x)      x
-# define mfcstl_ns_using_std(x)
-#endif /* !STLSOFT_CF_std_NAMESPACE */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define mfcstl_ns_qual_std(x)                              STLSOFT_NS_QUAL_STD(x)
+# define mfcstl_ns_using_std(x)                             STLSOFT_NS_USING_STD(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Typedefs
+ * typedefs
  *
  * The MFCSTL uses a number of typedefs to aid in compiler-independence in the
  * libraries' main code.
@@ -412,36 +450,36 @@ stlsoft_ns_using(move_lhs_from_rhs)
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-typedef stlsoft_ns_qual(ss_char_a_t)        ms_char_a_t;    //!< Ansi char type
-typedef stlsoft_ns_qual(ss_char_w_t)        ms_char_w_t;    //!< Unicode char type
-typedef stlsoft_ns_qual(ss_sint8_t)         ms_sint8_t;     //!< 8-bit signed integer
-typedef stlsoft_ns_qual(ss_uint8_t)         ms_uint8_t;     //!< 8-bit unsigned integer
-typedef stlsoft_ns_qual(ss_int16_t)         ms_int16_t;     //!< 16-bit integer
-typedef stlsoft_ns_qual(ss_sint16_t)        ms_sint16_t;    //!< 16-bit signed integer
-typedef stlsoft_ns_qual(ss_uint16_t)        ms_uint16_t;    //!< 16-bit unsigned integer
-typedef stlsoft_ns_qual(ss_int32_t)         ms_int32_t;     //!< 32-bit integer
-typedef stlsoft_ns_qual(ss_sint32_t)        ms_sint32_t;    //!< 32-bit signed integer
-typedef stlsoft_ns_qual(ss_uint32_t)        ms_uint32_t;    //!< 32-bit unsigned integer
+typedef STLSOFT_NS_QUAL(ss_char_a_t)        ms_char_a_t;    //!< Ansi char type
+typedef STLSOFT_NS_QUAL(ss_char_w_t)        ms_char_w_t;    //!< Unicode char type
+typedef STLSOFT_NS_QUAL(ss_sint8_t)         ms_sint8_t;     //!< 8-bit signed integer
+typedef STLSOFT_NS_QUAL(ss_uint8_t)         ms_uint8_t;     //!< 8-bit unsigned integer
+typedef STLSOFT_NS_QUAL(ss_int16_t)         ms_int16_t;     //!< 16-bit integer
+typedef STLSOFT_NS_QUAL(ss_sint16_t)        ms_sint16_t;    //!< 16-bit signed integer
+typedef STLSOFT_NS_QUAL(ss_uint16_t)        ms_uint16_t;    //!< 16-bit unsigned integer
+typedef STLSOFT_NS_QUAL(ss_int32_t)         ms_int32_t;     //!< 32-bit integer
+typedef STLSOFT_NS_QUAL(ss_sint32_t)        ms_sint32_t;    //!< 32-bit signed integer
+typedef STLSOFT_NS_QUAL(ss_uint32_t)        ms_uint32_t;    //!< 32-bit unsigned integer
 #ifdef STLSOFT_CF_64BIT_INT_SUPPORT
-typedef stlsoft_ns_qual(ss_int64_t)         ms_int64_t;     //!< 64-bit integer
-typedef stlsoft_ns_qual(ss_sint64_t)        ms_sint64_t;    //!< 64-bit signed integer
-typedef stlsoft_ns_qual(ss_uint64_t)        ms_uint64_t;    //!< 64-bit unsigned integer
+typedef STLSOFT_NS_QUAL(ss_int64_t)         ms_int64_t;     //!< 64-bit integer
+typedef STLSOFT_NS_QUAL(ss_sint64_t)        ms_sint64_t;    //!< 64-bit signed integer
+typedef STLSOFT_NS_QUAL(ss_uint64_t)        ms_uint64_t;    //!< 64-bit unsigned integer
 #endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
-typedef stlsoft_ns_qual(ss_int_t)           ms_int_t;       //!< integer
-typedef stlsoft_ns_qual(ss_sint_t)          ms_sint_t;      //!< signed integer
-typedef stlsoft_ns_qual(ss_uint_t)          ms_uint_t;      //!< unsigned integer
-typedef stlsoft_ns_qual(ss_long_t)          ms_long_t;      //!< long
-typedef stlsoft_ns_qual(ss_bool_t)          ms_bool_t;      //!< bool
+typedef STLSOFT_NS_QUAL(ss_int_t)           ms_int_t;       //!< integer
+typedef STLSOFT_NS_QUAL(ss_sint_t)          ms_sint_t;      //!< signed integer
+typedef STLSOFT_NS_QUAL(ss_uint_t)          ms_uint_t;      //!< unsigned integer
+typedef STLSOFT_NS_QUAL(ss_long_t)          ms_long_t;      //!< long
+typedef STLSOFT_NS_QUAL(ss_bool_t)          ms_bool_t;      //!< bool
 typedef DWORD                               ms_dword_t;     //!< dword
-typedef stlsoft_ns_qual(ss_size_t)          ms_size_t;      //!< size
-typedef stlsoft_ns_qual(ss_ptrdiff_t)       ms_ptrdiff_t;   //!< ptr diff
-typedef stlsoft_ns_qual(ss_streampos_t)     ms_streampos_t; //!< streampos
-typedef stlsoft_ns_qual(ss_streamoff_t)     ms_streamoff_t; //!< streamoff
+typedef STLSOFT_NS_QUAL(ss_size_t)          ms_size_t;      //!< size
+typedef STLSOFT_NS_QUAL(ss_ptrdiff_t)       ms_ptrdiff_t;   //!< ptr diff
+typedef STLSOFT_NS_QUAL(ss_streampos_t)     ms_streampos_t; //!< streampos
+typedef STLSOFT_NS_QUAL(ss_streamoff_t)     ms_streamoff_t; //!< streamoff
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Values
+ * values
  *
  * Since the boolean type may not be supported natively on all compilers, the
  * values of true and false may also not be provided. Hence the values of
@@ -450,12 +488,12 @@ typedef stlsoft_ns_qual(ss_streamoff_t)     ms_streamoff_t; //!< streamoff
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-#define ms_true_v       ss_true_v
-#define ms_false_v      ss_false_v
+#define ms_true_v                                           ss_true_v
+#define ms_false_v                                          ss_false_v
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 /* /////////////////////////////////////////////////////////////////////////
- * Code modification macros
+ * code modification macros
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -476,13 +514,13 @@ typedef stlsoft_ns_qual(ss_streamoff_t)     ms_streamoff_t; //!< streamoff
 # define mfcstl_num_elements(ar)                        MFCSTL_NUM_ELEMENTS(ar)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
+/** [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_DESTROY_INSTANCE().
  */
 #define mfcstl_destroy_instance(t, type, p)             STLSOFT_DESTROY_INSTANCE(t, type, p)
 
-/** \brief [DEPRECATED] Generates an opaque type with the name \c _htype
+/** [DEPRECATED] Generates an opaque type with the name \c _htype
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_GEN_OPAQUE().
  */
@@ -490,19 +528,19 @@ typedef stlsoft_ns_qual(ss_streamoff_t)     ms_streamoff_t; //!< streamoff
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _MFCSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef MFCSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace mfcstl
+} /* namespace mfcstl */
 # else
-} // namespace mfcstl_project
-} // namespace stlsoft
+} /* namespace mfcstl_project */
+} /* namespace stlsoft */
 namespace mfcstl = ::stlsoft::mfcstl_project;
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_MFCSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !MFCSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Inclusion
+ * inclusion control
  */
 
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
@@ -511,7 +549,7 @@ namespace mfcstl = ::stlsoft::mfcstl_project;
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#endif /* MFCSTL_INCL_MFCSTL_HPP_MFCSTL */
+#endif /* !MFCSTL_INCL_MFCSTL_HPP_MFCSTL */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

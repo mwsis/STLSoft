@@ -4,37 +4,39 @@
  * Purpose:     Contains the string access shims for std::exception.
  *
  * Created:     2nd May 2003
- * Updated:     15th December 2023
+ * Updated:     16th February 2021
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2021, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -43,7 +45,7 @@
  *
  * \brief [C++] Definition of the string access shims for
  *   <code>std::exception</code>
- *   (\ref group__concept__shim__string_access "String Access Shims" Concept).
+ *   (\ref group__concept__Shim__string_access "String Access Shims" Concept).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_EXCEPTION
@@ -52,17 +54,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_EXCEPTION_MAJOR       2
 # define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_EXCEPTION_MINOR       2
-# define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_EXCEPTION_REVISION    7
-# define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_EXCEPTION_EDIT        44
+# define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_EXCEPTION_REVISION    14
+# define _STLSOFT_VER_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_EXCEPTION_EDIT        57
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_STRING_H_FWD
 # include <stlsoft/shims/access/string/fwd.h>
 #endif /* !STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_STRING_H_FWD */
@@ -81,6 +87,10 @@
 # include <stlsoft/internal/safestr.h>
 #endif /* !STLSOFT_INCL_STLSOFT_INTERNAL_H_SAFESTR */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
 #ifndef STLSOFT_INCL_EXCEPTION
 # define STLSOFT_INCL_EXCEPTION
 #  include <exception>              // for std::exception
@@ -92,19 +102,20 @@
 #endif /* !STLSOFT_INCL_H_ERRNO */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Helpers
+ * helpers
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
 struct ximpl_stlsoft_shims_access_string_std_exception_
 {
 public:
@@ -120,7 +131,6 @@ public:
     ,   ss_size_t*          numConverted
     )
     {
-        // Always assume the nul-terminator
         STLSOFT_ASSERT(NULL != mbs);
 
         STLSOFT_ASSERT(NULL != numConverted);
@@ -129,7 +139,7 @@ public:
 
         int r = ::mbstowcs_s(numConverted, ws, wsSizeInChars, mbs, mbsLen);
 
-        if(0 == r)
+        if (0 == r)
         {
             STLSOFT_ASSERT(0 != *numConverted);
 
@@ -144,7 +154,7 @@ public:
         STLSOFT_SUPPRESS_UNUSED(wsSizeInChars);
 
         *numConverted = ::mbstowcs(ws, mbs, mbsLen);
-        if(static_cast<ss_size_t>(-1) == *numConverted)
+        if (static_cast<ss_size_t>(-1) == *numConverted)
         {
             return errno;
         }
@@ -168,7 +178,7 @@ public:
 
         int r = ::mbstowcs_s(len, NULL, 0, s, 0);
 
-        if(0 == r)
+        if (0 == r)
         {
             STLSOFT_ASSERT(0 != *len);
 
@@ -176,17 +186,15 @@ public:
         }
 
         return r;
-
 #else /* ? STLSOFT_USING_SAFE_STR_FUNCTIONS */
 
         *len = ::mbstowcs(NULL, s, 0);
-        if(static_cast<ss_size_t>(-1) == *len)
+        if (static_cast<ss_size_t>(-1) == *len)
         {
             return errno;
         }
 
         return 0;
-
 #endif /* STLSOFT_USING_SAFE_STR_FUNCTIONS */
     }
 
@@ -207,8 +215,10 @@ public:
     )
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
+
         STLSOFT_THROW_X(conversion_error(message, err));
 #else /* ?STLSOFT_CF_EXCEPTION_SUPPORT */
+
         STLSOFT_SUPPRESS_UNUSED(message);
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 
@@ -222,7 +232,6 @@ public:
 #  endif /* _MSC_VER */
 # endif /* compiler */
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
-
 };
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
@@ -233,31 +242,33 @@ public:
  * pointer to the character string or to an empty string.
  */
 
-/** \brief \ref group__concept__shim__string_access__c_str_data function
+/** \ref group__concept__Shim__string_access__c_str_data function
  *    for <code>std::exception</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return None-NULL, non-mutating pointer to a C-style
  *   string of <code>char</code>.
  */
-inline ss_char_a_t const* c_str_data_a(stlsoft_ns_qual_std(exception) const& x)
+inline ss_char_a_t const* c_str_data_a(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_data_a(x.what());
 }
 
-/** \brief \ref group__concept__shim__string_access__c_str_data function
+/** \ref group__concept__Shim__string_access__c_str_data function
  *    for <code>std::exception</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return None-NULL, non-mutating pointer to a C-style
  *   string of <code>wchar_t</code>.
  */
 inline
 basic_shim_string<ss_char_w_t, 100>
-c_str_data_w(stlsoft_ns_qual_std(exception) const& x)
+c_str_data_w(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
+    typedef basic_shim_string<ss_char_w_t, 100> result_t;
+
     // C-string pointer and length
     ss_char_a_t const* const    s   = x.what();
     ss_size_t const             len = ::strlen(s);
@@ -267,14 +278,19 @@ c_str_data_w(stlsoft_ns_qual_std(exception) const& x)
     int         err = ximpl_stlsoft_shims_access_string_std_exception_::mbstowcs_len(s, &wlen);
 
     // handle failure to get length
-    if(0 != err)
+    if (0 != err)
     {
         ximpl_stlsoft_shims_access_string_std_exception_::throw_conversion_error_or_return_(err, "cannot elicit wide-string length of exception message");
+
+#ifndef STLSOFT_CF_EXCEPTION_SUPPORT
+
+        return result_t();
+#endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
     }
 
     // Create the shim string, which will be returned
-    basic_shim_string<ss_char_w_t, 100> r(wlen);
-    ss_size_t                           wlen2;
+    result_t    r(wlen);
+    ss_size_t   wlen2;
 
     err = ximpl_stlsoft_shims_access_string_std_exception_::mbstowcs_(s, len, r.data(), 1u + r.size(), &wlen2);
 
@@ -283,22 +299,27 @@ c_str_data_w(stlsoft_ns_qual_std(exception) const& x)
     STLSOFT_SUPPRESS_UNUSED(wlen2);
 
     // handle failure to convert
-    if(0 != err)
+    if (0 != err)
     {
         ximpl_stlsoft_shims_access_string_std_exception_::throw_conversion_error_or_return_(err, "cannot elicit wide-string equivalent of exception message");
+
+#ifndef STLSOFT_CF_EXCEPTION_SUPPORT
+
+        return result_t();
+#endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
     }
 
     return r;
 }
 
-/** \brief \ref group__concept__shim__string_access__c_str_data function
+/** \ref group__concept__Shim__string_access__c_str_data function
  *    for <code>std::exception</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return None-NULL, non-mutating pointer to a C-style string.
  */
-inline ss_char_a_t const* c_str_data(stlsoft_ns_qual_std(exception) const& x)
+inline ss_char_a_t const* c_str_data(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_data_a(x);
 }
@@ -310,33 +331,33 @@ inline ss_char_a_t const* c_str_data(stlsoft_ns_qual_std(exception) const& x)
  * characters in the character string in the expression.
  */
 
-/** \brief \ref group__concept__shim__string_access__c_str_len function
+/** \ref group__concept__Shim__string_access__c_str_len function
  *    for <code>std::exception</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return Length (in bytes) of the string <code>s</code>.
  */
-inline ss_size_t c_str_len_a(stlsoft_ns_qual_std(exception) const& x)
+inline ss_size_t c_str_len_a(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_len_a(x.what());
 }
 
-/** \brief \ref group__concept__shim__string_access__c_str_len function
+/** \ref group__concept__Shim__string_access__c_str_len function
  *    for <code>std::exception</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return Length (in bytes) of the string <code>s</code>.
  */
 inline
 ss_size_t
-c_str_len_w(stlsoft_ns_qual_std(exception) const& x)
+c_str_len_w(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     ss_size_t   len;
-    int         err = ximpl_stlsoft_shims_access_string_std_exception_::mbstowcs_len(x.what(), &len);
+    int const   err = ximpl_stlsoft_shims_access_string_std_exception_::mbstowcs_len(x.what(), &len);
 
-    if(0 != err)
+    if (0 != err)
     {
         len = 0;
 
@@ -346,14 +367,14 @@ c_str_len_w(stlsoft_ns_qual_std(exception) const& x)
     return len;
 }
 
-/** \brief \ref group__concept__shim__string_access__c_str_len function
+/** \ref group__concept__Shim__string_access__c_str_len function
  *    for <code>std::exception</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return Length of the string <code>s</code>.
  */
-inline ss_size_t c_str_len(stlsoft_ns_qual_std(exception) const& x)
+inline ss_size_t c_str_len(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_len_a(x);
 }
@@ -365,43 +386,43 @@ inline ss_size_t c_str_len(stlsoft_ns_qual_std(exception) const& x)
  * pointer to the character string or to an empty string.
  */
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr function
+/** \ref group__concept__Shim__string_access__c_str_ptr function
  *    for <code>std::exception</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return None-NULL, non-mutating pointer to a nul-terminated C-style
  *   string of <code>char</code>.
  */
-inline ss_char_a_t const* c_str_ptr_a(stlsoft_ns_qual_std(exception) const& x)
+inline ss_char_a_t const* c_str_ptr_a(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_ptr_a(x.what());
 }
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr function
+/** \ref group__concept__Shim__string_access__c_str_ptr function
  *    for <code>std::exception</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return None-NULL, non-mutating pointer to a nul-terminated C-style
  *   string of <code>wchar_t</code>.
  */
 inline
 basic_shim_string<ss_char_w_t, 100>
-c_str_ptr_w(stlsoft_ns_qual_std(exception) const& x)
+c_str_ptr_w(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_data_w(x);
 }
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr function
+/** \ref group__concept__Shim__string_access__c_str_ptr function
  *    for <code>std::exception</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return None-NULL, non-mutating pointer to a nul-terminated C-style
  *   string.
  */
-inline ss_char_a_t const* c_str_ptr(stlsoft_ns_qual_std(exception) const& x)
+inline ss_char_a_t const* c_str_ptr(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_ptr_a(x);
 }
@@ -413,31 +434,33 @@ inline ss_char_a_t const* c_str_ptr(stlsoft_ns_qual_std(exception) const& x)
  * pointer to the character string or NULL.
  */
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr_null function
+/** \ref group__concept__Shim__string_access__c_str_ptr_null function
  *    for <code>std::exception</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
  *   string of <code>char</code>.
  */
-inline ss_char_a_t const* c_str_ptr_null_a(stlsoft_ns_qual_std(exception) const& x)
+inline ss_char_a_t const* c_str_ptr_null_a(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_ptr_null_a(x.what());
 }
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr_null function
+/** \ref group__concept__Shim__string_access__c_str_ptr_null function
  *    for <code>std::exception</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
  *   string of <code>wchar_t</code>.
  */
 inline
 basic_shim_string<ss_char_w_t, 100, true>
-c_str_ptr_null_w(stlsoft_ns_qual_std(exception) const& x)
+c_str_ptr_null_w(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
+    typedef basic_shim_string<ss_char_w_t, 100, true>   result_t;
+
     // C-string pointer and length
     ss_char_a_t const* const    s   = x.what();
     ss_size_t const             len = ::strlen(s);
@@ -447,14 +470,19 @@ c_str_ptr_null_w(stlsoft_ns_qual_std(exception) const& x)
     int         err = ximpl_stlsoft_shims_access_string_std_exception_::mbstowcs_len(s, &wlen);
 
     // handle failure to get length
-    if(0 != err)
+    if (0 != err)
     {
         ximpl_stlsoft_shims_access_string_std_exception_::throw_conversion_error_or_return_(err, "cannot elicit wide-string length of exception message");
+
+#ifndef STLSOFT_CF_EXCEPTION_SUPPORT
+
+        return result_t();
+#endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
     }
 
     // Create the shim string, which will be returned
-    basic_shim_string<ss_char_w_t, 100, true>  r(wlen);
-    ss_size_t                                  wlen2;
+    result_t  r(wlen);
+    ss_size_t wlen2;
 
     err = ximpl_stlsoft_shims_access_string_std_exception_::mbstowcs_(s, len, r.data(), 1u + r.size(), &wlen2);
 
@@ -463,34 +491,47 @@ c_str_ptr_null_w(stlsoft_ns_qual_std(exception) const& x)
     STLSOFT_SUPPRESS_UNUSED(wlen2);
 
     // handle failure to convert
-    if(0 != err)
+    if (0 != err)
     {
         ximpl_stlsoft_shims_access_string_std_exception_::throw_conversion_error_or_return_(err, "cannot elicit wide-string equivalent of exception message");
+
+#ifndef STLSOFT_CF_EXCEPTION_SUPPORT
+
+        return result_t();
+#endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
     }
 
     return r;
 }
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr_null function
+/** \ref group__concept__Shim__string_access__c_str_ptr_null function
  *    for <code>std::exception</code>.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  * \return Possibly NULL, non-mutating pointer to a nul-terminated C-style
  *   string.
  */
-inline ss_char_a_t const* c_str_ptr_null(stlsoft_ns_qual_std(exception) const& x)
+inline ss_char_a_t const* c_str_ptr_null(STLSOFT_NS_QUAL_STD(exception) const& x)
 {
     return c_str_ptr_null_a(x);
 }
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_STRING_STD_HPP_EXCEPTION */
 

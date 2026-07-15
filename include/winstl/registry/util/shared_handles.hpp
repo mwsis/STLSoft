@@ -4,53 +4,55 @@
  * Purpose:     Contains the shared_handle and monitored_shared_handle classes.
  *
  * Created:     19th January 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks:      To Austin Ziegler for fixes to defects evident on x64.
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/registry/util/shared_handles.hpp
  *
- *\brief [C++ only] [IMPLEMENTATION] Contains the
+ * \brief [C++] [IMPLEMENTATION] Contains the
  *  \link winstl::registry_util::shared_handle shared_handle\endlink
  *  and
  *  \link winstl::registry_util::monitored_shared_handle monitored_shared_handle\endlink
  *  classes that are used to provide shared context between iterators implement
  *  the \ref group__pattern__externally_invalidatable_iterator "Externally Invalidatable Iterator"
  *  pattern
- *   (\ref group__library__windows_registry "Windows Registry" Library).
+ *   (\ref group__library__Windows_Registry "Windows Registry" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_REGISTRY_UTIL_HPP_SHARED_HANDLES
@@ -59,17 +61,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_REGISTRY_UTIL_HPP_SHARED_HANDLES_MAJOR       2
 # define WINSTL_VER_WINSTL_REGISTRY_UTIL_HPP_SHARED_HANDLES_MINOR       0
-# define WINSTL_VER_WINSTL_REGISTRY_UTIL_HPP_SHARED_HANDLES_REVISION    8
-# define WINSTL_VER_WINSTL_REGISTRY_UTIL_HPP_SHARED_HANDLES_EDIT        34
+# define WINSTL_VER_WINSTL_REGISTRY_UTIL_HPP_SHARED_HANDLES_REVISION    17
+# define WINSTL_VER_WINSTL_REGISTRY_UTIL_HPP_SHARED_HANDLES_EDIT        51
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef WINSTL_INCL_WINSTL_REGISTRY_HPP_REGFWD
 # include <winstl/registry/regfwd.hpp>
 #endif /* !WINSTL_INCL_WINSTL_REGISTRY_HPP_REGFWD */
@@ -85,9 +91,9 @@
 #ifndef WINSTL_INCL_SYNCH_WINSTL_HPP_EVENT
 # include <winstl/synch/event.hpp>
 #endif /* !WINSTL_INCL_SYNCH_WINSTL_HPP_EVENT */
-#ifndef WINSTL_INCL_WINSTL_INTERNAL_H_WINDOWS_VERSION
-# include <winstl/internal/windows_version.h>
-#endif /* !WINSTL_INCL_WINSTL_INTERNAL_H_WINDOWS_VERSION */
+#ifndef WINSTL_INCL_WINSTL_INTERNAL_H_WINDOWS_VERSION_
+# include <winstl/internal/windows_version_.h>
+#endif /* !WINSTL_INCL_WINSTL_INTERNAL_H_WINDOWS_VERSION_ */
 #if !defined(STLSOFT_COMPILER_IS_COMO) && \
     !defined(STLSOFT_COMPILER_IS_WATCOM)
 # ifndef WINSTL_INCL_WINSTL_DL_HPP_DL_CALL
@@ -100,49 +106,53 @@
 # endif /* !STLSOFT_INCL_STLSOFT_ERROR_HPP_EXTERNAL_ITERATOR_INVALIDATION */
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 
+#ifndef WINSTL_INCL_WINSTL_API_external_h_Registry
+# include <winstl/api/external/Registry.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_Registry */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-#ifndef _STLSOFT_NO_NAMESPACES
-/** \brief Internal/implementation namespace containing shared handles.
+#ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
+# ifndef STLSOFT_NO_NAMESPACES
+
+/** Internal/implementation namespace containing shared handles.
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  */
 namespace registry_util
 {
-#endif /* !_STLSOFT_NO_NAMESPACES */
+# endif /* !STLSOFT_NO_NAMESPACES */
 
-    /// \brief [IMPLEMENTATION] Non-monitoring shared registry key context
+    /// [IMPLEMENTATION] Non-monitoring shared registry key context
     ///
-    /// \ingroup group__library__windows_registry
-#ifdef _STLSOFT_NO_NAMESPACES
+    /// \ingroup group__library__Windows_Registry
+# ifdef STLSOFT_NO_NAMESPACES
     struct registry_util::shared_handle
-#else /* ? _STLSOFT_NO_NAMESPACES */
+# else /* ? STLSOFT_NO_NAMESPACES */
     struct shared_handle
-#endif /* _STLSOFT_NO_NAMESPACES */
+# endif /* STLSOFT_NO_NAMESPACES */
     {
     /// \name Member Types
     /// @{
@@ -176,9 +186,9 @@ namespace registry_util
         {
             WINSTL_MESSAGE_ASSERT("Shared search handle being destroyed with outstanding references!", 0 == m_refCount);
 
-            if(NULL != m_hkey)
+            if (NULL != m_hkey)
             {
-                ::RegCloseKey(m_hkey);
+                WINSTL_API_EXTERNAL_Registry_RegCloseKey(m_hkey);
             }
         }
     /// @}
@@ -194,7 +204,7 @@ namespace registry_util
         {
             ss_sint32_t rc = --m_refCount;
 
-            if(0 == rc)
+            if (0 == rc)
             {
                 delete this;
             }
@@ -217,9 +227,9 @@ namespace registry_util
 #if defined(STLSOFT_CF_EXCEPTION_SUPPORT) && \
     !defined(STLSOFT_COMPILER_IS_COMO) && \
     !defined(STLSOFT_COMPILER_IS_WATCOM)
-    /// \brief [IMPLEMENTATION] Monitoring shared registry key context
+    /// [IMPLEMENTATION] Monitoring shared registry key context
     ///
-    /// \ingroup group__library__windows_registry
+    /// \ingroup group__library__Windows_Registry
     ///
     /// \note This class is not defined in compilation modes that do not
     ///   support exception throwing/handling.
@@ -247,7 +257,7 @@ namespace registry_util
         virtual void test_reset_and_throw()
         {
             // 1. Test, . . .
-            if(WAIT_OBJECT_0 == ::WaitForSingleObject(m_monitor.handle(), 0))
+            if (WAIT_OBJECT_0 == WINSTL_API_EXTERNAL_Synchronization_WaitForSingleObject(m_monitor.handle(), 0))
             {
                 // Must set to watch again here, because several iterators from the same
                 // same reg_key_sequence could be open simultaneously
@@ -256,7 +266,7 @@ namespace registry_util
                 set();
 
                 // 3. . . . and Throw
-                STLSOFT_THROW_X(stlsoft_ns_qual(external_iterator_invalidation)("registry contents changed"));
+                STLSOFT_THROW_X(STLSOFT_NS_QUAL(external_iterator_invalidation)("registry contents changed"));
             }
         }
     private:
@@ -280,7 +290,7 @@ namespace registry_util
                             ,   true
                             );
 
-                if(ERROR_SUCCESS != r)
+                if (ERROR_SUCCESS != r)
                 {
                     STLSOFT_THROW_X(registry_exception("could not register change notification", r));
                 }
@@ -290,7 +300,7 @@ namespace registry_util
                 ws_uint_t   verMajor;
                 ws_uint_t   verMinor;
 
-                if( WinSTL_C_internal_IsWindows9x(&verMajor, &verMinor, NULL) &&
+                if (winstl_C_internal_IsWindows9x(&verMajor, &verMinor, NULL) &&
                     verMajor == 4 &&
                     verMinor < 10)
                 {
@@ -323,9 +333,9 @@ namespace registry_util
     };
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 
-    /// \brief [IMPLEMENTATION] Simple factory function for creating an appropriate shared handle
+    /// [IMPLEMENTATION] Simple factory function for creating an appropriate shared handle
     ///
-    /// \ingroup group__library__windows_registry
+    /// \ingroup group__library__Windows_Registry
     ///
     /// Used by basic_reg_key_sequence and basic_reg_value_sequence.
     ///
@@ -336,13 +346,19 @@ namespace registry_util
     /// \note The <code>bMonitorExternalInvalidation</code> and
     ///   <code>eventType</code> parameters are ignored in compilation
     ///   modes that do not support exception throwing/handling.
-    static shared_handle *create_shared_handle(HKEY hkey, ws_bool_t bMonitorExternalInvalidation, int eventType)
+    inline
+    shared_handle*
+    create_shared_handle(
+        HKEY        hkey
+    ,   ws_bool_t   bMonitorExternalInvalidation
+    ,   int         eventType
+    )
     {
 #if defined(STLSOFT_CF_EXCEPTION_SUPPORT) && \
     !defined(STLSOFT_COMPILER_IS_COMO) && \
     !defined(STLSOFT_COMPILER_IS_WATCOM)
 
-        if(bMonitorExternalInvalidation)
+        if (bMonitorExternalInvalidation)
         {
             return new monitored_shared_handle(hkey, eventType);
         }
@@ -356,25 +372,34 @@ namespace registry_util
         }
     }
 
-#ifndef _STLSOFT_NO_NAMESPACES
-} // namespace registry_util
-#endif /* !_STLSOFT_NO_NAMESPACES */
+# ifndef STLSOFT_NO_NAMESPACES
+} /* namespace registry_util */
+# endif /* !STLSOFT_NO_NAMESPACES */
+#endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_REGISTRY_UTIL_HPP_SHARED_HANDLES */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_REGISTRY_UTIL_HPP_SHARED_HANDLES */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

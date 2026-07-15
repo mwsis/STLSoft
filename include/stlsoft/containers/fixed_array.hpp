@@ -5,7 +5,7 @@
  *              fixed_array_4d template classes.
  *
  * Created:     4th August 1998
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks to:   Neal Becker for suggesting the uninitialised mode,
  *              requesting the function call operator, and for requesting
@@ -16,7 +16,7 @@
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1998-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -29,9 +29,10 @@
  * - Redistributions in binary form must reproduce the above copyright
  *   notice, this list of conditions and the following disclaimer in the
  *   documentation and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the
- *   names of any contributors may be used to endorse or promote products
- *   derived from this software without specific prior written permission.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
  * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
@@ -50,10 +51,10 @@
 
 /** \file stlsoft/containers/fixed_array.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::fixed_array_1d,
+ * \brief [C++] Definition of the stlsoft::fixed_array_1d,
  *    stlsoft::fixed_array_2d, stlsoft::fixed_array_3d, and
  *    stlsoft::fixed_array_4d multidimensional array class templates
- *   (\ref group__library__containers "Containers" Library).
+ *   (\ref group__library__Container "Container" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_CONTAINERS_HPP_FIXED_ARRAY
@@ -62,37 +63,29 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_FIXED_ARRAY_MAJOR      4
 # define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_FIXED_ARRAY_MINOR      9
-# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_FIXED_ARRAY_REVISION   6
-# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_FIXED_ARRAY_EDIT       193
+# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_FIXED_ARRAY_REVISION   12
+# define STLSOFT_VER_STLSOFT_CONTAINERS_HPP_FIXED_ARRAY_EDIT       206
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_MSVC: _MSC_VER<1200
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #if defined(STLSOFT_COMPILER_IS_MSVC) && \
     _MSC_VER < 1200
 # error stlsoft/containers/fixed_array.hpp is not compatible with Visual C++ 5.0 or earlier
 #endif /* compiler */
 
-#ifndef STLSOFT_INCL_STLSOFT_MEMORY_HPP_ALLOCATOR_SELECTOR
-# include <stlsoft/memory/allocator_selector.hpp>
-#endif /* !STLSOFT_INCL_STLSOFT_MEMORY_HPP_ALLOCATOR_SELECTOR */
+#ifndef STLSOFT_INCL_STLSOFT_MEMORY_UTIL_HPP_ALLOCATOR_SELECTOR
+# include <stlsoft/memory/util/allocator_selector.hpp>
+#endif /* !STLSOFT_INCL_STLSOFT_MEMORY_UTIL_HPP_ALLOCATOR_SELECTOR */
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER
 # include <stlsoft/util/std/iterator_helper.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER */
@@ -122,16 +115,16 @@ STLSOFT_COMPILER_IS_WATCOM:
 #endif /* !STLSOFT_INCL_STDEXCEPT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Forward declarations
+ * forward declarations
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -174,12 +167,12 @@ class fixed_array_5d;
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief 1 dimensional fixed array
+/** 1 dimensional fixed array
  *
- * \ingroup group__library__containers
+ * \ingroup group__library__Container
  *
  * \param T The value type
  * \param A The allocator type
@@ -320,7 +313,7 @@ private:
 
     pointer         data_();
     index_type      calc_index_(index_type i0) const;
-    void            range_check_(index_type i0) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) );
+    void            range_check_(index_type i0) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) );
 
     allocator_type& get_allocator_();
 
@@ -337,9 +330,9 @@ private:
     class_type const& operator =(class_type const& rhs);
 };
 
-/** \brief 2 dimensional fixed array
+/** 2 dimensional fixed array
  *
- * \ingroup group__library__containers
+ * \ingroup group__library__Container
  *
  * \param T The value type
  * \param A The allocator type
@@ -483,8 +476,8 @@ private:
 
     pointer         data_();
     index_type      calc_index_(index_type i0, index_type i1) const;
-    void            range_check_(index_type i0, index_type i1) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) );
-    void            range_check_(index_type i0) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) );
+    void            range_check_(index_type i0, index_type i1) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) );
+    void            range_check_(index_type i0) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) );
 
     allocator_type& get_allocator_();
 
@@ -503,9 +496,9 @@ private:
     class_type const& operator =(class_type const& rhs);
 };
 
-/** \brief 3 dimensional fixed array
+/** 3 dimensional fixed array
  *
- * \ingroup group__library__containers
+ * \ingroup group__library__Container
  *
  * \param T The value type
  * \param A The allocator type
@@ -649,8 +642,8 @@ private:
 
     pointer         data_();
     index_type      calc_index_(index_type i0, index_type i1, index_type i2) const;
-    void            range_check_(index_type i0, index_type i1, index_type i2) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) );
-    void            range_check_(index_type i0) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) );
+    void            range_check_(index_type i0, index_type i1, index_type i2) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) );
+    void            range_check_(index_type i0) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) );
 
     allocator_type& get_allocator_();
 
@@ -669,9 +662,9 @@ private:
     class_type const& operator =(class_type const& rhs);
 };
 
-/** \brief 4 dimensional fixed array
+/** 4 dimensional fixed array
  *
- * \ingroup group__library__containers
+ * \ingroup group__library__Container
  *
  * \param T The value type
  * \param A The allocator type
@@ -816,8 +809,8 @@ private:
 
     pointer         data_();
     index_type      calc_index_(index_type i0, index_type i1, index_type i2, index_type i3) const;
-    void            range_check_(index_type i0, index_type i1, index_type i2, index_type i3) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) );
-    void            range_check_(index_type i0) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) );
+    void            range_check_(index_type i0, index_type i1, index_type i2, index_type i3) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) );
+    void            range_check_(index_type i0) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) );
 
     allocator_type& get_allocator_();
 
@@ -837,15 +830,8 @@ private:
     class_type const& operator =(class_type const& rhs);
 };
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/fixed_array_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Implementation
+ * implementation
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -855,15 +841,19 @@ private:
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
 inline ss_typename_type_ret_k fixed_array_1d<T, A, P, R>::pointer fixed_array_1d<T, A, P, R>::allocate_(ss_typename_type_k fixed_array_1d<T, A, P, R>::size_type n)
 {
-    allocator_type  &ator = *this;
+    allocator_type& ator = *this;
 
+#ifdef STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT
     return ator.allocate(n, NULL);
+#else /* ? STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT */
+    return ator.allocate(n);
+#endif /* STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT */
 }
 
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
 inline void fixed_array_1d<T, A, P, R>::deallocate_(ss_typename_type_k fixed_array_1d<T, A, P, R>::pointer p, ss_typename_type_k fixed_array_1d<T, A, P, R>::size_type n)
 {
-    allocator_type  &ator = *this;
+    allocator_type& ator = *this;
 
     ator.deallocate(p, n);
 }
@@ -881,12 +871,12 @@ inline ss_typename_type_ret_k fixed_array_1d<T, A, P, R>::index_type fixed_array
 }
 
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
-inline void fixed_array_1d<T, A, P, R>::range_check_(ss_typename_type_k fixed_array_1d<T, A, P, R>::index_type i0) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) )
+inline void fixed_array_1d<T, A, P, R>::range_check_(ss_typename_type_k fixed_array_1d<T, A, P, R>::index_type i0) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) )
 {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if(!(i0 < m_d0))
+    if (!(i0 < m_d0))
     {
-        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("fixed array index out of range"));
+        STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("fixed array index out of range"));
     }
 #else
     STLSOFT_MESSAGE_ASSERT("fixed array index out of range", i0 < m_d0);
@@ -952,7 +942,7 @@ inline fixed_array_1d<T, A, P, R>::fixed_array_1d(fixed_array_1d<T, A, P, R> con
     : m_data(R ? allocate_(rhs.dimension0()) : rhs.m_data)
     , m_d0(rhs.dimension0())
 {
-    if(R)
+    if (R)
     {
         array_range_initialiser<T, A, P>::copy_construct(*this, data_(), rhs.data(), size());
     }
@@ -974,7 +964,7 @@ inline fixed_array_1d<T, A, P, R>::fixed_array_1d(fixed_array_1d<T, A, P, R> con
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
 inline fixed_array_1d<T, A, P, R>::~fixed_array_1d() STLSOFT_NOEXCEPT
 {
-    if(R)
+    if (R)
     {
         array_range_initialiser<T, A, P>::destroy(*this, data_(), size());
         deallocate_(m_data, size());
@@ -1189,15 +1179,19 @@ inline ss_typename_type_ret_k fixed_array_1d<T, A, P, R>::const_pointer fixed_ar
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
 inline ss_typename_type_ret_k fixed_array_2d<T, A, P, R>::pointer fixed_array_2d<T, A, P, R>::allocate_(ss_typename_type_k fixed_array_2d<T, A, P, R>::size_type n)
 {
-    allocator_type  &ator = *this;
+    allocator_type& ator = *this;
 
+#ifdef STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT
     return ator.allocate(n, NULL);
+#else /* ? STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT */
+    return ator.allocate(n);
+#endif /* STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT */
 }
 
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
 inline void fixed_array_2d<T, A, P, R>::deallocate_(ss_typename_type_k fixed_array_2d<T, A, P, R>::pointer p, ss_typename_type_k fixed_array_2d<T, A, P, R>::size_type n)
 {
-    allocator_type  &ator = *this;
+    allocator_type& ator = *this;
 
     ator.deallocate(p, n);
 }
@@ -1215,13 +1209,13 @@ inline ss_typename_type_ret_k fixed_array_2d<T, A, P, R>::index_type fixed_array
 }
 
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
-inline void fixed_array_2d<T, A, P, R>::range_check_(ss_typename_type_k fixed_array_2d<T, A, P, R>::index_type i0, ss_typename_type_k fixed_array_2d<T, A, P, R>::index_type i1) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) )
+inline void fixed_array_2d<T, A, P, R>::range_check_(ss_typename_type_k fixed_array_2d<T, A, P, R>::index_type i0, ss_typename_type_k fixed_array_2d<T, A, P, R>::index_type i1) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) )
 {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if( !(i0 < m_d0) ||
+    if (!(i0 < m_d0) ||
         !(i1 < m_d1))
     {
-        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("fixed array index out of range"));
+        STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("fixed array index out of range"));
     }
 #else
     STLSOFT_MESSAGE_ASSERT("fixed array index out of range", (i0 < m_d0 && i1 < m_d1));
@@ -1235,12 +1229,12 @@ inline ss_typename_type_k fixed_array_2d<T, A, P, R>::allocator_type& fixed_arra
 }
 
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
-inline void fixed_array_2d<T, A, P, R>::range_check_(ss_typename_type_k fixed_array_2d<T, A, P, R>::index_type i0) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) )
+inline void fixed_array_2d<T, A, P, R>::range_check_(ss_typename_type_k fixed_array_2d<T, A, P, R>::index_type i0) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) )
 {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if(!(i0 < m_d0))
+    if (!(i0 < m_d0))
     {
-        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("fixed array index out of range"));
+        STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("fixed array index out of range"));
     }
 #else
     STLSOFT_MESSAGE_ASSERT("fixed array index out of range", i0 < m_d0);
@@ -1312,7 +1306,7 @@ inline fixed_array_2d<T, A, P, R>::fixed_array_2d(fixed_array_2d<T, A, P, R> con
     , m_d1(rhs.dimension1())
     , m_size(rhs.dimension0() * rhs.dimension1())
 {
-    if(R)
+    if (R)
     {
         array_range_initialiser<T, A, P>::copy_construct(*this, data_(), rhs.data(), size());
     }
@@ -1336,7 +1330,7 @@ inline fixed_array_2d<T, A, P, R>::fixed_array_2d(fixed_array_2d<T, A, P, R> con
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
 inline fixed_array_2d<T, A, P, R>::~fixed_array_2d() STLSOFT_NOEXCEPT
 {
-    if(R)
+    if (R)
     {
         array_range_initialiser<T, A, P>::destroy(*this, data_(), size());
         deallocate_(m_data, size());
@@ -1582,15 +1576,19 @@ inline ss_typename_type_ret_k fixed_array_2d<T, A, P, R>::const_pointer fixed_ar
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
 inline ss_typename_type_ret_k fixed_array_3d<T, A, P, R>::pointer fixed_array_3d<T, A, P, R>::allocate_(ss_typename_type_k fixed_array_3d<T, A, P, R>::size_type n)
 {
-    allocator_type  &ator = *this;
+    allocator_type& ator = *this;
 
+#ifdef STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT
     return ator.allocate(n, NULL);
+#else /* ? STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT */
+    return ator.allocate(n);
+#endif /* STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT */
 }
 
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
 inline void fixed_array_3d<T, A, P, R>::deallocate_(ss_typename_type_k fixed_array_3d<T, A, P, R>::pointer p, ss_typename_type_k fixed_array_3d<T, A, P, R>::size_type n)
 {
-    allocator_type  &ator = *this;
+    allocator_type& ator = *this;
 
     ator.deallocate(p, n);
 }
@@ -1608,14 +1606,14 @@ inline ss_typename_type_ret_k fixed_array_3d<T, A, P, R>::index_type fixed_array
 }
 
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
-inline void fixed_array_3d<T, A, P, R>::range_check_(ss_typename_type_k fixed_array_3d<T, A, P, R>::index_type i0, ss_typename_type_k fixed_array_3d<T, A, P, R>::index_type i1, ss_typename_type_k fixed_array_3d<T, A, P, R>::index_type i2) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) )
+inline void fixed_array_3d<T, A, P, R>::range_check_(ss_typename_type_k fixed_array_3d<T, A, P, R>::index_type i0, ss_typename_type_k fixed_array_3d<T, A, P, R>::index_type i1, ss_typename_type_k fixed_array_3d<T, A, P, R>::index_type i2) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) )
 {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if( !(i0 < m_d0) ||
+    if (!(i0 < m_d0) ||
         !(i1 < m_d1) ||
         !(i2 < m_d2))
     {
-        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("fixed array index out of range"));
+        STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("fixed array index out of range"));
     }
 #else
     STLSOFT_MESSAGE_ASSERT("fixed array index out of range", (i0 < m_d0 && i1 < m_d1 && i2 < m_d2));
@@ -1629,12 +1627,12 @@ inline ss_typename_type_k fixed_array_3d<T, A, P, R>::allocator_type& fixed_arra
 }
 
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
-inline void fixed_array_3d<T, A, P, R>::range_check_(ss_typename_type_k fixed_array_3d<T, A, P, R>::index_type i0) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) )
+inline void fixed_array_3d<T, A, P, R>::range_check_(ss_typename_type_k fixed_array_3d<T, A, P, R>::index_type i0) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) )
 {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if(!(i0 < m_d0))
+    if (!(i0 < m_d0))
     {
-        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("fixed array index out of range"));
+        STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("fixed array index out of range"));
     }
 #else
     STLSOFT_MESSAGE_ASSERT("fixed array index out of range", i0 < m_d0);
@@ -1706,7 +1704,7 @@ inline fixed_array_3d<T, A, P, R>::fixed_array_3d(fixed_array_3d<T, A, P, R> con
     , m_d1(rhs.dimension1())
     , m_d2(rhs.dimension2())
 {
-    if(R)
+    if (R)
     {
         array_range_initialiser<T, A, P>::copy_construct(*this, data_(), rhs.data(), size());
     }
@@ -1730,7 +1728,7 @@ inline fixed_array_3d<T, A, P, R>::fixed_array_3d(fixed_array_3d<T, A, P, R> con
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
 inline fixed_array_3d<T, A, P, R>::~fixed_array_3d() STLSOFT_NOEXCEPT
 {
-    if(R)
+    if (R)
     {
         array_range_initialiser<T, A, P>::destroy(*this, data_(), size());
         deallocate_(m_data, size());
@@ -1980,15 +1978,19 @@ inline ss_typename_type_ret_k fixed_array_3d<T, A, P, R>::const_pointer fixed_ar
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
 inline ss_typename_type_ret_k fixed_array_4d<T, A, P, R>::pointer fixed_array_4d<T, A, P, R>::allocate_(ss_typename_type_k fixed_array_4d<T, A, P, R>::size_type n)
 {
-    allocator_type  &ator = *this;
+    allocator_type& ator = *this;
 
+#ifdef STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT
     return ator.allocate(n, NULL);
+#else /* ? STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT */
+    return ator.allocate(n);
+#endif /* STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT */
 }
 
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
 inline void fixed_array_4d<T, A, P, R>::deallocate_(ss_typename_type_k fixed_array_4d<T, A, P, R>::pointer p, ss_typename_type_k fixed_array_4d<T, A, P, R>::size_type n)
 {
-    allocator_type  &ator = *this;
+    allocator_type& ator = *this;
 
     ator.deallocate(p, n);
 }
@@ -2006,15 +2008,15 @@ inline ss_typename_type_ret_k fixed_array_4d<T, A, P, R>::index_type fixed_array
 }
 
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
-inline void fixed_array_4d<T, A, P, R>::range_check_(ss_typename_param_k fixed_array_4d<T, A, P, R>::index_type i0, ss_typename_param_k fixed_array_4d<T, A, P, R>::index_type i1, ss_typename_param_k fixed_array_4d<T, A, P, R>::index_type i2, ss_typename_param_k fixed_array_4d<T, A, P, R>::index_type i3) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) )
+inline void fixed_array_4d<T, A, P, R>::range_check_(ss_typename_param_k fixed_array_4d<T, A, P, R>::index_type i0, ss_typename_param_k fixed_array_4d<T, A, P, R>::index_type i1, ss_typename_param_k fixed_array_4d<T, A, P, R>::index_type i2, ss_typename_param_k fixed_array_4d<T, A, P, R>::index_type i3) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) )
 {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if( !(i0 < m_d0) ||
+    if (!(i0 < m_d0) ||
         !(i1 < m_d1) ||
         !(i2 < m_d2) ||
         !(i3 < m_d3))
     {
-        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("fixed array index out of range"));
+        STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("fixed array index out of range"));
     }
 #else
     STLSOFT_MESSAGE_ASSERT("fixed array index out of range", (i0 < m_d0 && i1 < m_d1 && i2 < m_d2 && i3 < m_d3));
@@ -2028,12 +2030,12 @@ inline ss_typename_type_k fixed_array_4d<T, A, P, R>::allocator_type& fixed_arra
 }
 
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
-inline void fixed_array_4d<T, A, P, R>::range_check_(ss_typename_param_k fixed_array_4d<T, A, P, R>::index_type i0) const stlsoft_throw_1(stlsoft_ns_qual_std(out_of_range) )
+inline void fixed_array_4d<T, A, P, R>::range_check_(ss_typename_param_k fixed_array_4d<T, A, P, R>::index_type i0) const stlsoft_throw_1(STLSOFT_NS_QUAL_STD(out_of_range) )
 {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if(!(i0 < m_d0))
+    if (!(i0 < m_d0))
     {
-        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("fixed array index out of range"));
+        STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("fixed array index out of range"));
     }
 #else
     STLSOFT_MESSAGE_ASSERT("fixed array index out of range", i0 < m_d0);
@@ -2111,7 +2113,7 @@ inline fixed_array_4d<T, A, P, R>::fixed_array_4d(fixed_array_4d<T, A, P, R> con
     , m_d2(rhs.dimension2())
     , m_d3(rhs.dimension3())
 {
-    if(R)
+    if (R)
     {
         array_range_initialiser<T, A, P>::copy_construct(*this, data_(), rhs.data(), size());
     }
@@ -2136,7 +2138,7 @@ inline fixed_array_4d<T, A, P, R>::fixed_array_4d(fixed_array_4d<T, A, P, R> con
 template <ss_typename_param_k T, ss_typename_param_k A, ss_typename_param_k P, ss_bool_t R>
 inline fixed_array_4d<T, A, P, R>::~fixed_array_4d() STLSOFT_NOEXCEPT
 {
-    if(R)
+    if (R)
     {
         array_range_initialiser<T, A, P>::destroy(*this, data_(), size());
         deallocate_(m_data, size());
@@ -2391,7 +2393,7 @@ inline ss_typename_type_ret_k fixed_array_4d<T, A, P, R>::const_pointer fixed_ar
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Shims
+ * shims
  */
 
 template<   ss_typename_param_k T
@@ -2448,11 +2450,17 @@ inline ss_size_t array_size(fixed_array_5d<T, A, P, R> const& ar)
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_CONTAINERS_HPP_FIXED_ARRAY */
 

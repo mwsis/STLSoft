@@ -4,40 +4,44 @@
  * Purpose:     Compiler feature discrimination for Watcom C/C++.
  *
  * Created:     7th February 2003
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
+
+/* STLSOFT:FILE_EXCEPTED */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # error This file must not be included independently of stlsoft/stlsoft.h
@@ -46,7 +50,6 @@
 /** \file stlsoft/internal/cccap/watcom.h
  *
  * Compiler feature discrimination for Watcom C/C++
- * (\ref group__library__internal).
  */
 
 #ifdef STLSOFT_INCL_H_STLSOFT_CCCAP_WATCOM
@@ -57,9 +60,9 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_H_STLSOFT_CCCAP_WATCOM_MAJOR       3
-# define STLSOFT_VER_H_STLSOFT_CCCAP_WATCOM_MINOR       19
+# define STLSOFT_VER_H_STLSOFT_CCCAP_WATCOM_MINOR       20
 # define STLSOFT_VER_H_STLSOFT_CCCAP_WATCOM_REVISION    1
-# define STLSOFT_VER_H_STLSOFT_CCCAP_WATCOM_EDIT        82
+# define STLSOFT_VER_H_STLSOFT_CCCAP_WATCOM_EDIT        89
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -72,7 +75,7 @@
 */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler features
+ * compiler features
  */
 
 /* Messaging
@@ -103,6 +106,7 @@
 
 #if __WATCOMC__ >= 1240
 # define STLSOFT_CF_SUPPORTS_VARIADIC_MACROS
+# define STLSOFT_PPF_VARIADIC_MACROS_SUPPORT
 #endif /* __WATCOMC__ */
 
 /* Types:
@@ -135,7 +139,7 @@
 /* ////////////////////////////////////////////////////////////////////// */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Integral types
+ * integral types
  *
  * The purpose of this section is to define the following types:
  *
@@ -157,43 +161,43 @@
  */
 
 #if defined(__LP64__)
-# define _STLSOFT_SIZEOF_CHAR           (1)
-# define _STLSOFT_SIZEOF_SHORT          (2)
-# define _STLSOFT_SIZEOF_INT            (4)
-# define _STLSOFT_SIZEOF_LONG           (8)
-# define _STLSOFT_SIZEOF_LONG_LONG      (8)
+# define _STLSOFT_SIZEOF_CHAR                               (1)
+# define _STLSOFT_SIZEOF_SHORT                              (2)
+# define _STLSOFT_SIZEOF_INT                                (4)
+# define _STLSOFT_SIZEOF_LONG                               (8)
+# define _STLSOFT_SIZEOF_LONG_LONG                          (8)
 #elif defined(_WIN32) || \
       defined(_WIN64)
-# define _STLSOFT_SIZEOF_CHAR           (1)
-# define _STLSOFT_SIZEOF_SHORT          (2)
-# define _STLSOFT_SIZEOF_INT            (4)
-# define _STLSOFT_SIZEOF_LONG           (4)
-# define _STLSOFT_SIZEOF_LONG_LONG      (8)
+# define _STLSOFT_SIZEOF_CHAR                               (1)
+# define _STLSOFT_SIZEOF_SHORT                              (2)
+# define _STLSOFT_SIZEOF_INT                                (4)
+# define _STLSOFT_SIZEOF_LONG                               (4)
+# define _STLSOFT_SIZEOF_LONG_LONG                          (8)
 #else /* ? data model */
 # error Use of Watcom C/C++ has not been verified on any operation system other than Win32. Please contact Synesis Software
 #endif /* data model */
 
 /* 8-bit integer */
 #define STLSOFT_CF_8BIT_INT_SUPPORT
-#define STLSOFT_SI08_T_BASE_TYPE    signed      char
-#define STLSOFT_UI08_T_BASE_TYPE    unsigned    char
+#define STLSOFT_SI08_T_BASE_TYPE                            signed      char
+#define STLSOFT_UI08_T_BASE_TYPE                            unsigned    char
 
 /* 16-bit integer */
 #define STLSOFT_CF_16BIT_INT_SUPPORT
-#define STLSOFT_SI16_T_BASE_TYPE    signed      short
-#define STLSOFT_UI16_T_BASE_TYPE    unsigned    short
+#define STLSOFT_SI16_T_BASE_TYPE                            signed      short
+#define STLSOFT_UI16_T_BASE_TYPE                            unsigned    short
 
 /* 32-bit integer */
 #define STLSOFT_CF_32BIT_INT_SUPPORT
-#define STLSOFT_SI32_T_BASE_TYPE    signed      int
-#define STLSOFT_UI32_T_BASE_TYPE    unsigned    int
+#define STLSOFT_SI32_T_BASE_TYPE                            signed      int
+#define STLSOFT_UI32_T_BASE_TYPE                            unsigned    int
 #define STLSOFT_CF_LONG_DISTINCT_INT_TYPE
 
 /* 64-bit integer */
 #define STLSOFT_CF_64BIT_INT_SUPPORT
 #define STLSOFT_CF_64BIT_INT_IS_long_long
-#define STLSOFT_SI64_T_BASE_TYPE    signed      long long
-#define STLSOFT_UI64_T_BASE_TYPE    unsigned    long long
+#define STLSOFT_SI64_T_BASE_TYPE                            signed      long long
+#define STLSOFT_UI64_T_BASE_TYPE                            unsigned    long long
 
 
 
@@ -227,7 +231,7 @@
   * suppressed.
   */
 #if __WATCOMC__ < 1240
-# define _STLSOFT_NO_NAMESPACES
+# define STLSOFT_NO_NAMESPACES
 #endif /* __WATCOMC__ */
 
 #ifdef __cplusplus
@@ -334,7 +338,7 @@
 /* #define STLSOFT_CF_OPERATOR_NOT_VIA_OPERATOR_POINTER_TO_MEMBER_SUPPORT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Quality assurance features
+ * quality assurance features
  */
 
 #if defined(_STLSOFT_CUSTOM_ASSERT)
@@ -366,19 +370,19 @@
 # define STLSOFT_CF_ASSERT_SUPPORT
 # define STLSOFT_ASSERT(expr)                   _STLSOFT_CUSTOM_ASSERT(expr)
 # if defined(_STLSOFT_CUSTOM_ASSERT_INCLUDE)
-#  define   __STLSOFT_CF_ASSERT_INCLUDE_NAME    _STLSOFT_CUSTOM_ASSERT_INCLUDE
+#  define   __STLSOFT_CF_ASSERT_INCLUDE_NAME                _STLSOFT_CUSTOM_ASSERT_INCLUDE
 # else
 #  error You must define _STLSOFT_CUSTOM_ASSERT_INCLUDE along with _STLSOFT_CUSTOM_ASSERT()
 # endif /* !_STLSOFT_CUSTOM_ASSERT_INCLUDE */
 #else /* ? _STLSOFT_CUSTOM_ASSERT */
 # define __STLSOFT_CF_ASSERT_SUPPORT
 # define STLSOFT_CF_ASSERT_SUPPORT
-# define __STLSOFT_CF_ASSERT_INCLUDE_NAME       <assert.h>
+# define __STLSOFT_CF_ASSERT_INCLUDE_NAME                   <assert.h>
 # define STLSOFT_ASSERT(expr)                   assert(expr)
 #endif /* _STLSOFT_CUSTOM_ASSERT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Calling convention
+ * calling convention
  */
 
 #define STLSOFT_CF_THISCALL_SUPPORTED
@@ -386,14 +390,14 @@
 #define STLSOFT_CF_STDCALL_SUPPORTED
 
 #ifdef STLSOFT_CF_CDECL_SUPPORTED
-# define STLSOFT_CDECL              __cdecl
+# define STLSOFT_CDECL                                      __cdecl
 #endif /* STLSOFT_CF_CDECL_SUPPORTED */
 #ifdef STLSOFT_CF_STDCALL_SUPPORTED
-# define STLSOFT_STDCALL            __stdcall
+# define STLSOFT_STDCALL                                    __stdcall
 #endif /* STLSOFT_CF_STDCALL_SUPPORTED */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Inline assembler
+ * inline assembler
  */
 
 #define STSLSOFT_INLINE_ASM_SUPPORTED
@@ -406,7 +410,7 @@
 #define STLSOFT_CF_C99_INLINE
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler warning suppression
+ * compiler warning suppression
  */
 
 #pragma warning 14  10 /* Suppresses "Warning! W014: no reference to symbol ..." */

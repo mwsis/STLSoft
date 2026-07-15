@@ -4,49 +4,51 @@
  * Purpose:     member_selector_iterator class.
  *
  * Created:     7th April 2005
- * Updated:     15th December 2023
+ * Updated:     6th February 2024
  *
  * Thanks to:   Felix Gartsman for spotting a bug in (lack of) operator <()
  *              when building Pantheios.
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/iterators/member_selector_iterator.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::member_selector_iterator
+ * \brief [C++] Definition of the stlsoft::member_selector_iterator
  *   class template
- *   (\ref group__library__iterators "Iterators" Library).
+ *   (\ref group__library__Iterator "Iterator" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_ITERATORS_HPP_MEMBER_SELECTOR_ITERATOR
@@ -55,27 +57,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_ITERATORS_HPP_MEMBER_SELECTOR_ITERATOR_MAJOR       2
 # define STLSOFT_VER_STLSOFT_ITERATORS_HPP_MEMBER_SELECTOR_ITERATOR_MINOR       4
-# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_MEMBER_SELECTOR_ITERATOR_REVISION    7
-# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_MEMBER_SELECTOR_ITERATOR_EDIT        58
+# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_MEMBER_SELECTOR_ITERATOR_REVISION    12
+# define STLSOFT_VER_STLSOFT_ITERATORS_HPP_MEMBER_SELECTOR_ITERATOR_EDIT        73
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER
 # include <stlsoft/util/std/iterator_helper.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER */
@@ -93,25 +89,21 @@ STLSOFT_COMPILER_IS_WATCOM:
      STLSOFT_CF_STD_LIBRARY_DINKUMWARE_VC_VERSION < STLSOFT_CF_DINKUMWARE_VC_VERSION_7_1
 #  ifndef STLSOFT_INCL_STLSOFT_UTIL_STD_DINKUMWARE_ITERATOR_TRAITS
 #   include <stlsoft/util/std/dinkumware_iterator_traits.hpp>
-#  endif /* STLSOFT_INCL_STLSOFT_UTIL_STD_DINKUMWARE_ITERATOR_TRAITS */
+#  endif /* !STLSOFT_INCL_STLSOFT_UTIL_STD_DINKUMWARE_ITERATOR_TRAITS */
 # endif /* old-dinkumware */
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
-#ifdef STLSOFT_UNITTEST
-# include <algorithm>
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -120,26 +112,28 @@ template<   ss_typename_param_k I
         ,   ss_typename_param_k M
         >
 struct msi_parent_type
-// Unfortunately, we can't just go with what iterator form the library supports,
-// because we have to deal with:
+// Unfortunately, we can't just go with what iterator form the library
+// supports, because we have to deal with:
 //
-// - VC 7.0, whose Dinkumware library thinks its iterator form is form-1, but
-//    the compiler doesn't do partial template specialiation
+// - VC 7.0, whose Dinkumware library thinks its iterator form is form-1,
+//   but the compiler doesn't do partial template specialiation;
 // - Intel 6/7/7.1/8, which may be used with Visual C++ 6 or 7.0 Dinkumware
-//    libraries
+//   libraries;
 //
-# if defined(STLSOFT_ITERATOR_ITERATOR_FORM1_SUPPORT) && \
-     defined(STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT) && \
-     (   !defined(STLSOFT_CF_STD_LIBRARY_IS_DINKUMWARE_VC) || \
-         STLSOFT_CF_STD_LIBRARY_DINKUMWARE_VC_VERSION >= STLSOFT_CF_DINKUMWARE_VC_VERSION_7_1) && \
-     !defined(STLSOFT_COMPILER_IS_BORLAND) && \
-     !defined(STLSOFT_CF_STD_LIBRARY_IS_SUNPRO_RW)
-    : public iterator_base< ss_typename_type_k stlsoft_ns_qual_std(iterator_traits)<I>::iterator_category
-                        ,   M
-                        ,   ss_ptrdiff_t
-                        ,   M*
-                        ,   M&
-                        >
+# if 0
+# elif defined(STLSOFT_ITERATOR_ITERATOR_FORM1_SUPPORT) && \
+       defined(STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT) && \
+       (   !defined(STLSOFT_CF_STD_LIBRARY_IS_DINKUMWARE_VC) || \
+           STLSOFT_CF_STD_LIBRARY_DINKUMWARE_VC_VERSION >= STLSOFT_CF_DINKUMWARE_VC_VERSION_7_1) && \
+       !defined(STLSOFT_COMPILER_IS_BORLAND) && \
+       !defined(STLSOFT_CF_STD_LIBRARY_IS_SUNPRO_RW)
+    : public iterator_base<
+                    ss_typename_type_k STLSOFT_NS_QUAL_STD(iterator_traits)<I>::iterator_category
+                ,   M
+                ,   ss_ptrdiff_t
+                ,   M*
+                ,   M&
+                >
 # elif defined(STLSOFT_ITERATOR_ITERATOR_FORM2_SUPPORT) || \
        (   defined(STLSOFT_CF_STD_LIBRARY_IS_DINKUMWARE_VC) && \
            STLSOFT_CF_STD_LIBRARY_DINKUMWARE_VC_VERSION == STLSOFT_CF_DINKUMWARE_VC_VERSION_7_0) || \
@@ -147,13 +141,17 @@ struct msi_parent_type
            _MSC_VER == 1300) || \
      defined(STLSOFT_COMPILER_IS_BORLAND) || \
      defined(STLSOFT_CF_STD_LIBRARY_IS_SUNPRO_RW)
-    : public iterator_base< stlsoft_ns_qual_std(input_iterator_tag)
-                        ,   M
-                        ,   ss_ptrdiff_t
-                        ,   M*
-                        ,   M&
-                        >
-# elif defined(STLSOFT_ITERATOR_ITERATOR_FORM3_SUPPORT)
+    : public iterator_base<
+                    STLSOFT_NS_QUAL_STD(input_iterator_tag)
+                ,   M
+                ,   ss_ptrdiff_t
+                ,   M*
+                ,   M&
+                >
+# elif 0 || \
+       defined(STLSOFT_ITERATOR_ITERATOR_FORM3_SUPPORT) || \
+       defined(STLSOFT_ITERATOR_ITERATOR_FORMcxx17_SUPPORT) || \
+       0
   // do not derive
 # else /* ? STLSOFT_ITERATOR_ITERATOR_FORM??????_SUPPORT */
 #  error iterator support type not discriminated
@@ -162,27 +160,31 @@ struct msi_parent_type
 /// \name Member Types
 /// @{
 public:
-# if defined(STLSOFT_ITERATOR_ITERATOR_FORM3_SUPPORT)
-    typedef stlsoft_ns_qual_std(input_iterator_tag) iterator_category;
+# if 0
+# elif 0 || \
+       defined(STLSOFT_ITERATOR_ITERATOR_FORM3_SUPPORT) || \
+       defined(STLSOFT_ITERATOR_ITERATOR_FORMcxx17_SUPPORT) || \
+       0
+    typedef STLSOFT_NS_QUAL_STD(input_iterator_tag)         iterator_category;
 # endif /* form ? */
-    typedef I                                       base_iterator_type;
-    typedef C                                       selected_class_type;
-    typedef M                                       value_type;
-    typedef value_type*                             pointer;
-    typedef value_type const*                       const_pointer;
-    typedef value_type&                             reference;
-    typedef value_type const&                       const_reference;
-    typedef ss_size_t                               size_type;
-    typedef ss_ptrdiff_t                            difference_type;
+    typedef I                                               base_iterator_type;
+    typedef C                                               selected_class_type;
+    typedef M                                               value_type;
+    typedef value_type*                                     pointer;
+    typedef value_type const*                               const_pointer;
+    typedef value_type&                                     reference;
+    typedef value_type const&                               const_reference;
+    typedef ss_size_t                                       size_type;
+    typedef ss_ptrdiff_t                                    difference_type;
 /// @}
 };
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 // class member_selector_iterator
-/** \brief An iterator adaptor class template that presents a member of the underlying
+/** An iterator adaptor class template that presents a member of the underlying
  * iterator's value type as the apparent value type.
  *
- * \ingroup group__library__iterators
+ * \ingroup group__library__Iterator
  *
  * \param I The type of the base iterator, whose value type should be C, or convertible to C
  * \param C The class of the member pointer
@@ -216,19 +218,19 @@ public:
 /// \name Construction
 /// @{
 public:
-    /// \brief Constructs an instance from an iterator and a member pointer
+    /// Constructs an instance from an iterator and a member pointer
     member_selector_iterator(base_iterator_type it, M C::*member)
         : m_it(it)
         , m_member(member)
     {}
 
-    /// \brief Copy constructor
+    /// Copy constructor
     member_selector_iterator(class_type const& rhs)
         : m_it(rhs.m_it)
         , m_member(rhs.m_member)
     {}
 
-    /// \brief Destructor
+    /// Destructor
     ~member_selector_iterator() STLSOFT_NOEXCEPT
     {
         void    (*p)()  =   constraints;
@@ -249,12 +251,12 @@ private:
         STLSOFT_SUPPRESS_UNUSED(m);
     }
 public:
-    /// \brief A copy of the base iterator
+    /// A copy of the base iterator
     base_iterator_type base() const
     {
         return m_it;
     }
-    /// \brief A copy of the base iterator
+    /// A copy of the base iterator
     ///
     /// \deprecated This is replaced by base()
     base_iterator_type current() const
@@ -266,7 +268,7 @@ public:
 /// \name Accessors
 /// @{
 public:
-    /// \brief Constructs an instance from an iterator and a member pointer
+    /// Constructs an instance from an iterator and a member pointer
     value_type C::* member() const // NOTE: Has to be C, not selected_class_type, or VC 7.0+ spits
     {
         return m_member;
@@ -276,7 +278,7 @@ public:
 /// \name Input Iterator methods
 /// @{
 public:
-    /// \brief Pre-increment iterator
+    /// Pre-increment iterator
     ///
     /// \note Increments the base iterator
     class_type& operator ++()
@@ -285,7 +287,7 @@ public:
 
         return *this;
     }
-    /// \brief Post-increment iterator
+    /// Post-increment iterator
     ///
     /// \note Increments the base iterator
     class_type operator ++(int)
@@ -298,13 +300,13 @@ public:
     }
 # if defined(STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT) && \
      !defined(STLSOFT_COMPILER_IS_BORLAND)
-    /// \brief Returns a mutating (non-const) reference to the selected member of the base iterators current value
+    /// Returns a mutating (non-const) reference to the selected member of the base iterators current value
     reference operator *()
     {
         return (*m_it).*m_member;
     }
 # endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT && !STLSOFT_COMPILER_IS_BORLAND */
-    /// \brief Returns a non-mutating (const) reference to the selected member of the base iterators current value
+    /// Returns a non-mutating (const) reference to the selected member of the base iterators current value
     const_reference operator *() const
     {
         return (*m_it).*m_member;
@@ -322,7 +324,7 @@ public:
 /// \name Bidirectional Iterator methods
 /// @{
 public:
-    /// \brief Pre-decrement iterator
+    /// Pre-decrement iterator
     ///
     /// \note Decrements the base iterator
     class_type& operator --()
@@ -331,7 +333,7 @@ public:
 
         return *this;
     }
-    /// \brief Post-decrement iterator
+    /// Post-decrement iterator
     ///
     /// \note Decrements the base iterator
     class_type operator --(int)
@@ -347,7 +349,7 @@ public:
 /// \name Random-Access Iterator methods
 /// @{
 public:
-    /// \brief Moves the iterator forward
+    /// Moves the iterator forward
     ///
     /// \param n The amount by which to increment the iterator's current position
     class_type& operator +=(difference_type n)
@@ -357,7 +359,7 @@ public:
         return *this;
     }
 
-    /// \brief Moves the iterator backward
+    /// Moves the iterator backward
     ///
     /// \param n The amount by which to decrement the iterator's current position
     class_type& operator -=(difference_type n)
@@ -367,7 +369,7 @@ public:
         return *this;
     }
 
-    /// \brief Access the element at the given index
+    /// Access the element at the given index
     ///
     /// \param index The required offset from the iterator's position
     value_type& operator [](difference_type index)
@@ -375,7 +377,7 @@ public:
         return m_it[index];
     }
 
-    /// \brief Access the element at the given index
+    /// Access the element at the given index
     ///
     /// \param index The required offset from the iterator's position
     value_type const& operator [](difference_type index) const
@@ -383,7 +385,7 @@ public:
         return m_it[index];
     }
 
-    /// \brief Calculate the distance between \c this and \c rhs
+    /// Calculate the distance between \c this and \c rhs
     difference_type distance(class_type const& rhs) const
     {
         return m_it - rhs.m_it;
@@ -459,10 +461,10 @@ struct msi_iterator_traits<T const volatile*>
 #endif /* dinkumware */
 
 
-/** \brief Traits class used for specifying sub-types for the member_selector()
+/** Traits class used for specifying sub-types for the member_selector()
  * creator function(s)
  *
- * \ingroup group__library__iterators
+ * \ingroup group__library__Iterator
  */
 template<   ss_typename_param_k I
         ,   class               C
@@ -542,9 +544,9 @@ public:
 //  + select the general version for DMC++
 //  + proscribe particular functionality for Borland and Visual C++ (pre 7.1)
 
-/** \brief Creator function for member_selector_iterator
+/** Creator function for member_selector_iterator
  *
- * \ingroup group__library__iterators
+ * \ingroup group__library__Iterator
  *
  * \param it The iterator whose values will be subject to member selection
  * \param member The member pointer which will be used in the selection
@@ -585,9 +587,9 @@ inline member_selector_iterator<I, C, M> member_selector(I it, M C::*member)
 # endif /* 0 */
 
 #if 0
-/** \brief This one needed by const Struct1 (cw8)
+/** This one needed by const Struct1 (cw8)
  *
- * \ingroup group__library__iterators
+ * \ingroup group__library__Iterator
  */
 template<   ss_typename_param_k I
         ,   class               C
@@ -648,7 +650,7 @@ inline member_selector_const_iterator<C const*, C, const M> member_selector(C co
 # endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Operators
+ * operators
  */
 
 template<   ss_typename_param_k I
@@ -734,21 +736,19 @@ inline bool operator >=(member_selector_iterator<I, C, M> const& lhs, member_sel
     return lhs.distance(rhs) >= 0;
 }
 
+/* ////////////////////////////////////////////////////////////////////// */
+
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Unit-testing
+ * inclusion control
  */
 
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/member_selector_iterator_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
-/* ////////////////////////////////////////////////////////////////////// */
-
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
-
-/* ////////////////////////////////////////////////////////////////////// */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_ITERATORS_HPP_MEMBER_SELECTOR_ITERATOR */
 

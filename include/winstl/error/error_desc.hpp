@@ -4,44 +4,46 @@
  * Purpose:     Converts a Win32 error code to a printable string.
  *
  * Created:     13th July 2003
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/error/error_desc.hpp
  *
- * \brief [C++ only] Definition of the winstl::basic_error_desc class
+ * \brief [C++] Definition of the winstl::basic_error_desc class
  *  template
  *   (\ref group__library__error "Error" Library).
  */
@@ -52,25 +54,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_ERROR_HPP_ERROR_DESC_MAJOR       4
 # define WINSTL_VER_WINSTL_ERROR_HPP_ERROR_DESC_MINOR       6
-# define WINSTL_VER_WINSTL_ERROR_HPP_ERROR_DESC_REVISION    4
-# define WINSTL_VER_WINSTL_ERROR_HPP_ERROR_DESC_EDIT        90
+# define WINSTL_VER_WINSTL_ERROR_HPP_ERROR_DESC_REVISION    12
+# define WINSTL_VER_WINSTL_ERROR_HPP_ERROR_DESC_EDIT        108
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[DocumentationStatus:Ready]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef WINSTL_INCL_WINSTL_ERROR_H_ERROR_FUNCTIONS
 # include <winstl/error/error_functions.h>
 #endif /* !WINSTL_INCL_WINSTL_ERROR_H_ERROR_FUNCTIONS */
@@ -96,41 +94,44 @@
 # include <stlsoft/string/char_alt_traits.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_CHAR_ALT_TRAITS */
 
+#ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
+# include <winstl/api/external/ErrorHandling.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Feature discrimination
+ * feature discrimination
  */
 
 #ifndef WINSTL_ERROR_DESC_CANNOT_USE_FLEXIBLE_ERROR_PARAMETER_
 # if 0 || \
-     defined(STLSOFT_COMPILER_IS_MSVC) || \
+     (  defined(STLSOFT_COMPILER_IS_MSVC) && \
+        _MSC_VER < 1600) || \
      0
 #  define WINSTL_ERROR_DESC_CANNOT_USE_FLEXIBLE_ERROR_PARAMETER_
 # endif /* compiler */
 #endif /* !WINSTL_ERROR_DESC_CANNOT_USE_FLEXIBLE_ERROR_PARAMETER_ */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 /** Utility class that loads the system string representation
@@ -160,7 +161,7 @@ namespace winstl_project
   assert(0 == ::strcmp("No Access!", ed1.c_str()));
 \endcode
  *
- * \note Naturally, \ref group__concept__shim__string_access "String Access Shim"
+ * \note Naturally, \ref group__concept__Shim__string_access "String Access Shim"
  *   functions <b>c_str_ptr(_a/_w)</b>, <b>c_str_data(_a/_w)</b>, <b>c_str_len(_a/_w)</b>
  *   are defined for the class template, so it may be manipulated
  *   generically. (This is very handy when used with the
@@ -179,25 +180,26 @@ private:
 #if !defined(STLSOFT_COMPILER_IS_BORLAND)
       ss_typename_type_k
 #endif /* compiler */
-        stlsoft_ns_qual(char_alt_traits)<C>::alt_char_type  alt_char_type;
+        STLSOFT_NS_QUAL(char_alt_traits)<C>::alt_char_type  alt_char_type;
 public:
     /// The character type
-    typedef C                       char_type;
+    typedef C                                               char_type;
     /// The traits_type
-    typedef T                       traits_type;
-    /// The current parameterisation of the type
-    typedef basic_error_desc<C, T>  class_type;
+    typedef T                                               traits_type;
+    /// The current specialisation of the type
+    typedef basic_error_desc<C, T>                          class_type;
     /// The error type
-    typedef ws_dword_t              error_type;
+    typedef ws_dword_t                                      error_type;
     /// The size type
-    typedef ws_size_t               size_type;
+    typedef ws_size_t                                       size_type;
     /// The boolean type
-    typedef ws_bool_t               bool_type;
+    typedef ws_bool_t                                       bool_type;
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # if !defined(WINSTL_ERROR_DESC_CANNOT_USE_FLEXIBLE_ERROR_PARAMETER_)
     class param
     {
     public:
+        // NOTE: not-explicit by design
         template <typename I>
         param(I const& v)
             : value(v)
@@ -213,23 +215,8 @@ public:
             // ... that is not bool.
             STLSOFT_STATIC_ASSERT((0 == stlsoft::is_same_type<I, bool>::value));
 
-            // Must be no larger
+            // Must be not larger than error_type
             STLSOFT_STATIC_ASSERT(sizeof(I) <= sizeof(error_type));
-
-            // Finally, check signedness:
-            //
-            // 1. I can't be signed if error_type is unsigned
-            // 2. I must be smaller if it is unsigned and error_type is signed
-
-            enum { I_is_signed = stlsoft::is_signed_type<I>::value };
-            enum { error_type_is_signed = stlsoft::is_signed_type<error_type>::value };
-            enum { I_is_smaller_than_error_type = (sizeof(I) < sizeof(error_type)) };
-
-            // Must be same signed-ness (and no larger) ...
-            STLSOFT_STATIC_ASSERT((0 == error_type_is_signed) == (0 == I_is_signed));
-
-            // ... or error_type signed and smaller
-            STLSOFT_STATIC_ASSERT(error_type_is_signed && I_is_smaller_than_error_type);
         }
 
         // for 0
@@ -242,7 +229,7 @@ public:
         {}
 
         param()
-            : value(static_cast<error_type>( ::GetLastError()))
+            : value(static_cast<error_type>( WINSTL_API_EXTERNAL_ErrorHandling_GetLastError()))
         {}
     private:
         param& operator =(param const&);
@@ -256,7 +243,7 @@ public:
     public:
         error_type const    value;
     };
-    typedef class param             param_type;
+    typedef class param                                     param_type;
 # endif /* !WINSTL_ERROR_DESC_CANNOT_USE_FLEXIBLE_ERROR_PARAMETER_ */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 /// @}
@@ -273,7 +260,7 @@ public:
     /// \note If the error string is not found in the given module, the standard
     /// system libraries will be searched
     ss_explicit_k basic_error_desc(
-        error_type          error       =   ::GetLastError()
+        error_type          error       =   WINSTL_API_EXTERNAL_ErrorHandling_GetLastError()
     ,   char_type const*    modulePath  =   NULL
     );
 #else /* ? STLSOFT_DOCUMENTATION_SKIP_SECTION */
@@ -288,7 +275,7 @@ public:
         : m_length(0)
         , m_message(find_message_(FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_SYSTEM, error, modulePath, &m_length))
     {
-        if( NULL == m_message &&
+        if (NULL == m_message &&
             NULL != modulePath)
         {
             m_message = find_message_(FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_SYSTEM, error, NULL, &m_length);
@@ -349,10 +336,10 @@ public:
         ss_typename_type_k S::const_iterator    b   =   modulePaths.begin();
         ss_typename_type_k S::const_iterator    e   =   modulePaths.end();
 
-        for(; b != e && NULL == (m_message = find_message_(FORMAT_MESSAGE_IGNORE_INSERTS, error, stlsoft_ns_qual(c_str_ptr)(*b), &m_length)); ++b)
+        for (; b != e && NULL == (m_message = find_message_(FORMAT_MESSAGE_IGNORE_INSERTS, error, STLSOFT_NS_QUAL(c_str_ptr)(*b), &m_length)); ++b)
         {}
 
-        if(NULL == m_message)
+        if (NULL == m_message)
         {
             m_message = find_message_(FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_SYSTEM, error, NULL, &m_length);
         }
@@ -370,6 +357,11 @@ public:
     /// \note Defined only for GCC compilation.
     basic_error_desc(class_type& rhs) STLSOFT_NOEXCEPT;
 #endif /* compiler */
+private:
+#if !defined(STLSOFT_COMPILER_IS_GCC)
+    basic_error_desc(class_type const&);        // copy-construction proscribed
+#endif /* compiler */
+    class_type& operator =(class_type const&);  // copy-assignment proscribed
 /// @}
 
 /// \name Attributes
@@ -401,7 +393,8 @@ public:
 /// \name Implementation
 /// @{
 private:
-    char_type* find_message_(
+    char_type*
+    find_message_(
         DWORD               flags
     ,   error_type          error
     ,   char_type const*    modulePath
@@ -410,24 +403,15 @@ private:
 
     static DWORD get_last_error_()
     {
-        return ::GetLastError();
+        return WINSTL_API_EXTERNAL_ErrorHandling_GetLastError();
     }
 /// @}
 
-/// \name Members
+/// \name Fields
 /// @{
 private:
     size_type   m_length;
     char_type*  m_message;
-/// @}
-
-/// \name Not to be implemented
-/// @{
-private:
-#if !defined(STLSOFT_COMPILER_IS_GCC)
-    basic_error_desc(class_type const&);
-#endif /* compiler */
-    basic_error_desc& operator =(class_type const&);
 /// @}
 };
 
@@ -436,20 +420,20 @@ private:
  *
  * \ingroup group__library__error
  */
-typedef basic_error_desc<ws_char_a_t>   error_desc_a;
+typedef basic_error_desc<ws_char_a_t>                       error_desc_a;
 /** Specialisation of the basic_error_desc template for the Unicode character type \c wchar_t
  *
  * \ingroup group__library__error
  */
-typedef basic_error_desc<ws_char_w_t>   error_desc_w;
+typedef basic_error_desc<ws_char_w_t>                       error_desc_w;
 /** Specialisation of the basic_error_desc template for the Win32 character type \c TCHAR
  *
  * \ingroup group__library__error
  */
-typedef basic_error_desc<TCHAR>         error_desc;
+typedef basic_error_desc<TCHAR>                             error_desc;
 
 /* /////////////////////////////////////////////////////////////////////////
- * Implementation
+ * implementation
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -475,12 +459,12 @@ basic_error_desc<C, T>::find_message_(
 
     STLSOFT_SUPPRESS_UNUSED(message);
 
-    if( NULL != modulePath &&
+    if (NULL != modulePath &&
         '\0' != modulePath[0])
     {
         HINSTANCE hinstSource = traits_type::load_library(modulePath);
 
-        if(NULL != hinstSource)
+        if (NULL != hinstSource)
         {
             cch = format_message(FORMAT_MESSAGE_FROM_HMODULE | flags, hinstSource, error, &message);
 
@@ -492,7 +476,7 @@ basic_error_desc<C, T>::find_message_(
         cch = format_message(flags, NULL, error, &message);
     }
 
-    if(0 == cch)
+    if (0 == cch)
     {
         message = NULL;
     }
@@ -513,7 +497,7 @@ basic_error_desc<C, T>::~basic_error_desc() STLSOFT_NOEXCEPT
     STLSOFT_STATIC_ASSERT(STLSOFT_RAW_OFFSETOF(class_type, m_length) < STLSOFT_RAW_OFFSETOF(class_type, m_message));
 #endif /* STLSOFT_CF_USE_RAW_OFFSETOF_IN_STATIC_ASSERT */
 
-    if(m_message != NULL)
+    if (m_message != NULL)
     {
         format_message_free_buff(m_message);
     }
@@ -613,14 +597,14 @@ basic_error_desc<C, T>::empty() const STLSOFT_NOEXCEPT
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * String access shims
+ * string access shims
  */
 
 #ifndef STLSOFT_CF_TEMPLATE_SHIMS_NOT_SUPPORTED
 
-/** \ref group__concept__shim__string_access__c_str_ptr_null for winstl::basic_error_desc
+/** \ref group__concept__Shim__string_access__c_str_ptr_null for winstl::basic_error_desc
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
 template<
     ss_typename_param_k C
@@ -629,7 +613,7 @@ template<
 inline
 C const*
 c_str_ptr_null(
-    winstl_ns_qual(basic_error_desc)<C, T> const& e
+    WINSTL_NS_QUAL(basic_error_desc)<C, T> const& e
 )
 {
     C const* p = e;
@@ -641,7 +625,7 @@ template <ss_typename_param_k T>
 inline
 ws_char_a_t const*
 c_str_ptr_null_a(
-    winstl_ns_qual(basic_error_desc)<ws_char_a_t, T> const& e
+    WINSTL_NS_QUAL(basic_error_desc)<ws_char_a_t, T> const& e
 )
 {
     ws_char_a_t const* p = e;
@@ -652,7 +636,7 @@ template <ss_typename_param_k T>
 inline
 ws_char_w_t const*
 c_str_ptr_null_w(
-    winstl_ns_qual(basic_error_desc)<ws_char_w_t, T> const& e
+    WINSTL_NS_QUAL(basic_error_desc)<ws_char_w_t, T> const& e
 )
 {
     ws_char_w_t const* p = e;
@@ -661,9 +645,9 @@ c_str_ptr_null_w(
 }
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \ref group__concept__shim__string_access__c_str_ptr for winstl::basic_error_desc
+/** \ref group__concept__Shim__string_access__c_str_ptr for winstl::basic_error_desc
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
 template<
     ss_typename_param_k C
@@ -672,7 +656,7 @@ template<
 inline
 C const*
 c_str_ptr(
-    winstl_ns_qual(basic_error_desc)<C, T> const& e
+    WINSTL_NS_QUAL(basic_error_desc)<C, T> const& e
 )
 {
     return e.c_str();
@@ -682,7 +666,7 @@ template <ss_typename_param_k T>
 inline
 ws_char_a_t const*
 c_str_ptr_a(
-    winstl_ns_qual(basic_error_desc)<ws_char_a_t, T> const& e
+    WINSTL_NS_QUAL(basic_error_desc)<ws_char_a_t, T> const& e
 )
 {
     return e.c_str();
@@ -691,16 +675,16 @@ template <ss_typename_param_k T>
 inline
 ws_char_w_t const*
 c_str_ptr_w(
-    winstl_ns_qual(basic_error_desc)<ws_char_w_t, T> const& e
+    WINSTL_NS_QUAL(basic_error_desc)<ws_char_w_t, T> const& e
 )
 {
     return e.c_str();
 }
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \ref group__concept__shim__string_access__c_str_data for winstl::basic_error_desc
+/** \ref group__concept__Shim__string_access__c_str_data for winstl::basic_error_desc
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
 template<
     ss_typename_param_k C
@@ -709,7 +693,7 @@ template<
 inline
 C const*
 c_str_data(
-    winstl_ns_qual(basic_error_desc)<C, T> const& e
+    WINSTL_NS_QUAL(basic_error_desc)<C, T> const& e
 )
 {
     return e.c_str();
@@ -719,7 +703,7 @@ template <ss_typename_param_k T>
 inline
 ws_char_a_t const*
 c_str_data_a(
-    winstl_ns_qual(basic_error_desc)<ws_char_a_t, T> const& e
+    WINSTL_NS_QUAL(basic_error_desc)<ws_char_a_t, T> const& e
 )
 {
     return e.c_str();
@@ -728,16 +712,16 @@ template <ss_typename_param_k T>
 inline
 ws_char_w_t const*
 c_str_data_w(
-    winstl_ns_qual(basic_error_desc)<ws_char_w_t, T> const& e
+    WINSTL_NS_QUAL(basic_error_desc)<ws_char_w_t, T> const& e
 )
 {
     return e.c_str();
 }
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \ref group__concept__shim__string_access__c_str_len for winstl::basic_error_desc
+/** \ref group__concept__Shim__string_access__c_str_len for winstl::basic_error_desc
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
 template<
     ss_typename_param_k C
@@ -746,7 +730,7 @@ template<
 inline
 ws_size_t
 c_str_len(
-    winstl_ns_qual(basic_error_desc)<C, T> const& e
+    WINSTL_NS_QUAL(basic_error_desc)<C, T> const& e
 )
 {
     return e.length();
@@ -758,7 +742,7 @@ template<   ss_typename_param_k T
 inline
 ws_size_t
 c_str_len_a(
-    winstl_ns_qual(basic_error_desc)<ws_char_a_t, T> const& e
+    WINSTL_NS_QUAL(basic_error_desc)<ws_char_a_t, T> const& e
 )
 {
     return e.length();
@@ -768,7 +752,7 @@ template<   ss_typename_param_k T
 inline
 ws_size_t
 c_str_len_w(
-    winstl_ns_qual(basic_error_desc)<ws_char_w_t, T> const& e
+    WINSTL_NS_QUAL(basic_error_desc)<ws_char_w_t, T> const& e
 )
 {
     return e.length();
@@ -776,7 +760,7 @@ c_str_len_w(
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 
-/** [DEPRECATED] \ref group__concept__shim__pointer_attribute__get_ptr for winstl::basic_error_desc
+/** [DEPRECATED] \ref group__concept__Shim__Attribute__get_ptr for winstl::basic_error_desc
  *
  * \deprecated get_ptr is for pointers and "smart pointers".
  */
@@ -787,15 +771,15 @@ template<
 STLSOFT_DECLARE_DEPRECATION()
 inline
 C const*
-get_ptr(winstl_ns_qual(basic_error_desc)<C, T> const& e)
+get_ptr(WINSTL_NS_QUAL(basic_error_desc)<C, T> const& e)
 {
     return e;
 }
 
 
-/** \ref group__concept__shim__stream_insertion "stream insertion shim" for winstl::basic_error_desc
+/** \ref group__concept__Shim__stream_insertion "stream insertion shim" for winstl::basic_error_desc
  *
- * \ingroup group__concept__shim__stream_insertion
+ * \ingroup group__concept__Shim__stream_insertion
  */
 template<   ss_typename_param_k S
         ,   ss_typename_param_k C
@@ -805,7 +789,7 @@ inline
 S&
 operator <<(
     S&                                              s
-,   winstl_ns_qual(basic_error_desc)<C, T> const&   e
+,   WINSTL_NS_QUAL(basic_error_desc)<C, T> const&   e
 )
 {
     s << e.get_description();
@@ -815,41 +799,34 @@ operator <<(
 
 #endif /* !STLSOFT_CF_TEMPLATE_SHIMS_NOT_SUPPORTED */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/error_desc_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The string access shims exist either in the stlsoft namespace, or in the
  * global namespace. This is required by the lookup rules.
  *
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+#ifndef WINSTL_NO_NAMESPACE
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 namespace stlsoft
 {
-# else /* ? _STLSOFT_NO_NAMESPACE */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
 
 using ::winstl::c_str_data;
 using ::winstl::c_str_data_a;
@@ -869,17 +846,23 @@ using ::winstl::c_str_ptr_null_w;
 
 using ::winstl::get_ptr;
 
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace stlsoft
-# else /* ? _STLSOFT_NO_NAMESPACE */
+} /* namespace stlsoft */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_ERROR_HPP_ERROR_DESC */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_ERROR_HPP_ERROR_DESC */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

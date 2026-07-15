@@ -4,46 +4,48 @@
  * Purpose:     String token parsing class.
  *
  * Created:     6th January 2001
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2001-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/string/string_tokeniser.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::string_tokeniser class
+ * \brief [C++] Definition of the stlsoft::string_tokeniser class
  *  template
- *   (\ref group__library__string "String" Library).
+ *   (\ref group__library__String "String" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_STRING_HPP_STRING_TOKENISER
@@ -52,29 +54,20 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_STRING_HPP_STRING_TOKENISER_MAJOR     5
 # define STLSOFT_VER_STLSOFT_STRING_HPP_STRING_TOKENISER_MINOR     1
-# define STLSOFT_VER_STLSOFT_STRING_HPP_STRING_TOKENISER_REVISION  10
-# define STLSOFT_VER_STLSOFT_STRING_HPP_STRING_TOKENISER_EDIT      225
+# define STLSOFT_VER_STLSOFT_STRING_HPP_STRING_TOKENISER_REVISION  14
+# define STLSOFT_VER_STLSOFT_STRING_HPP_STRING_TOKENISER_EDIT      239
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_DMC:  __DMC__<0x0839
-STLSOFT_COMPILER_IS_MSVC: _MSC_VER<1200
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #if defined(STLSOFT_COMPILER_IS_DMC) && \
     __DMC__ < 0x0839
@@ -100,18 +93,8 @@ STLSOFT_COMPILER_IS_WATCOM:
 # include <iterator>                     // for std::distance()
 #endif /* !STLSOFT_INCL_ITERATOR */
 
-#ifdef STLSOFT_UNITTEST
-# ifndef STLSOFT_INCL_STLSOFT_STRING_HPP_SIMPLE_STRING
-#  include <stlsoft/string/simple_string.hpp>
-# endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_SIMPLE_STRING */
-# ifndef STLSOFT_INCL_STLSOFT_STRING_HPP_STRING_VIEW
-#  include <stlsoft/string/string_view.hpp>
-# endif /* STLSOFT_INCL_STLSOFT_STRING_HPP_STRING_VIEW */
-# include <string>
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
+ * compatibility
  */
 
 #if defined(STLSOFT_STRING_TOKENISER_USE_DELIMITER_INDIRECTION) || \
@@ -124,16 +107,16 @@ STLSOFT_COMPILER_IS_WATCOM:
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -150,9 +133,9 @@ struct skip_discriminator_type_<0>
 
 // string_tokeniser_ignore_blanks
 
-/** \brief A tokenising policy for specifying whether blanks will be included or ignored (now deprecated; replaced by skip_blank_tokens)
+/** A tokenising policy for specifying whether blanks will be included or ignored (now deprecated; replaced by skip_blank_tokens)
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  *
  * This policy determines whether a tokenisation will ignore blanks, or will present them as
  * (empty) entries in the sequence to the caller.
@@ -167,9 +150,9 @@ struct string_tokeniser_ignore_blanks
     enum { value = B };
 };
 
-/** \brief A tokenising policy for specifying whether blanks will be included or ignored
+/** A tokenising policy for specifying whether blanks will be included or ignored
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  *
  * This policy determines whether a tokenisation will ignore blanks, or will present them as
  * (empty) entries in the sequence to the caller.
@@ -186,9 +169,9 @@ struct skip_blank_tokens
 
 
 // string_tokeniser_type_traits
-/** \brief A traits class for detecting features of the string type and the value type used to specialise string_tokeniser
+/** A traits class for detecting features of the string type and the value type used to specialise string_tokeniser
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  *
  * This traits class has three responsibilities. First, it defines a number of
  * member types that are used by the string_tokeniser and
@@ -265,9 +248,9 @@ public:
 };
 
 // string_tokeniser_comparator
-/** \brief A generic comparator, used to specialise string_tokeniser, that covers most string and delimiter types
+/** A generic comparator, used to specialise string_tokeniser, that covers most string and delimiter types
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  *
  * This the default tokeniser comparator, providing functionality for both
  * single-character and fixed string delimiters.
@@ -309,9 +292,9 @@ private:
             >
     static ss_bool_t is_equal_(I1 p1, I2 p2, ss_size_t n)
     {
-        for(; n-- > 0; ++p1, ++p2)
+        for (; n-- > 0; ++p1, ++p2)
         {
-            if(*p1 != *p2)
+            if (*p1 != *p2)
             {
                 return false;
             }
@@ -339,9 +322,9 @@ private:
     /// Evaluates whether the contents of the two sequences are equivalent to the given extent
     static ss_bool_t is_equal_(string_type const& lhs, ss_typename_type_k string_type::value_type const* rhs)
     {
-        { for(ss_size_t i = 0, n = lhs.length(); i < n; ++i)
+        { for (ss_size_t i = 0, n = lhs.length(); i < n; ++i)
         {
-            if(lhs[i] != rhs[i])
+            if (lhs[i] != rhs[i])
             {
                 return false;
             }
@@ -430,9 +413,9 @@ public:
 /// @}
 };
 
-/** \brief A class template that provides string tokenising behaviour
+/** A class template that provides string tokenising behaviour
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  *
  * This class takes a string, and a delimiter, and fashions a sequence from
  * the given string, with each element determined with respect to the
@@ -499,7 +482,7 @@ stlsoft::string_tokeniser<  std::string
 std::copy(tokens.begin(), tokens.end(), std::ostream_iterator<std::string>(std::cout, ","));
 \endcode
  *
- * \note The tokeniser uses \ref group__concept__shim__string_access "String Access Shims" to elicit the
+ * \note The tokeniser uses \ref group__concept__Shim__string_access "String Access Shims" to elicit the
  * string from the given type, so any type that for which shims are defined can be passed to the
  * constructor, as in the following, which will output: <b>abc;def;ghi;jkl;</b>
  *
@@ -559,9 +542,9 @@ class string_tokeniser
 /// \name Member Types
 /// @{
 public:
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef string_tokeniser<S, D, B, V, T, P>              class_type;
-    /// This tokeniser parameterisation
+    /// The current specialisation of the type
     typedef string_tokeniser<S, D, B, V, T, P>              tokeniser_type;
     /// The sequence string type
     typedef S                                               string_type;
@@ -671,7 +654,7 @@ public:
 
 #if !defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT) || \
     defined(STLSOFT_CF_MEMBER_TEMPLATE_CTOR_OVERLOAD_DISCRIMINATED)
-    /// \brief Tokenise the given range with the given delimiter
+    /// Tokenise the given range with the given delimiter
     ///
     /// \param from The start of the asymmetric range to tokenise
     /// \param to The start of the asymmetric range to tokenise
@@ -709,7 +692,7 @@ public:
 public:
     /// Iterator for string_tokeniser, supporting the Forward Iterator concept
     class const_iterator
-        : public iterator_base< stlsoft_ns_qual_std(forward_iterator_tag)
+        : public iterator_base< STLSOFT_NS_QUAL_STD(forward_iterator_tag)
                             ,   value_type
                             ,   ss_ptrdiff_t
                             ,   void
@@ -766,7 +749,7 @@ public:
 # endif /* STLSOFT_STRING_TOKENISER_CF_REQUIRE_DELIMITER_INDIRECTION */
             , m_cchDelimiter(comparator_type::length(delimiter))
         {
-            if(m_end != m_find0)
+            if (m_end != m_find0)
             {
                 increment_();
             }
@@ -848,13 +831,13 @@ public:
         }
 
         /// Evaluates whether \c this and \c rhs are equivalent
-        ss_bool_t operator == (class_type const& rhs) const
+        ss_bool_t operator ==(class_type const& rhs) const
         {
             return equal(rhs);
         }
 
         /// Evaluates whether \c this and \c rhs are not equivalent
-        ss_bool_t operator != (class_type const& rhs) const
+        ss_bool_t operator !=(class_type const& rhs) const
         {
             return !equal(rhs);
         }
@@ -890,9 +873,9 @@ public:
         void skip_blanks_if_(skip_discriminator_type_<1>)
         {
             // 1. Skip blanks until at start of next item
-            for(m_find0 = m_next; m_find0 != m_end; )
+            for (m_find0 = m_next; m_find0 != m_end; )
             {
-                if(comparator_type::not_equal(get_delim_ref_(m_delimiter), m_find0))
+                if (comparator_type::not_equal(get_delim_ref_(m_delimiter), m_find0))
                 {
                     break;
                 }
@@ -911,15 +894,15 @@ public:
         void determine_end_()
         {
             // 2. Determine the end-of-item (m_find1), starting from m_find0
-            for(m_find1 = m_find0; ; )
+            for (m_find1 = m_find0; ; )
             {
-                if(m_find1 == m_end)
+                if (m_find1 == m_end)
                 {
                     // End of sequence. Item will be [m_find0, m_end (== m_find1))
                     m_next = m_find1;
                     break;
                 }
-                else if(comparator_type::not_equal(get_delim_ref_(m_delimiter), m_find1))
+                else if (comparator_type::not_equal(get_delim_ref_(m_delimiter), m_find1))
                 {
                     // current item does not hold a delimiter, so advance one position
                     ++m_find1;
@@ -976,7 +959,7 @@ public:
     {
         STLSOFT_ASSERT(is_valid());
 
-        return begin() == end();
+        return end() == begin();
     }
 /// @}
 
@@ -1004,13 +987,13 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Operators
+ * operators
  */
 
 #if 0
-/** \brief Evaluates whether \c this and \c rhs are equivalent
+/** Evaluates whether \c this and \c rhs are equivalent
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  */
 template<   ss_typename_param_k S
         ,   ss_typename_param_k D
@@ -1025,9 +1008,9 @@ inline ss_bool_t operator ==(   ss_typename_type_k string_tokeniser<S, D, B, V, 
     return lhs.equal(rhs);
 }
 
-/** \brief Evaluates whether \c this and \c rhs are not equivalent
+/** Evaluates whether \c this and \c rhs are not equivalent
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  */
 template<   ss_typename_param_k S
         ,   ss_typename_param_k D
@@ -1042,14 +1025,6 @@ inline ss_bool_t operator !=(   ss_typename_type_k string_tokeniser<S, D, B, V, 
     return !lhs.equal(rhs);
 }
 #endif /* 0 */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Unit-testing
- */
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/string_tokeniser_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
 
 /* ////////////////////////////////////////////////////////////////////// */
 
@@ -1082,11 +1057,17 @@ inline ss_ptrdiff_t* distance_type(string_tokeniser<S, D, B, V, T, P>::const_ite
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_STRING_TOKENISER */
 

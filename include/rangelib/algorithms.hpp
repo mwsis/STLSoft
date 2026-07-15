@@ -4,7 +4,7 @@
  * Purpose:     Range algorithms.
  *
  * Created:     4th November 2003
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks to:   Pablo Aguilar for requesting r_copy_if(); to Luoyi, for pointing
  *              out some gaps in the compatibility with the sequence_range; to
@@ -12,33 +12,35 @@
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -77,8 +79,8 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define RANGELIB_VER_RANGELIB_HPP_ALGORITHMS_MAJOR    2
 # define RANGELIB_VER_RANGELIB_HPP_ALGORITHMS_MINOR    3
-# define RANGELIB_VER_RANGELIB_HPP_ALGORITHMS_REVISION 6
-# define RANGELIB_VER_RANGELIB_HPP_ALGORITHMS_EDIT     47
+# define RANGELIB_VER_RANGELIB_HPP_ALGORITHMS_REVISION 10
+# define RANGELIB_VER_RANGELIB_HPP_ALGORITHMS_EDIT     58
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -93,12 +95,16 @@ STLSOFT_COMPILER_IS_MWERKS:   (__MWERKS__ & 0xFF00) < 0x3000
  */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef RANGELIB_INCL_RANGELIB_HPP_RANGELIB
 # include <rangelib/rangelib.hpp>
 #endif /* !RANGELIB_INCL_RANGELIB_HPP_RANGELIB */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef RANGELIB_INCL_RANGELIB_HPP_RANGE_CATEGORIES
 # include <rangelib/range_categories.hpp>
 #endif /* !RANGELIB_INCL_RANGELIB_HPP_RANGE_CATEGORIES */
@@ -118,37 +124,27 @@ STLSOFT_COMPILER_IS_MWERKS:   (__MWERKS__ & 0xFF00) < 0x3000
 # include <numeric>
 #endif /* !STLSOFT_INCL_NUMERIC */
 
-#ifdef STLSOFT_UNITTEST
-# include <rangelib/integral_range.hpp>
-# include <rangelib/sequence_range.hpp>
-# include <iterator>
-# include <list>
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
 #ifndef RANGELIB_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::rangelib */
 namespace rangelib
 {
 # else
 /* Define stlsoft::rangelib_project */
-
 namespace stlsoft
 {
-
 namespace rangelib_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !RANGELIB_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Functions
+ * functions
  */
 
 /* *********************************************************
@@ -160,7 +156,7 @@ template<   ss_typename_param_k R
         >
 inline T r_accumulate_2_impl(R r, T val, notional_range_tag const&)
 {
-    for(; r; ++r)
+    for (; r; ++r)
     {
         val = val + *r;
     }
@@ -192,9 +188,9 @@ inline T r_accumulate_2_impl(R r, T val, indirect_range_tag const&)
     return r.accumulate(val);
 }
 
-/** \brief accumulate() for ranges
+/** accumulate() for ranges
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \param val The initial value
@@ -220,7 +216,7 @@ template<   ss_typename_param_k R
         >
 inline T r_accumulate_3_impl(R r, T val, P pred, notional_range_tag const&)
 {
-    for(; r; ++r)
+    for (; r; ++r)
     {
         val = pred(val, *r);
     }
@@ -255,9 +251,9 @@ inline T r_accumulate_3_impl(R r, T val, P pred, indirect_range_tag const&)
     return r.accumulate(val, pred);
 }
 
-/** \brief accumulate() for ranges
+/** accumulate() for ranges
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \param val The initial value
@@ -285,7 +281,7 @@ template<   ss_typename_param_k R
         >
 inline O r_copy_impl(R r, O o, notional_range_tag const&)
 {
-    for(; r; ++r, ++o)
+    for (; r; ++r, ++o)
     {
         *o = *r;
     }
@@ -317,9 +313,9 @@ inline O r_copy_impl(R r, O o, basic_indirect_range_tag const&)
     return indirect_range_adaptor<R>(r).copy(o);
 }
 
-/** \brief Copies the contents of the range to the output iterator
+/** Copies the contents of the range to the output iterator
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range whose elements are to be copied
  * \param o The output iterator to receive the elements
@@ -345,9 +341,9 @@ template<   ss_typename_param_k R
         >
 inline O r_copy_if_impl(R r, O o, P pred, notional_range_tag const&)
 {
-    for(; r; ++r)
+    for (; r; ++r)
     {
-        if(pred(*r))
+        if (pred(*r))
         {
             *o = *r;
 
@@ -387,9 +383,9 @@ inline O r_copy_if_impl(R r, O o, P pred, basic_indirect_range_tag const&)
     return indirect_range_adaptor<R>(r).copy_if(o);
 }
 
-/** \brief Copies the contents of the range to the output iterator
+/** Copies the contents of the range to the output iterator
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range whose elements are to be copied
  * \param o The output iterator to receive the elements
@@ -418,9 +414,9 @@ inline ss_size_t r_count_impl(R r, T const& val, notional_range_tag const&)
 {
     ss_size_t n;
 
-    for(n = 0; r; ++r)
+    for (n = 0; r; ++r)
     {
-        if(val == *r)
+        if (val == *r)
         {
             ++n;
         }
@@ -453,9 +449,9 @@ inline ss_size_t r_count_impl(R r, T const& val, indirect_range_tag const&)
     return r.count(val);
 }
 
-/** \brief Counts the number of instances of a given value in the range
+/** Counts the number of instances of a given value in the range
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \param val The value to search for
@@ -483,9 +479,9 @@ inline ss_size_t r_count_if_impl(R r, P pred, notional_range_tag const&)
 {
     ss_size_t n;
 
-    for(n = 0; r; ++r)
+    for (n = 0; r; ++r)
     {
-        if(pred(*r))
+        if (pred(*r))
         {
             ++n;
         }
@@ -518,9 +514,9 @@ inline ss_size_t r_count_if_impl(R r, P pred, indirect_range_tag const&)
     return r.count_if(pred);
 }
 
-/** \brief Counts the number of instances matching the given predicate in the range
+/** Counts the number of instances matching the given predicate in the range
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \param pred The predicate applied to each entry
@@ -546,7 +542,7 @@ inline ss_ptrdiff_t r_distance_1_impl(R r, notional_range_tag const&)
 {
     ss_ptrdiff_t    d = 0;
 
-    for(; r; ++r, ++d)
+    for (; r; ++r, ++d)
     {}
 
     return d;
@@ -570,9 +566,9 @@ inline ss_ptrdiff_t r_distance_1_impl(R r, basic_indirect_range_tag const&)
     return indirect_range_adaptor<R>(r).distance();
 }
 
-/** \brief Counts the number of instances in the range
+/** Counts the number of instances in the range
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \retval The number of elements in the range
@@ -594,9 +590,9 @@ template<   ss_typename_param_k R1
         >
 inline ss_bool_t r_equal_1_impl(R1 r1, R2 r2, notional_range_tag const&, notional_range_tag const&)
 {
-    for(; r1 && r2; ++r1, ++r2)
+    for (; r1 && r2; ++r1, ++r2)
     {
-        if(*r1 != *r2)
+        if (*r1 != *r2)
         {
             return false;
         }
@@ -613,9 +609,9 @@ inline ss_bool_t r_equal_1_impl(R1 r1, R2 r2, iterable_range_tag const&, iterabl
     return std::equal(r1.begin(), r1.end(), r2.begin());
 }
 
-/** \brief Determines whether two ranges are equal
+/** Determines whether two ranges are equal
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r1 The first range to compare
  * \param r2 The second range to compare
@@ -630,7 +626,7 @@ template<   ss_typename_param_k R1
         >
 inline ss_bool_t r_equal(R1 r1, R2 r2)
 {
-    if(r_distance(r1) > r_distance(r2))
+    if (r_distance(r1) > r_distance(r2))
     {
         return false;
     }
@@ -648,9 +644,9 @@ template<   ss_typename_param_k R1
         >
 inline ss_bool_t r_equal_1_impl(R1 r1, R2 r2, P pred, notional_range_tag const&, notional_range_tag const&)
 {
-    for(; r1 && r2; ++r1, ++r2)
+    for (; r1 && r2; ++r1, ++r2)
     {
-        if(!pred(*r1, *r2))
+        if (!pred(*r1, *r2))
         {
             return false;
         }
@@ -668,9 +664,9 @@ inline ss_bool_t r_equal_1_impl(R1 r1, R2 r2, P pred, iterable_range_tag const&,
     return std::equal(r1.begin(), r1.end(), r2.begin(), pred);
 }
 
-/** \brief Determines whether two ranges are equal, as defined by a predicate
+/** Determines whether two ranges are equal, as defined by a predicate
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r1 The first range to compare
  * \param r2 The second range to compare
@@ -699,9 +695,9 @@ template<   ss_typename_param_k R
         >
 inline ss_bool_t r_exists_impl(R r, T const& val, notional_range_tag const&)
 {
-    for(; r; ++r)
+    for (; r; ++r)
     {
-        if(val == *r)
+        if (val == *r)
         {
             return true;
         }
@@ -734,9 +730,9 @@ inline ss_bool_t r_exists_impl(R r, T const& val, indirect_range_tag const&)
     return r.exists(val);
 }
 
-/** \brief Determines whether the given value exists in the range
+/** Determines whether the given value exists in the range
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \param val The value to search for
@@ -760,9 +756,9 @@ template<   ss_typename_param_k R
         >
 inline ss_bool_t r_exists_if_1_impl(R r, P pred, notional_range_tag const&)
 {
-    for(; r; ++r)
+    for (; r; ++r)
     {
-        if(pred(*r))
+        if (pred(*r))
         {
             return true;
         }
@@ -795,9 +791,9 @@ inline ss_bool_t r_exists_if_1_impl(R r, P pred, indirect_range_tag const&)
     return r.exists_if(pred);
 }
 
-/** \brief Determines whether a value matching the given predicate exists in the range
+/** Determines whether a value matching the given predicate exists in the range
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \param pred The predicate used to match the items
@@ -822,9 +818,9 @@ template<   ss_typename_param_k R
         >
 inline ss_bool_t r_exists_if_2_impl(R r, P pred, T &result, notional_range_tag const&)
 {
-    for(; r; ++r)
+    for (; r; ++r)
     {
-        if(pred(*r))
+        if (pred(*r))
         {
             result = *r;
 
@@ -840,7 +836,7 @@ template<   ss_typename_param_k I
         >
 inline ss_bool_t r_exists_if_2_impl_helper_(I from, I to, V &val)
 {
-    if(from == to)
+    if (from == to)
     {
         return false;
     }
@@ -879,9 +875,9 @@ inline ss_bool_t r_exists_if_2_impl(R r, P pred, T &result, indirect_range_tag c
     return r.exists_if(pred, result);
 }
 
-/** \brief Determines whether a value matching the given predicate exists in the range
+/** Determines whether a value matching the given predicate exists in the range
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \param pred The predicate used to match the items
@@ -910,9 +906,9 @@ inline void r_fill_impl(R r, T const& val, iterable_range_tag const&)
     std::fill(r.begin(), r.end(), val);
 }
 
-/** \brief Sets the elements in the range to the given value
+/** Sets the elements in the range to the given value
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \param val The value to assign to all elements in the range
@@ -940,9 +936,9 @@ inline void r_fill_n_impl(R r, S n, T const& val, iterable_range_tag const&)
     std::fill(r.begin(), n, val);
 }
 
-/** \brief Sets the first \c n elements in the range to the given value
+/** Sets the first \c n elements in the range to the given value
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \param n The number of elements to set. This must be <code><= r_distance(r)</code>
@@ -970,9 +966,9 @@ template<   ss_typename_param_k R
         >
 inline R r_find_impl(R r, T const& val, notional_range_tag const&)
 {
-    for(; r; ++r)
+    for (; r; ++r)
     {
-        if(val == *r)
+        if (val == *r)
         {
             break;
         }
@@ -989,9 +985,9 @@ inline R r_find_impl(R r, T const& val, iterable_range_tag const&)
     return R(std::find(r.begin(), r.end(), val), r.end());
 }
 
-/** \brief Finds the first instance of the given value in the range
+/** Finds the first instance of the given value in the range
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \param val The value to find
@@ -1017,9 +1013,9 @@ template<   ss_typename_param_k R
         >
 inline R r_find_if_impl(R r, P pred, notional_range_tag const&)
 {
-    for(; r; ++r)
+    for (; r; ++r)
     {
-        if(pred(*r))
+        if (pred(*r))
         {
             break;
         }
@@ -1036,9 +1032,9 @@ inline R r_find_if_impl(R r, P pred, iterable_range_tag const&)
     return R(std::find_if(r.begin(), r.end(), pred), r.end());
 }
 
-/** \brief Finds the first instance of a value in the range matching the given predicate
+/** Finds the first instance of a value in the range matching the given predicate
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \param pred The value to find
@@ -1062,7 +1058,7 @@ template<   ss_typename_param_k R
         >
 inline F r_for_each_impl(R r, F f, notional_range_tag const&)
 {
-    for(; r; ++r)
+    for (; r; ++r)
     {
         f(*r);
     }
@@ -1094,9 +1090,9 @@ inline F r_for_each_impl(R r, F f, indirect_range_tag const&)
     return r.for_each(f);
 }
 
-/** \brief Applies the given function to every element in the range
+/** Applies the given function to every element in the range
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \param f The function to apply
@@ -1123,9 +1119,9 @@ inline void r_generate_impl(R r, F f, iterable_range_tag const&)
     std::generate(r.begin(), r.end(), f);
 }
 
-/** \brief Sets each element in the range to the result of the given function
+/** Sets each element in the range to the result of the given function
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \param f The generator function
@@ -1151,9 +1147,9 @@ inline ss_typename_type_ret_k R::value_type r_max_element_1_impl(R r, notional_r
 
     value_type_t    max_    =   value_type_t();
 
-    for(; r; ++r)
+    for (; r; ++r)
     {
-        if(max_ < *r)
+        if (max_ < *r)
         {
             max_ = *r;
         }
@@ -1165,7 +1161,7 @@ inline ss_typename_type_ret_k R::value_type r_max_element_1_impl(R r, notional_r
 template <ss_typename_param_k I>
 inline I r_max_element_1_impl_iterable(I from, I to)
 {
-    if(from == to)
+    if (from == to)
     {
         STLSOFT_THROW_X(empty_range_exception("Cannot determine maximum element of empty range"));
     }
@@ -1191,9 +1187,9 @@ inline ss_typename_type_ret_k R::value_type r_max_element_1_impl(R r, indirect_r
     return r.max_element();
 }
 
-/** \brief Evaluates the maximum element in the range
+/** Evaluates the maximum element in the range
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range. Cannot be closed
  *
@@ -1217,7 +1213,7 @@ template<   ss_typename_param_k I
         >
 inline I r_max_element_2_impl_iterable(I from, I to, F f)
 {
-    if(from == to)
+    if (from == to)
     {
         STLSOFT_THROW_X(empty_range_exception("Cannot determine maximum element of empty range"));
     }
@@ -1242,9 +1238,9 @@ inline ss_typename_type_ret_k R::value_type r_max_element_2_impl(R r, F f, notio
 
     value_type_t    max_    =   value_type_t();
 
-    for(; r; ++r)
+    for (; r; ++r)
     {
-        if(f(max_, *r))
+        if (f(max_, *r))
         {
             max_ = *r;
         }
@@ -1269,9 +1265,9 @@ inline ss_typename_type_ret_k R::value_type r_max_element_2_impl(R r, F f, indir
     return r.max_element(f);
 }
 
-/** \brief Evaluates the maximum element in the range evaluated according to the given function
+/** Evaluates the maximum element in the range evaluated according to the given function
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range. Cannot be closed
  * \param f The function used to evaluate the ordering
@@ -1298,7 +1294,7 @@ inline ss_typename_type_ret_k R::value_type r_min_element_1_impl(R r, notional_r
 {
     typedef ss_typename_type_k R::value_type    value_type_t;
 
-    if(!r)
+    if (!r)
     {
         return value_type_t();
     }
@@ -1306,9 +1302,9 @@ inline ss_typename_type_ret_k R::value_type r_min_element_1_impl(R r, notional_r
     {
         value_type_t    min_    =   *r;
 
-        for(; ++r; )
+        for (; ++r; )
         {
-            if(*r < min_)
+            if (*r < min_)
             {
                 min_ = *r;
             }
@@ -1321,7 +1317,7 @@ inline ss_typename_type_ret_k R::value_type r_min_element_1_impl(R r, notional_r
 template <ss_typename_param_k I>
 inline I r_min_element_1_impl_iterable(I from, I to)
 {
-    if(from == to)
+    if (from == to)
     {
         STLSOFT_THROW_X(empty_range_exception("Cannot determine minimum element of empty range"));
     }
@@ -1347,9 +1343,9 @@ inline ss_typename_type_ret_k R::value_type r_min_element_1_impl(R r, indirect_r
     return r.min_element();
 }
 
-/** \brief Evaluates the minimum element in the range
+/** Evaluates the minimum element in the range
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range. Cannot be closed
  *
@@ -1373,7 +1369,7 @@ template<   ss_typename_param_k I
         >
 inline I r_min_element_2_impl_iterable(I from, I to, F f)
 {
-    if(from == to)
+    if (from == to)
     {
         STLSOFT_THROW_X(empty_range_exception("Cannot determine minimum element of empty range"));
     }
@@ -1398,9 +1394,9 @@ inline ss_typename_type_ret_k R::value_type r_min_element_2_impl(R r, F f, notio
 
     value_type_t    min_    =   value_type_t();
 
-    for(; r; ++r)
+    for (; r; ++r)
     {
-        if(f(min_, *r))
+        if (f(min_, *r))
         {
             min_ = *r;
         }
@@ -1425,9 +1421,9 @@ inline ss_typename_type_ret_k R::value_type r_min_element_2_impl(R r, F f, indir
     return r.min_element(f);
 }
 
-/** \brief Evaluates the minimum element in the range evaluated according to the given function
+/** Evaluates the minimum element in the range evaluated according to the given function
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range. Cannot be closed
  * \param f The function used to evaluate the ordering
@@ -1466,9 +1462,9 @@ inline void r_replace_impl(R r, T oldVal, T newVal, indirect_range_tag const&)
 }
 
 
-/** \brief Replaces all elements of the given old value with the new value
+/** Replaces all elements of the given old value with the new value
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \param oldVal The value to search for
@@ -1508,9 +1504,9 @@ inline void r_replace_copy_impl(RI ri, RO ro, T oldVal, T newVal, indirect_range
     ri.replace_copy(ro, oldVal, newVal);
 }
 
-/** \brief Replaces all elements of the given old value with the new value
+/** Replaces all elements of the given old value with the new value
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \param oldVal The value to search for
@@ -1550,9 +1546,9 @@ inline void r_replace_if_impl(R r, P pred, T newVal, indirect_range_tag const&)
     r.replace_if(r, pred, newVal);
 }
 
-/** \brief Replaces all elements matching the given predicate with the new value
+/** Replaces all elements matching the given predicate with the new value
  *
- * \ingroup group__library__rangelib
+ * \ingroup group__library__Range
  *
  * \param r The range
  * \param pred The predicate for matching the old values to replace
@@ -1592,11 +1588,11 @@ template<   ss_typename_param_k RI
         >
 inline void r_replace_copy_if_impl(RI ri, RO ro, P pred, T newVal, notional_range_tag const&, notional_range_tag const&)
 {
-    for(; ri; ++ri, ++ro)
+    for (; ri; ++ri, ++ro)
     {
         STLSOFT_ASSERT(!(!ro));
 
-        if(pred(*ri))
+        if (pred(*ri))
         {
             *ro = newVal;
         }
@@ -1624,26 +1620,25 @@ inline void r_replace_copy_if(RI ri, RO ro, P pred, T newVal)
 }
 #endif /* 0 */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/algorithms_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef RANGELIB_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace rangelib
+} /* namespace rangelib */
 # else
-} // namespace rangelib_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
+} /* namespace rangelib_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !RANGELIB_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !RANGELIB_INCL_RANGELIB_HPP_ALGORITHMS */
 

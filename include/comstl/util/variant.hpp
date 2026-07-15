@@ -4,45 +4,47 @@
  * Purpose:     variant class.
  *
  * Created:     12th December 1996
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1996-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file comstl/util/variant.hpp
  *
- * \brief [C++ only; requires COM] Definition of the comstl::variant class
- *   (\ref group__library__utility__com "COM Utility" Library).
+ * \brief [C++; requires COM] Definition of the comstl::variant class
+ *   (\ref group__library__COM_Utility "COM Utility" Library).
  */
 
 #ifndef COMSTL_INCL_COMSTL_UTIL_HPP_COMSTL_VARIANT
@@ -51,17 +53,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define _COMSTL_VER_COMSTL_UTIL_HPP_COMSTL_VARIANT_MAJOR      2
 # define _COMSTL_VER_COMSTL_UTIL_HPP_COMSTL_VARIANT_MINOR      3
-# define _COMSTL_VER_COMSTL_UTIL_HPP_COMSTL_VARIANT_REVISION   6
-# define _COMSTL_VER_COMSTL_UTIL_HPP_COMSTL_VARIANT_EDIT       160
+# define _COMSTL_VER_COMSTL_UTIL_HPP_COMSTL_VARIANT_REVISION   14
+# define _COMSTL_VER_COMSTL_UTIL_HPP_COMSTL_VARIANT_EDIT       176
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef COMSTL_INCL_COMSTL_H_COMSTL
 # include <comstl/comstl.h>
 #endif /* !COMSTL_INCL_COMSTL_H_COMSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef COMSTL_INCL_COMSTL_STRING_H_BSTR_FUNCTIONS
 # include <comstl/string/BSTR_functions.h>
 #endif /* !COMSTL_INCL_COMSTL_STRING_H_BSTR_FUNCTIONS */
@@ -69,9 +75,9 @@
 # include <comstl/shims/access/string.hpp>
 #endif /* !COMSTL_INCL_COMSTL_SHIMS_ACCESS_HPP_STRING */
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-# ifndef COMSTL_INCL_COMSTL_ERROR_HPP_EXCEPTIONS
-#  include <comstl/error/exceptions.hpp>
-# endif /* !COMSTL_INCL_COMSTL_ERROR_HPP_EXCEPTIONS */
+# ifndef COMSTL_INCL_COMSTL_EXCEPTION_HPP_COMSTL_EXCEPTION
+#  include <comstl/exception/comstl_exception.hpp>
+# endif /* !COMSTL_INCL_COMSTL_EXCEPTION_HPP_COMSTL_EXCEPTION */
 #endif /* !STLSOFT_CF_EXCEPTION_SUPPORT */
 #ifndef COMSTL_INCL_COMSTL_UTIL_HPP_INTERFACE_TRAITS
 # include <comstl/util/interface_traits.hpp>
@@ -83,35 +89,40 @@
 # include <stlsoft/util/constraints.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_CONSTRAINTS */
 
+#ifndef WINSTL_INCL_WINSTL_API_external_h_Debugging
+# include <winstl/api/external/Debugging.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_Debugging */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
+# include <stlsoft/api/internal/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::comstl */
 namespace comstl
 {
 # else
 /* Define stlsoft::comstl_project */
-
 namespace stlsoft
 {
-
 namespace comstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Facade for the COM VARIANT type
+/** Facade for the COM VARIANT type
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * \remarks comstl::variant publicly derives from \c VARIANT as a measure
  *   of expedience, rather than as an act of design sophistication. Any
@@ -148,7 +159,7 @@ public:
      *
      * \post <code>assert(rhs == *this)</code>
      *
-     * \exception comstl::com_exception If the copy fails
+     * \exception comstl::comstl_exception If the copy fails
      */
     variant(VARIANT const& rhs);
 
@@ -156,7 +167,7 @@ public:
      *
      * \post <code>assert(rhs == *this)</code>
      *
-     * \exception comstl::com_exception If the copy fails
+     * \exception comstl::comstl_exception If the copy fails
      */
     variant(class_type const& rhs);
 
@@ -164,7 +175,7 @@ public:
      *
      * \post <code>assert(rhs == *this)</code>
      *
-     * \exception comstl::com_exception If the copy fails
+     * \exception comstl::comstl_exception If the copy fails
      */
     class_type& operator =(class_type const& rhs);
 
@@ -374,7 +385,7 @@ public:
     variant(LPDISPATCH pdisp, bool_type bAddRef);
     variant(cs_char_a_t const* s, int len = -1);
     variant(cs_char_w_t const* s, int len = -1);
-    variant(VARIANT const& var, VARTYPE vt);
+    variant(VARIANT const& var, VARTYPE vType);
 
     /** Releases any resources associated with the underlying
      *   <code>VARIANT</code>
@@ -394,9 +405,9 @@ public:
 
 /// Operations
 public:
-    HRESULT     try_conversion_copy(VARIANT const& var, VARTYPE vt);
-    HRESULT     try_convert(VARTYPE vt);
-    class_type& convert(VARTYPE vt);
+    HRESULT     try_conversion_copy(VARIANT const& var, VARTYPE vType);
+    HRESULT     try_convert(VARTYPE vType);
+    class_type& convert(VARTYPE vType);
 
     /** Returns a pointer to a specified interface on an object to which
      * a client currently holds an interface pointer.
@@ -449,7 +460,7 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * String access shims
+ * string access shims
  */
 
 // No string access shims are defined, because there're already a set
@@ -457,7 +468,7 @@ private:
 // by this file.
 
 /* /////////////////////////////////////////////////////////////////////////
- * Operators
+ * operators
  */
 
 inline cs_bool_t operator ==(variant const& lhs, variant const& rhs)
@@ -490,15 +501,8 @@ inline cs_bool_t operator !=(VARIANT const& lhs, variant const& rhs)
     return !operator ==(lhs, rhs);
 }
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/variant_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Implementation
+ * implementation
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -507,7 +511,7 @@ inline void variant::handle_error_(char const* message, HRESULT hr)
 {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
 
-    STLSOFT_THROW_X(com_exception(message, hr));
+    STLSOFT_THROW_X(comstl_exception(message, hr));
 
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
 
@@ -525,9 +529,9 @@ inline /* static */ void variant::swap_(VARIANT& lhs, VARIANT& rhs)
 {
     VARIANT t;
 
-    ::memcpy(&t, &lhs, sizeof(VARIANT));
-    ::memcpy(&lhs, &rhs, sizeof(VARIANT));
-    ::memcpy(&rhs, &t, sizeof(VARIANT));
+    STLSOFT_API_INTERNAL_memfns_memcpy(&t, &lhs, sizeof(VARIANT));
+    STLSOFT_API_INTERNAL_memfns_memcpy(&lhs, &rhs, sizeof(VARIANT));
+    STLSOFT_API_INTERNAL_memfns_memcpy(&rhs, &t, sizeof(VARIANT));
 }
 
 
@@ -545,7 +549,7 @@ inline variant::variant(class_type const& rhs)
     class_type& rhs_    =   const_cast<class_type&>(rhs);
     HRESULT     hr      =   ::VariantCopy(this, &rhs_);
 
-    if(FAILED(hr))
+    if (FAILED(hr))
     {
         handle_error_("failed to copy variant", hr);
     }
@@ -557,7 +561,7 @@ inline variant::variant(VARIANT const& rhs)
 
     HRESULT hr = ::VariantCopy(this, const_cast<VARIANT*>(&rhs));
 
-    if(FAILED(hr))
+    if (FAILED(hr))
     {
         handle_error_("failed to copy variant", hr);
     }
@@ -723,7 +727,7 @@ inline variant::variant(LPUNKNOWN punk, bool_type bAddRef)
     this->vt        =   VT_UNKNOWN;
     this->punkVal   =   punk;
 
-    if( bAddRef &&
+    if (bAddRef &&
         NULL != punk)
     {
         punk->AddRef();
@@ -737,7 +741,7 @@ inline variant::variant(LPDISPATCH pdisp, bool_type bAddRef)
     this->vt        =   VT_DISPATCH;
     this->pdispVal  =   pdisp;
 
-    if( bAddRef &&
+    if (bAddRef &&
         NULL != pdisp)
     {
         pdisp->AddRef();
@@ -751,9 +755,9 @@ inline variant::variant(cs_char_a_t const* s, int len /* = -1 */)
     this->vt        =   VT_BSTR;
     this->bstrVal   =   (len < 0) ? bstr_create(s) : bstr_create(s, static_cast<size_type>(len));
 
-    if(NULL == this->bstrVal)
+    if (NULL == this->bstrVal)
     {
-        if( NULL != s &&
+        if (NULL != s &&
             '\0' != 0[s])
         {
             handle_error_("could not initialise from string", E_OUTOFMEMORY);
@@ -768,9 +772,9 @@ inline variant::variant(cs_char_w_t const* s, int len /* = -1 */)
     this->vt        =   VT_BSTR;
     this->bstrVal   =   (len < 0) ? bstr_create(s) : bstr_create(s, static_cast<size_type>(len));
 
-    if(NULL == this->bstrVal)
+    if (NULL == this->bstrVal)
     {
-        if( NULL != s &&
+        if (NULL != s &&
             '\0' != 0[s])
         {
             handle_error_("could not initialise from string", E_OUTOFMEMORY);
@@ -778,14 +782,14 @@ inline variant::variant(cs_char_w_t const* s, int len /* = -1 */)
     }
 }
 
-inline variant::variant(VARIANT const& var, VARTYPE vt)
+inline variant::variant(VARIANT const& var, VARTYPE vType)
 {
     ::VariantInit(this);
 
     class_type  copy;
-    HRESULT     hr = ::VariantChangeType(&copy, const_cast<VARIANT*>(&var), 0, vt);
+    HRESULT     hr = ::VariantChangeType(&copy, const_cast<VARIANT*>(&var), 0, vType);
 
-    if(FAILED(hr))
+    if (FAILED(hr))
     {
         handle_error_("could not convert variant to requested type", hr);
     }
@@ -800,11 +804,11 @@ inline void variant::clear()
     ::VariantClear(this);
 }
 
-inline HRESULT variant::try_conversion_copy(VARIANT const& var, VARTYPE vt)
+inline HRESULT variant::try_conversion_copy(VARIANT const& var, VARTYPE vType)
 {
     HRESULT hr;
 
-    if(vt == this->vt)
+    if (vType == this->vt)
     {
         hr = S_FALSE;
     }
@@ -812,9 +816,9 @@ inline HRESULT variant::try_conversion_copy(VARIANT const& var, VARTYPE vt)
     {
         class_type  copy;
 
-        hr  =   ::VariantChangeType(&copy, const_cast<VARIANT*>(&var), 0, vt);
+        hr  =   ::VariantChangeType(&copy, const_cast<VARIANT*>(&var), 0, vType);
 
-        if(SUCCEEDED(hr))
+        if (SUCCEEDED(hr))
         {
             copy.swap(*this);
         }
@@ -823,16 +827,16 @@ inline HRESULT variant::try_conversion_copy(VARIANT const& var, VARTYPE vt)
     return hr;
 }
 
-inline HRESULT variant::try_convert(VARTYPE vt)
+inline HRESULT variant::try_convert(VARTYPE vType)
 {
-    return try_conversion_copy(*this, vt);
+    return try_conversion_copy(*this, vType);
 }
 
-inline variant::class_type& variant::convert(VARTYPE vt)
+inline variant::class_type& variant::convert(VARTYPE vType)
 {
-    HRESULT hr  =   try_convert(vt);
+    HRESULT hr  =   try_convert(vType);
 
-    if(FAILED(hr))
+    if (FAILED(hr))
     {
         handle_error_("could not convert variant to requested type", hr);
     }
@@ -845,7 +849,7 @@ inline HRESULT variant::QueryInterface(REFIID riid, void** ppv) const
 {
     COMSTL_ASSERT(NULL != ppv);
 
-    if( VT_UNKNOWN == this->vt ||
+    if (VT_UNKNOWN == this->vt ||
         VT_DISPATCH == this->vt)
     {
         return (NULL == this->punkVal) ? E_POINTER : this->punkVal->QueryInterface(riid, ppv);
@@ -870,12 +874,12 @@ inline variant::bool_type variant::equal(VARIANT const& rhs) const
     HRESULT comparisonSucceeded;
     int     areEqual = VARIANT_equal(*this, rhs, &comparisonSucceeded);
 
-    if(FAILED(comparisonSucceeded))
+    if (FAILED(comparisonSucceeded))
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-        STLSOFT_THROW_X(comstl::com_exception("support for comparison of variant type not currently supported", comparisonSucceeded));
+        STLSOFT_THROW_X(comstl_exception("support for comparison of variant type not currently supported", comparisonSucceeded));
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
-        OutputDebugStringA("support for comparison of variant type not currently supported\n");
+        WINSTL_API_EXTERNAL_Debugging_OutputDebugStringA("support for comparison of variant type not currently supported\n");
 
         return false;
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
@@ -888,42 +892,48 @@ inline variant::bool_type variant::equal(VARIANT const& rhs) const
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace comstl
+} /* namespace comstl */
 # else
-} // namespace stlsoft::comstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+} /* namespace stlsoft::comstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The string access shims exist either in the stlsoft namespace, or in the
  * global namespace. This is required by the lookup rules.
  *
  */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+#ifndef COMSTL_NO_NAMESPACE
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 namespace stlsoft
 {
-# else /* ? _STLSOFT_NO_NAMESPACE */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
 
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace stlsoft
-# else /* ? _STLSOFT_NO_NAMESPACE */
+} /* namespace stlsoft */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !COMSTL_INCL_COMSTL_UTIL_HPP_COMSTL_VARIANT */
 

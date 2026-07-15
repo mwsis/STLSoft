@@ -5,46 +5,48 @@
  *              classes.
  *
  * Created:     1st November 1994
- * Updated:     15th December 2023
+ * Updated:     20th January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1994-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/memory/auto_destructor.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::auto_destructor and
+ * \brief [C++] Definition of the stlsoft::auto_destructor and
  *  stlsoft::auto_array_destructor class templates
- *   (\ref group__library__memory "Memory" Library).
+ *   (\ref group__library__Memory "Memory" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_MEMORY_HPP_AUTO_DESTRUCTOR
@@ -52,26 +54,21 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_MEMORY_HPP_AUTO_DESTRUCTOR_MAJOR       5
-# define STLSOFT_VER_STLSOFT_MEMORY_HPP_AUTO_DESTRUCTOR_MINOR       1
-# define STLSOFT_VER_STLSOFT_MEMORY_HPP_AUTO_DESTRUCTOR_REVISION    3
-# define STLSOFT_VER_STLSOFT_MEMORY_HPP_AUTO_DESTRUCTOR_EDIT        74
+# define STLSOFT_VER_STLSOFT_MEMORY_HPP_AUTO_DESTRUCTOR_MINOR       2
+# define STLSOFT_VER_STLSOFT_MEMORY_HPP_AUTO_DESTRUCTOR_REVISION    1
+# define STLSOFT_VER_STLSOFT_MEMORY_HPP_AUTO_DESTRUCTOR_EDIT        90
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[DocumentationStatus:Ready]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #ifdef _STLSOFT_RETURN_VALUE_DESTRUCTOR_ENABLE_DIRECT_CTOR
 # define STLSOFT_RETURN_VALUE_DESTRUCTOR_ENABLE_DIRECT_CTOR
@@ -83,7 +80,7 @@
 
 
 /* /////////////////////////////////////////////////////////////////////////
- * Warnings
+ * warnings
  */
 
 #if defined(STLSOFT_COMPILER_IS_MSVC) && \
@@ -92,16 +89,16 @@
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Forward declarations
+ * forward declarations
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -121,13 +118,13 @@ class return_value_array_destructor;
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief A simple proxy class that supports the movement of pointers
+/** A simple proxy class that supports the movement of pointers
  *    between the various destructor classes.
  *
- * \ingroup group__library__memory
+ * \ingroup group__library__Memory
  *
  * \see stlsoft::auto_destructor |
  *      stlsoft::return_value_destructor |
@@ -143,15 +140,15 @@ struct move_proxy
         : m_value(value)
     {}
 
-    T   *m_value;
+    T* m_value;
 };
 
 
 // class auto_destructor
-/** \brief This class acts as an automatic frame scope variable that manages
+/** This class acts as an automatic frame scope variable that manages
  *   heap-allocated object instances.
  *
- * \ingroup group__library__memory
+ * \ingroup group__library__Memory
  *
  * \param T The value type
  *
@@ -205,7 +202,7 @@ class auto_destructor
 public:
     /// The value type
     typedef T                                               value_type;
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef auto_destructor<T>                              class_type;
     /// The return value type
     typedef return_value_destructor<T>                      return_value_type;
@@ -218,7 +215,7 @@ private:
 /// @{
 public:
     /// Constructs from the pointer to an instance whose lifetime will be managed
-    ss_explicit_k auto_destructor(value_type *t)
+    ss_explicit_k auto_destructor(value_type* t)
         : m_value(t)
     {}
 #if 0
@@ -236,6 +233,9 @@ public:
     {
         delete m_value;
     }
+private:
+    auto_destructor(class_type const& rhs);         // copy-construction proscribed
+    class_type& operator =(class_type const& rhs);  // copy-assignment proscribed
 /// @}
 
 /// \name Operations
@@ -244,11 +244,11 @@ public:
     /// Detaches the managed instance from the auto_destructor and returns a pointer to it to the caller
     ///
     /// \note The caller becomes responsible for destroying the instance.
-    value_type *detach()
+    value_type* detach() STLSOFT_NOEXCEPT
     {
-        value_type  *t = m_value;
+        value_type* t = m_value;
 
-        m_value = 0;
+        m_value = ss_nullptr_k;
 
         return t;
     }
@@ -287,18 +287,13 @@ public:
 private:
     value_type* m_value;
 /// @}
-
-// Not to be implemented
-private:
-    auto_destructor(class_type const& rhs);
-    auto_destructor const& operator =(class_type const& rhs);
 };
 
 // class auto_array_destructor
-/** \brief This class acts as an automatic frame scope variable that manages
+/** This class acts as an automatic frame scope variable that manages
  *   heap-allocated object arrays.
  *
- * \ingroup group__library__memory
+ * \ingroup group__library__Memory
  *
  * \param T The value type
  *
@@ -324,10 +319,12 @@ class auto_array_destructor
 public:
     /// The value type
     typedef T                                               value_type;
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef auto_array_destructor<T>                        class_type;
     /// The return value type
     typedef return_value_array_destructor<T>                return_value_type;
+    /// The size type
+    typedef STLSOFT_NS_QUAL(ss_size_t)                      size_type;
 private:
     /// The proxy type
     typedef move_proxy<T, return_value_type>                proxy_type;
@@ -355,6 +352,9 @@ public:
     {
         delete [] m_value;
     }
+private:
+    auto_array_destructor(class_type const& rhs);   // copy-construction proscribed
+    class_type& operator =(class_type const& rhs);  // copy-assignment proscribed
 /// @}
 
 /// \name Operations
@@ -363,11 +363,11 @@ public:
     /// Detaches the managed instance from the auto_array_destructor and returns a pointer to it to the caller
     ///
     /// \note The caller becomes responsible for destroying the instance.
-    value_type *detach()
+    value_type* detach() STLSOFT_NOEXCEPT
     {
-        value_type  *t = m_value;
+        value_type* t = m_value;
 
-        m_value = 0;
+        m_value = ss_nullptr_k;
 
         return t;
     }
@@ -399,6 +399,32 @@ public:
     {
         return m_value;
     }
+
+    /// Obtains a mutating reference to the given element
+    ///
+    /// \param index The 0-based index of the element within the array
+    ///   passed to the constructor. NOTE: this is not checked
+    ///
+    /// \pre index is in the range [0, array-size)
+    value_type& operator [](size_type index)
+    {
+        STLSOFT_ASSERT(ss_nullptr_k != get());
+
+        return get()[index];
+    }
+
+    /// Obtains a non-mutating reference to the given element
+    ///
+    /// \param index The 0-based index of the element within the array
+    ///   passed to the constructor. NOTE: this is not checked
+    ///
+    /// \pre index is in the range [0, array-size)
+    value_type const& operator [](size_type index) const
+    {
+        STLSOFT_ASSERT(ss_nullptr_k != get());
+
+        return get()[index];
+    }
 /// @}
 
 /// \name Members
@@ -406,19 +432,14 @@ public:
 private:
     value_type* m_value;
 /// @}
-
-// Not to be implemented
-private:
-    auto_array_destructor(class_type const& rhs);
-    auto_array_destructor const& operator =(class_type const& rhs);
 };
 
 
 // class return_value_destructor
-/** \brief This class acts as a return-value scope variable that manages
+/** This class acts as a return-value scope variable that manages
  *   heap-allocated object instances.
  *
- * \ingroup group__library__memory
+ * \ingroup group__library__Memory
  *
  * \param T The value type
  *
@@ -432,7 +453,7 @@ class return_value_destructor
 public:
     /// The value type
     typedef T                                           value_type;
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef return_value_destructor<T>                  class_type;
     /// The auto type
     typedef auto_destructor<T>                          auto_type;
@@ -446,12 +467,12 @@ private:
 public:
 #ifdef STLSOFT_RETURN_VALUE_DESTRUCTOR_ENABLE_DIRECT_CTOR
     /// Constructs from the pointer to an instance whose lifetime will be managedd
-    return_value_destructor(value_type *pt)
+    return_value_destructor(value_type* pt)
         : m_value(pt)
     {}
 #endif /* STLSOFT_RETURN_VALUE_DESTRUCTOR_ENABLE_DIRECT_CTOR */
     /// Construct from an auto_destructor<T>, transferring the managed instance from it
-    return_value_destructor(auto_type& rhs) // Note: not explicit
+    return_value_destructor(auto_type& rhs) // NOTE: not explicit
         : m_value(rhs.detach())
     {}
     /// Move constructor
@@ -473,9 +494,9 @@ public:
 
 #ifndef STLSOFT_RETURN_VALUE_DESTRUCTOR_DISABLE_UNUSED_ASSERT
 # if defined(STLSOFT_COMPILER_IS_WATCOM)
-        STLSOFT_ASSERT(m_value == 0);
+        STLSOFT_ASSERT(m_value == ss_nullptr_k);
 # else /* ? compiler */
-        STLSOFT_MESSAGE_ASSERT("This return value was not used", m_value == 0);
+        STLSOFT_MESSAGE_ASSERT("This return value was not used", m_value == ss_nullptr_k);
 # endif /* compiler */
 #endif /* !STLSOFT_RETURN_VALUE_DESTRUCTOR_DISABLE_UNUSED_ASSERT */
 
@@ -486,6 +507,8 @@ public:
     {
         return proxy_type(detach());
     }
+private:
+    class_type& operator =(class_type const& rhs);  // copy-assignment proscribed
 /// @}
 
 /// \name Operations
@@ -496,11 +519,11 @@ private:
     /// Detaches the managed instance from the return_value_destructor and returns a pointer to it to the caller
     ///
     /// \note The caller becomes responsible for destroying the instance.
-    value_type *detach()
+    value_type* detach() STLSOFT_NOEXCEPT
     {
-        value_type  *t = m_value;
+        value_type* t = m_value;
 
-        m_value = 0;
+        m_value = ss_nullptr_k;
 
         return t;
     }
@@ -509,19 +532,15 @@ private:
 /// \name Members
 /// @{
 private:
-    value_type  *m_value;
+    value_type* m_value;
 /// @}
-
-// Not to be implemented
-private:
-    return_value_destructor const& operator =(class_type const& rhs);
 };
 
 // class return_value_array_destructor
-/** \brief This class acts as a return-value scope variable that manages
+/** This class acts as a return-value scope variable that manages
  *   heap-allocated object arrays.
  *
- * \ingroup group__library__memory
+ * \ingroup group__library__Memory
  *
  * \param T The value type
  *
@@ -535,7 +554,7 @@ class return_value_array_destructor
 public:
     /// The value type
     typedef T                                           value_type;
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef return_value_array_destructor<T>            class_type;
     /// The auto type
     typedef auto_array_destructor<T>                    auto_type;
@@ -554,7 +573,7 @@ public:
     {}
 #endif /* STLSOFT_RETURN_VALUE_DESTRUCTOR_ENABLE_DIRECT_CTOR */
     /// Constructs from an auto_array_destructor<T> instance, transferring the managed array from it
-    return_value_array_destructor(auto_type& rhs) // Note: not explicit
+    return_value_array_destructor(auto_type& rhs) // NOTE: not explicit
         : m_value(rhs.detach())
     {}
 #if 1
@@ -578,9 +597,9 @@ public:
 
 #ifndef _STLSOFT_RETURN_VALUE_DESTRUCTOR_DISABLE_UNUSED_ASSERT
 # if defined(STLSOFT_COMPILER_IS_WATCOM)
-        STLSOFT_ASSERT(m_value == 0);
+        STLSOFT_ASSERT(m_value == ss_nullptr_k);
 # else /* ? compiler */
-        STLSOFT_MESSAGE_ASSERT("This return value was not used", m_value == 0);
+        STLSOFT_MESSAGE_ASSERT("This return value was not used", m_value == ss_nullptr_k);
 # endif /* compiler */
 #endif /* !_STLSOFT_RETURN_VALUE_DESTRUCTOR_DISABLE_UNUSED_ASSERT */
 
@@ -591,6 +610,8 @@ public:
     {
         return proxy_type(detach());
     }
+private:
+    class_type& operator =(class_type const& rhs);  // copy-assignment proscribed
 /// @}
 
 /// \name Operations
@@ -601,11 +622,11 @@ private:
     /// Detaches the managed instance from the return_value_array_destructor and returns a pointer to it to the caller
     ///
     /// \note The caller becomes responsible for destroying the instance.
-    value_type *detach()
+    value_type* detach() STLSOFT_NOEXCEPT
     {
-        value_type  *t = m_value;
+        value_type* t = m_value;
 
-        m_value = 0;
+        m_value = ss_nullptr_k;
 
         return t;
     }
@@ -614,20 +635,16 @@ private:
 /// \name Members
 /// @{
 private:
-    value_type  *m_value;
+    value_type* m_value;
 /// @}
-
-// Not to be implemented
-private:
-    return_value_array_destructor const& operator =(class_type const& rhs);
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Shims
+ * shims
  */
 
-/** \brief
- * \ingroup group__concept__shim__pointer_attribute__get_ptr
+/**
+ * \ingroup group__concept__Shim__Attribute__get_ptr
  */
 template <ss_typename_param_k T>
 inline T *get_ptr(auto_destructor<T> const& ad)
@@ -635,8 +652,8 @@ inline T *get_ptr(auto_destructor<T> const& ad)
     return ad.get();
 }
 
-/** \brief
- * \ingroup group__concept__shim__pointer_attribute__get_ptr
+/**
+ * \ingroup group__concept__Shim__Attribute__get_ptr
  */
 template <ss_typename_param_k T>
 inline T* get_ptr(return_value_destructor<T> const& ad)
@@ -644,8 +661,8 @@ inline T* get_ptr(return_value_destructor<T> const& ad)
     return ad.get();
 }
 
-/** \brief
- * \ingroup group__concept__shim__pointer_attribute__get_ptr
+/**
+ * \ingroup group__concept__Shim__Attribute__get_ptr
  */
 template <ss_typename_param_k T>
 inline T* get_ptr(auto_array_destructor<T> const& ad)
@@ -653,8 +670,8 @@ inline T* get_ptr(auto_array_destructor<T> const& ad)
     return ad.get();
 }
 
-/** \brief
- * \ingroup group__concept__shim__pointer_attribute__get_ptr
+/**
+ * \ingroup group__concept__Shim__Attribute__get_ptr
  */
 template <ss_typename_param_k T>
 inline T* get_ptr(return_value_array_destructor<T> const& ad)
@@ -664,12 +681,12 @@ inline T* get_ptr(return_value_array_destructor<T> const& ad)
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Warnings
+ * warnings
  */
 
 #if defined(STLSOFT_COMPILER_IS_MSVC) && \
@@ -677,7 +694,13 @@ inline T* get_ptr(return_value_array_destructor<T> const& ad)
 # pragma warning(default: 4284)
 #endif /* compiler */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_MEMORY_HPP_AUTO_DESTRUCTOR */
 

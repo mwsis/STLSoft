@@ -6,45 +6,47 @@
  *              some compilers.
  *
  * Created:     2nd May 1997
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1997-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/conversion/union_cast.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::union_cast cast
- *   (\ref group__library__conversion "Conversion" Library).
+ * \brief [C++] Definition of the stlsoft::union_cast cast
+ *   (\ref group__library__Conversion "Conversion" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_CONVERSION_HPP_UNION_CAST
@@ -53,17 +55,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_CONVERSION_HPP_UNION_CAST_MAJOR    5
 # define STLSOFT_VER_STLSOFT_CONVERSION_HPP_UNION_CAST_MINOR    0
-# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_UNION_CAST_REVISION 6
-# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_UNION_CAST_EDIT     68
+# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_UNION_CAST_REVISION 10
+# define STLSOFT_VER_STLSOFT_CONVERSION_HPP_UNION_CAST_EDIT     79
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_HPP_CONSTRAINTS
 # include <stlsoft/util/constraints.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_CONSTRAINTS */
@@ -77,22 +83,22 @@
 #endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Cast class used by the \link stlsoft::union_cast union_cast\endlink
+/** Cast class used by the \link stlsoft::union_cast union_cast\endlink
  *   cast function.
  *
- * \ingroup group__library__conversion
+ * \ingroup group__library__Conversion
  *
  * This class (union) effects conversion from one type to another, without
  * the use of casts.
@@ -120,18 +126,18 @@ union union_caster
 /// \name Member Types
 /// @{
 public:
-    /// \brief The type to cast to.
+    /// The type to cast to.
     typedef TO                                      to_type;
-    /// \brief The type to cast from.
+    /// The type to cast from.
     typedef FROM                                    from_type;
-    /// \brief The current instantiation of the type.
+    /// The current instantiation of the type.
     typedef union_caster<TO, FROM, B_CHECK_ALIGN>   class_type;
 /// @}
 
 /// \name Construction
 /// @{
 public:
-    /// \brief Conversion constructor
+    /// Conversion constructor
     ss_explicit_k union_caster(from_type const from, ss_bool_t bCheckAlign = B_CHECK_ALIGN)
         : m_from(from)
     {
@@ -254,10 +260,13 @@ private:
         typedef ss_typename_type_k base_type_traits<from_type>::base_type   from_base_type;
         typedef ss_typename_type_k base_type_traits<to_type>::base_type     to_base_type;
 
+        stlsoft_constraint_must_be_pod_or_void(from_base_type);
+        stlsoft_constraint_must_be_pod_or_void(to_base_type);
+
         STLSOFT_SUPPRESS_UNUSED(sizeof(from_base_type*));
         STLSOFT_SUPPRESS_UNUSED(sizeof(to_base_type*));
 
-        if(!should_compare_<base_type_traits<from_type>::is_pointer, base_type_traits<to_type>::is_pointer>(from))
+        if (!should_compare_<base_type_traits<from_type>::is_pointer, base_type_traits<to_type>::is_pointer>(from))
         {
             return true;
         }
@@ -296,16 +305,16 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Shims
+ * shims
  */
 
 #if !defined(STLSOFT_COMPILER_IS_WATCOM)
 
-/** \brief A powerful cast operator that limits the danger of
+/** A powerful cast operator that limits the danger of
  *   reinterpret_cast, while avoiding the spurious warnings issued by some
  *   compilers.
  *
- * \ingroup group__library__conversion
+ * \ingroup group__library__Conversion
  *
  * A union cast would be applied as follows:
  *
@@ -330,9 +339,9 @@ union_cast(
     return union_caster<TO, FROM, true>(from, bCheckAlign);
 }
 
-/** \brief [DEPRECATED] Synonym for stlsoft::union_cast().
+/** [DEPRECATED] Synonym for stlsoft::union_cast().
  *
- * \ingroup group__library__conversion
+ * \ingroup group__library__Conversion
  *
  * \deprecated This function is now deprecated in favour of the new function
  *  \link stlsoft::union_cast union_cast\endlink.
@@ -353,7 +362,7 @@ make_union_cast(
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Operators
+ * operators
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -412,20 +421,19 @@ operator <(
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/union_cast_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 } /* namespace stlsoft */
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_CONVERSION_HPP_UNION_CAST */
 

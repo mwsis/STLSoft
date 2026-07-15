@@ -4,47 +4,49 @@
  * Purpose:     bstr class.
  *
  * Created:     20th December 1996
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks:      To Gabor Fischer for requesting attach().
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1996-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file comstl/string/bstr.hpp
  *
- * \brief [C++ only; requires COM] Definition of the comstl::bstr class
- *   (\ref group__library__utility__com "COM Utility" Library).
+ * \brief [C++; requires COM] Definition of the comstl::bstr class
+ *   (\ref group__library__COM_Utility "COM Utility" Library).
  */
 
 #ifndef COMSTL_INCL_COMSTL_STRING_HPP_BSTR
@@ -53,24 +55,25 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define _COMSTL_VER_COMSTL_STRING_HPP_BSTR_MAJOR       2
 # define _COMSTL_VER_COMSTL_STRING_HPP_BSTR_MINOR       8
-# define _COMSTL_VER_COMSTL_STRING_HPP_BSTR_REVISION    5
-# define _COMSTL_VER_COMSTL_STRING_HPP_BSTR_EDIT        64
+# define _COMSTL_VER_COMSTL_STRING_HPP_BSTR_REVISION    15
+# define _COMSTL_VER_COMSTL_STRING_HPP_BSTR_EDIT        82
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef COMSTL_INCL_COMSTL_H_COMSTL
 # include <comstl/comstl.h>
 #endif /* !COMSTL_INCL_COMSTL_H_COMSTL */
-//#ifndef COMSTL_INCL_COMSTL_SHIMS_ACCESS_HPP_STRING
-//# include <comstl/shims/access/string.hpp>
-//#endif /* !COMSTL_INCL_COMSTL_SHIMS_ACCESS_HPP_STRING */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-# ifndef COMSTL_INCL_COMSTL_ERROR_HPP_EXCEPTIONS
-#  include <comstl/error/exceptions.hpp>
-# endif /* !COMSTL_INCL_COMSTL_ERROR_HPP_EXCEPTIONS */
+# ifndef COMSTL_INCL_COMSTL_EXCEPTION_HPP_COMSTL_EXCEPTION
+#  include <comstl/exception/comstl_exception.hpp>
+# endif /* !COMSTL_INCL_COMSTL_EXCEPTION_HPP_COMSTL_EXCEPTION */
 #endif /* !STLSOFT_CF_EXCEPTION_SUPPORT */
 #ifndef COMSTL_INCL_COMSTL_STRING_H_BSTR_FUNCTIONS
 # include <comstl/string/BSTR_functions.h>
@@ -91,39 +94,47 @@
 # include <stlsoft/internal/safestr.h>
 #endif /* !STLSOFT_INCL_STLSOFT_INTERNAL_H_SAFESTR */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
 # include <stdexcept>
 #endif /* !STLSOFT_CF_EXCEPTION_SUPPORT */
 
+#ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
+# include <winstl/api/external/ErrorHandling.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
+#ifndef WINSTL_INCL_WINSTL_API_external_h_UnicodeAndCharacterSet
+# include <winstl/api/external/UnicodeAndCharacterSet.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_UnicodeAndCharacterSet */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::comstl */
 namespace comstl
 {
 # else
 /* Define stlsoft::comstl_project */
-
 namespace stlsoft
 {
-
 namespace comstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Facade for the COM BSTR type
+/** Facade for the COM BSTR type
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  */
 class bstr
 {
@@ -144,7 +155,7 @@ public:
     typedef pointer                                 iterator;
     typedef const_pointer                           const_iterator;
 #if defined(STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT)
-    typedef stlsoft_ns_qual(reverse_iterator_base)<
+    typedef STLSOFT_NS_QUAL(reverse_iterator_base)<
         iterator
     ,   value_type
     ,   reference
@@ -152,7 +163,7 @@ public:
     ,   difference_type
     >                                               reverse_iterator;
 
-    typedef stlsoft_ns_qual(const_reverse_iterator_base)<
+    typedef STLSOFT_NS_QUAL(const_reverse_iterator_base)<
         const_iterator
     ,   value_type const
     ,   const_reference
@@ -171,12 +182,12 @@ public:
     ss_explicit_k bstr(cs_char_a_t const* s, ssize_type len = -1);
     ss_explicit_k bstr(cs_char_w_t const* s, ssize_type len = -1);
     bstr(size_type n, char_type ch);
-    /// \brief Copy constructor
+    /// Copy constructor
     bstr(class_type const& rhs);
     bstr(class_type const& rhs, size_type pos, size_type len);
     ~bstr() STLSOFT_NOEXCEPT;
 
-    /// \brief Copies the given instance
+    /// Copies the given instance
     class_type& operator =(class_type const& rhs);
 
     class_type& assign(cs_char_a_t const* s, ssize_type len = -1);
@@ -264,18 +275,18 @@ public:
 /// \name Comparison
 /// @{
 public:
-    /// \brief Evaluates whether the value is equivalent to the given argument
+    /// Evaluates whether the value is equivalent to the given argument
     bool_type equal(class_type const& rhs) const;
-    /// \brief Evaluates whether the value is equivalent to the given argument
+    /// Evaluates whether the value is equivalent to the given argument
     bool_type equal(BSTR const& rhs) const;
 /// @}
 
 /// \name Operations
 /// @{
 public:
-    /// \brief Swaps the contents with the given instance
+    /// Swaps the contents with the given instance
     void swap(class_type& rhs) STLSOFT_NOEXCEPT;
-    /// \brief Swaps the contents with the given BSTR
+    /// Swaps the contents with the given BSTR
     void swap(BSTR& rhs) STLSOFT_NOEXCEPT;
 /// @}
 
@@ -287,106 +298,106 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * String access shims
+ * string access shims
  */
 
-/** \brief \ref group__concept__shim__string_access__c_str_data for comstl::bstr
+/** \ref group__concept__Shim__string_access__c_str_data for comstl::bstr
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
-inline bstr::const_pointer c_str_data(comstl_ns_qual(bstr) const& b)
+inline bstr::const_pointer c_str_data(COMSTL_NS_QUAL(bstr) const& b)
 {
     return b.data();
 }
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-inline bstr::const_pointer c_str_data_w(comstl_ns_qual(bstr) const& b)
+inline bstr::const_pointer c_str_data_w(COMSTL_NS_QUAL(bstr) const& b)
 {
     return b.data();
 }
 
-inline bstr::const_pointer c_str_data_o(comstl_ns_qual(bstr) const& b)
+inline bstr::const_pointer c_str_data_o(COMSTL_NS_QUAL(bstr) const& b)
 {
     return b.data();
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_len for comstl::bstr
+/** \ref group__concept__Shim__string_access__c_str_len for comstl::bstr
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
-inline cs_size_t c_str_len(comstl_ns_qual(bstr) const& b)
+inline cs_size_t c_str_len(COMSTL_NS_QUAL(bstr) const& b)
 {
     return b.length();
 }
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-inline cs_size_t c_str_len_w(comstl_ns_qual(bstr) const& b)
+inline cs_size_t c_str_len_w(COMSTL_NS_QUAL(bstr) const& b)
 {
     return b.length();
 }
 
-inline cs_size_t c_str_len_o(comstl_ns_qual(bstr) const& b)
+inline cs_size_t c_str_len_o(COMSTL_NS_QUAL(bstr) const& b)
 {
     return b.length();
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr for comstl::bstr
+/** \ref group__concept__Shim__string_access__c_str_ptr for comstl::bstr
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
-inline bstr::const_pointer c_str_ptr(comstl_ns_qual(bstr) const& b)
+inline bstr::const_pointer c_str_ptr(COMSTL_NS_QUAL(bstr) const& b)
 {
     return b.c_str();
 }
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-inline bstr::const_pointer c_str_ptr_w(comstl_ns_qual(bstr) const& b)
+inline bstr::const_pointer c_str_ptr_w(COMSTL_NS_QUAL(bstr) const& b)
 {
     return b.c_str();
 }
 
-inline bstr::const_pointer c_str_ptr_o(comstl_ns_qual(bstr) const& b)
+inline bstr::const_pointer c_str_ptr_o(COMSTL_NS_QUAL(bstr) const& b)
 {
     return b.c_str();
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr_null for comstl::bstr
+/** \ref group__concept__Shim__string_access__c_str_ptr_null for comstl::bstr
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
-inline bstr::const_pointer c_str_ptr_null(comstl_ns_qual(bstr) const& b)
+inline bstr::const_pointer c_str_ptr_null(COMSTL_NS_QUAL(bstr) const& b)
 {
-    return stlsoft_ns_qual(c_str_ptr_null)(b.c_str());
+    return STLSOFT_NS_QUAL(c_str_ptr_null)(b.c_str());
 }
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-inline bstr::const_pointer c_str_ptr_null_w(comstl_ns_qual(bstr) const& b)
+inline bstr::const_pointer c_str_ptr_null_w(COMSTL_NS_QUAL(bstr) const& b)
 {
-    return stlsoft_ns_qual(c_str_ptr_null_w)(b.c_str());
+    return STLSOFT_NS_QUAL(c_str_ptr_null_w)(b.c_str());
 }
 
-inline bstr::const_pointer c_str_ptr_null_o(comstl_ns_qual(bstr) const& b)
+inline bstr::const_pointer c_str_ptr_null_o(COMSTL_NS_QUAL(bstr) const& b)
 {
-    return stlsoft_ns_qual(c_str_ptr_null)(b.c_str());
+    return STLSOFT_NS_QUAL(c_str_ptr_null)(b.c_str());
 }
 
-/** \brief \ref group__concept__shim__stream_insertion "stream insertion shim" for comstl::bstr
+/** \ref group__concept__Shim__stream_insertion "stream insertion shim" for comstl::bstr
  *
- * \ingroup group__concept__shim__stream_insertion
+ * \ingroup group__concept__Shim__stream_insertion
  */
 template<   ss_typename_param_k S
         >
-inline S& operator <<(S& stm, comstl_ns_qual(bstr) const& str)
+inline S& operator <<(S& stm, COMSTL_NS_QUAL(bstr) const& str)
 {
     STLSOFT_STATIC_ASSERT(sizeof(OLECHAR) == sizeof(ss_typename_type_k S::char_type));
 
@@ -398,7 +409,7 @@ inline S& operator <<(S& stm, comstl_ns_qual(bstr) const& str)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Operators
+ * operators
  */
 
 inline cs_bool_t operator ==(bstr const& lhs, bstr const& rhs)
@@ -431,15 +442,8 @@ inline cs_bool_t operator !=(BSTR const& lhs, bstr const& rhs)
     return !operator ==(lhs, rhs);
 }
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/bstr_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Implementation
+ * implementation
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -461,14 +465,14 @@ inline /* explicit */ bstr::bstr(cs_char_a_t const* s, ssize_type len /* = -1 */
     // the underlying SysAllocStringLen() to walk into invalid
     // memory while searching s.
 
-    ssize_type actualLen = static_cast<ssize_type>(stlsoft_ns_qual(c_str_len)(s));
+    ssize_type actualLen = static_cast<ssize_type>(STLSOFT_NS_QUAL(c_str_len)(s));
 
-    if( NULL != s &&
+    if (NULL != s &&
         len > actualLen)
     {
         m_bstr = bstr_create(static_cast<cs_char_w_t const*>(NULL), static_cast<cs_size_t>(len));
 
-        if(NULL != m_bstr)
+        if (NULL != m_bstr)
         {
 # ifdef _WIN64
             int buffLen = static_cast<int>(actualLen + 1);
@@ -476,12 +480,12 @@ inline /* explicit */ bstr::bstr(cs_char_a_t const* s, ssize_type len /* = -1 */
             int buffLen = actualLen + 1;
 # endif /* _WIN64 */
 
-            ::MultiByteToWideChar(0, 0, s, buffLen, m_bstr, buffLen);
+            WINSTL_API_EXTERNAL_UnicodeAndCharacterSet_MultiByteToWideChar(0, 0, s, buffLen, m_bstr, buffLen);
         }
     }
     else
     {
-        if(-1 == len)
+        if (-1 == len)
         {
             len = actualLen;
         }
@@ -490,12 +494,12 @@ inline /* explicit */ bstr::bstr(cs_char_a_t const* s, ssize_type len /* = -1 */
     }
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if( NULL == m_bstr &&
+    if (NULL == m_bstr &&
         NULL != s &&
         0 != len &&
         '\0' != 0[s])
     {
-        STLSOFT_THROW_X(com_exception("failed to allocate string", HRESULT_FROM_WIN32(::GetLastError())));
+        STLSOFT_THROW_X(comstl_exception("failed to allocate string", HRESULT_FROM_WIN32(WINSTL_API_EXTERNAL_ErrorHandling_GetLastError())));
     }
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 }
@@ -512,14 +516,14 @@ inline /* explicit */ bstr::bstr(cs_char_w_t const* s, ssize_type len /* = -1 */
     // the underlying SysAllocStringLen() to walk into invalid
     // memory while searching s.
 
-    ssize_type actualLen = static_cast<ssize_type>(stlsoft_ns_qual(c_str_len)(s));
+    ssize_type actualLen = static_cast<ssize_type>(STLSOFT_NS_QUAL(c_str_len)(s));
 
-    if( NULL != s &&
+    if (NULL != s &&
         len > actualLen)
     {
         m_bstr = bstr_create(static_cast<cs_char_w_t const*>(NULL), static_cast<cs_size_t>(len));
 
-        if(NULL != m_bstr)
+        if (NULL != m_bstr)
         {
 #ifdef STLSOFT_USING_SAFE_STR_FUNCTIONS
             ::wcscpy_s(m_bstr, static_cast<cs_size_t>(actualLen), s);
@@ -530,7 +534,7 @@ inline /* explicit */ bstr::bstr(cs_char_w_t const* s, ssize_type len /* = -1 */
     }
     else
     {
-        if(-1 == len)
+        if (-1 == len)
         {
             len = actualLen;
         }
@@ -539,12 +543,12 @@ inline /* explicit */ bstr::bstr(cs_char_w_t const* s, ssize_type len /* = -1 */
     }
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if( NULL == m_bstr &&
+    if (NULL == m_bstr &&
         NULL != s &&
         0 != len &&
         '\0' != 0[s])
     {
-        STLSOFT_THROW_X(com_exception("failed to allocate string", HRESULT_FROM_WIN32(::GetLastError())));
+        STLSOFT_THROW_X(comstl_exception("failed to allocate string", HRESULT_FROM_WIN32(WINSTL_API_EXTERNAL_ErrorHandling_GetLastError())));
     }
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 }
@@ -552,18 +556,18 @@ inline /* explicit */ bstr::bstr(cs_char_w_t const* s, ssize_type len /* = -1 */
 inline bstr::bstr(bstr::size_type n, bstr::char_type ch)
     : m_bstr(bstr_create_w(NULL, n))
 {
-    if(NULL == m_bstr)
+    if (NULL == m_bstr)
     {
-        if(0 != n)
+        if (0 != n)
         {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-            STLSOFT_THROW_X(com_exception("failed to allocate string", HRESULT_FROM_WIN32(::GetLastError())));
+            STLSOFT_THROW_X(comstl_exception("failed to allocate string", HRESULT_FROM_WIN32(WINSTL_API_EXTERNAL_ErrorHandling_GetLastError())));
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
         }
     }
     else
     {
-        { for(size_type i = 0; i < n; ++i)
+        { for (size_type i = 0; i < n; ++i)
         {
             m_bstr[i] = ch;
         }}
@@ -574,10 +578,10 @@ inline bstr::bstr(bstr::class_type const& rhs)
     : m_bstr(bstr_dup(rhs.m_bstr))
 {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if( NULL == m_bstr &&
+    if (NULL == m_bstr &&
         !rhs.empty())
     {
-        STLSOFT_THROW_X(com_exception("failed to allocate string", HRESULT_FROM_WIN32(::GetLastError())));
+        STLSOFT_THROW_X(comstl_exception("failed to allocate string", HRESULT_FROM_WIN32(WINSTL_API_EXTERNAL_ErrorHandling_GetLastError())));
     }
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 }
@@ -586,15 +590,15 @@ inline bstr::bstr(bstr::class_type const& rhs, bstr::size_type pos, bstr::size_t
     : m_bstr(NULL)
 {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if(pos > rhs.size())
+    if (pos > rhs.size())
     {
-        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("Position out of range"));
+        STLSOFT_THROW_X(STLSOFT_NS_QUAL_STD(out_of_range)("Position out of range"));
     }
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
     COMSTL_MESSAGE_ASSERT("Position out of range", pos <= rhs.size());
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 
-    if(pos + len > rhs.size())
+    if (pos + len > rhs.size())
     {
         len = rhs.size() - pos;
     }
@@ -602,10 +606,10 @@ inline bstr::bstr(bstr::class_type const& rhs, bstr::size_type pos, bstr::size_t
     m_bstr = bstr_create(rhs.data() + pos, len);
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if( NULL == m_bstr &&
+    if (NULL == m_bstr &&
         !rhs.empty())
     {
-        STLSOFT_THROW_X(com_exception("failed to allocate string", HRESULT_FROM_WIN32(::GetLastError())));
+        STLSOFT_THROW_X(comstl_exception("failed to allocate string", HRESULT_FROM_WIN32(WINSTL_API_EXTERNAL_ErrorHandling_GetLastError())));
     }
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 }
@@ -687,7 +691,7 @@ inline bstr::class_type& bstr::append(bstr::class_type const& s, ssize_type len 
 
 inline bstr::class_type& bstr::append(cs_char_w_t const* s, ssize_type len /* = -1 */)
 {
-    if(empty())
+    if (empty())
     {
         bstr    rhs(s, len);
 
@@ -695,12 +699,12 @@ inline bstr::class_type& bstr::append(cs_char_w_t const* s, ssize_type len /* = 
     }
     else
     {
-        if(len < 0)
+        if (len < 0)
         {
             len = (NULL == s) ? 0 : static_cast<ssize_type>(::wcslen(s));
         }
 
-        if(0 != len)
+        if (0 != len)
         {
             size_type   totalLen = size() + len;
             bstr        rhs(data(), static_cast<ssize_type>(totalLen));
@@ -861,32 +865,32 @@ inline void bstr::swap(BSTR& rhs) STLSOFT_NOEXCEPT
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace comstl
+} /* namespace comstl */
 # else
-} // namespace stlsoft::comstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+} /* namespace stlsoft::comstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The string access shims exist either in the stlsoft namespace, or in the
  * global namespace. This is required by the lookup rules.
  *
  */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+#ifndef COMSTL_NO_NAMESPACE
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 namespace stlsoft
 {
-# else /* ? _STLSOFT_NO_NAMESPACE */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
 
 using ::comstl::c_str_data;
 using ::comstl::c_str_data_w;
@@ -905,8 +909,10 @@ using ::comstl::c_str_ptr_null_w;
 using ::comstl::c_str_ptr_null_o;
 
 /* /////////////////////////////////////////////////////////////////////////
- * Traits
+ * traits
  */
+
+#ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 /** Specialisation for comstl::bstr
  */
@@ -952,17 +958,23 @@ struct string_traits< ::comstl::bstr>
         return (str = string_type(first, last - first), str);
     }
 };
+#endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace stlsoft
-# else /* ? _STLSOFT_NO_NAMESPACE */
+} /* namespace stlsoft */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !COMSTL_INCL_COMSTL_STRING_HPP_BSTR */
 

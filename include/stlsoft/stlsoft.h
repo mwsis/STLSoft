@@ -6,11 +6,11 @@
  *              types.
  *
  * Created:     15th January 2002
- * Updated:     15th December 2023
+ * Updated:     28th October 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -23,9 +23,10 @@
  * - Redistributions in binary form must reproduce the above copyright
  *   notice, this list of conditions and the following disclaimer in the
  *   documentation and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the
- *   names of any contributors may be used to endorse or promote products
- *   derived from this software without specific prior written permission.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
  * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
@@ -44,7 +45,7 @@
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 #define STLSOFT_INCL_STLSOFT_H_STLSOFT
-#define STLSOFT_INCL_H_STLSOFT  /*!< \brief Definition of previous include-guard symbol for stlsoft/stlsoft.h, for backwards compatibility. */
+#define STLSOFT_INCL_H_STLSOFT  /*!< Definition of previous include-guard symbol for stlsoft/stlsoft.h, for backwards compatibility. */
 
 #if defined(__STLSOFT_DOCUMENTATION_SKIP_SECTION) && \
     !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
@@ -54,9 +55,9 @@
 /* File version */
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_H_STLSOFT_MAJOR    3
-# define STLSOFT_VER_STLSOFT_H_STLSOFT_MINOR    42
+# define STLSOFT_VER_STLSOFT_H_STLSOFT_MINOR    52
 # define STLSOFT_VER_STLSOFT_H_STLSOFT_REVISION 3
-# define STLSOFT_VER_STLSOFT_H_STLSOFT_EDIT     475
+# define STLSOFT_VER_STLSOFT_H_STLSOFT_EDIT     547
 #else /* ? STLSOFT_DOCUMENTATION_SKIP_SECTION */
 /* # include "./internal/doxygen_defs.h" */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
@@ -67,6 +68,11 @@
  *   \ref group__project__stlsoft "STLSoft" project, and for all other
  *    \ref group__projects "projects".
  */
+
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * STLSoft version
@@ -83,7 +89,7 @@
  */
 
 /** \def _STLSOFT_VER_MAJOR
- * \brief The major version number of STLSoft
+ * The major version number of STLSoft
  *
  * A change to the major version component implies that a dramatic change
  * has occurred in the libraries, such that considerable changes to source
@@ -91,7 +97,7 @@
  */
 
 /** \def _STLSOFT_VER_MINOR
- * \brief The minor version number of STLSoft
+ * The minor version number of STLSoft
  *
  * A change to the minor version component imply that a significant change
  * has occurred to the libraries, either in the addition of new functionality
@@ -100,7 +106,7 @@
  */
 
 /** \def _STLSOFT_VER_REVISION
- * \brief The revision version number of STLSoft
+ * The revision version number of STLSoft
  *
  * A change to the revision version component imply that a bug has been
  * fixed. Dependent code should be recompiled in order to pick up the
@@ -108,7 +114,7 @@
  */
 
 /** \def _STLSOFT_VER
- * \brief The current composite version number of STLSoft
+ * The current composite version number of STLSoft
  *
  * In addition to the individual version symbols - _STLSOFT_VER_MAJOR,
  * _STLSOFT_VER_MINOR and _STLSOFT_VER_REVISION - a composite symbol
@@ -120,195 +126,238 @@
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define _STLSOFT_VER_1_0_1     0x00010001  /*!< Version 1.0.1 */
-# define _STLSOFT_VER_1_0_2     0x00010002  /*!< Version 1.0.2 */
-# define _STLSOFT_VER_1_1_1     0x00010101  /*!< Version 1.1.1 */
-# define _STLSOFT_VER_1_1_2     0x00010102  /*!< Version 1.1.2 */
-# define _STLSOFT_VER_1_1_3     0x00010103  /*!< Version 1.1.3 */
-# define _STLSOFT_VER_1_2_1     0x00010201  /*!< Version 1.2.1 */
-# define _STLSOFT_VER_1_3_1     0x00010301  /*!< Version 1.3.1 */
-# define _STLSOFT_VER_1_3_2     0x00010302  /*!< Version 1.3.2 */
-# define _STLSOFT_VER_1_4_1     0x00010401  /*!< Version 1.4.1 */
-# define _STLSOFT_VER_1_4_2     0x00010402  /*!< Version 1.4.2 */
-# define _STLSOFT_VER_1_4_3     0x00010403  /*!< Version 1.4.3 */
-# define _STLSOFT_VER_1_4_4     0x00010404  /*!< Version 1.4.4 */
-# define _STLSOFT_VER_1_4_5     0x00010405  /*!< Version 1.4.5 */
-# define _STLSOFT_VER_1_4_6     0x00010406  /*!< Version 1.4.6 */
-# define _STLSOFT_VER_1_5_1     0x00010501  /*!< Version 1.5.1 */
-# define _STLSOFT_VER_1_5_2     0x00010502  /*!< Version 1.5.2 */
-# define _STLSOFT_VER_1_6_1     0x00010601  /*!< Version 1.6.1 */
-# define _STLSOFT_VER_1_6_2     0x00010602  /*!< Version 1.6.2 */
-# define _STLSOFT_VER_1_6_3     0x00010603  /*!< Version 1.6.3 */
-# define _STLSOFT_VER_1_6_4     0x00010604  /*!< Version 1.6.4 */
-# define _STLSOFT_VER_1_6_5     0x00010605  /*!< Version 1.6.5 */
-# define _STLSOFT_VER_1_6_6     0x00010606  /*!< Version 1.6.6 */
-# define _STLSOFT_VER_1_7_1     0x00010701  /*!< Version 1.7.1 */
-# define _STLSOFT_VER_1_7_2     0x00010702  /*!< Version 1.7.2 */
-# define _STLSOFT_VER_1_8_1     0x00010801  /*!< Version 1.8.1 */
-# define _STLSOFT_VER_1_8_2     0x00010802  /*!< Version 1.8.2 */
-# define _STLSOFT_VER_1_8_3     0x00010803  /*!< Version 1.8.3 */
-# define _STLSOFT_VER_1_8_4     0x00010804  /*!< Version 1.8.4 */
-# define _STLSOFT_VER_1_8_5     0x00010805  /*!< Version 1.8.5 */
-# define _STLSOFT_VER_1_8_6     0x00010806  /*!< Version 1.8.6 */
-# define _STLSOFT_VER_1_8_7     0x00010807  /*!< Version 1.8.7 */
-# define _STLSOFT_VER_1_8_8     0x00010808  /*!< Version 1.8.8 */
-# define _STLSOFT_VER_1_8_9     0x00010809  /*!< Version 1.8.9 */
-# define _STLSOFT_VER_1_9_1_B13 0x0109010d  /*!< Version 1.9.1 beta 13 (10th Jul 2006) */
-# define _STLSOFT_VER_1_9_1_B20 0x01090114  /*!< Version 1.9.1 beta 20 (28th Aug 2006) */
-# define _STLSOFT_VER_1_9_1_B22 0x01090116  /*!< Version 1.9.1 beta 22 (13th Sep 2006) */
-# define _STLSOFT_VER_1_9_1_B28 0x0109011c  /*!< Version 1.9.1 beta 28 (29th Oct 2006) */
-# define _STLSOFT_VER_1_9_1_B29 0x0109011d  /*!< Version 1.9.1 beta 29 (27th Nov 2006) */
-# define _STLSOFT_VER_1_9_1_B33 0x01090121  /*!< Version 1.9.1 beta 33 (13th Dec 2006) */
-# define _STLSOFT_VER_1_9_1_B34 0x01090122  /*!< Version 1.9.1 beta 34 (24th Dec 2006) */
-# define _STLSOFT_VER_1_9_1_B37 0x01090125  /*!< Version 1.9.1 beta 37 (30th Dec 2006) */
-# define _STLSOFT_VER_1_9_1_B40 0x01090128  /*!< Version 1.9.1 beta 40 (6th Jan 2007) */
-# define _STLSOFT_VER_1_9_1_B41 0x01090129  /*!< Version 1.9.1 beta 41 (14th Jan 2007) */
-# define _STLSOFT_VER_1_9_1_B42 0x0109012a  /*!< Version 1.9.1 beta 42 (15th Jan 2007) */
-# define _STLSOFT_VER_1_9_1_B45 0x0109012d  /*!< Version 1.9.1 beta 45 (1st Mar 2007) */
-# define _STLSOFT_VER_1_9_1_B47 0x0109012f  /*!< Version 1.9.1 beta 47 (6th Apr 2007) */
-# define _STLSOFT_VER_1_9_1_B48 0x01090130  /*!< Version 1.9.1 beta 48 (12th Apr 2007) */
-# define _STLSOFT_VER_1_9_1     0x010901ff  /*!< Version 1.9.1 (30th Apr 2007) */
-# define _STLSOFT_VER_1_9_2     0x010902ff  /*!< Version 1.9.2 (2nd Jun 2007) */
-# define _STLSOFT_VER_1_9_3     0x010903ff  /*!< Version 1.9.3 (29th Jul 2007) */
-# define _STLSOFT_VER_1_9_4     0x010904ff  /*!< Version 1.9.4 (2nd Aug 2007) */
-# define _STLSOFT_VER_1_9_5     0x010905ff  /*!< Version 1.9.5 (4th Aug 2007) */
-# define _STLSOFT_VER_1_9_6     0x010906ff  /*!< Version 1.9.6 (6th Aug 2007) */
-# define _STLSOFT_VER_1_9_7     0x010907ff  /*!< Version 1.9.7 (16th Nov 2007) */
-# define _STLSOFT_VER_1_9_8     0x010908ff  /*!< Version 1.9.8 (18th Nov 2007) */
-# define _STLSOFT_VER_1_9_9     0x010909ff  /*!< Version 1.9.9 (19th Nov 2007) */
-# define _STLSOFT_VER_1_9_10    0x01090aff  /*!< Version 1.9.10 (10th Dec 2007) */
-# define _STLSOFT_VER_1_9_11    0x01090bff  /*!< Version 1.9.11 (17th Dec 2007) */
-# define _STLSOFT_VER_1_9_12    0x01090cff  /*!< Version 1.9.12 (19th Dec 2007) */
-# define _STLSOFT_VER_1_9_13    0x01090dff  /*!< Version 1.9.13 (20th Dec 2007) */
-# define _STLSOFT_VER_1_9_14    0x01090eff  /*!< Version 1.9.14 (23rd Dec 2007) */
-# define _STLSOFT_VER_1_9_15    0x01090fff  /*!< Version 1.9.15 (24th Dec 2007) */
-# define _STLSOFT_VER_1_9_16    0x010910ff  /*!< Version 1.9.16 (29th Dec 2007) */
-# define _STLSOFT_VER_1_9_17    0x010911ff  /*!< Version 1.9.17 (5th Jan 2008) */
-# define _STLSOFT_VER_1_9_18    0x010912ff  /*!< Version 1.9.18 (27th Jan 2008) */
-# define _STLSOFT_VER_1_9_19    0x010913ff  /*!< Version 1.9.19 (2nd Feb 2008) */
-# define _STLSOFT_VER_1_9_20    0x010914ff  /*!< Version 1.9.20 (3rd Feb 2008) */
-# define _STLSOFT_VER_1_9_21    0x010915ff  /*!< Version 1.9.21 (5th Feb 2008) */
-# define _STLSOFT_VER_1_9_22    0x010916ff  /*!< Version 1.9.22 (8th Feb 2008) */
-# define _STLSOFT_VER_1_9_23    0x010917ff  /*!< Version 1.9.23 (21st Feb 2008) */
-# define _STLSOFT_VER_1_9_24    0x010918ff  /*!< Version 1.9.24 (8th Mar 2008) */
-# define _STLSOFT_VER_1_9_25    0x010919ff  /*!< Version 1.9.25 (9th Mar 2008) */
-# define _STLSOFT_VER_1_9_26    0x01091aff  /*!< Version 1.9.26 (15th Mar 2008) */
-# define _STLSOFT_VER_1_9_27    0x01091bff  /*!< Version 1.9.27 (17th Mar 2008) */
-# define _STLSOFT_VER_1_9_28    0x01091cff  /*!< Version 1.9.28 (24th Mar 2008) */
-# define _STLSOFT_VER_1_9_29    0x01091dff  /*!< Version 1.9.29 (3rd Apr 2008) */
-# define _STLSOFT_VER_1_9_30    0x01091eff  /*!< Version 1.9.30 (3rd Apr 2008) */
-# define _STLSOFT_VER_1_9_31    0x01091fff  /*!< Version 1.9.31 (13th Apr 2008) */
-# define _STLSOFT_VER_1_9_32    0x010920ff  /*!< Version 1.9.32 (22nd Apr 2008) */
-# define _STLSOFT_VER_1_9_33    0x010921ff  /*!< Version 1.9.33 (24th Apr 2008) */
-# define _STLSOFT_VER_1_9_34    0x010922ff  /*!< Version 1.9.34 (25th Apr 2008) */
-# define _STLSOFT_VER_1_9_35    0x010923ff  /*!< Version 1.9.35 (29th Apr 2008) */
-# define _STLSOFT_VER_1_9_36    0x010924ff  /*!< Version 1.9.36 (30th Apr 2008) */
-# define _STLSOFT_VER_1_9_37    0x010925ff  /*!< Version 1.9.37 (3rd May 2008) */
-# define _STLSOFT_VER_1_9_38    0x010926ff  /*!< Version 1.9.38 (4th May 2008) */
-# define _STLSOFT_VER_1_9_39    0x010927ff  /*!< Version 1.9.39 (10th May 2008) */
-# define _STLSOFT_VER_1_9_40    0x010928ff  /*!< Version 1.9.40 (13th May 2008) */
-# define _STLSOFT_VER_1_9_41    0x010929ff  /*!< Version 1.9.41 (14th May 2008) */
-# define _STLSOFT_VER_1_9_42    0x01092aff  /*!< Version 1.9.42 (17th May 2008) */
-# define _STLSOFT_VER_1_9_43    0x01092bff  /*!< Version 1.9.43 (31st May 2008) */
-# define _STLSOFT_VER_1_9_44    0x01092cff  /*!< Version 1.9.44 (1st Jun 2008) */
-# define _STLSOFT_VER_1_9_45    0x01092dff  /*!< Version 1.9.45 (8th Jun 2008) */
-# define _STLSOFT_VER_1_9_46    0x01092eff  /*!< Version 1.9.46 (11th Aug 2008) */
-# define _STLSOFT_VER_1_9_48    0x010930ff  /*!< Version 1.9.48 (23rd Aug 2008) */
-# define _STLSOFT_VER_1_9_49    0x010931ff  /*!< Version 1.9.49 (2nd Sep 2008) */
-# define _STLSOFT_VER_1_9_50    0x010932ff  /*!< Version 1.9.50 (3rd Sep 2008) */
-# define _STLSOFT_VER_1_9_51    0x010933ff  /*!< Version 1.9.51 (6th Sep 2008) */
-# define _STLSOFT_VER_1_9_52    0x010934ff  /*!< Version 1.9.52 (11th Sep 2008) */
-# define _STLSOFT_VER_1_9_53    0x010935ff  /*!< Version 1.9.53 (15th Sep 2008) */
-# define _STLSOFT_VER_1_9_54    0x010936ff  /*!< Version 1.9.54 (15th Sep 2008) */
-# define _STLSOFT_VER_1_9_55    0x010937ff  /*!< Version 1.9.55 (23rd Sep 2008) */
-# define _STLSOFT_VER_1_9_56    0x010938ff  /*!< Version 1.9.56 (1st Oct 2008) */
-# define _STLSOFT_VER_1_9_57    0x010939ff  /*!< Version 1.9.57 (10th Oct 2008) */
-# define _STLSOFT_VER_1_9_58    0x01093aff  /*!< Version 1.9.58 (15th Oct 2008) */
-# define _STLSOFT_VER_1_9_59    0x01093bff  /*!< Version 1.9.59 (24th Oct 2008) */
-# define _STLSOFT_VER_1_9_60    0x01093cff  /*!< Version 1.9.60 (27th Oct 2008) */
-# define _STLSOFT_VER_1_9_62    0x01093eff  /*!< Version 1.9.62 (1st Dec 2008) */
-# define _STLSOFT_VER_1_9_63    0x01093fff  /*!< Version 1.9.63 (9th Dec 2008) */
-# define _STLSOFT_VER_1_9_64    0x010940ff  /*!< Version 1.9.64 (28th Dec 2008) */
-# define _STLSOFT_VER_1_9_65    0x010941ff  /*!< Version 1.9.65 (1st Jan 2009) */
-# define _STLSOFT_VER_1_9_66    0x010942ff  /*!< Version 1.9.66 (4th Jan 2009) */
-# define _STLSOFT_VER_1_9_67    0x010943ff  /*!< Version 1.9.67 (17th Jan 2009) */
-# define _STLSOFT_VER_1_9_68    0x010944ff  /*!< Version 1.9.68 (18th Jan 2009) */
-# define _STLSOFT_VER_1_9_69    0x010945ff  /*!< Version 1.9.69 (23rd Jan 2009) */
-# define _STLSOFT_VER_1_9_70    0x010946ff  /*!< Version 1.9.70 (24th Jan 2009) */
-# define _STLSOFT_VER_1_9_71    0x010947ff  /*!< Version 1.9.71 (28th Jan 2009) */
-# define _STLSOFT_VER_1_9_72    0x010948ff  /*!< Version 1.9.72 (1st Feb 2009) */
-# define _STLSOFT_VER_1_9_73    0x010949ff  /*!< Version 1.9.73 (5th Feb 2009) */
-# define _STLSOFT_VER_1_9_74    0x01094aff  /*!< Version 1.9.74 (6th Feb 2009) */
-# define _STLSOFT_VER_1_9_75    0x01094bff  /*!< Version 1.9.75 (24th Feb 2009) */
-# define _STLSOFT_VER_1_9_76    0x01094cff  /*!< Version 1.9.76 (6th Mar 2009) */
-# define _STLSOFT_VER_1_9_77    0x01094dff  /*!< Version 1.9.77 (9th Mar 2009) */
-# define _STLSOFT_VER_1_9_78    0x01094eff  /*!< Version 1.9.78 (27th Apr 2009) */
-# define _STLSOFT_VER_1_9_79    0x01094fff  /*!< Version 1.9.79 (2nd May 2009) */
-# define _STLSOFT_VER_1_9_80    0x010950ff  /*!< Version 1.9.80 (5th May 2009) */
-# define _STLSOFT_VER_1_9_81    0x010951ff  /*!< Version 1.9.81 (??? May 2009) */
-# define _STLSOFT_VER_1_9_82    0x010952ff  /*!< Version 1.9.82 (14th May 2009) */
-# define _STLSOFT_VER_1_9_83    0x010953ff  /*!< Version 1.9.83 (19th May 2009) */
-# define _STLSOFT_VER_1_9_84    0x010954ff  /*!< Version 1.9.84 (22nd May 2009) */
-# define _STLSOFT_VER_1_9_85    0x010955ff  /*!< Version 1.9.85 (16th June 2009) */
-# define _STLSOFT_VER_1_9_86    0x010956ff  /*!< Version 1.9.86 (21st July 2009) */
-# define _STLSOFT_VER_1_9_87    0x010957ff  /*!< Version 1.9.87 (10th August 2009) */
-# define _STLSOFT_VER_1_9_88    0x010958ff  /*!< Version 1.9.88 (12th January 2010) */
-# define _STLSOFT_VER_1_9_89    0x010959ff  /*!< Version 1.9.89 (19th January 2010) */
-# define _STLSOFT_VER_1_9_90    0x01095aff  /*!< Version 1.9.90 (21st January 2010) */
-# define _STLSOFT_VER_1_9_91    0x01095bff  /*!< Version 1.9.91 (30th January 2010) */
-# define _STLSOFT_VER_1_9_92    0x01095cff  /*!< Version 1.9.92 (11th February 2010) */
-# define _STLSOFT_VER_1_9_93    0x01095dff  /*!< Version 1.9.93 (14th February 2010) */
-# define _STLSOFT_VER_1_9_95    0x01095fff  /*!< Version 1.9.95 (7th March 2010) */
-# define _STLSOFT_VER_1_9_96    0x010960ff  /*!< Version 1.9.96 (10th March 2010) */
-# define _STLSOFT_VER_1_9_97    0x010961ff  /*!< Version 1.9.97 (3rd April 2010) */
-# define _STLSOFT_VER_1_9_98    0x010962ff  /*!< Version 1.9.98 (7th June 2010) */
-# define _STLSOFT_VER_1_9_99    0x010963ff  /*!< Version 1.9.99 (21st June 2010) */
-# define _STLSOFT_VER_1_9_100   0x010964ff  /*!< Version 1.9.100 (29th July 2010) */
-# define _STLSOFT_VER_1_9_101   0x010965ff  /*!< Version 1.9.101 (30th September 2010) */
-# define _STLSOFT_VER_1_9_102   0x010966ff  /*!< Version 1.9.102 (8th November 2010) */
-# define _STLSOFT_VER_1_9_103   0x010967ff  /*!< Version 1.9.103 (20th November 2010) */
-# define _STLSOFT_VER_1_9_104   0x010968ff  /*!< Version 1.9.104 (22nd November 2010) */
-# define _STLSOFT_VER_1_9_105   0x010969ff  /*!< Version 1.9.105 (22nd December 2010) */
-# define _STLSOFT_VER_1_9_106   0x01096aff  /*!< Version 1.9.106 (28th December 2010) */
-# define _STLSOFT_VER_1_9_107   0x01096bff  /*!< Version 1.9.107 (30th January 2011) */
-# define _STLSOFT_VER_1_9_108   0x01096cff  /*!< Version 1.9.108 (31st January 2011) */
-# define _STLSOFT_VER_1_9_109   0x01096dff  /*!< Version 1.9.109 (17th February 2011) */
-# define _STLSOFT_VER_1_9_110   0x01096eff  /*!< Version 1.9.110 (25th November 2011) */
-# define _STLSOFT_VER_1_9_111   0x01096fff  /*!< Version 1.9.111 (30th November 2011) */
-# define _STLSOFT_VER_1_9_112   0x010970ff  /*!< Version 1.9.112 (7th February 2012) */
-# define _STLSOFT_VER_1_9_113   0x010971ff  /*!< Version 1.9.113 (4th June 2012) */
-# define _STLSOFT_VER_1_9_114   0x010972ff  /*!< Version 1.9.114 (4th June 2012) */
-# define _STLSOFT_VER_1_9_115   0x010973ff  /*!< Version 1.9.115 (30th July 2012) */
-# define _STLSOFT_VER_1_9_116   0x010974ff  /*!< Version 1.9.116 (18th August 2012) */
-# define _STLSOFT_VER_1_9_117   0x010975ff  /*!< Version 1.9.117 (16th February 2013) */
-# define _STLSOFT_VER_1_9_118   0x010976ff  /*!< Version 1.9.118 (31st May 2014) */
-# define _STLSOFT_VER_1_9_119   0x010977ff  /*!< Version 1.9.119 (26th August 2015) */
-# define _STLSOFT_VER_1_9_120   0x010978ff  /*!< Version 1.9.120 (9th September 2015) */
-# define _STLSOFT_VER_1_9_121   0x010979ff  /*!< Version 1.9.121 (25th September 2015) */
-# define _STLSOFT_VER_1_9_122   0x01097aff  /*!< Version 1.9.122 (1st November 2015) */
-# define _STLSOFT_VER_1_9_123   0x01097bff  /*!< Version 1.9.123 (15th November 2015) */
-# define _STLSOFT_VER_1_9_124   0x01097cff  /*!< Version 1.9.124 (15th November 2015) */
-# define _STLSOFT_VER_1_9_125   0x01097dff  /*!< Version 1.9.125 (14th February 2016) */
-# define _STLSOFT_VER_1_9_126   0x01097eff  /*!< Version 1.9.126 (30th April 2016) */
-# define _STLSOFT_VER_1_9_127   0x01097fff  /*!< Version 1.9.127 (6th May 2016) */
-# define _STLSOFT_VER_1_9_128   0x010980ff  /*!< Version 1.9.128 (13th July 2016) */
-# define _STLSOFT_VER_1_9_129   0x010981ff  /*!< Version 1.9.129 (17th July 2016) */
-# define _STLSOFT_VER_1_9_130   0x010982ff  /*!< Version 1.9.130 (1st October 2016) */
-# define _STLSOFT_VER_1_9_131   0x010983ff  /*!< Version 1.9.131 (1st October 2016) */
-# define _STLSOFT_VER_1_9_132   0x010984ff  /*!< Version 1.9.132 (11th October 2019) */
-# define _STLSOFT_VER_1_9_133   0x010985ff  /*!< Version 1.9.133 (13th June 2020) */
-# define _STLSOFT_VER_1_9_134   0x010986ff  /*!< Version 1.9.134 (4th July 2020) */
-# define _STLSOFT_VER_1_9_135   0x010987ff  /*!< Version 1.9.135 (27th July 2020) */
-# define _STLSOFT_VER_1_9_136   0x010988ff  /*!< Version 1.9.136 (15th December 2023) */
+# define _STLSOFT_VER_1_0_1         0x00010001  /*!< Version 1.0.1 */
+# define _STLSOFT_VER_1_0_2         0x00010002  /*!< Version 1.0.2 */
+# define _STLSOFT_VER_1_1_1         0x00010101  /*!< Version 1.1.1 */
+# define _STLSOFT_VER_1_1_2         0x00010102  /*!< Version 1.1.2 */
+# define _STLSOFT_VER_1_1_3         0x00010103  /*!< Version 1.1.3 */
+# define _STLSOFT_VER_1_2_1         0x00010201  /*!< Version 1.2.1 */
+# define _STLSOFT_VER_1_3_1         0x00010301  /*!< Version 1.3.1 */
+# define _STLSOFT_VER_1_3_2         0x00010302  /*!< Version 1.3.2 */
+# define _STLSOFT_VER_1_4_1         0x00010401  /*!< Version 1.4.1 */
+# define _STLSOFT_VER_1_4_2         0x00010402  /*!< Version 1.4.2 */
+# define _STLSOFT_VER_1_4_3         0x00010403  /*!< Version 1.4.3 */
+# define _STLSOFT_VER_1_4_4         0x00010404  /*!< Version 1.4.4 */
+# define _STLSOFT_VER_1_4_5         0x00010405  /*!< Version 1.4.5 */
+# define _STLSOFT_VER_1_4_6         0x00010406  /*!< Version 1.4.6 */
+# define _STLSOFT_VER_1_5_1         0x00010501  /*!< Version 1.5.1 */
+# define _STLSOFT_VER_1_5_2         0x00010502  /*!< Version 1.5.2 */
+# define _STLSOFT_VER_1_6_1         0x00010601  /*!< Version 1.6.1 */
+# define _STLSOFT_VER_1_6_2         0x00010602  /*!< Version 1.6.2 */
+# define _STLSOFT_VER_1_6_3         0x00010603  /*!< Version 1.6.3 */
+# define _STLSOFT_VER_1_6_4         0x00010604  /*!< Version 1.6.4 */
+# define _STLSOFT_VER_1_6_5         0x00010605  /*!< Version 1.6.5 */
+# define _STLSOFT_VER_1_6_6         0x00010606  /*!< Version 1.6.6 */
+# define _STLSOFT_VER_1_7_1         0x00010701  /*!< Version 1.7.1 */
+# define _STLSOFT_VER_1_7_2         0x00010702  /*!< Version 1.7.2 */
+# define _STLSOFT_VER_1_8_1         0x00010801  /*!< Version 1.8.1 */
+# define _STLSOFT_VER_1_8_2         0x00010802  /*!< Version 1.8.2 */
+# define _STLSOFT_VER_1_8_3         0x00010803  /*!< Version 1.8.3 */
+# define _STLSOFT_VER_1_8_4         0x00010804  /*!< Version 1.8.4 */
+# define _STLSOFT_VER_1_8_5         0x00010805  /*!< Version 1.8.5 */
+# define _STLSOFT_VER_1_8_6         0x00010806  /*!< Version 1.8.6 */
+# define _STLSOFT_VER_1_8_7         0x00010807  /*!< Version 1.8.7 */
+# define _STLSOFT_VER_1_8_8         0x00010808  /*!< Version 1.8.8 */
+# define _STLSOFT_VER_1_8_9         0x00010809  /*!< Version 1.8.9 */
+# define _STLSOFT_VER_1_9_1_B13     0x0109010d  /*!< Version 1.9.1 beta 13 (10th Jul 2006) */
+# define _STLSOFT_VER_1_9_1_B20     0x01090114  /*!< Version 1.9.1 beta 20 (28th Aug 2006) */
+# define _STLSOFT_VER_1_9_1_B22     0x01090116  /*!< Version 1.9.1 beta 22 (13th Sep 2006) */
+# define _STLSOFT_VER_1_9_1_B28     0x0109011c  /*!< Version 1.9.1 beta 28 (29th Oct 2006) */
+# define _STLSOFT_VER_1_9_1_B29     0x0109011d  /*!< Version 1.9.1 beta 29 (27th Nov 2006) */
+# define _STLSOFT_VER_1_9_1_B33     0x01090121  /*!< Version 1.9.1 beta 33 (13th Dec 2006) */
+# define _STLSOFT_VER_1_9_1_B34     0x01090122  /*!< Version 1.9.1 beta 34 (24th Dec 2006) */
+# define _STLSOFT_VER_1_9_1_B37     0x01090125  /*!< Version 1.9.1 beta 37 (30th Dec 2006) */
+# define _STLSOFT_VER_1_9_1_B40     0x01090128  /*!< Version 1.9.1 beta 40 (6th Jan 2007) */
+# define _STLSOFT_VER_1_9_1_B41     0x01090129  /*!< Version 1.9.1 beta 41 (14th Jan 2007) */
+# define _STLSOFT_VER_1_9_1_B42     0x0109012a  /*!< Version 1.9.1 beta 42 (15th Jan 2007) */
+# define _STLSOFT_VER_1_9_1_B45     0x0109012d  /*!< Version 1.9.1 beta 45 (1st Mar 2007) */
+# define _STLSOFT_VER_1_9_1_B47     0x0109012f  /*!< Version 1.9.1 beta 47 (6th Apr 2007) */
+# define _STLSOFT_VER_1_9_1_B48     0x01090130  /*!< Version 1.9.1 beta 48 (12th Apr 2007) */
+# define _STLSOFT_VER_1_9_1         0x010901ff  /*!< Version 1.9.1 (30th Apr 2007) */
+# define _STLSOFT_VER_1_9_2         0x010902ff  /*!< Version 1.9.2 (2nd Jun 2007) */
+# define _STLSOFT_VER_1_9_3         0x010903ff  /*!< Version 1.9.3 (29th Jul 2007) */
+# define _STLSOFT_VER_1_9_4         0x010904ff  /*!< Version 1.9.4 (2nd Aug 2007) */
+# define _STLSOFT_VER_1_9_5         0x010905ff  /*!< Version 1.9.5 (4th Aug 2007) */
+# define _STLSOFT_VER_1_9_6         0x010906ff  /*!< Version 1.9.6 (6th Aug 2007) */
+# define _STLSOFT_VER_1_9_7         0x010907ff  /*!< Version 1.9.7 (16th Nov 2007) */
+# define _STLSOFT_VER_1_9_8         0x010908ff  /*!< Version 1.9.8 (18th Nov 2007) */
+# define _STLSOFT_VER_1_9_9         0x010909ff  /*!< Version 1.9.9 (19th Nov 2007) */
+# define _STLSOFT_VER_1_9_10        0x01090aff  /*!< Version 1.9.10 (10th Dec 2007) */
+# define _STLSOFT_VER_1_9_11        0x01090bff  /*!< Version 1.9.11 (17th Dec 2007) */
+# define _STLSOFT_VER_1_9_12        0x01090cff  /*!< Version 1.9.12 (19th Dec 2007) */
+# define _STLSOFT_VER_1_9_13        0x01090dff  /*!< Version 1.9.13 (20th Dec 2007) */
+# define _STLSOFT_VER_1_9_14        0x01090eff  /*!< Version 1.9.14 (23rd Dec 2007) */
+# define _STLSOFT_VER_1_9_15        0x01090fff  /*!< Version 1.9.15 (24th Dec 2007) */
+# define _STLSOFT_VER_1_9_16        0x010910ff  /*!< Version 1.9.16 (29th Dec 2007) */
+# define _STLSOFT_VER_1_9_17        0x010911ff  /*!< Version 1.9.17 (5th Jan 2008) */
+# define _STLSOFT_VER_1_9_18        0x010912ff  /*!< Version 1.9.18 (27th Jan 2008) */
+# define _STLSOFT_VER_1_9_19        0x010913ff  /*!< Version 1.9.19 (2nd Feb 2008) */
+# define _STLSOFT_VER_1_9_20        0x010914ff  /*!< Version 1.9.20 (3rd Feb 2008) */
+# define _STLSOFT_VER_1_9_21        0x010915ff  /*!< Version 1.9.21 (5th Feb 2008) */
+# define _STLSOFT_VER_1_9_22        0x010916ff  /*!< Version 1.9.22 (8th Feb 2008) */
+# define _STLSOFT_VER_1_9_23        0x010917ff  /*!< Version 1.9.23 (21st Feb 2008) */
+# define _STLSOFT_VER_1_9_24        0x010918ff  /*!< Version 1.9.24 (8th Mar 2008) */
+# define _STLSOFT_VER_1_9_25        0x010919ff  /*!< Version 1.9.25 (9th Mar 2008) */
+# define _STLSOFT_VER_1_9_26        0x01091aff  /*!< Version 1.9.26 (15th Mar 2008) */
+# define _STLSOFT_VER_1_9_27        0x01091bff  /*!< Version 1.9.27 (17th Mar 2008) */
+# define _STLSOFT_VER_1_9_28        0x01091cff  /*!< Version 1.9.28 (24th Mar 2008) */
+# define _STLSOFT_VER_1_9_29        0x01091dff  /*!< Version 1.9.29 (3rd Apr 2008) */
+# define _STLSOFT_VER_1_9_30        0x01091eff  /*!< Version 1.9.30 (3rd Apr 2008) */
+# define _STLSOFT_VER_1_9_31        0x01091fff  /*!< Version 1.9.31 (13th Apr 2008) */
+# define _STLSOFT_VER_1_9_32        0x010920ff  /*!< Version 1.9.32 (22nd Apr 2008) */
+# define _STLSOFT_VER_1_9_33        0x010921ff  /*!< Version 1.9.33 (24th Apr 2008) */
+# define _STLSOFT_VER_1_9_34        0x010922ff  /*!< Version 1.9.34 (25th Apr 2008) */
+# define _STLSOFT_VER_1_9_35        0x010923ff  /*!< Version 1.9.35 (29th Apr 2008) */
+# define _STLSOFT_VER_1_9_36        0x010924ff  /*!< Version 1.9.36 (30th Apr 2008) */
+# define _STLSOFT_VER_1_9_37        0x010925ff  /*!< Version 1.9.37 (3rd May 2008) */
+# define _STLSOFT_VER_1_9_38        0x010926ff  /*!< Version 1.9.38 (4th May 2008) */
+# define _STLSOFT_VER_1_9_39        0x010927ff  /*!< Version 1.9.39 (10th May 2008) */
+# define _STLSOFT_VER_1_9_40        0x010928ff  /*!< Version 1.9.40 (13th May 2008) */
+# define _STLSOFT_VER_1_9_41        0x010929ff  /*!< Version 1.9.41 (14th May 2008) */
+# define _STLSOFT_VER_1_9_42        0x01092aff  /*!< Version 1.9.42 (17th May 2008) */
+# define _STLSOFT_VER_1_9_43        0x01092bff  /*!< Version 1.9.43 (31st May 2008) */
+# define _STLSOFT_VER_1_9_44        0x01092cff  /*!< Version 1.9.44 (1st Jun 2008) */
+# define _STLSOFT_VER_1_9_45        0x01092dff  /*!< Version 1.9.45 (8th Jun 2008) */
+# define _STLSOFT_VER_1_9_46        0x01092eff  /*!< Version 1.9.46 (11th Aug 2008) */
+# define _STLSOFT_VER_1_9_48        0x010930ff  /*!< Version 1.9.48 (23rd Aug 2008) */
+# define _STLSOFT_VER_1_9_49        0x010931ff  /*!< Version 1.9.49 (2nd Sep 2008) */
+# define _STLSOFT_VER_1_9_50        0x010932ff  /*!< Version 1.9.50 (3rd Sep 2008) */
+# define _STLSOFT_VER_1_9_51        0x010933ff  /*!< Version 1.9.51 (6th Sep 2008) */
+# define _STLSOFT_VER_1_9_52        0x010934ff  /*!< Version 1.9.52 (11th Sep 2008) */
+# define _STLSOFT_VER_1_9_53        0x010935ff  /*!< Version 1.9.53 (15th Sep 2008) */
+# define _STLSOFT_VER_1_9_54        0x010936ff  /*!< Version 1.9.54 (15th Sep 2008) */
+# define _STLSOFT_VER_1_9_55        0x010937ff  /*!< Version 1.9.55 (23rd Sep 2008) */
+# define _STLSOFT_VER_1_9_56        0x010938ff  /*!< Version 1.9.56 (1st Oct 2008) */
+# define _STLSOFT_VER_1_9_57        0x010939ff  /*!< Version 1.9.57 (10th Oct 2008) */
+# define _STLSOFT_VER_1_9_58        0x01093aff  /*!< Version 1.9.58 (15th Oct 2008) */
+# define _STLSOFT_VER_1_9_59        0x01093bff  /*!< Version 1.9.59 (24th Oct 2008) */
+# define _STLSOFT_VER_1_9_60        0x01093cff  /*!< Version 1.9.60 (27th Oct 2008) */
+# define _STLSOFT_VER_1_9_62        0x01093eff  /*!< Version 1.9.62 (1st Dec 2008) */
+# define _STLSOFT_VER_1_9_63        0x01093fff  /*!< Version 1.9.63 (9th Dec 2008) */
+# define _STLSOFT_VER_1_9_64        0x010940ff  /*!< Version 1.9.64 (28th Dec 2008) */
+# define _STLSOFT_VER_1_9_65        0x010941ff  /*!< Version 1.9.65 (1st Jan 2009) */
+# define _STLSOFT_VER_1_9_66        0x010942ff  /*!< Version 1.9.66 (4th Jan 2009) */
+# define _STLSOFT_VER_1_9_67        0x010943ff  /*!< Version 1.9.67 (17th Jan 2009) */
+# define _STLSOFT_VER_1_9_68        0x010944ff  /*!< Version 1.9.68 (18th Jan 2009) */
+# define _STLSOFT_VER_1_9_69        0x010945ff  /*!< Version 1.9.69 (23rd Jan 2009) */
+# define _STLSOFT_VER_1_9_70        0x010946ff  /*!< Version 1.9.70 (24th Jan 2009) */
+# define _STLSOFT_VER_1_9_71        0x010947ff  /*!< Version 1.9.71 (28th Jan 2009) */
+# define _STLSOFT_VER_1_9_72        0x010948ff  /*!< Version 1.9.72 (1st Feb 2009) */
+# define _STLSOFT_VER_1_9_73        0x010949ff  /*!< Version 1.9.73 (5th Feb 2009) */
+# define _STLSOFT_VER_1_9_74        0x01094aff  /*!< Version 1.9.74 (6th Feb 2009) */
+# define _STLSOFT_VER_1_9_75        0x01094bff  /*!< Version 1.9.75 (24th Feb 2009) */
+# define _STLSOFT_VER_1_9_76        0x01094cff  /*!< Version 1.9.76 (6th Mar 2009) */
+# define _STLSOFT_VER_1_9_77        0x01094dff  /*!< Version 1.9.77 (9th Mar 2009) */
+# define _STLSOFT_VER_1_9_78        0x01094eff  /*!< Version 1.9.78 (27th Apr 2009) */
+# define _STLSOFT_VER_1_9_79        0x01094fff  /*!< Version 1.9.79 (2nd May 2009) */
+# define _STLSOFT_VER_1_9_80        0x010950ff  /*!< Version 1.9.80 (5th May 2009) */
+# define _STLSOFT_VER_1_9_81        0x010951ff  /*!< Version 1.9.81 (??? May 2009) */
+# define _STLSOFT_VER_1_9_82        0x010952ff  /*!< Version 1.9.82 (14th May 2009) */
+# define _STLSOFT_VER_1_9_83        0x010953ff  /*!< Version 1.9.83 (19th May 2009) */
+# define _STLSOFT_VER_1_9_84        0x010954ff  /*!< Version 1.9.84 (22nd May 2009) */
+# define _STLSOFT_VER_1_9_85        0x010955ff  /*!< Version 1.9.85 (16th June 2009) */
+# define _STLSOFT_VER_1_9_86        0x010956ff  /*!< Version 1.9.86 (21st July 2009) */
+# define _STLSOFT_VER_1_9_87        0x010957ff  /*!< Version 1.9.87 (10th August 2009) */
+# define _STLSOFT_VER_1_9_88        0x010958ff  /*!< Version 1.9.88 (12th January 2010) */
+# define _STLSOFT_VER_1_9_89        0x010959ff  /*!< Version 1.9.89 (19th January 2010) */
+# define _STLSOFT_VER_1_9_90        0x01095aff  /*!< Version 1.9.90 (21st January 2010) */
+# define _STLSOFT_VER_1_9_91        0x01095bff  /*!< Version 1.9.91 (30th January 2010) */
+# define _STLSOFT_VER_1_9_92        0x01095cff  /*!< Version 1.9.92 (11th February 2010) */
+# define _STLSOFT_VER_1_9_93        0x01095dff  /*!< Version 1.9.93 (14th February 2010) */
+# define _STLSOFT_VER_1_9_95        0x01095fff  /*!< Version 1.9.95 (7th March 2010) */
+# define _STLSOFT_VER_1_9_96        0x010960ff  /*!< Version 1.9.96 (10th March 2010) */
+# define _STLSOFT_VER_1_9_97        0x010961ff  /*!< Version 1.9.97 (3rd April 2010) */
+# define _STLSOFT_VER_1_9_98        0x010962ff  /*!< Version 1.9.98 (7th June 2010) */
+# define _STLSOFT_VER_1_9_99        0x010963ff  /*!< Version 1.9.99 (21st June 2010) */
+# define _STLSOFT_VER_1_9_100       0x010964ff  /*!< Version 1.9.100 (29th July 2010) */
+# define _STLSOFT_VER_1_9_101       0x010965ff  /*!< Version 1.9.101 (30th September 2010) */
+# define _STLSOFT_VER_1_9_102       0x010966ff  /*!< Version 1.9.102 (8th November 2010) */
+# define _STLSOFT_VER_1_9_103       0x010967ff  /*!< Version 1.9.103 (20th November 2010) */
+# define _STLSOFT_VER_1_9_104       0x010968ff  /*!< Version 1.9.104 (22nd November 2010) */
+# define _STLSOFT_VER_1_9_105       0x010969ff  /*!< Version 1.9.105 (22nd December 2010) */
+# define _STLSOFT_VER_1_9_106       0x01096aff  /*!< Version 1.9.106 (28th December 2010) */
+# define _STLSOFT_VER_1_9_107       0x01096bff  /*!< Version 1.9.107 (30th January 2011) */
+# define _STLSOFT_VER_1_9_108       0x01096cff  /*!< Version 1.9.108 (31st January 2011) */
+# define _STLSOFT_VER_1_9_109       0x01096dff  /*!< Version 1.9.109 (17th February 2011) */
+# define _STLSOFT_VER_1_9_110       0x01096eff  /*!< Version 1.9.110 (25th November 2011) */
+# define _STLSOFT_VER_1_9_111       0x01096fff  /*!< Version 1.9.111 (30th November 2011) */
+# define _STLSOFT_VER_1_9_112       0x010970ff  /*!< Version 1.9.112 (7th February 2012) */
+# define _STLSOFT_VER_1_9_113       0x010971ff  /*!< Version 1.9.113 (4th June 2012) */
+# define _STLSOFT_VER_1_9_114       0x010972ff  /*!< Version 1.9.114 (4th June 2012) */
+# define _STLSOFT_VER_1_9_115       0x010973ff  /*!< Version 1.9.115 (30th July 2012) */
+# define _STLSOFT_VER_1_9_116       0x010974ff  /*!< Version 1.9.116 (18th August 2012) */
+# define _STLSOFT_VER_1_9_117       0x010975ff  /*!< Version 1.9.117 (16th February 2013) */
+# define _STLSOFT_VER_1_9_118       0x010976ff  /*!< Version 1.9.118 (31st May 2014) */
+# define _STLSOFT_VER_1_9_119       0x010977ff  /*!< Version 1.9.119 (26th August 2015) */
+# define _STLSOFT_VER_1_9_120       0x010978ff  /*!< Version 1.9.120 (9th September 2015) */
+# define _STLSOFT_VER_1_9_121       0x010979ff  /*!< Version 1.9.121 (25th September 2015) */
+# define _STLSOFT_VER_1_9_122       0x01097aff  /*!< Version 1.9.122 (1st November 2015) */
+# define _STLSOFT_VER_1_9_123       0x01097bff  /*!< Version 1.9.123 (15th November 2015) */
+# define _STLSOFT_VER_1_9_124       0x01097cff  /*!< Version 1.9.124 (15th November 2015) */
+# define _STLSOFT_VER_1_9_125       0x01097dff  /*!< Version 1.9.125 (14th February 2016) */
+# define _STLSOFT_VER_1_9_126       0x01097eff  /*!< Version 1.9.126 (30th April 2016) */
+# define _STLSOFT_VER_1_9_127       0x01097fff  /*!< Version 1.9.127 (6th May 2016) */
+# define _STLSOFT_VER_1_9_128       0x010980ff  /*!< Version 1.9.128 (13th July 2016) */
+# define _STLSOFT_VER_1_9_129       0x010981ff  /*!< Version 1.9.129 (17th July 2016) */
+# define _STLSOFT_VER_1_9_130       0x010982ff  /*!< Version 1.9.130 (1st October 2016) */
+# define _STLSOFT_VER_1_9_131       0x010983ff  /*!< Version 1.9.131 (1st October 2016) */
+
+# define _STLSOFT_VER_1_10_1_B01    0x010a0181  /*!< Version 1.10.1 beta 1 (13th January 2017) */
+# define _STLSOFT_VER_1_10_1_B02    0x010a0182  /*!< Version 1.10.1 beta 2 (28th January 2017) */
+# define _STLSOFT_VER_1_10_1_B03    0x010a0183  /*!< Version 1.10.1 beta 3 (15th February 2017) */
+# define _STLSOFT_VER_1_10_1_B04    0x010a0184  /*!< Version 1.10.1 beta 4 (23rd March 2017) */
+# define _STLSOFT_VER_1_10_1_B05    0x010a0185  /*!< Version 1.10.1 beta 5 (15th May 2017) */
+# define _STLSOFT_VER_1_10_1_B06    0x010a0186  /*!< Version 1.10.1 beta 6 (8th June 2018) */
+# define _STLSOFT_VER_1_10_1_B07    0x010a0187  /*!< Version 1.10.1 beta 7 (9th June 2018) */
+# define _STLSOFT_VER_1_10_1_B08    0x010a0188  /*!< Version 1.10.1 beta 8 (11th June 2018) */
+# define _STLSOFT_VER_1_10_1_B09    0x010a0189  /*!< Version 1.10.1 beta 9 (11th June 2018) */
+# define _STLSOFT_VER_1_10_1_B10    0x010a018a  /*!< Version 1.10.1 beta 10 (20th December 2018) */
+# define _STLSOFT_VER_1_10_1_B11    0x010a018b  /*!< Version 1.10.1 beta 11 (22nd December 2018) */
+# define _STLSOFT_VER_1_10_1_B12    0x010a018c  /*!< Version 1.10.1 beta 12 (26th December 2018) */
+# define _STLSOFT_VER_1_10_1_B13    0x010a018d  /*!< Version 1.10.1 beta 13 (3rd February 2019) */
+# define _STLSOFT_VER_1_10_1_B14    0x010a018e  /*!< Version 1.10.1 beta 14 (4th August 2019) */
+# define _STLSOFT_VER_1_10_1_B15    0x010a018f  /*!< Version 1.10.1 beta 15 (13th September 2019) */
+# define _STLSOFT_VER_1_10_1_B16    0x010a0190  /*!< Version 1.10.1 beta 16 (13th October 2019) */
+# define _STLSOFT_VER_1_10_1_B17    0x010a0191  /*!< Version 1.10.1 beta 17 (24th October 2019) */
+# define _STLSOFT_VER_1_10_1_B18    0x010a0192  /*!< Version 1.10.1 beta 18 (31st October 2019) */
+# define _STLSOFT_VER_1_10_1_B19    0x010a0193  /*!< Version 1.10.1 beta 19 (4th July 2020) */
+# define _STLSOFT_VER_1_10_1_B20    0x010a0194  /*!< Version 1.10.1 beta 20 (5th July 2020) */
+# define _STLSOFT_VER_1_10_1_B21    0x010a0195  /*!< Version 1.10.1 beta 21 (27th July 2020) */
+# define _STLSOFT_VER_1_10_1_B22    0x010a0196  /*!< Version 1.10.1 beta 22 (29th November 2020) */
+# define _STLSOFT_VER_1_10_1_B23    0x010a0197  /*!< Version 1.10.1 beta 23 (13th December 2020) */
+# define _STLSOFT_VER_1_10_1_B24    0x010a0198  /*!< Version 1.10.1 beta 24 (13th December 2020) */
+# define _STLSOFT_VER_1_10_1_B25    0x010a0199  /*!< Version 1.10.1 beta 25 (14th December 2020) */
+# define _STLSOFT_VER_1_10_1_B26    0x010a019a  /*!< Version 1.10.1 beta 26 (18th December 2020) */
+# define _STLSOFT_VER_1_10_1_B27    0x010a019b  /*!< Version 1.10.1 beta 27 (11th January 2021) */
+# define _STLSOFT_VER_1_10_1_B28    0x010a019c  /*!< Version 1.10.1 beta 28 (18th January 2021) */
+# define _STLSOFT_VER_1_10_1_B29    0x010a019d  /*!< Version 1.10.1 beta 29 (26th January 2021) */
+# define _STLSOFT_VER_1_10_1_B30    0x010a019e  /*!< Version 1.10.1 beta 30 (29th March 2021) */
+# define _STLSOFT_VER_1_10_1_B31    0x010a019f  /*!< Version 1.10.1 beta 31 (2nd April 2021) */
+# define _STLSOFT_VER_1_10_1_B32    0x010a01a0  /*!< Version 1.10.1 beta 32 (26th April 2021) */
+# define _STLSOFT_VER_1_10_1_B33    0x010a01a1  /*!< Version 1.10.1 beta 33 (26th April 2021) */
+# define _STLSOFT_VER_1_10_1_B34    0x010a01a2  /*!< Version 1.10.1 beta 34 (26th April 2021) */
+# define _STLSOFT_VER_1_10_1_B35    0x010a01a3  /*!< Version 1.10.1 beta 35 (1st December 2023) */
+# define _STLSOFT_VER_1_10_1        0x010a01ff  /*!< Version 1.10.1 (13th December 2023) */
+# define _STLSOFT_VER_1_10_2        0x010a02ff  /*!< Version 1.10.2 (3rd January 2024) */
+# define _STLSOFT_VER_1_10_3        0x010a03ff  /*!< Version 1.10.3 (12th January 2024) */
+# define _STLSOFT_VER_1_10_4        0x010a04ff  /*!< Version 1.10.4 (16th January 2024) */
+# define _STLSOFT_VER_1_10_5        0x010a05ff  /*!< Version 1.10.5 (18th January 2024) */
+# define _STLSOFT_VER_1_10_6        0x010a06ff  /*!< Version 1.10.6 (28th January 2024) */
+# define _STLSOFT_VER_1_10_7        0x010a07ff  /*!< Version 1.10.7 (30th January 2024) */
+# define _STLSOFT_VER_1_10_8        0x010a08ff  /*!< Version 1.10.8 (6th February 2024) */
+# define _STLSOFT_VER_1_10_9        0x010a09ff  /*!< Version 1.10.9 (12th February 2024) */
+# define _STLSOFT_VER_1_10_10       0x010a0aff  /*!< Version 1.10.10 (16th February 2024) */
+# define _STLSOFT_VER_1_10_11       0x010a0bff  /*!< Version 1.10.11 (16th February 2024) */
+# define _STLSOFT_VER_1_10_12       0x010a0cff  /*!< Version 1.10.12 (28th October 2024) */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-#define _STLSOFT_VER_MAJOR      1
-#define _STLSOFT_VER_MINOR      9
-#define _STLSOFT_VER_REVISION   136
-#define _STLSOFT_VER            _STLSOFT_VER_1_9_136
+#define _STLSOFT_VER_MAJOR          1
+#define _STLSOFT_VER_MINOR          10
+#define _STLSOFT_VER_REVISION       11
+#define _STLSOFT_VER                _STLSOFT_VER_1_10_12
 
 /* /////////////////////////////////////
- * Underlying version detection
+ * underlying version detection
  */
 
 /* defines STLSOFT_HEAD_VER, which specifies the current version of the
@@ -321,51 +370,72 @@
  */
 #include <stlsoft/internal/lead_version.h>
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Basic macros
+ * basic macros
  */
 
 /* Compilation messages
  *
- * To see certain informational messages during compilation define the
+ * to see certain informational messages during compilation define the
  * preprocessor symbol STLSOFT_COMPILE_VERBOSE
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-# define STLSOFT_STRINGIZE_DIRECT_a(x)      #x
-# define STLSOFT_STRINGIZE_INDIRECT_a(x)    STLSOFT_STRINGIZE_DIRECT_a(x)
+# define STLSOFT_STRINGIZE_DIRECT_a(x)                      #x
+# define STLSOFT_STRINGIZE_INDIRECT_a(x)                    STLSOFT_STRINGIZE_DIRECT_a(x)
 
 # if defined(__BORLANDC__) || \
      defined(__SUNPRO_C)
-#  define STLSOFT_STRINGIZE_DIRECT_w(x)     L"" ## STLSOFT_STRINGIZE_INDIRECT_a(x)
+#  define STLSOFT_STRINGIZE_DIRECT_w(x)                     L"" ## STLSOFT_STRINGIZE_INDIRECT_a(x)
 # else /* ? compiler */
-#  define STLSOFT_STRINGIZE_DIRECT_w(x)     L ## #x
+#  define STLSOFT_STRINGIZE_DIRECT_w(x)                     L ## #x
 # endif /* compiler */
-# define STLSOFT_STRINGIZE_INDIRECT_w(x)    STLSOFT_STRINGIZE_DIRECT_w(x)
+# define STLSOFT_STRINGIZE_INDIRECT_w(x)                    STLSOFT_STRINGIZE_DIRECT_w(x)
 
-# define STLSOFT_STRINGIZE_DIRECT           STLSOFT_STRINGIZE_DIRECT_a
-# define STLSOFT_STRINGIZE_INDIRECT(x)      STLSOFT_STRINGIZE_INDIRECT_a(x)
+# define STLSOFT_STRINGIZE_DIRECT                           STLSOFT_STRINGIZE_DIRECT_a
+# define STLSOFT_STRINGIZE_INDIRECT(x)                      STLSOFT_STRINGIZE_INDIRECT_a(x)
 
-# define STLSOFT_STRINGIZE_a(x)             STLSOFT_STRINGIZE_INDIRECT_a(x)
-# define STLSOFT_STRINGIZE_w(x)             STLSOFT_STRINGIZE_INDIRECT_w(x)
-# define STLSOFT_STRINGIZE(x)               STLSOFT_STRINGIZE_INDIRECT(x)
+# define STLSOFT_STRINGIZE_a(x)                             STLSOFT_STRINGIZE_INDIRECT_a(x)
+# define STLSOFT_STRINGIZE_w(x)                             STLSOFT_STRINGIZE_INDIRECT_w(x)
+# define STLSOFT_STRINGIZE(x)                               STLSOFT_STRINGIZE_INDIRECT(x)
 
 /* Simple macro indirection */
-# define STLSOFT_MACRO_INDIRECT(x)          x
+# define STLSOFT_MACRO_INDIRECT(x)                          x
 
 /* Token pasting */
-# define STLSOFT_PP_PASTE_2_TOKENS(t1, t2)        t1 ## t2
-# define STLSOFT_PP_PASTE_3_TOKENS(t1, t2, t3)    t1 ## t2 ## t3
+# define STLSOFT_PP_PASTE_2_TOKENS(t1, t2)                  t1 ## t2
+# define STLSOFT_PP_PASTE_3_TOKENS(t1, t2, t3)              t1 ## t2 ## t3
 
+/* #pragma message-compatible file+line quoting */
+
+# if 0
+# elif defined(_MSC_VER)
+
+#  define STLSOFT_FILELINE_PREFIX_                          __FILE__ "(" STLSOFT_STRINGIZE( __LINE__ ) "): "
+# else
+
+#  define STLSOFT_FILELINE_PREFIX_                          __FILE__ ":" STLSOFT_STRINGIZE( __LINE__ ) ": "
+# endif
+
+# if 0
+# elif defined(__clang__)
+
+#  define STLSOFT_FILELINE_MESSAGE(msg)                     STLSOFT_FILELINE_PREFIX_ "" msg ""
+# else
+
+#  define STLSOFT_FILELINE_MESSAGE(msg)                     STLSOFT_FILELINE_PREFIX_ ## "" msg ""
+# endif
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Sanity checks - 1
+ * sanity checks - 1
  */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler compatibility
+ * compiler compatibility
  *
  * Currently the only compilers supported by the STLSoft libraries are
  *
@@ -463,8 +533,8 @@
 #endif /* _MSC_VER */
 
 #if defined(_STLSOFT_FORCE_CUSTOM_COMPILER)
-# define STLSOFT_COMPILER_LABEL_STRING          "Custom (forced) compiler"
-# define STLSOFT_COMPILER_VERSION_STRING        "Custom (forced) compiler"
+# define STLSOFT_COMPILER_LABEL_STRING                      "Custom (forced) compiler"
+# define STLSOFT_COMPILER_VERSION_STRING                    "Custom (forced) compiler"
 # define STLSOFT_COMPILER_IS_CUSTOM
 # ifndef __STLSOFT_CF_CUSTOM_COMPILER_INCLUDE_NAME
 #  error When using the custom compiler option you must define the symbol __STLSOFT_CF_CUSTOM_COMPILER_INCLUDE_NAME, e.g. #define __STLSOFT_CF_CUSTOM_COMPILER_INCLUDE_NAME <stlsoft/internal/cccap/my_compiler.h>
@@ -473,49 +543,49 @@
 #elif defined(__clang__)
  /* ******************************* Clang ******************************* */
 # define STLSOFT_COMPILER_IS_CLANG
-# define STLSOFT_COMPILER_LABEL_STRING          "Clang C/C++"
-# if __clang_major__ < 6
-#  error Only versions 6.0 and later of Clang C/C++ compiler is supported by the STLSoft libraries
+# define STLSOFT_COMPILER_LABEL_STRING                      "Clang C/C++"
+# if __clang_major__ < 3
+#  error Only versions 3.0 and later of Clang C/C++ compiler is supported by the STLSoft libraries
 # else /* ? __COMO_VERSION__ */
-#  define STLSOFT_COMPILER_VERSION_STRING       "Clang " ## __clang_version__
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Clang " STLSOFT_STRINGIZE(__clang_major__) "." STLSOFT_STRINGIZE(__clang_minor__) "." STLSOFT_STRINGIZE(__clang_patchlevel__)
 # endif /* __COMO_VERSION__ */
 
 #elif defined(__COMO__) /* Do Comeau next, so that no Comeau back-end server compilers are preferentially discriminated */
  /* ******************************* Comeau ****************************** */
 # define STLSOFT_COMPILER_IS_COMO
-# define STLSOFT_COMPILER_LABEL_STRING          "Comeau C++"
+# define STLSOFT_COMPILER_LABEL_STRING                      "Comeau C++"
 # if __COMO_VERSION__ < 4300
 #  error Only versions 4.3.0.1 and later of Comeau C++ compiler is supported by the STLSoft libraries
 # elif (__COMO_VERSION__ == 4300)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Comeau C++ 4.3.0.1"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Comeau C++ 4.3.0.1"
 # elif (__COMO_VERSION__ == 4303)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Comeau C++ 4.3.3"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Comeau C++ 4.3.3"
 # else /* ? __COMO_VERSION__ */
-#  define STLSOFT_COMPILER_VERSION_STRING       "Unknown version of Comeau C++"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Unknown version of Comeau C++"
 # endif /* __COMO_VERSION__ */
 
 #elif defined(__BORLANDC__)
  /* ******************************* Borland ***************************** */
 # define STLSOFT_COMPILER_IS_BORLAND
-# define STLSOFT_COMPILER_LABEL_STRING          "Borland C/C++"
+# define STLSOFT_COMPILER_LABEL_STRING                      "Borland C/C++"
 # if 0 /* (__BORLANDC__ == 0x0460) */
-#  define STLSOFT_COMPILER_VERSION_STRING       "Borland C++ 4.52"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Borland C++ 4.52"
 # elif 0 /* (__BORLANDC__ == 0x0550) */
-#  define STLSOFT_COMPILER_VERSION_STRING       "Borland C++ 5.5"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Borland C++ 5.5"
 # elif (__BORLANDC__ == 0x0551)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Borland C++ 5.51"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Borland C++ 5.51"
 # elif (__BORLANDC__ == 0x0560)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Borland C++ 5.6"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Borland C++ 5.6"
 # elif (__BORLANDC__ == 0x0564)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Borland C++ 5.6.4 (C++ BuilderX)"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Borland C++ 5.6.4 (C++ BuilderX)"
 # elif (__BORLANDC__ == 0x0582)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Borland C++ 5.82 (Turbo C++)"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Borland C++ 5.82 (Turbo C++)"
 # elif (0x0590 == (__BORLANDC__ & 0xfff0))
-#  define STLSOFT_COMPILER_VERSION_STRING       "Borland C++ 5.9x"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Borland C++ 5.9x"
 # elif (0x0610 == (__BORLANDC__ & 0xfff0))
-#  define STLSOFT_COMPILER_VERSION_STRING       "Borland C++ 6.1x (C++ Builder)"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Borland C++ 6.1x (C++ Builder)"
 # elif (0x0620 == (__BORLANDC__ & 0xfff0))
-#  define STLSOFT_COMPILER_VERSION_STRING       "Borland C++ 6.2x (Embarcadero)"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Borland C++ 6.2x (Embarcadero)"
 # else /* ? __BORLANDC__ */
 #  error Currently only versions 5.51, 5.6, 5.6.4, 5.8.2, 5.9x, 6.1x. and 6.2x of the Borland C++ compiler are supported by the STLSoft libraries
 # endif /* __BORLANDC__ */
@@ -523,81 +593,84 @@
 #elif defined(__DMC__)
  /* **************************** Digital Mars *************************** */
 # define STLSOFT_COMPILER_IS_DMC
-# define STLSOFT_COMPILER_LABEL_STRING          "Digital Mars C/C++"
+# define STLSOFT_COMPILER_LABEL_STRING                      "Digital Mars C/C++"
 # if (__DMC__ < 0x0826)
 #  error Only versions 8.26 and later of the Digital Mars C/C++ compilers are supported by the STLSoft libraries
 # else /* ? __DMC__ */
 #  if __DMC__ >= 0x0832
-#   define STLSOFT_COMPILER_VERSION_STRING      __DMC_VERSION_STRING__
+#   define STLSOFT_COMPILER_VERSION_STRING                  __DMC_VERSION_STRING__
 #  elif (__DMC__ == 0x0826)
-#   define STLSOFT_COMPILER_VERSION_STRING      "Digital Mars C/C++ 8.26"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "Digital Mars C/C++ 8.26"
 #  elif (__DMC__ == 0x0827)
-#   define STLSOFT_COMPILER_VERSION_STRING      "Digital Mars C/C++ 8.27"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "Digital Mars C/C++ 8.27"
 #  elif (__DMC__ == 0x0828)
-#   define STLSOFT_COMPILER_VERSION_STRING      "Digital Mars C/C++ 8.28"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "Digital Mars C/C++ 8.28"
 #  elif (__DMC__ == 0x0829)
-#   define STLSOFT_COMPILER_VERSION_STRING      "Digital Mars C/C++ 8.29"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "Digital Mars C/C++ 8.29"
 #  elif (__DMC__ == 0x0830)
-#   define STLSOFT_COMPILER_VERSION_STRING      "Digital Mars C/C++ 8.30"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "Digital Mars C/C++ 8.30"
 #  elif (__DMC__ == 0x0831)
-#   define STLSOFT_COMPILER_VERSION_STRING      "Digital Mars C/C++ 8.31"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "Digital Mars C/C++ 8.31"
 #  endif /* __DMC__ */
 # endif /* version */
 
 #elif defined(__GNUC__)
  /* ******************************** GCC ******************************** */
 # define STLSOFT_COMPILER_IS_GCC
-# define STLSOFT_COMPILER_LABEL_STRING          "GNU C/C++"
-# if __GNUC__ != 2 && \
-     __GNUC__ != 3 && \
-     __GNUC__ != 4
-#  error GNU C/C++ compilers whose major version is not 2, 3 or 4 are not currently supported by the STLSoft libraries
+# define STLSOFT_COMPILER_LABEL_STRING                      "GNU C/C++"
+# if 0 || \
+     __GNUC__ < 2 || \
+     __GNUC__ > 9 && \
+     0
+#  error GNU C/C++ compilers whose major version is not in the range 2-9 are not currently supported by the STLSoft libraries
 # elif __GNUC__ == 2
 #  if __GNUC_MINOR__ < 95
 #   error Currently only version 2.95 and above of the GNU C/C++ compiler is supported by the STLSoft libraries
 #  elif __GNUC_MINOR__ == 95
-#   define STLSOFT_COMPILER_VERSION_STRING      "GNU C/C++ 2.95"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "GNU C/C++ 2.95"
 #  elif __GNUC_MINOR__ == 96
-#   define STLSOFT_COMPILER_VERSION_STRING      "GNU C/C++ 2.96"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "GNU C/C++ 2.96"
 #  else /* ? __GNUC_MINOR__ */
-#   define STLSOFT_COMPILER_VERSION_STRING      "GNU C/C++ >2.96 - you should be aware that this version may not be supported correctly"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "GNU C/C++ >2.96 - you should be aware that this version may not be supported correctly"
 #  endif /* __GNUC_MINOR__  */
 # elif __GNUC__ == 3
 #  if __GNUC_MINOR__ == 2
-#   define STLSOFT_COMPILER_VERSION_STRING      "GNU C/C++ 3.2"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "GNU C/C++ 3.2"
 #  elif __GNUC_MINOR__ == 3
-#   define STLSOFT_COMPILER_VERSION_STRING      "GNU C/C++ 3.3"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "GNU C/C++ 3.3"
 #  elif __GNUC_MINOR__ == 4
-#   define STLSOFT_COMPILER_VERSION_STRING      "GNU C/C++ 3.4"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "GNU C/C++ 3.4"
 #  else /* ? __GNUC_MINOR__ */
-#   define STLSOFT_COMPILER_VERSION_STRING      "GNU C/C++ >3.4 - you should be aware that this version may not be supported correctly"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "GNU C/C++ >3.4 - you should be aware that this version may not be supported correctly"
 #  endif /* __GNUC_MINOR__  */
-# elif __GNUC__ == 0
+# elif __GNUC__ == 4
 #  if __GNUC_MINOR__ == 0
-#   define STLSOFT_COMPILER_VERSION_STRING      "GNU C/C++ 4.0"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "GNU C/C++ 4.0"
 #  else /* ? __GNUC_MINOR__ */
-#   define STLSOFT_COMPILER_VERSION_STRING      "GNU C/C++ >4.0 - you should be aware that this version may not be supported correctly"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "GNU C/C++ >4.0 - you should be aware that this version may not be supported correctly"
 #  endif /* __GNUC__  */
+# else
+#   define STLSOFT_COMPILER_VERSION_STRING                  "GNU C/C++ " STLSOFT_STRINGIZE(__GNUC__) "." STLSOFT_STRINGIZE(__GNUC_MINOR__)
 # endif /* __GNUC_MINOR__ */
 
 #elif defined(__INTEL_COMPILER)
  /* ******************************* Intel ******************************* */
 # define STLSOFT_COMPILER_IS_INTEL
-# define STLSOFT_COMPILER_LABEL_STRING          "Intel C/C++"
+# define STLSOFT_COMPILER_LABEL_STRING                      "Intel C/C++"
 # if (__INTEL_COMPILER == 600)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Intel C/C++ 6.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Intel C/C++ 6.0"
 # elif (__INTEL_COMPILER == 700)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Intel C/C++ 7.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Intel C/C++ 7.0"
 # elif (__INTEL_COMPILER == 800)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Intel C/C++ 8.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Intel C/C++ 8.0"
 # elif (__INTEL_COMPILER == 900)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Intel C/C++ 9.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Intel C/C++ 9.0"
 # elif (__INTEL_COMPILER == 1000)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Intel C/C++ 10.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Intel C/C++ 10.0"
 # elif (__INTEL_COMPILER == 1100)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Intel C/C++ 11.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Intel C/C++ 11.0"
 # elif (__INTEL_COMPILER >= 1200) && (__INTEL_COMPILER < 1300)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Intel C/C++ 12.x"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Intel C/C++ 12.x"
 # else /* ? __INTEL_COMPILER */
 #  error Only Intel C++ Compiler versions 6.0, 7.0(/7.1), 8.0, 9.0, 10.0, 11.0 and 12.x currently supported by the STLSoft libraries
 # endif /* __INTEL_COMPILER */
@@ -605,13 +678,13 @@
 #elif defined(__MWERKS__)
  /* ***************************** Metrowerks **************************** */
 # define STLSOFT_COMPILER_IS_MWERKS
-# define STLSOFT_COMPILER_LABEL_STRING          "Metrowerks CodeWarrior C/C++"
+# define STLSOFT_COMPILER_LABEL_STRING                      "Metrowerks CodeWarrior C/C++"
 # if ((__MWERKS__ & 0xFF00) == 0x2400)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Metrowerks CodeWarrior C/C++ 2.4"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Metrowerks CodeWarrior C/C++ 2.4"
 # elif ((__MWERKS__ & 0xFF00) == 0x3000)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Metrowerks CodeWarrior C/C++ 3.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Metrowerks CodeWarrior C/C++ 3.0"
 # elif ((__MWERKS__ & 0xFF00) == 0x3200)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Metrowerks CodeWarrior C/C++ 3.2"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Metrowerks CodeWarrior C/C++ 3.2"
 # else /* ? __MWERKS__ */
 #  error Only Metrowerks C++ Compiler 2.4 (CodeWarrior 7), 3.0 (CodeWarrior 8) and 3.2 (CodeWarrior 9) currently supported by the STLSoft libraries
 # endif /* __MWERKS__ */
@@ -638,16 +711,16 @@
 
 # define STLSOFT_COMPILER_IS_SUNPRO
 # ifdef __cplusplus
-#  define STLSOFT_COMPILER_LABEL_STRING         "Sun Pro C++"
+#  define STLSOFT_COMPILER_LABEL_STRING                     "Sun Pro C++"
 #  if (0x0590 == (__SUNPRO_CC & 0xFFF0))
-#   define STLSOFT_COMPILER_VERSION_STRING      "Sun Pro C++ v5.9"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "Sun Pro C++ v5.9"
 #  else /* ? __SUNPRO_CC */
 #   error Currently only version v5.9 of the Sun Pro C++ compiler is supported by the STLSoft libraries
 #  endif /* __SUNPRO_CC */
 # else /* ? __cplusplus */
-#  define STLSOFT_COMPILER_LABEL_STRING         "Sun Pro C"
+#  define STLSOFT_COMPILER_LABEL_STRING                     "Sun Pro C"
 #  if (0x0590 == (__SUNPRO_C & 0xFFF0))
-#   define STLSOFT_COMPILER_VERSION_STRING      "Sun Pro C v5.9"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "Sun Pro C v5.9"
 #  else /* ? __SUNPRO_CC */
 #   error Currently only version v5.9 of the Sun Pro C compiler is supported by the STLSoft libraries
 #  endif /* __SUNPRO_CC */
@@ -656,9 +729,9 @@
 #elif defined(__VECTORC)
  /* ************************** CodePlay VectorC ************************* */
 # define STLSOFT_COMPILER_IS_VECTORC
-# define STLSOFT_COMPILER_LABEL_STRING          "CodePlay VectorC C/C++"
+# define STLSOFT_COMPILER_LABEL_STRING                      "CodePlay VectorC C/C++"
 # if (__VECTORC == 1)
-#  define STLSOFT_COMPILER_VERSION_STRING       "CodePlay VectorC C/C++"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "CodePlay VectorC C/C++"
 # else /* ? __VECTORC */
 #  error Currently only versions of the CodePlay Vector C/C++ compiler defining __VECTORC == 1 are supported by the STLSoft libraries
 # endif /* __VECTORC */
@@ -666,24 +739,24 @@
 #elif defined(__WATCOMC__)
  /* ******************************* Watcom ****************************** */
 # define STLSOFT_COMPILER_IS_WATCOM
-# define STLSOFT_COMPILER_LABEL_STRING          "Watcom C/C++"
+# define STLSOFT_COMPILER_LABEL_STRING                      "Watcom C/C++"
 
 # if (__WATCOMC__ == 1200)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Open Watcom C/C++ 1.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Open Watcom C/C++ 1.0"
 # elif (__WATCOMC__ == 1210)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Open Watcom C/C++ 1.1"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Open Watcom C/C++ 1.1"
 # elif (__WATCOMC__ == 1220)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Open Watcom C/C++ 1.2"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Open Watcom C/C++ 1.2"
 # elif (__WATCOMC__ == 1230)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Open Watcom C/C++ 1.3"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Open Watcom C/C++ 1.3"
 # elif (__WATCOMC__ == 1240)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Open Watcom C/C++ 1.4"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Open Watcom C/C++ 1.4"
 # elif (__WATCOMC__ == 1250)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Open Watcom C/C++ 1.5"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Open Watcom C/C++ 1.5"
 # elif (__WATCOMC__ == 1260)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Open Watcom C/C++ 1.6"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Open Watcom C/C++ 1.6"
 # elif (__WATCOMC__ == 1270)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Open Watcom C/C++ 1.7"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Open Watcom C/C++ 1.7"
 # else /* ? __WATCOMC__ */
 #  error Currently only versions 1.0-1.7 of Open Watcom C/C++ are recognised by the STLSoft libraries
 # endif /* __WATCOMC__ */
@@ -691,48 +764,48 @@
 #elif defined(_MSC_VER)
  /* ***************************** Visual C++ **************************** */
 # define STLSOFT_COMPILER_IS_MSVC
-# define STLSOFT_COMPILER_LABEL_STRING          "Visual C++"
+# define STLSOFT_COMPILER_LABEL_STRING                      "Visual C++"
 # if defined(STLSOFT_FORCE_MSVC_4_2) && (_MSC_VER == 1020)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Visual C++ 4.2"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Visual C++ 4.2"
 # elif (_MSC_VER == 1100)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Visual C++ 5.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Visual C++ 5.0"
 # elif (_MSC_VER == 1200)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Visual C++ 6.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Visual C++ 6.0"
 # elif (_MSC_VER == 1300)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Visual C++ 7.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Visual C++ 7.0"
 # elif (_MSC_VER == 1310)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Visual C++ 7.1"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Visual C++ 7.1"
 # elif (_MSC_VER == 1400)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Visual C++ 8.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Visual C++ 8.0"
 # elif (_MSC_VER == 1500)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Visual C++ 9.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Visual C++ 9.0"
 # elif (_MSC_VER == 1600)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Visual C++ 10.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Visual C++ 10.0"
 # elif (_MSC_VER == 1700)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Visual C++ 11.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Visual C++ 11.0"
 # elif (_MSC_VER == 1800)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Visual C++ 12.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Visual C++ 12.0"
 # elif (_MSC_VER == 1900)
-#  define STLSOFT_COMPILER_VERSION_STRING       "Visual C++ 14.0"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Visual C++ 14.0"
 # elif _MSC_VER >= 1910
 #  if 0
 #  elif _MSC_VER < 1920
-#   define STLSOFT_COMPILER_VERSION_STRING      "Visual C++ 15.x"
-#  elif _MSC_VER <= 1926
-#   define STLSOFT_COMPILER_VERSION_STRING      "Visual C++ 16.x"
+#   define STLSOFT_COMPILER_VERSION_STRING                  "Visual C++ 15.x"
+#  elif _MSC_VER <= 1928
+#   define STLSOFT_COMPILER_VERSION_STRING                  "Visual C++ 16.x"
 #  else
 #   error Visual C++ version that is >= vc16 is not recognised
 #  endif
 # else /* ? _MSC_VER */
-#  error Currently only versions 5.0, 6.0, 7.0, 7.1, 8.0, 9.0, 10.0, 11.0, 12.0, and 14.0 of the Visual C++ compiler are supported by the STLSoft libraries
+#  error Currently only versions 5.0, 6.0, 7.0, 7.1, 8.0, 9.0, 10.0, 11.0, 12.0, 14.0, and 14.1x of the Visual C++ compiler are supported by the STLSoft libraries
 # endif /* _MSC_VER */
 
 #else /* ? compiler */
  /* ********************** No recognised compiler *********************** */
 # if defined(_STLSOFT_FORCE_UNKNOWN_COMPILER) || \
      defined(_STLSOFT_FORCE_ANY_COMPILER)
-#  define STLSOFT_COMPILER_LABEL_STRING         "Unknown (forced) compiler"
-#  define STLSOFT_COMPILER_VERSION_STRING       "Unknown (forced) compiler"
+#  define STLSOFT_COMPILER_LABEL_STRING                     "Unknown (forced) compiler"
+#  define STLSOFT_COMPILER_VERSION_STRING                   "Unknown (forced) compiler"
 #  define STLSOFT_COMPILER_IS_UNKNOWN
 # else /* ? _STLSOFT_FORCE_UNKNOWN_COMPILER || _STLSOFT_FORCE_ANY_COMPILER */
 #  error Compiler is not recognised.
@@ -756,20 +829,21 @@
 
 #ifdef STLSOFT_DOCUMENTATION_SKIP_SECTION
 /** \def STLSOFT_COMPILER_LABEL_STRING
- * \brief A nul-terminated C-style string denoting the name of the compiler.
+ * A nul-terminated C-style string denoting the name of the compiler.
  */
-# define STLSOFT_COMPILER_LABEL_STRING          "Acme Compiler"
+# define STLSOFT_COMPILER_LABEL_STRING                      "Acme Compiler"
 /** \def STLSOFT_COMPILER_VERSION_STRING
- * \brief A nul-terminated C-style string denoting the name and version of the compiler.
+ * A nul-terminated C-style string denoting the name and version of the compiler.
  */
-# define STLSOFT_COMPILER_VERSION_STRING        "Acme Compiler v1.0"
+# define STLSOFT_COMPILER_VERSION_STRING                    "Acme Compiler v1.0"
 #else /* ? STLSOFT_DOCUMENTATION_SKIP_SECTION */
-# define __STLSOFT_COMPILER_LABEL_STRING        STLSOFT_COMPILER_LABEL_STRING
-# define __STLSOFT_COMPILER_VERSION_STRING      STLSOFT_COMPILER_VERSION_STRING
+# define __STLSOFT_COMPILER_LABEL_STRING                    STLSOFT_COMPILER_LABEL_STRING
+# define __STLSOFT_COMPILER_VERSION_STRING                  STLSOFT_COMPILER_VERSION_STRING
 #endif /* STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler language feature support
+ * compiler language feature support
  *
  * Various compilers support the language differently (or not at all), so these
  * features are discriminated here and utilised by various means within the code
@@ -815,14 +889,8 @@
 # error Compiler not correctly discriminated
 #endif /* compiler */
 
-/* pragma message support */
-
-/* backwards-compatibility : _STLSOFT_COMPILE_VERBOSE => STLSOFT_COMPILE_VERBOSE */
-
-#if defined(_STLSOFT_COMPILE_VERBOSE) && \
-    !defined(STLSOFT_COMPILE_VERBOSE)
-# define STLSOFT_COMPILE_VERBOSE
-#endif
+/* #pragma message support
+ */
 
 /* backwards-compatibility : STLSOFT_CF_PRAGMA_MESSAGE_SUPPORT => STLSOFT_PPF_pragma_message_SUPPORT */
 #if defined(STLSOFT_CF_PRAGMA_MESSAGE_SUPPORT) && \
@@ -830,10 +898,24 @@
 # define STLSOFT_PPF_pragma_message_SUPPORT
 #endif
 
+/* verbose compilation:
+ */
+
+  /* backwards-compatibility : _STLSOFT_COMPILE_VERBOSE => STLSOFT_COMPILE_VERBOSE */
+
+#if defined(_STLSOFT_COMPILE_VERBOSE) && \
+    !defined(STLSOFT_COMPILE_VERBOSE)
+# define STLSOFT_COMPILE_VERBOSE
+#endif
+
+  /* feature-constraint : !STLSOFT_PPF_pragma_message_SUPPORT => !STLSOFT_COMPILE_VERBOSE */
+
 #if defined(STLSOFT_COMPILE_VERBOSE) && \
     !defined(STLSOFT_PPF_pragma_message_SUPPORT)
 # undef STLSOFT_COMPILE_VERBOSE
 #endif /* !STLSOFT_PPF_pragma_message_SUPPORT && STLSOFT_COMPILE_VERBOSE */
+
+  /* feature-flag : STLSOFT_NO_COMPILE_VERBOSE => !STLSOFT_COMPILE_VERBOSE */
 
 #if defined(STLSOFT_NO_COMPILE_VERBOSE) && \
     defined(STLSOFT_COMPILE_VERBOSE)
@@ -845,7 +927,7 @@
 #endif /* STLSOFT_COMPILE_VERBOSE */
 
 
-/* backwards-compatibility : STLSOFT_COMPILE_VERBOSE => _STLSOFT_COMPILE_VERBOSE */
+  /* backwards-compatibility : STLSOFT_COMPILE_VERBOSE => _STLSOFT_COMPILE_VERBOSE */
 
 #if defined(STLSOFT_COMPILE_VERBOSE)
 # if defined(_STLSOFT_COMPILE_VERBOSE)
@@ -888,12 +970,18 @@
  */
 
 #if 0
+#elif defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
+
+# define STLSOFT_FUNCTION_SYMBOL                            __FUNCTION__
 #elif defined(STLSOFT_CF_FUNC_SYMBOL_SUPPORT)
-# define STLSOFT_FUNCTION_SYMBOL    __FUNC__
+
+# define STLSOFT_FUNCTION_SYMBOL                            __FUNC__
 #elif defined(STLSOFT_CF_func_SYMBOL_SUPPORT)
-# define STLSOFT_FUNCTION_SYMBOL    __func__
+
+# define STLSOFT_FUNCTION_SYMBOL                            __func__
 #elif defined(STLSOFT_CF_FUNCTION_SYMBOL_SUPPORT)
-# define STLSOFT_FUNCTION_SYMBOL    __FUNCTION__
+
+# define STLSOFT_FUNCTION_SYMBOL                            __FUNCTION__
 #endif /* __FUNCTION__ or __func__ */
 
 
@@ -909,14 +997,20 @@
  */
 
 #if 0
+#elif defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
+
+# define STLSOFT_PRETTY_FUNCTION_SYMBOL                     __PRETTY_FUNCTION__
 #elif defined(STLSOFT_PPF_PRETTY_FUNCTION_SYMBOL_SUPPORT)
-# define STLSOFT_PRETTY_FUNCTION_SYMBOL     __PRETTY_FUNCTION__
+
+# define STLSOFT_PRETTY_FUNCTION_SYMBOL                     __PRETTY_FUNCTION__
 #elif defined(STLSOFT_CF_FUNCSIG_SYMBOL_SUPPORT)
-# define STLSOFT_PRETTY_FUNCTION_SYMBOL     __FUNCSIG__
+
+# define STLSOFT_PRETTY_FUNCTION_SYMBOL                     __FUNCSIG__
 #endif /* __PRETTY_FUNCTION__ or __FUNCSIG__ */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Sanity checks - 2
+ * sanity checks - 2
  *
  * Must have the sizes of basic integral types defined
  */
@@ -943,8 +1037,9 @@
 # endif /* !_STLSOFT_SIZEOF_LONG_LONG */
 #endif /* STLSOFT_CF_BUILTIN_long_long_SUPPORT */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Sanity checks - 3
+ * sanity checks - 3
  *
  */
 
@@ -1009,7 +1104,7 @@
 
 #ifndef STLSOFT_CF_EXCEPTION_SUPPORT
  /** \def STLSOFT_CF_NOTHROW_BAD_ALLOC
-  * \brief Define if you've overridden <code>operator new</code> to return
+  * Define if you've overridden <code>operator new</code> to return
   *   <code>NULL</code> on allocation failure (which is non-standard
   *   behaviour).
   */
@@ -1029,7 +1124,7 @@
 /* Template specialisation syntax support
  */
 /** \def STLSOFT_TEMPLATE_SPECIALISATION
- * \brief Resolves to <code>template <></code>  for compilers that support correct
+ * Resolves to <code>template <></code>  for compilers that support correct
  *  template specialisation syntax, and to nothing for those that do not.
  */
 #ifdef STLSOFT_TEMPLATE_SPECIALISATION
@@ -1037,8 +1132,10 @@
 #endif /* STLSOFT_TEMPLATE_SPECIALISATION */
 
 #ifdef STLSOFT_CF_TEMPLATE_SPECIALISATION_SYNTAX
-# define STLSOFT_TEMPLATE_SPECIALISATION                template <>
+
+# define STLSOFT_TEMPLATE_SPECIALISATION                    template <>
 #else /* ? STLSOFT_CF_TEMPLATE_SPECIALISATION_SYNTAX */
+
 # define STLSOFT_TEMPLATE_SPECIALISATION
 #endif /* STLSOFT_CF_TEMPLATE_SPECIALISATION_SYNTAX */
 
@@ -1099,8 +1196,9 @@
 # define STLSOFT_CF_TYPENAME_TYPE_RET_KEYWORD_SUPPORT
 #endif /* !STLSOFT_CF_TYPENAME_TYPE_RET_KEYWORD_SUPPORT && _STLSOFT_FORCE_KEYWORD_TYPENAME */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Calling convention
+ * calling convention
  */
 
 /* Calling convention support symbols */
@@ -1108,19 +1206,19 @@
 #ifdef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 /** \def STLSOFT_CF_CDECL_SUPPORTED
- * \brief When defined, indicates that the compiler supports the <b>cdecl</b> calling convention.
+ * When defined, indicates that the compiler supports the <b>cdecl</b> calling convention.
  */
-# define    STLSOFT_CF_CDECL_SUPPORTED
+# define STLSOFT_CF_CDECL_SUPPORTED
 
 /** \def STLSOFT_CF_FASTCALL_SUPPORTED
- * \brief When defined, indicates that the compiler supports the <b>fastcall</b> calling convention.
+ * When defined, indicates that the compiler supports the <b>fastcall</b> calling convention.
  */
-# define    STLSOFT_CF_FASTCALL_SUPPORTED
+# define STLSOFT_CF_FASTCALL_SUPPORTED
 
 /** \def STLSOFT_CF_STDCALL_SUPPORTED
- * \brief When defined, indicates that the compiler supports the <b>stdcall</b> calling convention.
+ * When defined, indicates that the compiler supports the <b>stdcall</b> calling convention.
  */
-# define    STLSOFT_CF_STDCALL_SUPPORTED
+# define STLSOFT_CF_STDCALL_SUPPORTED
 
 #endif /* STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
@@ -1128,16 +1226,16 @@
 /* Calling convention keyword abstraction */
 
 /** \def STLSOFT_CDECL
- * \brief Resolves to the <b>cdecl</b> keyword for the current compiler, or to nothing for compilers
+ * Resolves to the <b>cdecl</b> keyword for the current compiler, or to nothing for compilers
  *  that do not support any calling conventions.
  */
 
 #if !defined(STLSOFT_CDECL)
-# define                        STLSOFT_CDECL
+# define STLSOFT_CDECL
 #endif /* !STLSOFT_CDECL */
 
 /** \def STLSOFT_FASTCALL
- * \brief Resolves to the <b>fastcall</b> keyword for the current compiler
+ * Resolves to the <b>fastcall</b> keyword for the current compiler
  */
 
 #if !defined(STLSOFT_FASTCALL)
@@ -1149,7 +1247,7 @@
 #endif /* !STLSOFT_FASTCALL */
 
 /** \def STLSOFT_STDCALL
- * \brief Resolves to the <b>stdcall</b> keyword for the current compiler
+ * Resolves to the <b>stdcall</b> keyword for the current compiler
  */
 
 #if !defined(STLSOFT_STDCALL)
@@ -1200,27 +1298,27 @@
  */
 
 #if defined(STLSOFT_CF_CDECL_SUPPORTED)
-# define STLSOFT_CDECL_VALUE            (1)     /*!< \deprecated This symbol is deprecated, and will be removed from a future version */
-# define STLSOFT_CC_CDECL_VALUE         (0x01)
+# define STLSOFT_CDECL_VALUE                                (1)     /*!< \deprecated This symbol is deprecated, and will be removed from a future version */
+# define STLSOFT_CC_CDECL_VALUE                             (0x01)
 #else
-# define STLSOFT_CC_CDECL_VALUE         (0)
+# define STLSOFT_CC_CDECL_VALUE                             (0)
 #endif /* STLSOFT_CF_CDECL_SUPPORTED */
 
 #if defined(STLSOFT_CF_FASTCALL_SUPPORTED)
-# define STLSOFT_FASTCALL_VALUE         (2)     /*!< \deprecated This symbol is deprecated, and will be removed from a future version */
-# define STLSOFT_CC_FASTCALL_VALUE      (0x02)
+# define STLSOFT_FASTCALL_VALUE                             (2)     /*!< \deprecated This symbol is deprecated, and will be removed from a future version */
+# define STLSOFT_CC_FASTCALL_VALUE                          (0x02)
 #else
-# define STLSOFT_CC_FASTCALL_VALUE      (0)
+# define STLSOFT_CC_FASTCALL_VALUE                          (0)
 #endif /* STLSOFT_CF_FASTCALL_SUPPORTED */
 
 #if defined(STLSOFT_CF_STDCALL_SUPPORTED)
-# define STLSOFT_STDCALL_VALUE          (3)     /*!< \deprecated This symbol is deprecated, and will be removed from a future version */
-# define STLSOFT_CC_STDCALL_VALUE       (0x04)
+# define STLSOFT_STDCALL_VALUE                              (3)     /*!< \deprecated This symbol is deprecated, and will be removed from a future version */
+# define STLSOFT_CC_STDCALL_VALUE                           (0x04)
 #else
-# define STLSOFT_CC_STDCALL_VALUE       (0)
+# define STLSOFT_CC_STDCALL_VALUE                           (0)
 #endif /* STLSOFT_CF_STDCALL_SUPPORTED */
 
-#define STLSOFT_CC_COMBINED_VALUE   (STLSOFT_CC_CDECL_VALUE | STLSOFT_CC_FASTCALL_VALUE | STLSOFT_CC_STDCALL_VALUE)
+#define STLSOFT_CC_COMBINED_VALUE                           (STLSOFT_CC_CDECL_VALUE | STLSOFT_CC_FASTCALL_VALUE | STLSOFT_CC_STDCALL_VALUE)
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -1265,7 +1363,7 @@
 #endif /* !STLSOFT_CF_OPERATOR_BOOL_AS_OPERATOR_POINTER_TO_MEMBER_SUPPORT && STLSOFT_CF_OPERATOR_NOT_VIA_OPERATOR_POINTER_TO_MEMBER_SUPPORT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Obsolete symbol definitions
+ * obsolete symbol definitions
  *
  * Define _STLSOFT_INCLUDE_OBSOLETE to include the definitions of symbols prior
  * to version 1.5.1
@@ -1276,15 +1374,15 @@
  */
 
 #if (   defined(_ATLSTL_VER) && \
-        _ATLSTL_VER <= 0x00010204) || \
+        _ATLSTL_VER <= 0x01070181) || \
     (   defined(_COMSTL_VER) && \
-        _COMSTL_VER <= 0x00010201) || \
+        _COMSTL_VER <= 0x010a0181) || \
     (   defined(_MFCSTL_VER) && \
-        _MFCSTL_VER <= 0x00010202) || \
+        _MFCSTL_VER <= 0x01060181) || \
     (   defined(_UNIXSTL_VER) && \
-        _UNIXSTL_VER <= 0x00000901) || \
+        _UNIXSTL_VER <= 0x01080181) || \
     (   defined(_WINSTL_VER) && \
-        _WINSTL_VER <= 0x00010201)
+        _WINSTL_VER <= 0x010c0181)
 # ifdef STLSOFT_STRICT
 #  error You are using an old version of one or more of ATLSTL, COMSTL, MFCSTL, UNIXSTL and WinSTL. Please upgrade all dependent projects in line with the STLSoft version you are using
 # else /* ? STLSOFT_STRICT */
@@ -1297,8 +1395,43 @@
 # endif /* STLSOFT_STRICT */
 #endif /* sub-project versions */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * deprecation
+ */
+
+#ifndef STLSOFT_OBSOLETE
+
+# if 0
+# elif defined(__cplusplus) && \
+       __cplusplus >= 201402L
+
+#  define STLSOFT_DEPRECATED_(msg)                          [[deprecated(msg)]]
+# elif 0 || \
+       defined(__GNUC__) || \
+       defined(__clang__) || \
+       0
+
+#  define STLSOFT_DEPRECATED_(msg)                          __attribute__((deprecated))
+# elif defined(_MSC_VER) && \
+     (   _MSC_VER >= 1500 || \
+         (   _MSC_VER >= 1400 && \
+             defined(_MSC_FULL_VER) && \
+             _MSC_FULL_VER >= 140050320))
+
+#  define STLSOFT_DEPRECATED_(msg)                          __declspec(deprecated(msg))
+# else
+
+#  define STLSOFT_DEPRECATED_(msg)                          /* */
+# endif
+#else
+
+# define STLSOFT_DEPRECATED_(msg)                           /* */
+#endif /* STLSOFT_OBSOLETE */
+
+
+/* /////////////////////////////////////////////////////////////////////////
+ * includes
  */
 
 #ifdef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -1318,15 +1451,16 @@
 # endif /* !STLSOFT_INCL_H_STDLIB */
 #endif /* !_STLSOFT_NO_STD_INCLUDES */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Contract Enforcement
+ * contract enforcement
  *
  * The macro STLSOFT_ASSERT provides standard debug-mode assert functionality.
  */
 
 /** \defgroup assertion_macros Assertion Macros
  * \ingroup group__project__stlsoft
- * \brief These macros are used for debugging / contract-enforcement
+ * These macros are used for debugging / contract-enforcement
  * @{
  */
 
@@ -1336,7 +1470,7 @@
 #endif /* _STLSOFT_NO_ASSERT && STLSOFT_CF_ASSERT_SUPPORT */
 
 /** \def STLSOFT_ASSERT(expr)
- * \brief Defines an assertion construct for runtime verification.
+ * Defines an assertion construct for runtime verification.
  *
  * \param expr Must be non-zero, or an assertion will be fired
  *
@@ -1349,34 +1483,45 @@
  *  details.
  */
 #if defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# define STLSOFT_ASSERT(expr)                   assert(expr)
+
+# define STLSOFT_ASSERT(expr)                               assert(expr)
 #elif defined(STLSOFT_CF_ASSERT_SUPPORT)
+
 # ifdef __STLSOFT_CF_USE_cassert
+
   /* Using the standard assertion mechanism, located in <cassert> */
 #  ifdef __cplusplus
+
 #   include <cassert>
 #  else /* ? __cplusplus */
+
 #   include <assert.h>
 #  endif /* __cplusplus */
-#  define STLSOFT_ASSERT(expr)                  assert(expr)
+#  define STLSOFT_ASSERT(expr)                              assert(expr)
 # else /* ? __STLSOFT_CF_USE_cassert */
   /* Using either a custom or proprietary assertion mechanism, so must
    * provide the header include name
    */
+
 #  ifndef __STLSOFT_CF_ASSERT_INCLUDE_NAME
+
 #   error Must supply an assert include filename with custom or proprietary assertion mechanism
 #  else /* ? __STLSOFT_CF_ASSERT_INCLUDE_NAME */
+
 #   include __STLSOFT_CF_ASSERT_INCLUDE_NAME
 #  endif /* !__STLSOFT_CF_ASSERT_INCLUDE_NAME */
 # endif /* __STLSOFT_CF_USE_cassert */
 # if !defined(STLSOFT_ASSERT) && \
      defined(stlsoft_assert)
-#  define STLSOFT_ASSERT                        stlsoft_assert
+
+#  define STLSOFT_ASSERT                                    stlsoft_assert
 # elif defined(STLSOFT_ASSERT) && \
        defined(stlsoft_assert)
+
 #  error Your compiler discrimination file cannot define both STLSOFT_ASSERT and stlsoft_assert. The former is the new version, and replaces the latter
 # endif /* STLSOFT_ASSERT / stlsoft_assert */
 # ifndef STLSOFT_ASSERT
+
 #  error If your compiler discrimination file supports assertions, it must define STLSOFT_ASSERT() (taking a single parameter)
 # endif /* !STLSOFT_ASSERT */
 #endif /* !STLSOFT_CF_ASSERT_SUPPORT */
@@ -1388,7 +1533,7 @@
 
 /** \def stlsoft_assert(expr)
  *
- * \brief [DEPRECATED] Defines a runtime assertion
+ * [DEPRECATED] Defines a runtime assertion
  *
  * \param expr Must be non-zero, or an assertion will be fired
  *
@@ -1397,33 +1542,38 @@
  * \note This is a simple \#define for STLSOFT_ASSERT()
  */
 #ifndef stlsoft_assert
-# define stlsoft_assert(expr)                   STLSOFT_ASSERT(expr)
+
+# define stlsoft_assert(expr)                               STLSOFT_ASSERT(expr)
 #endif /* !stlsoft_assert */
 
 
 /** \def STLSOFT_MESSAGE_ASSERT(msg, expr)
- * \brief Defines a runtime assertion, with message
+ * Defines a runtime assertion, with message
  *
  * \param expr Must be non-zero, or an assertion will be fired
  * \param msg The literal character string message to be included in the assertion
  */
 #if defined(STLSOFT_CF_ASSERT_SUPPORT)
 # if defined(__WATCOMC__)
-#  define STLSOFT_MESSAGE_ASSERT(msg, expr)     STLSOFT_ASSERT(expr)
+
+#  define STLSOFT_MESSAGE_ASSERT(msg, expr)                 STLSOFT_ASSERT(expr)
 # elif defined(__COMO__) || \
        defined(__GNUC__) || \
        defined(__MWERKS__)
-#  define STLSOFT_MESSAGE_ASSERT(msg, expr)     STLSOFT_ASSERT((msg && (expr)))
+
+#  define STLSOFT_MESSAGE_ASSERT(msg, expr)                 STLSOFT_ASSERT((msg && (expr)))
 # else /* ? compiler */
-#  define STLSOFT_MESSAGE_ASSERT(msg, expr)     STLSOFT_ASSERT((msg, expr))
+
+#  define STLSOFT_MESSAGE_ASSERT(msg, expr)                 STLSOFT_ASSERT((msg, expr))
 # endif /* __WATCOMC__ */
 #else /* ? STLSOFT_CF_ASSERT_SUPPORT */
+
 # define STLSOFT_MESSAGE_ASSERT(msg, expr)
 #endif /* STLSOFT_CF_ASSERT_SUPPORT */
 
 /** \def stlsoft_message_assert(expr)
  *
- * \brief [DEPRECATED] Defines a runtime assertion, with message
+ * [DEPRECATED] Defines a runtime assertion, with message
  *
  * \param expr Must be non-zero, or an assertion will be fired
  * \param msg The literal character string message to be included in the assertion
@@ -1432,7 +1582,7 @@
  *
  * \note This is a simple \#define for STLSOFT_MESSAGE_ASSERT()
  */
-#define stlsoft_message_assert(msg, expr)       STLSOFT_MESSAGE_ASSERT(msg, expr)
+#define stlsoft_message_assert(msg, expr)                   STLSOFT_MESSAGE_ASSERT(msg, expr)
 
 /*
  * TODO: decide on a form of static_assert with message (as the C++11 static_assert does)
@@ -1440,13 +1590,13 @@
 
 /** \def STLSOFT_STATIC_ASSERT(expr)
  *
- * \brief Defines an assertion construct for compile-time verification.
+ * Defines an assertion construct for compile-time verification.
  *
  * \param expr A compile-time evaluatable condition that must be non-zero, or compilation will fail.
  */
 #if defined(STLSOFT_CF_static_assert_SUPPORT)
 
-# define STLSOFT_STATIC_ASSERT(expr)        static_assert((expr), #expr)
+# define STLSOFT_STATIC_ASSERT(expr)                        static_assert((expr), #expr)
 #elif defined(STLSOFT_CF_STATIC_ASSERT_SUPPORT)
 
 # if 0
@@ -1455,26 +1605,39 @@
             STLSOFT_GCC_VER >= 40800) || \
        0
 
-#  define STLSOFT_STATIC_ASSERT(expr)       do { typedef int ai[(expr) ? 1 : -1] __attribute__((unused)); } while(0)
+#  define STLSOFT_STATIC_ASSERT(expr)                       do { typedef int ai[(expr) ? 1 : -1] __attribute__((unused)); } while (0)
 # elif 0 || \
      defined(STLSOFT_COMPILER_IS_CLANG) || \
      defined(STLSOFT_COMPILER_IS_GCC) || \
      defined(STLSOFT_COMPILER_IS_INTEL) || \
      0
 
-#  define STLSOFT_STATIC_ASSERT(expr)       do { typedef int ai[(expr) ? 1 : -1]; } while(0)
+#  define STLSOFT_STATIC_ASSERT(expr)                       do { typedef int ai[(expr) ? 1 : -1]; } while (0)
 # else /* ? compiler */
 
-#  define STLSOFT_STATIC_ASSERT(expr)       do { typedef int ai[(expr) ? 1 : 0]; } while(0)
+#  define STLSOFT_STATIC_ASSERT(expr)                       do { typedef int ai[(expr) ? 1 : 0]; } while (0)
 # endif /* compiler */
 #else /* ? STLSOFT_CF_STATIC_ASSERT_SUPPORT */
 
-# define STLSOFT_STATIC_ASSERT(expr)        STLSOFT_MESSAGE_ASSERT("Static assertion failed: ", (expr))
+# define STLSOFT_STATIC_ASSERT(expr)                        STLSOFT_MESSAGE_ASSERT("Static assertion failed: ", (expr))
 #endif /* STLSOFT_CF_STATIC_ASSERT_SUPPORT */
+
+/** \def STLSOFT_MESSAGE_STATIC_ASSERT(expr, msg)
+ *
+ */
+
+#if defined(STLSOFT_CF_static_assert_SUPPORT)
+
+# define STLSOFT_MESSAGE_STATIC_ASSERT(expr, msg)           static_assert((expr), msg)
+#else
+
+# define STLSOFT_MESSAGE_STATIC_ASSERT(expr, msg)           STLSOFT_STATIC_ASSERT((expr))
+#endif
+
 
 /** \def stlsoft_static_assert(expr)
  *
- * \brief [DEPRECATED] Defines a compile-time assertion
+ * [DEPRECATED] Defines a compile-time assertion
  *
  * \param expr Must be non-zero, or compilation will fail
  *
@@ -1482,12 +1645,13 @@
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_STATIC_ASSERT().
  */
-#define stlsoft_static_assert(expr)         STLSOFT_STATIC_ASSERT(expr)
+#define stlsoft_static_assert(expr)                         STLSOFT_STATIC_ASSERT(expr)
 
 /** @} */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Deprecation
+ * deprecation
  *
  */
 
@@ -1502,7 +1666,7 @@
  * \see STLSOFT_DECLARE_MACRO_DEPRECATION
  * \see STLSOFT_DECLARE_MACRO_DEPRECATION_IN_FAVOUR_OF
  *
- * \ingroup group__utility
+ * \ingroup group__library__Utility
  */
 
 /** \def STLSOFT_DECLARE_DEPRECATION_MESSAGE(message)
@@ -1518,7 +1682,7 @@
  * \see STLSOFT_DECLARE_MACRO_DEPRECATION
  * \see STLSOFT_DECLARE_MACRO_DEPRECATION_IN_FAVOUR_OF
  *
- * \ingroup group__utility
+ * \ingroup group__library__Utility
  */
 
 /** \def STLSOFT_DECLARE_FUNCTION_DEPRECATION(fn)
@@ -1528,7 +1692,7 @@
  *
  * \param fn The name of the symbol.
  *
- * \ingroup group__utility
+ * \ingroup group__library__Utility
  *
  * \see STLSOFT_DECLARE_DEPRECATION
  * \see STLSOFT_DECLARE_DEPRECATION_MESSAGE
@@ -1546,7 +1710,7 @@
  * \param oldfn The name of the symbol being deprecated.
  * \param newfn The name of the new symbol to be used instead.
  *
- * \ingroup group__utility
+ * \ingroup group__library__Utility
  *
  * \see STLSOFT_DECLARE_DEPRECATION
  * \see STLSOFT_DECLARE_DEPRECATION_MESSAGE
@@ -1562,7 +1726,7 @@
  *
  * \param mac The name of the symbol.
  *
- * \ingroup group__utility
+ * \ingroup group__library__Utility
  *
  * \see STLSOFT_DECLARE_DEPRECATION
  * \see STLSOFT_DECLARE_DEPRECATION_MESSAGE
@@ -1580,7 +1744,7 @@
  * \param oldmac The name of the symbol being deprecated.
  * \param newmac The name of the new symbol to be used instead.
  *
- * \ingroup group__utility
+ * \ingroup group__library__Utility
  *
  * \see STLSOFT_DECLARE_DEPRECATION
  * \see STLSOFT_DECLARE_DEPRECATION_MESSAGE
@@ -1623,50 +1787,95 @@
 
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
- * The STLSoft uses namespaces by default, unless the _STLSOFT_NO_NAMESPACES
- * preprocessor symbol is defined, in which case all elements are placed within
- * the global namespace.
+ * All STLSoft projects' libraries uses namespaces by default, unless the
+ * STLSOFT_NO_NAMESPACES preprocessor symbol is defined, in which case all
+ * elements are placed within the global namespace. Furthermore, each
+ * project has a namespace suppression macro - e.g. STLSoft's namespace
+ * suppression macro is STLSOFT_NO_NAMESPACE.
  *
- * The macro stlsoft_ns_qual() macro can be used to refer to elements in the
+ * The macro STLSOFT_NS_QUAL() macro can be used to refer to elements in the
  * STLSoft libraries irrespective of whether they are in the stlsoft namespace
  * or in the global namespace.
  *
  * Some compilers do not support the standard library in the std namespace, so
- * the stlsoft_ns_qual_std() macro can be used to refer to elements in the
+ * the STLSOFT_NS_QUAL_STD() macro can be used to refer to elements in the
  * STLSoft libraries irrespective of whether they are in the std namespace or
  * in the global namespace.
  */
 
+
+/* /////////////////////////////////////
+ * obsolete preprocessor symbol detection
+ */
+
+#ifdef _STLSOFT_NO_NAMESPACES
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _STLSOFT_NO_NAMESPACES. This symbol is now deprecated, and may be ignored by a future release : instead define STLSOFT_NO_NAMESPACES")
+# endif
+# if !defined(STLSOFT_NO_NAMESPACES)
+#  define STLSOFT_NO_NAMESPACES
+# endif /* !STLSOFT_NO_NAMESPACES */
+#endif /* _STLSOFT_NO_NAMESPACES */
+
+#ifdef _STLSOFT_NO_NAMESPACE
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _STLSOFT_NO_NAMESPACE. This symbol is now deprecated, and may be ignored by a future release : instead define STLSOFT_NO_NAMESPACE")
+# endif
+# if !defined(STLSOFT_NO_NAMESPACE)
+#  define STLSOFT_NO_NAMESPACE
+# endif /* !STLSOFT_NO_NAMESPACE */
+#endif /* _STLSOFT_NO_NAMESPACE */
+
+
+/* /////////////////////////////////////
+ * namespace support discrimination
+ */
+
 /* No C++ compilation means no namespaces */
 #if !defined(__cplusplus)
-# if !defined(_STLSOFT_NO_NAMESPACES)
-#  define _STLSOFT_NO_NAMESPACES
-# endif /* !_STLSOFT_NO_NAMESPACES */
+# if !defined(STLSOFT_NO_NAMESPACES)
+#  define STLSOFT_NO_NAMESPACES
+# endif /* !STLSOFT_NO_NAMESPACES */
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_STLSOFT_NO_NAMESPACES)
+#   define _STLSOFT_NO_NAMESPACES
+#  endif /* !_STLSOFT_NO_NAMESPACES */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 #endif /* !__cplusplus */
 
 /* No STLSoft namespaces means no stlsoft namespace */
-#if defined(_STLSOFT_NO_NAMESPACES)
-# if !defined(_STLSOFT_NO_NAMESPACE)
-#  define _STLSOFT_NO_NAMESPACE
-# endif /* !_STLSOFT_NO_NAMESPACE */
-#endif /* _STLSOFT_NO_NAMESPACES */
+#if defined(STLSOFT_NO_NAMESPACES)
+# if !defined(STLSOFT_NO_NAMESPACE)
+#  define STLSOFT_NO_NAMESPACE
+# endif /* !STLSOFT_NO_NAMESPACE */
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_STLSOFT_NO_NAMESPACE)
+#   define _STLSOFT_NO_NAMESPACE
+#  endif /* !_STLSOFT_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* STLSOFT_NO_NAMESPACES */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-/** \brief The <code class="namespace">stlsoft</code> namespace contains
+
+/* /////////////////////////////////////
+ * declaration '*stl*' namespace
+ */
+
+#ifndef STLSOFT_NO_NAMESPACE
+/** The \c stlsoft namespace contains
  *   all components in the \ref group__project__stlsoft "STLSoft" project,
  *   and is the root namespace within which all the other
  *   \ref group__projects "STLSoft sub-projects" reside.
  *
- * \note If either/both of the symbols <code>_STLSOFT_NO_NAMESPACES</code>
- * and <code>_STLSOFT_NO_NAMESPACE</code> are defined, all
+ * \note If either/both of the symbols <code>STLSOFT_NO_NAMESPACES</code>
+ * and <code>STLSOFT_NO_NAMESPACE</code> are defined, all
  * \ref group__project__stlsoft "STLSoft" components will be defined in the
  * global namespace. The difference between the two is that definition of
- * <code>_STLSOFT_NO_NAMESPACES</code> causes all STLSoft library
+ * <code>STLSOFT_NO_NAMESPACES</code> causes all STLSoft library
  * components (i.e. those of <b>all</b>
  * \ref group__projects "STLSoft sub-projects") to be defined in the
- * global namespace, whereas <code>_STLSOFT_NO_NAMESPACES</code> has this
+ * global namespace, whereas <code>STLSOFT_NO_NAMESPACES</code> has this
  * effect on only those within the main
  * \ref group__project__stlsoft "STLSoft" project.
  *
@@ -1677,79 +1886,92 @@
  */
 namespace stlsoft
 {
-#endif /* !_STLSOFT_NO_NAMESPACE */
+#endif /* !STLSOFT_NO_NAMESPACE */
 
-/** \def stlsoft_ns_qual(x)
- * \brief Qualifies with <b>stlsoft::</b> if STLSoft is using namespaces or, if not, does not qualify
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace helper macros
  */
 
-/** \def stlsoft_ns_using(x)
- * \brief Declares a using directive (with respect to <b>stlsoft</b>) if STLSoft is using namespaces or, if not, does nothing
+/** \def STLSOFT_NS_QUAL(x)
+ * Qualifies with <b>stlsoft::</b> if STLSoft is using namespaces or, if not, does not qualify
  */
 
-#if !defined(_STLSOFT_NO_NAMESPACE) || \
+/** \def STLSOFT_NS_USING(x)
+ * Declares a using directive (with respect to <b>stlsoft</b>) if STLSoft is using namespaces or, if not, does nothing
+ */
+
+#if !defined(STLSOFT_NO_NAMESPACE) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# define stlsoft_ns_qual(x)          ::stlsoft::x
-# define stlsoft_ns_using(x)         using ::stlsoft::x;
-#else /* ? _STLSOFT_NO_NAMESPACE */
-# define stlsoft_ns_qual(x)          x
-# define stlsoft_ns_using(x)
-#endif /* !_STLSOFT_NO_NAMESPACE */
+# define STLSOFT_NS_QUAL(x)                                 ::stlsoft::x
+# define STLSOFT_NS_USING(x)                                using ::stlsoft::x;
+#else /* ? STLSOFT_NO_NAMESPACE */
+# define STLSOFT_NS_QUAL(x)          x
+# define STLSOFT_NS_USING(x)
+#endif /* !STLSOFT_NO_NAMESPACE */
 
-#ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-  /* STLSoft 1.12+ forward-compatible macros */
-# define STLSOFT_NS_QUAL(x)             stlsoft_ns_qual(x)
-# define STLSOFT_NS_USING(x)            stlsoft_ns_using(x)
-#endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define stlsoft_ns_qual(x)                                 STLSOFT_NS_QUAL(x)
+# define stlsoft_ns_using(x)                                STLSOFT_NS_USING(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
-/** \def stlsoft_ns_qual_std(x)
- * \brief Qualifies with <b>std::</b> if STLSoft is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does not qualify
+/** \def STLSOFT_NS_QUAL_STD(x)
+ * Qualifies with <b>std::</b> if STLSoft is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does not qualify
  */
 
 /** \def stlsoft_ns_using_std(x)
- * \brief Declares a using directive (with respect to <b>std</b>) if STLSoft is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does nothing
+ * Declares a using directive (with respect to <b>std</b>) if STLSoft is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does nothing
  */
 
 #if defined(STLSOFT_CF_std_NAMESPACE) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# define stlsoft_ns_qual_std(x)      ::std::x
-# define stlsoft_ns_qual_std_(x)     std::x
-# define stlsoft_ns_using_std(x)     using ::std::x;
+# define STLSOFT_NS_QUAL_STD(x)      ::std::x
+# define STLSOFT_NS_QUAL_STD_(x)     std::x
+# define STLSOFT_NS_USING_STD(x)     using ::std::x;
 #else /* ? STLSOFT_CF_std_NAMESPACE */
-# define stlsoft_ns_qual_std(x)      x
-# define stlsoft_ns_using_std(x)
+# define STLSOFT_NS_QUAL_STD(x)      x
+# define STLSOFT_NS_USING_STD(x)
 #endif /* !STLSOFT_CF_std_NAMESPACE */
 
-#ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-  /* STLSoft 1.12+ forward-compatible macros */
-# define STLSOFT_NS_QUAL_STD(x)         stlsoft_ns_qual_std(x)
-# define STLSOFT_NS_USING_STD(x)        stlsoft_ns_using_std(x)
-#endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define stlsoft_ns_qual_std(x)                             STLSOFT_NS_QUAL_STD(x)
+# define stlsoft_ns_using_std(x)                            STLSOFT_NS_USING_STD(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
-/** \def STLSOFT_NS_GLOBAL(X)
- * \brief Qualifies <b>X</b> with <b>::</b> if compiling C++, otherwise just resolves to X
+
+/** \def STLSOFT_NS_GLOBAL(symbol)
+ * Qualifies <b>symbol</b> with <b>::</b> if compiling C++, otherwise just resolves to X
  */
 
 #if defined(__cplusplus) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# define STLSOFT_NS_GLOBAL(x)       ::x
+# define STLSOFT_NS_GLOBAL(symbol)                          ::symbol
 #else /* ? __cplusplus */
-# define STLSOFT_NS_GLOBAL(x)       x
+# define STLSOFT_NS_GLOBAL(symbol)                          symbol
 #endif /* __cplusplus */
+
+#ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+# define STLSOFT_NS_GLOBAL_(symbol)                         STLSOFT_NS_GLOBAL(symbol)
+#endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* This stuff allows worker namespaces to be declared and used regardless of
  * whether namespaces are supported and allowed
  */
 #if !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION) && \
-    !defined(_STLSOFT_NO_NAMESPACES)
-# define STLSOFT_OPEN_WORKER_NS_(ns)        namespace ns {
-# define STLSOFT_CLOSE_WORKER_NS_(ns)       }
-# define STLSOFT_WORKER_NS_QUAL_(ns, x)     ns::x
+    !defined(STLSOFT_NO_NAMESPACES)
+
+# define STLSOFT_OPEN_WORKER_NS_(ns)                        namespace ns {
+# define STLSOFT_CLOSE_WORKER_NS_(ns)                       }
+# define STLSOFT_WORKER_NS_QUAL_(ns, x)                     ns::x
+# define STLSOFT_WORKER_NS_USING_(ns, x)                    using ns::x;
 #else /* ? namespaces supported */
+
 # define STLSOFT_OPEN_WORKER_NS_(ns)
 # define STLSOFT_CLOSE_WORKER_NS_(ns)
-# define STLSOFT_WORKER_NS_QUAL_(ns, x)     x
+# define STLSOFT_WORKER_NS_QUAL_(ns, x)                     x
+# define STLSOFT_WORKER_NS_USING_(ns, x)
 #endif /* namespaces supported */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * 64-bit warning support
@@ -1759,15 +1981,16 @@ namespace stlsoft
     _MSC_VER >= 1310 && \
     !defined(_WIN64) && \
     defined(_Wp64)
-# define STLSOFT_WARN_64                    __w64
+# define STLSOFT_WARN_64                                    __w64
 #else /* ? compiler */
 # define STLSOFT_WARN_64
 #endif /* compiler */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Typedefs
+ * typedefs
  *
- * The STLSoft uses a number of typedefs to aid in compiler-independence in the
+ * STLSoft uses a number of typedefs to aid in compiler-independence in the
  * libraries' main code.
  */
 
@@ -1845,297 +2068,156 @@ namespace stlsoft
  /* It's some kind of compiler native type. */
 # ifndef STLSOFT_NATIVE_WCHAR_T
   /* either wchar_t itself */
-#  define STLSOFT_WCHAR_T_BASE_TYPE_    wchar_t
+#  define STLSOFT_WCHAR_T_BASE_TYPE_                        wchar_t
 # else /* ? STLSOFT_NATIVE_WCHAR_T */
   /* or a compiler-specific type */
-#  define STLSOFT_WCHAR_T_BASE_TYPE_    STLSOFT_NATIVE_WCHAR_T
+#  define STLSOFT_WCHAR_T_BASE_TYPE_                        STLSOFT_NATIVE_WCHAR_T
 # endif /* !STLSOFT_NATIVE_WCHAR_T */
 #elif defined(STLSOFT_CF_TYPEDEF_WCHAR_T_SUPPORT)
-#  define STLSOFT_WCHAR_T_BASE_TYPE_    wchar_t
+#  define STLSOFT_WCHAR_T_BASE_TYPE_                        wchar_t
 #else /* ? wchar_t support */
  /* It's some kind of library-defined type. */
 # ifndef _STLSOFT_NO_STD_INCLUDES
-#  define STLSOFT_WCHAR_T_BASE_TYPE_    wchar_t
+#  define STLSOFT_WCHAR_T_BASE_TYPE_                        wchar_t
 # else /* ? _STLSOFT_NO_STD_INCLUDES */
-#  define STLSOFT_WCHAR_T_BASE_TYPE_    unsigned short
+#  define STLSOFT_WCHAR_T_BASE_TYPE_                        unsigned short
 # endif /* _STLSOFT_NO_STD_INCLUDES */
 #endif /* !STLSOFT_CF_NATIVE_WCHAR_T_SUPPORT */
 
 /* 8-bit */
 #ifdef STLSOFT_CF_8BIT_INT_SUPPORT
- typedef STLSOFT_SI08_T_BASE_TYPE       STLSOFT_I_08_T_BASE_TYPE_;
- typedef STLSOFT_SI08_T_BASE_TYPE       STLSOFT_SI08_T_BASE_TYPE_;
- typedef STLSOFT_UI08_T_BASE_TYPE       STLSOFT_UI08_T_BASE_TYPE_;
+ typedef STLSOFT_SI08_T_BASE_TYPE                           STLSOFT_I_08_T_BASE_TYPE_;
+ typedef STLSOFT_SI08_T_BASE_TYPE                           STLSOFT_SI08_T_BASE_TYPE_;
+ typedef STLSOFT_UI08_T_BASE_TYPE                           STLSOFT_UI08_T_BASE_TYPE_;
 #else /* ? STLSOFT_CF_8BIT_INT_SUPPORT */
 # error STLSoft requires 8-bit integer support
 #endif /* STLSOFT_CF_8BIT_INT_SUPPORT */
 
 /* 16-bit */
 #ifdef STLSOFT_CF_16BIT_INT_SUPPORT
- typedef STLSOFT_SI16_T_BASE_TYPE       STLSOFT_I_16_T_BASE_TYPE_;
- typedef STLSOFT_SI16_T_BASE_TYPE       STLSOFT_SI16_T_BASE_TYPE_;
- typedef STLSOFT_UI16_T_BASE_TYPE       STLSOFT_UI16_T_BASE_TYPE_;
+ typedef STLSOFT_SI16_T_BASE_TYPE                           STLSOFT_I_16_T_BASE_TYPE_;
+ typedef STLSOFT_SI16_T_BASE_TYPE                           STLSOFT_SI16_T_BASE_TYPE_;
+ typedef STLSOFT_UI16_T_BASE_TYPE                           STLSOFT_UI16_T_BASE_TYPE_;
 #else /* ? STLSOFT_CF_16BIT_INT_SUPPORT */
 # error STLSoft requires 16-bit integer support
 #endif /* STLSOFT_CF_16BIT_INT_SUPPORT */
 
 /* 32-bit */
 #ifdef STLSOFT_CF_32BIT_INT_SUPPORT
- typedef STLSOFT_SI32_T_BASE_TYPE       STLSOFT_I_32_T_BASE_TYPE_;
- typedef STLSOFT_SI32_T_BASE_TYPE       STLSOFT_SI32_T_BASE_TYPE_;
- typedef STLSOFT_UI32_T_BASE_TYPE       STLSOFT_UI32_T_BASE_TYPE_;
+ typedef STLSOFT_SI32_T_BASE_TYPE                           STLSOFT_I_32_T_BASE_TYPE_;
+ typedef STLSOFT_SI32_T_BASE_TYPE                           STLSOFT_SI32_T_BASE_TYPE_;
+ typedef STLSOFT_UI32_T_BASE_TYPE                           STLSOFT_UI32_T_BASE_TYPE_;
 #else /* ? STLSOFT_CF_32BIT_INT_SUPPORT */
 # error STLSoft requires 32-bit integer support
 #endif /* STLSOFT_CF_32BIT_INT_SUPPORT */
 
 /* 64-bit */
 #ifdef STLSOFT_CF_64BIT_INT_SUPPORT
- typedef STLSOFT_SI64_T_BASE_TYPE       STLSOFT_I_64_T_BASE_TYPE_;
- typedef STLSOFT_SI64_T_BASE_TYPE       STLSOFT_SI64_T_BASE_TYPE_;
- typedef STLSOFT_UI64_T_BASE_TYPE       STLSOFT_UI64_T_BASE_TYPE_;
+ typedef STLSOFT_SI64_T_BASE_TYPE                           STLSOFT_I_64_T_BASE_TYPE_;
+ typedef STLSOFT_SI64_T_BASE_TYPE                           STLSOFT_SI64_T_BASE_TYPE_;
+ typedef STLSOFT_UI64_T_BASE_TYPE                           STLSOFT_UI64_T_BASE_TYPE_;
 #endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
+
+/* ptr-bit */
+#ifdef STLSOFT_SPTR_T_BASE_TYPE
+ typedef STLSOFT_SPTR_T_BASE_TYPE                           STLSOFT_SPTR_T_BASE_TYPE_;
+#endif
+#ifdef STLSOFT_UPTR_T_BASE_TYPE
+ typedef STLSOFT_UPTR_T_BASE_TYPE                           STLSOFT_UPTR_T_BASE_TYPE_;
+#endif
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* Type definitions - proper */
 
-typedef char                            ss_char_a_t;        /*!< Ansi char type             */
-typedef STLSOFT_WCHAR_T_BASE_TYPE_      ss_char_w_t;        /*!< Unicode char type          */
-typedef STLSOFT_I_08_T_BASE_TYPE_       ss_int8_t;          /*!< 8-bit integer              */
-typedef STLSOFT_SI08_T_BASE_TYPE_       ss_sint8_t;         /*!< 8-bit signed integer       */
-typedef STLSOFT_UI08_T_BASE_TYPE_       ss_uint8_t;         /*!< 8-bit unsigned integer     */
-typedef STLSOFT_I_16_T_BASE_TYPE_       ss_int16_t;         /*!< 16-bit integer             */
-typedef STLSOFT_SI16_T_BASE_TYPE_       ss_sint16_t;        /*!< 16-bit signed integer      */
-typedef STLSOFT_UI16_T_BASE_TYPE_       ss_uint16_t;        /*!< 16-bit unsigned integer    */
-typedef STLSOFT_I_32_T_BASE_TYPE_       ss_int32_t;         /*!< 32-bit integer             */
-typedef STLSOFT_SI32_T_BASE_TYPE_       ss_sint32_t;        /*!< 32-bit signed integer      */
-typedef STLSOFT_UI32_T_BASE_TYPE_       ss_uint32_t;        /*!< 32-bit unsigned integer    */
+typedef char                                                ss_char_a_t;        /*!< Ansi char type             */
+typedef STLSOFT_WCHAR_T_BASE_TYPE_                          ss_char_w_t;        /*!< Unicode char type          */
+typedef STLSOFT_I_08_T_BASE_TYPE_                           ss_int8_t;          /*!< 8-bit integer              */
+typedef STLSOFT_SI08_T_BASE_TYPE_                           ss_sint8_t;         /*!< 8-bit signed integer       */
+typedef STLSOFT_UI08_T_BASE_TYPE_                           ss_uint8_t;         /*!< 8-bit unsigned integer     */
+typedef STLSOFT_I_16_T_BASE_TYPE_                           ss_int16_t;         /*!< 16-bit integer             */
+typedef STLSOFT_SI16_T_BASE_TYPE_                           ss_sint16_t;        /*!< 16-bit signed integer      */
+typedef STLSOFT_UI16_T_BASE_TYPE_                           ss_uint16_t;        /*!< 16-bit unsigned integer    */
+typedef STLSOFT_I_32_T_BASE_TYPE_                           ss_int32_t;         /*!< 32-bit integer             */
+typedef STLSOFT_SI32_T_BASE_TYPE_                           ss_sint32_t;        /*!< 32-bit signed integer      */
+typedef STLSOFT_UI32_T_BASE_TYPE_                           ss_uint32_t;        /*!< 32-bit unsigned integer    */
 #ifdef STLSOFT_CF_64BIT_INT_SUPPORT
- typedef STLSOFT_I_64_T_BASE_TYPE_      ss_int64_t;         /*!< 64-bit integer             */
- typedef STLSOFT_SI64_T_BASE_TYPE_      ss_sint64_t;        /*!< 64-bit signed integer      */
- typedef STLSOFT_UI64_T_BASE_TYPE_      ss_uint64_t;        /*!< 64-bit unsigned integer    */
+ typedef STLSOFT_I_64_T_BASE_TYPE_                          ss_int64_t;         /*!< 64-bit integer             */
+ typedef STLSOFT_SI64_T_BASE_TYPE_                          ss_sint64_t;        /*!< 64-bit signed integer      */
+ typedef STLSOFT_UI64_T_BASE_TYPE_                          ss_uint64_t;        /*!< 64-bit unsigned integer    */
 #endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
-typedef short                           ss_short_t;         /*!< short integer              */
-typedef int STLSOFT_WARN_64             ss_int_t;           /*!< integer                    */
-typedef signed int STLSOFT_WARN_64      ss_sint_t;          /*!< signed integer             */
-typedef unsigned int STLSOFT_WARN_64    ss_uint_t;          /*!< unsigned integer           */
-typedef long STLSOFT_WARN_64            ss_long_t;          /*!< long integer               */
-typedef unsigned long STLSOFT_WARN_64   ss_ulong_t;         /*!< long integer               */
-typedef ss_uint8_t                      ss_byte_t;          /*!< Byte                       */
+#ifdef STLSOFT_SPTR_T_BASE_TYPE
+ typedef STLSOFT_SPTR_T_BASE_TYPE_                          ss_sintptr_t;       /*!< ptr-bit signed integer     */
+#endif
+#ifdef STLSOFT_UPTR_T_BASE_TYPE
+ typedef STLSOFT_UPTR_T_BASE_TYPE_                          ss_uintptr_t;       /*!< ptr-bit unsigned integer   */
+#endif
+typedef short                                               ss_short_t;         /*!< short integer              */
+typedef int STLSOFT_WARN_64                                 ss_int_t;           /*!< integer                    */
+typedef signed int STLSOFT_WARN_64                          ss_sint_t;          /*!< signed integer             */
+typedef unsigned int STLSOFT_WARN_64                        ss_uint_t;          /*!< unsigned integer           */
+typedef long STLSOFT_WARN_64                                ss_long_t;          /*!< long integer               */
+typedef unsigned long STLSOFT_WARN_64                       ss_ulong_t;         /*!< long integer               */
+typedef ss_uint8_t                                          ss_byte_t;          /*!< Byte                       */
 #if defined(__cplusplus)
 # ifdef STLSOFT_CF_NATIVE_BOOL_SUPPORT
-typedef bool                            ss_bool_t;          /*!< Boolean type               */
+typedef bool                                                ss_bool_t;          /*!< Boolean type               */
 # else /* ? STLSOFT_CF_NATIVE_BOOL_SUPPORT */
-typedef unsigned int                    ss_bool_t;
+typedef unsigned int                                        ss_bool_t;
 # endif /* STLSOFT_CF_NATIVE_BOOL_SUPPORT */
 #endif /* __cplusplus */
+typedef int                                                 ss_truthy_t;        /*!< Language-independent bool  */
 #ifndef _STLSOFT_NO_STD_INCLUDES
- typedef ptrdiff_t                      ss_ptrdiff_t;       /*!< ptr diff                   */
- typedef size_t STLSOFT_WARN_64         ss_size_t;          /*!< size                       */
+ typedef ptrdiff_t                                          ss_ptrdiff_t;       /*!< ptr diff                   */
+ typedef size_t STLSOFT_WARN_64                             ss_size_t;          /*!< size                       */
 #else /* ? _STLSOFT_NO_STD_INCLUDES */
- typedef unsigned int STLSOFT_WARN_64   ss_size_t;
- typedef int                            ss_ptrdiff_t;
+ typedef unsigned int STLSOFT_WARN_64                       ss_size_t;
+ typedef int                                                ss_ptrdiff_t;
 #endif /* !_STLSOFT_NO_STD_INCLUDES */
-typedef long                            ss_streampos_t;     /*!< streampos                  */
-typedef long                            ss_streamoff_t;     /*!< streamoff                  */
+typedef long                                                ss_streampos_t;     /*!< streampos                  */
+typedef long                                                ss_streamoff_t;     /*!< streamoff                  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-typedef ss_char_a_t                 char_a_t;           /*!< Ansi char type             */
-typedef ss_char_w_t                 char_w_t;           /*!< Unicode char type          */
-typedef ss_int8_t                   int8_t;             /*!< 8-bit integer              */
-typedef ss_sint8_t                  sint8_t;            /*!< 8-bit signed integer       */
-typedef ss_uint8_t                  uint8_t;            /*!< 8-bit unsigned integer     */
-typedef ss_int16_t                  int16_t;            /*!< 16-bit integer             */
-typedef ss_sint16_t                 sint16_t;           /*!< 16-bit signed integer      */
-typedef ss_uint16_t                 uint16_t;           /*!< 16-bit unsigned integer    */
-typedef ss_int32_t                  int32_t;            /*!< 32-bit integer             */
-typedef ss_sint32_t                 sint32_t;           /*!< 32-bit signed integer      */
-typedef ss_uint32_t                 uint32_t;           /*!< 32-bit unsigned integer    */
+#ifndef STLSOFT_NO_NAMESPACE
+typedef ss_char_a_t                                         char_a_t;           /*!< Ansi char type             */
+typedef ss_char_w_t                                         char_w_t;           /*!< Unicode char type          */
+typedef ss_int8_t                                           int8_t;             /*!< 8-bit integer              */
+typedef ss_sint8_t                                          sint8_t;            /*!< 8-bit signed integer       */
+typedef ss_uint8_t                                          uint8_t;            /*!< 8-bit unsigned integer     */
+typedef ss_int16_t                                          int16_t;            /*!< 16-bit integer             */
+typedef ss_sint16_t                                         sint16_t;           /*!< 16-bit signed integer      */
+typedef ss_uint16_t                                         uint16_t;           /*!< 16-bit unsigned integer    */
+typedef ss_int32_t                                          int32_t;            /*!< 32-bit integer             */
+typedef ss_sint32_t                                         sint32_t;           /*!< 32-bit signed integer      */
+typedef ss_uint32_t                                         uint32_t;           /*!< 32-bit unsigned integer    */
 # ifdef STLSOFT_CF_64BIT_INT_SUPPORT
-typedef ss_int64_t                  int64_t;            /*!< 64-bit integer             */
-typedef ss_sint64_t                 sint64_t;           /*!< 64-bit signed integer      */
-typedef ss_uint64_t                 uint64_t;           /*!< 64-bit unsigned integer    */
+typedef ss_int64_t                                          int64_t;            /*!< 64-bit integer             */
+typedef ss_sint64_t                                         sint64_t;           /*!< 64-bit signed integer      */
+typedef ss_uint64_t                                         uint64_t;           /*!< 64-bit unsigned integer    */
 # endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
-typedef ss_short_t                  short_t;            /*!< short integer              */
-typedef ss_int_t STLSOFT_WARN_64    int_t;              /*!< integer                    */
-typedef ss_sint_t STLSOFT_WARN_64   sint_t;             /*!< signed integer             */
-typedef ss_uint_t STLSOFT_WARN_64   uint_t;             /*!< unsigned integer           */
-typedef ss_long_t STLSOFT_WARN_64   long_t;             /*!< long integer               */
-typedef ss_byte_t                   byte_t;             /*!< Byte                       */
+#ifdef STLSOFT_SPTR_T_BASE_TYPE
+typedef ss_sintptr_t                                        sintptr_t;          /*!< ptr-bit signed integer     */
+#endif
+#ifdef STLSOFT_UPTR_T_BASE_TYPE
+typedef ss_uintptr_t                                        uintptr_t;          /*!< ptr-bit unsigned integer   */
+#endif
+typedef ss_short_t                                          short_t;            /*!< short integer              */
+typedef ss_int_t STLSOFT_WARN_64                            int_t;              /*!< integer                    */
+typedef ss_sint_t STLSOFT_WARN_64                           sint_t;             /*!< signed integer             */
+typedef ss_uint_t STLSOFT_WARN_64                           uint_t;             /*!< unsigned integer           */
+typedef ss_long_t STLSOFT_WARN_64                           long_t;             /*!< long integer               */
+typedef ss_byte_t                                           byte_t;             /*!< Byte                       */
 # if defined(__cplusplus)
-typedef ss_bool_t                   bool_t;             /*!< bool                       */
+typedef ss_bool_t                                           bool_t;             /*!< bool                       */
 # endif /* __cplusplus */
 # if !defined(STLSOFT_COMPILER_IS_DMC)
-typedef ss_streampos_t              streampos_t;        /*!< streampos                  */
-typedef ss_streamoff_t              streamoff_t;        /*!< streamoff                  */
+typedef ss_streampos_t                                      streampos_t;        /*!< streampos                  */
+typedef ss_streamoff_t                                      streamoff_t;        /*!< streamoff                  */
 # endif /* compiler */
-#endif /* !_STLSOFT_NO_NAMESPACE */
+#endif /* !STLSOFT_NO_NAMESPACE */
 
-
-#if 0
-template <ss_size_t N>
-struct uintp_traits;
-
-STLSOFT_GEN_TRAIT_SPECIALISATION
-struct uintp_traits<1>
-{
-    typedef uint8_t     unsigned_type;
-}
-
-typedef size_traits<sizeof(void*)>::signed_type     sintp_t;
-typedef size_traits<sizeof(void*)>::unsigned_type   uintp_t;
-
-#endif /* 0 */
-
-
-
-#ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# if defined(__cplusplus)
-
-struct native_wchar_t_checker
-{
-    /* Character types. */
-
-    void check(char)
-    {}
-#ifdef STLSOFT_CF_NATIVE_WCHAR_T_SUPPORT
-    void check(wchar_t)
-    {}
-#endif /* STLSOFT_CF_NATIVE_WCHAR_T_SUPPORT */
-
-    /* Sized integer types. */
-
-    void check(ss_sint8_t)
-    {}
-    void check(ss_uint8_t)
-    {}
-    void check(ss_sint16_t)
-    {}
-    void check(ss_uint16_t)
-    {}
-    void check(ss_sint32_t)
-    {}
-    void check(ss_uint32_t)
-    {}
-#ifdef STLSOFT_CF_64BIT_INT_SUPPORT
-    void check(ss_sint64_t)
-    {}
-    void check(ss_uint64_t)
-    {}
-#endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
-
-    /* Natural integer types. */
-
-#ifdef STLSOFT_CF_CHAR_DISTINCT_INT_TYPE
-    void check(signed char)
-    {}
-    void check(unsigned char)
-    {}
-#endif /* STLSOFT_CF_CHAR_DISTINCT_INT_TYPE */
-
-#ifdef STLSOFT_CF_SHORT_DISTINCT_INT_TYPE
-    void check(signed short)
-    {}
-    void check(unsigned short)
-    {}
-#endif /* STLSOFT_CF_SHORT_DISTINCT_INT_TYPE */
-
-#ifdef STLSOFT_CF_INT_DISTINCT_INT_TYPE
-    void check(signed int)
-    {}
-    void check(unsigned int)
-    {}
-#endif /* STLSOFT_CF_INT_DISTINCT_INT_TYPE */
-
-#ifdef STLSOFT_CF_LONG_DISTINCT_INT_TYPE
-    void check(signed long)
-    {}
-    void check(unsigned long)
-    {}
-#endif /* STLSOFT_CF_LONG_DISTINCT_INT_TYPE */
-
-    ~native_wchar_t_checker()
-    {
-        /* Character types. */
-        check(char());
-        check(wchar_t());
-
-        /* Sized integer types. */
-        check(ss_sint8_t());
-        check(ss_uint8_t());
-        check(ss_sint16_t());
-        check(ss_uint16_t());
-        check(ss_sint32_t());
-        check(ss_uint32_t());
-#ifdef STLSOFT_CF_64BIT_INT_SUPPORT
-        check(ss_sint64_t());
-        check(ss_uint64_t());
-#endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
-
-        /* Natural integer types. */
-        check(static_cast<signed char>(0));
-        check(static_cast<unsigned char>(0));
-        check(static_cast<signed short>(0));
-        check(static_cast<unsigned short>(0));
-        check(static_cast<signed int>(0));
-        check(static_cast<unsigned int>(0));
-        check(static_cast<signed long>(0));
-        check(static_cast<unsigned long>(0));
-    }
-};
-
-struct stlsoft_size_checker
-{
-#  ifdef STLSOFT_COMPILER_IS_GCC
-protected: /* GCC is too "helpful" in this case, so must declare as protected */
-#  else /* ? compiler */
-private:
-#  endif /* compiler */
-    stlsoft_size_checker();
-    ~stlsoft_size_checker()
-    {
-        /* Char types */
-        STLSOFT_STATIC_ASSERT(sizeof(ss_char_a_t) >= 1);
-        STLSOFT_STATIC_ASSERT(sizeof(ss_char_w_t) >= 2);
-        /* 8-bit types */
-        STLSOFT_STATIC_ASSERT(sizeof(ss_int8_t)   == 1);
-        STLSOFT_STATIC_ASSERT(sizeof(ss_sint8_t)  == sizeof(ss_int8_t));
-        STLSOFT_STATIC_ASSERT(sizeof(ss_uint8_t)  == sizeof(ss_int8_t));
-        /* 16-bit types */
-        STLSOFT_STATIC_ASSERT(sizeof(ss_int16_t)  == 2);
-        STLSOFT_STATIC_ASSERT(sizeof(ss_sint16_t) == sizeof(ss_int16_t));
-        STLSOFT_STATIC_ASSERT(sizeof(ss_uint16_t) == sizeof(ss_int16_t));
-        /* 32-bit types */
-        STLSOFT_STATIC_ASSERT(sizeof(ss_int32_t)  == 4);
-        STLSOFT_STATIC_ASSERT(sizeof(ss_sint32_t) == sizeof(ss_int32_t));
-        STLSOFT_STATIC_ASSERT(sizeof(ss_uint32_t) == sizeof(ss_int32_t));
-        /* 64-bit types */
-#  ifdef STLSOFT_CF_64BIT_INT_SUPPORT
-        STLSOFT_STATIC_ASSERT(sizeof(ss_int64_t)  == 8);
-        STLSOFT_STATIC_ASSERT(sizeof(ss_sint64_t) == sizeof(ss_int64_t));
-        STLSOFT_STATIC_ASSERT(sizeof(ss_uint64_t) == sizeof(ss_int64_t));
-#  endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
-        /* Integer types */
-        STLSOFT_STATIC_ASSERT(sizeof(ss_int_t)    >= 1);
-        STLSOFT_STATIC_ASSERT(sizeof(ss_sint_t)   == sizeof(ss_int_t));
-        STLSOFT_STATIC_ASSERT(sizeof(ss_uint_t)   == sizeof(ss_int_t));
-        STLSOFT_STATIC_ASSERT(sizeof(ss_long_t)   >= sizeof(ss_int_t));
-        /* byte type */
-        STLSOFT_STATIC_ASSERT(sizeof(ss_byte_t)   == 1);
-        /* Boolean type */
-        STLSOFT_STATIC_ASSERT(sizeof(ss_bool_t)   >= 1);
-        /* Other types */
-        STLSOFT_STATIC_ASSERT(sizeof(ss_size_t)   >= 1);
-        STLSOFT_STATIC_ASSERT(sizeof(ss_ptrdiff_t) >= 1);
-        STLSOFT_STATIC_ASSERT(sizeof(ss_streampos_t) >= 1);
-        STLSOFT_STATIC_ASSERT(sizeof(ss_streamoff_t) >= 1);
-    }
-};
-# endif /* __cplusplus */
-#endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Keywords
+ * keywords
  *
  * The STLSoft uses a number of preprocessor symbols to aid in compiler
  * compatibility in the libraries' code.
@@ -2144,6 +2226,7 @@ private:
  * ss_final_k               -   final, or nothing
  * ss_mutable_k             -   mutable, or nothing
  * ss_noexcept_k            -   noexcept, or nothing
+ * ss_nullptr_k             -   nullptr, or NULL
  * ss_override_k            -   override, or nothing
  * ss_typename_type_k       -   typename, or nothing (used within template
  *                              definitions for declaring types derived from
@@ -2156,148 +2239,160 @@ private:
 
 /** \defgroup pseudo_keyword_macros Pseudo-keyword Macros
  * \ingroup group__project__stlsoft
- * \brief These macros are used to handle difference in support of certain keywords between translators
+ * These macros are used to handle difference in support of certain keywords between translators
  * @{
  */
 
 /** \def ss_explicit_k
  *
- * \brief Evaluates to <b>explicit</b> on translators that support the keyword, otherwise to nothing.
+ * Evaluates to <b>explicit</b> on translators that support the keyword, otherwise to nothing.
  */
 #if defined(STLSOFT_CF_explicit_KEYWORD_SUPPORT) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# define ss_explicit_k              explicit
+# define ss_explicit_k                                      explicit
 #else /* ? STLSOFT_CF_explicit_KEYWORD_SUPPORT */
 # define ss_explicit_k
 #endif /* STLSOFT_CF_explicit_KEYWORD_SUPPORT */
 
 /** \def ss_final_k
  *
- * \brief Evaluates to <b>final</b> on translators that support the keyword, otherwise to nothing.
+ * Evaluates to <b>final</b> on translators that support the keyword, otherwise to nothing.
  */
 #if defined(STLSOFT_CF_final_KEYWORD_SUPPORT) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# define ss_final_k                 final
+# define ss_final_k                                         final
 #else /* ? STLSOFT_CF_final_KEYWORD_SUPPORT */
 # define ss_final_k
 #endif /* STLSOFT_CF_final_KEYWORD_SUPPORT */
 
 /** \def ss_mutable_k
  *
- * \brief Evaluates to <b>mutable</b> on translators that support the keyword, otherwise to nothing.
+ * Evaluates to <b>mutable</b> on translators that support the keyword, otherwise to nothing.
  */
 #if defined(STLSOFT_CF_mutable_KEYWORD_SUPPORT) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# define ss_mutable_k               mutable
+# define ss_mutable_k                                       mutable
 #else /* ? STLSOFT_CF_mutable_KEYWORD_SUPPORT */
 # define ss_mutable_k
 #endif /* STLSOFT_CF_mutable_KEYWORD_SUPPORT */
 
 /** \def ss_noexcept_k
  *
- * \brief Evaluates to <b>noexcept</b> on translators that support the keyword, otherwise to nothing.
+ * Evaluates to <b>noexcept</b> on translators that support the keyword, otherwise to nothing.
  */
 #if defined(STLSOFT_CF_noexcept_KEYWORD_SUPPORT) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# define ss_noexcept_k              noexcept
+# define ss_noexcept_k                                      noexcept
 #else /* ? STLSOFT_CF_noexcept_KEYWORD_SUPPORT */
 # define ss_noexcept_k
 #endif /* STLSOFT_CF_noexcept_KEYWORD_SUPPORT */
 
+/** \def ss_nullptr_k
+ *
+ * Evaluates to <b>nullptr</b> on translators that support the keyword, otherwise to <b>NULL</b>.
+ */
+#if defined(STLSOFT_CF_nullptr_KEYWORD_SUPPORT) || \
+    defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
+# define ss_nullptr_k                                       nullptr
+#else /* ? STLSOFT_CF_nullptr_KEYWORD_SUPPORT */
+# define ss_nullptr_k                                       NULL
+#endif /* STLSOFT_CF_nullptr_KEYWORD_SUPPORT */
+
 /** \def ss_override_k
  *
- * \brief Evaluates to <b>override</b> on translators that support the keyword, otherwise to nothing.
+ * Evaluates to <b>override</b> on translators that support the keyword, otherwise to nothing.
  */
 #if defined(STLSOFT_CF_override_KEYWORD_SUPPORT) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# define ss_override_k              override
+# define ss_override_k                                      override
 #else /* ? STLSOFT_CF_override_KEYWORD_SUPPORT */
 # define ss_override_k
 #endif /* STLSOFT_CF_override_KEYWORD_SUPPORT */
 
 /** \def ss_typename_param_k
  *
- * \brief Evaluates to <b>typename</b> on translators that support the keyword, otherwise to <b>class</b>
+ * Evaluates to <b>typename</b> on translators that support the keyword, otherwise to <b>class</b>
  *
  * Used for template parameter declarations
  */
 #if defined(STLSOFT_CF_TYPENAME_PARAM_KEYWORD_SUPPORT) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# define ss_typename_param_k        typename
+# define ss_typename_param_k                                typename
 #else /* ? STLSOFT_CF_TYPENAME_PARAM_KEYWORD_SUPPORT */
-# define ss_typename_param_k        class
+# define ss_typename_param_k                                class
 #endif /* STLSOFT_CF_TYPENAME_PARAM_KEYWORD_SUPPORT */
 
 /** \def ss_typename_type_k
  *
- * \brief Evaluates to <b>typename</b> on translators that support the keyword, otherwise to nothing.
+ * Evaluates to <b>typename</b> on translators that support the keyword, otherwise to nothing.
  *
  * Used for type disambiguation inside template bodies
  */
 #if defined(STLSOFT_CF_TYPENAME_TYPE_KEYWORD_SUPPORT) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# define ss_typename_type_k         typename
+# define ss_typename_type_k                                 typename
 #else /* ? STLSOFT_CF_TYPENAME_TYPE_KEYWORD_SUPPORT */
 # define ss_typename_type_k
 #endif /* STLSOFT_CF_TYPENAME_TYPE_KEYWORD_SUPPORT */
 
 /** \def ss_typename_type_def_k
  *
- * \brief Evaluates to <b>typename</b> on translators that support the keyword and its application in
+ * Evaluates to <b>typename</b> on translators that support the keyword and its application in
  *   the context of default template arguments, otherwise to nothing.
  *
  * Used for type disambiguation in default template arguments
  */
 #if defined(STLSOFT_CF_TYPENAME_TYPE_DEF_KEYWORD_SUPPORT) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# define ss_typename_type_def_k     typename
+# define ss_typename_type_def_k                             typename
 #else /* ? STLSOFT_CF_TYPENAME_TYPE_DEF_KEYWORD_SUPPORT */
 # define ss_typename_type_def_k
 #endif /* STLSOFT_CF_TYPENAME_TYPE_DEF_KEYWORD_SUPPORT */
 
 /** \def ss_typename_type_mil_k
  *
- * \brief Evaluates to <b>typename</b> on translators that support the keyword and its application in
+ * Evaluates to <b>typename</b> on translators that support the keyword and its application in
  *   the context of member initialisation lists, otherwise to nothing.
  *
  * Used for type disambiguation inside initialiser lists in class template constructors
  */
 #if defined(STLSOFT_CF_TYPENAME_TYPE_MIL_KEYWORD_SUPPORT) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# define ss_typename_type_mil_k     typename
+# define ss_typename_type_mil_k                             typename
 #else /* ? STLSOFT_CF_TYPENAME_TYPE_MIL_KEYWORD_SUPPORT */
 # define ss_typename_type_mil_k
 #endif /* STLSOFT_CF_TYPENAME_TYPE_MIL_KEYWORD_SUPPORT */
 
 /** \def ss_typename_type_ret_k
  *
- * \brief Evaluates to <b>typename</b> on translators that support the keyword and its application in
+ * Evaluates to <b>typename</b> on translators that support the keyword and its application in
  *   the context of member function/method return types, otherwise to nothing.
  *
  * Used for type disambiguation the return types in templates
  */
 #if defined(STLSOFT_CF_TYPENAME_TYPE_RET_KEYWORD_SUPPORT) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# define ss_typename_type_ret_k     typename
+# define ss_typename_type_ret_k                             typename
 #else /* ? STLSOFT_CF_TYPENAME_TYPE_RET_KEYWORD_SUPPORT */
 # define ss_typename_type_ret_k
 #endif /* STLSOFT_CF_TYPENAME_TYPE_RET_KEYWORD_SUPPORT */
 
 /** \def ss_template_qual_k
  *
- * \brief Evaluates to <b>template</b> on translators that support its use for type qualification
+ * Evaluates to <b>template</b> on translators that support its use for type qualification
  */
 #if defined(STLSOFT_CF_TEMPLATE_QUALIFIER_KEYWORD_SUPPORT) || \
     defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# define ss_template_qual_k         template
+# define ss_template_qual_k                                 template
 #else /* ? STLSOFT_CF_TEMPLATE_QUALIFIER_KEYWORD_SUPPORT */
 # define ss_template_qual_k
 #endif /* STLSOFT_CF_TEMPLATE_QUALIFIER_KEYWORD_SUPPORT */
 
 /** @} */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Values
+ * values
  *
  * Since the boolean type may not be supported natively on all compilers, the
  * values of true and false may also not be provided. Hence the values of
@@ -2307,21 +2402,22 @@ private:
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 #ifdef STLSOFT_CF_NATIVE_BOOL_SUPPORT
-# define ss_true_v       (true)
-# define ss_false_v      (false)
+# define ss_true_v                                          (true)
+# define ss_false_v                                         (false)
 #else /* ? STLSOFT_CF_NATIVE_BOOL_SUPPORT */
-# define ss_true_v       (1)
-# define ss_false_v      (0)
+# define ss_true_v                                          (1)
+# define ss_false_v                                         (0)
 #endif /* STLSOFT_CF_NATIVE_BOOL_SUPPORT */
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
+
 /* /////////////////////////////////////////////////////////////////////////
- * Exception signature macro(s)
+ * exception signature macro(s)
  */
 
 #ifdef __cplusplus
 
-/** \brief Throws the given exception
+/** Throws the given exception
  *
  * \note This is needed because Visual C++ 5.0 goes into an infinite loop if
  *        the exception instance is passed to throw. The apparent workaround
@@ -2342,7 +2438,7 @@ throw_x(
     throw x2;
 }
 
-#  define STLSOFT_THROW_X(x)    stlsoft_ns_qual(throw_x)(x)
+#  define STLSOFT_THROW_X(x)                                STLSOFT_NS_QUAL(throw_x)(x)
 
 # else
 
@@ -2363,7 +2459,7 @@ throw_x(
 #  endif /* compiler */
 }
 
-#  define STLSOFT_THROW_X(x)    stlsoft_ns_qual(throw_x)(x)
+#  define STLSOFT_THROW_X(x)                                STLSOFT_NS_QUAL(throw_x)(x)
 
 # endif /* compiler */
 
@@ -2371,69 +2467,69 @@ throw_x(
 
 /** \defgroup group__project__stlsoft__code_modification_macros Code Modification Macros
  * \ingroup group__project__stlsoft
- * \brief These macros are used to help out where compiler differences are
+ * These macros are used to help out where compiler differences are
  * so great as to cause great disgusting messes in the class/function implementations
  * @{
  */
 
 /** \def stlsoft_throw_0
- * \brief Indicates that the given function/method does not throw any exceptions.
+ * Indicates that the given function/method does not throw any exceptions.
  *
  * \note As of STLSoft 1.9.125, this resolves to \c noexcept for translators
  *   that support this keyword; in all other cases this resolves to
  *   <code>throw()</code>
  */
 /** \def stlsoft_throw_1
- * \brief Indicates that the given function/method throws the named type.
+ * Indicates that the given function/method throws the named type.
  *
  * \note As of STLSoft 1.9.125, this resolves to nothing, because exception
  *   specifications are deprecated unless the preprocessor object-like
  *   symbol STLSOFT_USE_EXCEPTION_SPECIFICATIONS is defined
  */
 /** \def stlsoft_throw_2
- * \brief Indicates that the given function/method throws the two named types.
+ * Indicates that the given function/method throws the two named types.
  *
  * \note As of STLSoft 1.9.125, this resolves to nothing, because exception
  *   specifications are deprecated unless the preprocessor object-like
  *   symbol STLSOFT_USE_EXCEPTION_SPECIFICATIONS is defined
  */
 /** \def stlsoft_throw_3
- * \brief Indicates that the given function/method throws the three named types.
+ * Indicates that the given function/method throws the three named types.
  *
  * \note As of STLSoft 1.9.125, this resolves to nothing, because exception
  *   specifications are deprecated unless the preprocessor object-like
  *   symbol STLSOFT_USE_EXCEPTION_SPECIFICATIONS is defined
  */
 /** \def stlsoft_throw_4
- * \brief Indicates that the given function/method throws the four named types.
+ * Indicates that the given function/method throws the four named types.
  *
  * \note As of STLSoft 1.9.125, this resolves to nothing, because exception
  *   specifications are deprecated unless the preprocessor object-like
  *   symbol STLSOFT_USE_EXCEPTION_SPECIFICATIONS is defined
  */
 /** \def stlsoft_throw_5
- * \brief Indicates that the given function/method throws the five named types.
+ * Indicates that the given function/method throws the five named types.
  *
  * \note As of STLSoft 1.9.125, this resolves to nothing, because exception
  *   specifications are deprecated unless the preprocessor object-like
  *   symbol STLSOFT_USE_EXCEPTION_SPECIFICATIONS is defined
  */
 /** \def stlsoft_throw_6
- * \brief Indicates that the given function/method throws the six named types.
+ * Indicates that the given function/method throws the six named types.
  *
  * \note As of STLSoft 1.9.125, this resolves to nothing, because exception
  *   specifications are deprecated unless the preprocessor object-like
  *   symbol STLSOFT_USE_EXCEPTION_SPECIFICATIONS is defined
  */
 /** \def stlsoft_throw_7
- * \brief Indicates that the given function/method throws the seven named types.
+ * Indicates that the given function/method throws the seven named types.
  *
  * \note As of STLSoft 1.9.125, this resolves to nothing, because exception
  *   specifications are deprecated unless the preprocessor object-like
  *   symbol STLSOFT_USE_EXCEPTION_SPECIFICATIONS is defined
  */
 /** \def stlsoft_throw_8
- * \brief Indicates that the given function/method throws the eight named types.
+ * Indicates that the given function/method throws the eight named types.
  *
  * \note As of STLSoft 1.9.125, this resolves to nothing, because exception
  *   specifications are deprecated unless the preprocessor object-like
@@ -2489,25 +2585,55 @@ throw_x(
 
 /** \def STLSOFT_NOEXCEPT
  *
- * \brief Function decorator that denotes the semantic of the \c noexcept
+ * Function decorator that denotes the semantic of the \c noexcept
  *   keyword / <code>throw()</code> construct in a compiler-independent
  *   manner.
  */
-#if !defined(__cplusplus)
+#if 0
+#elif defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
+
+# define STLSOFT_NOEXCEPT                                   noexcept
+#elif !defined(__cplusplus)
+
 # define STLSOFT_NOEXCEPT
 #elif defined(STLSOFT_CF_noexcept_KEYWORD_SUPPORT)
+
 # define STLSOFT_NOEXCEPT                                   ss_noexcept_k
 #elif !defined(STLSOFT_NO_noexcept_AS_throw_0)
+
 # define STLSOFT_NOEXCEPT                                   stlsoft_throw_0()
 #endif
 
+
+/** \def STLSOFT_NOEXCEPT_STDOVR
+ *
+ * Function decorator that denotes the semantic of the \c noexcept
+ *   keyword / <code>throw()</code> construct in a compiler-independent
+ *   manner that is applied to functions that are (ultimately) overrides of
+ *   standard library virtual functions.
+ */
+#if 0
+#elif defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
+
+# define STLSOFT_NOEXCEPT_STDOVR                            noexcept
+#elif !defined(__cplusplus)
+
+#elif defined(_GLIBCXX_USE_NOEXCEPT)
+
+# define STLSOFT_NOEXCEPT_STDOVR                            _GLIBCXX_USE_NOEXCEPT
+#else
+
+# define STLSOFT_NOEXCEPT_STDOVR                            STLSOFT_NOEXCEPT
+#endif
+
+
 /* /////////////////////////////////////////////////////////////////////////
- * Array size determination macro(s)
+ * array size determination macro(s)
  */
 
 /** \def STLSOFT_NUM_ELEMENTS(ar)
  *
- * \brief Evaluates, at compile time, to the number of elements within the given vector entity
+ * Evaluates, at compile time, to the number of elements within the given vector entity
  *
  * \param ar The array
  *
@@ -2533,11 +2659,14 @@ size_t            s_vi  = STLSOFT_NUM_ELEMENTS(vi);   // Error
  * ss_array_size_struct, rather than ss_array_size_struct, so as to avoid Visual C++ (7.1)'s C4686 warning
  */
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define STLSOFT_NUM_ELEMENTS_(ar)                      (sizeof(ar) / sizeof(0[(ar)]))
+
+# define STLSOFT_NUM_ELEMENTS_(ar)                          (sizeof(ar) / sizeof(0[(ar)]))
 
 # if defined(__cplusplus) && \
      defined(STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT)
+
 #  if 0/* defined(STLSOFT_COMPILER_IS_GCC) */
+
 #   pragma pack(push, 1)
 template <int N>
 struct ss_array_size_struct
@@ -2549,7 +2678,7 @@ struct ss_array_size_struct
 template <class T, int N>
 ss_array_size_struct<N> const& ss_static_array_size(T (&)[N]);
 
-#   define STLSOFT_NUM_ELEMENTS(ar)                     sizeof(stlsoft_ns_qual(ss_static_array_size)(ar))
+#   define STLSOFT_NUM_ELEMENTS(ar)                         sizeof(STLSOFT_NS_QUAL(ss_static_array_size)(ar))
 #  else /* ? 0 */
 template <int N>
 struct ss_array_size_struct
@@ -2566,7 +2695,7 @@ ss_array_size_struct<N> const& ss_static_array_size(T const (&)[N]);
 #endif /* compiler */
 
 
-#   define STLSOFT_NUM_ELEMENTS(ar)                     sizeof(stlsoft_ns_qual(ss_static_array_size)(ar).c)
+#   define STLSOFT_NUM_ELEMENTS(ar)                         sizeof(STLSOFT_NS_QUAL(ss_static_array_size)(ar).c)
 #  endif /* 0 */
 # else /* ? __cplusplus && STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT */
 #  define STLSOFT_NUM_ELEMENTS(ar)                      STLSOFT_NUM_ELEMENTS_(ar)
@@ -2577,7 +2706,7 @@ ss_array_size_struct<N> const& ss_static_array_size(T const (&)[N]);
 
 /** \def stlsoft_num_elements(ar)
  *
- * \brief Evaluates, at compile time, to the number of elements within the given vector entity
+ * Evaluates, at compile time, to the number of elements within the given vector entity
  *
  * \param ar The array
  *
@@ -2585,14 +2714,15 @@ ss_array_size_struct<N> const& ss_static_array_size(T const (&)[N]);
  *
  * \note This is a simple \#define for STLSOFT_NUM_ELEMENTS()
  */
-#define stlsoft_num_elements(ar)                        STLSOFT_NUM_ELEMENTS(ar)
+#define stlsoft_num_elements(ar)                            STLSOFT_NUM_ELEMENTS(ar)
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define stlsoft_num_elements_(ar)                      STLSOFT_NUM_ELEMENTS_(ar)
+# define stlsoft_num_elements_(ar)                          STLSOFT_NUM_ELEMENTS_(ar)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Structure element access macro(s)
+ * structure element access macro(s)
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -2600,10 +2730,10 @@ ss_array_size_struct<N> const& ss_static_array_size(T const (&)[N]);
                                               \
    stlsoft_static_cast(                       \
                                               \
-    stlsoft_ns_qual(ss_size_t),               \
+    STLSOFT_NS_QUAL(ss_size_t),               \
                                               \
      stlsoft_reinterpret_cast(                \
-      stlsoft_ns_qual(ss_ptrdiff_t),          \
+      STLSOFT_NS_QUAL(ss_ptrdiff_t),          \
       stlsoft_reinterpret_cast(char const*,   \
        &                                      \
         (   stlsoft_reinterpret_cast(S*, stlsoft_static_cast(char*, 1)) /* Cast 0 to S */ \
@@ -2612,7 +2742,7 @@ ss_array_size_struct<N> const& ss_static_array_size(T const (&)[N]);
       )                                       \
       -                                       \
      stlsoft_reinterpret_cast(                \
-      stlsoft_ns_qual(ss_ptrdiff_t),          \
+      STLSOFT_NS_QUAL(ss_ptrdiff_t),          \
       stlsoft_reinterpret_cast(char const*,   \
         ( stlsoft_reinterpret_cast(S*, stlsoft_static_cast(char*, 1)) /* Cast 0 to S */   \
           + 1)) /* Add 1 */                   \
@@ -2621,35 +2751,35 @@ ss_array_size_struct<N> const& ss_static_array_size(T const (&)[N]);
 
 # define STLSOFT_RAW_OFFSETOF_2(S, M)                                           \
                                                                                 \
-    (reinterpret_cast<stlsoft_ns_qual(ss_size_t)>(&reinterpret_cast<S*>(1)->M) - 1)
+    (reinterpret_cast<STLSOFT_NS_QUAL(ss_size_t)>(&reinterpret_cast<S*>(1)->M) - 1)
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 
 /** \def STLSOFT_RAW_OFFSETOF(S, M)
  *
- * \brief Evaluates, at compile time, the offset of the member \c m in the structure \c s
+ * Evaluates, at compile time, the offset of the member \c m in the structure \c s
  *
  * \param S The type of the structure/class
  * \param M The name of the member
  */
 #if defined(RECLS_COMPILER_IS_GCC)
-# define STLSOFT_RAW_OFFSETOF(S, M)                     STLSOFT_RAW_OFFSETOF_2(S, M)
+# define STLSOFT_RAW_OFFSETOF(S, M)                         STLSOFT_RAW_OFFSETOF_2(S, M)
 #elif defined(_STLSOFT_NO_STD_INCLUDES)
-# define STLSOFT_RAW_OFFSETOF(S, M)                     offsetof(S, M)
+# define STLSOFT_RAW_OFFSETOF(S, M)                         offsetof(S, M)
 #else /* ? _STLSOFT_NO_STD_INCLUDES */
-# define STLSOFT_RAW_OFFSETOF(S, M)                     stlsoft_reinterpret_cast(stlsoft_ns_qual(ss_size_t), &stlsoft_static_cast(S*, 0)->M)
+# define STLSOFT_RAW_OFFSETOF(S, M)                         stlsoft_reinterpret_cast(STLSOFT_NS_QUAL(ss_size_t), &stlsoft_static_cast(S*, 0)->M)
 #endif /* !_STLSOFT_NO_STD_INCLUDES */
 
 /** \def stlsoft_raw_offsetof(s, m)
  *
- * \brief Evaluates, at compile time, the offset of a structure/class member
+ * Evaluates, at compile time, the offset of a structure/class member
  *
  * \deprecated This is deprecated in favour of \ref STLSOFT_RAW_OFFSETOF().
  *
  * \note This is a simple \#define for STLSOFT_RAW_OFFSETOF()
  */
-#define stlsoft_raw_offsetof(s, m)                      STLSOFT_RAW_OFFSETOF(s, m)
+#define stlsoft_raw_offsetof(s, m)                          STLSOFT_RAW_OFFSETOF(s, m)
 
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -2670,8 +2800,9 @@ ss_array_size_struct<N> const& ss_static_array_size(T const (&)[N]);
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Destruction function(s)/macro(s)
+ * destruction function(s)/macro(s)
  */
 
 /* destroy function */
@@ -2709,27 +2840,28 @@ stlsoft_destroy_instance_fn(
  */
 # if defined(STLSOFT_DOCUMENTATION_SKIP_SECTION) || \
      defined(STLSOFT_COMPILER_IS_DMC)
-#  define STLSOFT_DESTROY_INSTANCE(T1, T2, P)           do { (P)->~T1(); } while(0)
+#  define STLSOFT_DESTROY_INSTANCE(T1, T2, P)               do { (P)->~T1(); } while (0)
 # else /* ? compiler */
-#  define STLSOFT_DESTROY_INSTANCE(T1, T2, P)           stlsoft_ns_qual(stlsoft_destroy_instance_fn)((P))
+#  define STLSOFT_DESTROY_INSTANCE(T1, T2, P)               STLSOFT_NS_QUAL(stlsoft_destroy_instance_fn)((P))
 # endif /* compiler */
 #endif /* __cplusplus */
 
 /** \def stlsoft_destroy_instance(T1, T2, P)
  *
- * \brief Explicitly destroys an instance
+ * Explicitly destroys an instance
  *
  * \deprecated This is deprecated in favour of \ref STLSOFT_DESTROY_INSTANCE().
  *
  * \note This is a simple \#define for STLSOFT_DESTROY_INSTANCE()
  */
-#define stlsoft_destroy_instance(T1, T2, P)             STLSOFT_DESTROY_INSTANCE(T1, T2, P)
+#define stlsoft_destroy_instance(T1, T2, P)                 STLSOFT_DESTROY_INSTANCE(T1, T2, P)
+
 
 /* /////////////////////////////////////////////////////////////////////////
- * Handle generator macro(s)
+ * handle generator macro(s)
  */
 
-/** \brief Generates an opaque type with the name \c type
+/** Generates an opaque type with the name \c type
  *
  * For example, the following defines two distinct opaque types:
  *
@@ -2741,26 +2873,27 @@ STLSOFT_GEN_OPAQUE(HProcess)
  * The two types are incompatible with each other, and with any other types (except that
  * they are both convertible to <code>void const*</code>
  */
-#define STLSOFT_GEN_OPAQUE(type)                        typedef struct __stlsoft_htype##type{ int i;} const* type;
+#define STLSOFT_GEN_OPAQUE(type)                            typedef struct __stlsoft_htype##type{ int i;} const* type;
 
 /** \def stlsoft_gen_opaque(Type)
  *
- * \brief Generates an opaque type with the name \c Type
+ * Generates an opaque type with the name \c Type
  *
  * \deprecated This is deprecated in favour of \ref STLSOFT_GEN_OPAQUE().
  *
  * \note This is a simple \#define for STLSOFT_GEN_OPAQUE()
  */
-#define stlsoft_gen_opaque(Type)                        STLSOFT_GEN_OPAQUE(Type)
+#define stlsoft_gen_opaque(Type)                            STLSOFT_GEN_OPAQUE(Type)
+
 
 /* /////////////////////////////////////////////////////////////////////////
- * Template friend macro(s)
+ * template friend macro(s)
  */
 
 /** \def STLSOFT_DECLARE_TEMPLATE_PARAM_AS_FRIEND
  * \ingroup group__project__stlsoft__code_modification_macros
  *
- * \brief Declares a template (class) parameter to be a friend of the template.
+ * Declares a template (class) parameter to be a friend of the template.
  *
  * Is it used as follows:
  *
@@ -2833,8 +2966,9 @@ private:
 # error Compiler not discriminated
 #endif /* compiler */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Template support - misc.
+ * template support - misc.
  */
 
 #ifdef __cplusplus
@@ -2854,14 +2988,15 @@ STLSOFT_CLOSE_WORKER_NS_(template_ex)
 # endif
 #endif /* __cplusplus */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Code suppression macro(s)
+ * code suppression macro(s)
  */
 
 /** \def STLSOFT_SUPPRESS_UNUSED
  * \ingroup group__project__stlsoft__code_modification_macros
  *
- * \brief Used to suppress unused variable warnings
+ * Used to suppress unused variable warnings
  */
 #if defined(__cplusplus) && \
     (   0 ||\
@@ -2879,50 +3014,61 @@ STLSOFT_CLOSE_WORKER_NS_(template_ex)
         defined(STLSOFT_COMPILER_IS_WATCOM) ||\
         0)
 template<ss_typename_param_k T>
-inline void suppress_unused_func(T const volatile &)
+inline void stlsoft_suppress_unused_func(T const volatile &)
 {}
 
 # if defined(STLSOFT_CF_CDECL_SUPPORTED)
 template<ss_typename_param_k R>
-inline void suppress_unused_func(R (STLSOFT_CDECL *)())
+inline void stlsoft_suppress_unused_func(R (STLSOFT_CDECL *)())
 {}
 template<ss_typename_param_k R, ss_typename_param_k A0>
-inline void suppress_unused_func(R (STLSOFT_CDECL *)(A0))
+inline void stlsoft_suppress_unused_func(R (STLSOFT_CDECL *)(A0))
 {}
 # endif /* STLSOFT_CF_CDECL_SUPPORTED */
 # if defined(STLSOFT_CF_FASTCALL_SUPPORTED)
 template<ss_typename_param_k R>
-inline void suppress_unused_func(R (STLSOFT_FASTCALL *)())
+inline void stlsoft_suppress_unused_func(R (STLSOFT_FASTCALL *)())
 {}
 template<ss_typename_param_k R, ss_typename_param_k A0>
-inline void suppress_unused_func(R (STLSOFT_FASTCALL *)(A0))
+inline void stlsoft_suppress_unused_func(R (STLSOFT_FASTCALL *)(A0))
 {}
 # endif /* STLSOFT_CF_FASTCALL_SUPPORTED */
 # if defined(STLSOFT_CF_STDCALL_SUPPORTED)
 template<ss_typename_param_k R>
-inline void suppress_unused_func(R (STLSOFT_STDCALL *)())
+inline void stlsoft_suppress_unused_func(R (STLSOFT_STDCALL *)())
 {}
 template<ss_typename_param_k R, ss_typename_param_k A0>
-inline void suppress_unused_func(R (STLSOFT_STDCALL *)(A0))
+inline void stlsoft_suppress_unused_func(R (STLSOFT_STDCALL *)(A0))
 {}
 # endif /* STLSOFT_CF_STDCALL_SUPPORTED */
 
-# define STLSOFT_SUPPRESS_UNUSED(x)     stlsoft_ns_qual(suppress_unused_func)(x)
+# ifdef STLSOFT_CF_RVALUE_REFERENCES_SUPPORT
+
+template<ss_typename_param_k T>
+inline void stlsoft_suppress_unused_func(T&&)
+{}
+# else /* ? STLSOFT_CF_RVALUE_REFERENCES_SUPPORT */
+
+inline void stlsoft_suppress_unused_func(size_t )
+{}
+# endif /* STLSOFT_CF_RVALUE_REFERENCES_SUPPORT */
+
+# define STLSOFT_SUPPRESS_UNUSED(x)                         STLSOFT_NS_QUAL(stlsoft_suppress_unused_func)(x)
 #else /* ? compiler */
+
 # ifdef __cplusplus
-#  define STLSOFT_SUPPRESS_UNUSED(x)    (static_cast<void>(x))
+
+#  define STLSOFT_SUPPRESS_UNUSED(x)                        (static_cast<void>(x))
 # else /* ? __cplusplus */
-#  define STLSOFT_SUPPRESS_UNUSED(x)    ((void)(x))
+
+#  define STLSOFT_SUPPRESS_UNUSED(x)                        ((void)(x))
 # endif /* __cplusplus */
 #endif /* compiler */
 
-/** \def STLSOFT_UNNAMED_PARAM(p)
- *
+/** \def STLSOFT_UNNAMED_PARAM
  * \ingroup group__project__stlsoft__code_modification_macros
  *
- * \brief Used to define an unused parameter for C compilation and/or documentation processing, but not for C++ compilation
- *
- * \param p The parameter to define
+ * Used to define an unused parameter for C compilation and/or documentation processing, but not for C++ compilation
  */
 #if defined(__cplusplus) && \
     !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
@@ -2930,16 +3076,13 @@ inline void suppress_unused_func(R (STLSOFT_STDCALL *)(A0))
 # define STLSOFT_UNNAMED_PARAM(p)
 #else /* ? __cplusplus */
 
-# define STLSOFT_UNNAMED_PARAM(p)           p
+# define STLSOFT_UNNAMED_PARAM(p)                           p
 #endif /* __cplusplus */
 
-/** \def STLSOFT_SUPPRESS_UNNAMED_PARAM(p)
- *
+/** \def STLSOFT_SUPPRESS_UNNAMED_PARAM
  * \ingroup group__project__stlsoft__code_modification_macros
  *
- * \brief Used to suppress unused parameter warnings (in C compilation) for parameters defined by STLSOFT_UNNAMED_PARAM()
- *
- * \param p The parameter to suppress
+ * Used to suppress unused parameter warnings (in C compilation) for parameters defined by STLSOFT_UNNAMED_PARAM()
  */
 #if defined(__cplusplus) && \
     !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
@@ -2952,170 +3095,187 @@ inline void suppress_unused_func(R (STLSOFT_STDCALL *)(A0))
 
 /** @} */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Cast macro(s)
+ * cast macro(s)
  */
 
 /** \defgroup cast_macros Cast Macros
  * \ingroup group__project__stlsoft
- * \brief These macros abstract casts, representing the C++ casts in C++ compilation
+ * These macros abstract casts, representing the C++ casts in C++ compilation
  * units, and C-casts in C compilation units
  * @{
  */
 
 /** \def stlsoft_c_cast(T, E)
- * \brief C-cast macro; equivalent to ((T)(E)), but more searchable
+ * C-cast macro; equivalent to ((T)(E)), but more searchable
  */
-#define stlsoft_c_cast(T, E)                ((T)(E))
+#define stlsoft_c_cast(T, E)                                ((T)(E))
 
 /** \def stlsoft_static_cast(T, E)
- * \brief C-cast macro; equivalent to <code>static_cast<T, E></code> in C++, and stlsoft_c_cast(T, E) in C
+ * C-cast macro; equivalent to <code>static_cast<T, E></code> in C++, and stlsoft_c_cast(T, E) in C
  */
 
 /** \def stlsoft_const_cast(T, E)
- * \brief C-cast macro; equivalent to <code>const_cast<T, E></code> in C++, and stlsoft_c_cast(T, E) in C
+ * C-cast macro; equivalent to <code>const_cast<T, E></code> in C++, and stlsoft_c_cast(T, E) in C
  */
 
 /** \def stlsoft_volatile_cast(T, E)
- * \brief C-cast macro; equivalent to <code>const_cast<T, E></code> in C++, and stlsoft_c_cast(T, E) in C
+ * C-cast macro; equivalent to <code>const_cast<T, E></code> in C++, and stlsoft_c_cast(T, E) in C
  */
 
 /** \def stlsoft_reinterpret_cast(T, E)
- * \brief C-cast macro; equivalent to <code>reinterpret_cast<T, E></code> in C++, and stlsoft_c_cast(T, E) in C
+ * C-cast macro; equivalent to <code>reinterpret_cast<T, E></code> in C++, and stlsoft_c_cast(T, E) in C
  */
 
 /** \def stlsoft_dynamic_cast(T, E)
- * \brief C-cast macro; equivalent to <code>dynamic_cast<T, E></code> in C++, and stlsoft_c_cast(T, E) in C
+ * C-cast macro; equivalent to <code>dynamic_cast<T, E></code> in C++, and stlsoft_c_cast(T, E) in C
  */
 
 #if defined(__cplusplus)
-# define stlsoft_static_cast(T, E)          static_cast< T>(E)
+# define stlsoft_static_cast(T, E)                          static_cast< T>(E)
 #else /* ? __cplusplus */
-# define stlsoft_static_cast(T, E)          stlsoft_c_cast(T, E)
+# define stlsoft_static_cast(T, E)                          stlsoft_c_cast(T, E)
 #endif /* __cplusplus */
 
 #if defined(__cplusplus)
-# define stlsoft_const_cast(T, E)           const_cast< T>(E)
+# define stlsoft_const_cast(T, E)                           const_cast< T>(E)
 #else /* ? __cplusplus */
-# define stlsoft_const_cast(T, E)           stlsoft_c_cast(T, E)
+# define stlsoft_const_cast(T, E)                           stlsoft_c_cast(T, E)
 #endif /* __cplusplus */
 
 #if defined(__cplusplus)
-# define stlsoft_volatile_cast(T, E)        const_cast< T>(E)
+# define stlsoft_volatile_cast(T, E)                        const_cast< T>(E)
 #else /* ? __cplusplus */
-# define stlsoft_volatile_cast(T, E)        stlsoft_c_cast(T, E)
+# define stlsoft_volatile_cast(T, E)                        stlsoft_c_cast(T, E)
 #endif /* __cplusplus */
 
 #if defined(__cplusplus)
-# define stlsoft_reinterpret_cast(T, E)     reinterpret_cast< T>(E)
+# define stlsoft_reinterpret_cast(T, E)                     reinterpret_cast< T>(E)
 #else /* ? __cplusplus */
-# define stlsoft_reinterpret_cast(T, E)     stlsoft_c_cast(T, E)
+# define stlsoft_reinterpret_cast(T, E)                     stlsoft_c_cast(T, E)
 #endif /* __cplusplus */
 
 #if defined(__cplusplus)
-# define stlsoft_dynamic_cast(T, E)         dynamic_cast< T>(E)
+# define stlsoft_dynamic_cast(T, E)                         dynamic_cast< T>(E)
 #else /* ? __cplusplus */
-# define stlsoft_dynamic_cast(T, E)         stlsoft_c_cast(T, E)
+# define stlsoft_dynamic_cast(T, E)                         stlsoft_c_cast(T, E)
 #endif /* __cplusplus */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
   /* STLSoft 1.12+ forward-compatible macros */
-# define STLSOFT_C_CAST(T, E)               stlsoft_c_cast(T, E)
-# define STLSOFT_STATIC_CAST(T, E)          stlsoft_static_cast(T, E)
-# define STLSOFT_CONST_CAST(T, E)           stlsoft_const_cast(T, E)
-# define STLSOFT_VOLATILE_CAST(T, E)        stlsoft_const_cast(T, E)
-# define STLSOFT_REINTERPRET_CAST(T, E)     stlsoft_reinterpret_cast(T, E)
-# define STLSOFT_DYNAMIC_CAST(T, E)         stlsoft_dynamic_cast(T, E)
+# define STLSOFT_C_CAST(T, E)                               stlsoft_c_cast(T, E)
+# define STLSOFT_STATIC_CAST(T, E)                          stlsoft_static_cast(T, E)
+# define STLSOFT_CONST_CAST(T, E)                           stlsoft_const_cast(T, E)
+# define STLSOFT_VOLATILE_CAST(T, E)                        stlsoft_const_cast(T, E)
+# define STLSOFT_REINTERPRET_CAST(T, E)                     stlsoft_reinterpret_cast(T, E)
+# define STLSOFT_DYNAMIC_CAST(T, E)                         stlsoft_dynamic_cast(T, E)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** @} */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Inlining macro(s)
+ * inlining macro(s)
  */
 
 /** \defgroup inlining_macros Inlining Macros
  * \ingroup group__project__stlsoft
- * \brief These macros abstract inline
+ * These macros abstract inline
  * @{
  */
 
 /** \def STLSOFT_INLINE
- * \brief inline pseudo-keyword
+ * inline pseudo-keyword
  *
  * Resolves to \c inline in C++ compilation. In C, resolves to \c inline for
  * compilers that support C99, or otherwise \c STLSOFT_CUSTOM_C_INLINE if
  * defined, or otherwise defaults to \c static
  */
-#if defined(__cplusplus)
-# define STLSOFT_INLINE                     inline
+#if 0
+#elif defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
+
+# define STLSOFT_INLINE                                     inline
+#elif defined(__cplusplus)
+
+# define STLSOFT_INLINE                                     inline
 #else /* ? __cplusplus */
-# if defined(STLSOFT_CF_C99_INLINE)
-#  define STLSOFT_INLINE                    inline
+# if 0
 # elif defined(STLSOFT_CUSTOM_C_INLINE)
-#  define STLSOFT_INLINE                    STLSOFT_CUSTOM_C_INLINE
+
+#  define STLSOFT_INLINE                                    STLSOFT_CUSTOM_C_INLINE
+# elif defined(STLSOFT_CF_C99_INLINE)
+
+#  define STLSOFT_INLINE                                    inline
 # else /* ? C inline */
-#  define STLSOFT_INLINE                    static
+
+#  define STLSOFT_INLINE                                    static
 # endif /* C inline */
 #endif /* __cplusplus */
 
-/** @} */
 
-/* /////////////////////////////////////////////////////////////////////////
- * Sanity checks - 4
- *
- * This section checks that the discriminated sizes of various types are
- * correct.
- */
+#ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-#ifdef STLSOFT_CF_STATIC_ASSERT_SUPPORT
-# ifdef __cplusplus
-namespace internal_gcc
+STLSOFT_INLINE
+# if defined(STLSOFT_CF_constexpr_KEYWORD_SUPPORT) && \
+     !defined(STLSOFT_COMPILER_IS_MSVC)
+constexpr
+# endif
+ss_truthy_t
+# if 0
+# elif defined(__GNUC__)
+__attribute__ ((unused))
+# endif
+stlsoft_C_always_false_(void) STLSOFT_NOEXCEPT
 {
-# endif /* __cplusplus */
-
-# if defined(__cplusplus) /* || defined(STLSOFT_CF_C99_INLINE) */
-
-STLSOFT_INLINE void _stlsoft_internal_verify_integral_type_sizes(void)
-{
-    STLSOFT_STATIC_ASSERT(_STLSOFT_SIZEOF_CHAR == sizeof(char));
-    STLSOFT_STATIC_ASSERT(_STLSOFT_SIZEOF_SHORT == sizeof(short));
-    STLSOFT_STATIC_ASSERT(_STLSOFT_SIZEOF_INT == sizeof(int));
-    STLSOFT_STATIC_ASSERT(_STLSOFT_SIZEOF_LONG == sizeof(long));
-#  ifdef STLSOFT_CF_BUILTIN_long_long_SUPPORT
-    STLSOFT_STATIC_ASSERT(_STLSOFT_SIZEOF_LONG_LONG == sizeof(long long));
-#  endif /* STLSOFT_CF_BUILTIN_long_long_SUPPORT */
-
-    STLSOFT_STATIC_ASSERT(1 == sizeof(ss_sint8_t));
-    STLSOFT_STATIC_ASSERT(1 == sizeof(ss_uint8_t));
-    STLSOFT_STATIC_ASSERT(2 == sizeof(ss_sint16_t));
-    STLSOFT_STATIC_ASSERT(2 == sizeof(ss_uint16_t));
-    STLSOFT_STATIC_ASSERT(4 == sizeof(ss_sint32_t));
-    STLSOFT_STATIC_ASSERT(4 == sizeof(ss_uint32_t));
-#  ifdef STLSOFT_CF_64BIT_INT_SUPPORT
-    STLSOFT_STATIC_ASSERT(8 == sizeof(ss_sint64_t));
-    STLSOFT_STATIC_ASSERT(8 == sizeof(ss_uint64_t));
-#  endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
+    return 0;
 }
 
-# endif /* __cplusplus) || STLSOFT_CF_C99_INLINE */
+STLSOFT_INLINE
+# if defined(STLSOFT_CF_constexpr_KEYWORD_SUPPORT) && \
+     !defined(STLSOFT_COMPILER_IS_MSVC)
+constexpr
+# endif
+ss_truthy_t
+# if 0
+# elif defined(__GNUC__)
+__attribute__ ((unused))
+# endif
+stlsoft_C_always_true_(void) STLSOFT_NOEXCEPT
+{
+    return 1;
+}
+#endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-# ifdef __cplusplus
-} /* namespace internal_gcc */
-# endif /* __cplusplus */
-#endif /* STLSOFT_CF_STATIC_ASSERT_SUPPORT */
+/** @} */
+
+/** \def STLSOFT_ALWAYS_FALSE()
+ * pseudo-constexpr function
+ *
+ * Resolves to a construct that is always false
+ */
+
+/** \def STLSOFT_ALWAYS_TRUE()
+ * pseudo-constexpr function
+ *
+ * Resolves to a construct that is always true
+ */
+
+# define STLSOFT_ALWAYS_FALSE()                             STLSOFT_NS_QUAL(stlsoft_C_always_false_)()
+# define STLSOFT_ALWAYS_TRUE()                              STLSOFT_NS_QUAL(stlsoft_C_always_true_)()
+
 
 /* /////////////////////////////////////////////////////////////////////////
- * Pointer manipulation functions(s)
+ * pointer manipulation functions(s)
  */
 
 /** \defgroup pointer_manipulation_functions Pointer Manipulation Functions
  * \ingroup group__project__stlsoft
- * \brief These functions assist in calculations with, and the manipulation of, pointers
+ * These functions assist in calculations with, and the manipulation of, pointers
  * @{
  */
 
-/** \brief Offsets a pointer by a number of bytes
+/** Offsets a pointer by a number of bytes
  *
  * \param p The pointer to be offset
  * \param n The number of bytes to offset
@@ -3145,7 +3305,7 @@ ptr_byte_offset(
     return p4;
 }
 
-/** \brief Offsets a pointer by a number of elements
+/** Offsets a pointer by a number of elements
  *
  * \param p The pointer to be offset
  * \param n The number of elements to offset
@@ -3162,7 +3322,7 @@ ptr_offset(
     return p + n;
 }
 
-/** \brief Get the difference in bytes between two pointers
+/** Get the difference in bytes between two pointers
  */
 template<
     ss_typename_param_k T1
@@ -3178,7 +3338,7 @@ ptr_byte_diff(
     return static_cast<ss_byte_t const*>(static_cast<void const*>(p1)) - static_cast<ss_byte_t const*>(static_cast<void const*>(p2));
 }
 
-/** \brief Get the difference in elements between two pointers
+/** Get the difference in elements between two pointers
  */
 template<
     ss_typename_param_k T1
@@ -3198,19 +3358,20 @@ ptr_diff(
 
 /** @} end of group pointer_manipulation_functions */
 
+
 /* /////////////////////////////////////////////////////////////////////////
  * cv qualifier functions(s)
  */
 
 /** \defgroup cv_qualifier_functions cv-Qualifier Functions
  * \ingroup group__project__stlsoft
- * \brief These functions assist in the manipulation of cv-qualifiers
+ * These functions assist in the manipulation of cv-qualifiers
  * @{
  */
 
 #if defined(__cplusplus)
 
-/** \brief Remove const-qualifier from an instance.
+/** Remove const-qualifier from an instance.
  *
  * \warning Using this function can result in undefined behaviour. As such,
  * the advice is: <b>Use With Care!</b>
@@ -3223,7 +3384,7 @@ remove_const(T const& t)
     return const_cast<T&>(t);
 }
 
-/** \brief Remove const-qualifier from an instance.
+/** Remove const-qualifier from an instance.
  *
  * \warning Using this function can result in undefined behaviour. As such,
  * the advice is: <b>Use With Care!</b>
@@ -3236,7 +3397,7 @@ remove_const_ptr(T const* t)
     return const_cast<T*>(t);
 }
 
-/** \brief Adds const-qualifier to an instance.
+/** Adds const-qualifier to a reference.
  */
 template <ss_typename_param_k T>
 inline
@@ -3246,7 +3407,7 @@ apply_const(T& t)
     return t;
 }
 
-/** \brief Adds const-qualifier to an instance.
+/** Adds const-qualifier to a pointer.
  */
 template <ss_typename_param_k T>
 inline
@@ -3278,9 +3439,9 @@ inline T& mutable_access(T const& t)
 # ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 #  ifdef STLSOFT_CF_MOVE_CONSTRUCTOR_SUPPORT
-#   define stlsoft_define_move_rhs_type(t)           t &
+#   define stlsoft_define_move_rhs_type(t)                  t &
 #  else /* ? STLSOFT_CF_MOVE_CONSTRUCTOR_SUPPORT */
-#   define stlsoft_define_move_rhs_type(t)           t const&
+#   define stlsoft_define_move_rhs_type(t)                  t const&
 #  endif /* STLSOFT_CF_MOVE_CONSTRUCTOR_SUPPORT */
 
 template <ss_typename_param_k T>
@@ -3295,7 +3456,7 @@ inline T& move_lhs_from_rhs(stlsoft_define_move_rhs_type(T) t)
 
 # endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief Takes the address of a variable
+/** Takes the address of a variable
  *
  * \warning This function is used to take the address of a variable,
  * possibly a temporary, and allows the code to skip the reasonable
@@ -3316,8 +3477,9 @@ address(
 
 /** @} */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * Memory
+ * memory
  */
 
 #if defined(__cplusplus)
@@ -3329,14 +3491,14 @@ address(
  */
 
 #ifndef new
-# ifdef _STLSOFT_NO_NAMESPACE
+# ifdef STLSOFT_NO_NAMESPACE
 #  if defined(STLSOFT_COMPILER_IS_BORLAND) && \
       __BORLANDC__ < 0x0550
 #   include <new.h>
 #  else /* ? compiler */
 #   include <new>
 #  endif /* compiler */
-# else /* ? _STLSOFT_NO_NAMESPACE */
+# else /* ? STLSOFT_NO_NAMESPACE */
 #  if ( defined(STLSOFT_COMPILER_IS_DMC) && \
         __DMC__ < 0x0833) || \
       ( defined(STLSOFT_COMPILER_IS_MSVC) && \
@@ -3344,50 +3506,35 @@ address(
 inline
 void*
 operator new(
-    ss_size_t   /* si */
-,   void*       pv
+    ss_size_t    /* si */
+,   void*           pv
 )
 {
     return pv;
 }
 #  endif /* compiler */
-# endif /* !_STLSOFT_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
 #endif /* !new */
 
 #endif /* __cplusplus */
 
-/* ////////////////////////////////////////////////////////////////////// */
-
-#ifndef _STLSOFT_NO_NAMESPACE
-} /* namespace stlsoft */
-#endif /* !_STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Inclusion
+ * namespace
+ */
+
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* !STLSOFT_NO_NAMESPACE */
+
+
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
  */
 
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
 # pragma once
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Unit-testing
- */
-
-#ifdef STLSOFT_UNITTEST
-
-# ifndef STLSOFT_INCL_UNITTEST_HPP_UNITTEST
-#  include <unittest/unittest.hpp>
-# endif /* !STLSOFT_INCL_UNITTEST_HPP_UNITTEST */
-
-# if defined(STLSOFT_COMPILER_IS_MSVC) && \
-     _MSC_VER == 1200
-#  include <stlsoft/synch/concepts.hpp> /* Avoids a VC6 ICE. */
-# endif /* compiler */
-
-#endif /* STLSOFT_UNITTEST */
-
-/* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
 

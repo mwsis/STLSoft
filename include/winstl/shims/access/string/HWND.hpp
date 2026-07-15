@@ -4,37 +4,39 @@
  * Purpose:     Contains classes and functions for dealing with Win32 strings.
  *
  * Created:     24th May 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -43,7 +45,7 @@
  *
  * \brief [C++] Definition of the string access shims for
  *   <code>HWND</code>
- *   (\ref group__concept__shim__string_access "String Access Shims" Concept).
+ *   (\ref group__concept__Shim__string_access "String Access Shims" Concept).
  */
 
 #ifndef WINSTL_INCL_WINSTL_SHIMS_ACCESS_STRING_HPP_HWND
@@ -52,17 +54,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_HWND_MAJOR       4
 # define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_HWND_MINOR       1
-# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_HWND_REVISION    2
-# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_HWND_EDIT        115
+# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_HWND_REVISION    10
+# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_HWND_EDIT        129
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_HPP_STRING
 # include <stlsoft/shims/access/string.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_SHIMS_ACCESS_HPP_STRING */
@@ -77,7 +83,7 @@
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_CSTRING_MAKER */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
+ * compatibility
  */
 
 #ifdef NOUSER
@@ -88,53 +94,57 @@
 #endif /* NOWINOFFSETS */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Functions
+ * functions
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-inline ws_size_t GetWindowTextLength_T_(HWND hwnd, int (WINAPI *pfn)(HWND ))
+inline
+ws_size_t
+GetWindowTextLength_T_(
+    HWND            hwnd
+,   int (WINAPI*    pfn)(HWND )
+)
 {
+    using namespace ximpl_winstl_window_ident;
+
     WINSTL_ASSERT(NULL != pfn);
 
-    WindowIdent ident       =   GetWindowIdent(hwnd);
-    int         sel;
+    WindowIdent const   ident       =   GetWindowIdent(hwnd);
+    int                 sel;
 # ifndef NOWINSTYLES
-    const long  lbsStyle    =   LBS_MULTIPLESEL | LBS_EXTENDEDSEL;
+    const long          lbsStyle    =   LBS_MULTIPLESEL | LBS_EXTENDEDSEL;
 # else /* ? NOWINSTYLES */
-    const long  lbsStyle    =   0x0008L | 0x0800L;
+    const long          lbsStyle    =   0x0008L | 0x0800L;
 # endif /* NOWINSTYLES */
 
-    switch(ident)
+    switch (ident)
     {
-        case    ListBox:
-            if(0 == (GetStyle(hwnd) & lbsStyle))
+        case    WindowIdent_ListBox:
+            if (0 == (GetStyle(hwnd) & lbsStyle))
             {
                 sel = static_cast<int>(::SendMessage(hwnd, LB_GETCURSEL, 0, 0l));
 
-                if(LB_ERR != sel)
+                if (LB_ERR != sel)
                 {
                     return static_cast<ws_size_t>(::SendMessage(hwnd, LB_GETTEXTLEN, static_cast<WPARAM>(sel), 0L));
                 }
@@ -145,16 +155,16 @@ inline ws_size_t GetWindowTextLength_T_(HWND hwnd, int (WINAPI *pfn)(HWND ))
             }
             break;
 #if 0
-        case    ListBox:
-            if(1 == SendMessage(hwnd, LVM_GETSELECTEDCOUNT, 0, 0L))
+        case    WindowIdent_ListBox:
+            if (1 == SendMessage(hwnd, LVM_GETSELECTEDCOUNT, 0, 0L))
             {
                 sel =
             }
             break;
 #endif /* 0 */
-        case    Generic:
-        case    ComboBox:
-        case    ListView:
+        case    WindowIdent_Generic:
+        case    WindowIdent_ComboBox:
+        case    WindowIdent_ListView:
         default:
             break;
     }
@@ -162,15 +172,27 @@ inline ws_size_t GetWindowTextLength_T_(HWND hwnd, int (WINAPI *pfn)(HWND ))
     return static_cast<ws_size_t>(pfn(hwnd));
 }
 
-inline ws_size_t GetWindowTextLength_T_(HWND hwnd)
+inline
+ws_size_t
+GetWindowTextLength_T_(
+    HWND hwnd
+)
 {
     return GetWindowTextLength_T_(hwnd, ::GetWindowTextLength);
 }
-inline ws_size_t GetWindowTextLength_A_(HWND hwnd)
+inline
+ws_size_t
+GetWindowTextLength_A_(
+    HWND hwnd
+)
 {
     return GetWindowTextLength_T_(hwnd, ::GetWindowTextLengthA);
 }
-inline ws_size_t GetWindowTextLength_W_(HWND hwnd)
+inline
+ws_size_t
+GetWindowTextLength_W_(
+    HWND hwnd
+)
 {
     return GetWindowTextLength_T_(hwnd, ::GetWindowTextLengthW);
 }
@@ -181,7 +203,11 @@ struct WindowTextLength_traits;
 STLSOFT_TEMPLATE_SPECIALISATION
 struct WindowTextLength_traits<ws_char_a_t>
 {
-    static ws_size_t get_length(HWND hwnd)
+    static
+    ws_size_t
+    get_length(
+        HWND hwnd
+    )
     {
         return GetWindowTextLength_A_(hwnd);
     }
@@ -190,26 +216,38 @@ struct WindowTextLength_traits<ws_char_a_t>
 STLSOFT_TEMPLATE_SPECIALISATION
 struct WindowTextLength_traits<ws_char_w_t>
 {
-    static ws_size_t get_length(HWND hwnd)
+    static
+    ws_size_t
+    get_length(
+        HWND hwnd
+    )
     {
         return GetWindowTextLength_W_(hwnd);
     }
 };
 
-inline ws_size_t GetWindowText_A_(HWND hwnd, ws_char_a_t *buffer, ws_size_t cchBuffer)
+inline
+ws_size_t
+GetWindowText_A_(
+    HWND            hwnd
+,   ws_char_a_t*    buffer
+,   ws_size_t       cchBuffer
+)
 {
-    WindowIdent ident   =   GetWindowIdent(hwnd);
-    int         sel;
-    ws_size_t   cch;
+    using namespace ximpl_winstl_window_ident;
 
-    switch(ident)
+    WindowIdent const   ident   =   GetWindowIdent(hwnd);
+    int                 sel;
+    ws_size_t           cch;
+
+    switch (ident)
     {
-        case    ListBox:
-            if(0 == (GetStyle(hwnd) & (LBS_MULTIPLESEL | LBS_EXTENDEDSEL)))
+        case    WindowIdent_ListBox:
+            if (0 == (GetStyle(hwnd) & (LBS_MULTIPLESEL | LBS_EXTENDEDSEL)))
             {
                 sel = static_cast<int>(::SendMessage(hwnd, LB_GETCURSEL, 0, 0l));
 
-                if(LB_ERR != sel)
+                if (LB_ERR != sel)
                 {
                     cch =   static_cast<ws_size_t>(::SendMessage(hwnd, LB_GETTEXT, static_cast<WPARAM>(sel), reinterpret_cast<LPARAM>(buffer)));
 
@@ -229,9 +267,9 @@ inline ws_size_t GetWindowText_A_(HWND hwnd, ws_char_a_t *buffer, ws_size_t cchB
                 return cch;
             }
             break;
-        case    Generic:
-        case    ComboBox:
-        case    ListView:
+        case    WindowIdent_Generic:
+        case    WindowIdent_ComboBox:
+        case    WindowIdent_ListView:
         default:
             break;
     }
@@ -239,21 +277,29 @@ inline ws_size_t GetWindowText_A_(HWND hwnd, ws_char_a_t *buffer, ws_size_t cchB
     return static_cast<ws_size_t>(::GetWindowTextA(hwnd, buffer, static_cast<int>(cchBuffer)));
 }
 
-inline ws_size_t GetWindowText_W_(HWND hwnd, ws_char_w_t *buffer, ws_size_t cchBuffer)
+inline
+ws_size_t
+GetWindowText_W_(
+    HWND            hwnd
+,   ws_char_w_t*    buffer
+,   ws_size_t       cchBuffer
+)
 {
-    WindowIdent ident   =   GetWindowIdent(hwnd);
-    int         sel;
+    using namespace ximpl_winstl_window_ident;
 
-    switch(ident)
+    WindowIdent const   ident   =   GetWindowIdent(hwnd);
+    int                 sel;
+
+    switch (ident)
     {
-        case    ListBox:
-            if(0 == (GetStyle(hwnd) & (LBS_MULTIPLESEL | LBS_EXTENDEDSEL)))
+        case    WindowIdent_ListBox:
+            if (0 == (GetStyle(hwnd) & (LBS_MULTIPLESEL | LBS_EXTENDEDSEL)))
             {
                 ws_size_t  cch;
 
                 sel = static_cast<int>(::SendMessage(hwnd, LB_GETCURSEL, 0, 0l));
 
-                if(LB_ERR != sel)
+                if (LB_ERR != sel)
                 {
                     cch =   static_cast<ws_size_t>(::SendMessage(hwnd, LB_GETTEXT, static_cast<WPARAM>(sel), reinterpret_cast<LPARAM>(buffer)));
                 }
@@ -269,9 +315,9 @@ inline ws_size_t GetWindowText_W_(HWND hwnd, ws_char_w_t *buffer, ws_size_t cchB
                 return cch;
             }
             break;
-        case    Generic:
-        case    ComboBox:
-        case    ListView:
+        case    WindowIdent_Generic:
+        case    WindowIdent_ComboBox:
+        case    WindowIdent_ListView:
         default:
             break;
     }
@@ -282,77 +328,53 @@ inline ws_size_t GetWindowText_W_(HWND hwnd, ws_char_w_t *buffer, ws_size_t cchB
 
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 /* HWND */
-/** \brief This class provides an intermediary object that may be returned by the
+/** This class provides an intermediary object that may be returned by the
  * c_str_ptr_null() function, such that the window text of a given window may be
  * accessed as a null-terminated string.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 template <ss_typename_param_k C>
 class c_str_ptr_null_HWND_proxy
 {
-    typedef cstring_maker<C>                            string_maker_type;
+private: // types
+    typedef cstring_maker<C>                                cstring_maker_type_;
+    typedef ss_typename_type_k cstring_maker_type_::block   block_type_;
 public:
     /// The character type
-    typedef C                                           char_type;
+    typedef C                                               char_type;
     /// This type
-    typedef c_str_ptr_null_HWND_proxy<C>                class_type;
+    typedef c_str_ptr_null_HWND_proxy<C>                    class_type;
 
 // Construction
 public:
     /// Constructs an instance of the proxy from the given HWND
     ///
-    /// \param h The HWND from which the text will be retrieved
-    ss_explicit_k c_str_ptr_null_HWND_proxy(HWND h)
-    {
-        ws_size_t length  =   WindowTextLength_traits<C>::get_length(h);
+    /// \param hwnd The HWND from which the text will be retrieved
+    ss_explicit_k
+    c_str_ptr_null_HWND_proxy(
+        HWND hwnd
+    )
+        : m_block(make_block_(hwnd))
+    {}
 
-        if(length == 0)
-        {
-            m_buffer = NULL;
-        }
-        else
-        {
-            m_buffer = string_maker_type::alloc(length);
-
-            if(NULL != m_buffer)
-            {
-                get_window_text(h, m_buffer, length + 1);
-            }
-        }
-    }
-
-#ifdef STLSOFT_CF_MOVE_CONSTRUCTOR_SUPPORT
-    /// Move constructor
-    ///
-    /// This <a href = "http://synesis.com.au/resources/articles/cpp/movectors.pdf">move constructor</a>
-    /// is for circumstances when the compiler does not, or cannot, apply the
-    /// return value optimisation. It causes the contents of \c rhs to be
-    /// transferred into the constructing instance. This is completely safe
-    /// because the \c rhs instance will never be accessed in its own right, so
-    /// does not need to maintain ownership of its contents.
-    c_str_ptr_null_HWND_proxy(class_type& rhs)
-        : m_buffer(rhs.m_buffer)
-    {
-        move_lhs_from_rhs(rhs).m_buffer = NULL;
-    }
-#else /* ? STLSOFT_CF_MOVE_CONSTRUCTOR_SUPPORT */
     // Copy constructor
     c_str_ptr_null_HWND_proxy(class_type const& rhs)
-        : m_buffer(string_maker_type::dup_null(rhs.m_buffer))
+        : m_block(cstring_maker_type_::share(rhs.m_block))
     {}
-#endif /* STLSOFT_CF_MOVE_CONSTRUCTOR_SUPPORT */
 
-    /// Releases any storage aquired by the proxy
+    /// Releases any storage acquired by the proxy
     ~c_str_ptr_null_HWND_proxy() STLSOFT_NOEXCEPT
     {
-        string_maker_type::free(m_buffer);
+        cstring_maker_type_::free(m_block);
     }
+private:
+    void operator =(class_type const&); // copy-assignment proscribed
 
 // Accessors
 public:
@@ -360,98 +382,117 @@ public:
     /// the empty string "" if the window contains no text.
     operator char_type const* () const
     {
-        return m_buffer;
+        if (NULL == m_block)
+        {
+            return NULL;
+        }
+
+        return &m_block->data[0];
     }
 
-// Implementation
-private:
-    ws_size_t get_window_text(HWND h, char_type* buffer, ws_size_t cchBuffer);
+private: // implementation
+    static
+    block_type_*
+    make_block_(
+        HWND hwnd
+    )
+    {
+        ws_size_t const length = WindowTextLength_traits<C>::get_length(hwnd);
 
-// Members
-private:
-    char_type   *m_buffer;
+        if (0 == length)
+        {
+            return NULL;
+        }
+        else
+        {
+            block_type_* block = cstring_maker_type_::alloc(NULL, length);
 
-// Not to be implemented
-private:
-    void operator =(class_type const& rhs);
+            if (NULL != block)
+            {
+                get_window_text(hwnd, block->data, length + 1);
+            }
+
+            return block;
+        }
+    }
+
+    static
+    ws_size_t get_window_text(HWND hwnd, char_type* buffer, ws_size_t cchBuffer);
+
+private: // fields
+    block_type_* const m_block;
 };
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 STLSOFT_TEMPLATE_SPECIALISATION
-inline ws_size_t c_str_ptr_null_HWND_proxy<ws_char_a_t>::get_window_text(HWND h, ws_char_a_t *buffer, ws_size_t cchBuffer)
+inline
+ws_size_t
+c_str_ptr_null_HWND_proxy<ws_char_a_t>::get_window_text(
+    HWND            hwnd
+,   ws_char_a_t*    buffer
+,   ws_size_t       cchBuffer
+)
 {
-    return GetWindowText_A_(h, buffer, cchBuffer);
+    return GetWindowText_A_(hwnd, buffer, cchBuffer);
 }
 
 STLSOFT_TEMPLATE_SPECIALISATION
-inline ws_size_t c_str_ptr_null_HWND_proxy<ws_char_w_t>::get_window_text(HWND h, ws_char_w_t *buffer, ws_size_t cchBuffer)
+inline
+ws_size_t
+c_str_ptr_null_HWND_proxy<ws_char_w_t>::get_window_text(
+    HWND            hwnd
+,   ws_char_w_t*    buffer
+,   ws_size_t       cchBuffer
+)
 {
-    return GetWindowText_W_(h, buffer, cchBuffer);
+    return GetWindowText_W_(hwnd, buffer, cchBuffer);
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief This class provides an intermediary object that may be returned by the
+/** This class provides an intermediary object that may be returned by the
  * c_str_ptr() function, such that the window text of a given window may be
  * accessed as a null-terminated string.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 template <ss_typename_param_k C>
 class c_str_ptr_HWND_proxy
 {
-    typedef cstring_maker<C>                            string_maker_type;
+private: // types
+    typedef cstring_maker<C>                                cstring_maker_type_;
+    typedef ss_typename_type_k cstring_maker_type_::block   block_type_;
 public:
     /// The character type
-    typedef C                                           char_type;
+    typedef C                                               char_type;
     /// This type
-    typedef c_str_ptr_HWND_proxy<C>                     class_type;
+    typedef c_str_ptr_HWND_proxy<C>                         class_type;
 
 // Construction
 public:
     /// Constructs an instance of the proxy from the given HWND
     ///
-    /// \param h The HWND from which the text will be retrieved
-    ss_explicit_k c_str_ptr_HWND_proxy(HWND h)
-    {
-        ws_size_t length  =   WindowTextLength_traits<C>::get_length(h);
+    /// \param hwnd The HWND from which the text will be retrieved
+    ss_explicit_k
+    c_str_ptr_HWND_proxy(
+        HWND hwnd
+    )
+        : m_block(make_block_(hwnd))
+    {}
 
-        m_buffer = string_maker_type::alloc(length);
-
-        if(NULL != m_buffer)
-        {
-            get_window_text(h, m_buffer, length + 1);
-        }
-    }
-
-#ifdef STLSOFT_CF_MOVE_CONSTRUCTOR_SUPPORT
-    /// Move constructor
-    ///
-    /// This <a href = "http://synesis.com.au/resources/articles/cpp/movectors.pdf">move constructor</a>
-    /// is for circumstances when the compiler does not, or cannot, apply the
-    /// return value optimisation. It causes the contents of \c rhs to be
-    /// transferred into the constructing instance. This is completely safe
-    /// because the \c rhs instance will never be accessed in its own right, so
-    /// does not need to maintain ownership of its contents.
-    c_str_ptr_HWND_proxy(class_type& rhs)
-        : m_buffer(rhs.m_buffer)
-    {
-        move_lhs_from_rhs(rhs).m_buffer = NULL;
-    }
-#else /* ? STLSOFT_CF_MOVE_CONSTRUCTOR_SUPPORT */
     // Copy constructor
     c_str_ptr_HWND_proxy(class_type const& rhs)
-        : m_buffer(string_maker_type::dup_null(rhs.m_buffer))
+        : m_block(cstring_maker_type_::share(rhs.m_block))
     {}
-#endif /* STLSOFT_CF_MOVE_CONSTRUCTOR_SUPPORT */
 
-    /// Releases any storage aquired by the proxy
+    /// Releases any storage acquired by the proxy
     ~c_str_ptr_HWND_proxy() STLSOFT_NOEXCEPT
     {
-        string_maker_type::free(m_buffer);
+        cstring_maker_type_::free(m_block);
     }
+private:
+    void operator =(class_type const&); // copy-assignment proscribed
 
 // Accessors
 public:
@@ -459,49 +500,75 @@ public:
     /// the empty string "" if the window contains no text.
     operator char_type const* () const
     {
-        static char_type    s_ch[1] = { '\0' };
-
-        return (NULL == m_buffer) ? s_ch : m_buffer;
+        return &m_block->data[0];
     }
 
-// Implementation
-private:
-    ws_size_t get_window_text(HWND h, char_type* buffer, ws_size_t cchBuffer);
+private: // implementation
+    static
+    block_type_*
+    make_block_(
+        HWND hwnd
+    )
+    {
+        ws_size_t const length = WindowTextLength_traits<C>::get_length(hwnd);
 
-// Members
-private:
-    char_type   *m_buffer;
+        block_type_* const block = cstring_maker_type_::alloc(NULL, length);
 
-// Not to be implemented
-private:
-    void operator =(class_type const& rhs);
+        if (NULL != block)
+        {
+            get_window_text(hwnd, &block->data[0], length + 1);
+        }
+
+        return block;
+    }
+
+    static
+    ws_size_t get_window_text(HWND hwnd, char_type* buffer, ws_size_t cchBuffer);
+
+private: // fields
+    block_type_* const m_block;
 };
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 STLSOFT_TEMPLATE_SPECIALISATION
-inline ws_size_t c_str_ptr_HWND_proxy<ws_char_a_t>::get_window_text(HWND h, ws_char_a_t *buffer, ws_size_t cchBuffer)
+inline
+ws_size_t
+c_str_ptr_HWND_proxy<ws_char_a_t>::get_window_text(
+    HWND            hwnd
+,   ws_char_a_t*    buffer
+,   ws_size_t       cchBuffer
+)
 {
-    return GetWindowText_A_(h, buffer, cchBuffer);
+    return GetWindowText_A_(hwnd, buffer, cchBuffer);
 }
 
 STLSOFT_TEMPLATE_SPECIALISATION
-inline ws_size_t c_str_ptr_HWND_proxy<ws_char_w_t>::get_window_text(HWND h, ws_char_w_t *buffer, ws_size_t cchBuffer)
+inline
+ws_size_t
+c_str_ptr_HWND_proxy<ws_char_w_t>::get_window_text(
+    HWND            hwnd
+,   ws_char_w_t*    buffer
+,   ws_size_t       cchBuffer
+)
 {
-    return GetWindowText_W_(h, buffer, cchBuffer);
+    return GetWindowText_W_(hwnd, buffer, cchBuffer);
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-
 /* /////////////////////////////////////////////////////////////////////////
- * IOStream compatibility
+ * iostream compatibility
  */
 
 template<   ss_typename_param_k C
         ,   ss_typename_param_k S
         >
-inline S& operator <<(S& s, c_str_ptr_null_HWND_proxy<C> const& shim)
+inline
+S&
+operator <<(
+    S&                                  s
+,   c_str_ptr_null_HWND_proxy<C> const& shim
+)
 {
     s << static_cast<C const*>(shim);
 
@@ -511,7 +578,12 @@ inline S& operator <<(S& s, c_str_ptr_null_HWND_proxy<C> const& shim)
 template<   ss_typename_param_k C
         ,   ss_typename_param_k S
         >
-inline S& operator <<(S& s, c_str_ptr_HWND_proxy<C> const& shim)
+inline
+S&
+operator <<(
+    S&                                  s
+,   c_str_ptr_HWND_proxy<C> const&      shim
+)
 {
     s << static_cast<C const*>(shim);
 
@@ -527,25 +599,36 @@ inline S& operator <<(S& s, c_str_ptr_HWND_proxy<C> const& shim)
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-inline c_str_ptr_HWND_proxy<ws_char_a_t> c_str_data_a(HWND h)
+inline
+c_str_ptr_HWND_proxy<ws_char_a_t>
+c_str_data_a(
+    HWND hwnd
+)
 {
-    return c_str_ptr_HWND_proxy<ws_char_a_t>(h);
+    return c_str_ptr_HWND_proxy<ws_char_a_t>(hwnd);
 }
-inline c_str_ptr_HWND_proxy<ws_char_w_t> c_str_data_w(HWND h)
+inline
+c_str_ptr_HWND_proxy<ws_char_w_t>
+c_str_data_w(
+    HWND hwnd
+)
 {
-    return c_str_ptr_HWND_proxy<ws_char_w_t>(h);
+    return c_str_ptr_HWND_proxy<ws_char_w_t>(hwnd);
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_data for HWND
+/** \ref group__concept__Shim__string_access__c_str_data for HWND
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
-inline c_str_ptr_HWND_proxy<TCHAR> c_str_data(HWND h)
+inline
+c_str_ptr_HWND_proxy<TCHAR>
+c_str_data(
+    HWND hwnd
+)
 {
-    return c_str_ptr_HWND_proxy<TCHAR>(h);
+    return c_str_ptr_HWND_proxy<TCHAR>(hwnd);
 }
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -559,25 +642,37 @@ inline c_str_ptr_HWND_proxy<TCHAR> c_str_data(HWND h)
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-inline ws_size_t c_str_len_a(HWND h)
+inline
+ws_size_t
+c_str_len_a(
+    HWND hwnd
+)
 {
-    return GetWindowTextLength_A_(h);
+    return GetWindowTextLength_A_(hwnd);
 }
-inline ws_size_t c_str_len_w(HWND h)
+inline
+ws_size_t
+c_str_len_w(
+    HWND hwnd
+)
 {
-    return GetWindowTextLength_W_(h);
+    return GetWindowTextLength_W_(hwnd);
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_len for HWND
+/** \ref group__concept__Shim__string_access__c_str_len for HWND
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
-inline ws_size_t c_str_len(HWND h)
+inline
+ws_size_t
+c_str_len(
+    HWND hwnd
+)
 {
-    return GetWindowTextLength_T_(h);
+    return GetWindowTextLength_T_(hwnd);
 }
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -591,25 +686,37 @@ inline ws_size_t c_str_len(HWND h)
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-inline c_str_ptr_HWND_proxy<ws_char_a_t> c_str_ptr_a(HWND h)
+inline
+c_str_ptr_HWND_proxy<ws_char_a_t>
+c_str_ptr_a(
+    HWND hwnd
+)
 {
-    return c_str_ptr_HWND_proxy<ws_char_a_t>(h);
+    return c_str_ptr_HWND_proxy<ws_char_a_t>(hwnd);
 }
-inline c_str_ptr_HWND_proxy<ws_char_w_t> c_str_ptr_w(HWND h)
+inline
+c_str_ptr_HWND_proxy<ws_char_w_t>
+c_str_ptr_w(
+    HWND hwnd
+)
 {
-    return c_str_ptr_HWND_proxy<ws_char_w_t>(h);
+    return c_str_ptr_HWND_proxy<ws_char_w_t>(hwnd);
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr for HWND
+/** \ref group__concept__Shim__string_access__c_str_ptr for HWND
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
-inline c_str_ptr_HWND_proxy<TCHAR> c_str_ptr(HWND h)
+inline
+c_str_ptr_HWND_proxy<TCHAR>
+c_str_ptr(
+    HWND hwnd
+)
 {
-    return c_str_ptr_HWND_proxy<TCHAR>(h);
+    return c_str_ptr_HWND_proxy<TCHAR>(hwnd);
 }
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -623,62 +730,67 @@ inline c_str_ptr_HWND_proxy<TCHAR> c_str_ptr(HWND h)
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-inline c_str_ptr_null_HWND_proxy<ws_char_a_t> c_str_ptr_null_a(HWND h)
+inline
+c_str_ptr_null_HWND_proxy<ws_char_a_t>
+c_str_ptr_null_a(
+    HWND hwnd
+)
 {
-    return c_str_ptr_null_HWND_proxy<ws_char_a_t>(h);
+    return c_str_ptr_null_HWND_proxy<ws_char_a_t>(hwnd);
 }
-inline c_str_ptr_null_HWND_proxy<ws_char_w_t> c_str_ptr_null_w(HWND h)
+inline
+c_str_ptr_null_HWND_proxy<ws_char_w_t>
+c_str_ptr_null_w(
+    HWND hwnd
+)
 {
-    return c_str_ptr_null_HWND_proxy<ws_char_w_t>(h);
+    return c_str_ptr_null_HWND_proxy<ws_char_w_t>(hwnd);
 }
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr_null for HWND
+/** \ref group__concept__Shim__string_access__c_str_ptr_null for HWND
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
-inline c_str_ptr_null_HWND_proxy<TCHAR> c_str_ptr_null(HWND h)
+inline
+c_str_ptr_null_HWND_proxy<TCHAR>
+c_str_ptr_null(
+    HWND hwnd
+)
 {
-    return c_str_ptr_null_HWND_proxy<TCHAR>(h);
+    return c_str_ptr_null_HWND_proxy<TCHAR>(hwnd);
 }
-
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/hwnd_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace stlsoft::winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace stlsoft::winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The string access shims exist either in the stlsoft namespace, or in the
  * global namespace. This is required by the lookup rules.
  *
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+#ifndef WINSTL_NO_NAMESPACE
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 namespace stlsoft
 {
-# else /* ? _STLSOFT_NO_NAMESPACE */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
 
 using ::winstl::c_str_data;
 using ::winstl::c_str_data_a;
@@ -696,15 +808,21 @@ using ::winstl::c_str_ptr_null;
 using ::winstl::c_str_ptr_null_a;
 using ::winstl::c_str_ptr_null_w;
 
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace stlsoft
-# else /* ? _STLSOFT_NO_NAMESPACE */
+} /* namespace stlsoft */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !WINSTL_INCL_WINSTL_SHIMS_ACCESS_STRING_HPP_HWND */
 

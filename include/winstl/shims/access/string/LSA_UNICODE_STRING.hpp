@@ -1,40 +1,42 @@
 /* /////////////////////////////////////////////////////////////////////////
  * File:        winstl/shims/access/string/LSA_UNICODE_STRING.hpp
  *
- * Purpose:     Contains classes and functions for dealing with Win32 strings.
+ * Purpose:     String access shims for LSA strings.
  *
  * Created:     24th May 2002
- * Updated:     15th December 2023
+ * Updated:     23rd November 2020
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2020, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -43,7 +45,7 @@
  *
  * \brief [C++] Definition of the string access shims for
  *   <code>LSA_UNICODE_STRING</code>
- *   (\ref group__concept__shim__string_access "String Access Shims" Concept).
+ *   (\ref group__concept__Shim__string_access "String Access Shims" Concept).
  */
 
 #ifndef WINSTL_INCL_WINSTL_SHIMS_ACCESS_STRING_HPP_LSA_UNICODE_STRING
@@ -51,26 +53,21 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_LSA_UNICODE_STRING_MAJOR     4
-# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_LSA_UNICODE_STRING_MINOR     1
-# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_LSA_UNICODE_STRING_REVISION  4
-# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_LSA_UNICODE_STRING_EDIT      116
+# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_LSA_UNICODE_STRING_MINOR     2
+# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_LSA_UNICODE_STRING_REVISION  1
+# define WINSTL_VER_WINSTL_SHIMS_ACCESS_STRING_HPP_LSA_UNICODE_STRING_EDIT      130
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[<[STLSOFT-AUTO:NO-UNITTEST]>]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #ifndef _NTSECAPI_
 # error This file can only be used when the Windows NT Security API has already been included (#include <ntsecapi.h>)
@@ -89,183 +86,139 @@
 # include <stlsoft/string/cstring_maker.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_CSTRING_MAKER */
 
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 /* Windows Policy Management LSA_UNICODE_STRING string */
-/** \brief This class provides an intermediary object that may be returned by the
+/** This class provides an intermediary object that may be returned by the
  * c_str_ptr_null() function, such that the text of a given LSA_UNICODE_STRING
  * string may be accessed as a null-terminated string.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 class c_str_ptr_LSA_UNICODE_STRING_proxy
 {
-    typedef cstring_maker<WCHAR>                string_maker_type;
+private: // types
+    typedef cstring_maker<WCHAR>                            cstring_maker_type_;
+    typedef cstring_maker_type_::block                      block_type_;
 public:
     /// This type
-    typedef c_str_ptr_LSA_UNICODE_STRING_proxy  class_type;
+    typedef c_str_ptr_LSA_UNICODE_STRING_proxy              class_type;
 
-// Construction
-public:
+public: // construction
     /// Constructs an instance of the proxy from the given LSA_UNICODE_STRING instance
     ///
     /// \param s The LSA_UNICODE_STRING instance from which the text will be retrieved
     ss_explicit_k c_str_ptr_LSA_UNICODE_STRING_proxy(LSA_UNICODE_STRING const& s)
-        : m_buffer(string_maker_type::alloc(s.Length))
-    {
-        if(NULL != m_buffer)
-        {
-            wcsncpy(m_buffer, s.Buffer, s.Length);
-            m_buffer[s.Length] = L'\0';
-        }
-    }
+        : m_block(cstring_maker_type_::alloc(s.Buffer, s.Length))
+    {}
 
-#ifdef STLSOFT_CF_MOVE_CONSTRUCTOR_SUPPORT
-    /// Move constructor
-    ///
-    /// This <a href = "http://synesis.com.au/resources/articles/cpp/movectors.pdf">move constructor</a>
-    /// is for circumstances when the compiler does not, or cannot, apply the
-    /// return value optimisation. It causes the contents of \c rhs to be
-    /// transferred into the constructing instance. This is completely safe
-    /// because the \c rhs instance will never be accessed in its own right, so
-    /// does not need to maintain ownership of its contents.
-    c_str_ptr_LSA_UNICODE_STRING_proxy(class_type& rhs)
-        : m_buffer(rhs.m_buffer)
-    {
-        rhs.m_buffer = NULL;
-    }
-#else /* ? STLSOFT_CF_MOVE_CONSTRUCTOR_SUPPORT */
     // Copy constructor
     c_str_ptr_LSA_UNICODE_STRING_proxy(class_type const& rhs)
-        : m_buffer(string_maker_type::dup_null(rhs.m_buffer))
+        : m_block(cstring_maker_type_::share(rhs.m_block))
     {}
-#endif /* STLSOFT_CF_MOVE_CONSTRUCTOR_SUPPORT */
 
-    /// Releases any storage aquired by the proxy
+    /// Releases any storage acquired by the proxy
     ~c_str_ptr_LSA_UNICODE_STRING_proxy() STLSOFT_NOEXCEPT
     {
-        string_maker_type::free(m_buffer);
+        cstring_maker_type_::free(m_block);
     }
+private:
+    void operator =(class_type const& rhs); // copy-assignment proscribed
 
-// Accessors
-public:
+public: // accessors
     /// Returns a null-terminated string representing the string contents, or
     /// the empty string "" if the string has no contents.
     operator LPCWSTR () const
     {
-        return m_buffer;
+        return &m_block->data[0];
     }
 
-// Members
-private:
-    LPWSTR  m_buffer;
-
-// Not to be implemented
-private:
-    void operator =(class_type const& rhs);
+private: // fields
+    block_type_* const  m_block;
 };
 
-/** \brief This class provides an intermediary object that may be returned by the
+/** This class provides an intermediary object that may be returned by the
  * c_str_ptr_null() function, such that the text of a given LSA_UNICODE_STRING
  * string may be accessed as a null-terminated string.
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 class c_str_ptr_null_LSA_UNICODE_STRING_proxy
 {
-    typedef cstring_maker<WCHAR>                    string_maker_type;
+private: // types
+    typedef cstring_maker<WCHAR>                            cstring_maker_type_;
+    typedef cstring_maker_type_::block                      block_type_;
 public:
     /// This type
-    typedef c_str_ptr_null_LSA_UNICODE_STRING_proxy class_type;
+    typedef c_str_ptr_null_LSA_UNICODE_STRING_proxy         class_type;
 
-// Construction
-public:
+public: // construction
     /// Constructs an instance of the proxy from the given LSA_UNICODE_STRING instance
     ///
     /// \param s The LSA_UNICODE_STRING instance from which the text will be retrieved
     ss_explicit_k c_str_ptr_null_LSA_UNICODE_STRING_proxy(LSA_UNICODE_STRING const& s)
-        : m_buffer((s.Length != 0) ? string_maker_type::alloc(s.Length) : NULL)
-    {
-        if(m_buffer != NULL)
-        {
-            wcsncpy(m_buffer, s.Buffer, s.Length);
-            m_buffer[s.Length] = L'\0';
-        }
-    }
+        : m_block(cstring_maker_type_::alloc_null(s.Buffer, s.Length))
+    {}
 
-#ifdef STLSOFT_CF_MOVE_CONSTRUCTOR_SUPPORT
-    /// Move constructor
-    ///
-    /// This <a href = "http://synesis.com.au/resources/articles/cpp/movectors.pdf">move constructor</a>
-    /// is for circumstances when the compiler does not, or cannot, apply the
-    /// return value optimisation. It causes the contents of \c rhs to be
-    /// transferred into the constructing instance. This is completely safe
-    /// because the \c rhs instance will never be accessed in its own right, so
-    /// does not need to maintain ownership of its contents.
-    c_str_ptr_null_LSA_UNICODE_STRING_proxy(class_type& rhs)
-        : m_buffer(rhs.m_buffer)
-    {
-        rhs.m_buffer = NULL;
-    }
-#else /* ? STLSOFT_CF_MOVE_CONSTRUCTOR_SUPPORT */
     // Copy constructor
     c_str_ptr_null_LSA_UNICODE_STRING_proxy(class_type const& rhs)
-        : m_buffer(string_maker_type::dup_null(rhs.m_buffer))
+        : m_block(cstring_maker_type_::share(rhs.m_block))
     {}
-#endif /* STLSOFT_CF_MOVE_CONSTRUCTOR_SUPPORT */
 
-    /// Releases any storage aquired by the proxy
+    /// Releases any storage acquired by the proxy
     ~c_str_ptr_null_LSA_UNICODE_STRING_proxy() STLSOFT_NOEXCEPT
     {
-        string_maker_type::free(m_buffer);
+        cstring_maker_type_::free(m_block);
     }
+private:
+    void operator =(class_type const& rhs); // copy-assignment proscribed
 
-// Accessors
-public:
+public: // accessors
     /// Returns a null-terminated string representing the string contents, or
     /// NULL if the string has no contents.
     operator LPCWSTR () const
     {
-        return m_buffer;
+        if (NULL == m_block)
+        {
+            return NULL;
+        }
+
+        return &m_block->data[0];
     }
 
-// Members
-private:
-    LPWSTR  m_buffer;
-
-// Not to be implemented
-private:
-    void operator =(class_type const& rhs);
+private: // fields
+    block_type_* const  m_block;
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * IOStream compatibility
+ * iostream compatibility
  */
 
 template<ss_typename_param_k S>
@@ -299,9 +252,9 @@ inline LPCWSTR c_str_data_w(LSA_UNICODE_STRING const& s)
 }
 # endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_data for LSA_UNICODE_STRING
+/** \ref group__concept__Shim__string_access__c_str_data for LSA_UNICODE_STRING
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 inline LPCWSTR c_str_data(LSA_UNICODE_STRING const& s)
@@ -324,9 +277,9 @@ inline ws_size_t c_str_len_w(LSA_UNICODE_STRING const& s)
 }
 # endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_len for LSA_UNICODE_STRING
+/** \ref group__concept__Shim__string_access__c_str_len for LSA_UNICODE_STRING
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 inline ws_size_t c_str_len(LSA_UNICODE_STRING const& s)
@@ -349,9 +302,9 @@ inline c_str_ptr_LSA_UNICODE_STRING_proxy c_str_ptr_w(LSA_UNICODE_STRING const& 
 }
 # endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr for LSA_UNICODE_STRING
+/** \ref group__concept__Shim__string_access__c_str_ptr for LSA_UNICODE_STRING
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 inline c_str_ptr_LSA_UNICODE_STRING_proxy c_str_ptr(LSA_UNICODE_STRING const& s)
@@ -374,9 +327,9 @@ inline c_str_ptr_null_LSA_UNICODE_STRING_proxy c_str_ptr_null_w(LSA_UNICODE_STRI
 }
 # endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr_null for LSA_UNICODE_STRING
+/** \ref group__concept__Shim__string_access__c_str_ptr_null for LSA_UNICODE_STRING
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  *
  */
 inline c_str_ptr_null_LSA_UNICODE_STRING_proxy c_str_ptr_null(LSA_UNICODE_STRING const& s)
@@ -384,67 +337,62 @@ inline c_str_ptr_null_LSA_UNICODE_STRING_proxy c_str_ptr_null(LSA_UNICODE_STRING
     return c_str_ptr_null_LSA_UNICODE_STRING_proxy(s);
 }
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/lsa_unicode_string_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace stlsoft::winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace stlsoft::winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The string access shims exist either in the stlsoft namespace, or in the
  * global namespace. This is required by the lookup rules.
  *
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+#ifndef WINSTL_NO_NAMESPACE
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 namespace stlsoft
 {
-# else /* ? _STLSOFT_NO_NAMESPACE */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
 
 using ::winstl::c_str_data;
-using ::winstl::c_str_data_a;
 using ::winstl::c_str_data_w;
 
 using ::winstl::c_str_len;
-using ::winstl::c_str_len_a;
 using ::winstl::c_str_len_w;
 
 using ::winstl::c_str_ptr;
-using ::winstl::c_str_ptr_a;
 using ::winstl::c_str_ptr_w;
 
 using ::winstl::c_str_ptr_null;
-using ::winstl::c_str_ptr_null_a;
 using ::winstl::c_str_ptr_null_w;
 
-# if !defined(_STLSOFT_NO_NAMESPACE) && \
+# if !defined(STLSOFT_NO_NAMESPACE) && \
      !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace stlsoft
-# else /* ? _STLSOFT_NO_NAMESPACE */
+} /* namespace stlsoft */
+# else /* ? STLSOFT_NO_NAMESPACE */
 /* There is no stlsoft namespace, so must define in the global namespace */
-# endif /* !_STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !WINSTL_INCL_WINSTL_SHIMS_ACCESS_STRING_HPP_LSA_UNICODE_STRING */
 

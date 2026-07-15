@@ -5,46 +5,48 @@
  *              do or do not have a standard library.
  *
  * Created:     17th January 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
-* ////////////////////////////////////////////////////////////////////// */
+ * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/algorithms/std/alt.hpp
  *
- * \brief [C++ only] Contains various standard functions, or their
+ * \brief [C++] Contains various standard functions, or their
  *   equivalents
- *   (\ref group__library__algorithms "Algorithms" Library).
+ *   (\ref group__library__Algorithm "Algorithm" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_ALGORITHMS_STD_HPP_ALT
@@ -56,8 +58,8 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_ALGORITHMS_STD_HPP_ALT_MAJOR       3
 # define STLSOFT_VER_STLSOFT_ALGORITHMS_STD_HPP_ALT_MINOR       5
-# define STLSOFT_VER_STLSOFT_ALGORITHMS_STD_HPP_ALT_REVISION    1
-# define STLSOFT_VER_STLSOFT_ALGORITHMS_STD_HPP_ALT_EDIT        79
+# define STLSOFT_VER_STLSOFT_ALGORITHMS_STD_HPP_ALT_REVISION    5
+# define STLSOFT_VER_STLSOFT_ALGORITHMS_STD_HPP_ALT_EDIT        92
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -69,12 +71,16 @@
 */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #if defined(STLSOFT_CF_std_NAMESPACE)
 # include <algorithm>
 #endif /* STLSOFT_CF_std_NAMESPACE */
@@ -89,16 +95,16 @@
 #endif /* !STLSOFT_INCL_STLSOFT_INTERNAL_H_SAFESTR */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Helper functions
+ * helper functions
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -115,14 +121,14 @@ void std_advance_impl(  I               &i
 # endif /* !STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
                     )
 {
-    if(n < 0)
+    if (n < 0)
     {
-        for(; 0 != n; --i, ++n)
+        for (; 0 != n; --i, ++n)
         {}
     }
     else
     {
-        for(; 0 != n; ++i, --n)
+        for (; 0 != n; ++i, --n)
         {}
     }
 }
@@ -151,17 +157,17 @@ yes_type is_ptr_(T const*, T const**) { return yes_type(); }
 # endif /* !STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
 # ifdef STLSOFT_CF_NAMESPACE_SUPPORT
-} // namespace std_alt_algorithms_util_
+} /* namespace std_alt_algorithms_util_ */
 # endif /* STLSOFT_CF_NAMESPACE_SUPPORT */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Functions
+ * functions
  */
 
-/** \brief Equivalent to std::advance()
+/** Equivalent to std::advance()
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  */
 template<ss_typename_param_k I>
 // [[synesis:function:algorithm: std_advance(T<I> &i, ss_ptrdiff_t n)]]
@@ -169,7 +175,7 @@ void std_advance(I &i, ss_ptrdiff_t n)
 {
 #ifdef STLSOFT_CF_std_NAMESPACE
 
-    stlsoft_ns_qual_std(advance)(i, n);
+    STLSOFT_NS_QUAL_STD(advance)(i, n);
 
 #else /* ? STLSOFT_CF_std_NAMESPACE */
 
@@ -189,9 +195,9 @@ void std_advance(I &i, ss_ptrdiff_t n)
 #endif /* STLSOFT_CF_std_NAMESPACE */
 }
 
-/** \brief Equivalent to std::copy()
+/** Equivalent to std::copy()
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  */
 template<   ss_typename_param_k I
         ,   ss_typename_param_k O
@@ -202,11 +208,11 @@ inline O std_copy(I first, I last, O dest)
 #if defined(STLSOFT_CF_std_NAMESPACE) && \
     !defined(STLSOFT_USING_SAFE_STR_FUNCTIONS)
 
-    return stlsoft_ns_qual_std(copy)(first, last, dest);
+    return STLSOFT_NS_QUAL_STD(copy)(first, last, dest);
 
 #else /* ? STLSOFT_CF_std_NAMESPACE */
 
-    for(; first != last; ++first, ++dest)
+    for (; first != last; ++first, ++dest)
     {
         *dest = *first;
     }
@@ -216,9 +222,9 @@ inline O std_copy(I first, I last, O dest)
 #endif /* STLSOFT_CF_std_NAMESPACE */
 }
 
-/** \brief Equivalent to std::count_if()
+/** Equivalent to std::count_if()
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  */
 template<   ss_typename_param_k I
         ,   ss_typename_param_k UP
@@ -228,7 +234,7 @@ inline ss_size_t std_count_if(I first, I last, UP pred)
 {
 #ifdef STLSOFT_CF_std_NAMESPACE
 
-    return stlsoft_ns_qual_std(count_if)(first, last, pred);
+    return STLSOFT_NS_QUAL_STD(count_if)(first, last, pred);
 
 #else /* ? STLSOFT_CF_std_NAMESPACE */
 
@@ -236,7 +242,7 @@ inline ss_size_t std_count_if(I first, I last, UP pred)
 
     for (r = 0; first != last; ++first)
     {
-        if(pred(*first))
+        if (pred(*first))
         {
             ++r;
         }
@@ -247,9 +253,9 @@ inline ss_size_t std_count_if(I first, I last, UP pred)
 #endif /* STLSOFT_CF_std_NAMESPACE */
 }
 
-/** \brief Equivalent to std::fill()
+/** Equivalent to std::fill()
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  */
 template<   ss_typename_param_k O
         ,   ss_typename_param_k V
@@ -259,11 +265,11 @@ inline void std_fill(O first, O last, V const& value)
 {
 #ifdef STLSOFT_CF_std_NAMESPACE
 
-    stlsoft_ns_qual_std(fill)(first, last, value);
+    STLSOFT_NS_QUAL_STD(fill)(first, last, value);
 
 #else /* ? STLSOFT_CF_std_NAMESPACE */
 
-    for(; first != last; ++first)
+    for (; first != last; ++first)
     {
         *first = value;
     }
@@ -271,9 +277,9 @@ inline void std_fill(O first, O last, V const& value)
 #endif /* STLSOFT_CF_std_NAMESPACE */
 }
 
-/** \brief Equivalent to std::fill_n()
+/** Equivalent to std::fill_n()
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  */
 template<   ss_typename_param_k O
         ,   ss_typename_param_k V
@@ -284,11 +290,11 @@ inline void std_fill_n(O dest, ss_size_t n, V const& value)
 #if defined(STLSOFT_CF_std_NAMESPACE) && \
     !defined(STLSOFT_USING_SAFE_STR_FUNCTIONS)
 
-    stlsoft_ns_qual_std(fill_n)(dest, n, value);
+    STLSOFT_NS_QUAL_STD(fill_n)(dest, n, value);
 
 #else /* ? STLSOFT_CF_std_NAMESPACE */
 
-    for(; 0 != n; ++dest, --n)
+    for (; 0 != n; ++dest, --n)
     {
         *dest = value;
     }
@@ -296,9 +302,9 @@ inline void std_fill_n(O dest, ss_size_t n, V const& value)
 #endif /* STLSOFT_CF_std_NAMESPACE */
 }
 
-/** \brief Equivalent to std::find()
+/** Equivalent to std::find()
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  */
 template<   ss_typename_param_k I
         ,   ss_typename_param_k V
@@ -308,13 +314,13 @@ inline I std_find(I first, I last, V const& value)
 {
 #ifdef STLSOFT_CF_std_NAMESPACE
 
-    return stlsoft_ns_qual_std(find)(first, last, value);
+    return STLSOFT_NS_QUAL_STD(find)(first, last, value);
 
 #else /* ? STLSOFT_CF_std_NAMESPACE */
 
-    for(; first != last; ++first)
+    for (; first != last; ++first)
     {
-        if(value == *first)
+        if (value == *first)
         {
             break;
         }
@@ -325,9 +331,9 @@ inline I std_find(I first, I last, V const& value)
 #endif /* STLSOFT_CF_std_NAMESPACE */
 }
 
-/** \brief Equivalent to std::find_if()
+/** Equivalent to std::find_if()
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  */
 template<   ss_typename_param_k I
         ,   ss_typename_param_k UP
@@ -337,13 +343,13 @@ inline I std_find_if(I first, I last, UP pred)
 {
 #ifdef STLSOFT_CF_std_NAMESPACE
 
-    return stlsoft_ns_qual_std(find_if)(first, last, pred);
+    return STLSOFT_NS_QUAL_STD(find_if)(first, last, pred);
 
 #else /* ? STLSOFT_CF_std_NAMESPACE */
 
-    for(; first != last; ++first)
+    for (; first != last; ++first)
     {
-        if(pred(*first))
+        if (pred(*first))
         {
             break;
         }
@@ -354,9 +360,9 @@ inline I std_find_if(I first, I last, UP pred)
 #endif /* STLSOFT_CF_std_NAMESPACE */
 }
 
-/** \brief Equivalent to std::for_each()
+/** Equivalent to std::for_each()
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  */
 template<   ss_typename_param_k I
         ,   ss_typename_param_k UF
@@ -366,11 +372,11 @@ inline UF std_for_each(I first, I last, UF func)
 {
 #ifdef STLSOFT_CF_std_NAMESPACE
 
-    return stlsoft_ns_qual_std(for_each)(first, last, func);
+    return STLSOFT_NS_QUAL_STD(for_each)(first, last, func);
 
 #else /* ? STLSOFT_CF_std_NAMESPACE */
 
-    for(; first != last; ++first)
+    for (; first != last; ++first)
     {
         func(*first);
     }
@@ -380,9 +386,9 @@ inline UF std_for_each(I first, I last, UF func)
 #endif /* STLSOFT_CF_std_NAMESPACE */
 }
 
-/** \brief Equivalent to std::replace()
+/** Equivalent to std::replace()
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  */
 template<   ss_typename_param_k I
         ,   ss_typename_param_k T
@@ -390,9 +396,9 @@ template<   ss_typename_param_k I
 // [[synesis:function:algorithm: std_replace(T<I> first, T<I> last, T<V> const& valFind, T<V> const& valReplace)]]
 inline void std_replace(I first, I last, T const& valFind, T const& valReplace)
 {
-    for(; first != last; ++first)
+    for (; first != last; ++first)
     {
-        if(valFind == *first)
+        if (valFind == *first)
         {
             *first = valReplace;
         }
@@ -400,20 +406,20 @@ inline void std_replace(I first, I last, T const& valFind, T const& valReplace)
 }
 
 #ifdef STLSOFT_CF_std_NAMESPACE
-/** \brief Equivalent to std::sort()
+/** Equivalent to std::sort()
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  */
 template <ss_typename_param_k RI>
 // [[synesis:function:algorithm: std_sort(T<RI> first, T<RI> last)]]
 inline void sort(RI first, RI last)
 {
-    stlsoft_ns_qual_std(sort)(first, last);
+    STLSOFT_NS_QUAL_STD(sort)(first, last);
 }
 
-/** \brief Equivalent to std::sort()
+/** Equivalent to std::sort()
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  */
 template<   ss_typename_param_k RI
         ,   ss_typename_param_k BP
@@ -421,7 +427,7 @@ template<   ss_typename_param_k RI
 // [[synesis:function:algorithm: std_sort(T<RI> first, T<RI> last, T<BP> pred)]]
 inline void std_sort(RI first, RI last, BP pred)
 {
-    stlsoft_ns_qual_std(sort)(first, last, pred);
+    STLSOFT_NS_QUAL_STD(sort)(first, last, pred);
 }
 
 #else /* ? STLSOFT_CF_std_NAMESPACE */
@@ -438,9 +444,9 @@ inline void std_sort(RI first, RI last, BP pred);
 
 #endif /* STLSOFT_CF_std_NAMESPACE */
 
-/** \brief Equivalent to std::transform()
+/** Equivalent to std::transform()
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  */
 template<   ss_typename_param_k I
         ,   ss_typename_param_k O
@@ -452,11 +458,11 @@ inline O std_transform(I first, I last, O dest, UF func)
 #if defined(STLSOFT_CF_std_NAMESPACE) && \
     !defined(STLSOFT_USING_SAFE_STR_FUNCTIONS)
 
-    return stlsoft_ns_qual_std(transform)(first, last, dest, func);
+    return STLSOFT_NS_QUAL_STD(transform)(first, last, dest, func);
 
 #else /* ? STLSOFT_CF_std_NAMESPACE */
 
-    for(; first != last; ++first, ++dest)
+    for (; first != last; ++first, ++dest)
     {
         *dest = func(*first);
     }
@@ -466,9 +472,9 @@ inline O std_transform(I first, I last, O dest, UF func)
 #endif /* STLSOFT_CF_std_NAMESPACE */
 }
 
-/** \brief Equivalent to std::unique()
+/** Equivalent to std::unique()
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  */
 template<   ss_typename_param_k FI
         ,   ss_typename_param_k BP
@@ -482,27 +488,27 @@ inline FI std_unique(FI first, FI last, BP pred)
 
 #ifdef STLSOFT_CF_std_NAMESPACE
 
-    return stlsoft_ns_qual_std(unique)(first, last, pred);
+    return STLSOFT_NS_QUAL_STD(unique)(first, last, pred);
 
 #else /* ? STLSOFT_CF_std_NAMESPACE */
 
-    if(first != last)
+    if (first != last)
     {
 # ifdef STLSOFT_DEBUG
         const FI    start   =   first;
 # endif /* STLSOFT_DEBUG */
         FI          curr    =   first;  // The first elements is always unique
 
-        for(++first; first != last; ++first)
+        for (++first; first != last; ++first)
         {
-            if(pred(*first, *curr))
+            if (pred(*first, *curr))
             {
                 ; // Same, so skip it
             }
             else
             {
                 ++curr;
-                if(first != curr)
+                if (first != curr)
                 {
                     *curr = *first;
                 }
@@ -517,9 +523,9 @@ inline FI std_unique(FI first, FI last, BP pred)
 #endif /* STLSOFT_CF_std_NAMESPACE */
 }
 
-/** \brief Equivalent to std::unique()
+/** Equivalent to std::unique()
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  */
 template <ss_typename_param_k FI>
 // [[synesis:function:algorithm: std_unique(T<FI> first, T<FI> last)]]
@@ -531,27 +537,27 @@ inline FI std_unique(FI first, FI last)
 
 #ifdef STLSOFT_CF_std_NAMESPACE
 
-    return stlsoft_ns_qual_std(unique)(first, last);
+    return STLSOFT_NS_QUAL_STD(unique)(first, last);
 
 #else /* ? STLSOFT_CF_std_NAMESPACE */
 
-    if(first != last)
+    if (first != last)
     {
 # ifdef STLSOFT_DEBUG
         const FI    start   =   first;
 # endif /* STLSOFT_DEBUG */
         FI          curr    =   first;  // The first elements is always unique
 
-        for(++first; first != last; ++first)
+        for (++first; first != last; ++first)
         {
-            if(*first == *curr)
+            if (*first == *curr)
             {
                 ; // Same, so skip it
             }
             else
             {
                 ++curr;
-                if(first != curr)
+                if (first != curr)
                 {
                     *curr = *first;
                 }
@@ -566,9 +572,9 @@ inline FI std_unique(FI first, FI last)
 #endif /* STLSOFT_CF_std_NAMESPACE */
 }
 
-/** \brief Equivalent to std::unique_copy()
+/** Equivalent to std::unique_copy()
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  */
 template<   ss_typename_param_k FI
         ,   ss_typename_param_k OI
@@ -582,11 +588,11 @@ inline OI std_unique_copy(FI first, FI last, OI dest)
 
 #ifdef STLSOFT_CF_std_NAMESPACE
 
-    return stlsoft_ns_qual_std(unique_copy)(first, last, dest);
+    return STLSOFT_NS_QUAL_STD(unique_copy)(first, last, dest);
 
 #else /* ? STLSOFT_CF_std_NAMESPACE */
 
-    if(first != last)
+    if (first != last)
     {
 # ifdef STLSOFT_DEBUG
         const FI    start   =   first;
@@ -594,9 +600,9 @@ inline OI std_unique_copy(FI first, FI last, OI dest)
         FI          curr    =   first;  // The first elements is always unique
 
         *dest++ = *first++;
-        for(; first != last; ++first)
+        for (; first != last; ++first)
         {
-            if(*first == *curr)
+            if (*first == *curr)
             {
                 ; // Same, so skip it
             }
@@ -615,9 +621,9 @@ inline OI std_unique_copy(FI first, FI last, OI dest)
 #endif /* STLSOFT_CF_std_NAMESPACE */
 }
 
-/** \brief Equivalent to std::unique_copy()
+/** Equivalent to std::unique_copy()
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  */
 template<   ss_typename_param_k FI
         ,   ss_typename_param_k OI
@@ -632,11 +638,11 @@ inline OI std_unique_copy(FI first, FI last, OI dest, BP pred)
 
 #ifdef STLSOFT_CF_std_NAMESPACE
 
-    return stlsoft_ns_qual_std(unique_copy)(first, last, dest, pred);
+    return STLSOFT_NS_QUAL_STD(unique_copy)(first, last, dest, pred);
 
 #else /* ? STLSOFT_CF_std_NAMESPACE */
 
-    if(first != last)
+    if (first != last)
     {
 # ifdef STLSOFT_DEBUG
         const FI    start   =   first;
@@ -644,9 +650,9 @@ inline OI std_unique_copy(FI first, FI last, OI dest, BP pred)
         FI          curr    =   first;  // The first elements is always unique
 
         *dest++ = *first++;
-        for(; first != last; ++first)
+        for (; first != last; ++first)
         {
-            if(pred(*first, *curr))
+            if (pred(*first, *curr))
             {
                 ; // Same, so skip it
             }
@@ -669,20 +675,19 @@ inline OI std_unique_copy(FI first, FI last, OI dest, BP pred)
 
 /// @} // end of group algorithms_std_alt
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/alt_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_ALGORITHMS_STD_HPP_ALT */
 

@@ -10,45 +10,47 @@
  *              regretably now implemented as independent classes.
  *
  * Created:     15th January 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/memory/heapwalk_sequence.hpp
  *
- * \brief [C++ only] Definition of the winstl::heapwalk_sequence class
- *   (\ref group__library__memory "Memory" Library).
+ * \brief [C++] Definition of the winstl::heapwalk_sequence class
+ *   (\ref group__library__Memory "Memory" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_MEMORY_HPP_HEAPWALK_SEQUENCE
@@ -57,25 +59,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_MEMORY_HPP_HEAPWALK_SEQUENCE_MAJOR       4
 # define WINSTL_VER_WINSTL_MEMORY_HPP_HEAPWALK_SEQUENCE_MINOR       0
-# define WINSTL_VER_WINSTL_MEMORY_HPP_HEAPWALK_SEQUENCE_REVISION    4
-# define WINSTL_VER_WINSTL_MEMORY_HPP_HEAPWALK_SEQUENCE_EDIT        64
+# define WINSTL_VER_WINSTL_MEMORY_HPP_HEAPWALK_SEQUENCE_REVISION    12
+# define WINSTL_VER_WINSTL_MEMORY_HPP_HEAPWALK_SEQUENCE_EDIT        81
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[DocumentationStatus:Ready]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER
 # include <stlsoft/util/std/iterator_helper.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER */
@@ -83,46 +81,43 @@
 # include <stlsoft/collections/util/collections.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_COLLECTIONS_UTIL_HPP_COLLECTIONS */
 
-#ifdef STLSOFT_UNITTEST
-# include <algorithm>
-#endif /* STLSOFT_UNITTEST */
+#ifndef WINSTL_INCL_WINSTL_API_external_h_MemoryManagement
+# include <winstl/api/external/MemoryManagement.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_MemoryManagement */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Forward declarations
+ * forward declarations
  */
 
 class heapwalk_sequence_const_iterator;
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 // class heapwalk_sequence
-/** \brief An STL-like sequence for walking heap allocated blocks
+/** An STL-like sequence for walking heap allocated blocks
  *
- * \ingroup group__library__memory
+ * \ingroup group__library__Memory
  *
  * The following code illustrates the use of the class to enumerate all
  * currently allocated blocks in the given heap:
@@ -133,7 +128,7 @@ winstl::heapwalk_sequence   blocks(hHeap);
 winstl::heapwalk_sequence::const_iterator   b = blocks.begin();
 winstl::heapwalk_sequence::const_iterator   e = blocks.end();
 
-for(; b != e; ++b)
+for (; b != e; ++b)
 {
   printf("  Block of size %lu at %p\n", (*b).cbData, (*b).lpData);
 }
@@ -147,7 +142,7 @@ winstl::heapwalk_sequence   blocks; // Uses process heap
 winstl::heapwalk_sequence::const_iterator   b = blocks.begin();
 winstl::heapwalk_sequence::const_iterator   e = blocks.end();
 
-for(; b != e; ++b)
+for (; b != e; ++b)
 {
   printf("  Block of size %lu at %p\n", (*b).cbData, (*b).lpData);
 }
@@ -155,29 +150,29 @@ for(; b != e; ++b)
 
  */
 class heapwalk_sequence
-    : public stlsoft_ns_qual(stl_collection_tag)
+    : public STLSOFT_NS_QUAL(stl_collection_tag)
 {
 /// \name Member Types
 /// @{
 private:
     typedef PROCESS_HEAP_ENTRY                  entry_type;
 public:
-    /// \brief The class
+    /// The class
     typedef heapwalk_sequence                   class_type;
-    /// \brief The value type
+    /// The value type
     typedef entry_type const&                   value_type;
-    /// \brief The non-mutating (const) iterator type
+    /// The non-mutating (const) iterator type
     typedef heapwalk_sequence_const_iterator    const_iterator;
-    /// \brief The non-mutating (const) reference type
+    /// The non-mutating (const) reference type
     typedef entry_type const&                   const_reference;
 /// @}
 
 /// \name Construction
 /// @{
 public:
-    /// \brief Creates an instance that walks the default process heap
+    /// Creates an instance that walks the default process heap
     heapwalk_sequence();
-    /// \brief Creates an instance that walks the given heap
+    /// Creates an instance that walks the given heap
     ///
     /// \note The heapwalk_sequence does <i>not</i> take ownership of the given heap handle
     ss_explicit_k heapwalk_sequence(HANDLE hHeap);
@@ -188,11 +183,11 @@ public:
 /// \name Iteration
 /// @{
 public:
-    /// \brief Begins the iteration
+    /// Begins the iteration
     ///
     /// \return An iterator representing the start of the sequence
     const_iterator  begin() const;
-    /// \brief Ends the iteration
+    /// Ends the iteration
     ///
     /// \return An iterator representing the end of the sequence
     const_iterator  end() const;
@@ -219,13 +214,13 @@ private:
 };
 
 // class heapwalk_sequence_const_iterator
-/** \brief Iterator for the heapwalk_sequence class
+/** Iterator for the heapwalk_sequence class
  *
- * \ingroup group__library__memory
+ * \ingroup group__library__Memory
  *
  */
 class heapwalk_sequence_const_iterator
-    : public stlsoft_ns_qual(iterator_base) <   winstl_ns_qual_std(forward_iterator_tag)
+    : public STLSOFT_NS_QUAL(iterator_base) <   STLSOFT_NS_QUAL_STD(forward_iterator_tag)
                                             ,   PROCESS_HEAP_ENTRY const
                                             ,   ws_ptrdiff_t
                                             ,   PROCESS_HEAP_ENTRY const*
@@ -236,9 +231,9 @@ class heapwalk_sequence_const_iterator
 private:
     typedef PROCESS_HEAP_ENTRY                  entry_type;
 public:
-    /// \brief The value type
+    /// The value type
     typedef entry_type const                    value_type;
-    /// \brief The class
+    /// The class
     typedef heapwalk_sequence_const_iterator    class_type;
 /// @}
 
@@ -251,29 +246,29 @@ private:
     {}
     heapwalk_sequence_const_iterator(heapwalk_sequence const& l);
 public:
-    /// \brief Default constructor
+    /// Default constructor
     heapwalk_sequence_const_iterator();
-    /// \brief Copy constructor
+    /// Copy constructor
     heapwalk_sequence_const_iterator(class_type const& rhs);
-    /// \brief Destructor
+    /// Destructor
     ~heapwalk_sequence_const_iterator() STLSOFT_NOEXCEPT;
 
-    /// \brief Copy asignment operator
+    /// Copy asignment operator
     heapwalk_sequence_const_iterator& operator =(class_type const& rhs);
 /// @}
 
 /// \name Forward Iterator methods
 /// @{
 public:
-    /// \brief Pre-increment operator
+    /// Pre-increment operator
     class_type& operator ++();
-    /// \brief Post-increment operator
+    /// Post-increment operator
     class_type const operator ++(int);
-    /// \brief Dereferences and returns a reference to the \c PROCESS_HEAP_ENTRY structure for the current position
+    /// Dereferences and returns a reference to the \c PROCESS_HEAP_ENTRY structure for the current position
     value_type& operator *() const;
-    /// \brief Evaluates whether \c this and \c rhs are equivalent
+    /// Evaluates whether \c this and \c rhs are equivalent
     ws_bool_t operator ==(class_type const& rhs) const;
-    /// \brief Evaluates whether \c this and \c rhs are not equivalent
+    /// Evaluates whether \c this and \c rhs are not equivalent
     ws_bool_t operator !=(class_type const& rhs) const;
 /// @}
 
@@ -298,7 +293,7 @@ private:
 // heapwalk_sequence
 
 inline heapwalk_sequence::heapwalk_sequence()
-    : m_hHeap(::GetProcessHeap())
+    : m_hHeap(WINSTL_API_EXTERNAL_MemoryManagement_GetProcessHeap())
 {}
 
 inline heapwalk_sequence::heapwalk_sequence(HANDLE hHeap)
@@ -314,7 +309,7 @@ inline heapwalk_sequence::const_iterator heapwalk_sequence::begin() const
 
     value.lpData    =   NULL;   // Want start of iteration
 
-    if(::HeapWalk(m_hHeap, &value))
+    if (WINSTL_API_EXTERNAL_MemoryManagement_HeapWalk(m_hHeap, &value))
     {
         return const_iterator(*this, value);
     }
@@ -362,8 +357,8 @@ inline heapwalk_sequence_const_iterator::~heapwalk_sequence_const_iterator() STL
 
 inline heapwalk_sequence_const_iterator::class_type& heapwalk_sequence_const_iterator::operator ++()
 {
-    if( NULL != m_list &&
-        !::HeapWalk(m_list->m_hHeap, &m_value))
+    if (NULL != m_list &&
+        !WINSTL_API_EXTERNAL_MemoryManagement_HeapWalk(m_list->m_hHeap, &m_value))
     {
         m_value.lpData  =   reinterpret_cast<LPVOID>(-1);
     }
@@ -392,7 +387,7 @@ inline ws_bool_t heapwalk_sequence_const_iterator::operator ==(class_type const&
     WINSTL_ASSERT(m_list == rhs.m_list);    // Should only be comparing iterators from same container
 
     // Not equal if one but not both handles are not equal.
-    if(m_value.lpData != rhs.m_value.lpData)
+    if (m_value.lpData != rhs.m_value.lpData)
     {
         eq = ws_false_v;
     }
@@ -411,28 +406,27 @@ inline ws_bool_t heapwalk_sequence_const_iterator::operator !=(class_type const&
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/heapwalk_sequence_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_MEMORY_HPP_HEAPWALK_SEQUENCE */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_MEMORY_HPP_HEAPWALK_SEQUENCE */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

@@ -4,47 +4,49 @@
  * Purpose:     Range exceptions.
  *
  * Created:     30th December 2005
- * Updated:     15th December 2023
+ * Updated:     26th January 2021
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2021, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file rangelib/error/exceptions.hpp
  *
- * \brief [C++ only] Definition of the rangelib::range_exception and
+ * \brief [C++] Definition of the rangelib::range_exception and
  *   rangelib::empty_range_exception exception classes.
  *
- *   (\ref group__library__error "Error" Library).
+ *   (\ref group__library__Exception "Exception" Library).
  */
 
 #ifndef RANGELIB_INCL_RANGELIB_ERROR_HPP_EXCEPTIONS
@@ -53,8 +55,8 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define RANGELIB_VER_RANGELIB_ERROR_HPP_EXCEPTIONS_MAJOR     2
 # define RANGELIB_VER_RANGELIB_ERROR_HPP_EXCEPTIONS_MINOR     0
-# define RANGELIB_VER_RANGELIB_ERROR_HPP_EXCEPTIONS_REVISION  3
-# define RANGELIB_VER_RANGELIB_ERROR_HPP_EXCEPTIONS_EDIT      19
+# define RANGELIB_VER_RANGELIB_ERROR_HPP_EXCEPTIONS_REVISION  10
+# define RANGELIB_VER_RANGELIB_ERROR_HPP_EXCEPTIONS_EDIT      33
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -68,73 +70,74 @@
  */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef RANGELIB_INCL_RANGELIB_HPP_RANGELIB
 # include <rangelib/rangelib.hpp>
 #endif /* !RANGELIB_INCL_RANGELIB_HPP_RANGELIB */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_HPP_EXCEPTION_STRING
 # include <stlsoft/util/exception_string.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_EXCEPTION_STRING */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_external_h_string
+# include <stlsoft/api/external/string.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_external_h_string */
 
 #ifndef STLSOFT_INCL_STDEXCEPT
 # define STLSOFT_INCL_STDEXCEPT
 # include <stdexcept>
 #endif /* !STLSOFT_INCL_STDEXCEPT */
 
-#ifdef STLSOFT_UNITEST
-# include <string.h>
-#endif /* STLSOFT_UNITEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
 #ifndef RANGELIB_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::rangelib */
 namespace rangelib
 {
 # else
 /* Define stlsoft::rangelib_project */
-
 namespace stlsoft
 {
-
 namespace rangelib_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !RANGELIB_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief General exception class for RangeLib failures.
+/** General exception class for RangeLib failures.
  *
- * \ingroup group__library__error
+ * \ingroup group__library__Exception
  *
  */
 class range_exception
 #if defined(STLSOFT_COMPILER_IS_DMC)
     : public std::exception
 #else /* ? compiler */
-    : public stlsoft_ns_qual_std(exception)
+    : public STLSOFT_NS_QUAL_STD(exception)
 #endif /* compiler */
 {
 /// \name Types
 /// @{
 private:
-    typedef stlsoft_ns_qual(exception_string)   string_type;
+    typedef STLSOFT_NS_QUAL(exception_string)   string_type;
 public:
     typedef range_exception                     class_type;
 #if defined(STLSOFT_COMPILER_IS_DMC)
     typedef std::exception                      parent_class_type;
 #else /* ? compiler */
-    typedef stlsoft_ns_qual_std(exception)      parent_class_type;
+    typedef STLSOFT_NS_QUAL_STD(exception)      parent_class_type;
 #endif /* compiler */
 /// @}
 
@@ -149,14 +152,14 @@ public:
     /// \note This does not do have any implementation, but is required to placate
     /// the Comeau and GCC compilers, which otherwise complain about mismatched
     /// exception specifications between this class and its parent
-    virtual ~range_exception() STLSOFT_NOEXCEPT
+    virtual ~range_exception() STLSOFT_NOEXCEPT_STDOVR
     {}
 /// @}
 
 /// \name Accessors
 /// @{
 public:
-    virtual char const* what() const STLSOFT_NOEXCEPT
+    virtual char const* what() const STLSOFT_NOEXCEPT_STDOVR
     {
         return m_reason.empty() ? this->real_what_() : m_reason.c_str();
     }
@@ -165,7 +168,7 @@ public:
 /// \name Implementation
 /// @{
 private:
-    virtual char const* real_what_() const throw()
+    virtual char const* real_what_() const STLSOFT_NOEXCEPT
     {
         return "Range exception";
     }
@@ -184,10 +187,10 @@ private:
 /// @}
 };
 
-/** \brief Indicates that an operation requiring non-empty range was invoked
+/** Indicates that an operation requiring non-empty range was invoked
  *    on an empty range.
  *
- * \ingroup group__library__error
+ * \ingroup group__library__Exception
  *
  */
 class empty_range_exception
@@ -208,40 +211,39 @@ public:
     /// \note This does not do have any implementation, but is required to placate
     /// the Comeau and GCC compilers, which otherwise complain about mismatched
     /// exception specifications between this class and its parent
-    virtual ~empty_range_exception() STLSOFT_NOEXCEPT
+    virtual ~empty_range_exception() STLSOFT_NOEXCEPT_STDOVR
     {}
 /// @}
 
 /// \name Implementation
 /// @{
 private:
-    virtual char const* real_what_() const throw()
+    virtual char const* real_what_() const STLSOFT_NOEXCEPT
     {
         return "Range was empty";
     }
 /// @}
 };
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/exceptions_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
 #ifndef RANGELIB_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace rangelib
+} /* namespace rangelib */
 # else
-} // namespace rangelib_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
+} /* namespace rangelib_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
 #endif /* !RANGELIB_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !RANGELIB_INCL_RANGELIB_ERROR_HPP_EXCEPTIONS */
 

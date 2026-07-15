@@ -1,41 +1,43 @@
 /* /////////////////////////////////////////////////////////////////////////
  * File:        wtlstl/wtlstl.hpp
  *
- * Purpose:     Root header for the WTLSTL libraries. Performs various compiler
+ * Purpose:     Root header for the WTLSTL libraries. Performs compiler
  *              and platform discriminations, and definitions of types.
  *
  * Created:     12th May 2003
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -47,14 +49,15 @@
 /* File version */
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define _WTLSTL_VER_WTLSTL_HPP_WTLSTL_MAJOR    2
-# define _WTLSTL_VER_WTLSTL_HPP_WTLSTL_MINOR    3
-# define _WTLSTL_VER_WTLSTL_HPP_WTLSTL_REVISION 6
-# define _WTLSTL_VER_WTLSTL_HPP_WTLSTL_EDIT     45
+# define _WTLSTL_VER_WTLSTL_HPP_WTLSTL_MINOR    4
+# define _WTLSTL_VER_WTLSTL_HPP_WTLSTL_REVISION 3
+# define _WTLSTL_VER_WTLSTL_HPP_WTLSTL_EDIT     60
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \file wtlstl/wtlstl.hpp
  *
- * \brief [C++ only; requires WTL library] The root header for the \ref group__project__wtlstl "WTLSTL" project.
+ * \brief [C++; requires WTL library] Root header for the
+ * \ref group__project__wtlstl "WTLSTL" project.
  */
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -112,19 +115,24 @@
 #define _WTLSTL_VER_1_1_2       0x00010102  /*!< Version 1.1.2 */
 #define _WTLSTL_VER_1_2_1       0x00010201  /*!< Version 1.2.1 */
 #define _WTLSTL_VER_1_2_2       0x00010202  /*!< Version 1.2.2 (with STLSoft 1.9.25) */
+#define _WTLSTL_VER_1_2_3       0x00010203  /*!< Version 1.2.3 (with STLSoft 1.10.1 b1) */
+#define _WTLSTL_VER_1_2_4       0x00010204  /*!< Version 1.2.4 (with STLSoft 1.10.1 b 26) */
 
 #define _WTLSTL_VER_MAJOR       1
 #define _WTLSTL_VER_MINOR       2
-#define _WTLSTL_VER_REVISION    2
-#define _WTLSTL_VER             _WTLSTL_VER_1_2_2
+#define _WTLSTL_VER_REVISION    3
+#define _WTLSTL_VER             _WTLSTL_VER_1_2_4
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 /* In order to be compatible with Visual C++ 5.0, we need to define a few
  * things before we include the WTL headers to convince WTL 3.1 that we are
@@ -139,11 +147,11 @@
 # endif /* !MIDL_INTERFACE */
 
 # ifndef LONG_PTR
-#  define LONG_PTR                  LONG
+#  define LONG_PTR                                          LONG
 # endif /* !LONG_PTR */
 
 # ifndef UINT_PTR
-#  define UINT_PTR                  unsigned int
+#  define UINT_PTR                                          unsigned int
 # endif /* !UINT_PTR */
 
 # ifndef _ATL_NO_MSIMG
@@ -151,20 +159,24 @@
 # endif /* !_ATL_NO_MSIMG */
 
 # ifndef ATLASSERT
-#  define ATLASSERT                 _ASSERTE
+#  define ATLASSERT                                         _ASSERTE
 # endif /* !ATLASSERT */
 
 # ifndef _WIN32_IE
-#  define _WIN32_IE                 0x0300
+#  define _WIN32_IE                                         0x0300
 # endif /* !_WIN32_IE */
 
 #endif /* _MSC_VER < 1200 */
 
-/* Now we include AtlApp.h here */
+/* Now we include AtlApp.h here
+ *
+ * NOTE: must include <atlbase.h> first
+ */
 
-#ifdef STLSOFT_UNITTEST
+#ifndef STLSOFT_INCL_H_ATLBASE
+# define STLSOFT_INCL_H_ATLBASE
 # include <atlbase.h>
-#endif /* STLSOFT_UNITTEST */
+#endif /* !STLSOFT_INCL_H_ATLBASE */
 
 #ifndef STLSOFT_INCL_H_ATLAPP
 # define STLSOFT_INCL_H_ATLAPP
@@ -178,16 +190,15 @@
 #endif /* _WTL_VER < 0x0310 */
 
 /* /////////////////////////////////////////////////////////////////////////
- * STLSoft version compatibility
+ * STLSoft version compatibility check(s)
  */
 
-#if !defined(_STLSOFT_VER) || \
-    _STLSOFT_VER < 0x010971ff
-# error This version of the WTLSTL libraries requires STLSoft version 1.9.113, or later
+#if _STLSOFT_VER < 0x010a019a
+# error This version of the WTLSTL libraries requires STLSoft version 1.10.1 beta 26, or later
 #endif /* _STLSOFT_VER */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler compatibility
+ * compiler compatibility
  *
  * Currently the only compilers supported by the WTLSTL libraries are
  *
@@ -241,31 +252,31 @@
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Contract Enforcement
+ * contract enforcement
  *
  * The macro wtlstl_assert provides standard debug-mode assert functionality.
  */
 
-/** \brief Defines a runtime assertion
+/** Defines a runtime assertion
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or an assertion will be fired
  */
 #define WTLSTL_ASSERT(expr)                 STLSOFT_ASSERT(expr)
 
-/** \brief Defines a runtime assertion, with message
+/** Defines a runtime assertion, with message
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or an assertion will be fired
  * \param msg The literal character string message to be included in the assertion
  */
 #define WTLSTL_MESSAGE_ASSERT(msg, expr)    STLSOFT_MESSAGE_ASSERT(msg, expr)
 
-/** \brief Defines a compile-time assertion
+/** Defines a compile-time assertion
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or compilation will fail
  */
@@ -278,7 +289,7 @@
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The WTLSTL components are contained within the wtlstl namespace. This is
  * usually an alias for stlsoft::wtlstl_project,
@@ -286,19 +297,19 @@
  * When compilers support namespaces they are defined by default. They can be
  * undefined using a cascasing system, as follows:
  *
- * If _STLSOFT_NO_NAMESPACES is defined, then _WTLSTL_NO_NAMESPACES is defined.
+ * If STLSOFT_NO_NAMESPACES is defined, then WTLSTL_NO_NAMESPACES is defined.
  *
- * If _WTLSTL_NO_NAMESPACES is defined, then _WTLSTL_NO_NAMESPACE is defined.
+ * If WTLSTL_NO_NAMESPACES is defined, then WTLSTL_NO_NAMESPACE is defined.
  *
- * If _WTLSTL_NO_NAMESPACE is defined, then the WTLSTL constructs are defined
+ * If WTLSTL_NO_NAMESPACE is defined, then the WTLSTL constructs are defined
  * in the global scope.
  *
- * If _STLSOFT_NO_NAMESPACES, _WTLSTL_NO_NAMESPACES and _WTLSTL_NO_NAMESPACE are
- * all undefined but the symbol _STLSOFT_NO_NAMESPACE is defined (whence the
+ * If STLSOFT_NO_NAMESPACES, WTLSTL_NO_NAMESPACES and WTLSTL_NO_NAMESPACE are
+ * all undefined but the symbol STLSOFT_NO_NAMESPACE is defined (whence the
  * namespace stlsoft does not exist), then the WTLSTL constructs are defined
  * within the wtlstl namespace. The definition matrix is as follows:
  *
- * _STLSOFT_NO_NAMESPACE    _WTLSTL_NO_NAMESPACE    wtlstl definition
+ * STLSOFT_NO_NAMESPACE     WTLSTL_NO_NAMESPACE     wtlstl definition
  * ---------------------    --------------------    -----------------
  *  not defined              not defined             = stlsoft::wtlstl_project
  *  not defined              defined                 not defined
@@ -312,54 +323,94 @@
  * stlsoft::wtlstl_project (or wtlstl) namespace or in the global namespace.
  *
  * Furthermore, some compilers do not support the standard library in the std
- * namespace, so the wtlstl_ns_qual_std() macro can be used to refer to elements
- * in the WTLSTL libraries irrespective of whether they are in the std namespace
+ * namespace, so the STLSOFT_NS_QUAL_STD() macro can be used to refer to elements
+ * in the standard library irrespective of whether they are in the std namespace
  * or in the global namespace.
- *
- *
- * The ATL libraries themselves may or may not be defined within the ATL
- * namespace, so the wtlstl_ns_qual_stl() macro can be used to refer to
- * elements in the WTLSTL libraries irrespective of whether they are in the std
- * namespace or in the global namespace.
+ */
+
+/* /////////////////////////////////////
+ * obsolete preprocessor symbol detection
+ */
+
+#ifdef _WTLSTL_NO_NAMESPACES
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _WTLSTL_NO_NAMESPACES. This symbol is now deprecated, and may be ignored by a future release : instead define WTLSTL_NO_NAMESPACES")
+# endif
+# if !defined(WTLSTL_NO_NAMESPACES)
+#  define WTLSTL_NO_NAMESPACES
+# endif /* !WTLSTL_NO_NAMESPACES */
+#endif /* _WTLSTL_NO_NAMESPACES */
+
+#ifdef _WTLSTL_NO_NAMESPACE
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _WTLSTL_NO_NAMESPACE. This symbol is now deprecated, and may be ignored by a future release : instead define WTLSTL_NO_NAMESPACE")
+# endif
+# if !defined(WTLSTL_NO_NAMESPACE)
+#  define WTLSTL_NO_NAMESPACE
+# endif /* !WTLSTL_NO_NAMESPACE */
+#endif /* _WTLSTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////
+ * namespace support discrimination
  */
 
 /* No STLSoft namespaces means no WTLSTL namespaces */
-#ifdef _STLSOFT_NO_NAMESPACES
-# define _WTLSTL_NO_NAMESPACES
-#endif /* _STLSOFT_NO_NAMESPACES */
+#ifdef STLSOFT_NO_NAMESPACES
+# define WTLSTL_NO_NAMESPACES
+#endif /* STLSOFT_NO_NAMESPACES */
 
 /* No WTLSTL namespaces means no wtlstl namespace */
-#ifdef _WTLSTL_NO_NAMESPACES
-# define _WTLSTL_NO_NAMESPACE
-#endif /* _WTLSTL_NO_NAMESPACES */
+#ifdef WTLSTL_NO_NAMESPACES
+# define WTLSTL_NO_NAMESPACE
+#endif /* WTLSTL_NO_NAMESPACES */
 
-#ifndef _WTLSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifdef WTLSTL_NO_NAMESPACES
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_WTLSTL_NO_NAMESPACES)
+#   define _WTLSTL_NO_NAMESPACES
+#  endif /* !_WTLSTL_NO_NAMESPACES */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* WTLSTL_NO_NAMESPACES */
+
+#ifdef WTLSTL_NO_NAMESPACE
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_WTLSTL_NO_NAMESPACE)
+#   define _WTLSTL_NO_NAMESPACE
+#  endif /* !_WTLSTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* WTLSTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////
+ * declaration '*stl*' namespace
+ */
+
+#ifndef WTLSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::wtlstl */
-/** \brief The <code class="namespace">wtlstl</code> namespace contains all components
+/** The \c wtlstl namespace contains all components
  *   in the \ref group__project__wtlstl "WTLSTL" project.
  *
- * By default, the <code>wtlstl</code> namespace is actually an alias for
+ * By default, the \c wtlstl namespace is actually an alias for
  * the namespace <code>stlsoft::wtlstl_project</code>, which is where all
  * the \ref group__project__wtlstl "WTLSTL" components actually reside. This
  * measure allows all components within the main the
  * \ref group__project__stlsoft "STLSoft" project (which are defined within
- * the <code>stlsoft</code> namespace) to be visible to all components
- * "within" the <code>wtlstl</code> namespace. (Otherwise, there would be a
+ * the \c stlsoft namespace) to be visible to all components
+ * "within" the \c wtlstl namespace. (Otherwise, there would be a
  * whole lot of onerous qualification throughout the code of all
  * \ref group__projects "sub-projects".)
  *
- * \note If either/both of the symbols <code>_STLSOFT_NO_NAMESPACES</code>
- * and <code>_WTLSTL_NO_NAMESPACE</code> are defined, all
+ * \note If either/both of the symbols \c STLSOFT_NO_NAMESPACES
+ * and \c WTLSTL_NO_NAMESPACE are defined, all
  * \ref group__project__wtlstl "WTLSTL" components will be defined in the
- * global namespace. Conversely, if the <code>_STLSOFT_NO_NAMESPACE</code>
+ * global namespace. Conversely, if the \c STLSOFT_NO_NAMESPACE
  * symbol (not to be confused with the
- * <code>_STLSOFT_NO_NAMESPACES</code> symbol!) is defined - meaning that
+ * \c STLSOFT_NO_NAMESPACES symbol!) is defined - meaning that
  * all \ref group__project__stlsoft "main project" components are to be
- * defined in the global namespace, and <code>_WTLSTL_NO_NAMESPACE</code>
+ * defined in the global namespace, and \c WTLSTL_NO_NAMESPACE
  * is <b>not</b> defined, then all \ref group__project__wtlstl "WTLSTL"
- * components will be defined within a bona fide <code>wtlstl</code>
+ * components will be defined within a bona fide \c wtlstl
  * namespace.
  *
  * \note This is a vestige of compatibility with compilers with
@@ -375,17 +426,17 @@ namespace wtlstl
 namespace stlsoft
 {
 
-/** \brief The WTLSTL namespace - \c wtlstl (aliased to \c stlsoft::wtlstl_project) - is
+/** The WTLSTL namespace - \c wtlstl (aliased to \c stlsoft::wtlstl_project) - is
  * the namespace for the WTLSTL project.
  *
  */
 namespace wtlstl_project
 {
 
-# endif /* _STLSOFT_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
 #else
-stlsoft_ns_using(move_lhs_from_rhs)
-#endif /* !_WTLSTL_NO_NAMESPACE */
+STLSOFT_NS_USING(move_lhs_from_rhs)
+#endif /* !WTLSTL_NO_NAMESPACE */
 
 /** \def wtlstl_ns_qual(x)
  * Qualifies with <b>wtlstl::</b> if WTLSTL is using namespaces or, if not, does not qualify
@@ -395,29 +446,23 @@ stlsoft_ns_using(move_lhs_from_rhs)
  * Declares a using directive (with respect to <b>wtlstl</b>) if WTLSTL is using namespaces or, if not, does nothing
  */
 
-#ifndef _WTLSTL_NO_NAMESPACE
-# define wtlstl_ns_qual(x)          ::wtlstl::x
-# define wtlstl_ns_using(x)         using ::wtlstl::x;
+#ifndef WTLSTL_NO_NAMESPACE
+# define WTLSTL_NS_QUAL(x)          ::wtlstl::x
+# define WTLSTL_NS_USING(x)         using ::wtlstl::x;
 #else
-# define wtlstl_ns_qual(x)          x
-# define wtlstl_ns_using(x)
-#endif /* !_WTLSTL_NO_NAMESPACE */
+# define WTLSTL_NS_QUAL(x)          x
+# define WTLSTL_NS_USING(x)
+#endif /* !WTLSTL_NO_NAMESPACE */
 
-/** \def wtlstl_ns_qual_std(x)
- * Qualifies with <b>std::</b> if WTLSTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does not qualify
- */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define wtlstl_ns_qual(x)                                  WTLSTL_NS_QUAL(x)
+# define wtlstl_ns_using(x)                                 WTLSTL_NS_USING(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
-/** \def wtlstl_ns_using_std(x)
- * Declares a using directive (with respect to <b>std</b>) if WTLSTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does nothing
- */
-
-#ifdef STLSOFT_CF_std_NAMESPACE
-# define wtlstl_ns_qual_std(x)      ::std::x
-# define wtlstl_ns_using_std(x)     using ::std::x;
-#else /* ? STLSOFT_CF_std_NAMESPACE */
-# define wtlstl_ns_qual_std(x)      x
-# define wtlstl_ns_using_std(x)
-#endif /* !STLSOFT_CF_std_NAMESPACE */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define wtlstl_ns_qual_std(x)                              STLSOFT_NS_QUAL_STD(x)
+# define wtlstl_ns_using_std(x)                             STLSOFT_NS_USING_STD(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
 /** \def wtlstl_ns_qual_atl(x)
  * Qualifies with <b>ATL::</b> if WTLSTL is being translated in the context of ATL being within the <b>ATL</b> namespace or, if not, does not qualify
@@ -428,15 +473,20 @@ stlsoft_ns_using(move_lhs_from_rhs)
  */
 
 #ifndef ATL_NO_NAMESPACE
-# define wtlstl_ns_qual_atl(x)       ::ATL::x
-# define wtlstl_ns_using_atl(x)      using ::ATL::x;
+# define WTLSTL_NS_QUAL_ATL(x)       ::ATL::x
+# define WTLSTL_NS_USING_ATL(x)      using ::ATL::x;
 #else
-# define wtlstl_ns_qual_atl(x)       x
-# define wtlstl_ns_using_atl(x)
+# define WTLSTL_NS_QUAL_ATL(x)       x
+# define WTLSTL_NS_USING_ATL(x)
 #endif /* !ATL_NO_NAMESPACE */
 
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define wtlstl_ns_qual_atl(x)                              WTLSTL_NS_QUAL_ATL(x)
+# define wtlstl_ns_using_atl(x)                             WTLSTL_NS_USING_ATL(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Typedefs
+ * typedefs
  *
  * The WTLSTL uses a number of typedefs to aid in compiler-independence in the
  * libraries' main code.
@@ -444,36 +494,36 @@ stlsoft_ns_using(move_lhs_from_rhs)
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-typedef stlsoft_ns_qual(ss_char_a_t)        ws_char_a_t;    //!< Ansi char type
-typedef stlsoft_ns_qual(ss_char_w_t)        ws_char_w_t;    //!< Unicode char type
-typedef stlsoft_ns_qual(ss_sint8_t)         ws_sint8_t;     //!< 8-bit signed integer
-typedef stlsoft_ns_qual(ss_uint8_t)         ws_uint8_t;     //!< 8-bit unsigned integer
-typedef stlsoft_ns_qual(ss_int16_t)         ws_int16_t;     //!< 16-bit integer
-typedef stlsoft_ns_qual(ss_sint16_t)        ws_sint16_t;    //!< 16-bit signed integer
-typedef stlsoft_ns_qual(ss_uint16_t)        ws_uint16_t;    //!< 16-bit unsigned integer
-typedef stlsoft_ns_qual(ss_int32_t)         ws_int32_t;     //!< 32-bit integer
-typedef stlsoft_ns_qual(ss_sint32_t)        ws_sint32_t;    //!< 32-bit signed integer
-typedef stlsoft_ns_qual(ss_uint32_t)        ws_uint32_t;    //!< 32-bit unsigned integer
+typedef STLSOFT_NS_QUAL(ss_char_a_t)        ws_char_a_t;    //!< Ansi char type
+typedef STLSOFT_NS_QUAL(ss_char_w_t)        ws_char_w_t;    //!< Unicode char type
+typedef STLSOFT_NS_QUAL(ss_sint8_t)         ws_sint8_t;     //!< 8-bit signed integer
+typedef STLSOFT_NS_QUAL(ss_uint8_t)         ws_uint8_t;     //!< 8-bit unsigned integer
+typedef STLSOFT_NS_QUAL(ss_int16_t)         ws_int16_t;     //!< 16-bit integer
+typedef STLSOFT_NS_QUAL(ss_sint16_t)        ws_sint16_t;    //!< 16-bit signed integer
+typedef STLSOFT_NS_QUAL(ss_uint16_t)        ws_uint16_t;    //!< 16-bit unsigned integer
+typedef STLSOFT_NS_QUAL(ss_int32_t)         ws_int32_t;     //!< 32-bit integer
+typedef STLSOFT_NS_QUAL(ss_sint32_t)        ws_sint32_t;    //!< 32-bit signed integer
+typedef STLSOFT_NS_QUAL(ss_uint32_t)        ws_uint32_t;    //!< 32-bit unsigned integer
 #ifdef STLSOFT_CF_64BIT_INT_SUPPORT
-typedef stlsoft_ns_qual(ss_int64_t)         ws_int64_t;     //!< 64-bit integer
-typedef stlsoft_ns_qual(ss_sint64_t)        ws_sint64_t;    //!< 64-bit signed integer
-typedef stlsoft_ns_qual(ss_uint64_t)        ws_uint64_t;    //!< 64-bit unsigned integer
+typedef STLSOFT_NS_QUAL(ss_int64_t)         ws_int64_t;     //!< 64-bit integer
+typedef STLSOFT_NS_QUAL(ss_sint64_t)        ws_sint64_t;    //!< 64-bit signed integer
+typedef STLSOFT_NS_QUAL(ss_uint64_t)        ws_uint64_t;    //!< 64-bit unsigned integer
 #endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
-typedef stlsoft_ns_qual(ss_int_t)           ws_int_t;       //!< integer
-typedef stlsoft_ns_qual(ss_sint_t)          ws_sint_t;      //!< signed integer
-typedef stlsoft_ns_qual(ss_uint_t)          ws_uint_t;      //!< unsigned integer
-typedef stlsoft_ns_qual(ss_long_t)          ws_long_t;      //!< long
-typedef stlsoft_ns_qual(ss_bool_t)          ws_bool_t;      //!< bool
+typedef STLSOFT_NS_QUAL(ss_int_t)           ws_int_t;       //!< integer
+typedef STLSOFT_NS_QUAL(ss_sint_t)          ws_sint_t;      //!< signed integer
+typedef STLSOFT_NS_QUAL(ss_uint_t)          ws_uint_t;      //!< unsigned integer
+typedef STLSOFT_NS_QUAL(ss_long_t)          ws_long_t;      //!< long
+typedef STLSOFT_NS_QUAL(ss_bool_t)          ws_bool_t;      //!< bool
 typedef DWORD                               ws_dword_t;     //!< dword
-typedef stlsoft_ns_qual(ss_size_t)          ws_size_t;      //!< size
-typedef stlsoft_ns_qual(ss_ptrdiff_t)       ws_ptrdiff_t;   //!< ptr diff
-typedef stlsoft_ns_qual(ss_streampos_t)     ws_streampos_t; //!< streampos
-typedef stlsoft_ns_qual(ss_streamoff_t)     ws_streamoff_t; //!< streamoff
+typedef STLSOFT_NS_QUAL(ss_size_t)          ws_size_t;      //!< size
+typedef STLSOFT_NS_QUAL(ss_ptrdiff_t)       ws_ptrdiff_t;   //!< ptr diff
+typedef STLSOFT_NS_QUAL(ss_streampos_t)     ws_streampos_t; //!< streampos
+typedef STLSOFT_NS_QUAL(ss_streamoff_t)     ws_streamoff_t; //!< streamoff
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Values
+ * values
  *
  * Since the boolean type may not be supported natively on all compilers, the
  * values of true and false may also not be provided. Hence the values of
@@ -482,12 +532,12 @@ typedef stlsoft_ns_qual(ss_streamoff_t)     ws_streamoff_t; //!< streamoff
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-#define ws_true_v       ss_true_v
-#define ws_false_v      ss_false_v
+#define ws_true_v                                           ss_true_v
+#define ws_false_v                                          ss_false_v
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 /* /////////////////////////////////////////////////////////////////////////
- * Code modification macros
+ * code modification macros
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -508,13 +558,13 @@ typedef stlsoft_ns_qual(ss_streamoff_t)     ws_streamoff_t; //!< streamoff
 # define wtlstl_num_elements(ar)                        WTLSTL_NUM_ELEMENTS(ar)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
+/** [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_DESTROY_INSTANCE().
  */
 #define wtlstl_destroy_instance(t, type, p)             STLSOFT_DESTROY_INSTANCE(t, type, p)
 
-/** \brief [DEPRECATED] Generates an opaque type with the name \c _htype
+/** [DEPRECATED] Generates an opaque type with the name \c _htype
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_GEN_OPAQUE().
  */
@@ -522,19 +572,19 @@ typedef stlsoft_ns_qual(ss_streamoff_t)     ws_streamoff_t; //!< streamoff
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WTLSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WTLSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace wtlstl
+} /* namespace wtlstl */
 # else
-} // namespace wtlstl_project
-} // namespace stlsoft
+} /* namespace wtlstl_project */
+} /* namespace stlsoft */
 namespace wtlstl = ::stlsoft::wtlstl_project;
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WTLSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WTLSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Inclusion
+ * inclusion control
  */
 
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
@@ -543,7 +593,7 @@ namespace wtlstl = ::stlsoft::wtlstl_project;
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#endif /* WTLSTL_INCL_WTLSTL_HPP_WTLSTL */
+#endif /* !WTLSTL_INCL_WTLSTL_HPP_WTLSTL */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

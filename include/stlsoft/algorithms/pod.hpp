@@ -4,45 +4,47 @@
  * Purpose:     Algorithms for Plain-Old Data types.
  *
  * Created:     17th January 2002
- * Updated:     15th December 2023
+ * Updated:     2nd January 2021
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2021, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/algorithms/pod.hpp
  *
- * \brief [C++ only] Algorithms for use with POD types
- *   (\ref group__library__algorithms "Algorithms" Library).
+ * \brief [C++] Algorithms for use with POD types
+ *   (\ref group__library__Algorithm "Algorithm" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_ALGORITHMS_HPP_POD
@@ -51,17 +53,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_ALGORITHMS_HPP_POD_MAJOR       3
 # define STLSOFT_VER_STLSOFT_ALGORITHMS_HPP_POD_MINOR       5
-# define STLSOFT_VER_STLSOFT_ALGORITHMS_HPP_POD_REVISION    3
-# define STLSOFT_VER_STLSOFT_ALGORITHMS_HPP_POD_EDIT        91
+# define STLSOFT_VER_STLSOFT_ALGORITHMS_HPP_POD_REVISION    8
+# define STLSOFT_VER_STLSOFT_ALGORITHMS_HPP_POD_EDIT        103
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_ALGORITHM_STD_HPP_ALT
 # include <stlsoft/algorithms/std/alt.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_ALGORITHM_STD_HPP_ALT */
@@ -81,31 +87,21 @@
 # include <stlsoft/meta/yesno.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_META_HPP_YESNO */
 
-#if defined(STLSOFT_COMPILER_IS_BORLAND) || \
-    defined(STLSOFT_COMPILER_IS_INTEL) || \
-    defined(STLSOFT_COMPILER_IS_MSVC)
-# include <memory.h>                    // for memcpy
-#else /* ? compiler */
-# include <string.h>                    // for memcpy
-#endif /* compiler */
-
-#ifdef STLSOFT_UNITTEST
-# ifndef STLSOFT_INCL_STLSOFT_ERROR_HPP_EXCEPTIONS
-#  include <stlsoft/error/exceptions.hpp>      // for null_exception_policy
-# endif /* !STLSOFT_INCL_STLSOFT_ERROR_HPP_EXCEPTIONS */
-#endif /* STLSOFT_UNITTEST */
+#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
+# include <stlsoft/api/internal/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Helper functions
+ * helper functions
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -124,7 +120,7 @@ struct ximpl_stlsoft_algorithm_pod_helper_
     ,   yes_type
     )
     {
-        ::memcpy(dest, src, n * sizeof(*dest));
+        STLSOFT_API_INTERNAL_memfns_memcpy(dest, src, n * sizeof(*dest));
     }
 
     template<
@@ -166,7 +162,7 @@ struct ximpl_stlsoft_algorithm_pod_helper_
         STLSOFT_STATIC_ASSERT(int(O_IS_INTEGRAL_TYPE) == int(I_IS_INTEGRAL_TYPE));
         STLSOFT_STATIC_ASSERT(int(O_IS_POINTER_TYPE) == int(I_IS_POINTER_TYPE));
 
-        ::memcpy(dest, src, n * sizeof(*dest));
+        STLSOFT_API_INTERNAL_memfns_memcpy(dest, src, n * sizeof(*dest));
     }
 
     template<
@@ -196,16 +192,16 @@ struct ximpl_stlsoft_algorithm_pod_helper_
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Algorithms
+ * algorithms
  */
 
-/** \brief Copies one range of POD (Plain Old Data) entities to another
+/** Copies one range of POD (Plain Old Data) entities to another
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  *
  * This algorithm has the same semantics as std::copy(), but it uses
- * ::memcpy() to copy elements en bloc, rather than copy assignment of one element
- * at a time.
+ * ::<code>memcpy()</code> to copy elements en bloc, rather than copy
+ * assignment of one element at a time.
  *
 \code
   const int8_t  src_bytes[3] = { -1, 0, +1 };
@@ -253,12 +249,12 @@ inline void pod_copy(I* first, I* last, O* dest)
 #endif /* compiler */
 }
 
-/** \brief Copies one range of POD (Plain Old Data) entities to another
+/** Copies one range of POD (Plain Old Data) entities to another
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  *
- * This algorithm uses ::memcpy() to copy elements en bloc, rather than
- * copy assignment of one element at a time.
+ * This algorithm uses ::<code>memcpy()</code> to copy elements en bloc,
+ * rather than copy assignment of one element at a time.
  *
 \code
   const int8_t  src_bytes[3] = { -1, 0, +1 };
@@ -304,14 +300,14 @@ inline void pod_copy_n(O *dest, I *src, ss_size_t n)
 #endif /* compiler */
 }
 
-/** \brief Copies one range of POD (Plain Old Data) entities to another, where the two
+/** Copies one range of POD (Plain Old Data) entities to another, where the two
  * may potentially overlap
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  *
  * This algorithm has the same semantics as std::copy(), but it uses
- * ::memmove() to copy elements en bloc, rather than copy assignment of one element
- * at a time.
+ * ::<code>memmove()</code> to copy elements en bloc, rather than copy
+ * assignment of one element at a time.
  *
  * \note The implementation uses static assertions to ensure that the source and
  * destination element types are the same size.
@@ -351,13 +347,13 @@ inline void pod_move(I* first, I* last, O* dest)
 #endif /* compiler */
 }
 
-/** \brief Copies one range of POD (Plain Old Data) entities to another, where the two
+/** Copies one range of POD (Plain Old Data) entities to another, where the two
  * may potentially overlap
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  *
- * \note This algorithm uses ::memmove() to copy elements en bloc, rather than
- * copy assignment of one element at a time.
+ * \note This algorithm uses ::<code>memmove()</code> to copy elements en
+ * bloc, rather than copy assignment of one element at a time.
  *
  * \note The implementation uses static assertions to ensure that the source and
  * destination element types are the same size.
@@ -396,13 +392,13 @@ inline void pod_move_n(O *dest, I *src, ss_size_t n)
 }
 
 
-/** \brief Sets all the elements in a range of POD (Plain Old Data) to a given value
+/** Sets all the elements in a range of POD (Plain Old Data) to a given value
  *
- * \ingroup group__library__algorithms
+ * \ingroup group__library__Algorithm
  *
  * This algorithm has the same semantics as std::fill_n(), but it uses
- * ::memset() for some types to set the range of elements, rather than copy
- * assignment of one element at a time.
+ * ::<code>memset()</code> for some types to set the range of elements,
+ * rather than copy assignment of one element at a time.
  *
 \code
   const int8_t  src_bytes[3] = { 3, 3, 3 };
@@ -414,8 +410,8 @@ inline void pod_move_n(O *dest, I *src, ss_size_t n)
  *
  * The generic overload uses std::fill_n(), so performance is likely to be
  * identical to std::fill_n() in the general case. However, it is overloaded
- * to use ::memset() on \c char, \c signed \c char and \c unsigned \c char
- * types, for which performance gains are likely.
+ * to use ::<code>memset()</code> on \c char, \c signed \c char
+ * and \c unsigned \c char types, for which performance gains are likely.
  *
  * \param dest Contiguous Iterator marking the start of the source range
  * \param n Number of elements in the range
@@ -437,34 +433,33 @@ inline void pod_fill_n(T *dest, ss_size_t n, V const& value)
 // [[synesis:function:algorithm: pod_fill_n(char *dest, int value)]]
 inline void pod_fill_n(char *dest, ss_size_t n, int value)
 {
-    ::memset(dest, value, n);
+    STLSOFT_API_INTERNAL_memfns_memset(dest, value, n);
 }
 // [[synesis:function:algorithm: pod_fill_n(signed char *dest, int value)]]
 inline void pod_fill_n(signed char *dest, ss_size_t n, int value)
 {
-    ::memset(dest, value, n);
+    STLSOFT_API_INTERNAL_memfns_memset(dest, value, n);
 }
 // [[synesis:function:algorithm: pod_fill_n(unsigned char *dest, int value)]]
 inline void pod_fill_n(unsigned char *dest, ss_size_t n, int value)
 {
-    ::memset(dest, value, n);
+    STLSOFT_API_INTERNAL_memfns_memset(dest, value, n);
 }
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/pod_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_ALGORITHMS_HPP_POD */
 

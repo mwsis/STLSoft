@@ -5,48 +5,50 @@
  *              and Unicode specialisations thereof.
  *
  * Created:     19th January 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks:      To Sam Fisher for spotting the defect in the set_value_()
  *              overload for REG_MULTI_SZ values (widestring only).
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/registry/reg_key.hpp
  *
- * \brief [C++ only] Definition of the winstl::basic_reg_key class template
- *   (\ref group__library__windows_registry "Windows Registry" Library).
+ * \brief [C++] Definition of the winstl::basic_reg_key class template
+ *   (\ref group__library__Windows_Registry "Windows Registry" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_REGISTRY_HPP_REG_KEY
@@ -55,17 +57,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_KEY_MAJOR       3
 # define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_KEY_MINOR       10
-# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_KEY_REVISION    1
-# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_KEY_EDIT        142
+# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_KEY_REVISION    13
+# define WINSTL_VER_WINSTL_REGISTRY_HPP_REG_KEY_EDIT        163
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef WINSTL_INCL_WINSTL_REGISTRY_HPP_REGFWD
 # include <winstl/registry/regfwd.hpp>
 #endif /* !WINSTL_INCL_WINSTL_REGISTRY_HPP_REGFWD */
@@ -114,40 +120,44 @@
 # include <functional>
 #endif /* !STLSOFT_INCL_FUNCTIONAL */
 
-#ifdef STLSOFT_UNITTEST
-# include <winstl/registry/reg_value.hpp>
-#endif /* STLSOFT_UNITTEST */
+#ifndef WINSTL_INCL_WINSTL_API_external_h_ErrorHandling
+# include <winstl/api/external/ErrorHandling.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_ErrorHandling */
+#ifndef WINSTL_INCL_WINSTL_API_external_h_Registry
+# include <winstl/api/external/Registry.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_Registry */
+
+#ifndef STLSOFT_INCL_STLSOFT_API_internal_h_memfns
+# include <stlsoft/api/internal/memfns.h>
+#endif /* !STLSOFT_INCL_STLSOFT_API_internal_h_memfns */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 /** Represents a registry key, and provides methods for manipulating its
  * values and sub-keys.
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  *
  * This class acts as the value type of classes that manipulate registry keys
  * and encapsulates the concept of a registry key.
@@ -176,7 +186,7 @@ public:
     typedef T                                           traits_type;
     /// The allocator type
     typedef A                                           allocator_type;
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef basic_reg_key<C, T, A>                      class_type;
     /// The size type
     typedef ss_typename_type_k traits_type::size_type   size_type;
@@ -264,8 +274,8 @@ public:
      */
     template <ss_typename_param_k S>
     basic_reg_key(hkey_type hkeyParent, S const& keyName, REGSAM accessMask = KEY_ALL_ACCESS)
-        : m_name(stlsoft_ns_qual(c_str_ptr)(keyName))
-        , m_hkey(open_key_(hkeyParent, stlsoft_ns_qual(c_str_ptr)(keyName), accessMask))
+        : m_name(STLSOFT_NS_QUAL(c_str_ptr)(keyName))
+        , m_hkey(open_key_(hkeyParent, STLSOFT_NS_QUAL(c_str_ptr)(keyName), accessMask))
         , m_accessMask(accessMask)
     {} // Implementation is within class, otherwise VC5 will not link
 #endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
@@ -309,8 +319,8 @@ public:
      */
     template <ss_typename_param_k S>
     basic_reg_key(class_type const& keyParent, S const& keyName, REGSAM accessMask = KEY_ALL_ACCESS)
-        : m_name(stlsoft_ns_qual(c_str_ptr)(keyName))
-        , m_hkey(open_key_(keyParent.get_key_handle(), stlsoft_ns_qual(c_str_ptr)(keyName), accessMask))
+        : m_name(STLSOFT_NS_QUAL(c_str_ptr)(keyName))
+        , m_hkey(open_key_(keyParent.get_key_handle(), STLSOFT_NS_QUAL(c_str_ptr)(keyName), accessMask))
         , m_accessMask(accessMask)
     {} // Implementation is within class, otherwise VC5 will not link
 #endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
@@ -375,7 +385,7 @@ public:
     template <ss_typename_param_k S>
     bool_type               has_sub_key(S const& subKeyName) const
     {
-        return this->has_sub_key_(stlsoft_ns_qual(c_str_ptr)(subKeyName));
+        return this->has_sub_key_(STLSOFT_NS_QUAL(c_str_ptr)(subKeyName));
     }
     /// Indicates whether the value exists
     ///
@@ -383,7 +393,7 @@ public:
     template <ss_typename_param_k S>
     bool_type               has_value(S const& valueName) const
     {
-        return this->has_value_(stlsoft_ns_qual(c_str_ptr)(valueName));
+        return this->has_value_(STLSOFT_NS_QUAL(c_str_ptr)(valueName));
     }
 
     /** The handle to the underlying Registry API key.
@@ -416,7 +426,7 @@ public:
     template <ss_typename_param_k S>
     class_type  open_sub_key(S const& subKeyName, REGSAM accessMask = KEY_ALL_ACCESS)
     {
-        return open_sub_key_(stlsoft_ns_qual(c_str_ptr)(subKeyName), accessMask);
+        return open_sub_key_(STLSOFT_NS_QUAL(c_str_ptr)(subKeyName), accessMask);
     }
 #endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
 
@@ -451,7 +461,7 @@ public:
     template <ss_typename_param_k S>
     class_type create_sub_key(S const& subKeyName, REGSAM accessMask = KEY_ALL_ACCESS)
     {
-        return create_sub_key_(stlsoft_ns_qual(c_str_ptr)(subKeyName), accessMask);
+        return create_sub_key_(STLSOFT_NS_QUAL(c_str_ptr)(subKeyName), accessMask);
     }
 #endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
 
@@ -488,7 +498,7 @@ public:
     template <ss_typename_param_k H, ss_typename_param_k S>
     static class_type create_key(H const& key, S const& subKeyName, REGSAM accessMask = KEY_ALL_ACCESS)
     {
-        return create_key_(get_HKEY(key), stlsoft_ns_qual(c_str_ptr)(subKeyName), accessMask);
+        return create_key_(get_HKEY(key), STLSOFT_NS_QUAL(c_str_ptr)(subKeyName), accessMask);
     }
 #endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
 
@@ -528,7 +538,7 @@ public:
     template <ss_typename_param_k S>
     class_type  delete_sub_key(S const& subKeyName)
     {
-        return delete_sub_key_(stlsoft_ns_qual(c_str_ptr)(subKeyName));
+        return delete_sub_key_(STLSOFT_NS_QUAL(c_str_ptr)(subKeyName));
     }
 #endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
 /// @}
@@ -605,7 +615,7 @@ public:
     template <ss_typename_param_k S>
     bool_type   set_value(S const& valueName, DWORD value)
     {
-        return set_value_(stlsoft_ns_qual(c_str_ptr)(valueName), value);
+        return set_value_(STLSOFT_NS_QUAL(c_str_ptr)(valueName), value);
     }
 #endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
 #ifdef STLSOFT_CF_64BIT_INT_SUPPORT
@@ -619,7 +629,7 @@ public:
     template <ss_typename_param_k S>
     bool_type   set_value(S const& valueName, ws_uint64_t value)
     {
-        return set_value_(stlsoft_ns_qual(c_str_ptr)(valueName), value);
+        return set_value_(STLSOFT_NS_QUAL(c_str_ptr)(valueName), value);
     }
 # endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
 #endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
@@ -637,7 +647,7 @@ public:
     template <ss_typename_param_k S>
     bool_type   set_value(S const& valueName, char_type const* value, ws_uint_t type = REG_SZ)
     {
-        return set_value_(stlsoft_ns_qual(c_str_ptr)(valueName), value, type);
+        return set_value_(STLSOFT_NS_QUAL(c_str_ptr)(valueName), value, type);
     }
 #endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
 #ifdef STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT
@@ -654,7 +664,7 @@ public:
     template <ss_typename_param_k S>
     bool_type   set_value(S const& valueName, char_type const* const* values, size_type numValues)
     {
-        return set_value_(stlsoft_ns_qual(c_str_ptr)(valueName), values, numValues);
+        return set_value_(STLSOFT_NS_QUAL(c_str_ptr)(valueName), values, numValues);
     }
 #endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
 #ifdef STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT
@@ -667,7 +677,7 @@ public:
     template <ss_typename_param_k S>
     bool_type   set_value(S const& valueName, void const* value, size_type cbValue)
     {
-        return set_value_(stlsoft_ns_qual(c_str_ptr)(valueName), value, cbValue);
+        return set_value_(STLSOFT_NS_QUAL(c_str_ptr)(valueName), value, cbValue);
     }
 #endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
     /** Sets the named value to the given integer (stored as an unsigned value).
@@ -693,7 +703,7 @@ public:
     template <ss_typename_param_k S>
     bool_type   set_value(S const& valueName, int value)
     {
-        return set_value_(stlsoft_ns_qual(c_str_ptr)(valueName), value);
+        return set_value_(STLSOFT_NS_QUAL(c_str_ptr)(valueName), value);
     }
 #endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
     /** Deletes the named value.
@@ -731,7 +741,7 @@ public:
     template <ss_typename_param_k S>
     bool_type   delete_value(S const& valueName)
     {
-        return this->delete_value_(stlsoft_ns_qual(c_str_ptr)(valueName));
+        return this->delete_value_(STLSOFT_NS_QUAL(c_str_ptr)(valueName));
     }
 #endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
 
@@ -758,7 +768,7 @@ public:
     template <ss_typename_param_k S>
     key_value_type              get_value(S const& valueName) const
     {
-        return this->get_value(stlsoft_ns_qual(c_str_ptr)(stlsoft_ns_qual(c_str_ptr)(valueName)));
+        return this->get_value(STLSOFT_NS_QUAL(c_str_ptr)(STLSOFT_NS_QUAL(c_str_ptr)(valueName)));
     }
 #endif /* STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT */
 
@@ -785,8 +795,8 @@ private:
                                 ,   void const*         value
                                 ,   size_type           cbValue);
 
-    bool_type   set_value_int_(char_type const* valueName, int value, stlsoft_ns_qual(yes_type));
-    bool_type   set_value_int_(char_type const* valueName, int value, stlsoft_ns_qual(no_type));
+    bool_type   set_value_int_(char_type const* valueName, int value, STLSOFT_NS_QUAL(yes_type));
+    bool_type   set_value_int_(char_type const* valueName, int value, STLSOFT_NS_QUAL(no_type));
 
     bool_type   set_value_(char_type const* valueName, DWORD value);
 #  ifdef STLSOFT_CF_64BIT_INT_SUPPORT
@@ -802,7 +812,7 @@ private:
     bool_type   has_sub_key_(char_type const* subKeyName) const;
     bool_type   has_value_(char_type const* valueName) const;
 
-    static result_type  get_value_(hkey_type hkey, char_type const* valueName, ws_uint_t type, void *value, size_type *pcbValue);
+    static result_type  get_value_(hkey_type hkey, char_type const* valueName, ws_uint_t type, void* value, size_type *pcbValue);
 
     static hkey_type    dup_key_(   hkey_type       hkey
                                 ,   REGSAM          accessMask  =   KEY_ALL_ACCESS);
@@ -830,29 +840,29 @@ private:
 /* Typedefs to commonly encountered types. */
 /** Specialisation of the basic_reg_key template for the ANSI character type \c char
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  */
 typedef basic_reg_key<ws_char_a_t, reg_traits<ws_char_a_t>, processheap_allocator<ws_char_a_t> >    reg_key_a;
 /** Specialisation of the basic_reg_key template for the Unicode character type \c wchar_t
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  */
 typedef basic_reg_key<ws_char_w_t, reg_traits<ws_char_w_t>, processheap_allocator<ws_char_w_t> >    reg_key_w;
 /** Specialisation of the basic_reg_key template for the Win32 character type \c TCHAR
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  */
 typedef basic_reg_key<TCHAR, reg_traits<TCHAR>, processheap_allocator<TCHAR> >                      reg_key;
 
 /* /////////////////////////////////////////////////////////////////////////
- * Handle access shims
+ * handle access shims
  */
 
 /* get_handle */
 
-/** [\ref group__concept__shims "Shim" function] Returns the corresponding registry handle of an instance of winstl::basic_reg_key basic_reg_key.
+/** [\ref group__concept__Shim "Shim" function] Returns the corresponding registry handle of an instance of winstl::basic_reg_key basic_reg_key.
  *
- * \ingroup group__library__windows_registry
+ * \ingroup group__library__Windows_Registry
  *
  * \param key The \link winstl::basic_reg_key basic_reg_key\endlink instance.
  *
@@ -867,9 +877,9 @@ inline HKEY get_handle(basic_reg_key<C, T, A> const& key)
     return key.get_key_handle();
 }
 
-/** [\ref group__concept__shims "Shim" function] Returns the corresponding registry handle of an instance of winstl::basic_reg_key basic_reg_key.
+/** [\ref group__concept__Shim "Shim" function] Returns the corresponding registry handle of an instance of winstl::basic_reg_key basic_reg_key.
  *
- * \ingroup group__library__shims__hkey_attribute
+ * \ingroup group__library__Shims_Attribute_Windows_HKEY
  *
  * This access <a href = "http://stlsoft.org/white_papers.html#shims">shim</a>
  * retrieves the HKEY registry handle for the given HKEY handle.
@@ -887,15 +897,8 @@ inline HKEY get_HKEY(basic_reg_key<C, T, A> const& key)
     return key.get_key_handle();
 }
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/reg_key_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Implementation
+ * implementation
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -915,12 +918,12 @@ inline /* static */ ss_typename_type_ret_k basic_reg_key<C, T, A>::hkey_type bas
     hkey_type   hkey;
     result_type res = traits_type::reg_open_key(hkeyParent, keyName, &hkey, accessMask);
 
-    if(ERROR_SUCCESS != res)
+    if (ERROR_SUCCESS != res)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         static const char message[] = "could not open key";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -929,7 +932,7 @@ inline /* static */ ss_typename_type_ret_k basic_reg_key<C, T, A>::hkey_type bas
             STLSOFT_THROW_X(registry_exception(message, res));
         }
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
-        ::SetLastError(res);
+        WINSTL_API_EXTERNAL_ErrorHandling_SetLastError(res);
         hkey = NULL;
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
     }
@@ -944,7 +947,7 @@ template<   ss_typename_param_k C
 inline /* static */ ss_typename_type_ret_k basic_reg_key<C, T, A>::hkey_type basic_reg_key<C, T, A>::dup_key_(  ss_typename_type_k basic_reg_key<C, T, A>::hkey_type    hkey
                                                                                                             ,   REGSAM                                                  accessMask /* = KEY_ALL_ACCESS */)
 {
-    if(NULL == hkey)
+    if (NULL == hkey)
     {
         return NULL;
     }
@@ -953,12 +956,12 @@ inline /* static */ ss_typename_type_ret_k basic_reg_key<C, T, A>::hkey_type bas
         result_type res;
         HKEY        hkeyDup = traits_type::key_dup(hkey, accessMask, &res);
 
-        if(ERROR_SUCCESS != res)
+        if (ERROR_SUCCESS != res)
         {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
             static const char message[] = "could not duplicate key";
 
-            if(ERROR_ACCESS_DENIED == res)
+            if (ERROR_ACCESS_DENIED == res)
             {
                 STLSOFT_THROW_X(access_denied_exception(message, res));
             }
@@ -967,7 +970,7 @@ inline /* static */ ss_typename_type_ret_k basic_reg_key<C, T, A>::hkey_type bas
                 STLSOFT_THROW_X(key_not_duplicated_exception(message, res));
             }
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
-            ::SetLastError(res);
+            WINSTL_API_EXTERNAL_ErrorHandling_SetLastError(res);
             hkeyDup = NULL;
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
         }
@@ -1008,9 +1011,9 @@ inline basic_reg_key<C, T, A>::basic_reg_key(class_type const& rhs, REGSAM acces
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
 inline basic_reg_key<C, T, A>::~basic_reg_key() STLSOFT_NOEXCEPT
 {
-    if(m_hkey != NULL)
+    if (m_hkey != NULL)
     {
-        ::RegCloseKey(m_hkey);
+        WINSTL_API_EXTERNAL_Registry_RegCloseKey(m_hkey);
     }
 }
 
@@ -1045,14 +1048,14 @@ inline ss_typename_type_ret_k basic_reg_key<C, T, A>::string_type basic_reg_key<
     size_type   cch_key_class   =   0;
     ws_long_t   res             =   traits_type::reg_query_info(m_hkey, NULL, &cch_key_class, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
-    if(ERROR_SUCCESS != res)
+    if (ERROR_SUCCESS != res)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
 query_fail:
 
         static const char message[] = "could not determine the key registry class";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -1064,11 +1067,11 @@ query_fail:
     }
     else
     {
-        stlsoft_ns_qual(auto_buffer_old)<char_type, allocator_type, CCH_REG_API_AUTO_BUFFER>  p(++cch_key_class);
+        STLSOFT_NS_QUAL(auto_buffer_old)<char_type, allocator_type, CCH_REG_API_AUTO_BUFFER>  p(++cch_key_class);
 
         res = traits_type::reg_query_info(m_hkey, &p[0], &cch_key_class, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
-        if(ERROR_SUCCESS != res)
+        if (ERROR_SUCCESS != res)
         {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
             goto query_fail;
@@ -1089,12 +1092,12 @@ inline ss_typename_type_ret_k basic_reg_key<C, T, A>::size_type basic_reg_key<C,
     ws_uint32_t c_sub_keys;
     ws_long_t   res         =   traits_type::reg_query_info(m_hkey, NULL, NULL, &c_sub_keys, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
-    if(ERROR_SUCCESS != res)
+    if (ERROR_SUCCESS != res)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         static const char message[] = "could not determine the number of sub-keys";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -1116,12 +1119,12 @@ inline ss_typename_type_ret_k basic_reg_key<C, T, A>::size_type basic_reg_key<C,
     ws_uint32_t c_values;
     ws_long_t   res         =   traits_type::reg_query_info(m_hkey, NULL, NULL, NULL, NULL, NULL, &c_values, NULL, NULL, NULL, NULL);
 
-    if(ERROR_SUCCESS != res)
+    if (ERROR_SUCCESS != res)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         static const char message[] = "could not determine the number of values";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -1201,12 +1204,12 @@ inline ss_typename_type_ret_k basic_reg_key<C, T, A>::class_type basic_reg_key<C
     hkey_type   hkey;
     result_type res =   traits_type::reg_create_key(m_hkey, subKeyName, &hkey, accessMask);
 
-    if(ERROR_SUCCESS != res)
+    if (ERROR_SUCCESS != res)
     {
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
         static const char message[] = "could not create sub-key";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -1215,7 +1218,7 @@ inline ss_typename_type_ret_k basic_reg_key<C, T, A>::class_type basic_reg_key<C
             STLSOFT_THROW_X(registry_exception(message, res));
         }
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
-        ::SetLastError(res);
+        WINSTL_API_EXTERNAL_ErrorHandling_SetLastError(res);
         return class_type();
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
     }
@@ -1238,13 +1241,13 @@ inline ss_typename_type_ret_k basic_reg_key<C, T, A>::bool_type basic_reg_key<C,
 
     result_type res = traits_type::reg_delete_key(m_hkey, subKeyName);
 
-    switch(res)
+    switch (res)
     {
         case    ERROR_SUCCESS:
             return true;
         default:
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-            if(ERROR_ACCESS_DENIED == res)
+            if (ERROR_ACCESS_DENIED == res)
             {
                 STLSOFT_THROW_X(access_denied_exception(message, res));
             }
@@ -1253,7 +1256,7 @@ inline ss_typename_type_ret_k basic_reg_key<C, T, A>::bool_type basic_reg_key<C,
                 STLSOFT_THROW_X(registry_exception(message, res));
             }
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
-            ::SetLastError(res);
+            WINSTL_API_EXTERNAL_ErrorHandling_SetLastError(res);
             // Fall through
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
         case    ERROR_FILE_NOT_FOUND:
@@ -1321,11 +1324,11 @@ inline /* static */ ss_typename_type_ret_k basic_reg_key<C, T, A>::result_type b
     result_type res = traits_type::reg_set_value(hkey, valueName, type, value, cbValue);
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-    if(ERROR_SUCCESS != res)
+    if (ERROR_SUCCESS != res)
     {
         static const char message[] = "could not create value";
 
-        if(ERROR_ACCESS_DENIED == res)
+        if (ERROR_ACCESS_DENIED == res)
         {
             STLSOFT_THROW_X(access_denied_exception(message, res));
         }
@@ -1369,16 +1372,16 @@ template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
 inline ss_typename_type_ret_k basic_reg_key<C, T, A>::bool_type basic_reg_key<C, T, A>::set_value_(ss_typename_type_k basic_reg_key<C, T, A>::char_type const* valueName, ss_typename_type_k basic_reg_key<C, T, A>::char_type const* const* values, ss_typename_type_k basic_reg_key<C, T, A>::size_type numValues)
 {
     // Evaluate the total length of the source values
-    const size_type totalLen = winstl_ns_qual_std(accumulate)(  stlsoft_ns_qual(transformer)(values, std::ptr_fun(traits_type::str_len))
-                                                            ,   stlsoft_ns_qual(transformer)(values + numValues, std::ptr_fun(traits_type::str_len))
+    const size_type totalLen = STLSOFT_NS_QUAL_STD(accumulate)( STLSOFT_NS_QUAL(transformer)(values, std::ptr_fun(traits_type::str_len))
+                                                            ,   STLSOFT_NS_QUAL(transformer)(values + numValues, std::ptr_fun(traits_type::str_len))
                                                             ,   size_type(0));
 
     // Create a buffer of sufficient size: total length + a nul-terminator for each value + a double nul-terminator
-    stlsoft_ns_qual(auto_buffer)<char_type> buff(totalLen + numValues * 1 + 2);
+    STLSOFT_NS_QUAL(auto_buffer)<char_type> buff(totalLen + numValues * 1 + 2);
 
-    if(buff.empty())
+    if (buff.empty())
     {
-        ::SetLastError(ERROR_NOT_ENOUGH_MEMORY);
+        WINSTL_API_EXTERNAL_ErrorHandling_SetLastError(ERROR_NOT_ENOUGH_MEMORY);
 
         return false;
     }
@@ -1386,12 +1389,12 @@ inline ss_typename_type_ret_k basic_reg_key<C, T, A>::bool_type basic_reg_key<C,
     // Now synthesise all the data
     char_type *p = &buff[0];
 
-    { for(size_type i = 0; i != numValues; ++i)
+    { for (size_type i = 0; i != numValues; ++i)
     {
         char_type const* const  s   =   values[i];
         const size_type         len =   traits_type::str_len(s);
 
-        ::memcpy(p, s, sizeof(char_type) * len);
+        STLSOFT_API_INTERNAL_memfns_memcpy(p, s, sizeof(char_type) * len);
         p += len;
         *p++ = '\0';
     }}
@@ -1408,13 +1411,13 @@ inline ss_typename_type_ret_k basic_reg_key<C, T, A>::bool_type basic_reg_key<C,
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline ss_typename_type_ret_k basic_reg_key<C, T, A>::bool_type basic_reg_key<C, T, A>::set_value_int_(ss_typename_type_k basic_reg_key<C, T, A>::char_type const* valueName, int value, stlsoft_ns_qual(yes_type))
+inline ss_typename_type_ret_k basic_reg_key<C, T, A>::bool_type basic_reg_key<C, T, A>::set_value_int_(ss_typename_type_k basic_reg_key<C, T, A>::char_type const* valueName, int value, STLSOFT_NS_QUAL(yes_type))
 {
     return this->set_value(valueName, static_cast<DWORD>(value));
 }
 
 template <ss_typename_param_k C, ss_typename_param_k T, ss_typename_param_k A>
-inline ss_typename_type_ret_k basic_reg_key<C, T, A>::bool_type basic_reg_key<C, T, A>::set_value_int_(ss_typename_type_k basic_reg_key<C, T, A>::char_type const* valueName, int value, stlsoft_ns_qual(no_type))
+inline ss_typename_type_ret_k basic_reg_key<C, T, A>::bool_type basic_reg_key<C, T, A>::set_value_int_(ss_typename_type_k basic_reg_key<C, T, A>::char_type const* valueName, int value, STLSOFT_NS_QUAL(no_type))
 {
     return this->set_value(valueName, static_cast<ws_uint64_t>(value));
 }
@@ -1426,9 +1429,9 @@ inline ss_typename_type_ret_k basic_reg_key<C, T, A>::bool_type basic_reg_key<C,
     // rather than just one
 
 #if 0
-    typedef ss_typename_type_k stlsoft_ns_qual(value_to_yesno_type)<sizeof(int) <= sizeof(DWORD)>::type yesno_t;
+    typedef ss_typename_type_k STLSOFT_NS_QUAL(value_to_yesno_type)<sizeof(int) <= sizeof(DWORD)>::type yesno_t;
 #else /* ? 0 */
-    typedef stlsoft_ns_qual(value_to_yesno_type)<sizeof(int) <= sizeof(DWORD)>  value_to_yesno_t;
+    typedef STLSOFT_NS_QUAL(value_to_yesno_type)<sizeof(int) <= sizeof(DWORD)>  value_to_yesno_t;
     typedef ss_typename_type_k value_to_yesno_t::type                           yesno_t;
 #endif /* 0 */
 
@@ -1450,13 +1453,13 @@ inline ss_typename_type_ret_k basic_reg_key<C, T, A>::bool_type basic_reg_key<C,
 
     result_type res = traits_type::reg_delete_value(m_hkey, valueName);
 
-    switch(res)
+    switch (res)
     {
         case    ERROR_SUCCESS:
             return true;
         default:
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-            if(ERROR_ACCESS_DENIED == res)
+            if (ERROR_ACCESS_DENIED == res)
             {
                 STLSOFT_THROW_X(access_denied_exception(message, res));
             }
@@ -1465,7 +1468,7 @@ inline ss_typename_type_ret_k basic_reg_key<C, T, A>::bool_type basic_reg_key<C,
                 STLSOFT_THROW_X(registry_exception(message, res));
             }
 #else /* ? STLSOFT_CF_EXCEPTION_SUPPORT */
-            ::SetLastError(res);
+            WINSTL_API_EXTERNAL_ErrorHandling_SetLastError(res);
             // Fall through
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
         case    ERROR_FILE_NOT_FOUND:
@@ -1482,10 +1485,10 @@ basic_reg_key<C, T, A>::has_sub_key_(ss_typename_type_k basic_reg_key<C, T, A>::
     hkey_type   hkey;
     result_type res = traits_type::reg_open_key(m_hkey, subKeyName, &hkey, KEY_READ);
 
-    switch(res)
+    switch (res)
     {
         case    ERROR_SUCCESS:
-            ::RegCloseKey(hkey);
+            WINSTL_API_EXTERNAL_Registry_RegCloseKey(hkey);
         case    ERROR_ACCESS_DENIED:
             return true;
         default:
@@ -1503,7 +1506,7 @@ basic_reg_key<C, T, A>::has_value_(ss_typename_type_k basic_reg_key<C, T, A>::ch
     size_type   cbData = sizeof(data);
     result_type res = traits_type::reg_query_value(m_hkey, valueName, valueType, &data[0], cbData);
 
-    switch(res)
+    switch (res)
     {
         case    ERROR_SUCCESS:
         case    ERROR_MORE_DATA:
@@ -1531,26 +1534,26 @@ basic_reg_key<C, T, A>::get_value() const
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 #if defined(STLSOFT_CF_std_NAMESPACE)
 
 namespace std
 {
 #if !defined(STLSOFT_COMPILER_IS_BORLAND)
-    inline void swap(winstl_ns_qual(reg_key_a)& lhs, winstl_ns_qual(reg_key_a)& rhs)
+    inline void swap(WINSTL_NS_QUAL(reg_key_a)& lhs, WINSTL_NS_QUAL(reg_key_a)& rhs)
     {
         lhs.swap(rhs);
     }
-    inline void swap(winstl_ns_qual(reg_key_w)& lhs, winstl_ns_qual(reg_key_w)& rhs)
+    inline void swap(WINSTL_NS_QUAL(reg_key_w)& lhs, WINSTL_NS_QUAL(reg_key_w)& rhs)
     {
         lhs.swap(rhs);
     }
@@ -1560,9 +1563,15 @@ namespace std
 
 #endif /* STLSOFT_CF_std_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_REGISTRY_HPP_REG_KEY */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_REGISTRY_HPP_REG_KEY */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

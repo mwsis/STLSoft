@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
  * File:        unixstl/unixstl.h
  *
- * Purpose:     Root header for the UNIXSTL libraries. Performs various compiler
+ * Purpose:     Root header for the UNIXSTL libraries. Performs compiler
  *              and platform discriminations, and definitions of types.
  *
  * Created:     15th January 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -22,9 +22,10 @@
  * - Redistributions in binary form must reproduce the above copyright
  *   notice, this list of conditions and the following disclaimer in the
  *   documentation and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the
- *   names of any contributors may be used to endorse or promote products
- *   derived from this software without specific prior written permission.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
  * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
@@ -48,12 +49,16 @@
 /* File version */
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define UNIXSTL_VER_UNIXSTL_H_UNIXSTL_MAJOR    3
-# define UNIXSTL_VER_UNIXSTL_H_UNIXSTL_MINOR    9
-# define UNIXSTL_VER_UNIXSTL_H_UNIXSTL_REVISION 3
-# define UNIXSTL_VER_UNIXSTL_H_UNIXSTL_EDIT     97
+# define UNIXSTL_VER_UNIXSTL_H_UNIXSTL_MINOR    10
+# define UNIXSTL_VER_UNIXSTL_H_UNIXSTL_REVISION 6
+# define UNIXSTL_VER_UNIXSTL_H_UNIXSTL_EDIT     113
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \file unixstl/unixstl.h \brief [C, C++] The root header for the \ref group__project__unixstl "UNIXSTL" project. */
+/** \file unixstl/unixstl.h
+ *
+ * \brief [C, C++] Root header for the
+ * \ref group__project__unixstl "UNIXSTL" project.
+ */
 
 /* /////////////////////////////////////////////////////////////////////////
  * UNIXSTL version
@@ -130,32 +135,41 @@
 # define _UNIXSTL_VER_1_7_4     0x010704ff  /*!< Version 1.7.4 (with STLSoft 1.9.108) */
 # define _UNIXSTL_VER_1_7_5     0x010705ff  /*!< Version 1.7.5 (with STLSoft 1.9.113) */
 # define _UNIXSTL_VER_1_7_6     0x010706ff  /*!< Version 1.7.6 (with STLSoft 1.9.119) */
+# define _UNIXSTL_VER_1_8_1_B01 0x01080181  /*!< Version 1.8.1 beta 1 (with STLSoft 1.10.1 beta 1) */
+# define _UNIXSTL_VER_1_8_1_B02 0x01080182  /*!< Version 1.8.1 beta 2 (with STLSoft 1.10.1 beta 23) */
+# define _UNIXSTL_VER_1_8_1_B03 0x01080183  /*!< Version 1.8.1 beta 3 (with STLSoft 1.10.1 beta 25) */
+# define _UNIXSTL_VER_1_8_1_B04 0x01080184  /*!< Version 1.8.1 beta 4 (with STLSoft 1.10.1 beta 26) */
+# define _UNIXSTL_VER_1_8_1     0x010801ff  /*!< Version 1.8.1 (with STLSoft 1.10.3) */
+# define _UNIXSTL_VER_1_8_2     0x010802ff  /*!< Version 1.8.2 (with STLSoft 1.10.4) */
+# define _UNIXSTL_VER_1_8_3     0x010803ff  /*!< Version 1.8.3 (with STLSoft 1.10.5) */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #define _UNIXSTL_VER_MAJOR      1
-#define _UNIXSTL_VER_MINOR      7
-#define _UNIXSTL_VER_REVISION   6
-#define _UNIXSTL_VER            _UNIXSTL_VER_1_7_6
+#define _UNIXSTL_VER_MINOR      8
+#define _UNIXSTL_VER_REVISION   3
+#define _UNIXSTL_VER            _UNIXSTL_VER_1_8_3
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * STLSoft version compatibility
+ * STLSoft version compatibility check(s)
  */
 
-#if !defined(_STLSOFT_VER) || \
-    _STLSOFT_VER < 0x010977ff
-# error This version of the UNIXSTL libraries requires STLSoft version 1.9.119, or later
+#if _STLSOFT_VER < 0x010a019a
+# error This version of the UNIXSTL libraries requires STLSoft version 1.10.1 beta 26, or later
 #endif /* _STLSOFT_VER */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler compatibility
+ * compiler compatibility
  *
  * Currently the only compilers supported by the UNIXSTL libraries are
  *
@@ -218,7 +232,7 @@
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Architecture
+ * architecture
  *
  * The UNIX architecture.
  */
@@ -293,7 +307,7 @@
 #endif /* ? arch */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Operating system family
+ * operating system family
  *
  * In some circumstances more than one of these may be defined.
  *
@@ -324,7 +338,7 @@
 #endif /* SVR4 */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Operating system
+ * operating system
  *
  * The UNIX operating system.
  *
@@ -396,14 +410,14 @@
 #endif /* ? operating system */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Contract Enforcement
+ * contract enforcement
  *
  * The macro unixstl_assert provides standard debug-mode assert functionality.
  */
 
-/** \brief Defines a runtime assertion
+/** Defines a runtime assertion
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or an assertion will be fired
  */
@@ -414,18 +428,18 @@
 # define UNIXSTL_ASSERT(expr)               STLSOFT_ASSERT(expr)
 #endif /* UNIXSTL_OS_IS_MACOSX */
 
-/** \brief Defines a runtime assertion, with message
+/** Defines a runtime assertion, with message
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or an assertion will be fired
  * \param msg The literal character string message to be included in the assertion
  */
 #define UNIXSTL_MESSAGE_ASSERT(msg, expr)   STLSOFT_MESSAGE_ASSERT(msg, expr)
 
-/** \brief Defines a compile-time assertion
+/** Defines a compile-time assertion
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or compilation will fail
  */
@@ -440,7 +454,7 @@
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The UNIXSTL components are contained within the unixstl namespace. This is
  * usually an alias for stlsoft::unixstl_project,
@@ -448,19 +462,19 @@
  * When compilers support namespaces they are defined by default. They can be
  * undefined using a cascasing system, as follows:
  *
- * If _STLSOFT_NO_NAMESPACES is defined, then _UNIXSTL_NO_NAMESPACES is defined.
+ * If STLSOFT_NO_NAMESPACES is defined, then UNIXSTL_NO_NAMESPACES is defined.
  *
- * If _UNIXSTL_NO_NAMESPACES is defined, then _UNIXSTL_NO_NAMESPACE is defined.
+ * If UNIXSTL_NO_NAMESPACES is defined, then UNIXSTL_NO_NAMESPACE is defined.
  *
- * If _UNIXSTL_NO_NAMESPACE is defined, then the UNIXSTL constructs are defined
+ * If UNIXSTL_NO_NAMESPACE is defined, then the UNIXSTL constructs are defined
  * in the global scope.
  *
- * If _STLSOFT_NO_NAMESPACES, _UNIXSTL_NO_NAMESPACES and _UNIXSTL_NO_NAMESPACE are
- * all undefined but the symbol _STLSOFT_NO_NAMESPACE is defined (whence the
+ * If STLSOFT_NO_NAMESPACES, UNIXSTL_NO_NAMESPACES and UNIXSTL_NO_NAMESPACE are
+ * all undefined but the symbol STLSOFT_NO_NAMESPACE is defined (whence the
  * namespace stlsoft does not exist), then the UNIXSTL constructs are defined
  * within the unixstl namespace. The definition matrix is as follows:
  *
- * _STLSOFT_NO_NAMESPACE    _UNIXSTL_NO_NAMESPACE   unixstl definition
+ * STLSOFT_NO_NAMESPACE     UNIXSTL_NO_NAMESPACE    unixstl definition
  * ---------------------    --------------------    -----------------
  *  not defined              not defined             = stlsoft::unixstl_project
  *  not defined              defined                 not defined
@@ -469,53 +483,99 @@
  *
  *
  *
- * The macro unixstl_ns_qual() macro can be used to refer to elements in the
+ * The macro UNIXSTL_NS_QUAL() macro can be used to refer to elements in the
  * UNIXSTL libraries irrespective of whether they are in the
  * stlsoft::unixstl_project (or unixstl) namespace or in the global namespace.
  *
  * Furthermore, some compilers do not support the standard library in the std
- * namespace, so the unixstl_ns_qual_std() macro can be used to refer to elements
- * in the UNIXSTL libraries irrespective of whether they are in the std namespace
+ * namespace, so the STLSOFT_NS_QUAL_STD() macro can be used to refer to elements
+ * in the standard library irrespective of whether they are in the std namespace
  * or in the global namespace.
  */
 
-/* No STLSoft namespaces means no UNIXSTL namespaces */
-#ifdef _STLSOFT_NO_NAMESPACES
-# define _UNIXSTL_NO_NAMESPACES
-#endif /* _STLSOFT_NO_NAMESPACES */
+/* /////////////////////////////////////
+ * obsolete preprocessor symbol detection
+ */
 
-/* No UNIXSTL namespaces means no unixstl namespace */
 #ifdef _UNIXSTL_NO_NAMESPACES
-# define _UNIXSTL_NO_NAMESPACE
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _UNIXSTL_NO_NAMESPACES. This symbol is now deprecated, and may be ignored by a future release : instead define UNIXSTL_NO_NAMESPACES")
+# endif
+# if !defined(UNIXSTL_NO_NAMESPACES)
+#  define UNIXSTL_NO_NAMESPACES
+# endif /* !UNIXSTL_NO_NAMESPACES */
 #endif /* _UNIXSTL_NO_NAMESPACES */
 
-#ifndef _UNIXSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifdef _UNIXSTL_NO_NAMESPACE
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _UNIXSTL_NO_NAMESPACE. This symbol is now deprecated, and may be ignored by a future release : instead define UNIXSTL_NO_NAMESPACE")
+# endif
+# if !defined(UNIXSTL_NO_NAMESPACE)
+#  define UNIXSTL_NO_NAMESPACE
+# endif /* !UNIXSTL_NO_NAMESPACE */
+#endif /* _UNIXSTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////
+ * namespace support discrimination
+ */
+
+/* No STLSoft namespaces means no UNIXSTL namespaces */
+#ifdef STLSOFT_NO_NAMESPACES
+# define UNIXSTL_NO_NAMESPACES
+#endif /* STLSOFT_NO_NAMESPACES */
+
+/* No UNIXSTL namespaces means no unixstl namespace */
+#ifdef UNIXSTL_NO_NAMESPACES
+# define UNIXSTL_NO_NAMESPACE
+#endif /* UNIXSTL_NO_NAMESPACES */
+
+#ifdef UNIXSTL_NO_NAMESPACES
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_UNIXSTL_NO_NAMESPACES)
+#   define _UNIXSTL_NO_NAMESPACES
+#  endif /* !_UNIXSTL_NO_NAMESPACES */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* UNIXSTL_NO_NAMESPACES */
+
+#ifdef UNIXSTL_NO_NAMESPACE
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_UNIXSTL_NO_NAMESPACE)
+#   define _UNIXSTL_NO_NAMESPACE
+#  endif /* !_UNIXSTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* UNIXSTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////
+ * declaration '*stl*' namespace
+ */
+
+#ifndef UNIXSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::unixstl */
-/** \brief The <code class="namespace">unixstl</code> namespace contains all components
+/** The \c unixstl namespace contains all components
  *   in the \ref group__project__unixstl "UNIXSTL" project.
  *
- * By default, the <code>unixstl</code> namespace is actually an alias for
+ * By default, the \c unixstl namespace is actually an alias for
  * the namespace <code>stlsoft::unixstl_project</code>, which is where all
  * the \ref group__project__unixstl "UNIXSTL" components actually reside. This
  * measure allows all components within the main the
  * \ref group__project__stlsoft "STLSoft" project (which are defined within
- * the <code>stlsoft</code> namespace) to be visible to all components
- * "within" the <code>unixstl</code> namespace. (Otherwise, there would be a
+ * the \c stlsoft namespace) to be visible to all components
+ * "within" the \c unixstl namespace. (Otherwise, there would be a
  * whole lot of onerous qualification throughout the code of all
  * \ref group__projects "sub-projects".)
  *
- * \note If either/both of the symbols <code>_STLSOFT_NO_NAMESPACES</code>
- * and <code>_UNIXSTL_NO_NAMESPACE</code> are defined, all
+ * \note If either/both of the symbols \c STLSOFT_NO_NAMESPACES
+ * and \c UNIXSTL_NO_NAMESPACE are defined, all
  * \ref group__project__unixstl "UNIXSTL" components will be defined in the
- * global namespace. Conversely, if the <code>_STLSOFT_NO_NAMESPACE</code>
+ * global namespace. Conversely, if the \c STLSOFT_NO_NAMESPACE
  * symbol (not to be confused with the
- * <code>_STLSOFT_NO_NAMESPACES</code> symbol!) is defined - meaning that
+ * \c STLSOFT_NO_NAMESPACES symbol!) is defined - meaning that
  * all \ref group__project__stlsoft "main project" components are to be
- * defined in the global namespace, and <code>_UNIXSTL_NO_NAMESPACE</code>
+ * defined in the global namespace, and \c UNIXSTL_NO_NAMESPACE
  * is <b>not</b> defined, then all \ref group__project__unixstl "UNIXSTL"
- * components will be defined within a bona fide <code>unixstl</code>
+ * components will be defined within a bona fide \c unixstl
  * namespace.
  *
  * \note This is a vestige of compatibility with compilers with
@@ -527,52 +587,43 @@ namespace unixstl
 {
 # else
 /* Define stlsoft::unixstl_project */
-
 namespace stlsoft
 {
-
 namespace unixstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
 #else
-stlsoft_ns_using(move_lhs_from_rhs)
-#endif /* !_UNIXSTL_NO_NAMESPACE */
+STLSOFT_NS_USING(move_lhs_from_rhs)
+#endif /* !UNIXSTL_NO_NAMESPACE */
 
-/** \def unixstl_ns_qual(x)
+/** \def UNIXSTL_NS_QUAL(x)
  * Qualifies with <b>unixstl::</b> if UNIXSTL is using namespaces or, if not, does not qualify
  */
 
-/** \def unixstl_ns_using(x)
+/** \def UNIXSTL_NS_USING(x)
  * Declares a using directive (with respect to <b>unixstl</b>) if UNIXSTL is using namespaces or, if not, does nothing
  */
 
-#ifndef _UNIXSTL_NO_NAMESPACE
-# define unixstl_ns_qual(x)             ::unixstl::x
-# define unixstl_ns_using(x)            using ::unixstl::x;
+#ifndef UNIXSTL_NO_NAMESPACE
+# define UNIXSTL_NS_QUAL(x)                                 ::unixstl::x
+# define UNIXSTL_NS_USING(x)                                using ::unixstl::x;
 #else
-# define unixstl_ns_qual(x)             x
-# define unixstl_ns_using(x)
-#endif /* !_UNIXSTL_NO_NAMESPACE */
+# define UNIXSTL_NS_QUAL(x)                                 x
+# define UNIXSTL_NS_USING(x)
+#endif /* !UNIXSTL_NO_NAMESPACE */
 
-/** \def unixstl_ns_qual_std(x)
- * Qualifies with <b>std::</b> if UNIXSTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does not qualify
- */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define unixstl_ns_qual(x)                                 UNIXSTL_NS_QUAL(x)
+# define unixstl_ns_using(x)                                UNIXSTL_NS_USING(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
-/** \def unixstl_ns_using_std(x)
- * Declares a using directive (with respect to <b>std</b>) if UNIXSTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does nothing
- */
-
-#ifdef STLSOFT_CF_std_NAMESPACE
-# define unixstl_ns_qual_std(x)         ::std::x
-# define unixstl_ns_using_std(x)        using ::std::x;
-#else /* ? STLSOFT_CF_std_NAMESPACE */
-# define unixstl_ns_qual_std(x)         x
-# define unixstl_ns_using_std(x)
-#endif /* !STLSOFT_CF_std_NAMESPACE */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define unixstl_ns_qual_std(x)                             STLSOFT_NS_QUAL_STD(x)
+# define unixstl_ns_using_std(x)                            STLSOFT_NS_USING_STD(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Typedefs
+ * typedefs
  *
  * The UNIXSTL uses a number of typedefs to aid in compiler-independence in the
  * libraries' main code.
@@ -580,36 +631,54 @@ stlsoft_ns_using(move_lhs_from_rhs)
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-typedef stlsoft_ns_qual(ss_char_a_t)        us_char_a_t;    /*!< Ansi char type */
-typedef stlsoft_ns_qual(ss_char_w_t)        us_char_w_t;    /*!< Unicode char type */
-typedef stlsoft_ns_qual(ss_sint8_t)         us_sint8_t;     /*!< 8-bit signed integer */
-typedef stlsoft_ns_qual(ss_uint8_t)         us_uint8_t;     /*!< 8-bit unsigned integer */
-typedef stlsoft_ns_qual(ss_int16_t)         us_int16_t;     /*!< 16-bit integer */
-typedef stlsoft_ns_qual(ss_sint16_t)        us_sint16_t;    /*!< 16-bit signed integer */
-typedef stlsoft_ns_qual(ss_uint16_t)        us_uint16_t;    /*!< 16-bit unsigned integer */
-typedef stlsoft_ns_qual(ss_int32_t)         us_int32_t;     /*!< 32-bit integer */
-typedef stlsoft_ns_qual(ss_sint32_t)        us_sint32_t;    /*!< 32-bit signed integer */
-typedef stlsoft_ns_qual(ss_uint32_t)        us_uint32_t;    /*!< 32-bit unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_char_a_t)        us_char_a_t;    /*!< Ansi char type */
+typedef STLSOFT_NS_QUAL(ss_char_w_t)        us_char_w_t;    /*!< Unicode char type */
+typedef STLSOFT_NS_QUAL(ss_sint8_t)         us_sint8_t;     /*!< 8-bit signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint8_t)         us_uint8_t;     /*!< 8-bit unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_int16_t)         us_int16_t;     /*!< 16-bit integer */
+typedef STLSOFT_NS_QUAL(ss_sint16_t)        us_sint16_t;    /*!< 16-bit signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint16_t)        us_uint16_t;    /*!< 16-bit unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_int32_t)         us_int32_t;     /*!< 32-bit integer */
+typedef STLSOFT_NS_QUAL(ss_sint32_t)        us_sint32_t;    /*!< 32-bit signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint32_t)        us_uint32_t;    /*!< 32-bit unsigned integer */
 #ifdef STLSOFT_CF_64BIT_INT_SUPPORT
-typedef stlsoft_ns_qual(ss_int64_t)         us_int64_t;     /*!< 64-bit integer */
-typedef stlsoft_ns_qual(ss_sint64_t)        us_sint64_t;    /*!< 64-bit signed integer */
-typedef stlsoft_ns_qual(ss_uint64_t)        us_uint64_t;    /*!< 64-bit unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_int64_t)         us_int64_t;     /*!< 64-bit integer */
+typedef STLSOFT_NS_QUAL(ss_sint64_t)        us_sint64_t;    /*!< 64-bit signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint64_t)        us_uint64_t;    /*!< 64-bit unsigned integer */
 #endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
-typedef stlsoft_ns_qual(ss_int_t)           us_int_t;       /*!< integer */
-typedef stlsoft_ns_qual(ss_sint_t)          us_sint_t;      /*!< signed integer */
-typedef stlsoft_ns_qual(ss_uint_t)          us_uint_t;      /*!< unsigned integer */
-typedef stlsoft_ns_qual(ss_long_t)          us_long_t;      /*!< long */
+#if defined(UNIXSTL_ARCH_IS_IA64) || \
+    defined(UNIXSTL_ARCH_IS_X64)
+typedef STLSOFT_NS_QUAL(ss_sint64_t)        us_intptr_t;    /*!< integer capable of holding pointer without loss */
+typedef STLSOFT_NS_QUAL(ss_sint64_t)        us_sintptr_t;   /*!< signed integer capable of holding pointer without loss */
+typedef STLSOFT_NS_QUAL(ss_uint64_t)        us_uintptr_t;   /*!< unsigned integer capable of holding pointer without loss */
+# else /* ? _WIN64 */
+typedef STLSOFT_NS_QUAL(ss_sint32_t)        us_intptr_t;    /*!< integer capable of holding pointer without loss */
+typedef STLSOFT_NS_QUAL(ss_sint32_t)        us_sintptr_t;   /*!< signed integer capable of holding pointer without loss */
+typedef STLSOFT_NS_QUAL(ss_uint32_t)        us_uintptr_t;   /*!< unsigned integer capable of holding pointer without loss */
+# endif /* _WIN64 */
+typedef STLSOFT_NS_QUAL(ss_int_t)           us_int_t;       /*!< integer */
+typedef STLSOFT_NS_QUAL(ss_sint_t)          us_sint_t;      /*!< signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint_t)          us_uint_t;      /*!< unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_long_t)          us_long_t;      /*!< long */
 #if defined(__cplusplus)
-typedef stlsoft_ns_qual(ss_bool_t)          us_bool_t;      /*!< bool */
+typedef STLSOFT_NS_QUAL(ss_bool_t)          us_bool_t;      /*!< bool */
 #endif /* __cplusplus */
-typedef stlsoft_ns_qual(ss_size_t)          us_size_t;      /*!< size */
-typedef stlsoft_ns_qual(ss_ptrdiff_t)       us_ptrdiff_t;   /*!< ptr diff */
-typedef stlsoft_ns_qual(ss_streampos_t)     us_streampos_t; /*!< streampos */
-typedef stlsoft_ns_qual(ss_streamoff_t)     us_streamoff_t; /*!< streamoff */
+typedef STLSOFT_NS_QUAL(ss_size_t)          us_size_t;      /*!< size */
+typedef STLSOFT_NS_QUAL(ss_ptrdiff_t)       us_ptrdiff_t;   /*!< ptr diff */
+typedef STLSOFT_NS_QUAL(ss_streampos_t)     us_streampos_t; /*!< streampos */
+typedef STLSOFT_NS_QUAL(ss_streamoff_t)     us_streamoff_t; /*!< streamoff */
+#if defined(UNIXSTL_ARCH_IS_IA64) || \
+    defined(UNIXSTL_ARCH_IS_X64)
+typedef STLSOFT_NS_QUAL(ss_sint64_t)        us_sptrint_t;
+typedef STLSOFT_NS_QUAL(ss_uint64_t)        us_uptrint_t;
+#else /* ? 64-bit */
+typedef STLSOFT_NS_QUAL(ss_sint32_t)        us_sptrint_t;
+typedef STLSOFT_NS_QUAL(ss_uint32_t)        us_uptrint_t;
+#endif /* 64-bit */
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-#ifndef _UNIXSTL_NO_NAMESPACE
+#ifndef UNIXSTL_NO_NAMESPACE
 typedef us_char_a_t         char_a_t;           /*!< Ansi char type */
 typedef us_char_w_t         char_w_t;           /*!< Unicode char type */
 /* typedef us_int8_t           int8_t; */              /*!< 8-bit integer */
@@ -637,10 +706,10 @@ typedef us_bool_t           bool_t;             /*!< bool */
 typedef us_streampos_t      streampos_t;        /*!< streampos */
 typedef us_streamoff_t      streamoff_t;        /*!< streamoff */
 # endif /* compiler */
-#endif /* !_UNIXSTL_NO_NAMESPACE */
+#endif /* !UNIXSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Values
+ * values
  *
  * Since the boolean type may not be supported natively on all compilers, the
  * values of true and false may also not be provided. Hence the values of
@@ -649,12 +718,12 @@ typedef us_streamoff_t      streamoff_t;        /*!< streamoff */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-#define us_true_v       ss_true_v
-#define us_false_v      ss_false_v
+#define us_true_v                                           ss_true_v
+#define us_false_v                                          ss_false_v
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 /* /////////////////////////////////////////////////////////////////////////
- * Code modification macros
+ * code modification macros
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -675,13 +744,13 @@ typedef us_streamoff_t      streamoff_t;        /*!< streamoff */
 # define unixstl_num_elements(ar)                       UNIXSTL_NUM_ELEMENTS(ar)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
+/** [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_DESTROY_INSTANCE().
  */
 #define unixstl_destroy_instance(t, type, p)            STLSOFT_DESTROY_INSTANCE(t, type, p)
 
-/** \brief [DEPRECATED] Generates an opaque type with the name \c _htype
+/** [DEPRECATED] Generates an opaque type with the name \c _htype
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_GEN_OPAQUE().
  */
@@ -689,19 +758,19 @@ typedef us_streamoff_t      streamoff_t;        /*!< streamoff */
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _UNIXSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef UNIXSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 } /* namespace unixstl */
 # else
 } /* namespace unixstl_project */
 } /* namespace stlsoft */
 namespace unixstl = ::stlsoft::unixstl_project;
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_UNIXSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !UNIXSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Inclusion
+ * inclusion control
  */
 
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT

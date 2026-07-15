@@ -4,37 +4,39 @@
  * Purpose:     Basic functionals.
  *
  * Created:     19th January 2002
- * Updated:     15th December 2023
+ * Updated:     29th January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -49,27 +51,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_OBSOLETE_HPP_FUNCTIONALS_MAJOR     3
 # define STLSOFT_VER_STLSOFT_OBSOLETE_HPP_FUNCTIONALS_MINOR     0
-# define STLSOFT_VER_STLSOFT_OBSOLETE_HPP_FUNCTIONALS_REVISION  4
-# define STLSOFT_VER_STLSOFT_OBSOLETE_HPP_FUNCTIONALS_EDIT      47
+# define STLSOFT_VER_STLSOFT_OBSOLETE_HPP_FUNCTIONALS_REVISION  7
+# define STLSOFT_VER_STLSOFT_OBSOLETE_HPP_FUNCTIONALS_EDIT      57
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_FUNCTIONAL_HPP_NOOP
 # include <stlsoft/functional/noop.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_FUNCTIONAL_HPP_NOOP */
@@ -80,23 +76,23 @@ STLSOFT_COMPILER_IS_WATCOM:
 #endif /* !STLSOFT_INCL_FUNCTIONAL */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 // struct delete_instance
 //
-/** \brief This functional deletes an object instance, via scalar delete
+/** This functional deletes an object instance, via scalar delete
  *
- * \ingroup group__library__functional
+ * \ingroup group__library__Functional
  *
  * \deprecated
  */
@@ -104,7 +100,7 @@ namespace stlsoft
 template <ss_typename_param_k T>
 // [[synesis:class:unary-functor: delete_instance]]
 struct delete_instance
-    : public stlsoft_ns_qual_std(unary_function)<T *, void>
+    : public STLSOFT_NS_QUAL_STD(unary_function)<T *, void>
 {
 public:
     /// The function call operator, which deletes the given instance
@@ -119,9 +115,9 @@ public:
 
 // struct delete_array
 //
-/** \brief This functional deletes an array of objects, via vector delete
+/** This functional deletes an array of objects, via vector delete
  *
- * \ingroup group__library__functional
+ * \ingroup group__library__Functional
  *
  * \deprecated
  */
@@ -129,7 +125,7 @@ public:
 template <ss_typename_param_k T>
 // [[synesis:class:unary-functor: delete_array]]
 struct delete_array
-    : public stlsoft_ns_qual_std(unary_function)<T [], void>
+    : public STLSOFT_NS_QUAL_STD(unary_function)<T [], void>
 {
 public:
     /// The function call operator, which deletes the given array
@@ -145,14 +141,14 @@ public:
 #if 0
 // struct selector1st
 
-/** \brief Selects the <b><code>first</code></b> member of an instance and applies the
- * parameterising functional to it. This functional selects the \c first member
+/** Selects the <b><code>first</code></b> member of an instance and applies the
+ * specialising functional to it. This functional selects the \c first member
  * of an instance (obviously this is usually the \c std::pair type), and
- * applies the parameterising functional to it.
+ * applies the specialising functional to it.
  *
- * \ingroup group__library__functional
+ * \ingroup group__library__Functional
  *
- * \param F The parameterising functional
+ * \param F The specialising functional
  *
  * For example, if you have a std::map and wish to write out the keys
  * with a dump_key functional, you could achieve this with the following:
@@ -168,7 +164,7 @@ template<   ss_typename_param_k F
         >
 // [[synesis:class:unary-functor: selector1st]]
 struct selector1st
-    : public stlsoft_ns_qual_std(unary_function)<   ss_typename_type_k F::argument_type
+    : public STLSOFT_NS_QUAL_STD(unary_function)<   ss_typename_type_k F::argument_type
                                                 ,   ss_typename_type_k F::result_type
                                                 >
 {
@@ -188,7 +184,7 @@ public:
         : m_f(f)
     {}
 
-    /// Function call operator, which applies the parameterising function class
+    /// Function call operator, which applies the specialising function class
     /// to the \c first part of the pair \c t
     ///
     /// \param t An instance of a \c pair like type, to whose \c first member will be applied the function F
@@ -220,15 +216,15 @@ inline selector1st<F> select1st(F f)
 
 // struct selector2nd
 //
-/** \brief Selects the <b><code>second</code></b> member of an instance and
- * applies the parameterising functional to it.
+/** Selects the <b><code>second</code></b> member of an instance and
+ * applies the specialising functional to it.
  *
- * \ingroup group__library__functional
+ * \ingroup group__library__Functional
  *
- * \param F The parameterising functional
+ * \param F The specialising functional
  *
  * This functional selects the "second" member of an instance (obviously
- * this is usually the std::pair type), and applies the parameterising
+ * this is usually the std::pair type), and applies the specialising
  * functional to it.
  *
  * For example, if you have a std::map and wish to write out the values
@@ -246,7 +242,7 @@ template<   ss_typename_param_k F
         >
 // [[synesis:class:unary-functor: selector2nd]]
 struct selector2nd
-    : public stlsoft_ns_qual_std(unary_function)<   ss_typename_type_k F::argument_type
+    : public STLSOFT_NS_QUAL_STD(unary_function)<   ss_typename_type_k F::argument_type
                                                 ,   ss_typename_type_k F::result_type
                                                 >
 {
@@ -266,7 +262,7 @@ public:
         : m_f(f)
     {}
 
-    /// Function call operator, which applies the parameterising function class
+    /// Function call operator, which applies the specialising function class
     /// to the \c second part of the pair \c t
     ///
     /// \param t An instance of a \c pair like type, to whose \c second member will be applied the function F
@@ -289,14 +285,14 @@ private:
 
 // struct select_1st
 
-/** \brief Selects the <b><code>first</code></b> member of an instance and applies the
- * parameterising functional to it. This functional selects the \c first member
+/** Selects the <b><code>first</code></b> member of an instance and applies the
+ * specialising functional to it. This functional selects the \c first member
  * of an instance (obviously this is usually the \c std::pair type), and
- * applies the parameterising functional to it.
+ * applies the specialising functional to it.
  *
- * \ingroup group__library__functional
+ * \ingroup group__library__Functional
  *
- * \param F The parameterising functional
+ * \param F The specialising functional
  *
  * For example, if you have a std::map and wish to write out the keys
  * with a dump_key functional, you could achieve this with the following:
@@ -312,7 +308,7 @@ template<   ss_typename_param_k F
         >
 // [[synesis:class:unary-functor: select_1st]]
 struct select_1st
-    : public stlsoft_ns_qual_std(unary_function)<   ss_typename_type_k F::argument_type
+    : public STLSOFT_NS_QUAL_STD(unary_function)<   ss_typename_type_k F::argument_type
                                                 ,   ss_typename_type_k F::result_type>
 {
 public:
@@ -327,7 +323,7 @@ public:
         : m_f(f)
     {}
 
-    /// Function call operator, which applies the parameterising function class
+    /// Function call operator, which applies the specialising function class
     /// to the \c first part of the pair \c t
     ///
     /// \param t An instance of a \c pair like type, to whose \c first member will be applied the function F
@@ -360,15 +356,15 @@ inline select_1st<F> make_1st_selector(F f)
 
 // struct select_2nd
 //
-/** \brief Selects the <b><code>second</code></b> member of an instance and
- * applies the parameterising functional to it.
+/** Selects the <b><code>second</code></b> member of an instance and
+ * applies the specialising functional to it.
  *
- * \ingroup group__library__functional
+ * \ingroup group__library__Functional
  *
- * \param F The parameterising functional
+ * \param F The specialising functional
  *
  * This functional selects the "second" member of an instance (obviously
- * this is usually the std::pair type), and applies the parameterising
+ * this is usually the std::pair type), and applies the specialising
  * functional to it.
  *
  * For example, if you have a std::map and wish to write out the values
@@ -386,7 +382,7 @@ template<   ss_typename_param_k F
         >
 // [[synesis:class:unary-functor: select_2nd]]
 struct select_2nd
-    : public stlsoft_ns_qual_std(unary_function)<ss_typename_type_k F::argument_type, ss_typename_type_k F::result_type>
+    : public STLSOFT_NS_QUAL_STD(unary_function)<ss_typename_type_k F::argument_type, ss_typename_type_k F::result_type>
 {
 public:
     /// Default constructor
@@ -400,7 +396,7 @@ public:
         : m_f(f)
     {}
 
-    /// Function call operator, which applies the parameterising function class
+    /// Function call operator, which applies the specialising function class
     /// to the \c second part of the pair \c t
     ///
     /// \param t An instance of a \c pair like type, to whose \c second member will be applied the function F
@@ -422,11 +418,11 @@ private:
 
 // struct select_both
 //
-/** \brief This functional selects both the \c first and \c second members of an instance
+/** This functional selects both the \c first and \c second members of an instance
  * (obviously this is usually the std::pair type), and applies the respective
- * parameterising functionals to them.
+ * specialising functionals to them.
  *
- * \ingroup group__library__functional
+ * \ingroup group__library__Functional
  *
  * \param F1 The functional to apply to the <b><code>first</code></b> part of the elements
  * \param F2 The functional to apply to the <b><code>second</code></b> part of the elements
@@ -449,9 +445,9 @@ template<   ss_typename_param_k F1
 // [[synesis:class:unary-functor: select_both]]
 struct select_both
 #ifdef STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT
-    : public stlsoft_ns_qual_std(unary_function)<void, void>
+    : public STLSOFT_NS_QUAL_STD(unary_function)<void, void>
 #else
-    : public stlsoft_ns_qual_std(unary_function)<T &, void>
+    : public STLSOFT_NS_QUAL_STD(unary_function)<T &, void>
 #endif // STLSOFT_CF_MEMBER_TEMPLATE_FUNCTION_SUPPORT
 {
 public:
@@ -468,7 +464,7 @@ public:
         , m_f2(f2)
     {}
 
-    /// Function call operator, which applies the parameterising function classes
+    /// Function call operator, which applies the specialising function classes
     /// to the \c first and \c second parts of the pair \c t
     ///
     /// \param t An instance of a \c pair like type, to whose \c first and \c second members will be applied the functions F1 and F2
@@ -492,11 +488,17 @@ private:
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 } /* namespace stlsoft */
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_OBSOLETE_HPP_FUNCTIONALS */
 

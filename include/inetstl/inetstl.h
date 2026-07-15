@@ -1,41 +1,43 @@
 /* /////////////////////////////////////////////////////////////////////////
  * File:        inetstl/inetstl.h
  *
- * Purpose:     Root header for the InetSTL libraries. Performs various compiler
+ * Purpose:     Root header for the InetSTL libraries. Performs compiler
  *              and platform discriminations, and definitions of types.
  *
  * Created:     24th April 2004
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -47,12 +49,16 @@
 /* File version */
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define INETSTL_VER_INETSTL_H_INETSTL_MAJOR    3
-# define INETSTL_VER_INETSTL_H_INETSTL_MINOR    7
-# define INETSTL_VER_INETSTL_H_INETSTL_REVISION 1
-# define INETSTL_VER_INETSTL_H_INETSTL_EDIT     56
+# define INETSTL_VER_INETSTL_H_INETSTL_MINOR    10
+# define INETSTL_VER_INETSTL_H_INETSTL_REVISION 3
+# define INETSTL_VER_INETSTL_H_INETSTL_EDIT     570
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \file inetstl/inetstl.h \brief [C, C++] The root header for the \ref group__project__inetstl "InetSTL" project. */
+/** \file inetstl/inetstl.h
+ *
+ * \brief [C, C++] Root header for the
+ * \ref group__project__inetstl "InetSTL" project.
+ */
 
 /* /////////////////////////////////////////////////////////////////////////
  * InetSTL version
@@ -122,34 +128,50 @@
 # define _INETSTL_VER_1_3_6      0x010306ff  /*!< Version 1.3.6 (with STLSoft 1.9.113) */
 # define _INETSTL_VER_1_3_7      0x010307ff  /*!< Version 1.3.7 (with STLSoft 1.9.119) */
 # define _INETSTL_VER_1_3_8      0x010308ff  /*!< Version 1.3.8 (with STLSoft 1.9.121) */
+# define _INETSTL_VER_1_4_1_B01  0x01040181  /*!< Version 1.4.1 beta 1 (with STLSoft 1.10.1 beta 1) */
+# define _INETSTL_VER_1_4_1_B02  0x01040182  /*!< Version 1.4.1 beta 2 (with STLSoft 1.10.1 beta 10) */
+# define _INETSTL_VER_1_4_1_B03  0x01040183  /*!< Version 1.4.1 beta 3 (with STLSoft 1.10.1 beta 26) */
+# define _INETSTL_VER_1_4_1      0x010401ff  /*!< Version 1.4.1 (with STLSoft 1.10.3) */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #define _INETSTL_VER_MAJOR       1
-#define _INETSTL_VER_MINOR       3
-#define _INETSTL_VER_REVISION    8
-#define _INETSTL_VER             _INETSTL_VER_1_3_8
+#define _INETSTL_VER_MINOR       4
+#define _INETSTL_VER_REVISION    1
+#define _INETSTL_VER             _INETSTL_VER_1_4_1
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 /* Strict */
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# ifndef STRICT
-#  if defined(_INETSTL_STRICT) || \
-      (   !defined(_INETSTL_NO_STRICT) && \
-          !defined(NO_STRICT))
-#   define STRICT 1
-#  endif /* !NO_STRICT && !_INETSTL_NO_STRICT */
-# endif /* STRICT */
+# if 1 &&\
+     !defined(STRICT) &&\
+     !defined(_INETSTL_NO_STRICT) &&\
+     !defined(NO_STRICT) &&\
+     1
+#  ifdef _INETSTL_STRICT
+#   define STRICT                                           1
+#  endif /* _INETSTL_STRICT */
+# endif /* !NO_STRICT && !_INETSTL_NO_STRICT && !STRICT */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
-#if defined(WIN32) || \
-    defined(WIN64)
+#if 0
+#elif defined(unix) || \
+      defined(UNIX) || \
+      defined(__unix__) || \
+      defined(__unix)
+
+# define INETSTL_OS_IS_UNIX
+#elif defined(WIN32) || \
+      defined(WIN64)
 
 # define INETSTL_OS_IS_WINDOWS
 
@@ -164,23 +186,24 @@
 
 #else /* ? OS */
 
+# error Platform not (currently) supported
 #endif /* OS */
 
 
 /* /////////////////////////////////////////////////////////////////////////
- * STLSoft version compatibility
+ * STLSoft version compatibility check(s)
  */
 
-#if _STLSOFT_VER < 0x010979ff
-# error This version of the InetSTL libraries requires STLSoft version 1.9.121, or later
+#if _STLSOFT_VER < 0x010a019a
+# error This version of the InetSTL libraries requires STLSoft version 1.10.1 beta 26, or later
 #endif /* _STLSOFT_VER */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Sanity checks
+ * sanity checks
  */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler compatibility
+ * compiler compatibility
  *
  * Currently the only compilers supported by the InetSTL libraries are
  *
@@ -262,31 +285,31 @@
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Contract Enforcement
+ * contract enforcement
  *
  * The macro inetstl_assert provides standard debug-mode assert functionality.
  */
 
-/** \brief Defines a runtime assertion
+/** Defines a runtime assertion
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or an assertion will be fired
  */
 #define INETSTL_ASSERT(expr)                STLSOFT_ASSERT(expr)
 
-/** \brief Defines a runtime assertion, with message
+/** Defines a runtime assertion, with message
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or an assertion will be fired
  * \param msg The literal character string message to be included in the assertion
  */
 #define INETSTL_MESSAGE_ASSERT(msg, expr)   STLSOFT_MESSAGE_ASSERT(msg, expr)
 
-/** \brief Defines a compile-time assertion
+/** Defines a compile-time assertion
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or compilation will fail
  */
@@ -301,7 +324,7 @@
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The InetSTL components are contained within the inetstl namespace. This is
  * usually an alias for stlsoft::inetstl_project,
@@ -309,19 +332,19 @@
  * When compilers support namespaces they are defined by default. They can be
  * undefined using a cascasing system, as follows:
  *
- * If _STLSOFT_NO_NAMESPACES is defined, then _INETSTL_NO_NAMESPACES is defined.
+ * If STLSOFT_NO_NAMESPACES is defined, then INETSTL_NO_NAMESPACES is defined.
  *
- * If _INETSTL_NO_NAMESPACES is defined, then _INETSTL_NO_NAMESPACE is defined.
+ * If INETSTL_NO_NAMESPACES is defined, then INETSTL_NO_NAMESPACE is defined.
  *
- * If _INETSTL_NO_NAMESPACE is defined, then the InetSTL constructs are defined
+ * If INETSTL_NO_NAMESPACE is defined, then the InetSTL constructs are defined
  * in the global scope.
  *
- * If _STLSOFT_NO_NAMESPACES, _INETSTL_NO_NAMESPACES and _INETSTL_NO_NAMESPACE are
- * all undefined but the symbol _STLSOFT_NO_NAMESPACE is defined (whence the
+ * If STLSOFT_NO_NAMESPACES, INETSTL_NO_NAMESPACES and INETSTL_NO_NAMESPACE are
+ * all undefined but the symbol STLSOFT_NO_NAMESPACE is defined (whence the
  * namespace stlsoft does not exist), then the InetSTL constructs are defined
  * within the inetstl namespace. The definition matrix is as follows:
  *
- * _STLSOFT_NO_NAMESPACE    _INETSTL_NO_NAMESPACE    inetstl definition
+ * STLSOFT_NO_NAMESPACE     INETSTL_NO_NAMESPACE    inetstl definition
  * ---------------------    --------------------    -----------------
  *  not defined              not defined             = stlsoft::inetstl_project
  *  not defined              defined                 not defined
@@ -335,48 +358,94 @@
  * stlsoft::inetstl_project (or inetstl) namespace or in the global namespace.
  *
  * Furthermore, some compilers do not support the standard library in the std
- * namespace, so the inetstl_ns_qual_std() macro can be used to refer to elements
- * in the InetSTL libraries irrespective of whether they are in the std namespace
+ * namespace, so the STLSOFT_NS_QUAL_STD() macro can be used to refer to elements
+ * in the standard library irrespective of whether they are in the std namespace
  * or in the global namespace.
  */
 
-/* No STLSoft namespaces means no InetSTL namespaces */
-#ifdef _STLSOFT_NO_NAMESPACES
-# define _INETSTL_NO_NAMESPACES
-#endif /* _STLSOFT_NO_NAMESPACES */
+/* /////////////////////////////////////
+ * obsolete preprocessor symbol detection
+ */
 
-/* No InetSTL namespaces means no inetstl namespace */
 #ifdef _INETSTL_NO_NAMESPACES
-# define _INETSTL_NO_NAMESPACE
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _INETSTL_NO_NAMESPACES. This symbol is now deprecated, and may be ignored by a future release : instead define INETSTL_NO_NAMESPACES")
+# endif
+# if !defined(INETSTL_NO_NAMESPACES)
+#  define INETSTL_NO_NAMESPACES
+# endif /* !INETSTL_NO_NAMESPACES */
 #endif /* _INETSTL_NO_NAMESPACES */
 
-#ifndef _INETSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifdef _INETSTL_NO_NAMESPACE
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _INETSTL_NO_NAMESPACE. This symbol is now deprecated, and may be ignored by a future release : instead define INETSTL_NO_NAMESPACE")
+# endif
+# if !defined(INETSTL_NO_NAMESPACE)
+#  define INETSTL_NO_NAMESPACE
+# endif /* !INETSTL_NO_NAMESPACE */
+#endif /* _INETSTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////
+ * namespace support discrimination
+ */
+
+/* No STLSoft namespaces means no InetSTL namespaces */
+#ifdef STLSOFT_NO_NAMESPACES
+# define INETSTL_NO_NAMESPACES
+#endif /* STLSOFT_NO_NAMESPACES */
+
+/* No InetSTL namespaces means no inetstl namespace */
+#ifdef INETSTL_NO_NAMESPACES
+# define INETSTL_NO_NAMESPACE
+#endif /* INETSTL_NO_NAMESPACES */
+
+#ifdef INETSTL_NO_NAMESPACES
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_INETSTL_NO_NAMESPACES)
+#   define _INETSTL_NO_NAMESPACES
+#  endif /* !_INETSTL_NO_NAMESPACES */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* INETSTL_NO_NAMESPACES */
+
+#ifdef INETSTL_NO_NAMESPACE
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_INETSTL_NO_NAMESPACE)
+#   define _INETSTL_NO_NAMESPACE
+#  endif /* !_INETSTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* INETSTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////
+ * declaration '*stl*' namespace
+ */
+
+#ifndef INETSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::inetstl */
-/** \brief The <code class="namespace">inetstl</code> namespace contains all components
+/** The \c inetstl namespace contains all components
  *   in the \ref group__project__inetstl "InetSTL" project.
  *
- * By default, the <code>inetstl</code> namespace is actually an alias for
+ * By default, the \c inetstl namespace is actually an alias for
  * the namespace <code>stlsoft::inetstl_project</code>, which is where all
  * the \ref group__project__inetstl "InetSTL" components actually reside. This
  * measure allows all components within the main the
  * \ref group__project__stlsoft "STLSoft" project (which are defined within
- * the <code>stlsoft</code> namespace) to be visible to all components
- * "within" the <code>inetstl</code> namespace. (Otherwise, there would be a
+ * the \c stlsoft namespace) to be visible to all components
+ * "within" the \c inetstl namespace. (Otherwise, there would be a
  * whole lot of onerous qualification throughout the code of all
  * \ref group__projects "sub-projects".)
  *
- * \note If either/both of the symbols <code>_STLSOFT_NO_NAMESPACES</code>
- * and <code>_INETSTL_NO_NAMESPACE</code> are defined, all
+ * \note If either/both of the symbols \c STLSOFT_NO_NAMESPACES
+ * and \c INETSTL_NO_NAMESPACE are defined, all
  * \ref group__project__inetstl "InetSTL" components will be defined in the
- * global namespace. Conversely, if the <code>_STLSOFT_NO_NAMESPACE</code>
+ * global namespace. Conversely, if the \c STLSOFT_NO_NAMESPACE
  * symbol (not to be confused with the
- * <code>_STLSOFT_NO_NAMESPACES</code> symbol!) is defined - meaning that
+ * \c STLSOFT_NO_NAMESPACES symbol!) is defined - meaning that
  * all \ref group__project__stlsoft "main project" components are to be
- * defined in the global namespace, and <code>_INETSTL_NO_NAMESPACE</code>
+ * defined in the global namespace, and \c INETSTL_NO_NAMESPACE
  * is <b>not</b> defined, then all \ref group__project__inetstl "InetSTL"
- * components will be defined within a bona fide <code>inetstl`</code>
+ * components will be defined within a bona fide \c inetstl
  * namespace.
  *
  * \note This is a vestige of compatibility with compilers with
@@ -388,52 +457,43 @@ namespace inetstl
 {
 # else
 /* Define stlsoft::inetstl_project */
-
 namespace stlsoft
 {
-
 namespace inetstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
 #else
-stlsoft_ns_using(move_lhs_from_rhs)
-#endif /* !_INETSTL_NO_NAMESPACE */
+STLSOFT_NS_USING(move_lhs_from_rhs)
+#endif /* !INETSTL_NO_NAMESPACE */
 
-/** \def inetstl_ns_qual(x)
+/** \def INETSTL_NS_QUAL(x)
  * Qualifies with <b>inetstl::</b> if InetSTL is using namespaces or, if not, does not qualify
  */
 
-/** \def inetstl_ns_using(x)
+/** \def INETSTL_NS_USING(x)
  * Declares a using directive (with respect to <b>inetstl</b>) if InetSTL is using namespaces or, if not, does nothing
  */
 
-#ifndef _INETSTL_NO_NAMESPACE
-# define inetstl_ns_qual(x)          ::inetstl::x
-# define inetstl_ns_using(x)         using ::inetstl::x;
-#else /* ? _INETSTL_NO_NAMESPACE */
-# define inetstl_ns_qual(x)          x
-# define inetstl_ns_using(x)
-#endif /* !_INETSTL_NO_NAMESPACE */
+#ifndef INETSTL_NO_NAMESPACE
+# define INETSTL_NS_QUAL(x)          ::inetstl::x
+# define INETSTL_NS_USING(x)         using ::inetstl::x;
+#else /* ? INETSTL_NO_NAMESPACE */
+# define INETSTL_NS_QUAL(x)          x
+# define INETSTL_NS_USING(x)
+#endif /* !INETSTL_NO_NAMESPACE */
 
-/** \def inetstl_ns_qual_std(x)
- * Qualifies with <b>std::</b> if InetSTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does not qualify
- */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define inetstl_ns_qual(x)                                 INETSTL_NS_QUAL(x)
+# define inetstl_ns_using(x)                                INETSTL_NS_USING(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
-/** \def inetstl_ns_using_std(x)
- * Declares a using directive (with respect to <b>std</b>) if InetSTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does nothing
- */
-
-#ifdef STLSOFT_CF_std_NAMESPACE
-# define inetstl_ns_qual_std(x)      ::std::x
-# define inetstl_ns_using_std(x)     using ::std::x;
-#else /* ? STLSOFT_CF_std_NAMESPACE */
-# define inetstl_ns_qual_std(x)      x
-# define inetstl_ns_using_std(x)
-#endif /* !STLSOFT_CF_std_NAMESPACE */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define inetstl_ns_qual_std(x)                             STLSOFT_NS_QUAL_STD(x)
+# define inetstl_ns_using_std(x)                            STLSOFT_NS_USING_STD(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Typedefs
+ * typedefs
  *
  * The InetSTL uses a number of typedefs to aid in compiler-independence in the
  * libraries' main code.
@@ -441,40 +501,40 @@ stlsoft_ns_using(move_lhs_from_rhs)
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-typedef stlsoft_ns_qual(ss_char_a_t)        is_char_a_t;    /*!< Ansi char type */
-typedef stlsoft_ns_qual(ss_char_w_t)        is_char_w_t;    /*!< Unicode char type */
-typedef stlsoft_ns_qual(ss_sint8_t)         is_sint8_t;     /*!< 8-bit signed integer */
-typedef stlsoft_ns_qual(ss_uint8_t)         is_uint8_t;     /*!< 8-bit unsigned integer */
-typedef stlsoft_ns_qual(ss_int16_t)         is_int16_t;     /*!< 16-bit integer */
-typedef stlsoft_ns_qual(ss_sint16_t)        is_sint16_t;    /*!< 16-bit signed integer */
-typedef stlsoft_ns_qual(ss_uint16_t)        is_uint16_t;    /*!< 16-bit unsigned integer */
-typedef stlsoft_ns_qual(ss_int32_t)         is_int32_t;     /*!< 32-bit integer */
-typedef stlsoft_ns_qual(ss_sint32_t)        is_sint32_t;    /*!< 32-bit signed integer */
-typedef stlsoft_ns_qual(ss_uint32_t)        is_uint32_t;    /*!< 32-bit unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_char_a_t)        is_char_a_t;    /*!< Ansi char type */
+typedef STLSOFT_NS_QUAL(ss_char_w_t)        is_char_w_t;    /*!< Unicode char type */
+typedef STLSOFT_NS_QUAL(ss_sint8_t)         is_sint8_t;     /*!< 8-bit signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint8_t)         is_uint8_t;     /*!< 8-bit unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_int16_t)         is_int16_t;     /*!< 16-bit integer */
+typedef STLSOFT_NS_QUAL(ss_sint16_t)        is_sint16_t;    /*!< 16-bit signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint16_t)        is_uint16_t;    /*!< 16-bit unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_int32_t)         is_int32_t;     /*!< 32-bit integer */
+typedef STLSOFT_NS_QUAL(ss_sint32_t)        is_sint32_t;    /*!< 32-bit signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint32_t)        is_uint32_t;    /*!< 32-bit unsigned integer */
 #ifdef STLSOFT_CF_64BIT_INT_SUPPORT
- typedef stlsoft_ns_qual(ss_int64_t)        is_int64_t;     /*!< 64-bit integer */
- typedef stlsoft_ns_qual(ss_sint64_t)       is_sint64_t;    /*!< 64-bit signed integer */
- typedef stlsoft_ns_qual(ss_uint64_t)       is_uint64_t;    /*!< 64-bit unsigned integer */
+ typedef STLSOFT_NS_QUAL(ss_int64_t)        is_int64_t;     /*!< 64-bit integer */
+ typedef STLSOFT_NS_QUAL(ss_sint64_t)       is_sint64_t;    /*!< 64-bit signed integer */
+ typedef STLSOFT_NS_QUAL(ss_uint64_t)       is_uint64_t;    /*!< 64-bit unsigned integer */
 #endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
-typedef stlsoft_ns_qual(ss_int_t)           is_int_t;       /*!< integer */
-typedef stlsoft_ns_qual(ss_sint_t)          is_sint_t;      /*!< signed integer */
-typedef stlsoft_ns_qual(ss_uint_t)          is_uint_t;      /*!< unsigned integer */
-typedef stlsoft_ns_qual(ss_long_t)          is_long_t;      /*!< long */
-typedef stlsoft_ns_qual(ss_byte_t)          is_byte_t;      /*!< byte type */
+typedef STLSOFT_NS_QUAL(ss_int_t)           is_int_t;       /*!< integer */
+typedef STLSOFT_NS_QUAL(ss_sint_t)          is_sint_t;      /*!< signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint_t)          is_uint_t;      /*!< unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_long_t)          is_long_t;      /*!< long */
+typedef STLSOFT_NS_QUAL(ss_byte_t)          is_byte_t;      /*!< byte type */
 #ifdef __cplusplus
-typedef stlsoft_ns_qual(ss_bool_t)          is_bool_t;      /*!< Boolean type */
+typedef STLSOFT_NS_QUAL(ss_bool_t)          is_bool_t;      /*!< Boolean type */
 #endif /* __cplusplus */
 # ifdef INETSTL_OS_IS_WINDOWS
 typedef DWORD                               is_dword_t;     /*!< dword */
 # endif /* INETSTL_OS_IS_WINDOWS */
-typedef stlsoft_ns_qual(ss_size_t)          is_size_t;      /*!< size */
-typedef stlsoft_ns_qual(ss_ptrdiff_t)       is_ptrdiff_t;   /*!< ptr diff */
-typedef stlsoft_ns_qual(ss_streampos_t)     is_streampos_t; /*!< streampos */
-typedef stlsoft_ns_qual(ss_streamoff_t)     is_streamoff_t; /*!< streamoff */
+typedef STLSOFT_NS_QUAL(ss_size_t)          is_size_t;      /*!< size */
+typedef STLSOFT_NS_QUAL(ss_ptrdiff_t)       is_ptrdiff_t;   /*!< ptr diff */
+typedef STLSOFT_NS_QUAL(ss_streampos_t)     is_streampos_t; /*!< streampos */
+typedef STLSOFT_NS_QUAL(ss_streamoff_t)     is_streamoff_t; /*!< streamoff */
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-#ifndef _INETSTL_NO_NAMESPACE
+#ifndef INETSTL_NO_NAMESPACE
 typedef is_char_a_t         char_a_t;           /*!< Ansi char type */
 typedef is_char_w_t         char_w_t;           /*!< Unicode char type */
 typedef is_sint8_t          sint8_t;            /*!< 8-bit signed integer */
@@ -503,10 +563,50 @@ typedef is_dword_t          dword_t;            /*!< dword */
 typedef is_streampos_t      streampos_t;        /*!< streampos */
 typedef is_streamoff_t      streamoff_t;        /*!< streamoff */
 # endif /* compiler */
-#endif /* !_INETSTL_NO_NAMESPACE */
+#endif /* !INETSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Values
+ * constants
+ */
+
+#if 0
+#elif 0 || \
+      defined(_WIN32) || \
+      defined(WIN32) || \
+      defined(WIN64) || \
+      0
+
+/** \def INETSTL_CONST_MAX_PATH
+ *
+ */
+# if 0
+# elif defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
+
+#  define INETSTL_CONST_MAX_PATH                            (260)
+# elif defined(_MAX_PATH)
+
+#  define INETSTL_CONST_MAX_PATH                            _MAX_PATH
+# elif defined(__CYGWIN__) || \
+       defined(__MINGW32__) || \
+       defined(__MINGW64__)
+
+#  define INETSTL_CONST_MAX_PATH                            (260)
+# else
+
+#  error _MAX_PATH not defined, and not CygWin compiler
+# endif
+
+# ifdef __cplusplus
+
+/** C++ constant equivalent to \ref INETSTL_CONST_MAX_PATH.
+ */
+const is_size_t CONST_MAX_PATH          =   INETSTL_CONST_MAX_PATH;
+
+# endif /* __cplusplus */
+#endif
+
+/* /////////////////////////////////////////////////////////////////////////
+ * values
  *
  * Since the boolean type may not be supported natively on all compilers, the
  * values of true and false may also not be provided. Hence the values of
@@ -515,13 +615,13 @@ typedef is_streamoff_t      streamoff_t;        /*!< streamoff */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-#define is_true_v       ss_true_v
-#define is_false_v      ss_false_v
+#define is_true_v                                           ss_true_v
+#define is_false_v                                          ss_false_v
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Code modification macros
+ * code modification macros
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -542,33 +642,35 @@ typedef is_streamoff_t      streamoff_t;        /*!< streamoff */
 # define inetstl_num_elements(ar)                        INETSTL_NUM_ELEMENTS(ar)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
+/** [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_DESTROY_INSTANCE().
  */
 #define inetstl_destroy_instance(t, type, p)             STLSOFT_DESTROY_INSTANCE(t, type, p)
 
-/** \brief [DEPRECATED] Generates an opaque type with the name \c _htype
+/** [DEPRECATED] Generates an opaque type with the name \c _htype
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_GEN_OPAQUE().
  */
 #define inetstl_gen_opaque(htype)                        STLSOFT_GEN_OPAQUE(htype)
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
-#ifndef _INETSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef INETSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 } /* namespace inetstl */
 # else
 } /* namespace inetstl_project */
 } /* namespace stlsoft */
 namespace inetstl = ::stlsoft::inetstl_project;
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_INETSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !INETSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Inclusion
+ * inclusion control
  */
 
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
@@ -577,7 +679,7 @@ namespace inetstl = ::stlsoft::inetstl_project;
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#endif /* INETSTL_INCL_INETSTL_H_INETSTL */
+#endif /* !INETSTL_INCL_INETSTL_H_INETSTL */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

@@ -4,46 +4,48 @@
  * Purpose:     WinSTL integer to string conversions.
  *
  * Created:     31st July 2002
- * Updated:     15th December 2023
+ * Updated:     29th January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/conversion/int_to_string.hpp
  *
- * \brief [C++ only] Very efficient integer to string conversion functions
+ * \brief [C++] Very efficient integer to string conversion functions
  *   for the Windows platform
- *   (\ref group__library__conversion "Conversion" Library).
+ *   (\ref group__library__Conversion "Conversion" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_CONVERSION_HPP_INT_TO_STRING
@@ -52,30 +54,24 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define _WINSTL_VER_WINSTL_CONVERSION_HPP_INT_TO_STRING_MAJOR      2
 # define _WINSTL_VER_WINSTL_CONVERSION_HPP_INT_TO_STRING_MINOR      1
-# define _WINSTL_VER_WINSTL_CONVERSION_HPP_INT_TO_STRING_REVISION   5
-# define _WINSTL_VER_WINSTL_CONVERSION_HPP_INT_TO_STRING_EDIT       43
+# define _WINSTL_VER_WINSTL_CONVERSION_HPP_INT_TO_STRING_REVISION   15
+# define _WINSTL_VER_WINSTL_CONVERSION_HPP_INT_TO_STRING_EDIT       61
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_BORLAND:  __BORLANDC__<0x0560
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
-#ifndef STLSOFT_INCL_STLSOFT_CONVERSION_HPP_INT_TO_STRING
-# include <stlsoft/conversion/integer_to_string.hpp>
-#endif /* !STLSOFT_INCL_STLSOFT_CONVERSION_HPP_INT_TO_STRING */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
+#ifndef STLSOFT_INCL_STLSOFT_CONVERSION_INTEGER_TO_STRING_HPP_INTEGER_TO_DECIMAL_STRING
+# include <stlsoft/conversion/integer_to_string/integer_to_decimal_string.hpp>
+#endif /* !STLSOFT_INCL_STLSOFT_CONVERSION_INTEGER_TO_STRING_HPP_INTEGER_TO_DECIMAL_STRING */
 #ifndef WINSTL_INCL_WINSTL_SYNCH_HPP_THREAD_MUTEX
 # include <winstl/synch/thread_mutex.hpp>
 #endif /* !WINSTL_INCL_WINSTL_SYNCH_HPP_THREAD_MUTEX */
@@ -89,27 +85,31 @@ STLSOFT_COMPILER_IS_BORLAND:  __BORLANDC__<0x0560
 # include <stlsoft/conversion/sap_cast.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_CONVERSION_HPP_SAP_CAST */
 
+#ifndef WINSTL_INCL_WINSTL_API_external_h_MemoryManagement
+# include <winstl/api/external/MemoryManagement.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_MemoryManagement */
+#ifndef WINSTL_INCL_WINSTL_API_external_h_Synchronization
+# include <winstl/api/external/Synchronization.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_Synchronization */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
  * Pre-processor options
@@ -126,7 +126,7 @@ namespace winstl_project
 #endif /* _WINSTL_INT_TO_STRING_USE_DECLSPECTHREAD_FOR_EXES */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Functions
+ * functions
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -162,9 +162,10 @@ public:
 };
 
 
-template< ss_typename_param_k C
-        , ws_size_t           CCH
-        >
+template<
+    ss_typename_param_k C
+,   ws_size_t           V_internalSize
+>
 struct Slot
 {
     Slot(Slot* next)
@@ -190,23 +191,24 @@ struct Slot
     //    linkage pains.
     void* operator new(ws_size_t cb)
     {
-        return ::HeapAlloc(::GetProcessHeap(), HEAP_GENERATE_EXCEPTIONS, cb);
+        return WINSTL_API_EXTERNAL_MemoryManagement_HeapAlloc(WINSTL_API_EXTERNAL_MemoryManagement_GetProcessHeap(), HEAP_GENERATE_EXCEPTIONS, cb);
     }
     void operator delete(void* pv)
     {
-        ::HeapFree(::GetProcessHeap(), 0, pv);
+        WINSTL_API_EXTERNAL_MemoryManagement_HeapFree(WINSTL_API_EXTERNAL_MemoryManagement_GetProcessHeap(), 0, pv);
     }
 
-    C       buff[CCH];
+    C       buff[V_internalSize];
     Slot*   next;
 };
 
-template< ss_typename_param_k C
-        , ws_size_t           CCH
-        >
+template<
+    ss_typename_param_k C
+,   ws_size_t           V_internalSize
+>
 struct Key
 {
-    typedef Slot<C, CCH>    Slot;
+    typedef Slot<C, V_internalSize>                         Slot;
 
     // This is admittedly totally gross, but it works and will be portable
     // across different compilers. The reason it works is that s_index is
@@ -232,10 +234,10 @@ struct Key
         // all static memory
 
         // Wrap the constructor count in a spin-mutex, and then lock it
-        spin_mutex                                                      smx(&m_ctor);
-        stlsoft_ns_qual(lock_scope)<spin_mutex, spin_mutex_lock_traits> lock(smx);
+        spin_mutex32                                smx(&m_ctor);
+        STLSOFT_NS_QUAL(lock_scope)<spin_mutex32>   lock(smx);
 
-        if(0 == m_init++) // The test on this variable is always guarded by m_ctor
+        if (0 == m_init++) // The test on this variable is always guarded by m_ctor
         {
             // Initialisation.
 
@@ -259,9 +261,9 @@ struct Key
             // meaningful way
             // 2. Do not want to couple to C++ exception-handling
             // and there is no graceful way to allow this to be
-            // parameterisable. (May allow a pp-discriminated
+            // specialisable. (May allow a pp-discriminated
             // mechanism in next version.)
-            if(TLS_OUT_OF_INDEXES == m_index)
+            if (TLS_OUT_OF_INDEXES == m_index)
             {
                 ::RaiseException(STATUS_NO_MEMORY, EXCEPTION_NONCONTINUABLE, 0, 0);
             }
@@ -270,7 +272,7 @@ struct Key
 
     ~Key() STLSOFT_NOEXCEPT
     {
-        if(0 == ::InterlockedDecrement((LPLONG)&m_init))
+        if (0 == WINSTL_API_EXTERNAL_Synchronization_InterlockedDecrement((LPLONG)&m_init))
         {
             // Walk the slot list and free. This can be as slow as
             // you like, since performance is not important here
@@ -295,7 +297,7 @@ struct Key
         Slot* next;
 
         { // Protect linked-list manipulation
-            stlsoft_ns_qual(lock_scope)<thread_mutex, thread_mutex_lock_traits>  lock(mx());
+            STLSOFT_NS_QUAL(lock_scope)<thread_mutex, thread_mutex_lock_traits>  lock(mx());
 
             m_top = next = new Slot(m_top);
         }
@@ -307,7 +309,7 @@ struct Key
 
 // Implementation
 private:
-    thread_mutex &mx()
+    thread_mutex& mx()
     {
         return *static_cast<thread_mutex*>(static_cast<void*>(&m__mx.bytes[0]));
     }
@@ -337,29 +339,30 @@ private:
 #endif /* STLSOFT_CF_NAMESPACE_SUPPORT */
 
 
-template< ss_typename_param_k C
-        , ws_size_t           CCH
-        >
+template<
+    ss_typename_param_k C
+,   ws_size_t           V_internalSize
+>
 inline C* i2str_get_tss_buffer()
 {
 #if defined(_WINSTL_INT_TO_STRING_USE_DECLSPECTHREAD_FOR_EXES)
-    __declspec(thread) static C s_buffer[CCH];
+    __declspec(thread) static C s_buffer[V_internalSize];
 
     return s_buffer;
 #else
 
-#ifdef STLSOFT_CF_NAMESPACE_SUPPORT
-    typedef int_to_string_tls::Key<C, CCH>      Key;
-    typedef int_to_string_tls::Slot<C, CCH>     Slot;
-#else
-    typedef Key<C, CCH>                         Key;
-    typedef Slot<C, CCH>                        Slot;
-#endif /* STLSOFT_CF_NAMESPACE_SUPPORT */
+# ifdef STLSOFT_CF_NAMESPACE_SUPPORT
+    typedef int_to_string_tls::Key<C, V_internalSize>       Key;
+    typedef int_to_string_tls::Slot<C, V_internalSize>      Slot;
+# else
+    typedef Key<C, V_internalSize>                          Key;
+    typedef Slot<C, V_internalSize>                         Slot;
+# endif /* STLSOFT_CF_NAMESPACE_SUPPORT */
 
     static Key  s_index;
     Slot*       slot = s_index.GetSlot();
 
-    if(NULL == slot)
+    if (NULL == slot)
     {
         slot = s_index.AllocSlot();
     }
@@ -367,7 +370,6 @@ inline C* i2str_get_tss_buffer()
     return slot->buff;
 #endif /* dll */
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** Converts a signed 8-bit integer to a character string
@@ -380,7 +382,7 @@ assert(0 == ::strcmp(winstl::int_to_string<char>(v), "13"));
 assert(0 == ::wcscmp(winstl::int_to_string<wchar_t>(v), L"13"));
 \endcode
  *
- * \ingroup group__library__conversion
+ * \ingroup group__library__Conversion
  *
  * \warning This function is *not* re-entrant. You must ensure that
  *   it is only invoked once in a statement. This includes possible
@@ -392,7 +394,7 @@ inline C const* int_to_string(ws_sint8_t value)
     const ws_size_t CCH     = 21; // 5 fits 8-bit + sign
     C*              buffer  = i2str_get_tss_buffer<C, CCH>();
 
-    return stlsoft::integer_to_string(buffer, CCH, value);
+    return stlsoft::integer_to_decimal_string(buffer, CCH, value);
 }
 
 /** Converts a unsigned 8-bit integer to a character string
@@ -405,7 +407,7 @@ assert(0 == ::strcmp(winstl::int_to_string<char>(v), "14"));
 assert(0 == ::wcscmp(winstl::int_to_string<wchar_t>(v), L"14"));
 \endcode
  *
- * \ingroup group__library__conversion
+ * \ingroup group__library__Conversion
  *
  * \warning This function is *not* re-entrant. You must ensure that
  *   it is only invoked once in a statement. This includes possible
@@ -417,7 +419,7 @@ inline C const* int_to_string(ws_uint8_t value)
     const ws_size_t CCH     = 21; // 4 fits 8-bit
     C*              buffer  = i2str_get_tss_buffer<C, CCH>();
 
-    return stlsoft::integer_to_string(buffer, CCH, value);
+    return stlsoft::integer_to_decimal_string(buffer, CCH, value);
 }
 
 /** Converts a signed 16-bit integer to a character string
@@ -430,7 +432,7 @@ assert(0 == ::strcmp(winstl::int_to_string<char>(v), "15"));
 assert(0 == ::wcscmp(winstl::int_to_string<wchar_t>(v), L"15"));
 \endcode
  *
- * \ingroup group__library__conversion
+ * \ingroup group__library__Conversion
  *
  * \warning This function is *not* re-entrant. You must ensure that
  *   it is only invoked once in a statement. This includes possible
@@ -442,7 +444,7 @@ inline C const* int_to_string(ws_sint16_t value)
     const ws_size_t CCH     = 21; // 7 fits 16-bit + sign
     C*              buffer  = i2str_get_tss_buffer<C, CCH>();
 
-    return stlsoft::integer_to_string(buffer, CCH, value);
+    return stlsoft::integer_to_decimal_string(buffer, CCH, value);
 }
 
 /** Converts a unsigned 16-bit integer to a character string
@@ -455,7 +457,7 @@ assert(0 == ::strcmp(winstl::int_to_string<char>(v), "16"));
 assert(0 == ::wcscmp(winstl::int_to_string<wchar_t>(v), L"16"));
 \endcode
  *
- * \ingroup group__library__conversion
+ * \ingroup group__library__Conversion
  *
  * \warning This function is *not* re-entrant. You must ensure that
  *   it is only invoked once in a statement. This includes possible
@@ -467,7 +469,7 @@ inline C const* int_to_string(ws_uint16_t value)
     const ws_size_t CCH     = 21; // 6 fits 16-bit
     C*              buffer  = i2str_get_tss_buffer<C, CCH>();
 
-    return stlsoft::integer_to_string(buffer, CCH, value);
+    return stlsoft::integer_to_decimal_string(buffer, CCH, value);
 }
 
 /** Converts a signed 32-bit integer to a character string
@@ -480,7 +482,7 @@ assert(0 == ::strcmp(winstl::int_to_string<char>(v), "17"));
 assert(0 == ::wcscmp(winstl::int_to_string<wchar_t>(v), L"17"));
 \endcode
  *
- * \ingroup group__library__conversion
+ * \ingroup group__library__Conversion
  *
  * \warning This function is *not* re-entrant. You must ensure that
  *   it is only invoked once in a statement. This includes possible
@@ -492,7 +494,7 @@ inline C const* int_to_string(ws_sint32_t value)
     const ws_size_t CCH     = 21; // 12 fits 32-bit + sign
     C*              buffer  = i2str_get_tss_buffer<C, CCH>();
 
-    return stlsoft::integer_to_string(buffer, CCH, value);
+    return stlsoft::integer_to_decimal_string(buffer, CCH, value);
 }
 
 /** Converts a unsigned 32-bit integer to a character string
@@ -505,7 +507,7 @@ assert(0 == ::strcmp(winstl::int_to_string<char>(v), "18"));
 assert(0 == ::wcscmp(winstl::int_to_string<wchar_t>(v), L"18"));
 \endcode
  *
- * \ingroup group__library__conversion
+ * \ingroup group__library__Conversion
  *
  * \warning This function is *not* re-entrant. You must ensure that
  *   it is only invoked once in a statement. This includes possible
@@ -517,7 +519,7 @@ inline C const* int_to_string(ws_uint32_t value)
     const ws_size_t CCH     = 21; // 11 fits 32-bit
     C*              buffer  = i2str_get_tss_buffer<C, CCH>();
 
-    return stlsoft::integer_to_string(buffer, CCH, value);
+    return stlsoft::integer_to_decimal_string(buffer, CCH, value);
 }
 
 /** Converts a signed 64-bit integer to a character string
@@ -530,7 +532,7 @@ assert(0 == ::strcmp(winstl::int_to_string<char>(v), "19"));
 assert(0 == ::wcscmp(winstl::int_to_string<wchar_t>(v), L"19"));
 \endcode
  *
- * \ingroup group__library__conversion
+ * \ingroup group__library__Conversion
  *
  * \warning This function is *not* re-entrant. You must ensure that
  *   it is only invoked once in a statement. This includes possible
@@ -542,7 +544,7 @@ inline C const* int_to_string(ws_sint64_t const& value)
     const ws_size_t CCH     = 21; // fits 64-bit + sign
     C*              buffer  = i2str_get_tss_buffer<C, CCH>();
 
-    return stlsoft::integer_to_string(buffer, CCH, value);
+    return stlsoft::integer_to_decimal_string(buffer, CCH, value);
 }
 
 /** Converts a unsigned 64-bit integer to a character string
@@ -555,7 +557,7 @@ assert(0 == ::strcmp(winstl::int_to_string<char>(v), "20"));
 assert(0 == ::wcscmp(winstl::int_to_string<wchar_t>(v), L"20"));
 \endcode
  *
- * \ingroup group__library__conversion
+ * \ingroup group__library__Conversion
  *
  * \warning This function is *not* re-entrant. You must ensure that
  *   it is only invoked once in a statement. This includes possible
@@ -567,7 +569,7 @@ inline C const* int_to_string(ws_uint64_t const& value)
     const ws_size_t CCH     = 21; // fits 64-bit
     C*              buffer  = i2str_get_tss_buffer<C, CCH>();
 
-    return stlsoft::integer_to_string(buffer, CCH, value);
+    return stlsoft::integer_to_decimal_string(buffer, CCH, value);
 }
 
 
@@ -579,7 +581,7 @@ inline C const* int_to_string(int const& value)
     const ws_size_t CCH     = 21; // fits 64-bit
     C*              buffer  = i2str_get_tss_buffer<C, CCH>();
 
-    return stlsoft::integer_to_string(buffer, CCH, value);
+    return stlsoft::integer_to_decimal_string(buffer, CCH, value);
 }
 
 template<ss_typename_param_k C>
@@ -588,7 +590,7 @@ inline C const* int_to_string(unsigned int const& value)
     const ws_size_t CCH     = 21; // fits 64-bit
     C*              buffer  = i2str_get_tss_buffer<C, CCH>();
 
-    return stlsoft::integer_to_string(buffer, CCH, value);
+    return stlsoft::integer_to_decimal_string(buffer, CCH, value);
 }
 
 #endif /* !STLSOFT_CF_INT_DISTINCT_INT_TYPE */
@@ -601,7 +603,7 @@ inline C const* int_to_string(long const& value)
     const ws_size_t CCH     = 21; // fits 64-bit
     C*              buffer  = i2str_get_tss_buffer<C, CCH>();
 
-    return stlsoft::integer_to_string(buffer, CCH, value);
+    return stlsoft::integer_to_decimal_string(buffer, CCH, value);
 }
 
 template<ss_typename_param_k C>
@@ -610,31 +612,30 @@ inline C const* int_to_string(unsigned long const& value)
     const ws_size_t CCH     = 21; // fits 64-bit
     C*              buffer  = i2str_get_tss_buffer<C, CCH>();
 
-    return stlsoft::integer_to_string(buffer, CCH, value);
+    return stlsoft::integer_to_decimal_string(buffer, CCH, value);
 }
 
 #endif /* !STLSOFT_CF_LONG_DISTINCT_INT_TYPE */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/int_to_string_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 } /* namespace winstl */
 # else
 } /* namespace winstl_project */
 } /* namespace stlsoft */
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !WINSTL_INCL_WINSTL_CONVERSION_HPP_INT_TO_STRING */
 

@@ -4,7 +4,7 @@
  * Purpose:     Compile-time template constraints templates.
  *
  * Created:     19th November 1998
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks:      To Peter Bannister for having the clear thinking to see the
  *              obvious (but only in hindsight) tactic of overloading the
@@ -12,42 +12,44 @@
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1998-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/util/constraints.hpp
  *
- * \brief [C++ only] Definition of compile-time template constraints
+ * \brief [C++] Definition of compile-time template constraints
  *   templates
- *   (\ref group__library__utility__constraints "Constraints" Library).
+ *   (\ref group__library__Metaprogramming "Metaprogramming" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_HPP_CONSTRAINTS
@@ -56,59 +58,63 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_UTIL_HPP_CONSTRAINTS_MAJOR      5
 # define STLSOFT_VER_STLSOFT_UTIL_HPP_CONSTRAINTS_MINOR      0
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_CONSTRAINTS_REVISION   5
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_CONSTRAINTS_EDIT       101
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_CONSTRAINTS_REVISION   9
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_CONSTRAINTS_EDIT       112
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_META_HPP_SIZE_OF
 # include <stlsoft/meta/size_of.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_META_HPP_SIZE_OF */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Macros
+ * macros
  */
 
 #if defined(STLSOFT_COMPILER_IS_BORLAND) || \
     defined(STLSOFT_COMPILER_IS_INTEL) || \
     defined(STLSOFT_COMPILER_IS_MWERKS)
-# define stlsoft_constraint_must_be_pod(T)              do { stlsoft_ns_qual(must_be_pod)<T>::func_ptr_type const pfn = stlsoft_ns_qual(must_be_pod)<T>::constraint(); STLSOFT_SUPPRESS_UNUSED(pfn); } while(0)
-# define stlsoft_constraint_must_be_pod_or_void(T)      do { stlsoft_ns_qual(must_be_pod_or_void)<T>::func_ptr_type const pfn = stlsoft_ns_qual(must_be_pod_or_void)<T>::constraint(); STLSOFT_SUPPRESS_UNUSED(pfn); } while(0)
+# define stlsoft_constraint_must_be_pod(T)              do { STLSOFT_NS_QUAL(must_be_pod)<T>::func_ptr_type const pfn = STLSOFT_NS_QUAL(must_be_pod)<T>::constraint(); STLSOFT_SUPPRESS_UNUSED(pfn); } while (0)
+# define stlsoft_constraint_must_be_pod_or_void(T)      do { STLSOFT_NS_QUAL(must_be_pod_or_void)<T>::func_ptr_type const pfn = STLSOFT_NS_QUAL(must_be_pod_or_void)<T>::constraint(); STLSOFT_SUPPRESS_UNUSED(pfn); } while (0)
 #elif defined(STLSOFT_COMPILER_IS_DMC)
-# define stlsoft_constraint_must_be_pod(T)              do { int i = sizeof(stlsoft_ns_qual(must_be_pod)<T>::constraint()); } while(0)
-# define stlsoft_constraint_must_be_pod_or_void(T)      do { int i = sizeof(stlsoft_ns_qual(must_be_pod_or_void)<T>::constraint()); } while(0)
+# define stlsoft_constraint_must_be_pod(T)              do { int i = sizeof(STLSOFT_NS_QUAL(must_be_pod)<T>::constraint()); } while (0)
+# define stlsoft_constraint_must_be_pod_or_void(T)      do { int i = sizeof(STLSOFT_NS_QUAL(must_be_pod_or_void)<T>::constraint()); } while (0)
 #else /* ? compiler */
-# define stlsoft_constraint_must_be_pod(T)              STLSOFT_STATIC_ASSERT(sizeof(stlsoft_ns_qual(must_be_pod)<T>::constraint()) != 0)
-# define stlsoft_constraint_must_be_pod_or_void(T)      STLSOFT_STATIC_ASSERT(sizeof(stlsoft_ns_qual(must_be_pod_or_void)<T>::constraint()) != 0)
+# define stlsoft_constraint_must_be_pod(T)              STLSOFT_STATIC_ASSERT(sizeof(STLSOFT_NS_QUAL(must_be_pod)<T>::constraint()) != 0)
+# define stlsoft_constraint_must_be_pod_or_void(T)      STLSOFT_STATIC_ASSERT(sizeof(STLSOFT_NS_QUAL(must_be_pod_or_void)<T>::constraint()) != 0)
 #endif /* compiler */
 
-# define stlsoft_constraint_must_be_same_size(T1, T2)   static_cast<void>(stlsoft_ns_qual(must_be_same_size)<T1, T2>())
-# define stlsoft_constraint_must_be_subscriptable(T)    static_cast<void>(stlsoft_ns_qual(must_be_subscriptable)<T>())
-# define stlsoft_constraint_must_have_base(D, B)        static_cast<void>(stlsoft_ns_qual(must_have_base)<D, B>())
-# define stlsoft_constraint_must_be_derived(D, B)       static_cast<void>(stlsoft_ns_qual(must_be_derived)<D, B>())
+# define stlsoft_constraint_must_be_same_size(T1, T2)   static_cast<void>(STLSOFT_NS_QUAL(must_be_same_size)<T1, T2>())
+# define stlsoft_constraint_must_be_subscriptable(T)    static_cast<void>(STLSOFT_NS_QUAL(must_be_subscriptable)<T>())
+# define stlsoft_constraint_must_have_base(D, B)        static_cast<void>(STLSOFT_NS_QUAL(must_have_base)<D, B>())
+# define stlsoft_constraint_must_be_derived(D, B)       static_cast<void>(STLSOFT_NS_QUAL(must_be_derived)<D, B>())
 
 /* /////////////////////////////////////////////////////////////////////////
- * Constraints
+ * constraints
  */
 
-/** \brief Constraint to ensure that the one type is convertible to another via inheritance
+/** Constraint to ensure that the one type is convertible to another via inheritance
  *
- * \ingroup group__library__utility__constraints
+ * \ingroup group__library__Metaprogramming
  *
  * \param D The derived type
  * \param B The base type
@@ -159,10 +165,10 @@ private:
 };
 
 
-/** \brief Constraint to ensure that the one type is convertible to another via inheritance,
+/** Constraint to ensure that the one type is convertible to another via inheritance,
  * but is not the same type
  *
- * \ingroup group__library__utility__constraints
+ * \ingroup group__library__Metaprogramming
  *
  * \param D The derived type
  * \param B The base type
@@ -225,9 +231,9 @@ private:
 
 
 
-/** \brief Constrains two types to be of the same size
+/** Constrains two types to be of the same size
  *
- * \ingroup group__library__utility__constraints
+ * \ingroup group__library__Metaprogramming
  *
  * \param T1 The first type
  * \param T2 The second type
@@ -270,10 +276,10 @@ private:
 };
 
 
-/** \brief Constraint to enforce that a given type is an array, or pointer, or user defined type
+/** Constraint to enforce that a given type is an array, or pointer, or user defined type
  * which is amenable to subsripting (i.e. defines <code>operator[]</code> or <code>operator X*()</code>)
  *
- * \ingroup group__library__utility__constraints
+ * \ingroup group__library__Metaprogramming
  *
  * \param T The type to be constrained
  *
@@ -307,10 +313,10 @@ private:
     }
 };
 
-/** \brief Constraint to enforce that a given type is an actual array or pointer, rather than
+/** Constraint to enforce that a given type is an actual array or pointer, rather than
  * a user-defined type with a subscript operator.
  *
- * \ingroup group__library__utility__constraints
+ * \ingroup group__library__Metaprogramming
  *
  * \param T The type to be constrained
  *
@@ -346,9 +352,9 @@ private:
 };
 
 
-/** \brief Constraint to ensure that a type is a built-in or trivial type.
+/** Constraint to ensure that a type is a built-in or trivial type.
  *
- * \ingroup group__library__utility__constraints
+ * \ingroup group__library__Metaprogramming
  *
  * \param T The type to be constrained
  *
@@ -429,10 +435,10 @@ private:
 };
 
 
-/** \brief Constraint to ensure that a type is a built-in or trivial type,
+/** Constraint to ensure that a type is a built-in or trivial type,
  *    or is \c void.
  *
- * \ingroup group__library__utility__constraints
+ * \ingroup group__library__Metaprogramming
  *
  * \param T The type to be constrained
  *
@@ -506,10 +512,10 @@ union must_be_pod_or_void<void>
 
 #if 0
 
-/** \brief This type is used as a tag parent to hide implicit comparison of types that
+/** This type is used as a tag parent to hide implicit comparison of types that
  * provide implicit converion operators.
  *
- * \ingroup group__library__utility__constraints
+ * \ingroup group__library__Metaprogramming
  *
  */
 
@@ -539,9 +545,9 @@ private:
 #endif /* 0 */
 };
 
-/** \brief This specialisation allows it to
+/** This specialisation allows it to
  *
- * \ingroup group__library__utility__constraints
+ * \ingroup group__library__Metaprogramming
  *
  */
 STLSOFT_TEMPLATE_SPECIALISATION
@@ -692,11 +698,17 @@ inline ss_bool_t operator ==(T2 const& lhs, not_implicitly_comparable const& rhs
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_CONSTRAINTS */
 

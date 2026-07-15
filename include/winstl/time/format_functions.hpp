@@ -4,40 +4,42 @@
  * Purpose:     Comparison functions for Windows time structures.
  *
  * Created:     21st November 2003
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Thanks to:   Mikael Pahmp, for spotting the failure to handle 24-hour
  *              time pictures.
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -45,7 +47,7 @@
 /** \file winstl/time/format_functions.hpp
  *
  * \brief [C, C++] Formatting functions for Windows time types
- *   (\ref group__library__time "Time" Library).
+ *   (\ref group__library__Time "Time" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_TIME_HPP_FORMAT_FUNCTIONS
@@ -54,23 +56,27 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_TIME_HPP_FORMAT_FUNCTIONS_MAJOR      5
 # define WINSTL_VER_WINSTL_TIME_HPP_FORMAT_FUNCTIONS_MINOR      1
-# define WINSTL_VER_WINSTL_TIME_HPP_FORMAT_FUNCTIONS_REVISION   3
-# define WINSTL_VER_WINSTL_TIME_HPP_FORMAT_FUNCTIONS_EDIT       64
+# define WINSTL_VER_WINSTL_TIME_HPP_FORMAT_FUNCTIONS_REVISION   10
+# define WINSTL_VER_WINSTL_TIME_HPP_FORMAT_FUNCTIONS_EDIT       77
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
-#ifndef STLSOFT_INCL_STLSOFT_HPP_MEMORY_AUTO_BUFFER
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
+#ifndef STLSOFT_INCL_STLSOFT_MEMORY_HPP_AUTO_BUFFER
 # include <stlsoft/memory/auto_buffer.hpp>
-#endif /* !STLSOFT_INCL_STLSOFT_HPP_MEMORY_AUTO_BUFFER */
-#ifndef STLSOFT_INCL_STLSOFT_CONVERSION_HPP_INTEGER_TO_STRING
-# include <stlsoft/conversion/integer_to_string.hpp>
-#endif /* !STLSOFT_INCL_STLSOFT_CONVERSION_HPP_INTEGER_TO_STRING */
+#endif /* !STLSOFT_INCL_STLSOFT_MEMORY_HPP_AUTO_BUFFER */
+#ifndef STLSOFT_INCL_STLSOFT_CONVERSION_INTEGER_TO_STRING_HPP_INTEGER_TO_DECIMAL_STRING
+# include <stlsoft/conversion/integer_to_string/integer_to_decimal_string.hpp>
+#endif /* !STLSOFT_INCL_STLSOFT_CONVERSION_INTEGER_TO_STRING_HPP_INTEGER_TO_DECIMAL_STRING */
 #ifndef WINSTL_INCL_WINSTL_MEMORY_HPP_PROCESSHEAP_ALLOCATOR
 # include <winstl/memory/processheap_allocator.hpp>
 #endif /* !WINSTL_INCL_WINSTL_MEMORY_HPP_PROCESSHEAP_ALLOCATOR */
@@ -78,30 +84,31 @@
 # include <winstl/registry/functions.hpp>   // for reg_get_string_value()
 #endif /* !WINSTL_INCL_WINSTL_REGISTRY_HPP_FUNCTIONS */
 
+#ifndef WINSTL_INCL_WINSTL_API_external_h_Registry
+# include <winstl/api/external/Registry.h>
+#endif /* !WINSTL_INCL_WINSTL_API_external_h_Registry */
+
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Helper classes
+ * helper classes
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -158,7 +165,7 @@ struct time_format_functions_traits<ws_char_w_t>
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Functions
+ * functions
  */
 
 template <ss_typename_param_k C>
@@ -176,28 +183,28 @@ STLSOFT_STDCALL GetTimeFormat_ms_(
 {
     typedef C                                       char_t;
     typedef time_format_functions_traits<char_t>    traits_t;
-    typedef stlsoft_ns_qual(auto_buffer_old)<
+    typedef STLSOFT_NS_QUAL(auto_buffer_old)<
         char_t
     ,   processheap_allocator<char_t>
     >                                               buffer_t_;
 
-    if(dwFlags & (TIME_NOMINUTESORSECONDS | TIME_NOSECONDS))
+    if (dwFlags & (TIME_NOMINUTESORSECONDS | TIME_NOSECONDS))
     {
         return traits_t::GetTimeFormat(locale, dwFlags, lpTime, lpFormat, lpTimeStr, cchTime);
     }
 
-    if(dwFlags & LOCALE_NOUSEROVERRIDE)
+    if (dwFlags & LOCALE_NOUSEROVERRIDE)
     {
         locale = LOCALE_SYSTEM_DEFAULT;
     }
 
     buffer_t_           timePicture(1 + ((NULL == lpFormat) ? static_cast<ss_size_t>(::GetLocaleInfoA(locale, LOCALE_STIMEFORMAT, NULL, 0)) : 0));
 
-    if(NULL == lpFormat)
+    if (NULL == lpFormat)
     {
         ss_size_t   n = static_cast<ss_size_t>(traits_t::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_STIMEFORMAT, &timePicture[0], static_cast<int>(timePicture.size())));
         lpFormat = &timePicture[0];
-        if(n < timePicture.size())
+        if (n < timePicture.size())
         {
             timePicture[n] = static_cast<C>('\0');
         }
@@ -216,16 +223,16 @@ STLSOFT_STDCALL GetTimeFormat_ms_(
     uint16_t const  hour12      =   (lpTime->wHour > 12) ? uint16_t(lpTime->wHour - 12) : lpTime->wHour;
 
 #if defined(STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT)
-    char_t const*   hours12    =   stlsoft_ns_qual(integer_to_string)(hours12_, hour12);
-    char_t const*   hours24    =   stlsoft_ns_qual(integer_to_string)(hours24_, lpTime->wHour);
-    char_t const*   minutes    =   stlsoft_ns_qual(integer_to_string)(minutes_, lpTime->wMinute);
+    char_t const*   hours12    =   STLSOFT_NS_QUAL(integer_to_decimal_string)(hours12_, hour12);
+    char_t const*   hours24    =   STLSOFT_NS_QUAL(integer_to_decimal_string)(hours24_, lpTime->wHour);
+    char_t const*   minutes    =   STLSOFT_NS_QUAL(integer_to_decimal_string)(minutes_, lpTime->wMinute);
 #else /* ? STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT */
-    char_t const*   hours12    =   stlsoft_ns_qual(integer_to_string)(&hours12_[0], STLSOFT_NUM_ELEMENTS(hours12_), hour12);
-    char_t const*   hours24    =   stlsoft_ns_qual(integer_to_string)(&hours24_[0], STLSOFT_NUM_ELEMENTS(hours24_), lpTime->wHour);
-    char_t const*   minutes    =   stlsoft_ns_qual(integer_to_string)(&minutes_[0], STLSOFT_NUM_ELEMENTS(minutes_), lpTime->wMinute);
+    char_t const*   hours12    =   STLSOFT_NS_QUAL(integer_to_decimal_string)(&hours12_[0], STLSOFT_NUM_ELEMENTS(hours12_), hour12);
+    char_t const*   hours24    =   STLSOFT_NS_QUAL(integer_to_decimal_string)(&hours24_[0], STLSOFT_NUM_ELEMENTS(hours24_), lpTime->wHour);
+    char_t const*   minutes    =   STLSOFT_NS_QUAL(integer_to_decimal_string)(&minutes_[0], STLSOFT_NUM_ELEMENTS(minutes_), lpTime->wMinute);
 #endif /* STLSOFT_CF_STATIC_ARRAY_SIZE_DETERMINATION_SUPPORT */
-                                   stlsoft_ns_qual(integer_to_string)(&seconds_[3], STLSOFT_NUM_ELEMENTS(seconds_) - 3, lpTime->wMilliseconds);
-    char_t const*   seconds    =   stlsoft_ns_qual(integer_to_string)(&seconds_[0], 6, lpTime->wSecond);
+                                   STLSOFT_NS_QUAL(integer_to_decimal_string)(&seconds_[3], STLSOFT_NUM_ELEMENTS(seconds_) - 3, lpTime->wMilliseconds);
+    char_t const*   seconds    =   STLSOFT_NS_QUAL(integer_to_decimal_string)(&seconds_[0], 6, lpTime->wSecond);
 
     seconds_[5] = '.';
 
@@ -235,13 +242,13 @@ STLSOFT_STDCALL GetTimeFormat_ms_(
     buffer_t_       am(0);
     buffer_t_       pm(0);
 
-    if( NULL == amMarker ||
+    if (NULL == amMarker ||
         NULL == pmMarker)
     {
         HKEY    hkey;
-        LONG    res =   ::RegOpenKeyA(HKEY_CURRENT_USER, "Control Panel\\International", &hkey);
+        LONG    res =   WINSTL_API_EXTERNAL_Registry_RegOpenKeyA(HKEY_CURRENT_USER, "Control Panel\\International", &hkey);
 
-        if(ERROR_SUCCESS == res)
+        if (ERROR_SUCCESS == res)
         {
             static char_t const s1159[] =   { 's', '1', '1', '5', '9', '\0' };
             static char_t const s2359[] =   { 's', '2', '3', '5', '9', '\0' };
@@ -249,34 +256,34 @@ STLSOFT_STDCALL GetTimeFormat_ms_(
             ws_size_t           cchPM   =   0;
             LONG                r;
 
-            if( ERROR_SUCCESS != (r = reg_get_string_value(hkey, s1159, static_cast<char_t*>(NULL), cchAM)) ||
+            if (ERROR_SUCCESS != (r = reg_get_string_value(hkey, s1159, static_cast<char_t*>(NULL), cchAM)) ||
                 ERROR_SUCCESS != (r = (am.resize(cchAM), cchAM = am.size(), reg_get_string_value(hkey, s1159, &am[0], cchAM))))
             {
                 res = r;
             }
-            else if(ERROR_SUCCESS != (r = reg_get_string_value(hkey, s2359, static_cast<char_t*>(NULL), cchPM)) ||
+            else if (ERROR_SUCCESS != (r = reg_get_string_value(hkey, s2359, static_cast<char_t*>(NULL), cchPM)) ||
                     ERROR_SUCCESS != (r = (pm.resize(cchPM), cchPM = pm.size(), reg_get_string_value(hkey, s2359, &pm[0], cchPM))))
             {
                 res = r;
             }
 
-            ::RegCloseKey(hkey);
+            WINSTL_API_EXTERNAL_Registry_RegCloseKey(hkey);
         }
 
-        if(ERROR_SUCCESS == res)
+        if (ERROR_SUCCESS == res)
         {
-            if(NULL == amMarker)
+            if (NULL == amMarker)
             {
                 amMarker = &am[0];
             }
-            if(NULL == pmMarker)
+            if (NULL == pmMarker)
             {
                 pmMarker = &pm[0];
             }
         }
     }
 
-    if(NULL == amMarker)
+    if (NULL == amMarker)
     {
         static char_t const AM[]    =   { 'A', 'M', '\0' };
 
@@ -284,7 +291,7 @@ STLSOFT_STDCALL GetTimeFormat_ms_(
 
         amMarker = traits_t::lstrcpy(&am[0], AM);
     }
-    if(NULL == pmMarker)
+    if (NULL == pmMarker)
     {
         static char_t const PM[]    =   { 'P', 'M', '\0' };
 
@@ -301,49 +308,49 @@ STLSOFT_STDCALL GetTimeFormat_ms_(
     buffer_t_       buffer(1 + cchTimeMax);
     ws_size_t       len         =   0;
 
-    if(!buffer.empty())
+    if (!buffer.empty())
     {
         char_t const*   r;
         char_t*         w          =   &buffer[0];
         char_t          prev        =   '\0';
         ws_bool_t       bMarker1    =   true;
 
-        for(r = lpFormat; r != lpFormat + cchPicture; ++r)
+        for (r = lpFormat; r != lpFormat + cchPicture; ++r)
         {
             char_t const ch = *r;
 
-            switch(ch)
+            switch (ch)
             {
                 case    'h':
-                    if( 'h' == prev &&
+                    if ('h' == prev &&
                         '\0' == *(hours12 + 1))
                     {
                         --hours12;
                     }
                     break;
                 case    'H':
-                    if( 'H' == prev &&
+                    if ('H' == prev &&
                         '\0' == *(hours24 + 1))
                     {
                         --hours24;
                     }
                     break;
                 case    'm':
-                    if( 'm' == prev &&
+                    if ('m' == prev &&
                         '\0' == *(minutes + 1))
                     {
                         --minutes;
                     }
                     break;
                 case    's':
-                    if( 's' == prev &&
+                    if ('s' == prev &&
                         '.' == *(seconds + 1))
                     {
                         --seconds;
                     }
                     break;
                 case    't':
-                    if('t' == prev)
+                    if ('t' == prev)
                     {
                         bMarker1 = false;
                     }
@@ -353,16 +360,16 @@ STLSOFT_STDCALL GetTimeFormat_ms_(
                         static char_t const s_emptyString[] = { '\0' };
                         char_t const*       p;
 
-                        switch(prev)
+                        switch (prev)
                         {
                             case    'h':    p = hours12;        break;
                             case    'H':    p = hours24;        break;
                             case    'm':    p = minutes;        break;
                             case    's':    p = seconds;        break;
                             case    't':
-                                if(0 == (dwFlags & TIME_NOTIMEMARKER))
+                                if (0 == (dwFlags & TIME_NOTIMEMARKER))
                                 {
-                                    if(!bMarker1)
+                                    if (!bMarker1)
                                     {
                                         p = timeMarker;
                                         break;
@@ -378,7 +385,7 @@ STLSOFT_STDCALL GetTimeFormat_ms_(
                             default:        p = s_emptyString;   break;
                         }
 
-                        for(; '\0' != *p; *w++ = *p++, ++len)
+                        for (; '\0' != *p; *w++ = *p++, ++len)
                         {}
                     }
                     *w++ = ch;
@@ -386,7 +393,7 @@ STLSOFT_STDCALL GetTimeFormat_ms_(
                     break;
             }
 
-            if('\0' == ch)
+            if ('\0' == ch)
             {
                 break;
             }
@@ -397,10 +404,10 @@ STLSOFT_STDCALL GetTimeFormat_ms_(
 
     // If 0 was specified, or
 
-    if( 0 == cchTime ||
+    if (0 == cchTime ||
         len <= ws_size_t(cchTime))
     {
-        if(0 != cchTime)
+        if (0 != cchTime)
         {
             traits_t::lstrcpy(lpTimeStr, &buffer[0]);
         }
@@ -413,7 +420,7 @@ STLSOFT_STDCALL GetTimeFormat_ms_(
     }
 }
 
-/** \brief Analogue to the Win32 API <code>GetTimeFormat()</code>, but also
+/** Analogue to the Win32 API <code>GetTimeFormat()</code>, but also
  *    provides milliseconds as part of the time picture.
  *
  * \param locale
@@ -495,25 +502,27 @@ STLSOFT_STDCALL GetTimeFormat_msExW(
     return GetTimeFormat_ms_<ws_char_w_t>(locale, dwFlags, lpTime, lpFormat, *timeMarkers, lpTimeStr, cchTime);
 }
 
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/format_functions_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
-/* ////////////////////////////////////////////////////////////////////// */
-
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 } /* namespace winstl */
 # else
 } /* namespace winstl_project */
 } /* namespace stlsoft */
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 /* ////////////////////////////////////////////////////////////////////// */
 

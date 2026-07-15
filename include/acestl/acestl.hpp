@@ -1,41 +1,43 @@
 /* /////////////////////////////////////////////////////////////////////////
  * File:        acestl/acestl.hpp
  *
- * Purpose:     Root header for the ACESTL libraries. Performs various compiler
+ * Purpose:     Root header for the ACESTL libraries. Performs compiler
  *              and platform discriminations, and definitions of types.
  *
  * Created:     15th September 2004
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -46,14 +48,15 @@
 /* File version */
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define ACESTL_VER_ACESTL_HPP_ACESTL_MAJOR     1
-# define ACESTL_VER_ACESTL_HPP_ACESTL_MINOR     7
-# define ACESTL_VER_ACESTL_HPP_ACESTL_REVISION  5
-# define ACESTL_VER_ACESTL_HPP_ACESTL_EDIT      42
+# define ACESTL_VER_ACESTL_HPP_ACESTL_MINOR     8
+# define ACESTL_VER_ACESTL_HPP_ACESTL_REVISION  2
+# define ACESTL_VER_ACESTL_HPP_ACESTL_EDIT      54
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \file acestl/acestl.hpp
  *
- * \brief [C++ only] The root header for the \ref group__project__acestl "ACESTL" project.
+ * \brief [C++] Root header for the
+ * \ref group__project__acestl "ACESTL" project.
  */
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -106,20 +109,25 @@
 # define _ACESTL_VER_1_0_4     0x00010004  /*!< Version 1.0.4 */
 # define _ACESTL_VER_1_1_1     0x00010101  /*!< Version 1.1.1 (STLSoft 1.9.1) */
 # define _ACESTL_VER_1_1_2     0x00010102  /*!< Version 1.1.2 (STLSoft 1.9.25) */
+# define _ACESTL_VER_1_2_1_B01 0x01020181  /*!< Version 1.2.1 beta 1 (STLSoft 1.10.1 b1) */
+# define _ACESTL_VER_1_2_1_B02 0x01020182  /*!< Version 1.2.1 beta 2 (STLSoft 1.10.1 beta 26) */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #define _ACESTL_VER_MAJOR      1
-#define _ACESTL_VER_MINOR      1
-#define _ACESTL_VER_REVISION   2
-#define _ACESTL_VER            _ACESTL_VER_1_1_2
+#define _ACESTL_VER_MINOR      2
+#define _ACESTL_VER_REVISION   1
+#define _ACESTL_VER            _ACESTL_VER_1_2_1_B02
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #ifndef STLSOFT_INCL_ACE_H_LOG_MSG
 # define STLSOFT_INCL_ACE_H_LOG_MSG
@@ -138,12 +146,11 @@
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * STLSoft version compatibility
+ * STLSoft version compatibility check(s)
  */
 
-#if !defined(_STLSOFT_VER_1_9_1_B41) || \
-    _STLSOFT_VER < _STLSOFT_VER_1_9_1_B41
-# error This version of the ACESTL libraries requires STLSoft version 1.9.1 beta 41, or later
+#if _STLSOFT_VER < 0x010a019a
+# error This version of the ACESTL libraries requires STLSoft version 1.10.1 beta 26, or later
 #endif /* _STLSOFT_VER */
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -166,46 +173,46 @@
 # ifdef ACE_WIN32
 #  undef     ACE_INVALID_HANDLE
 #  if defined(STLSOFT_COMPILER_IS_INTEL)
-#   define    ACE_INVALID_HANDLE            stlsoft_ns_qual(union_cast)<HANDLE>(-1)
+#   define    ACE_INVALID_HANDLE                            STLSOFT_NS_QUAL(union_cast)<HANDLE>(-1)
 #  else /* ? compiler */
-#   define    ACE_INVALID_HANDLE            reinterpret_cast<HANDLE>(-1)
+#   define    ACE_INVALID_HANDLE                            reinterpret_cast<HANDLE>(-1)
 #  endif /* compiler */
 # endif /* ACE_WIN32 */
 #endif /* __cplusplus */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler compatibility
+ * compiler compatibility
  *
  * Currently the only compilers supported by the ACESTL libraries are
  *
  */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Contract Enforcement
+ * contract enforcement
  *
  * The macro acestl_assert provides standard debug-mode assert functionality.
  */
 
-/** \brief Defines a runtime assertion
+/** Defines a runtime assertion
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or an assertion will be fired
  */
 #define ACESTL_ASSERT(expr)                STLSOFT_ASSERT(expr)
 
-/** \brief Defines a runtime assertion, with message
+/** Defines a runtime assertion, with message
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or an assertion will be fired
  * \param msg The literal character string message to be included in the assertion
  */
 #define ACESTL_MESSAGE_ASSERT(msg, expr)   STLSOFT_MESSAGE_ASSERT(msg, expr)
 
-/** \brief Defines a compile-time assertion
+/** Defines a compile-time assertion
  *
- * \ingroup group__library__macros__assertion
+ * \ingroup group__library__ContractEnforcement
  *
  * \param expr Must be non-zero, or compilation will fail
  */
@@ -220,7 +227,7 @@
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The ACESTL components are contained within the acestl namespace. This is
  * usually an alias for stlsoft::acestl_project,
@@ -228,19 +235,19 @@
  * When compilers support namespaces they are defined by default. They can be
  * undefined using a cascasing system, as follows:
  *
- * If _STLSOFT_NO_NAMESPACES is defined, then _ACESTL_NO_NAMESPACES is defined.
+ * If STLSOFT_NO_NAMESPACES is defined, then ACESTL_NO_NAMESPACES is defined.
  *
- * If _ACESTL_NO_NAMESPACES is defined, then _ACESTL_NO_NAMESPACE is defined.
+ * If ACESTL_NO_NAMESPACES is defined, then ACESTL_NO_NAMESPACE is defined.
  *
- * If _ACESTL_NO_NAMESPACE is defined, then the ACESTL constructs are defined
+ * If ACESTL_NO_NAMESPACE is defined, then the ACESTL constructs are defined
  * in the global scope.
  *
- * If _STLSOFT_NO_NAMESPACES, _ACESTL_NO_NAMESPACES and _ACESTL_NO_NAMESPACE are
- * all undefined but the symbol _STLSOFT_NO_NAMESPACE is defined (whence the
+ * If STLSOFT_NO_NAMESPACES, ACESTL_NO_NAMESPACES and ACESTL_NO_NAMESPACE are
+ * all undefined but the symbol STLSOFT_NO_NAMESPACE is defined (whence the
  * namespace stlsoft does not exist), then the ACESTL constructs are defined
  * within the acestl namespace. The definition matrix is as follows:
  *
- * _STLSOFT_NO_NAMESPACE    _ACESTL_NO_NAMESPACE   acestl definition
+ * STLSOFT_NO_NAMESPACE     ACESTL_NO_NAMESPACE     acestl definition
  * ---------------------    --------------------    -----------------
  *  not defined              not defined             = stlsoft::acestl_project
  *  not defined              defined                 not defined
@@ -254,48 +261,94 @@
  * stlsoft::acestl_project (or acestl) namespace or in the global namespace.
  *
  * Furthermore, some compilers do not support the standard library in the std
- * namespace, so the acestl_ns_qual_std() macro can be used to refer to elements
- * in the ACESTL libraries irrespective of whether they are in the std namespace
+ * namespace, so the STLSOFT_NS_QUAL_STD() macro can be used to refer to elements
+ * in the standard library irrespective of whether they are in the std namespace
  * or in the global namespace.
  */
 
-/* No STLSoft namespaces means no ACESTL namespaces */
-#ifdef _STLSOFT_NO_NAMESPACES
-# define _ACESTL_NO_NAMESPACES
-#endif /* _STLSOFT_NO_NAMESPACES */
+/* /////////////////////////////////////
+ * obsolete preprocessor symbol detection
+ */
 
-/* No ACESTL namespaces means no acestl namespace */
 #ifdef _ACESTL_NO_NAMESPACES
-# define _ACESTL_NO_NAMESPACE
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _ACESTL_NO_NAMESPACES. This symbol is now deprecated, and may be ignored by a future release : instead define ACESTL_NO_NAMESPACES")
+# endif
+# if !defined(ACESTL_NO_NAMESPACES)
+#  define ACESTL_NO_NAMESPACES
+# endif /* !ACESTL_NO_NAMESPACES */
 #endif /* _ACESTL_NO_NAMESPACES */
 
-#ifndef _ACESTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifdef _ACESTL_NO_NAMESPACE
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _ACESTL_NO_NAMESPACE. This symbol is now deprecated, and may be ignored by a future release : instead define ACESTL_NO_NAMESPACE")
+# endif
+# if !defined(ACESTL_NO_NAMESPACE)
+#  define ACESTL_NO_NAMESPACE
+# endif /* !ACESTL_NO_NAMESPACE */
+#endif /* _ACESTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////
+ * namespace support discrimination
+ */
+
+/* No STLSoft namespaces means no ACESTL namespaces */
+#ifdef STLSOFT_NO_NAMESPACES
+# define ACESTL_NO_NAMESPACES
+#endif /* STLSOFT_NO_NAMESPACES */
+
+/* No ACESTL namespaces means no acestl namespace */
+#ifdef ACESTL_NO_NAMESPACES
+# define ACESTL_NO_NAMESPACE
+#endif /* ACESTL_NO_NAMESPACES */
+
+#ifdef ACESTL_NO_NAMESPACES
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_ACESTL_NO_NAMESPACES)
+#   define _ACESTL_NO_NAMESPACES
+#  endif /* !_ACESTL_NO_NAMESPACES */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* ACESTL_NO_NAMESPACES */
+
+#ifdef ACESTL_NO_NAMESPACE
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_ACESTL_NO_NAMESPACE)
+#   define _ACESTL_NO_NAMESPACE
+#  endif /* !_ACESTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* ACESTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////
+ * declaration '*stl*' namespace
+ */
+
+#ifndef ACESTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::acestl */
-/** \brief The <code class="namespace">acestl</code> namespace contains all components
+/** The \c acestl namespace contains all components
  *   in the \ref group__project__acestl "ACESTL" project.
  *
- * By default, the <code>acestl</code> namespace is actually an alias for
+ * By default, the \c acestl namespace is actually an alias for
  * the namespace <code>stlsoft::acestl_project</code>, which is where all
  * the \ref group__project__acestl "ACESTL" components actually reside. This
  * measure allows all components within the main the
  * \ref group__project__stlsoft "STLSoft" project (which are defined within
- * the <code>stlsoft</code> namespace) to be visible to all components
- * "within" the <code>acestl</code> namespace. (Otherwise, there would be a
+ * the \c stlsoft namespace) to be visible to all components
+ * "within" the \c acestl namespace. (Otherwise, there would be a
  * whole lot of onerous qualification throughout the code of all
  * \ref group__projects "sub-projects".)
  *
- * \note If either/both of the symbols <code>_STLSOFT_NO_NAMESPACES</code>
- * and <code>_ACESTL_NO_NAMESPACE</code> are defined, all
+ * \note If either/both of the symbols \c STLSOFT_NO_NAMESPACES
+ * and \c ACESTL_NO_NAMESPACE are defined, all
  * \ref group__project__acestl "ACESTL" components will be defined in the
- * global namespace. Conversely, if the <code>_STLSOFT_NO_NAMESPACE</code>
+ * global namespace. Conversely, if the \c STLSOFT_NO_NAMESPACE
  * symbol (not to be confused with the
- * <code>_STLSOFT_NO_NAMESPACES</code> symbol!) is defined - meaning that
+ * \c STLSOFT_NO_NAMESPACES symbol!) is defined - meaning that
  * all \ref group__project__stlsoft "main project" components are to be
- * defined in the global namespace, and <code>_ACESTL_NO_NAMESPACE</code>
+ * defined in the global namespace, and \c ACESTL_NO_NAMESPACE
  * is <b>not</b> defined, then all \ref group__project__acestl "ACESTL"
- * components will be defined within a bona fide <code>acestl</code>
+ * components will be defined within a bona fide \c acestl
  * namespace.
  *
  * \note This is a vestige of compatibility with compilers with
@@ -307,52 +360,43 @@ namespace acestl
 {
 # else
 /* Define stlsoft::acestl_project */
-
 namespace stlsoft
 {
-
 namespace acestl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
 #else
-stlsoft_ns_using(move_lhs_from_rhs)
-#endif /* !_ACESTL_NO_NAMESPACE */
+STLSOFT_NS_USING(move_lhs_from_rhs)
+#endif /* !ACESTL_NO_NAMESPACE */
 
-/** \def acestl_ns_qual(x)
+/** \def ACESTL_NS_QUAL(x)
  * Qualifies with <b>acestl::</b> if ACESTL is using namespaces or, if not, does not qualify
  */
 
-/** \def acestl_ns_using(x)
+/** \def ACESTL_NS_USING(x)
  * Declares a using directive (with respect to <b>acestl</b>) if ACESTL is using namespaces or, if not, does nothing
  */
 
-#ifndef _ACESTL_NO_NAMESPACE
-# define acestl_ns_qual(x)             ::acestl::x
-# define acestl_ns_using(x)            using ::acestl::x;
-#else /* ? _ACESTL_NO_NAMESPACE */
-# define acestl_ns_qual(x)             x
-# define acestl_ns_using(x)
-#endif /* !_ACESTL_NO_NAMESPACE */
+#ifndef ACESTL_NO_NAMESPACE
+# define ACESTL_NS_QUAL(x)             ::acestl::x
+# define ACESTL_NS_USING(x)            using ::acestl::x;
+#else /* ? ACESTL_NO_NAMESPACE */
+# define ACESTL_NS_QUAL(x)             x
+# define ACESTL_NS_USING(x)
+#endif /* !ACESTL_NO_NAMESPACE */
 
-/** \def acestl_ns_qual_std(x)
- * Qualifies with <b>std::</b> if ACESTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does not qualify
- */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define acestl_ns_qual(x)                                  ACESTL_NS_QUAL(x)
+# define acestl_ns_using(x)                                 ACESTL_NS_USING(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
-/** \def acestl_ns_using_std(x)
- * Declares a using directive (with respect to <b>std</b>) if ACESTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does nothing
- */
-
-#ifdef STLSOFT_CF_std_NAMESPACE
-# define acestl_ns_qual_std(x)         ::std::x
-# define acestl_ns_using_std(x)        using ::std::x;
-#else /* ? STLSOFT_CF_std_NAMESPACE */
-# define acestl_ns_qual_std(x)         x
-# define acestl_ns_using_std(x)
-#endif /* !STLSOFT_CF_std_NAMESPACE */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define acestl_ns_qual_std(x)                              STLSOFT_NS_QUAL_STD(x)
+# define acestl_ns_using_std(x)                             STLSOFT_NS_USING_STD(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Typedefs
+ * typedefs
  *
  * The ACESTL uses a number of typedefs to aid in compiler-independence in the
  * libraries' main code.
@@ -360,34 +404,34 @@ stlsoft_ns_using(move_lhs_from_rhs)
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-typedef stlsoft_ns_qual(ss_char_a_t)        as_char_a_t;    //!< Ansi char type
-typedef stlsoft_ns_qual(ss_char_w_t)        as_char_w_t;    //!< Unicode char type
-typedef stlsoft_ns_qual(ss_sint8_t)         as_sint8_t;     //!< 8-bit signed integer
-typedef stlsoft_ns_qual(ss_uint8_t)         as_uint8_t;     //!< 8-bit unsigned integer
-typedef stlsoft_ns_qual(ss_int16_t)         as_int16_t;     //!< 16-bit integer
-typedef stlsoft_ns_qual(ss_sint16_t)        as_sint16_t;    //!< 16-bit signed integer
-typedef stlsoft_ns_qual(ss_uint16_t)        as_uint16_t;    //!< 16-bit unsigned integer
-typedef stlsoft_ns_qual(ss_int32_t)         as_int32_t;     //!< 32-bit integer
-typedef stlsoft_ns_qual(ss_sint32_t)        as_sint32_t;    //!< 32-bit signed integer
-typedef stlsoft_ns_qual(ss_uint32_t)        as_uint32_t;    //!< 32-bit unsigned integer
+typedef STLSOFT_NS_QUAL(ss_char_a_t)        as_char_a_t;    //!< Ansi char type
+typedef STLSOFT_NS_QUAL(ss_char_w_t)        as_char_w_t;    //!< Unicode char type
+typedef STLSOFT_NS_QUAL(ss_sint8_t)         as_sint8_t;     //!< 8-bit signed integer
+typedef STLSOFT_NS_QUAL(ss_uint8_t)         as_uint8_t;     //!< 8-bit unsigned integer
+typedef STLSOFT_NS_QUAL(ss_int16_t)         as_int16_t;     //!< 16-bit integer
+typedef STLSOFT_NS_QUAL(ss_sint16_t)        as_sint16_t;    //!< 16-bit signed integer
+typedef STLSOFT_NS_QUAL(ss_uint16_t)        as_uint16_t;    //!< 16-bit unsigned integer
+typedef STLSOFT_NS_QUAL(ss_int32_t)         as_int32_t;     //!< 32-bit integer
+typedef STLSOFT_NS_QUAL(ss_sint32_t)        as_sint32_t;    //!< 32-bit signed integer
+typedef STLSOFT_NS_QUAL(ss_uint32_t)        as_uint32_t;    //!< 32-bit unsigned integer
 #ifdef STLSOFT_CF_64BIT_INT_SUPPORT
-typedef stlsoft_ns_qual(ss_int64_t)         as_int64_t;     //!< 64-bit integer
-typedef stlsoft_ns_qual(ss_sint64_t)        as_sint64_t;    //!< 64-bit signed integer
-typedef stlsoft_ns_qual(ss_uint64_t)        as_uint64_t;    //!< 64-bit unsigned integer
+typedef STLSOFT_NS_QUAL(ss_int64_t)         as_int64_t;     //!< 64-bit integer
+typedef STLSOFT_NS_QUAL(ss_sint64_t)        as_sint64_t;    //!< 64-bit signed integer
+typedef STLSOFT_NS_QUAL(ss_uint64_t)        as_uint64_t;    //!< 64-bit unsigned integer
 #endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
-typedef stlsoft_ns_qual(ss_int_t)           as_int_t;       //!< integer
-typedef stlsoft_ns_qual(ss_sint_t)          as_sint_t;      //!< signed integer
-typedef stlsoft_ns_qual(ss_uint_t)          as_uint_t;      //!< unsigned integer
-typedef stlsoft_ns_qual(ss_long_t)          as_long_t;      //!< long
-typedef stlsoft_ns_qual(ss_bool_t)          as_bool_t;      //!< bool
-typedef stlsoft_ns_qual(ss_size_t)          as_size_t;      //!< size
-typedef stlsoft_ns_qual(ss_ptrdiff_t)       as_ptrdiff_t;   //!< ptr diff
-typedef stlsoft_ns_qual(ss_streampos_t)     as_streampos_t; //!< streampos
-typedef stlsoft_ns_qual(ss_streamoff_t)     as_streamoff_t; //!< streamoff
+typedef STLSOFT_NS_QUAL(ss_int_t)           as_int_t;       //!< integer
+typedef STLSOFT_NS_QUAL(ss_sint_t)          as_sint_t;      //!< signed integer
+typedef STLSOFT_NS_QUAL(ss_uint_t)          as_uint_t;      //!< unsigned integer
+typedef STLSOFT_NS_QUAL(ss_long_t)          as_long_t;      //!< long
+typedef STLSOFT_NS_QUAL(ss_bool_t)          as_bool_t;      //!< bool
+typedef STLSOFT_NS_QUAL(ss_size_t)          as_size_t;      //!< size
+typedef STLSOFT_NS_QUAL(ss_ptrdiff_t)       as_ptrdiff_t;   //!< ptr diff
+typedef STLSOFT_NS_QUAL(ss_streampos_t)     as_streampos_t; //!< streampos
+typedef STLSOFT_NS_QUAL(ss_streamoff_t)     as_streamoff_t; //!< streamoff
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-#ifndef _ACESTL_NO_NAMESPACE
+#ifndef ACESTL_NO_NAMESPACE
 typedef as_char_a_t         char_a_t;           //!< Ansi char type
 typedef as_char_w_t         char_w_t;           //!< Unicode char type
 //typedef as_int8_t           int8_t;             //!< 8-bit integer
@@ -415,10 +459,10 @@ typedef as_bool_t           bool_t;             //!< bool
 typedef as_streampos_t      streampos_t;        //!< streampos
 typedef as_streamoff_t      streamoff_t;        //!< streamoff
 # endif /* compiler */
-#endif /* !_ACESTL_NO_NAMESPACE */
+#endif /* !ACESTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Values
+ * values
  *
  * Since the boolean type may not be supported natively on all compilers, the
  * values of true and false may also not be provided. Hence the values of
@@ -427,12 +471,12 @@ typedef as_streamoff_t      streamoff_t;        //!< streamoff
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-#define as_true_v       ss_true_v
-#define as_false_v      ss_false_v
+#define as_true_v                                           ss_true_v
+#define as_false_v                                          ss_false_v
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 /* /////////////////////////////////////////////////////////////////////////
- * Code modification macros
+ * code modification macros
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -453,13 +497,13 @@ typedef as_streamoff_t      streamoff_t;        //!< streamoff
 # define acestl_num_elements(ar)                        ACESTL_NUM_ELEMENTS(ar)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
+/** [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_DESTROY_INSTANCE().
  */
 #define acestl_destroy_instance(t, type, p)            STLSOFT_DESTROY_INSTANCE(t, type, p)
 
-/** \brief [DEPRECATED] Generates an opaque type with the name \c _htype
+/** [DEPRECATED] Generates an opaque type with the name \c _htype
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_GEN_OPAQUE().
  */
@@ -467,19 +511,19 @@ typedef as_streamoff_t      streamoff_t;        //!< streamoff
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _ACESTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef ACESTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace acestl
+} /* namespace acestl */
 # else
-} // namespace acestl_project
-} // namespace stlsoft
+} /* namespace acestl_project */
+} /* namespace stlsoft */
 namespace acestl = ::stlsoft::acestl_project;
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_ACESTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !ACESTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Inclusion
+ * inclusion control
  */
 
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT

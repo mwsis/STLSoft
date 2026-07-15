@@ -4,46 +4,48 @@
  * Purpose:     Options verification.
  *
  * Created:     9th November 2004
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/util/options_verifier.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::options_verifier class
+ * \brief [C++] Definition of the stlsoft::options_verifier class
  *   template
- *   (\ref group__library__utility "Utility" Library).
+ *   (\ref group__library__Utility "Utility" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_HPP_OPTIONS_VERIFIER
@@ -52,18 +54,12 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_UTIL_HPP_OPTIONS_VERIFIER_MAJOR     2
 # define STLSOFT_VER_STLSOFT_UTIL_HPP_OPTIONS_VERIFIER_MINOR     0
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_OPTIONS_VERIFIER_REVISION  4
-# define STLSOFT_VER_STLSOFT_UTIL_HPP_OPTIONS_VERIFIER_EDIT      44
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_OPTIONS_VERIFIER_REVISION  9
+# define STLSOFT_VER_STLSOFT_UTIL_HPP_OPTIONS_VERIFIER_EDIT      58
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_MSVC:  _MSC_VER==1300
-[Incompatibilies-end]
+ * compatibility
  */
 
 #if defined(STLSOFT_COMPILER_IS_MWERKS) || \
@@ -73,12 +69,16 @@ STLSOFT_COMPILER_IS_MSVC:  _MSC_VER==1300
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #if defined(STLSOFT_COMPILER_IS_MSVC) && \
     _MSC_VER == 1300
 # pragma warning("Inclusion of this header can lead to ambiguities with the sequence operator (comma) with Visual C++ 7.0")
@@ -96,33 +96,29 @@ STLSOFT_COMPILER_IS_MSVC:  _MSC_VER==1300
 # include <stdexcept>                    // for std::runtime_error
 #endif /* !STLSOFT_INCL_STDEXCEPT */
 
-#ifdef STLSOFT_UNITTEST
-# include <string>
-#endif /* STLSOFT_UNITTEST */
-
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
-/** \brief Exception thrown by the options_verifier class template
+/** Exception thrown by the options_verifier class template
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  */
 class option_verification_exception
-    : public stlsoft_ns_qual_std(runtime_error)
+    : public STLSOFT_NS_QUAL_STD(runtime_error)
 {
 public:
-    typedef stlsoft_ns_qual_std(runtime_error)  parent_class_type;
+    typedef STLSOFT_NS_QUAL_STD(runtime_error)  parent_class_type;
     typedef option_verification_exception       class_type;
 
 public:
@@ -132,7 +128,7 @@ public:
 #ifdef STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT
     template <ss_typename_param_k S>
     option_verification_exception(S const& message)
-        : parent_class_type(stlsoft_ns_qual(c_str_ptr)(message))
+        : parent_class_type(STLSOFT_NS_QUAL(c_str_ptr)(message))
     {}
 #endif /* STLSOFT_CF_MEMBER_TEMPLATE_CTOR_SUPPORT */
     /// Copy constructor
@@ -153,9 +149,9 @@ public:
     }
 };
 
-/** \brief Exception policy for options verification
+/** Exception policy for options verification
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  */
 // [[synesis:class:exception-policy: option_verification_policy]]
@@ -178,9 +174,9 @@ namespace options_verifier_internal_ns
 #endif /* STLSOFT_OPTIONS_VERIFIER_REQUIRES_SEPARATE_NS */
 
 
-/** \brief Verifies that a given variable is equal to one of a set of options
+/** Verifies that a given variable is equal to one of a set of options
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  */
 template<   ss_typename_param_k T
@@ -243,7 +239,7 @@ public:
     /// not a value.
     ~options_verifier()
     {
-        if( !m_bMatched &&
+        if (!m_bMatched &&
 # if defined(STLSOFT_COMPILER_IS_MWERKS)
             1)
 # else /* ? compiler */
@@ -260,7 +256,7 @@ public:
     template <ss_typename_param_k U>
     class_type& test(U const& u)
     {
-        if( !m_bMatched &&
+        if (!m_bMatched &&
             m_value == u)
         {
             m_bMatched = true;
@@ -279,7 +275,7 @@ private:
 };
 
 #ifdef STLSOFT_OPTIONS_VERIFIER_REQUIRES_SEPARATE_NS
-} // namespace options_verifier_internal_ns
+} /* namespace options_verifier_internal_ns */
 
 using options_verifier_internal_ns::options_verifier;
 #endif /* STLSOFT_OPTIONS_VERIFIER_REQUIRES_SEPARATE_NS */
@@ -314,9 +310,9 @@ inline options_verifier<T, XP>& operator ,(options_verifier<T, XP> &ov, U const&
 }
 
 #if 1
-/** \brief Acts as a temporary reference to the options_verifier
+/** Acts as a temporary reference to the options_verifier
  *
- * \ingroup group__library__utility
+ * \ingroup group__library__Utility
  *
  */
 template<   ss_typename_param_k T
@@ -372,23 +368,22 @@ inline options_verifier_comparison_ref<T, U1>& operator ||(options_verifier_comp
 #endif /* 0 */
 
 #ifdef STLSOFT_OPTIONS_VERIFIER_REQUIRES_SEPARATE_NS
-} // namespace options_verifier_internal_ns
+} /* namespace options_verifier_internal_ns */
 #endif /* STLSOFT_OPTIONS_VERIFIER_REQUIRES_SEPARATE_NS */
 
-////////////////////////////////////////////////////////////////////////////
-// Unit-testing
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/options_verifier_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_OPTIONS_VERIFIER */
 

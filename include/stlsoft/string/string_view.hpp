@@ -4,7 +4,7 @@
  * Purpose:     basic_string_view class.
  *
  * Created:     16th October 2004
- * Updated:     15th December 2023
+ * Updated:     30th January 2024
  *
  * Thanks to:   Bjorn Karlsson and Scott Patterson for discussions on various
  *              naming and design issues. Thanks also to Pablo Aguilar for
@@ -12,42 +12,44 @@
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2004-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file stlsoft/string/string_view.hpp
  *
- * \brief [C++ only] Definition of the stlsoft::basic_string_view class
+ * \brief [C++] Definition of the stlsoft::basic_string_view class
  *  template
- *   (\ref group__library__string "String" Library).
+ *   (\ref group__library__String "String" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_STRING_HPP_STRING_VIEW
@@ -55,33 +57,33 @@
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_STRING_HPP_STRING_VIEW_MAJOR       3
-# define STLSOFT_VER_STLSOFT_STRING_HPP_STRING_VIEW_MINOR       3
-# define STLSOFT_VER_STLSOFT_STRING_HPP_STRING_VIEW_REVISION    5
-# define STLSOFT_VER_STLSOFT_STRING_HPP_STRING_VIEW_EDIT        97
+# define STLSOFT_VER_STLSOFT_STRING_HPP_STRING_VIEW_MINOR       6
+# define STLSOFT_VER_STLSOFT_STRING_HPP_STRING_VIEW_REVISION    1
+# define STLSOFT_VER_STLSOFT_STRING_HPP_STRING_VIEW_EDIT        114
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_MWERKS: __MWERKS__<0x3000
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #if defined(STLSOFT_COMPILER_IS_MWERKS) && \
     ((__MWERKS__ & 0xff00) < 0x3000)
 # error stlsoft/string/string_view.hpp not compatible with Metrowerks 7.x (v2.4)
 #endif /* compiler */
+
+#ifndef STLSOFT_INCL_STLSOFT_COLLECTIONS_UTIL_HPP_COLLECTIONS
+# include <stlsoft/collections/util/collections.hpp>
+#endif /* !STLSOFT_INCL_STLSOFT_COLLECTIONS_UTIL_HPP_COLLECTIONS */
+#ifndef STLSOFT_INCL_STLSOFT_MEMORY_UTIL_HPP_ALLOCATOR_SELECTOR
+# include <stlsoft/memory/util/allocator_selector.hpp>
+#endif /* !STLSOFT_INCL_STLSOFT_MEMORY_UTIL_HPP_ALLOCATOR_SELECTOR */
 #ifndef STLSOFT_INCL_STLSOFT_STRING_HPP_CHAR_TRAITS
 # include <stlsoft/string/char_traits.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_CHAR_TRAITS */
@@ -91,36 +93,37 @@ STLSOFT_COMPILER_IS_WATCOM:
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER
 # include <stlsoft/util/std/iterator_helper.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER */
-#ifndef STLSOFT_INCL_STLSOFT_COLLECTIONS_UTIL_HPP_COLLECTIONS
-# include <stlsoft/collections/util/collections.hpp>
-#endif /* !STLSOFT_INCL_STLSOFT_COLLECTIONS_UTIL_HPP_COLLECTIONS */
-#ifndef STLSOFT_INCL_STLSOFT_MEMORY_HPP_ALLOCATOR_SELECTOR
-# include <stlsoft/memory/allocator_selector.hpp>
-#endif /* !STLSOFT_INCL_STLSOFT_MEMORY_HPP_ALLOCATOR_SELECTOR */
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_HPP_STD_SWAP
 # include <stlsoft/util/std_swap.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_HPP_STD_SWAP */
+#ifndef STLSOFT_INCL_STLSOFT_UTIL_STREAMS_HPP_STRING_INSERTION
+# include <stlsoft/util/streams/string_insertion.hpp>
+#endif /* !STLSOFT_INCL_STLSOFT_UTIL_STREAMS_HPP_STRING_INSERTION */
+
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-# include <stdexcept>                   // for std::out_of_range
+# ifndef STLSOFT_INCL_STDEXCEPT
+#  define STLSOFT_INCL_STDEXCEPT
+#  include <stdexcept>                  // for std::out_of_range
+# endif /* !STLSOFT_INCL_STDEXCEPT */
 #endif /* !STLSOFT_CF_EXCEPTION_SUPPORT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 // class basic_string_view
-/** \brief A string class that holds no internal storage, and merely represents a window into other string storage
+/** A string class that holds no internal storage, and merely represents a window into other string storage
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  *
  * \param C The character type
  * \param T The traits type. On translators that support default template arguments this is defaulted
@@ -153,7 +156,7 @@ public:
     typedef T                               traits_type;
     /// The allocator type
     typedef A                               allocator_type;
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef basic_string_view<C, T, A>      class_type;
     /// The character type
     typedef value_type                      char_type;
@@ -252,7 +255,7 @@ public:
     /// Empties the string
     void clear() STLSOFT_NOEXCEPT;
 
-    /// \brief Clear c_str() representation
+    /// Clear c_str() representation
     ///
     /// Causes the c_str() representation, if currently allocated (see c_str() for details),
     /// to be destroyed, in order that the next call to c_str() will result in a fresh
@@ -319,6 +322,11 @@ public:
     ///
     /// \note Throws std::out_of_range if index >= size()
     const_reference         at(size_type index) const;
+
+    /// Returns a string of maximum length cch, from the position pos
+    class_type              substr(size_type pos, size_type cch) const;
+    class_type              substr(size_type pos) const;
+    class_type              substr() const;
 #endif /* !STLSOFT_CF_EXCEPTION_SUPPORT */
 
     /// Returns null-terminated non-mutable (const) pointer to string data
@@ -327,7 +335,7 @@ public:
     /// string changes after this point, this will not be reflected in the value returned
     /// by c_str(), until such time as refresh() is called.
     ///
-    /// \note If the view's parameterisation is with a no-throw allocator, behaviour
+    /// \note If the view's specialisation is with a no-throw allocator, behaviour
     /// is undefined in con
     value_type const*       c_str() const;
 #if 0
@@ -412,11 +420,6 @@ public:
 
 /// \name Invariant
 /// @{
-#ifdef STLSOFT_UNITTEST
-public:
-#else
-private:
-#endif /* STLSOFT_UNITTEST */
     ss_bool_t is_valid() const;
 
 /// \name Implementation
@@ -433,19 +436,26 @@ private:
 
     // Closes the m_cstr member and sets to NULL
     void close_set_null_() STLSOFT_NOEXCEPT;
+
+    const_iterator          begin_() const;
+    const_iterator          end_() const;
+#if 0
+    iterator                begin_();
+    iterator                end_();
+#endif /* 0 */
 /// @}
 
 /// \name Members
 /// @{
 private:
-    size_type       m_length;   // The number of elements in the view
-    char_type const* m_base;    // Pointer to the first element in the view, or NULL for a null view
-    char_type       *m_cstr;    // Pointer to a nul-terminated copy of the view, at the time of the c_str() call. Will be NULL before c_str() is called
+    size_type           m_length;  // The number of elements in the view
+    char_type const*    m_base;    // Pointer to the first element in the view, or NULL for a null view
+    char_type*          m_cstr;    // Pointer to a nul-terminated copy of the view, at the time of the c_str() call. Will be NULL before c_str() is called
 /// @}
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Typedefs
+ * typedefs
  */
 
 #ifdef STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT
@@ -463,7 +473,7 @@ typedef basic_string_view<ss_char_w_t
 #endif /* STLSOFT_CF_TEMPLATE_CLASS_DEFAULT_CLASS_ARGUMENT_SUPPORT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Traits
+ * traits
  */
 
 /** Specialisation for stlsoft::basic_string_view<>
@@ -606,7 +616,7 @@ struct string_traits<wstring_view>
 # endif /* STLSOFT_CF_TEMPLATE_PARTIAL_SPECIALISATION_SUPPORT */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Operators
+ * operators
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -847,32 +857,34 @@ inline ss_bool_t operator >=(C const* lhs, basic_string_view<C, T, A> const& rhs
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
+
 /* /////////////////////////////////////////////////////////////////////////
- * IOStream compatibility
+ * stream insertion
  */
 
-template<   ss_typename_param_k S
-        ,   ss_typename_param_k C
-        ,   ss_typename_param_k T
-        ,   ss_typename_param_k A
-        >
-inline S& operator <<(S& s, basic_string_view<C, T, A> const& str)
+template <
+    ss_typename_param_k T_stream
+,   ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline
+T_stream&
+operator <<(
+    T_stream&                           stm
+,   basic_string_view<C, T, A> const&   s
+)
 {
-    s.write(str.data(), static_cast<ss_streamoff_t>(str.length()));
+    STLSOFT_NS_USING(util::string_insert);
 
-    return s;
+    string_insert(stm, s.data(), s.size());
+
+    return stm;
 }
 
-/* /////////////////////////////////////////////////////////////////////////
- * Unit-testing
- */
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/string_view_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Implementation
+ * implementation
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -907,7 +919,7 @@ inline /* static */ ss_sint_t basic_string_view<C, T, A>::compare_( ss_typename_
     size_type   cmp_len =   (lhs_len < rhs_len) ? lhs_len : rhs_len;
     ss_int_t    result  =   traits_type::compare(lhs, rhs, cmp_len);
 
-    if(0 == result)
+    if (0 == result)
     {
         result = static_cast<ss_int_t>(lhs_len) - static_cast<ss_int_t>(rhs_len);
     }
@@ -923,7 +935,7 @@ inline /* static */ void basic_string_view<C, T, A>::close_() STLSOFT_NOEXCEPT
 {
     STLSOFT_ASSERT(NULL != m_cstr);
 
-    allocator_type  &ator   =   *this;
+    allocator_type& ator = *this;
 
     ator.deallocate(m_cstr, 1 + m_length);
 
@@ -938,7 +950,7 @@ template<   ss_typename_param_k C
         >
 inline /* static */ void basic_string_view<C, T, A>::close_set_null_() STLSOFT_NOEXCEPT
 {
-    if(NULL != m_cstr)
+    if (NULL != m_cstr)
     {
         close_();
 
@@ -946,9 +958,27 @@ inline /* static */ void basic_string_view<C, T, A>::close_set_null_() STLSOFT_N
     }
 }
 
-/** \brief Invariant
+template<   ss_typename_param_k C
+        ,   ss_typename_param_k T
+        ,   ss_typename_param_k A
+        >
+inline ss_typename_type_ret_k basic_string_view<C, T, A>::const_iterator basic_string_view<C, T, A>::begin_() const
+{
+    return m_base;
+}
+
+template<   ss_typename_param_k C
+        ,   ss_typename_param_k T
+        ,   ss_typename_param_k A
+        >
+inline ss_typename_type_ret_k basic_string_view<C, T, A>::const_iterator basic_string_view<C, T, A>::end_() const
+{
+    return begin_() + m_length;
+}
+
+/** Invariant
  *
- * \ingroup group__library__string
+ * \ingroup group__library__String
  */
 template<   ss_typename_param_k C
         ,   ss_typename_param_k T
@@ -958,13 +988,13 @@ inline ss_bool_t basic_string_view<C, T, A>::is_valid() const
 {
     // NOTE: Must not call any methods or ctors in this function!!
 
-    if( 0 == m_length &&
+    if (0 == m_length &&
         NULL != m_cstr)
     {
         return false; // If the slice is empty, there should be no m_cstr
     }
 
-    if( 0 != m_length &&
+    if (0 != m_length &&
         NULL == m_base)
     {
         return false; // If the slice is non-empty, m_base should not be NULL
@@ -1076,7 +1106,7 @@ inline basic_string_view<C, T, A>::~basic_string_view() STLSOFT_NOEXCEPT
 {
     STLSOFT_ASSERT(is_valid());
 
-    if(NULL != m_cstr)
+    if (NULL != m_cstr)
     {
         close_();
     }
@@ -1239,14 +1269,14 @@ template<   ss_typename_param_k C
         >
 inline ss_sint_t basic_string_view<C, T, A>::compare(   ss_typename_type_k basic_string_view<C, T, A>::size_type          pos
                                                     ,   ss_typename_type_k basic_string_view<C, T, A>::size_type          cch
-                                                    ,   ss_typename_type_k basic_string_view<C, T, A>::value_type const   *rhs
+                                                    ,   ss_typename_type_k basic_string_view<C, T, A>::value_type const*  rhs
                                                     ,   ss_typename_type_k basic_string_view<C, T, A>::size_type          cchRhs) const STLSOFT_NOEXCEPT
 {
     STLSOFT_ASSERT(is_valid());
 
     size_type   lhs_len =   length();
 
-    if(!(pos < lhs_len))
+    if (!(pos < lhs_len))
     {
         pos = lhs_len;
     }
@@ -1255,14 +1285,14 @@ inline ss_sint_t basic_string_view<C, T, A>::compare(   ss_typename_type_k basic
         lhs_len -= pos;
     }
 
-    if(cch < lhs_len)
+    if (cch < lhs_len)
     {
         lhs_len = cch;
     }
 
     size_type   rhs_len =   (NULL == rhs) ? 0 : traits_type::length(rhs);
 
-    if(cchRhs < rhs_len)
+    if (cchRhs < rhs_len)
     {
         rhs_len = cchRhs;
     }
@@ -1284,7 +1314,7 @@ inline ss_sint_t basic_string_view<C, T, A>::compare(   ss_typename_type_k basic
 
     size_type   lhs_len =   length();
 
-    if(!(pos < lhs_len))
+    if (!(pos < lhs_len))
     {
         pos = lhs_len;
     }
@@ -1293,7 +1323,7 @@ inline ss_sint_t basic_string_view<C, T, A>::compare(   ss_typename_type_k basic
         lhs_len -= pos;
     }
 
-    if(cch < lhs_len)
+    if (cch < lhs_len)
     {
         lhs_len = cch;
     }
@@ -1335,32 +1365,32 @@ inline ss_sint_t basic_string_view<C, T, A>::compare(   ss_typename_type_k basic
 
     size_type lhs_len = length();
 
-    if(pos == lhs_len)
+    if (pos == lhs_len)
     {
         lhs_len = 0u;
     }
-    else if(pos + cch > lhs_len)
+    else if (pos + cch > lhs_len)
     {
         lhs_len -= pos;
     }
 
-    if(cch < lhs_len)
+    if (cch < lhs_len)
     {
         lhs_len = cch;
     }
 
     size_type rhs_len = rhs.length();
 
-    if(posRhs == rhs_len)
+    if (posRhs == rhs_len)
     {
         rhs_len = 0u;
     }
-    else if(posRhs + cchRhs > rhs_len)
+    else if (posRhs + cchRhs > rhs_len)
     {
         rhs_len -= posRhs;
     }
 
-    if(cchRhs < rhs_len)
+    if (cchRhs < rhs_len)
     {
         rhs_len = cchRhs;
     }
@@ -1380,23 +1410,23 @@ inline ss_sint_t basic_string_view<C, T, A>::compare(   ss_typename_type_k basic
 {
     STLSOFT_ASSERT(is_valid());
 
-    size_type   lhs_len =   length();
+    size_type lhs_len = length();
 
-    if(!(pos < lhs_len))
+    if (pos == lhs_len)
     {
-        pos = lhs_len;
+        lhs_len = 0u;
     }
-    else
+    else if (pos + cch > lhs_len)
     {
         lhs_len -= pos;
     }
 
-    if(cch < lhs_len)
+    if (cch < lhs_len)
     {
         lhs_len = cch;
     }
 
-    size_type   rhs_len =   rhs.length();
+    size_type rhs_len = rhs.length();
 
     STLSOFT_ASSERT(is_valid());
 
@@ -1456,7 +1486,7 @@ inline ss_typename_type_ret_k basic_string_view<C, T, A>::const_reference basic_
 {
     STLSOFT_ASSERT(is_valid());
 
-    if(!(index < size()))
+    if (!(index < size()))
     {
         STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("index out of range"));
     }
@@ -1464,6 +1494,67 @@ inline ss_typename_type_ret_k basic_string_view<C, T, A>::const_reference basic_
     STLSOFT_ASSERT(is_valid());
 
     return m_base[index];
+}
+
+template<
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline ss_typename_type_ret_k basic_string_view<C, T, A>::class_type
+  basic_string_view<C, T, A>::substr(
+    ss_typename_type_k basic_string_view<C, T, A>::size_type pos
+,   ss_typename_type_k basic_string_view<C, T, A>::size_type cch
+) const
+{
+    STLSOFT_ASSERT(is_valid());
+
+    if (pos > size())
+    {
+        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("index out of range"));
+    }
+
+    STLSOFT_ASSERT(is_valid());
+
+    if (cch > (this->length() - pos))
+    {
+        cch = this->length() - pos;
+    }
+
+    return class_type(this->data() + pos, cch);
+}
+
+template<
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline ss_typename_type_ret_k basic_string_view<C, T, A>::class_type
+  basic_string_view<C, T, A>::substr(
+    ss_typename_type_k basic_string_view<C, T, A>::size_type pos
+) const
+{
+    STLSOFT_ASSERT(is_valid());
+
+    if (pos > size())
+    {
+        STLSOFT_THROW_X(stlsoft_ns_qual_std(out_of_range)("index out of range"));
+    }
+
+    STLSOFT_ASSERT(is_valid());
+
+    return class_type(this->data() + pos, this->length() - pos);
+}
+
+template<
+    ss_typename_param_k C
+,   ss_typename_param_k T
+,   ss_typename_param_k A
+>
+inline ss_typename_type_ret_k basic_string_view<C, T, A>::class_type
+  basic_string_view<C, T, A>::substr() const
+{
+    return *this;
 }
 #endif /* !STLSOFT_CF_EXCEPTION_SUPPORT */
 
@@ -1475,33 +1566,37 @@ inline ss_typename_type_ret_k basic_string_view<C, T, A>::value_type const* basi
 {
     STLSOFT_ASSERT(is_valid());
 
-    if(NULL != m_cstr)
+    if (NULL != m_cstr)
     {
         // Already allocated, so return; if underlying
         return m_cstr;
     }
     else
     {
-        if(0 == m_length)
+        if (0 == m_length)
         {
             return empty_string_();
         }
         else
         {
             // Must allocate the m_cstr member
-            allocator_type& ator    =   const_cast<class_type&>(*this);
-            char_type*      s       =   ator.allocate(1 + length(), NULL);
+            allocator_type& ator   =   const_cast<class_type&>(*this);
+#ifdef STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT
+            char_type*      s      =   ator.allocate(1 + length(), NULL);
+#else /* ? STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT */
+            char_type*      s      =   ator.allocate(1 + length());
+#endif /* STLSOFT_LF_ALLOCATOR_ALLOCATE_HAS_HINT */
 
             STLSOFT_SUPPRESS_UNUSED(ator);  // Need this for silly old Borland
 
-            // Because the class might be parameterised with a no-throw allocator,
+            // Because the class might be specialised with a no-throw allocator,
             // we'll check the result. This is really hokey, of course, since we're
             // returning a NULL string in the circumstances where memory has
             // failed to allocate. In such cases we can only hope that the memory
             // exhaustion is non-local and that the callee is going to suffer and die
             // anyway, irrespective of the fact that we've returned an invalid value
             // to it.
-            if(NULL != s)
+            if (NULL != s)
             {
                 traits_type::copy(s, m_base, m_length);
                 s[m_length] = '\0';
@@ -1523,7 +1618,7 @@ template<   ss_typename_param_k C
         >
 inline ss_typename_type_ret_k basic_string_view<C, T, A>::value_type const* basic_string_view<C, T, A>::c_str(ss_bool_t bRefresh) const
 {
-    if(bRefresh)
+    if (bRefresh)
     {
         const_cast<class_type*>(this)->refresh();
     }
@@ -1604,17 +1699,17 @@ template<   ss_typename_param_k C
         ,   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline ss_typename_type_ret_k basic_string_view<C, T, A>::size_type basic_string_view<C, T, A>::copy(   ss_typename_type_k basic_string_view<C, T, A>::value_type     *dest
-                                                                                                ,   ss_typename_type_k basic_string_view<C, T, A>::size_type      cch
-                                                                                                ,   ss_typename_type_k basic_string_view<C, T, A>::size_type      pos /* = 0 */) const
+inline ss_typename_type_ret_k basic_string_view<C, T, A>::size_type basic_string_view<C, T, A>::copy(   ss_typename_type_k basic_string_view<C, T, A>::value_type*  dest
+                                                                                                ,   ss_typename_type_k basic_string_view<C, T, A>::size_type        cch
+                                                                                                ,   ss_typename_type_k basic_string_view<C, T, A>::size_type        pos /* = 0 */) const
 {
     STLSOFT_ASSERT(is_valid());
 
     size_type   len =   length();
 
-    if(pos < len)
+    if (pos < len)
     {
-        if(len < pos + cch)
+        if (len < pos + cch)
         {
             cch = len - pos;
         }
@@ -1642,7 +1737,7 @@ inline ss_typename_type_ret_k basic_string_view<C, T, A>::const_iterator basic_s
 {
     STLSOFT_ASSERT(is_valid());
 
-    return m_base;
+    return begin_();
 }
 
 template<   ss_typename_param_k C
@@ -1653,7 +1748,7 @@ inline ss_typename_type_ret_k basic_string_view<C, T, A>::const_iterator basic_s
 {
     STLSOFT_ASSERT(is_valid());
 
-    return begin() + m_length;
+    return end_();
 }
 
 #if 0
@@ -1665,7 +1760,7 @@ inline ss_typename_type_ret_k basic_string_view<C, T, A>::iterator basic_string_
 {
     STLSOFT_ASSERT(is_valid());
 
-    return m_base;
+    return begin_();
 }
 
 template<   ss_typename_param_k C
@@ -1676,7 +1771,7 @@ inline ss_typename_type_ret_k basic_string_view<C, T, A>::iterator basic_string_
 {
     STLSOFT_ASSERT(is_valid());
 
-    return begin() + m_length;
+    return end_();
 }
 #endif /* 0 */
 
@@ -1689,7 +1784,7 @@ inline ss_typename_type_ret_k basic_string_view<C, T, A>::const_reverse_iterator
 {
     STLSOFT_ASSERT(is_valid());
 
-    return const_reverse_iterator(end());
+    return const_reverse_iterator(end_());
 }
 
 template<   ss_typename_param_k C
@@ -1700,7 +1795,7 @@ inline ss_typename_type_ret_k basic_string_view<C, T, A>::const_reverse_iterator
 {
     STLSOFT_ASSERT(is_valid());
 
-    return const_reverse_iterator(begin());
+    return const_reverse_iterator(begin_());
 }
 
 #if 0
@@ -1712,7 +1807,7 @@ inline ss_typename_type_ret_k basic_string_view<C, T, A>::reverse_iterator basic
 {
     STLSOFT_ASSERT(is_valid());
 
-    return reverse_iterator(end());
+    return reverse_iterator(end_());
 }
 
 template<   ss_typename_param_k C
@@ -1723,7 +1818,7 @@ inline ss_typename_type_ret_k basic_string_view<C, T, A>::reverse_iterator basic
 {
     STLSOFT_ASSERT(is_valid());
 
-    return reverse_iterator(begin());
+    return reverse_iterator(begin_());
 }
 #endif /* 0 */
 #endif /* STLSOFT_LF_BIDIRECTIONAL_ITERATOR_SUPPORT */
@@ -1744,20 +1839,20 @@ inline void swap(basic_string_view<C, T, A>& lhs, basic_string_view<C, T, A>& rh
 }
 
 /* /////////////////////////////////////////////////////////////////////////
- * String access shims
+ * string access shims
  */
 
 // c_str_data
 
-/** \brief \ref group__concept__shim__string_access__c_str_data for stlsoft::basic_string_view
+/** \ref group__concept__Shim__string_access__c_str_data for stlsoft::basic_string_view
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
 template<   ss_typename_param_k C
         ,   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline C const* c_str_data(stlsoft_ns_qual(basic_string_view)<C, T, A> const& s)
+inline C const* c_str_data(STLSOFT_NS_QUAL(basic_string_view)<C, T, A> const& s)
 {
     return s.data();
 }
@@ -1765,12 +1860,12 @@ inline C const* c_str_data(stlsoft_ns_qual(basic_string_view)<C, T, A> const& s)
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 template <ss_typename_param_k T, ss_typename_param_k A>
-inline ss_char_a_t const* c_str_data_a(stlsoft_ns_qual(basic_string_view)<ss_char_a_t, T, A> const& s)
+inline ss_char_a_t const* c_str_data_a(STLSOFT_NS_QUAL(basic_string_view)<ss_char_a_t, T, A> const& s)
 {
     return s.data();
 }
 template <ss_typename_param_k T, ss_typename_param_k A>
-inline ss_char_w_t const* c_str_data_w(stlsoft_ns_qual(basic_string_view)<ss_char_w_t, T, A> const& s)
+inline ss_char_w_t const* c_str_data_w(STLSOFT_NS_QUAL(basic_string_view)<ss_char_w_t, T, A> const& s)
 {
     return s.data();
 }
@@ -1779,15 +1874,15 @@ inline ss_char_w_t const* c_str_data_w(stlsoft_ns_qual(basic_string_view)<ss_cha
 
 // c_str_len
 
-/** \brief \ref group__concept__shim__string_access__c_str_len for stlsoft::basic_string_view
+/** \ref group__concept__Shim__string_access__c_str_len for stlsoft::basic_string_view
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
 template<   ss_typename_param_k C
         ,   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline ss_size_t c_str_len(stlsoft_ns_qual(basic_string_view)<C, T, A> const& s)
+inline ss_size_t c_str_len(STLSOFT_NS_QUAL(basic_string_view)<C, T, A> const& s)
 {
     return s.length();
 }
@@ -1795,12 +1890,12 @@ inline ss_size_t c_str_len(stlsoft_ns_qual(basic_string_view)<C, T, A> const& s)
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 template <ss_typename_param_k T, ss_typename_param_k A>
-inline ss_size_t c_str_len_a(stlsoft_ns_qual(basic_string_view)<ss_char_a_t, T, A> const& s)
+inline ss_size_t c_str_len_a(STLSOFT_NS_QUAL(basic_string_view)<ss_char_a_t, T, A> const& s)
 {
     return s.length();
 }
 template <ss_typename_param_k T, ss_typename_param_k A>
-inline ss_size_t c_str_len_w(stlsoft_ns_qual(basic_string_view)<ss_char_w_t, T, A> const& s)
+inline ss_size_t c_str_len_w(STLSOFT_NS_QUAL(basic_string_view)<ss_char_w_t, T, A> const& s)
 {
     return s.length();
 }
@@ -1809,15 +1904,15 @@ inline ss_size_t c_str_len_w(stlsoft_ns_qual(basic_string_view)<ss_char_w_t, T, 
 
 // c_str_ptr
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr for stlsoft::basic_string_view
+/** \ref group__concept__Shim__string_access__c_str_ptr for stlsoft::basic_string_view
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
 template<   ss_typename_param_k C
         ,   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline C const* c_str_ptr(stlsoft_ns_qual(basic_string_view)<C, T, A> const& s)
+inline C const* c_str_ptr(STLSOFT_NS_QUAL(basic_string_view)<C, T, A> const& s)
 {
     return s.c_str();
 }
@@ -1825,12 +1920,12 @@ inline C const* c_str_ptr(stlsoft_ns_qual(basic_string_view)<C, T, A> const& s)
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 template <ss_typename_param_k T, ss_typename_param_k A>
-inline ss_char_a_t const* c_str_ptr_a(stlsoft_ns_qual(basic_string_view)<ss_char_a_t, T, A> const& s)
+inline ss_char_a_t const* c_str_ptr_a(STLSOFT_NS_QUAL(basic_string_view)<ss_char_a_t, T, A> const& s)
 {
     return s.c_str();
 }
 template <ss_typename_param_k T, ss_typename_param_k A>
-inline ss_char_w_t const* c_str_ptr_w(stlsoft_ns_qual(basic_string_view)<ss_char_w_t, T, A> const& s)
+inline ss_char_w_t const* c_str_ptr_w(STLSOFT_NS_QUAL(basic_string_view)<ss_char_w_t, T, A> const& s)
 {
     return s.c_str();
 }
@@ -1839,15 +1934,15 @@ inline ss_char_w_t const* c_str_ptr_w(stlsoft_ns_qual(basic_string_view)<ss_char
 
 // c_str_ptr_null
 
-/** \brief \ref group__concept__shim__string_access__c_str_ptr_null for stlsoft::basic_string_view
+/** \ref group__concept__Shim__string_access__c_str_ptr_null for stlsoft::basic_string_view
  *
- * \ingroup group__concept__shim__string_access
+ * \ingroup group__concept__Shim__string_access
  */
 template<   ss_typename_param_k C
         ,   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
-inline C const* c_str_ptr_null(stlsoft_ns_qual(basic_string_view)<C, T, A> const& s)
+inline C const* c_str_ptr_null(STLSOFT_NS_QUAL(basic_string_view)<C, T, A> const& s)
 {
     return (0 != s.length()) ? s.c_str() : NULL;
 }
@@ -1855,12 +1950,12 @@ inline C const* c_str_ptr_null(stlsoft_ns_qual(basic_string_view)<C, T, A> const
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 template <ss_typename_param_k T, ss_typename_param_k A>
-inline ss_char_a_t const* c_str_ptr_null_a(stlsoft_ns_qual(basic_string_view)<ss_char_a_t, T, A> const& s)
+inline ss_char_a_t const* c_str_ptr_null_a(STLSOFT_NS_QUAL(basic_string_view)<ss_char_a_t, T, A> const& s)
 {
     return (0 != s.length()) ? s.c_str() : NULL;
 }
 template <ss_typename_param_k T, ss_typename_param_k A>
-inline ss_char_w_t const* c_str_ptr_null_w(stlsoft_ns_qual(basic_string_view)<ss_char_w_t, T, A> const& s)
+inline ss_char_w_t const* c_str_ptr_null_w(STLSOFT_NS_QUAL(basic_string_view)<ss_char_w_t, T, A> const& s)
 {
     return (0 != s.length()) ? s.c_str() : NULL;
 }
@@ -1869,9 +1964,9 @@ inline ss_char_w_t const* c_str_ptr_null_w(stlsoft_ns_qual(basic_string_view)<ss
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* In the special case of Intel behaving as VC++ 7.0 or earlier on Win32, we
  * illegally insert into the std namespace.
@@ -1886,15 +1981,21 @@ namespace std
             ,   ss_typename_param_k T
             ,   ss_typename_param_k A
             >
-    inline void swap(stlsoft_ns_qual(basic_string_view)<C, T, A>& lhs, stlsoft_ns_qual(basic_string_view)<C, T, A>& rhs)
+    inline void swap(STLSOFT_NS_QUAL(basic_string_view)<C, T, A>& lhs, STLSOFT_NS_QUAL(basic_string_view)<C, T, A>& rhs)
     {
         lhs.swap(rhs);
     }
-} // namespace std
+} /* namespace std */
 # endif /* INTEL && _MSC_VER < 1310 */
 #endif /* STLSOFT_CF_std_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_STRING_HPP_STRING_VIEW */
 

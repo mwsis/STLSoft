@@ -4,47 +4,49 @@
  * Purpose:     Contains the treeview sequence classes.
  *
  * Created:     1st December 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file winstl/controls/treeview_sequence.hpp
  *
- * \brief [C++ only] Definition of the winstl::treeview_child_sequence,
+ * \brief [C++] Definition of the winstl::treeview_child_sequence,
  *  winstl::treeview_peer_sequence and winstl::treeview_visible_sequence
  *  classes, and their supporting types
- *   (\ref group__library__windows_controls "Windows Controls" Library).
+ *   (\ref group__library__Windows_Control "Windows Control" Library).
  */
 
 #ifndef WINSTL_INCL_WINSTL_CONTROLS_HPP_TREEVIEW_SEQUENCE
@@ -53,17 +55,21 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_CONTROLS_HPP_TREEVIEW_SEQUENCE_MAJOR     4
 # define WINSTL_VER_WINSTL_CONTROLS_HPP_TREEVIEW_SEQUENCE_MINOR     0
-# define WINSTL_VER_WINSTL_CONTROLS_HPP_TREEVIEW_SEQUENCE_REVISION  6
-# define WINSTL_VER_WINSTL_CONTROLS_HPP_TREEVIEW_SEQUENCE_EDIT      72
+# define WINSTL_VER_WINSTL_CONTROLS_HPP_TREEVIEW_SEQUENCE_REVISION  12
+# define WINSTL_VER_WINSTL_CONTROLS_HPP_TREEVIEW_SEQUENCE_EDIT      88
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 # include <winstl/winstl.h>
 #endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER
 # include <stlsoft/util/std/iterator_helper.hpp>
 #endif /* !STLSOFT_INCL_STLSOFT_UTIL_STD_HPP_ITERATOR_HELPER */
@@ -76,36 +82,33 @@
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
 namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-/** \brief Iterator for the treeview_child_sequence, treeview_peer_sequence and treeview_visible_sequence classes
+/** Iterator for the treeview_child_sequence, treeview_peer_sequence and treeview_visible_sequence classes
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  *
  * \param N The windows message that is used to access the next element in the iteration sequence
  * \param P The windows message that is used to access the previous element in the iteration sequence
  */
 template <UINT N, UINT P>
 class treeview_sequence_const_iterator
-    : public stlsoft_ns_qual(iterator_base)<winstl_ns_qual_std(forward_iterator_tag)
+    : public STLSOFT_NS_QUAL(iterator_base)<STLSOFT_NS_QUAL_STD(forward_iterator_tag)
                                         ,   HTREEITEM
                                         ,   ws_ptrdiff_t
                                         ,   void        // By-Value Temporary reference category
@@ -115,7 +118,7 @@ class treeview_sequence_const_iterator
 /// \name Member Types
 /// @{
 public:
-    /// The current parameterisation of the type
+    /// The current specialisation of the type
     typedef treeview_sequence_const_iterator<N, P>  class_type;
     /// The value type
     typedef HTREEITEM                               value_type;
@@ -171,14 +174,14 @@ private:
 };
 
 
-/** \brief Base class for the treeview_child_sequence,
+/** Base class for the treeview_child_sequence,
  *  treeview_peer_sequence and treeview_visible_sequence classes.
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  */
 template <UINT N, UINT P>
 class treeview_sequence_base
-    : public stlsoft_ns_qual(stl_collection_tag)
+    : public STLSOFT_NS_QUAL(stl_collection_tag)
 {
 /// \name Member Types
 /// @{
@@ -227,9 +230,9 @@ private:
 };
 
 // class treeview_child_sequence
-/** \brief Presents an STL-like sequence interface to the children of a given node in a tree-view
+/** Presents an STL-like sequence interface to the children of a given node in a tree-view
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  */
 class treeview_child_sequence
     : public treeview_sequence_base<TVGN_NEXT, TVGN_PREVIOUS>
@@ -260,9 +263,9 @@ public:
 };
 
 // class treeview_peer_sequence
-/** \brief brief Presents an STL-like sequence interface to the peers of a given node in a tree-view
+/** brief Presents an STL-like sequence interface to the peers of a given node in a tree-view
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  */
 class treeview_peer_sequence
     : public treeview_sequence_base<TVGN_NEXT, TVGN_PREVIOUS>
@@ -291,9 +294,9 @@ public:
 };
 
 // class treeview_visible_sequence
-/** \brief Presents an STL-like sequence interface to the visible items in a tree-view
+/** Presents an STL-like sequence interface to the visible items in a tree-view
  *
- * \ingroup group__library__windows_controls
+ * \ingroup group__library__Windows_Control
  */
 class treeview_visible_sequence
     : public treeview_sequence_base<TVGN_NEXTVISIBLE, TVGN_PREVIOUSVISIBLE>
@@ -322,15 +325,7 @@ public:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Unit-testing
- */
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/treeview_sequence_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Implementation
+ * implementation
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -373,7 +368,7 @@ inline HTREEITEM treeview_sequence_const_iterator<N, P>::operator *() const
 template <UINT N, UINT P>
 inline ss_typename_type_ret_k treeview_sequence_const_iterator<N, P>::class_type& treeview_sequence_const_iterator<N, P>::operator ++()
 {
-    if(m_hitem != NULL)
+    if (m_hitem != NULL)
     {
         m_hitem = treeview_getnextitem(m_hwnd, m_hitem, N);
     }
@@ -449,19 +444,25 @@ inline treeview_visible_sequence::treeview_visible_sequence(HWND hwndTree)
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-} // namespace winstl
+} /* namespace winstl */
 # else
-} // namespace winstl_project
-} // namespace stlsoft
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+} /* namespace winstl_project */
+} /* namespace stlsoft */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
 
-#endif /* WINSTL_INCL_WINSTL_CONTROLS_HPP_TREEVIEW_SEQUENCE */
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
+
+#endif /* !WINSTL_INCL_WINSTL_CONTROLS_HPP_TREEVIEW_SEQUENCE */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

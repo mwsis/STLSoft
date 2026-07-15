@@ -4,67 +4,73 @@
  * Purpose:     UNIXSTL atomic functions.
  *
  * Created:     23rd October 1997
- * Updated:     15th December 2023
+ * Updated:     26th April 2021
  *
  * Thanks:      To Brad Cox, for helping out in testing and fixing the
  *              implementation for MAC OSX (Intel).
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2021, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1997-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file unixstl/synch/atomic_functions.h
  *
- * \brief [C++ only] Definition of the atomic functions
- *   (\ref group__library__synch "Synchronisation" Library).
+ * \brief [C++] Definition of the atomic functions
+ *   (\ref group__library__Synch "Synchronisation" Library).
  */
 
 #ifndef UNIXSTL_INCL_UNIXSTL_SYNCH_H_ATOMIC_FUNCTIONS
 #define UNIXSTL_INCL_UNIXSTL_SYNCH_H_ATOMIC_FUNCTIONS
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# define UNIXSTL_VER_UNIXSTL_SYNCH_H_ATOMIC_FUNCTIONS_MAJOR     6
-# define UNIXSTL_VER_UNIXSTL_SYNCH_H_ATOMIC_FUNCTIONS_MINOR     1
-# define UNIXSTL_VER_UNIXSTL_SYNCH_H_ATOMIC_FUNCTIONS_REVISION  1
-# define UNIXSTL_VER_UNIXSTL_SYNCH_H_ATOMIC_FUNCTIONS_EDIT      202
+# define UNIXSTL_VER_UNIXSTL_SYNCH_H_ATOMIC_FUNCTIONS_MAJOR     7
+# define UNIXSTL_VER_UNIXSTL_SYNCH_H_ATOMIC_FUNCTIONS_MINOR     0
+# define UNIXSTL_VER_UNIXSTL_SYNCH_H_ATOMIC_FUNCTIONS_REVISION  4
+# define UNIXSTL_VER_UNIXSTL_SYNCH_H_ATOMIC_FUNCTIONS_EDIT      219
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef UNIXSTL_INCL_UNIXSTL_H_UNIXSTL
 # include <unixstl/unixstl.h>
 #endif /* !UNIXSTL_INCL_UNIXSTL_H_UNIXSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #ifndef UNIXSTL_INCL_UNIXSTL_SYNCH_UTIL_H_FEATURES
 # include <unixstl/synch/util/features.h>
 #endif /* !UNIXSTL_INCL_UNIXSTL_SYNCH_UTIL_H_FEATURES */
@@ -73,129 +79,102 @@
 #endif /* !UNIXSTL_INCL_UNIXSTL_SYNCH_H_ATOMIC_TYPES */
 
 #if defined(UNIXSTL_FORCE_ATOMIC_INTEGER_OPERATIONS)
+
  /* Nothing to include here; UNIXSTL_FORCED_ATOMIC_INTEGER_IMPLEMENTATIONS will be included inside unixstl namespace */
 #elif defined(UNIXSTL_ATOMIC_INTEGER_OPERATIONS_VIA_GCC_BUILTINS)
- /* Nothing to include, since using built-ins */
+
+# include <stlsoft/internal/atomic/gcc_builtins_.h>
 #elif defined(UNIXSTL_ATOMIC_INTEGER_OPERATIONS_VIA_MACOSX)
+
 # include <libkern/OSAtomic.h>
 #elif defined(UNIXSTL_ATOMIC_INTEGER_OPERATIONS_VIA_WINDOWS_INTERLOCKED)
-# include <windows.h>
+
+# include <unixstl/synch/util/windows_api_.h>
 #else
+
 # error Atomic integer operations not supported: see unixstl/synch/util/features.h for details
 #endif /* ? */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _UNIXSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef UNIXSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::unixstl */
 namespace unixstl
 {
 # else
 /* Define stlsoft::unixstl_project */
-
 namespace stlsoft
 {
-
 namespace unixstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_UNIXSTL_NO_NAMESPACE */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Features
- */
-
-#ifdef UNIXSTL_HAS_ATOMIC_PREINCREMENT
-# undef UNIXSTL_HAS_ATOMIC_PREINCREMENT
-#endif /* UNIXSTL_HAS_ATOMIC_PREINCREMENT */
-#ifdef UNIXSTL_HAS_ATOMIC_PREDECREMENT
-# undef UNIXSTL_HAS_ATOMIC_PREDECREMENT
-#endif /* UNIXSTL_HAS_ATOMIC_PREDECREMENT */
-#ifdef UNIXSTL_HAS_ATOMIC_POSTINCREMENT
-# undef UNIXSTL_HAS_ATOMIC_POSTINCREMENT
-#endif /* UNIXSTL_HAS_ATOMIC_POSTINCREMENT */
-#ifdef UNIXSTL_HAS_ATOMIC_POSTDECREMENT
-# undef UNIXSTL_HAS_ATOMIC_POSTDECREMENT
-#endif /* UNIXSTL_HAS_ATOMIC_POSTDECREMENT */
-#ifdef UNIXSTL_HAS_ATOMIC_INCREMENT
-# undef UNIXSTL_HAS_ATOMIC_INCREMENT
-#endif /* UNIXSTL_HAS_ATOMIC_INCREMENT */
-#ifdef UNIXSTL_HAS_ATOMIC_DECREMENT
-# undef UNIXSTL_HAS_ATOMIC_DECREMENT
-#endif /* UNIXSTL_HAS_ATOMIC_DECREMENT */
-#ifdef UNIXSTL_HAS_ATOMIC_READ
-# undef UNIXSTL_HAS_ATOMIC_READ
-#endif /* UNIXSTL_HAS_ATOMIC_READ */
-#ifdef UNIXSTL_HAS_ATOMIC_WRITE
-# undef UNIXSTL_HAS_ATOMIC_WRITE
-#endif /* UNIXSTL_HAS_ATOMIC_WRITE */
-#ifdef UNIXSTL_HAS_ATOMIC_PREADD
-# undef UNIXSTL_HAS_ATOMIC_PREADD
-#endif /* UNIXSTL_HAS_ATOMIC_PREADD */
-#ifdef UNIXSTL_HAS_ATOMIC_POSTADD
-# undef UNIXSTL_HAS_ATOMIC_POSTADD
-#endif /* UNIXSTL_HAS_ATOMIC_POSTADD */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !UNIXSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Functions
+ * functions
  */
 
-#if defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
+#if 0
+#elif defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 
-/** \brief Indicates whether the atomic_preincrement function is defined
- *    for the current compiler/operating-system/architecture
- */
-# define UNIXSTL_HAS_ATOMIC_PREINCREMENT
-
-/** \brief Indicates whether the atomic_predecrement function is defined
- *    for the current compiler/operating-system/architecture
- */
-# define UNIXSTL_HAS_ATOMIC_PREDECREMENT
-
-/** \brief Indicates whether the atomic_postincrement function is defined
- *    for the current compiler/operating-system/architecture
- */
-# define UNIXSTL_HAS_ATOMIC_POSTINCREMENT
-
-/** \brief Indicates whether the atomic_postdecrement function is defined
- *    for the current compiler/operating-system/architecture
- */
-# define UNIXSTL_HAS_ATOMIC_POSTDECREMENT
-
-/** \brief Indicates whether the atomic_increment function is defined for
+/** Indicates whether the atomic_exchange function is defined for
  *    the current compiler/operating-system/architecture
  */
-# define UNIXSTL_HAS_ATOMIC_INCREMENT
+# define UNIXSTL_HAS_atomic_exchange
 
-/** \brief Indicates whether the atomic_decrement function is defined for
+/** Indicates whether the atomic_preincrement function is defined
+ *    for the current compiler/operating-system/architecture
+ */
+# define UNIXSTL_HAS_atomic_preincrement
+
+/** Indicates whether the atomic_predecrement function is defined
+ *    for the current compiler/operating-system/architecture
+ */
+# define UNIXSTL_HAS_atomic_predecrement
+
+/** Indicates whether the atomic_postincrement function is defined
+ *    for the current compiler/operating-system/architecture
+ */
+# define UNIXSTL_HAS_atomic_postincrement
+
+/** Indicates whether the atomic_postdecrement function is defined
+ *    for the current compiler/operating-system/architecture
+ */
+# define UNIXSTL_HAS_atomic_postdecrement
+
+/** Indicates whether the atomic_increment function is defined for
  *    the current compiler/operating-system/architecture
  */
-# define UNIXSTL_HAS_ATOMIC_DECREMENT
+# define UNIXSTL_HAS_atomic_increment
 
-/** \brief Indicates whether the atomic_read function is defined for the
+/** Indicates whether the atomic_decrement function is defined for
+ *    the current compiler/operating-system/architecture
+ */
+# define UNIXSTL_HAS_atomic_decrement
+
+/** Indicates whether the atomic_read function is defined for the
  *    current compiler/operating-system/architecture
  */
-# define UNIXSTL_HAS_ATOMIC_READ
+# define UNIXSTL_HAS_atomic_read
 
-/** \brief Indicates whether the atomic_write function is defined for the
+/** Indicates whether the atomic_write function is defined for the
  *    current compiler/operating-system/architecture
  */
-# define UNIXSTL_HAS_ATOMIC_WRITE
+# define UNIXSTL_HAS_atomic_write
 
-/** \brief Indicates whether the atomic_preadd function is defined for the
+/** Indicates whether the atomic_preadd function is defined for the
  *    current compiler/operating-system/architecture
  */
-# define UNIXSTL_HAS_ATOMIC_PREADD
+# define UNIXSTL_HAS_atomic_preadd
 
-/** \brief Indicates whether the atomic_postadd function is defined for the
+/** Indicates whether the atomic_postadd function is defined for the
  *    current compiler/operating-system/architecture
  */
-# define UNIXSTL_HAS_ATOMIC_POSTADD
+# define UNIXSTL_HAS_atomic_postadd
 
 #elif defined(UNIXSTL_HAS_ATOMIC_INTEGER_OPERATIONS)
 
@@ -209,8 +188,8 @@ namespace unixstl_project
 #  ifndef UNIXSTL_FORCED_ATOMIC_INTEGER_IMPLEMENTATIONS
 #   error If you are forcing atomic integer support (by defining UNIXSTL_FORCE_ATOMIC_INTEGER_OPERATIONS) you must also define UNIXSTL_FORCED_ATOMIC_INTEGER_IMPLEMENTATIONS as the header containing the atomic integer operations, which will be included
 #  endif /* UNIXSTL_FORCED_ATOMIC_INTEGER_IMPLEMENTATIONS */
-#  include UNIXSTL_FORCED_ATOMIC_INTEGER_IMPLEMENTATIONS
 
+#  include UNIXSTL_FORCED_ATOMIC_INTEGER_IMPLEMENTATIONS
 
 # elif defined(UNIXSTL_ATOMIC_INTEGER_OPERATIONS_VIA_GCC_BUILTINS)
 
@@ -219,89 +198,137 @@ namespace unixstl_project
   * GCC builtins
   */
 
-#  error This feature is not yet supported, and you should not be seeing this compilation path unless unixstl/synch/util/features.h is out of synch with this file; contact Synesis Software
-
-
-# elif defined(UNIXSTL_ATOMIC_INTEGER_OPERATIONS_VIA_WINDOWS_INTERLOCKED)
-
-
- /* ************************************
-  * Windows Interlocked
-  */
-
-#  if !defined(UNIXSTL_NO_WIN32_NATIVE_ATOMIC_FUNCTIONS)
-
-STLSOFT_INLINE atomic_int_t atomic_preincrement(atomic_int_t volatile* pl)
+STLSOFT_INLINE
+atomic_int_t
+atomic_exchange(
+    atomic_int_t volatile*  pv
+,   atomic_int_t            value
+)
 {
-    return STLSOFT_NS_GLOBAL(InterlockedIncrement)((LPLONG)pl);
+    return STLSOFT_INTERNAL_ATOMIC_GCC_atomic_exchange(pv, value);
 }
-#   define UNIXSTL_HAS_ATOMIC_PREINCREMENT
+# define UNIXSTL_HAS_atomic_exchange
+# define UNIXSTL_HAS_ATOMIC_EXCHANGE
 
-STLSOFT_INLINE atomic_int_t atomic_predecrement(atomic_int_t volatile* pl)
+
+STLSOFT_INLINE
+atomic_int_t
+atomic_postadd(
+    atomic_int_t volatile*  pv
+,   atomic_int_t            value
+)
 {
-    return STLSOFT_NS_GLOBAL(InterlockedDecrement)((LPLONG)pl);
+    return STLSOFT_INTERNAL_ATOMIC_GCC_atomic_postadd(pv, value);
 }
-#   define UNIXSTL_HAS_ATOMIC_PREDECREMENT
+# define UNIXSTL_HAS_atomic_postadd
+# define UNIXSTL_HAS_ATOMIC_POSTADD
 
-STLSOFT_INLINE atomic_int_t atomic_postincrement(atomic_int_t volatile* pl)
+STLSOFT_INLINE
+atomic_int_t
+atomic_preadd(
+    atomic_int_t volatile*  pv
+,   atomic_int_t            value
+)
 {
-    atomic_int_t pre = *pl;
-
-    STLSOFT_NS_GLOBAL(InterlockedIncrement)((LPLONG)pl);
-
-    return pre;
+    return STLSOFT_INTERNAL_ATOMIC_GCC_atomic_preadd(pv, value);
 }
-#   define UNIXSTL_HAS_ATOMIC_POSTINCREMENT
+# define UNIXSTL_HAS_atomic_preadd
+# define UNIXSTL_HAS_ATOMIC_PREADD
 
-STLSOFT_INLINE atomic_int_t atomic_postdecrement(atomic_int_t volatile* pl)
+
+STLSOFT_INLINE
+void
+atomic_decrement(
+    atomic_int_t volatile*  pv
+)
 {
-    atomic_int_t pre = *pl;
-
-    STLSOFT_NS_GLOBAL(InterlockedDecrement)((LPLONG)pl);
-
-    return pre;
+    STLSOFT_INTERNAL_ATOMIC_GCC_atomic_decrement(pv);
 }
-#   define UNIXSTL_HAS_ATOMIC_POSTDECREMENT
+# define UNIXSTL_HAS_atomic_decrement
+# define UNIXSTL_HAS_ATOMIC_DECREMENT
 
-STLSOFT_INLINE void atomic_increment(atomic_int_t volatile* pl)
+STLSOFT_INLINE
+void
+atomic_increment(
+    atomic_int_t volatile*  pv
+)
 {
-    STLSOFT_NS_GLOBAL(InterlockedIncrement)((LPLONG)pl);
+    STLSOFT_INTERNAL_ATOMIC_GCC_atomic_increment(pv);
 }
-#   define UNIXSTL_HAS_ATOMIC_INCREMENT
+# define UNIXSTL_HAS_atomic_increment
+# define UNIXSTL_HAS_ATOMIC_INCREMENT
 
-STLSOFT_INLINE void atomic_decrement(atomic_int_t volatile* pl)
+
+STLSOFT_INLINE
+atomic_int_t
+atomic_postdecrement(
+    atomic_int_t volatile*  pv
+)
 {
-    STLSOFT_NS_GLOBAL(InterlockedDecrement)((LPLONG)pl);
+    return STLSOFT_INTERNAL_ATOMIC_GCC_atomic_postdecrement(pv);
 }
-#   define UNIXSTL_HAS_ATOMIC_DECREMENT
+# define UNIXSTL_HAS_atomic_postdecrement
+# define UNIXSTL_HAS_ATOMIC_POSTDECREMENT
 
-#  endif /* !UNIXSTL_NO_WIN32_NATIVE_ATOMIC_FUNCTIONS */
-
-/* NOTE: We allow atomic_write(), since on almost all platforms this'll be fine */
-
-STLSOFT_INLINE atomic_int_t atomic_write(atomic_int_t volatile* pv, atomic_int_t n)
+STLSOFT_INLINE
+atomic_int_t
+atomic_predecrement(
+    atomic_int_t volatile*  pv
+)
 {
-    return stlsoft_static_cast(atomic_int_t, STLSOFT_NS_GLOBAL(InterlockedExchange)(stlsoft_c_cast(LPLONG, pv), n));
+    return STLSOFT_INTERNAL_ATOMIC_GCC_atomic_predecrement(pv);
 }
-#  define UNIXSTL_HAS_ATOMIC_WRITE
+# define UNIXSTL_HAS_atomic_predecrement
+# define UNIXSTL_HAS_ATOMIC_PREDECREMENT
 
-#  if !defined(UNIXSTL_NO_WIN32_NATIVE_ATOMIC_FUNCTIONS)
 
-STLSOFT_INLINE atomic_int_t atomic_read(atomic_int_t volatile* pv)
+STLSOFT_INLINE
+atomic_int_t
+atomic_postincrement(
+    atomic_int_t volatile*  pv
+)
 {
-    return *pv;
+    return STLSOFT_INTERNAL_ATOMIC_GCC_atomic_postincrement(pv);
 }
-#   define UNIXSTL_HAS_ATOMIC_READ
+# define UNIXSTL_HAS_atomic_postincrement
+# define UNIXSTL_HAS_ATOMIC_POSTINCREMENT
 
-/* STLSOFT_INLINE */ atomic_int_t atomic_preadd(atomic_int_t volatile* pl, atomic_int_t n);
-
-STLSOFT_INLINE atomic_int_t atomic_postadd(atomic_int_t volatile* pl, atomic_int_t n)
+STLSOFT_INLINE
+atomic_int_t
+atomic_preincrement(
+    atomic_int_t volatile*  pv
+)
 {
-    return (atomic_int_t)STLSOFT_NS_GLOBAL(InterlockedExchangeAdd)((LPLONG)pl, n);
+    return STLSOFT_INTERNAL_ATOMIC_GCC_atomic_preincrement(pv);
 }
-#   define UNIXSTL_HAS_ATOMIC_POSTADD
+# define UNIXSTL_HAS_atomic_preincrement
+# define UNIXSTL_HAS_ATOMIC_PREINCREMENT
 
-#  endif /* !UNIXSTL_NO_WIN32_NATIVE_ATOMIC_FUNCTIONS */
+
+STLSOFT_INLINE
+atomic_int_t
+atomic_read(
+    atomic_int_t volatile*  pv
+)
+{
+    return STLSOFT_INTERNAL_ATOMIC_GCC_atomic_read(pv);
+}
+# define UNIXSTL_HAS_atomic_read
+# define UNIXSTL_HAS_ATOMIC_READ
+
+
+STLSOFT_INLINE
+void
+atomic_write(
+    atomic_int_t volatile*  pv
+,   atomic_int_t            value
+)
+{
+    STLSOFT_INTERNAL_ATOMIC_GCC_atomic_write(pv, value);
+}
+# define UNIXSTL_HAS_atomic_write
+# define UNIXSTL_HAS_ATOMIC_WRITE
+
 
 
 # elif defined(UNIXSTL_ATOMIC_INTEGER_OPERATIONS_VIA_MACOSX)
@@ -311,171 +338,405 @@ STLSOFT_INLINE atomic_int_t atomic_postadd(atomic_int_t volatile* pl, atomic_int
   * Mac OS-X
   */
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
-STLSOFT_INLINE atomic_int_t atomic_preincrement(atomic_int_t volatile* pl)
+STLSOFT_INLINE
+atomic_int_t
+atomic_postadd(
+    atomic_int_t volatile*  pv
+,   atomic_int_t            n
+)
 {
-    return STLSOFT_NS_GLOBAL(OSAtomicIncrement32Barrier)(stlsoft_const_cast(atomic_int_t*, pl));
+    return STLSOFT_NS_GLOBAL(OSAtomicAdd32Barrier)(n, stlsoft_const_cast(atomic_int_t*, pv)) - n;
 }
-#  define UNIXSTL_HAS_ATOMIC_PREINCREMENT
+#  define UNIXSTL_HAS_atomic_postadd
+#  define UNIXSTL_HAS_ATOMIC_POSTADD
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
-STLSOFT_INLINE atomic_int_t atomic_predecrement(atomic_int_t volatile* pl)
+STLSOFT_INLINE
+atomic_int_t
+atomic_preadd(
+    atomic_int_t volatile*  pv
+,   atomic_int_t            n
+)
 {
-    return STLSOFT_NS_GLOBAL(OSAtomicDecrement32Barrier)(stlsoft_const_cast(atomic_int_t*, pl));
+    return STLSOFT_NS_GLOBAL(OSAtomicAdd32Barrier)(n, stlsoft_const_cast(atomic_int_t*, pv));
 }
-#  define UNIXSTL_HAS_ATOMIC_PREDECREMENT
+#  define UNIXSTL_HAS_atomic_preadd
+#  define UNIXSTL_HAS_ATOMIC_PREADD
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
-STLSOFT_INLINE atomic_int_t atomic_postincrement(atomic_int_t volatile* pl)
+STLSOFT_INLINE
+void
+atomic_decrement(
+    atomic_int_t volatile* pv
+)
 {
-    return STLSOFT_NS_GLOBAL(OSAtomicIncrement32Barrier)(stlsoft_const_cast(atomic_int_t*, pl)) - 1;
+    STLSOFT_NS_GLOBAL(OSAtomicDecrement32Barrier)(stlsoft_const_cast(atomic_int_t*, pv));
 }
-#  define UNIXSTL_HAS_ATOMIC_POSTINCREMENT
-
-/** \brief
- *
- * \ingroup group__library__synch
- */
-STLSOFT_INLINE atomic_int_t atomic_postdecrement(atomic_int_t volatile* pl)
-{
-    return STLSOFT_NS_GLOBAL(OSAtomicDecrement32Barrier)(stlsoft_const_cast(atomic_int_t*, pl)) + 1;
-}
-#  define UNIXSTL_HAS_ATOMIC_POSTDECREMENT
-
-/** \brief
- *
- * \ingroup group__library__synch
- */
-STLSOFT_INLINE void atomic_increment(atomic_int_t volatile* pl)
-{
-    STLSOFT_NS_GLOBAL(OSAtomicIncrement32Barrier)(stlsoft_const_cast(atomic_int_t*, pl));
-}
-#  define UNIXSTL_HAS_ATOMIC_INCREMENT
-
-/** \brief
- *
- * \ingroup group__library__synch
- */
-STLSOFT_INLINE void atomic_decrement(atomic_int_t volatile* pl)
-{
-    STLSOFT_NS_GLOBAL(OSAtomicDecrement32Barrier)(stlsoft_const_cast(atomic_int_t*, pl));
-}
+#  define UNIXSTL_HAS_atomic_decrement
 #  define UNIXSTL_HAS_ATOMIC_DECREMENT
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
-/** \brief Note: atomic_write() for PowerPC is not yet defined. If you wish to suggest an
- * implementation, it will be most welcome.
- *
- * \ingroup group__library__synch
- */
-/* STLSOFT_INLINE */ atomic_int_t atomic_write(atomic_int_t volatile* pv, atomic_int_t n);
+STLSOFT_INLINE
+void
+atomic_increment(
+    atomic_int_t volatile* pv
+)
+{
+    STLSOFT_NS_GLOBAL(OSAtomicIncrement32Barrier)(stlsoft_const_cast(atomic_int_t*, pv));
+}
+#  define UNIXSTL_HAS_atomic_increment
+#  define UNIXSTL_HAS_ATOMIC_INCREMENT
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
-STLSOFT_INLINE atomic_int_t atomic_read(atomic_int_t volatile* pv)
+STLSOFT_INLINE
+atomic_int_t
+atomic_postdecrement(
+    atomic_int_t volatile* pv
+)
+{
+    return STLSOFT_NS_GLOBAL(OSAtomicDecrement32Barrier)(stlsoft_const_cast(atomic_int_t*, pv)) + 1;
+}
+#  define UNIXSTL_HAS_atomic_postdecrement
+#  define UNIXSTL_HAS_ATOMIC_POSTDECREMENT
+
+/**
+ *
+ * \ingroup group__library__Synch
+ */
+STLSOFT_INLINE
+atomic_int_t
+atomic_predecrement(
+    atomic_int_t volatile* pv
+)
+{
+    return STLSOFT_NS_GLOBAL(OSAtomicDecrement32Barrier)(stlsoft_const_cast(atomic_int_t*, pv));
+}
+#  define UNIXSTL_HAS_atomic_predecrement
+#  define UNIXSTL_HAS_ATOMIC_PREDECREMENT
+
+/**
+ *
+ * \ingroup group__library__Synch
+ */
+STLSOFT_INLINE
+atomic_int_t
+atomic_postincrement(
+    atomic_int_t volatile* pv
+)
+{
+    return STLSOFT_NS_GLOBAL(OSAtomicIncrement32Barrier)(stlsoft_const_cast(atomic_int_t*, pv)) - 1;
+}
+#  define UNIXSTL_HAS_atomic_postincrement
+#  define UNIXSTL_HAS_ATOMIC_POSTINCREMENT
+
+/**
+ *
+ * \ingroup group__library__Synch
+ */
+STLSOFT_INLINE
+atomic_int_t
+atomic_preincrement(
+    atomic_int_t volatile* pv
+)
+{
+    return STLSOFT_NS_GLOBAL(OSAtomicIncrement32Barrier)(stlsoft_const_cast(atomic_int_t*, pv));
+}
+#  define UNIXSTL_HAS_atomic_preincrement
+#  define UNIXSTL_HAS_ATOMIC_PREINCREMENT
+
+/**
+ *
+ * \ingroup group__library__Synch
+ */
+STLSOFT_INLINE
+atomic_int_t
+atomic_read(
+    atomic_int_t volatile* pv
+)
 {
     STLSOFT_NS_GLOBAL(OSMemoryBarrier)();
 
     return *pv;
 }
+#  define UNIXSTL_HAS_atomic_read
 #  define UNIXSTL_HAS_ATOMIC_READ
 
-/** \brief
+/**
  *
- * \ingroup group__library__synch
+ * \ingroup group__library__Synch
  */
-STLSOFT_INLINE atomic_int_t atomic_preadd(atomic_int_t volatile* pl, atomic_int_t n)
-{
-    return STLSOFT_NS_GLOBAL(OSAtomicAdd32Barrier)(n, stlsoft_const_cast(atomic_int_t*, pl));
-}
-#  define UNIXSTL_HAS_ATOMIC_PREADD
+/** Note: atomic_write() for PowerPC is not yet defined. If you wish to suggest an
+ * implementation, it will be most welcome.
+ *
+ * \ingroup group__library__Synch
+ */
+/* STLSOFT_INLINE */
+atomic_int_t
+atomic_write(
+    atomic_int_t volatile*  pv
+,   atomic_int_t            n
+);
 
-/** \brief
- *
- * \ingroup group__library__synch
- */
-STLSOFT_INLINE atomic_int_t atomic_postadd(atomic_int_t volatile* pl, atomic_int_t n)
+
+# elif defined(UNIXSTL_ATOMIC_INTEGER_OPERATIONS_VIA_WINDOWS_INTERLOCKED)
+
+
+ /* ************************************
+  * Windows Interlocked
+  */
+
+
+STLSOFT_INLINE
+atomic_int_t
+atomic_exchange(
+    atomic_int_t volatile*  pv
+,   atomic_int_t            value
+)
 {
-    return STLSOFT_NS_GLOBAL(OSAtomicAdd32Barrier)(n, stlsoft_const_cast(atomic_int_t*, pl)) - n;
+#if 0
+#elif defined(_WIN64)
+    return UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedExchange64(pv, value);
+#elif defined(_WIN32)
+    return UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedExchange(pv, value);
+#else
+# error Architecture not recognised
+#endif
 }
-#  define UNIXSTL_HAS_ATOMIC_POSTADD
+# define UNIXSTL_HAS_atomic_exchange
+# define UNIXSTL_HAS_ATOMIC_EXCHANGE
+
+
+STLSOFT_INLINE
+atomic_int_t
+atomic_postadd(
+    atomic_int_t volatile*  pv
+,   atomic_int_t            value
+)
+{
+#if 0
+#elif defined(_WIN64)
+    return UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedExchangeAdd64(pv, value);
+#elif defined(_WIN32)
+    return UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedExchangeAdd(pv, value);
+#else
+# error Architecture not recognised
+#endif
+}
+# define UNIXSTL_HAS_atomic_postadd
+# define UNIXSTL_HAS_ATOMIC_POSTADD
+
+STLSOFT_INLINE
+atomic_int_t
+atomic_preadd(
+    atomic_int_t volatile*  pv
+,   atomic_int_t            value
+)
+{
+#if 0
+#elif defined(_WIN64)
+    return UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedExchangeAdd64(pv, value) + value;
+#elif defined(_WIN32)
+    return UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedExchangeAdd(pv, value) + value;
+#else
+# error Architecture not recognised
+#endif
+}
+# define UNIXSTL_HAS_atomic_preadd
+# define UNIXSTL_HAS_ATOMIC_PREADD
+
+
+STLSOFT_INLINE
+void
+atomic_decrement(
+    atomic_int_t volatile*  pv
+)
+{
+#if 0
+#elif defined(_WIN64)
+    UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedDecrement64(pv);
+#elif defined(_WIN32)
+    UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedDecrement(pv);
+#else
+# error Architecture not recognised
+#endif
+}
+# define UNIXSTL_HAS_atomic_decrement
+# define UNIXSTL_HAS_ATOMIC_DECREMENT
+
+STLSOFT_INLINE
+void
+atomic_increment(
+    atomic_int_t volatile*  pv
+)
+{
+#if 0
+#elif defined(_WIN64)
+    UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedIncrement64(pv);
+#elif defined(_WIN32)
+    UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedIncrement(pv);
+#else
+# error Architecture not recognised
+#endif
+}
+# define UNIXSTL_HAS_atomic_increment
+# define UNIXSTL_HAS_ATOMIC_INCREMENT
+
+
+STLSOFT_INLINE
+atomic_int_t
+atomic_postdecrement(
+    atomic_int_t volatile*  pv
+)
+{
+#if 0
+#elif defined(_WIN64)
+    return UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedDecrement64(pv) + 1;
+#elif defined(_WIN32)
+    return UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedDecrement(pv) + 1;
+#else
+# error Architecture not recognised
+#endif
+}
+# define UNIXSTL_HAS_atomic_postdecrement
+# define UNIXSTL_HAS_ATOMIC_POSTDECREMENT
+
+STLSOFT_INLINE
+atomic_int_t
+atomic_predecrement(
+    atomic_int_t volatile*  pv
+)
+{
+#if 0
+#elif defined(_WIN64)
+    return UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedDecrement64(pv);
+#elif defined(_WIN32)
+    return UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedDecrement(pv);
+#else
+# error Architecture not recognised
+#endif
+}
+# define UNIXSTL_HAS_atomic_predecrement
+# define UNIXSTL_HAS_ATOMIC_PREDECREMENT
+
+
+STLSOFT_INLINE
+atomic_int_t
+atomic_postincrement(
+    atomic_int_t volatile*  pv
+)
+{
+#if 0
+#elif defined(_WIN64)
+    return UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedIncrement64(pv) - 1;
+#elif defined(_WIN32)
+    return UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedIncrement(pv) - 1;
+#else
+# error Architecture not recognised
+#endif
+}
+# define UNIXSTL_HAS_atomic_postincrement
+# define UNIXSTL_HAS_ATOMIC_POSTINCREMENT
+
+STLSOFT_INLINE
+atomic_int_t
+atomic_preincrement(
+    atomic_int_t volatile*  pv
+)
+{
+#if 0
+#elif defined(_WIN64)
+    return UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedIncrement64(pv);
+#elif defined(_WIN32)
+    return UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedIncrement(pv);
+#else
+# error Architecture not recognised
+#endif
+}
+# define UNIXSTL_HAS_atomic_preincrement
+# define UNIXSTL_HAS_ATOMIC_PREINCREMENT
+
+
+STLSOFT_INLINE
+atomic_int_t
+atomic_read(
+    atomic_int_t volatile*  pv
+)
+{
+    return *pv;
+}
+# define UNIXSTL_HAS_atomic_read
+# define UNIXSTL_HAS_ATOMIC_READ
+
+
+STLSOFT_INLINE
+atomic_int_t
+atomic_write(
+    atomic_int_t volatile*  pv
+,   atomic_int_t            value
+)
+{
+#if 0
+#elif defined(_WIN64)
+    return UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedExchange64(pv, value);
+#elif defined(_WIN32)
+    return UNIXSTL_INTERNAL_SYNCH_Windows_InterlockedExchange(pv, value);
+#else
+# error Architecture not recognised
+#endif
+}
+# define UNIXSTL_HAS_atomic_write
+# define UNIXSTL_HAS_ATOMIC_WRITE
+
+
+
 
 
 # else
+
 #  error Atomic integer operations not supported: see unixstl/synch/util/features.h for details
 # endif /* ? */
-
-
-/* ////////////////////////////////////////////////////////////////////// */
-
-# if 0
-
-STLSOFT_INLINE atomic_int_t atomic_read(atomic_int_t volatile* pv);
-
-/* # define UNIXSTL_HAS_ATOMIC_READ */
-
-STLSOFT_INLINE atomic_int_t atomic_write(atomic_int_t volatile* pv, atomic_int_t n)
-{
-    atomic_int_t    oldval;
-
-    /* Note: the "xchg" instruction does not need a "lock" prefix */
-#  ifdef STLSOFT_COMPILER_IS_GCC
-    __asm__ __volatile__(   "xchgl %0, %1"      /* long (32-bit) xchg, from */
-                        :   "=r"(oldval),   "=m"(*(pv))
-                        :   "0"(n),         "m"(*(pv))
-                        :   "memory");
-#  else /* ? compiler */
-    _asm
-    {
-        mov ecx, dword ptr [pv]
-        mov eax, n
-        xchg dword ptr [ecx], eax
-        mov oldval, eax
-    }
-#  endif /* compiler */
-
-    return oldval;
-}
-
-#endif
 
 /* ////////////////////////////////////////////////////////////////////// */
 
 #endif /* UNIXSTL_HAS_ATOMIC_INTEGER_OPERATIONS */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Unit-testing
+ * namespace
  */
 
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/atomic_functions_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
-/* ////////////////////////////////////////////////////////////////////// */
-
-#ifndef _UNIXSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef UNIXSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 } /* namespace unixstl */
 # else
 } /* namespace unixstl_project */
 } /* namespace stlsoft */
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_UNIXSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !UNIXSTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 /* ////////////////////////////////////////////////////////////////////// */
 

@@ -4,45 +4,47 @@
  * Purpose:     COM ROT (Running Object Table) functions.
  *
  * Created:     21st October 1998
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 1998-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 /** \file comstl/util/rot_functions.h
  *
- * \brief [C++ only; requires COM] COM ROT (Running Object Table) functions
- *   (\ref group__library__utility__com "COM Utility" Library).
+ * \brief [C++; requires COM] COM ROT (Running Object Table) functions
+ *   (\ref group__library__COM_Utility "COM Utility" Library).
  */
 
 #ifndef COMSTL_INCL_COMSTL_UTIL_H_ROT_FUNCTIONS
@@ -51,48 +53,48 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define COMSTL_VER_COMSTL_UTIL_H_ROT_FUNCTIONS_MAJOR       5
 # define COMSTL_VER_COMSTL_UTIL_H_ROT_FUNCTIONS_MINOR       1
-# define COMSTL_VER_COMSTL_UTIL_H_ROT_FUNCTIONS_REVISION    3
-# define COMSTL_VER_COMSTL_UTIL_H_ROT_FUNCTIONS_EDIT        66
+# define COMSTL_VER_COMSTL_UTIL_H_ROT_FUNCTIONS_REVISION    8
+# define COMSTL_VER_COMSTL_UTIL_H_ROT_FUNCTIONS_EDIT        79
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef COMSTL_INCL_COMSTL_H_COMSTL
 # include <comstl/comstl.h>
 #endif /* !COMSTL_INCL_COMSTL_H_COMSTL */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#if !defined(_COMSTL_NO_NAMESPACE) && \
+#if !defined(COMSTL_NO_NAMESPACE) && \
     !defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
-# if defined(_STLSOFT_NO_NAMESPACE)
+# if defined(STLSOFT_NO_NAMESPACE)
 /* There is no stlsoft namespace, so must define ::comstl */
 namespace comstl
 {
 # else
 /* Define stlsoft::comstl_project */
-
 namespace stlsoft
 {
-
 namespace comstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
  * C functions
  */
 
 
-/** \brief [C only] Registers an object in the Running Object Table
+/** [C] Registers an object in the Running Object Table
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * Registers an object and its identifying moniker in the Running Object Table (ROT).
  *
@@ -112,7 +114,7 @@ STLSOFT_INLINE HRESULT comstl_C_Rot_Register(
     LPRUNNINGOBJECTTABLE    prot;
     HRESULT                 hr = STLSOFT_NS_GLOBAL(GetRunningObjectTable)(0, &prot);
 
-    if(SUCCEEDED(hr))
+    if (SUCCEEDED(hr))
     {
         hr = COMSTL_ITF_CALL(prot)->Register(COMSTL_ITF_THIS(prot) grfFlags, punkObject, pmkObjectName, pdwRegister);
 
@@ -122,9 +124,9 @@ STLSOFT_INLINE HRESULT comstl_C_Rot_Register(
     return hr;
 }
 
-/** \brief [C only] Removes an object from the Running Object Table
+/** [C] Removes an object from the Running Object Table
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * Removes from the Running Object Table (ROT) an entry that was previously
  * registered by a call to Rot_Register().
@@ -137,7 +139,7 @@ STLSOFT_INLINE HRESULT comstl_C_Rot_Revoke(DWORD dwRegister)
     LPRUNNINGOBJECTTABLE    prot;
     HRESULT                 hr = STLSOFT_NS_GLOBAL(GetRunningObjectTable)(0, &prot);
 
-    if(SUCCEEDED(hr))
+    if (SUCCEEDED(hr))
     {
         hr = COMSTL_ITF_CALL(prot)->Revoke(COMSTL_ITF_THIS(prot) dwRegister);
 
@@ -147,9 +149,9 @@ STLSOFT_INLINE HRESULT comstl_C_Rot_Revoke(DWORD dwRegister)
     return hr;
 }
 
-/** \brief [C only] Determines if object current in the Running Object Table
+/** [C] Determines if object current in the Running Object Table
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * Determines whether the object identified by the specified moniker is
  * currently running. This method looks for the moniker in the Running Object
@@ -163,7 +165,7 @@ STLSOFT_INLINE HRESULT comstl_C_Rot_IsRunning(LPMONIKER pmkObjectName)
     LPRUNNINGOBJECTTABLE    prot;
     HRESULT                 hr = STLSOFT_NS_GLOBAL(GetRunningObjectTable)(0, &prot);
 
-    if(SUCCEEDED(hr))
+    if (SUCCEEDED(hr))
     {
         hr = COMSTL_ITF_CALL(prot)->IsRunning(COMSTL_ITF_THIS(prot) pmkObjectName);
 
@@ -173,9 +175,9 @@ STLSOFT_INLINE HRESULT comstl_C_Rot_IsRunning(LPMONIKER pmkObjectName)
     return hr;
 }
 
-/** \brief [C only] Retrieves the object from the Running Object Table
+/** [C] Retrieves the object from the Running Object Table
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * Determines whether the object identified by the specified moniker is running,
  * and if it is, retrieves a pointer to that object. This method looks for the
@@ -194,7 +196,7 @@ STLSOFT_INLINE HRESULT comstl_C_Rot_GetObject(
     LPRUNNINGOBJECTTABLE    prot;
     HRESULT                 hr = STLSOFT_NS_GLOBAL(GetRunningObjectTable)(0, &prot);
 
-    if(SUCCEEDED(hr))
+    if (SUCCEEDED(hr))
     {
         hr = COMSTL_ITF_CALL(prot)->GetObject(COMSTL_ITF_THIS(prot) pmkObjectName, ppunkObject);
 
@@ -204,9 +206,9 @@ STLSOFT_INLINE HRESULT comstl_C_Rot_GetObject(
     return hr;
 }
 
-/** \brief [C only] Retrieves the last modification time of a running object in the Running Object Table
+/** [C] Retrieves the last modification time of a running object in the Running Object Table
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * Records the time that a running object was last modified. The object must
  * have previously been registered with the Running Object Table (ROT). This
@@ -224,7 +226,7 @@ STLSOFT_INLINE HRESULT comstl_C_Rot_NoteChangeTime(
     LPRUNNINGOBJECTTABLE    prot;
     HRESULT                 hr = STLSOFT_NS_GLOBAL(GetRunningObjectTable)(0, &prot);
 
-    if(SUCCEEDED(hr))
+    if (SUCCEEDED(hr))
     {
         hr = COMSTL_ITF_CALL(prot)->NoteChangeTime(COMSTL_ITF_THIS(prot) dwRegister, lpfiletime);
 
@@ -234,9 +236,9 @@ STLSOFT_INLINE HRESULT comstl_C_Rot_NoteChangeTime(
     return hr;
 }
 
-/** \brief [C only] Retrieves the last modification time of an object in the Running Object Table
+/** [C] Retrieves the last modification time of an object in the Running Object Table
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * Returns the time that an object was last modified. The object must have
  * previously been registered with the Running Object Table (ROT). This method
@@ -254,7 +256,7 @@ STLSOFT_INLINE HRESULT comstl_C_Rot_GetTimeOfLastChange(
     LPRUNNINGOBJECTTABLE    prot;
     HRESULT                 hr = STLSOFT_NS_GLOBAL(GetRunningObjectTable)(0, &prot);
 
-    if(SUCCEEDED(hr))
+    if (SUCCEEDED(hr))
     {
         hr = COMSTL_ITF_CALL(prot)->GetTimeOfLastChange(COMSTL_ITF_THIS(prot) pmkObjectName, lpfiletime);
 
@@ -264,9 +266,9 @@ STLSOFT_INLINE HRESULT comstl_C_Rot_GetTimeOfLastChange(
     return hr;
 }
 
-/** \brief [C only] Queries the current set of objects in the Running Object Table
+/** [C] Queries the current set of objects in the Running Object Table
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * Creates and returns a pointer to an enumerator that can list the monikers of
  * all the objects currently registered in the Running Object Table (ROT).
@@ -279,7 +281,7 @@ STLSOFT_INLINE HRESULT comstl_C_Rot_EnumRunning(IEnumMoniker** ppenumMoniker)
     LPRUNNINGOBJECTTABLE    prot;
     HRESULT                 hr = STLSOFT_NS_GLOBAL(GetRunningObjectTable)(0, &prot);
 
-    if(SUCCEEDED(hr))
+    if (SUCCEEDED(hr))
     {
         hr = COMSTL_ITF_CALL(prot)->EnumRunning(COMSTL_ITF_THIS(prot) ppenumMoniker);
 
@@ -290,7 +292,7 @@ STLSOFT_INLINE HRESULT comstl_C_Rot_EnumRunning(IEnumMoniker** ppenumMoniker)
 }
 
 /* /////////////////////////////////////////////////////////////////////////
- * Obsolete symbols
+ * obsolete symbols
  *
  * NOTE: these are only defined if:
  *
@@ -307,42 +309,42 @@ STLSOFT_INLINE HRESULT comstl_C_Rot_EnumRunning(IEnumMoniker** ppenumMoniker)
  *
  * \deprecated Use comstl_C_Rot_Register
  */
-# define comstl__Rot_Register               comstl_C_Rot_Register
+# define comstl__Rot_Register                               comstl_C_Rot_Register
 /** \def comstl__Rot_Revoke
  *
  * \deprecated Use comstl_C_Rot_Revoke
  */
-# define comstl__Rot_Revoke                 comstl_C_Rot_Revoke
+# define comstl__Rot_Revoke                                 comstl_C_Rot_Revoke
 /** \def comstl__Rot_IsRunning
  *
  * \deprecated Use comstl_C_Rot_IsRunning
  */
-# define comstl__Rot_IsRunning              comstl_C_Rot_IsRunning
+# define comstl__Rot_IsRunning                              comstl_C_Rot_IsRunning
 /** \def comstl__Rot_GetObject
  *
  * \deprecated Use comstl_C_Rot_GetObject
  */
-# define comstl__Rot_GetObject              comstl_C_Rot_GetObject
+# define comstl__Rot_GetObject                              comstl_C_Rot_GetObject
 /** \def comstl__Rot_NoteChangeTime
  *
  * \deprecated Use comstl_C_Rot_NoteChangeTime
  */
-# define comstl__Rot_NoteChangeTime         comstl_C_Rot_NoteChangeTime
+# define comstl__Rot_NoteChangeTime                         comstl_C_Rot_NoteChangeTime
 /** \def comstl__Rot_GetTimeOfLastChange
  *
  * \deprecated Use comstl_C_Rot_GetTimeOfLastChange
  */
-# define comstl__Rot_GetTimeOfLastChange    comstl_C_Rot_GetTimeOfLastChange
+# define comstl__Rot_GetTimeOfLastChange                    comstl_C_Rot_GetTimeOfLastChange
 /** \def comstl__Rot_EnumRunning
  *
  * \deprecated Use comstl_C_Rot_EnumRunning
  */
-# define comstl__Rot_EnumRunning            comstl_C_Rot_EnumRunning
+# define comstl__Rot_EnumRunning                            comstl_C_Rot_EnumRunning
 
 #endif /* obsolete || 1.9 */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
 #ifdef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -356,9 +358,9 @@ namespace comstl
 
 #ifdef __cplusplus
 
-/** \brief Registers an object in the Running Object Table
+/** Registers an object in the Running Object Table
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * Registers an object and its identifying moniker in the Running Object Table (ROT).
  *
@@ -375,12 +377,12 @@ inline HRESULT Rot_Register(
 ,   DWORD*      pdwRegister
 )
 {
-    return comstl__Rot_Register(grfFlags, punkObject, pmkObjectName, pdwRegister);
+    return comstl_C_Rot_Register(grfFlags, punkObject, pmkObjectName, pdwRegister);
 }
 
-/** \brief Removes an object from the Running Object Table
+/** Removes an object from the Running Object Table
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * Removes from the Running Object Table (ROT) an entry that was previously
  * registered by a call to Rot_Register().
@@ -390,12 +392,12 @@ inline HRESULT Rot_Register(
  */
 inline HRESULT Rot_Revoke(DWORD dwRegister)
 {
-    return comstl__Rot_Revoke(dwRegister);
+    return comstl_C_Rot_Revoke(dwRegister);
 }
 
-/** \brief Determines if object current in the Running Object Table
+/** Determines if object current in the Running Object Table
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * Determines whether the object identified by the specified moniker is
  * currently running. This method looks for the moniker in the Running Object
@@ -406,12 +408,12 @@ inline HRESULT Rot_Revoke(DWORD dwRegister)
  */
 inline HRESULT Rot_IsRunning(LPMONIKER pmkObjectName)
 {
-    return comstl__Rot_IsRunning(pmkObjectName);
+    return comstl_C_Rot_IsRunning(pmkObjectName);
 }
 
-/** \brief Retrieves the object from the Running Object Table
+/** Retrieves the object from the Running Object Table
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * Determines whether the object identified by the specified moniker is running,
  * and if it is, retrieves a pointer to that object. This method looks for the
@@ -427,12 +429,12 @@ inline HRESULT Rot_GetObject(
 ,   LPUNKNOWN*  ppunkObject
 )
 {
-    return comstl__Rot_GetObject(pmkObjectName, ppunkObject);
+    return comstl_C_Rot_GetObject(pmkObjectName, ppunkObject);
 }
 
-/** \brief Retrieves the last modification time of a running object in the Running Object Table
+/** Retrieves the last modification time of a running object in the Running Object Table
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * Records the time that a running object was last modified. The object must
  * have previously been registered with the Running Object Table (ROT). This
@@ -447,12 +449,12 @@ inline HRESULT Rot_NoteChangeTime(
 ,   FILETIME*   lpfiletime
 )
 {
-    return comstl__Rot_NoteChangeTime(dwRegister, lpfiletime);
+    return comstl_C_Rot_NoteChangeTime(dwRegister, lpfiletime);
 }
 
-/** \brief Retrieves the last modification time of an object in the Running Object Table
+/** Retrieves the last modification time of an object in the Running Object Table
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * Returns the time that an object was last modified. The object must have
  * previously been registered with the Running Object Table (ROT). This method
@@ -467,12 +469,12 @@ inline HRESULT Rot_GetTimeOfLastChange(
 ,   FILETIME*   lpfiletime
 )
 {
-    return comstl__Rot_GetTimeOfLastChange(pmkObjectName, lpfiletime);
+    return comstl_C_Rot_GetTimeOfLastChange(pmkObjectName, lpfiletime);
 }
 
-/** \brief Queries the current set of objects in the Running Object Table
+/** Queries the current set of objects in the Running Object Table
  *
- * \ingroup group__library__utility__com
+ * \ingroup group__library__COM_Utility
  *
  * Creates and returns a pointer to an enumerator that can list the monikers of
  * all the objects currently registered in the Running Object Table (ROT).
@@ -482,32 +484,30 @@ inline HRESULT Rot_GetTimeOfLastChange(
  */
 inline HRESULT Rot_EnumRunning(IEnumMoniker** ppenumMoniker)
 {
-    return comstl__Rot_EnumRunning(ppenumMoniker);
+    return comstl_C_Rot_EnumRunning(ppenumMoniker);
 }
 
 #endif /* __cplusplus */
 
-/* /////////////////////////////////////////////////////////////////////////
- * Unit-testing
- */
-
-#ifdef STLSOFT_UNITTEST
-# include "./unittest/rot_functions_unittest_.h"
-#endif /* STLSOFT_UNITTEST */
-
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _COMSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef COMSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 } /* namespace comstl */
 # else
 } /* namespace stlsoft::comstl_project */
 } /* namespace stlsoft */
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_COMSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !COMSTL_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !COMSTL_INCL_COMSTL_UTIL_H_ROT_FUNCTIONS */
 

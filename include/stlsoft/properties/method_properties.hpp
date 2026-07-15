@@ -4,44 +4,49 @@
  * Purpose:     Method-based properties.
  *
  * Created:     6th October 2003
- * Updated:     15th December 2023
+ * Updated:     6th February 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2003-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permitted provided that the following conditions are
+ * met:
  *
- * - Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the names of
- *   any contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
+/* STLSOFT:C++98:FILE_DEPRECATED */
+/* STLSOFT:C++03:FILE_DEPRECATED */
+
 /** \file stlsoft/properties/method_properties.hpp
  *
- * \brief [C++ only] Definition of the method property implementation
+ * \brief [C++] Definition of the method property implementation
  *  class templates:
  * stlsoft::method_property_get,
  * stlsoft::method_property_set,
@@ -56,7 +61,7 @@
  * stlsoft::static_method_property_set_external
  * and
  * stlsoft::static_method_property_getset_external
- *   (\ref group__library__properties "Properties" Library).
+ *   (\ref group__library__Properties "Properties" Library).
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_PROPERTIES_HPP_METHOD_PROPERTIES
@@ -65,29 +70,20 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_PROPERTIES_HPP_METHOD_PROPERTIES_MAJOR     4
 # define STLSOFT_VER_STLSOFT_PROPERTIES_HPP_METHOD_PROPERTIES_MINOR     0
-# define STLSOFT_VER_STLSOFT_PROPERTIES_HPP_METHOD_PROPERTIES_REVISION  3
-# define STLSOFT_VER_STLSOFT_PROPERTIES_HPP_METHOD_PROPERTIES_EDIT      58
+# define STLSOFT_VER_STLSOFT_PROPERTIES_HPP_METHOD_PROPERTIES_REVISION  8
+# define STLSOFT_VER_STLSOFT_PROPERTIES_HPP_METHOD_PROPERTIES_EDIT      72
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
- */
-
-/*
-[Incompatibilies-start]
-STLSOFT_COMPILER_IS_GCC:    __GNUC__ == 3 && defined(__APPLE__)
-STLSOFT_COMPILER_IS_MSVC:   _MSC_VER<1200
-STLSOFT_COMPILER_IS_WATCOM:
-[Incompatibilies-end]
- */
-
-/* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
 
 #if defined(STLSOFT_COMPILER_IS_MSVC) && \
     _MSC_VER < 1200
@@ -95,7 +91,7 @@ STLSOFT_COMPILER_IS_WATCOM:
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compatibility
+ * compatibility
  */
 
 /* Don't want all the nasty crud for handling backwards compilers included in
@@ -114,16 +110,16 @@ STLSOFT_COMPILER_IS_WATCOM:
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _STLSOFT_NO_NAMESPACE
+#ifndef STLSOFT_NO_NAMESPACE
 namespace stlsoft
 {
-#endif /* _STLSOFT_NO_NAMESPACE */
+#endif /* STLSOFT_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Macros
+ * macros
  */
 
 #define STLSOFT_METHOD_PROPERTY_OFFSET_NAME(C, P)   \
@@ -133,7 +129,7 @@ namespace stlsoft
 
 /** \def STLSOFT_METHOD_PROPERTY_DEFINE_OFFSET
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  *
  * \param C The containing class type
  * \param P The property name
@@ -141,7 +137,7 @@ namespace stlsoft
 
 #define STLSOFT_METHOD_PROPERTY_DEFINE_OFFSET(C, P)                                     \
                                                                                         \
-    static stlsoft_ns_qual(ss_ptrdiff_t) STLSOFT_METHOD_PROPERTY_OFFSET_NAME(C, P)()    \
+    static STLSOFT_NS_QUAL(ss_ptrdiff_t) STLSOFT_METHOD_PROPERTY_OFFSET_NAME(C, P)()    \
     {                                                                                   \
         return STLSOFT_RAW_OFFSETOF(C, P);                                              \
     }
@@ -149,7 +145,7 @@ namespace stlsoft
 
 /** \def STLSOFT_METHOD_PROPERTY_GET
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  *
  * \param V The value type
  * \param R The value reference type
@@ -166,7 +162,7 @@ namespace stlsoft
                                                             \
     STLSOFT_METHOD_PROPERTY_DEFINE_OFFSET(C, P)             \
                                                             \
-    stlsoft_ns_qual(method_property_get)<   V               \
+    STLSOFT_NS_QUAL(method_property_get)<   V               \
                                         ,   R               \
                                         ,   C               \
                                         ,   &C::STLSOFT_METHOD_PROPERTY_OFFSET_NAME(C, P)    \
@@ -179,7 +175,7 @@ namespace stlsoft
                                                             \
     STLSOFT_METHOD_PROPERTY_DEFINE_OFFSET(C, P)             \
                                                             \
-    stlsoft_ns_qual(method_property_get)<   V               \
+    STLSOFT_NS_QUAL(method_property_get)<   V               \
                                         ,   R               \
                                         ,   C               \
                                         ,   &C::STLSOFT_METHOD_PROPERTY_OFFSET_NAME(C, P)    \
@@ -191,7 +187,7 @@ namespace stlsoft
 
 /** \def STLSOFT_METHOD_PROPERTY_SET
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  *
  * \param V The value type
  * \param R The value reference type
@@ -208,7 +204,7 @@ namespace stlsoft
                                                             \
     STLSOFT_METHOD_PROPERTY_DEFINE_OFFSET(C, P)             \
                                                             \
-    stlsoft_ns_qual(method_property_set)<   V               \
+    STLSOFT_NS_QUAL(method_property_set)<   V               \
                                         ,   R               \
                                         ,   C               \
                                         ,   &C::STLSOFT_METHOD_PROPERTY_OFFSET_NAME(C, P)    \
@@ -223,7 +219,7 @@ namespace stlsoft
 
 /** \def STLSOFT_METHOD_PROPERTY_GETSET
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  *
  * \param V The value type
  * \param RG The get reference type
@@ -242,7 +238,7 @@ namespace stlsoft
                                                                     \
     STLSOFT_METHOD_PROPERTY_DEFINE_OFFSET(C, P)                     \
                                                                     \
-    stlsoft_ns_qual(method_property_getset)<    V                   \
+    STLSOFT_NS_QUAL(method_property_getset)<    V                   \
                                             ,   RG                  \
                                             ,   RS                  \
                                             ,   C                   \
@@ -257,7 +253,7 @@ namespace stlsoft
                                                                     \
     STLSOFT_METHOD_PROPERTY_DEFINE_OFFSET(C, P)                     \
                                                                     \
-    stlsoft_ns_qual(method_property_getset)<    V                   \
+    STLSOFT_NS_QUAL(method_property_getset)<    V                   \
                                             ,   RG                  \
                                             ,   RS                  \
                                             ,   C                   \
@@ -270,7 +266,7 @@ namespace stlsoft
 
 /** \def STLSOFT_METHOD_PROPERTY_GET_EXTERNAL
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  *
  * \param R The value reference type
  * \param C The containing class type
@@ -284,7 +280,7 @@ namespace stlsoft
 
 # define STLSOFT_METHOD_PROPERTY_GET_EXTERNAL_PROP(R, C, GM, P) \
                                                                 \
-    stlsoft_ns_qual(method_property_get_external)<  R           \
+    STLSOFT_NS_QUAL(method_property_get_external)<  R           \
                                                 ,   C           \
                                                 ,   &C::STLSOFT_METHOD_PROPERTY_OFFSET_NAME(C, P)    \
                                                 ,   &C::GM      \
@@ -301,7 +297,7 @@ namespace stlsoft
                                                             \
     STLSOFT_METHOD_PROPERTY_DEFINE_OFFSET(C, P)             \
                                                             \
-    stlsoft_ns_qual(method_property_get_external)<  R       \
+    STLSOFT_NS_QUAL(method_property_get_external)<  R       \
                                                 ,   C       \
                                                 ,   &C::STLSOFT_METHOD_PROPERTY_OFFSET_NAME(C, P)    \
                                                 >       P
@@ -312,7 +308,7 @@ namespace stlsoft
 
 /** \def STLSOFT_METHOD_PROPERTY_SET_EXTERNAL
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  *
  * \param R The value reference type
  * \param C The containing class type
@@ -326,7 +322,7 @@ namespace stlsoft
 
 # define STLSOFT_METHOD_PROPERTY_SET_EXTERNAL_PROP(R, C, SM, P) \
                                                                 \
-    stlsoft_ns_qual(method_property_set_external)<  R           \
+    STLSOFT_NS_QUAL(method_property_set_external)<  R           \
                                                 ,   C           \
                                                 ,   &C::STLSOFT_METHOD_PROPERTY_OFFSET_NAME(C, P)    \
                                                 ,   &C::SM      \
@@ -345,7 +341,7 @@ namespace stlsoft
 
 /** \def STLSOFT_METHOD_PROPERTY_GETSET_EXTERNAL
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  *
  * \param RG The get reference type
  * \param RS The set reference type
@@ -361,7 +357,7 @@ namespace stlsoft
 
 # define STLSOFT_METHOD_PROPERTY_GETSET_EXTERNAL_PROP(RG, RS, C, GM, SM, P) \
                                                                             \
-    stlsoft_ns_qual(method_property_getset_external)<   RG                  \
+    STLSOFT_NS_QUAL(method_property_getset_external)<   RG                  \
                                                     ,   RS                  \
                                                     ,   C                   \
                                                     ,   &C::STLSOFT_METHOD_PROPERTY_OFFSET_NAME(C, P)  \
@@ -380,7 +376,7 @@ namespace stlsoft
 
 
 /* /////////////////////////////////////////////////////////////////////////
- * Classes
+ * classes
  */
 
 /* Designates a property
@@ -431,7 +427,7 @@ struct external_property
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Internal method property classes
+ * internal method property classes
  */
 
 // Some compilers store member functions as very large quantities, e.g Borland
@@ -439,10 +435,10 @@ struct external_property
 // of a unique type, whose users are required to call its constructor before
 // accessing its static method
 
-/** \brief Provides static storage and access to a get member function of a
+/** Provides static storage and access to a get member function of a
  *   given type.
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  */
 template<   ss_typename_param_k T /* The outer class, used to provide uniqueness */
         ,   ss_typename_param_k R   /* The reference type */
@@ -474,7 +470,7 @@ private:
 
         STLSOFT_MESSAGE_ASSERT("member_get_pointer called before being initialised!", NULL != s_pfn);
 
-        if(NULL != pC)
+        if (NULL != pC)
         {
             *pR = (pC->*s_pfn)();
         }
@@ -482,10 +478,10 @@ private:
 };
 
 
-/** \brief Provides static storage and access to a set member function of a
+/** Provides static storage and access to a set member function of a
  *   given type.
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  */
 template<   ss_typename_param_k T /* The outer class, used to provide uniqueness */
         ,   ss_typename_param_k R   /* The reference type */
@@ -513,20 +509,20 @@ private:
 
         STLSOFT_MESSAGE_ASSERT("member_set_pointer called before being initialised!", NULL != s_pfn);
 
-        if(NULL != pC)
+        if (NULL != pC)
         {
             (pC->*s_pfn)(*pR);
         }
     }
 };
 
-/** \brief This class provides method-based read-only property access
+/** This class provides method-based read-only property access
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  *
  * The containing class defines a get method. It also defines a static method
  * that contains the offset of the given property from within the container.
- * Then the template is parameterised with the value type, the reference type,
+ * Then the template is specialised with the value type, the reference type,
  * the container type, the member function and the offset function.
  */
 template<   ss_typename_param_k V       /* The actual property value type */
@@ -618,13 +614,13 @@ private:
 };
 
 
-/** \brief This class provides method-based write-only property access
+/** This class provides method-based write-only property access
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  *
  * The containing class defines a set method. It also defines a static method
  * that contains the offset of the given property from within the container.
- * Then the template is parameterised with the value type, the reference type,
+ * Then the template is specialised with the value type, the reference type,
  * the container type, the member function and the offset function.
  */
 template<   ss_typename_param_k V       /* The actual property value type */
@@ -715,13 +711,13 @@ private:
 };
 
 
-/** \brief This class provides method-based read/write property access
+/** This class provides method-based read/write property access
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  *
  * The containing class defines get and set methods. It also defines a static
  * method that contains the offset of the given property from within the container.
- * Then the template is parameterised with the value type, the set reference type,
+ * Then the template is specialised with the value type, the set reference type,
  * the get reference type, the container type, the member functions and the offset
  * function.
  */
@@ -830,16 +826,16 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * External method property classes
+ * external method property classes
  */
 
-/**\brief This class provides indirect method-based read-only property access
+/** This class provides indirect method-based read-only property access
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  *
  * The containing class defines a get method. It also defines a static method
  * that contains the offset of the given property from within the container.
- * Then the template is parameterised with the the reference type, the
+ * Then the template is specialised with the the reference type, the
  * container type, the member function and the offset function.
  */
 template<   ss_typename_param_k R       /* The reference type */
@@ -912,13 +908,13 @@ private:
 };
 
 
-/** \brief This class provides indirect method-based write-only property access
+/** This class provides indirect method-based write-only property access
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  *
  * The containing class defines a set method. It also defines a static method
  * that contains the offset of the given property from within the container.
- * Then the template is parameterised with the reference type, the container
+ * Then the template is specialised with the reference type, the container
  * type, the member function and the offset function.
  */
 template<   ss_typename_param_k R       /* The reference type */
@@ -984,13 +980,13 @@ public:
 
 
 
-/** \brief This class provides indirect method-based read/write property access
+/** This class provides indirect method-based read/write property access
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  *
  * The containing class defines get and set methods. It also defines a static
  * method that contains the offset of the given property from within the container.
- * Then the template is parameterised with the set reference type, the get
+ * Then the template is specialised with the set reference type, the get
  * reference type, the container type, the member functions and the offset function.
  */
 template<   ss_typename_param_k RG      /* The reference type */
@@ -1075,12 +1071,12 @@ public:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * Internal static method property classes
+ * internal static method property classes
  */
 
-/** \brief Implements static read-only Method Property
+/** Implements static read-only Method Property
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  */
 template<   ss_typename_param_k V
         ,   ss_typename_param_k R   /* The reference type */
@@ -1137,9 +1133,9 @@ private:
 /// @}
 };
 
-/** \brief Implements static write-only Method Property
+/** Implements static write-only Method Property
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  */
 template<   ss_typename_param_k V
         ,   ss_typename_param_k R   /* The reference type */
@@ -1188,9 +1184,9 @@ private:
 /// @}
 };
 
-/** \brief Implements static read-write Method Property
+/** Implements static read-write Method Property
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  */
 template<   ss_typename_param_k V
         ,   ss_typename_param_k RG
@@ -1247,12 +1243,12 @@ private:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * External static method property classes
+ * external static method property classes
  */
 
-/** \brief Implements External static read-only Method Property
+/** Implements External static read-only Method Property
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  */
 template<   ss_typename_param_k R   /* The reference type */
         ,   R (*PFn)(void)
@@ -1297,7 +1293,7 @@ private:
 /// @}
 };
 
-/** \brief Implements External static write-only Method Property.
+/** Implements External static write-only Method Property.
  */
 template<   ss_typename_param_k R   /* The reference type */
         ,   void (*PFn)(R )
@@ -1324,9 +1320,9 @@ public:
 /// @}
 };
 
-/** \brief Implements External static read-write Method Property
+/** Implements External static read-write Method Property
  *
- * \ingroup group__library__properties
+ * \ingroup group__library__Properties
  */
 template<   ss_typename_param_k RG
         ,   ss_typename_param_k RS
@@ -1361,7 +1357,7 @@ public:
 };
 
 /* /////////////////////////////////////////////////////////////////////////
- * IOStream compatibility
+ * iostream compatibility
  */
 
 // method_property_getset
@@ -1460,11 +1456,17 @@ inline S& operator <<(  S& s
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-#ifndef _STLSOFT_NO_NAMESPACE
-} // namespace stlsoft
-#endif /* _STLSOFT_NO_NAMESPACE */
+#ifndef STLSOFT_NO_NAMESPACE
+} /* namespace stlsoft */
+#endif /* STLSOFT_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////
+ * inclusion control
+ */
+
+#ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
+# pragma once
+#endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
 #endif /* !STLSOFT_INCL_STLSOFT_PROPERTIES_HPP_METHOD_PROPERTIES */
 

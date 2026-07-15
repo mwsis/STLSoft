@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
  * File:        winstl/winstl.h
  *
- * Purpose:     Root header for the WinSTL libraries. Performs various compiler
+ * Purpose:     Root header for the WinSTL libraries. Performs compiler
  *              and platform discriminations, and definitions of types.
  *
  * Created:     15th January 2002
- * Updated:     15th December 2023
+ * Updated:     22nd January 2024
  *
  * Home:        http://stlsoft.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2002-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -22,9 +22,10 @@
  * - Redistributions in binary form must reproduce the above copyright
  *   notice, this list of conditions and the following disclaimer in the
  *   documentation and/or other materials provided with the distribution.
- * - Neither the name(s) of Matthew Wilson and Synesis Software nor the
- *   names of any contributors may be used to endorse or promote products
- *   derived from this software without specific prior written permission.
+ * - Neither the name(s) of Matthew Wilson and Synesis Information Systems
+ *   nor the names of any contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
  * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
@@ -43,19 +44,20 @@
 
 #ifndef WINSTL_INCL_WINSTL_H_WINSTL
 #define WINSTL_INCL_WINSTL_H_WINSTL
-#define WINSTL_INCL_H_WINSTL    /*!< \brief Definition of previous include-guard symbol for winstl/winstl.h, for backwards compatibility. */
+#define WINSTL_INCL_H_WINSTL                                /*!< Definition of previous include-guard symbol for winstl/winstl.h, for backwards compatibility. */
 
 /* File version */
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define WINSTL_VER_WINSTL_H_WINSTL_MAJOR       3
-# define WINSTL_VER_WINSTL_H_WINSTL_MINOR       14
+# define WINSTL_VER_WINSTL_H_WINSTL_MINOR       17
 # define WINSTL_VER_WINSTL_H_WINSTL_REVISION    6
-# define WINSTL_VER_WINSTL_H_WINSTL_EDIT        199
+# define WINSTL_VER_WINSTL_H_WINSTL_EDIT        221
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /** \file winstl/winstl.h
  *
- * \brief [C, C++] The root header for the \ref group__project__winstl "WinSTL" project.
+ * \brief [C, C++] Root header for the
+ * \ref group__project__winstl "WinSTL" project.
  */
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -93,19 +95,19 @@
  */
 
 /** \def _WINSTL_VER_MAJOR
- * \brief The major version number of the \ref group__project__winstl project "WinSTL" project
+ * The major version number of the \ref group__project__winstl project "WinSTL" project
  */
 
 /** \def _WINSTL_VER_MINOR
- * \brief The minor version number of the \ref group__project__winstl project "WinSTL" project
+ * The minor version number of the \ref group__project__winstl project "WinSTL" project
  */
 
 /** \def _WINSTL_VER_REVISION
- * \brief The revision version number of the \ref group__project__winstl project "WinSTL" project
+ * The revision version number of the \ref group__project__winstl project "WinSTL" project
  */
 
 /** \def _WINSTL_VER
- * \brief The current composite version number of the \ref group__project__winstl project "WinSTL" project
+ * The current composite version number of the \ref group__project__winstl project "WinSTL" project
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -156,31 +158,43 @@
 # define _WINSTL_VER_1_11_10    0x010b0aff  /*!< Version 1.11.10 (with STLSoft 1.9.120) */
 # define _WINSTL_VER_1_11_11    0x010b0bff  /*!< Version 1.11.11 (with STLSoft 1.9.121) */
 # define _WINSTL_VER_1_11_12    0x010b0cff  /*!< Version 1.11.11 (with STLSoft 1.9.126) */
+# define _WINSTL_VER_1_12_1_B01 0x010c0181  /*!< Version 1.12.1 beta 1 (with STLSoft 1.10.1 beta 1) */
+# define _WINSTL_VER_1_12_1_B02 0x010c0182  /*!< Version 1.12.1 beta 2 (with STLSoft 1.10.1 beta 10) */
+# define _WINSTL_VER_1_12_1_B03 0x010c0183  /*!< Version 1.12.1 beta 3 (with STLSoft 1.10.1 beta 14) */
+# define _WINSTL_VER_1_12_1_B04 0x010c0184  /*!< Version 1.12.1 beta 4 (with STLSoft 1.10.1 beta 14) */
+# define _WINSTL_VER_1_12_1_B05 0x010c0185  /*!< Version 1.12.1 beta 5 (with STLSoft 1.10.1 beta 26) */
+# define _WINSTL_VER_1_12_1     0x010c01ff  /*!< Version 1.12.1 (with STLSoft 1.10.3) */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #define _WINSTL_VER_MAJOR       1
-#define _WINSTL_VER_MINOR       11
-#define _WINSTL_VER_REVISION    12
-#define _WINSTL_VER             _WINSTL_VER_1_11_12
+#define _WINSTL_VER_MINOR       12
+#define _WINSTL_VER_REVISION    1
+#define _WINSTL_VER             _WINSTL_VER_1_12_1
 
 /* /////////////////////////////////////////////////////////////////////////
- * Includes
+ * includes
  */
 
 /* Strict */
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
-# ifndef STRICT
-#  if defined(_WINSTL_STRICT) || \
-      (   !defined(_WINSTL_NO_STRICT) && \
-          !defined(NO_STRICT))
-#   define STRICT 1
-#  endif /* !NO_STRICT && !_WINSTL_NO_STRICT */
-# endif /* STRICT */
+# if 1 &&\
+     !defined(STRICT) &&\
+     !defined(_WINSTL_NO_STRICT) &&\
+     !defined(NO_STRICT) &&\
+     1
+#  ifdef _WINSTL_STRICT
+#   define STRICT                                           1
+#  endif /* _WINSTL_STRICT */
+# endif /* !NO_STRICT && !_WINSTL_NO_STRICT && !STRICT */
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #ifndef STLSOFT_INCL_STLSOFT_H_STLSOFT
 # include <stlsoft/stlsoft.h>
 #endif /* !STLSOFT_INCL_STLSOFT_H_STLSOFT */
+#ifdef STLSOFT_TRACE_INCLUDE
+# pragma message(__FILE__)
+#endif /* STLSOFT_TRACE_INCLUDE */
+
 #if defined(STLSOFT_COMPILER_IS_MSVC) && \
     _MSC_VER == 1100
 # include <wtypes.h>    /* This is here to fix a thoroughly inexplicable VC 5 bug */
@@ -228,16 +242,21 @@
 #endif /* !STLSOFT_INCL_H_STDLIB */
 
 /* /////////////////////////////////////////////////////////////////////////
- * STLSoft version compatibility
+ * windows version compatibility check(s)
  */
 
-#if !defined(_STLSOFT_VER) || \
-    _STLSOFT_VER < 0x010971ff
-# error This version of the WinSTL libraries requires STLSoft version 1.9.113, or later
+#include <winstl/api/winstl_win32_winnt_.h>
+
+/* /////////////////////////////////////////////////////////////////////////
+ * STLSoft version compatibility check(s)
+ */
+
+#if _STLSOFT_VER < 0x010a019a
+# error This version of the WinSTL libraries requires STLSoft version 1.10.1 beta 26, or later
 #endif /* _STLSOFT_VER */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Operating System
+ * operating system
  */
 
 #ifdef WINSTL_OS_IS_WIN32
@@ -266,7 +285,7 @@
 #endif /* WIN?? */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Architecture
+ * architecture
  */
 
 #ifdef WINSTL_ARCH_IS_X86
@@ -293,23 +312,23 @@
 #endif /* _M_?? */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Proper C++ casting
+ * proper C++ casting
  */
 
 #ifdef __cplusplus
 # undef     INVALID_HANDLE_VALUE
 /** \def INVALID_HANDLE_VALUE
- * \brief A C++-only redefinition of this \#define which uses reinterpret_cast to
+ * A C++-only redefinition of this \#define which uses reinterpret_cast to
  *  avoid C-style cast warnings.
  */
 # if defined(STLSOFT_COMPILER_IS_INTEL)
-#  define   INVALID_HANDLE_VALUE        stlsoft_ns_qual(union_cast)<HANDLE>(winstl_ns_qual(ws_sptrint_t)(-1))
+#  define   INVALID_HANDLE_VALUE                            STLSOFT_NS_QUAL(union_cast)<HANDLE>(WINSTL_NS_QUAL(ws_sptrint_t)(-1))
 # else /* ? compiler */
-#  define   INVALID_HANDLE_VALUE        reinterpret_cast<HANDLE>(-1)
+#  define   INVALID_HANDLE_VALUE                            reinterpret_cast<HANDLE>(-1)
 # endif /* compiler */
 
 /** \def MAKEINTRESOURCEA
- * \brief A C++-only redefinition of this \#define which uses C++ cast operators to
+ * A C++-only redefinition of this \#define which uses C++ cast operators to
  *  avoid C-style cast warnings.
  */
 # undef     MAKEINTRESOURCEA
@@ -321,7 +340,7 @@
 # endif /* width */
 
 /** \def MAKEINTRESOURCEW
- * \brief A C++-only redefinition of this \#define which uses C++ cast operators to
+ * A C++-only redefinition of this \#define which uses C++ cast operators to
  *  avoid C-style cast warnings.
  */
 # undef     MAKEINTRESOURCEW
@@ -333,7 +352,7 @@
 # endif /* width */
 
 /** \def MAKEINTRESOURCE
- * \brief A C++-only redefinition of this \#define which uses C++ cast operators to
+ * A C++-only redefinition of this \#define which uses C++ cast operators to
  *  avoid C-style cast warnings.
  */
 # undef     MAKEINTRESOURCE
@@ -345,7 +364,7 @@
 # endif /* width */
 
 /** \def MAKELANGID
- * \brief A C++-only redefinition of this \#define which uses C++ cast operators to
+ * A C++-only redefinition of this \#define which uses C++ cast operators to
  *  avoid C-style cast warnings.
  */
 # undef     MAKELANGID
@@ -356,43 +375,43 @@
 /* # define    LOWORD(l)                   static_cast<WORD>(static_cast<DWORD>(l) & 0xffff) */
 
 /** \def INVALID_FILE_SIZE
- * \brief A C++-only redefinition of this \#define which uses C++ cast operators to
+ * A C++-only redefinition of this \#define which uses C++ cast operators to
  *  avoid C-style cast warnings.
  */
 # undef     INVALID_FILE_SIZE
-# define    INVALID_FILE_SIZE           static_cast<DWORD>(0xFFFFFFFF)
+# define    INVALID_FILE_SIZE                               static_cast<DWORD>(0xFFFFFFFF)
 
 
 /** \def INVALID_SET_FILE_POINTER
- * \brief A C++-only redefinition of this \#define which uses C++ cast operators to
+ * A C++-only redefinition of this \#define which uses C++ cast operators to
  *  avoid C-style cast warnings.
  */
 # undef     INVALID_SET_FILE_POINTER
-# define    INVALID_SET_FILE_POINTER    static_cast<DWORD>(0xFFFFFFFF)
+# define    INVALID_SET_FILE_POINTER                        static_cast<DWORD>(0xFFFFFFFF)
 
 /** \def INVALID_FILE_ATTRIBUTES
- * \brief A C++-only redefinition of this \#define which uses C++ cast operators to
+ * A C++-only redefinition of this \#define which uses C++ cast operators to
  *  avoid C-style cast warnings.
  */
 # ifdef INVALID_FILE_ATTRIBUTES
 #  undef INVALID_FILE_ATTRIBUTES
 # endif /* INVALID_FILE_ATTRIBUTES */
-# define INVALID_FILE_ATTRIBUTES        static_cast<DWORD>(0xFFFFFFFF)
+# define INVALID_FILE_ATTRIBUTES                            static_cast<DWORD>(0xFFFFFFFF)
 
 #else /* ? __cplusplus */
 
 # ifndef INVALID_SET_FILE_POINTER
-#  define INVALID_SET_FILE_POINTER      stlsoft_c_cast(DWORD, -1)
+#  define INVALID_SET_FILE_POINTER                          stlsoft_c_cast(DWORD, -1)
 # endif /* !INVALID_SET_FILE_POINTER */
 
 # ifndef INVALID_FILE_ATTRIBUTES
-#  define INVALID_FILE_ATTRIBUTES       stlsoft_c_cast(DWORD, -1)
+#  define INVALID_FILE_ATTRIBUTES                           stlsoft_c_cast(DWORD, -1)
 # endif /* !INVALID_FILE_ATTRIBUTES */
 
 #endif /* __cplusplus */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Sanity checks
+ * sanity checks
  *
  * Win32    -   must be compiled in context of Win32 API
  */
@@ -404,7 +423,7 @@
 #endif /* !WIN32 && !_WIN32 */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Compiler compatibility
+ * compiler compatibility
  *
  * Currently the only compilers supported by the WinSTL libraries are
  *
@@ -480,7 +499,7 @@
 #endif /* compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Features
+ * features
  */
 
 #ifdef WINSTL_UDATE_DEFINED
@@ -492,6 +511,9 @@
     (   defined(STLSOFT_COMPILER_IS_COMO) && \
         defined(_MSC_VER)) || \
     defined(STLSOFT_COMPILER_IS_DMC) || \
+    (   defined(STLSOFT_COMPILER_IS_GCC) && \
+        (   defined(__MINGW32__) || \
+            defined(__MINGW64__))) || \
     defined(STLSOFT_COMPILER_IS_INTEL) || \
     defined(STLSOFT_COMPILER_IS_MWERKS) || \
     defined(STLSOFT_COMPILER_IS_MSVC)
@@ -499,12 +521,12 @@
 #endif /* WINSTL_FORCE_UDATE || compiler */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Contract Enforcement
+ * contract enforcement
  *
  * The macro winstl_assert provides standard debug-mode assert functionality.
  */
 
-/** \brief Defines an assertion construct for runtime verification.
+/** Defines an assertion construct for runtime verification.
  *
  * \param expr Must be non-zero, or an assertion will be fired
  *
@@ -517,7 +539,7 @@
 # define WINSTL_ASSERT(expr)                STLSOFT_ASSERT(expr)
 #endif /* !WINSTL_ASSERT */
 
-/** \brief Defines a runtime assertion, with message
+/** Defines a runtime assertion, with message
  *
  * \param expr Must be non-zero, or an assertion will be fired
  * \param msg The literal character string message to be included in the assertion
@@ -526,7 +548,7 @@
 
 /** \def WINSTL_STATIC_ASSERT(expr)
  *
- * \brief Defines an assertion construct for compile-time verification.
+ * Defines an assertion construct for compile-time verification.
  *
  * \param expr A compile-time evaluatable condition that must be non-zero, or compilation will fail.
  *
@@ -542,7 +564,7 @@
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  *
  * The WinSTL components are contained within the winstl namespace. This is
  * usually an alias for stlsoft::winstl_project,
@@ -550,19 +572,19 @@
  * When compilers support namespaces they are defined by default. They can be
  * undefined using a cascasing system, as follows:
  *
- * If _STLSOFT_NO_NAMESPACES is defined, then _WINSTL_NO_NAMESPACES is defined.
+ * If STLSOFT_NO_NAMESPACES is defined, then WINSTL_NO_NAMESPACES is defined.
  *
- * If _WINSTL_NO_NAMESPACES is defined, then _WINSTL_NO_NAMESPACE is defined.
+ * If WINSTL_NO_NAMESPACES is defined, then WINSTL_NO_NAMESPACE is defined.
  *
- * If _WINSTL_NO_NAMESPACE is defined, then the WinSTL constructs are defined
+ * If WINSTL_NO_NAMESPACE is defined, then the WinSTL constructs are defined
  * in the global scope.
  *
- * If _STLSOFT_NO_NAMESPACES, _WINSTL_NO_NAMESPACES and _WINSTL_NO_NAMESPACE are
- * all undefined but the symbol _STLSOFT_NO_NAMESPACE is defined (whence the
+ * If STLSOFT_NO_NAMESPACES, WINSTL_NO_NAMESPACES and WINSTL_NO_NAMESPACE are
+ * all undefined but the symbol STLSOFT_NO_NAMESPACE is defined (whence the
  * namespace stlsoft does not exist), then the WinSTL constructs are defined
  * within the winstl namespace. The definition matrix is as follows:
  *
- * _STLSOFT_NO_NAMESPACE    _WINSTL_NO_NAMESPACE    winstl definition
+ * STLSOFT_NO_NAMESPACE     WINSTL_NO_NAMESPACE     winstl definition
  * ---------------------    --------------------    -----------------
  *  not defined              not defined             = stlsoft::winstl_project
  *  not defined              defined                 not defined
@@ -571,53 +593,99 @@
  *
  *
  *
- * The macro winstl_ns_qual() macro can be used to refer to elements in the
+ * The macro WINSTL_NS_QUAL() macro can be used to refer to elements in the
  * WinSTL libraries irrespective of whether they are in the
  * stlsoft::winstl_project (or winstl) namespace or in the global namespace.
  *
  * Furthermore, some compilers do not support the standard library in the std
- * namespace, so the winstl_ns_qual_std() macro can be used to refer to elements
- * in the WinSTL libraries irrespective of whether they are in the std namespace
+ * namespace, so the STLSOFT_NS_QUAL_STD() macro can be used to refer to elements
+ * in the standard library irrespective of whether they are in the std namespace
  * or in the global namespace.
  */
 
-/* No STLSoft namespaces means no WinSTL namespaces */
-#ifdef _STLSOFT_NO_NAMESPACES
-# define _WINSTL_NO_NAMESPACES
-#endif /* _STLSOFT_NO_NAMESPACES */
+/* /////////////////////////////////////
+ * obsolete preprocessor symbol detection
+ */
 
-/* No WinSTL namespaces means no WinSTL namespace */
 #ifdef _WINSTL_NO_NAMESPACES
-# define _WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _WINSTL_NO_NAMESPACES. This symbol is now deprecated, and may be ignored by a future release : instead define WINSTL_NO_NAMESPACES")
+# endif
+# if !defined(WINSTL_NO_NAMESPACES)
+#  define WINSTL_NO_NAMESPACES
+# endif /* !WINSTL_NO_NAMESPACES */
 #endif /* _WINSTL_NO_NAMESPACES */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifdef _WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_PPF_pragma_message_SUPPORT)
+#  pragma message("You have defined _WINSTL_NO_NAMESPACE. This symbol is now deprecated, and may be ignored by a future release : instead define WINSTL_NO_NAMESPACE")
+# endif
+# if !defined(WINSTL_NO_NAMESPACE)
+#  define WINSTL_NO_NAMESPACE
+# endif /* !WINSTL_NO_NAMESPACE */
+#endif /* _WINSTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////
+ * namespace support discrimination
+ */
+
+/* No STLSoft namespaces means no WinSTL namespaces */
+#ifdef STLSOFT_NO_NAMESPACES
+# define WINSTL_NO_NAMESPACES
+#endif /* STLSOFT_NO_NAMESPACES */
+
+/* No WinSTL namespaces means no WinSTL namespace */
+#ifdef WINSTL_NO_NAMESPACES
+# define WINSTL_NO_NAMESPACE
+#endif /* WINSTL_NO_NAMESPACES */
+
+#ifdef WINSTL_NO_NAMESPACES
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_WINSTL_NO_NAMESPACES)
+#   define _WINSTL_NO_NAMESPACES
+#  endif /* !_WINSTL_NO_NAMESPACES */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* WINSTL_NO_NAMESPACES */
+
+#ifdef WINSTL_NO_NAMESPACE
+# ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+#  if !defined(_WINSTL_NO_NAMESPACE)
+#   define _WINSTL_NO_NAMESPACE
+#  endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
+#endif /* WINSTL_NO_NAMESPACE */
+
+/* /////////////////////////////////////
+ * declaration '*stl*' namespace
+ */
+
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 /* There is no stlsoft namespace, so must define ::winstl */
-/** \brief The <code class="namespace">winstl</code> namespace contains all components
+/** The \c winstl namespace contains all components
  *   in the \ref group__project__winstl "WinSTL" project.
  *
- * By default, the <code>winstl</code> namespace is actually an alias for
+ * By default, the \c winstl namespace is actually an alias for
  * the namespace <code>stlsoft::winstl_project</code>, which is where all
  * the \ref group__project__winstl "WinSTL" components actually reside. This
  * measure allows all components within the main the
  * \ref group__project__stlsoft "STLSoft" project (which are defined within
- * the <code>stlsoft</code> namespace) to be visible to all components
- * "within" the <code>winstl</code> namespace. (Otherwise, there would be a
+ * the \c stlsoft namespace) to be visible to all components
+ * "within" the \c winstl namespace. (Otherwise, there would be a
  * whole lot of onerous qualification throughout the code of all
  * \ref group__projects "sub-projects".)
  *
- * \note If either/both of the symbols <code>_STLSOFT_NO_NAMESPACES</code>
- * and <code>_WINSTL_NO_NAMESPACE</code> are defined, all
+ * \note If either/both of the symbols \c STLSOFT_NO_NAMESPACES
+ * and \c WINSTL_NO_NAMESPACE are defined, all
  * \ref group__project__winstl "WinSTL" components will be defined in the
- * global namespace. Conversely, if the <code>_STLSOFT_NO_NAMESPACE</code>
+ * global namespace. Conversely, if the \c STLSOFT_NO_NAMESPACE
  * symbol (not to be confused with the
- * <code>_STLSOFT_NO_NAMESPACES</code> symbol!) is defined - meaning that
+ * \c STLSOFT_NO_NAMESPACES symbol!) is defined - meaning that
  * all \ref group__project__stlsoft "main project" components are to be
- * defined in the global namespace, and <code>_WINSTL_NO_NAMESPACE</code>
+ * defined in the global namespace, and \c WINSTL_NO_NAMESPACE
  * is <b>not</b> defined, then all \ref group__project__winstl "WinSTL"
- * components will be defined within a bona fide <code>winstl</code>
+ * components will be defined within a bona fide \c winstl
  * namespace.
  *
  * \note This is a vestige of compatibility with compilers with
@@ -629,42 +697,39 @@ namespace winstl
 {
 # else
 /* Define stlsoft::winstl_project */
-
 namespace stlsoft
 {
-
 namespace winstl_project
 {
-
-# endif /* _STLSOFT_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
 #else
-stlsoft_ns_using(move_lhs_from_rhs)
-#endif /* !_WINSTL_NO_NAMESPACE */
+STLSOFT_NS_USING(move_lhs_from_rhs)
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/** \def winstl_ns_qual(x)
- * \brief Namespace qualification macro for
+/** \def WINSTL_NS_QUAL(x)
+ * Namespace qualification macro for
  *  \ref group__project__winstl "WinSTL" components that generates correct
- *  code regardless of whether the <code>winstl</code> namespace is being
+ *  code regardless of whether the \c winstl namespace is being
  *  suppressed or enabled.
  *
  * If the <span class="code">winstl</span> namespace is being suppressed - by the
- * definition of <code>_WINSTL_NO_NAMESPACE</code> or
- * <code>_WINSTL_NO_NAMESPACES</code> or
- * <code>_STLSOFT_NO_NAMESPACES</code>; detectable by the presence of the
- * symbol <code>_WINSTL_NO_NAMESPACE</code> - then
- * <code>winstl_ns_using(x)</code> is equivalent to writing <code>x</code>.
- * If the <code>winstl</code> namespace is not being suppressed then
- * <code>winstl_ns_using(x)</code> is equivalent to writing <code>winstl::x</code>.
+ * definition of \c WINSTL_NO_NAMESPACE or
+ * \c WINSTL_NO_NAMESPACES or
+ * \c STLSOFT_NO_NAMESPACES; detectable by the presence of the
+ * symbol \c WINSTL_NO_NAMESPACE - then
+ * <code>WINSTL_NS_USING(x)</code> is equivalent to writing <code>x</code>.
+ * If the \c winstl namespace is not being suppressed then
+ * <code>WINSTL_NS_USING(x)</code> is equivalent to writing <code>winstl::x</code>.
  *
  * For example, the following code will compile correctly if
- * <code>winstl</code> is suppressed or not:
+ * \c winstl is suppressed or not:
 \code
 #include <winstl/error_desc.hpp>
 #include <stdio.h>
 
 int main()
 {
-  winstl_ns_qual(reg_key)   key(HKEY_CURRENT_USER, "SOFTWARE\\AcmeLib\\AcmeApp");
+  WINSTL_NS_QUAL(reg_key)   key(HKEY_CURRENT_USER, "SOFTWARE\\AcmeLib\\AcmeApp");
 
   return 0;
 }
@@ -677,35 +742,27 @@ int main()
  *  all means ...
  */
 
-/** \def winstl_ns_using(x)
- * \brief Declares a using directive (with respect to <b>winstl</b>) if WinSTL is using namespaces or, if not, does nothing
+/** \def WINSTL_NS_USING(x)
+ * Declares a using directive (with respect to <b>winstl</b>) if WinSTL is using namespaces or, if not, does nothing
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# define winstl_ns_qual(x)          ::winstl::x
-# define winstl_ns_using(x)         using ::winstl::x;
-#else
-# define winstl_ns_qual(x)          x
-# define winstl_ns_using(x)
-#endif /* !_WINSTL_NO_NAMESPACE */
+#ifndef WINSTL_NO_NAMESPACE
+# define WINSTL_NS_QUAL(x)                                  ::winstl::x
+# define WINSTL_NS_USING(x)                                 using ::winstl::x;
+#else /* ? WINSTL_NO_NAMESPACE */
+# define WINSTL_NS_QUAL(x)                                  x
+# define WINSTL_NS_USING(x)
+#endif /* !WINSTL_NO_NAMESPACE */
 
-/** \def winstl_ns_qual_std(x)
- * \brief Qualifies with <b>std::</b> if WinSTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does not qualify.
- *
- * \see \ref page__namespace_suppression
- */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define winstl_ns_qual(x)                                  WINSTL_NS_QUAL(x)
+# define winstl_ns_using(x)                                 WINSTL_NS_USING(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
-/** \def winstl_ns_using_std(x)
- * Declares a using directive (with respect to <b>std</b>) if WinSTL is being translated in the context of the standard library being within the <b>std</b> namespace or, if not, does nothing.
- */
-
-#ifdef STLSOFT_CF_std_NAMESPACE
-# define winstl_ns_qual_std(x)      ::std::x
-# define winstl_ns_using_std(x)     using ::std::x;
-#else /* ? STLSOFT_CF_std_NAMESPACE */
-# define winstl_ns_qual_std(x)      x
-# define winstl_ns_using_std(x)
-#endif /* !STLSOFT_CF_std_NAMESPACE */
+#ifndef STLSOFT_NO_PRE_1_10_BAGGAGE
+# define winstl_ns_qual_std(x)                              STLSOFT_NS_QUAL_STD(x)
+# define winstl_ns_using_std(x)                             STLSOFT_NS_USING_STD(x)
+#endif /* !STLSOFT_NO_PRE_1_10_BAGGAGE */
 
 /* /////////////////////////////////////////////////////////////////////////
  * Language agnostic macros.
@@ -715,7 +772,7 @@ int main()
  *
  * \ingroup group__project__comstl__language_agnostic_macros
  *
- * \brief Resolves to <b>p->lpVtbl</b> for C compilation, and to <b>p</b> in C++
+ * Resolves to <b>p->lpVtbl</b> for C compilation, and to <b>p</b> in C++
  *
  * \see WINSTL_ITF_THIS, WINSTL_ITF_THIS0, WINSTL_IID_2_REF, WINSTL_REF_2_PTR
  */
@@ -730,7 +787,7 @@ int main()
  *
  * \ingroup group__project__comstl__language_agnostic_macros
  *
- * \brief Resolves to <b>p,</b> for C compilation, and to nothing in C++
+ * Resolves to <b>p,</b> for C compilation, and to nothing in C++
  *
  * \see WINSTL_ITF_CALL, WINSTL_ITF_THIS0, WINSTL_IID_2_REF, WINSTL_REF_2_PTR
  */
@@ -745,7 +802,7 @@ int main()
  *
  * \ingroup group__project__comstl__language_agnostic_macros
  *
- * \brief Resolves to <b>p</b> for C compilation, and to nothing in C++
+ * Resolves to <b>p</b> for C compilation, and to nothing in C++
  *
  * \see WINSTL_ITF_CALL, WINSTL_ITF_THIS, WINSTL_IID_2_REF, WINSTL_REF_2_PTR
  */
@@ -760,7 +817,7 @@ int main()
  *
  * \ingroup group__project__comstl__language_agnostic_macros
  *
- * \brief Resolves to <b>&iid</b> for C compilation, and to <b>iid</b> in C++
+ * Resolves to <b>&iid</b> for C compilation, and to <b>iid</b> in C++
  *
  * \see WINSTL_ITF_CALL, WINSTL_ITF_THIS, WINSTL_ITF_THIS0, WINSTL_REF_2_PTR
  */
@@ -775,7 +832,7 @@ int main()
  *
  * \ingroup group__project__comstl__language_agnostic_macros
  *
- * \brief Resolves to <b>iid</b> for C compilation, and to <b>&iid</b> in C++
+ * Resolves to <b>iid</b> for C compilation, and to <b>&iid</b> in C++
  *
  * \see WINSTL_ITF_CALL, WINSTL_ITF_THIS, WINSTL_ITF_THIS0, WINSTL_REF_2_REF
  */
@@ -787,7 +844,7 @@ int main()
 #endif /* __cplusplus */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Typedefs
+ * typedefs
  *
  * The WinSTL uses a number of typedefs to aid in compiler-independence in the
  * libraries' main code.
@@ -795,20 +852,20 @@ int main()
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-typedef stlsoft_ns_qual(ss_char_a_t)        ws_char_a_t;    /*!< Ansi char type */
-typedef stlsoft_ns_qual(ss_char_w_t)        ws_char_w_t;    /*!< Unicode char type */
-typedef stlsoft_ns_qual(ss_sint8_t)         ws_sint8_t;     /*!< 8-bit signed integer */
-typedef stlsoft_ns_qual(ss_uint8_t)         ws_uint8_t;     /*!< 8-bit unsigned integer */
-typedef stlsoft_ns_qual(ss_int16_t)         ws_int16_t;     /*!< 16-bit integer */
-typedef stlsoft_ns_qual(ss_sint16_t)        ws_sint16_t;    /*!< 16-bit signed integer */
-typedef stlsoft_ns_qual(ss_uint16_t)        ws_uint16_t;    /*!< 16-bit unsigned integer */
-typedef stlsoft_ns_qual(ss_int32_t)         ws_int32_t;     /*!< 32-bit integer */
-typedef stlsoft_ns_qual(ss_sint32_t)        ws_sint32_t;    /*!< 32-bit signed integer */
-typedef stlsoft_ns_qual(ss_uint32_t)        ws_uint32_t;    /*!< 32-bit unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_char_a_t)        ws_char_a_t;    /*!< Ansi char type */
+typedef STLSOFT_NS_QUAL(ss_char_w_t)        ws_char_w_t;    /*!< Unicode char type */
+typedef STLSOFT_NS_QUAL(ss_sint8_t)         ws_sint8_t;     /*!< 8-bit signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint8_t)         ws_uint8_t;     /*!< 8-bit unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_int16_t)         ws_int16_t;     /*!< 16-bit integer */
+typedef STLSOFT_NS_QUAL(ss_sint16_t)        ws_sint16_t;    /*!< 16-bit signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint16_t)        ws_uint16_t;    /*!< 16-bit unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_int32_t)         ws_int32_t;     /*!< 32-bit integer */
+typedef STLSOFT_NS_QUAL(ss_sint32_t)        ws_sint32_t;    /*!< 32-bit signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint32_t)        ws_uint32_t;    /*!< 32-bit unsigned integer */
 #ifdef STLSOFT_CF_64BIT_INT_SUPPORT
-typedef stlsoft_ns_qual(ss_int64_t)         ws_int64_t;     /*!< 64-bit integer */
-typedef stlsoft_ns_qual(ss_sint64_t)        ws_sint64_t;    /*!< 64-bit signed integer */
-typedef stlsoft_ns_qual(ss_uint64_t)        ws_uint64_t;    /*!< 64-bit unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_int64_t)         ws_int64_t;     /*!< 64-bit integer */
+typedef STLSOFT_NS_QUAL(ss_sint64_t)        ws_sint64_t;    /*!< 64-bit signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint64_t)        ws_uint64_t;    /*!< 64-bit unsigned integer */
 #endif /* STLSOFT_CF_64BIT_INT_SUPPORT */
 # ifdef _WIN64
 typedef LONG_PTR                            ws_intptr_t;    /*!< integer capable of holding pointer without loss */
@@ -819,30 +876,30 @@ typedef LONG                                ws_intptr_t;    /*!< integer capable
 typedef LONG                                ws_sintptr_t;   /*!< signed integer capable of holding pointer without loss */
 typedef ULONG                               ws_uintptr_t;   /*!< unsigned integer capable of holding pointer without loss */
 # endif /* _WIN64 */
-typedef stlsoft_ns_qual(ss_int_t)           ws_int_t;       /*!< integer */
-typedef stlsoft_ns_qual(ss_sint_t)          ws_sint_t;      /*!< signed integer */
-typedef stlsoft_ns_qual(ss_uint_t)          ws_uint_t;      /*!< unsigned integer */
-typedef stlsoft_ns_qual(ss_long_t)          ws_long_t;      /*!< long */
-typedef stlsoft_ns_qual(ss_byte_t)          ws_byte_t;      /*!< Byte */
+typedef STLSOFT_NS_QUAL(ss_int_t)           ws_int_t;       /*!< integer */
+typedef STLSOFT_NS_QUAL(ss_sint_t)          ws_sint_t;      /*!< signed integer */
+typedef STLSOFT_NS_QUAL(ss_uint_t)          ws_uint_t;      /*!< unsigned integer */
+typedef STLSOFT_NS_QUAL(ss_long_t)          ws_long_t;      /*!< long */
+typedef STLSOFT_NS_QUAL(ss_byte_t)          ws_byte_t;      /*!< Byte */
 #if defined(__cplusplus)
-typedef stlsoft_ns_qual(ss_bool_t)          ws_bool_t;      /*!< bool */
+typedef STLSOFT_NS_QUAL(ss_bool_t)          ws_bool_t;      /*!< bool */
 #endif /* __cplusplus */
 typedef DWORD                               ws_dword_t;     /*!< dword */
-typedef stlsoft_ns_qual(ss_size_t)          ws_size_t;      /*!< size */
-typedef stlsoft_ns_qual(ss_ptrdiff_t)       ws_ptrdiff_t;   /*!< ptr diff */
-typedef stlsoft_ns_qual(ss_streampos_t)     ws_streampos_t; /*!< streampos */
-typedef stlsoft_ns_qual(ss_streamoff_t)     ws_streamoff_t; /*!< streamoff */
+typedef STLSOFT_NS_QUAL(ss_size_t)          ws_size_t;      /*!< size */
+typedef STLSOFT_NS_QUAL(ss_ptrdiff_t)       ws_ptrdiff_t;   /*!< ptr diff */
+typedef STLSOFT_NS_QUAL(ss_streampos_t)     ws_streampos_t; /*!< streampos */
+typedef STLSOFT_NS_QUAL(ss_streamoff_t)     ws_streamoff_t; /*!< streamoff */
 #ifdef WINSTL_OS_IS_WIN64
-typedef stlsoft_ns_qual(ss_sint64_t)        ws_sptrint_t;
-typedef stlsoft_ns_qual(ss_uint64_t)        ws_uptrint_t;
+typedef STLSOFT_NS_QUAL(ss_sint64_t)        ws_sptrint_t;
+typedef STLSOFT_NS_QUAL(ss_uint64_t)        ws_uptrint_t;
 #else /* ? WINSTL_OS_IS_WIN64 */
-typedef stlsoft_ns_qual(ss_sint32_t)        ws_sptrint_t;
-typedef stlsoft_ns_qual(ss_uint32_t)        ws_uptrint_t;
+typedef STLSOFT_NS_QUAL(ss_sint32_t)        ws_sptrint_t;
+typedef STLSOFT_NS_QUAL(ss_uint32_t)        ws_uptrint_t;
 #endif /* WINSTL_OS_IS_WIN64 */
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-#ifndef _WINSTL_NO_NAMESPACE
+#ifndef WINSTL_NO_NAMESPACE
 typedef ws_char_a_t         char_a_t;           /*!< Ansi char type */
 typedef ws_char_w_t         char_w_t;           /*!< Unicode char type */
 /* typedef ws_int8_t           int8_t; */             /*!< 8-bit integer */
@@ -875,15 +932,15 @@ typedef ws_streamoff_t      streamoff_t;        /*!< streamoff */
 # endif /* compiler */
 typedef ws_sptrint_t        sptrint_t;
 typedef ws_uptrint_t        uptrint_t;
-#endif /* !_WINSTL_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Constants
+ * constants
  */
 
 /** \def WINSTL_CONST_NT_MAX_PATH
  *
- * \brief Defines the number of maximum length of a path specification on
+ * Defines the number of maximum length of a path specification on
  *  Windows NT: 4 + 32767.
  *
  * Windows NT supports so-called "long names" in the Unicode variants (e.g.
@@ -893,33 +950,42 @@ typedef ws_uptrint_t        uptrint_t;
  * used when there is a need to allocate the maximum possible size for a
  * file system path.
  */
-#define WINSTL_CONST_NT_MAX_PATH            (4 + 32767)
+#define WINSTL_CONST_NT_MAX_PATH                            (4 + 32767)
 
 /** \def WINSTL_CONST_MAX_PATH
  *
  */
-#if defined(_MAX_PATH)
-# define WINSTL_CONST_MAX_PATH              _MAX_PATH
-#elif defined(__CYGWIN__)
-# define WINSTL_CONST_MAX_PATH              (260)
+#if 0
+#elif defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
+
+# define WINSTL_CONST_MAX_PATH                              (260)
+#elif defined(_MAX_PATH)
+
+# define WINSTL_CONST_MAX_PATH                              _MAX_PATH
+#elif defined(__CYGWIN__) || \
+      defined(__MINGW32__) || \
+      defined(__MINGW64__)
+
+# define WINSTL_CONST_MAX_PATH                              (260)
 #else
-# error _MAX_PATH not defined, and not CygWin compiler
+
+# error _MAX_PATH not defined, and not CygWin/MinGW compiler
 #endif
 
 #ifdef __cplusplus
 
-/** \brief C++ constant equivalent to \ref WINSTL_CONST_NT_MAX_PATH.
+/** C++ constant equivalent to \ref WINSTL_CONST_NT_MAX_PATH.
  */
 const ws_size_t CONST_NT_MAX_PATH       =   WINSTL_CONST_NT_MAX_PATH;
 
-/** \brief C++ constant equivalent to \ref WINSTL_CONST_MAX_PATH.
+/** C++ constant equivalent to \ref WINSTL_CONST_MAX_PATH.
  */
 const ws_size_t CONST_MAX_PATH          =   WINSTL_CONST_MAX_PATH;
 
 #endif /* __cplusplus */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Values
+ * values
  *
  * Since the boolean type may not be supported natively on all compilers, the
  * values of true and false may also not be provided. Hence the values of
@@ -928,12 +994,12 @@ const ws_size_t CONST_MAX_PATH          =   WINSTL_CONST_MAX_PATH;
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
-#define ws_true_v       ss_true_v
-#define ws_false_v      ss_false_v
+#define ws_true_v                                           ss_true_v
+#define ws_false_v                                          ss_false_v
 
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 /* /////////////////////////////////////////////////////////////////////////
- * Code modification macros
+ * code modification macros
  */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
@@ -954,36 +1020,36 @@ const ws_size_t CONST_MAX_PATH          =   WINSTL_CONST_MAX_PATH;
 # define winstl_num_elements(ar)                        WINSTL_NUM_ELEMENTS(ar)
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
-/** \brief [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
+/** [DEPRECATED] Destroys the given instance \c p of the given type (\c t and \c type)
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_DESTROY_INSTANCE().
  */
 #define winstl_destroy_instance(t, type, p)             STLSOFT_DESTROY_INSTANCE(t, type, p)
 
-/** \brief [DEPRECATED] Generates an opaque type with the name \c _htype
+/** [DEPRECATED] Generates an opaque type with the name \c _htype
  *
  * \deprecated This is <b>heavily</b> deprecated in favour of \ref STLSOFT_GEN_OPAQUE().
  */
 #define winstl_gen_opaque(htype)                        STLSOFT_GEN_OPAQUE(htype)
 
 /* /////////////////////////////////////////////////////////////////////////
- * Macros
+ * macros
  */
 
 #ifdef __cplusplus
-/** \brief Safely converts a <code>BOOL</code> to a <code>bool</code>.
+/** Safely converts a \c BOOL to a \c bool.
  *
- * \param bVal The instance of <code>BOOL</code> to be converted to <code>bool</code>.
+ * \param bVal The instance of \c BOOL to be converted to \c bool.
  *
- * \retval false If <code>bVal</code> is 0.
- * \retval true If <code>bVal</code> is non-0.
+ * \retval false If \c bVal is 0.
+ * \retval true If \c bVal is non-0.
  *
  * \note In C compilation, this is defined as a functionally equivalent macro.
  *
  * \remark Because all compilers (that we know about) represent a
- *  <code>bool</code> as one byte and <code>BOOL</code> (which is a typedef
- *  from <code>int</code>) as more than one byte, safely converting from
- *  <code>BOOL</code> to <code>bool</code> has to involve a runtime test
+ *  \c bool as one byte and \c BOOL (which is a typedef
+ *  from \c int) as more than one byte, safely converting from
+ *  \c BOOL to \c bool has to involve a runtime test
  *  against 0 that cannot be inlined by the compiler. Consequently, use of
  *  BOOL2bool() should be avoided where possible, and extensive use of it
  *  in your code base likely represents misuse. (<b>See</b> section 13.4.2
@@ -998,16 +1064,16 @@ inline bool BOOL2bool(BOOL bVal)
 {
     return bVal != FALSE;
 }
-/** \brief Safely converts a <code>bool</code> to a <code>BOOL</code>.
+/** Safely converts a \c bool to a \c BOOL.
  *
- * \param bVal The instance of <code>bool</code> to be converted to <code>BOOL</code>.
+ * \param bVal The instance of \c bool to be converted to \c BOOL.
  *
- * \retval 0 If <code>bVal</code> is <code>false</code>.
- * \retval 1 If <code>bVal</code> is <code>true</code>.
+ * \retval 0 If \c bVal is \c false.
+ * \retval 1 If \c bVal is \c true.
  *
  * \note In C compilation, this is defined as a functionally equivalent macro.
  *
- * \remark Although use of the <code>BOOL</code> type indicates that a
+ * \remark Although use of the \c BOOL type indicates that a
  *  <b>"false"</b> condition is represented by a value of 0, and all other values
  *  represent <b>"true"</b> it is not the case that all client code is implemented
  *  as such. In order to avoid fruitless debates with users of STLSoft who
@@ -1028,32 +1094,49 @@ inline BOOL bool2BOOL(bool bVal)
 # define bool2BOOL(bVal)            stlsoft_static_cast(BOOL, ((bVal) != false))
 #endif /* __cplusplus */
 
+/**
+ */
+STLSOFT_INLINE
+ss_truthy_t
+winstl_C_is_memory_status_code(
+    DWORD sc
+)
+{
+    switch (sc)
+    {
+    case ERROR_NOT_ENOUGH_MEMORY:
+    case ERROR_OUTOFMEMORY:
+    case E_OUTOFMEMORY:
+        return 1;
+    default:
+        return 0;
+    }
+}
+
 /* /////////////////////////////////////////////////////////////////////////
- * Namespace
+ * namespace
  */
 
-#ifndef _WINSTL_NO_NAMESPACE
-# if defined(_STLSOFT_NO_NAMESPACE) || \
+#ifndef WINSTL_NO_NAMESPACE
+# if defined(STLSOFT_NO_NAMESPACE) || \
      defined(STLSOFT_DOCUMENTATION_SKIP_SECTION)
 } /* namespace winstl */
 # else
 } /* namespace winstl_project */
 } /* namespace stlsoft */
 namespace winstl = ::stlsoft::winstl_project;
-# endif /* _STLSOFT_NO_NAMESPACE */
-#endif /* !_WINSTL_NO_NAMESPACE */
+# endif /* STLSOFT_NO_NAMESPACE */
+#endif /* !WINSTL_NO_NAMESPACE */
 
 /* /////////////////////////////////////////////////////////////////////////
- * Inclusion
+ * inclusion control
  */
 
 #ifdef STLSOFT_CF_PRAGMA_ONCE_SUPPORT
 # pragma once
 #endif /* STLSOFT_CF_PRAGMA_ONCE_SUPPORT */
 
-/* ////////////////////////////////////////////////////////////////////// */
-
-#endif /* WINSTL_INCL_WINSTL_H_WINSTL */
+#endif /* !WINSTL_INCL_WINSTL_H_WINSTL */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 
