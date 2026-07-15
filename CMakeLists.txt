@@ -5,7 +5,7 @@
 # Purpose:  Top-level CMake lists file for STLSoft
 #
 # Created:  31st March 2021
-# Updated:  23rd August 2025
+# Updated:  15th July 2026
 #
 # ######################################################################## #
 
@@ -31,7 +31,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
 project(STLSoft
 	DESCRIPTION "STLSoft is a suite of libraries that provide STL extensions and facades over operating-system and technology-specific APIs."
-	HOMEPAGE_URL "https://github.com/synesissoftware/STLSoft-1.11"
+	HOMEPAGE_URL "https://github.com/synesissoftware/STLSoft"
 	LANGUAGES C CXX
 )
 

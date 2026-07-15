@@ -1,7 +1,7 @@
 # STLSoft - FAQ <!-- omit in toc -->
 
 The FAQ list is under (constant) development. If you post a question on the
-Issues forum (https://github.com/synesissoftware/STLSoft-1.11/issues)
+Issues forum (https://github.com/synesissoftware/STLSoft/issues)
 it will be used to create one.
 
 
@@ -12,6 +12,7 @@ it will be used to create one.
 - [Q3: "How do I use STLSoft?"](#q3-how-do-i-use-stlsoft)
 - [Q4: "Does STLSoft have unit-tests?"](#q4-does-stlsoft-have-unit-tests)
 - [Q5: "Is STLSoft still relevant given the widespread support for 'Modern C++'?"](#q5-is-stlsoft-still-relevant-given-the-widespread-support-for-modern-c)
+
 
 
 # FAQs: <!-- omit in toc -->

@@ -1,8 +1,8 @@
 # STLSoft 1.11 <!-- omit in toc -->
 
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![GitHub release](https://img.shields.io/github/v/release/synesissoftware/STLSoft-1.11.svg)](https://github.com/synesissoftware/STLSoft-1.11/releases/latest)
-[![Last Commit](https://img.shields.io/github/last-commit/synesissoftware/STLSoft-1.11)](https://github.com/synesissoftware/STLSoft-1.11/commits/master)
+[![GitHub release](https://img.shields.io/github/v/release/synesissoftware/STLSoft.svg)](https://github.com/synesissoftware/STLSoft/releases/latest)
+[![Last Commit](https://img.shields.io/github/last-commit/synesissoftware/STLSoft)](https://github.com/synesissoftware/STLSoft/commits/master)
 
 *... robust, lightweight, cross-platform, template software ...*
 
@@ -45,7 +45,7 @@ The overarching characteristic of STLSoft is that it is *lightweight*. That soun
 
 ## Installation
 
-There are three main ways to install **STLSoft-1.11**:
+There are three main ways to install **STLSoft**:
 
 1. As downloaded archive, then using environment variables;
 2. Cloning project, then using environment variables;
@@ -114,7 +114,7 @@ The significant libraries include:
  * **typelib** - T.B.C.
  * **view** - T.B.C.
 
-As **STLSoft-1.11** approaches an official release we will provide increasing information on the above _sub-projects_ and _libraries_.
+As **STLSoft** approaches an official release we will provide increasing information on the above _sub-projects_ and _libraries_.
 
 
 ## Examples
@@ -126,13 +126,13 @@ Examples are provided in the ```examples``` directory, along with a markdown des
 
 ### Where to get help
 
-[GitHub Page](https://github.com/synesissoftware/STLSoft-1.11 "GitHub Page")
+[GitHub Page](https://github.com/synesissoftware/STLSoft "GitHub Page")
 
 ### Contribution guidelines
 
-Defect reports, feature requests, and pull requests are welcome on https://github.com/synesissoftware/STLSoft-1.11.
+Defect reports, feature requests, and pull requests are welcome on https://github.com/synesissoftware/STLSoft.
 
-If you'd like to help out with the project, please raise an issue via [GitHub Issues Page](https://github.com/synesissoftware/STLSoft-1.11/issues "GitHub Issues Page") - you'll be very welcome!
+If you'd like to help out with the project, please raise an issue via [GitHub Issues Page](https://github.com/synesissoftware/STLSoft/issues "GitHub Issues Page") - you'll be very welcome!
 
 ### Dependencies
 

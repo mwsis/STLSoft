@@ -22,10 +22,9 @@
 
 ### Administrative changes
 
- * [ ] GitHub README.md image features - version, build, etc;
- * [ ] ~~STLSoft 1.10-related blog posts (focusing on new components);
+ * [ ] GitHub README.md badges - version, build, etc;
+ * [ ] STLSoft-related blog posts (focusing on new components);
  * [ ] fix Doxygen build;
-
  * [x] CMake - ✅;
 
 
