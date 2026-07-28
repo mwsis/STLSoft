@@ -1,12 +1,12 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        stlsoft/memory/malloc_allocator.hpp
+ * File:    stlsoft/memory/malloc_allocator.hpp
  *
- * Purpose:     stlsoft_malloc_allocator class - uses malloc()/free().
+ * Purpose: stlsoft_malloc_allocator class - uses malloc()/free().
  *
- * Created:     2nd January 2001
- * Updated:     20th March 2025
+ * Created: 2nd January 2001
+ * Updated: 28th July 2026
  *
- * Home:        http://stlsoft.org/
+ * Home:    http://stlsoft.org/
  *
  * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2001-2019, Matthew Wilson and Synesis Software
@@ -53,8 +53,8 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_MEMORY_HPP_MALLOC_ALLOCATOR_MAJOR      4
 # define STLSOFT_VER_STLSOFT_MEMORY_HPP_MALLOC_ALLOCATOR_MINOR      0
-# define STLSOFT_VER_STLSOFT_MEMORY_HPP_MALLOC_ALLOCATOR_REVISION   14
-# define STLSOFT_VER_STLSOFT_MEMORY_HPP_MALLOC_ALLOCATOR_EDIT       104
+# define STLSOFT_VER_STLSOFT_MEMORY_HPP_MALLOC_ALLOCATOR_REVISION   15
+# define STLSOFT_VER_STLSOFT_MEMORY_HPP_MALLOC_ALLOCATOR_EDIT       106
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 
@@ -185,6 +185,11 @@ private:
     {
         STLSOFT_SUPPRESS_UNUSED(hint);
 
+        if (n > this->max_size())
+        {
+            return NULL;
+        }
+
         return ::malloc(n * sizeof(value_type));
     }
     void do_deallocate(void* pv, size_type n)
@@ -200,7 +205,6 @@ private:
 };
 
 
-
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 // Specialisation for void
@@ -208,40 +212,49 @@ STLSOFT_TEMPLATE_SPECIALISATION
 class malloc_allocator<void>
 {
 public:
-    typedef void                        value_type;
-    typedef malloc_allocator<void>      class_type;
-    typedef void*                       pointer;
-    typedef void const*                 const_pointer;
-    typedef ss_ptrdiff_t                difference_type;
-    typedef ss_size_t                   size_type;
+    typedef void                                            value_type;
+    typedef malloc_allocator<void>                          class_type;
+    typedef void*                                           pointer;
+    typedef void const*                                     const_pointer;
+    typedef ss_ptrdiff_t                                    difference_type;
+    typedef ss_size_t                                       size_type;
 
 #ifdef STLSOFT_CF_ALLOCATOR_REBIND_SUPPORT
     /// The allocator <b><code>rebind</code></b> structure
     template <ss_typename_param_k U>
     struct rebind
     {
-        typedef malloc_allocator<U>     other;
+        typedef malloc_allocator<U>                         other;
     };
 #endif /* STLSOFT_CF_ALLOCATOR_REBIND_SUPPORT */
 };
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 
 template <ss_typename_param_k T>
-inline ss_bool_t operator ==(const malloc_allocator<T> &/* lhs */, const malloc_allocator<T> &/* rhs */)
+inline
+ss_bool_t
+operator ==(
+    const malloc_allocator<T> &/* lhs */
+,   const malloc_allocator<T> &/* rhs */
+)
 {
     return ss_true_v;
 }
 
 template <ss_typename_param_k T>
-inline ss_bool_t operator !=(const malloc_allocator<T> &/* lhs */, const malloc_allocator<T> &/* rhs */)
+inline
+ss_bool_t
+operator !=(
+    const malloc_allocator<T> &/* lhs */
+,   const malloc_allocator<T> &/* rhs */
+)
 {
     return ss_false_v;
 }
-
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
 
 /* ////////////////////////////////////////////////////////////////////// */
 
