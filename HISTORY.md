@@ -4,6 +4,22 @@
 ----
 
 
+29th July 2026 - 1.11.1-rc4 released
+-------------------------------------
+
+ * Added GitHub Actions CI on macOS, Linux, and Windows with Clang, GCC, MinGW, and Visual C++;
+ * Added recognition for Visual C++ 18.x in `stlsoft.h`;
+ * Fixed `winstl::codepage_sequence::data()` missing return statement;
+ * Fixed signed/unsigned comparison warning in `winstl_C_printf_debug_string()`;
+ * Aligned Clang 64-bit sized types with GCC to use `long long` instead of `__INT64_TYPE__` to avoid overload collision on Linux LP64;
+ * Added overflow checks in allocator `allocate()` to prevent wrapping and fix GCC `-Walloc-size-larger-than=` warnings;
+ * Fixed potential unsigned underflow in `unixstl::pid_sequence` when empty;
+ * Added MinGW compatibility guards in `winstl/util/struct_comparers.hpp`;
+ * Aligned test and example runner scripts across shell and Windows command counterparts;
+ * Added `--unit-only` and `--component-only` flags to unit test runners;
+ * Added `run_all_examples` scripts with `--skip-interactive` support;
+
+
 23rd August 2025 - 1.11.1-rc3 released
 ---------------------------------------
 

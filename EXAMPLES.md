@@ -16,12 +16,12 @@
 | **home_directory** | [by_project/unixstl/system/home_directory](./examples/by_project/unixstl/system/home_directory/main.cpp) | Unix | Illustrates use of `unixstl::home_directory` |
 | **readdir_sequence** | [by_project/unixstl/filesystem/readdir_sequence](./examples/by_project/unixstl/filesystem/readdir_sequence/main.cpp) | Unix | List filesystem entries with `unixstl::readdir_sequence` |
 | | | | |
+| **C.output_debug_line** | [by_project/winstl/diagnostics/C.output_debug_line](./examples/by_project/winstl/diagnostics/C.output_debug_line/main.c) | Windows | TBC |
 | **codepages** | [by_project/winstl/i18n/codepages](./examples/by_project/winstl/i18n/codepages/main.cpp) | Windows | TBC |
 | **dl_call** | [by_project/winstl/dl/dl_call](./examples/by_project/winstl/dl/dl_call/main.cpp) | Windows | TBC |
 | **findfile_sequence** | [by_project/winstl/filesystem/findfile_sequence](./examples/by_project/winstl/filesystem/findfile_sequence/main.cpp) | Windows | List selected filesystem entries with `winstl::readdir_sequence` |
 | **home_directory** | [by_project/winstl/system/home_directory](./examples/by_project/winstl/system/home_directory/main.cpp) | Windows | TBC |
 | **output_debug_line** | [by_project/winstl/diagnostics/output_debug_line](./examples/by_project/winstl/diagnostics/output_debug_line/main.cpp) | Windows | TBC |
-| **output_debug_line.C** | [by_project/winstl/diagnostics/output_debug_line.C](./examples/by_project/winstl/diagnostics/output_debug_line.C/main.c) | Windows | TBC |
 | **printf_debug_string** | [by_project/winstl/diagnostics/printf_debug_string](./examples/by_project/winstl/diagnostics/printf_debug_string/main.c) | Windows | TBC |
 | **readdir_sequence** | [by_project/winstl/filesystem/readdir_sequence](./examples/by_project/winstl/filesystem/readdir_sequence/main.cpp) | Windows | List filesystem entries with `platformstl::readdir_sequence` |
 | | | | |

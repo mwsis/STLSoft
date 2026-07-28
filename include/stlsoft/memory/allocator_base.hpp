@@ -4,7 +4,7 @@
  * Purpose: Allocator commmon features.
  *
  * Created: 20th August 2003
- * Updated: 20th March 2025
+ * Updated: 28th July 2026
  *
  * Home:    http://stlsoft.org/
  *
@@ -54,8 +54,8 @@
 #ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
 # define STLSOFT_VER_STLSOFT_MEMORY_HPP_ALLOCATOR_BASE_MAJOR    4
 # define STLSOFT_VER_STLSOFT_MEMORY_HPP_ALLOCATOR_BASE_MINOR    1
-# define STLSOFT_VER_STLSOFT_MEMORY_HPP_ALLOCATOR_BASE_REVISION 16
-# define STLSOFT_VER_STLSOFT_MEMORY_HPP_ALLOCATOR_BASE_EDIT     69
+# define STLSOFT_VER_STLSOFT_MEMORY_HPP_ALLOCATOR_BASE_REVISION 17
+# define STLSOFT_VER_STLSOFT_MEMORY_HPP_ALLOCATOR_BASE_EDIT     71
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 
@@ -144,7 +144,6 @@ namespace stlsoft
  * forced by defining STLSOFT_FORCE_ATORS_THROW_BAD_ALLOC. std::bad_alloc can be
  * suppressed in all circumstances by defining STLSOFT_FORCE_ATORS_RETURN_NULL.
  */
-
 template<   ss_typename_param_k T
         ,   ss_typename_param_k A
         >
@@ -154,33 +153,33 @@ class allocator_base
 /// @{
 public:
     /// The value type
-    typedef T                                   value_type;
+    typedef T                                               value_type;
     /// The current specialisation of the type
-    typedef allocator_base<T, A>                class_type;
+    typedef allocator_base<T, A>                            class_type;
     /// The pointer type
-    typedef value_type*                         pointer;
+    typedef value_type*                                     pointer;
     /// The non-mutating (const) pointer type
-    typedef value_type const*                   const_pointer;
+    typedef value_type const*                               const_pointer;
     /// The reference type
-    typedef value_type&                         reference;
+    typedef value_type&                                     reference;
     /// The non-mutating (const) reference type
-    typedef value_type const&                   const_reference;
+    typedef value_type const&                               const_reference;
     /// The difference type
-    typedef ss_ptrdiff_t                        difference_type;
+    typedef ss_ptrdiff_t                                    difference_type;
     /// The size type
-    typedef ss_size_t                           size_type;
+    typedef ss_size_t                                       size_type;
 private:
     /// The type used in deallocate()
 #ifdef STLSOFT_CF_ALLOCATOR_TYPED_DEALLOCATE_POINTER
-    typedef pointer                             deallocate_pointer;
+    typedef pointer                                         deallocate_pointer;
 #else /* ? STLSOFT_CF_ALLOCATOR_TYPED_DEALLOCATE_POINTER */
-    typedef void*                               deallocate_pointer;
+    typedef void*                                           deallocate_pointer;
 #endif /* STLSOFT_CF_ALLOCATOR_TYPED_DEALLOCATE_POINTER */
 private:
 #if defined(STLSOFT_CF_COMPILER_SUPPORTS_CRTP)
-    typedef A                                   concrete_allocator_type;
+    typedef A                                               concrete_allocator_type;
 #else /* ? STLSOFT_CF_COMPILER_SUPPORTS_CRTP */
-    typedef class_type                          concrete_allocator_type;
+    typedef class_type                                      concrete_allocator_type;
 private:
     virtual void*   do_allocate(size_type n, void const* hint) = 0;
     virtual void    do_deallocate(void* pv, size_type n) = 0;
@@ -228,6 +227,21 @@ public:
     ///   translator does not support throwing exceptions upon memory exhaustion)
     pointer allocate(size_type n, void const* hint = NULL)
     {
+        /* Reject counts that would overflow in do_allocate()'s
+         * <code>n * sizeof(value_type)</code> (also keeps GCC
+         * -Walloc-size-larger-than= from seeing a wrapped byte size).
+         */
+        if (n > max_size())
+        {
+#if !defined(STLSOFT_FORCE_ATORS_RETURN_NULL) && \
+    (   defined(STLSOFT_FORCE_ATORS_THROW_BAD_ALLOC) || \
+        defined(STLSOFT_CF_THROW_BAD_ALLOC))
+            STLSOFT_THROW_X(STLSOFT_NS_QUAL(out_of_memory_exception)(STLSoftProjectIdentifier_STLSoft, STLSoftLibraryIdentifier_Memory));
+#else /* ? bad_alloc */
+            return NULL;
+#endif /* bad_alloc ?  */
+        }
+
         void* const p = static_cast<concrete_allocator_type*>(this)->do_allocate(n, hint);
 
 #if !defined(STLSOFT_FORCE_ATORS_RETURN_NULL) && \
@@ -322,7 +336,10 @@ private:
 /// @}
 };
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
 
 #ifndef STLSOFT_NO_NAMESPACE
 } // namespace stlsoft
