@@ -1,6 +1,6 @@
 # STLSoft - TODO <!-- omit in toc -->
 
-> **NOTE**: some of the following are very old, stretching back even into the 2000s, so this list will be updated a lot over the coming months. The most glaring of these is to ensure compatiblity with C++-14/17/20 as is necessary.
+> **NOTE**: some of the following are very old, stretching back even into the 2000s, so this list will be updated a lot over the coming months. The most glaring of these is to ensure compatibility with C++14/17/20/23/26 as is necessary.
 
 
 ## Table of Contents <!-- omit in toc -->
@@ -19,6 +19,7 @@
 
 
 ## Functional improvements
+
 
 ### Code changes (1.10.x)
 
@@ -47,7 +48,7 @@
   * [ ] abstracting out string stuff (into `stlsoft::`);
   * [ ] sorting the "safe-string" stuff;
   * [ ] abstracted file-system operations such as `#make_writeable()` / `#make_readonly()`;
-* [x] ~~~**winstl/api/internal/get_home_directory_.h**~~~ - ✅;
+  * [x] ~~~**winstl/api/internal/get_home_directory_.h**~~~ - ✅;
   * [x] ~~~add `WINSTL_API_INTERNAL_System_get_home_directory_a_()` / `WINSTL_API_INTERNAL_System_get_home_directory_w_()`~~~ - ✅;
   * [x] ~~~tries first for `"USERPROFILE"` and then falls back to `"HOMEDRIVE"` and `"HOMEPATH"`~~~ - ✅;
   * [x] ~~~implement `winstl_C_get_home_directory_a()` / `winstl_C_get_home_directory_w()` (**winstl/system/directory_functions.h**) in terms of `WINSTL_API_INTERNAL_System_get_home_directory_a_()` / `WINSTL_API_INTERNAL_System_get_home_directory_w_()`~~~ - ✅;
@@ -57,30 +58,18 @@
 * [x] ~~~`unixstl::glob_sequence` add `skipHiddenFiles` and `skipHiddenDirs`~~~ - ✅;
 * [x] ~~~`unixstl::readdir_sequence` add `skipHiddenFiles` and `skipHiddenDirs`~~~ - ✅;
 * [ ] standardise (via **INTERNAL**) of following:
-  * [x] ~~~`ExpandEnvironmentStringsA/W()`~~~ - ✅:
-  * [x] ~~~`GetEnvironmentVariableA/W()`~~~ - ✅:
-  * [x] ~~~`GetModuleFileNameA/W()`~~~ - ✅:
-  * [x] ~~~`GetSystemDirectoryA/W()`~~~ - ✅:
-   * [x] ~~~needs to set `ERROR_INSUFFICIENT_BUFFER`~~~ - ✅;
-  * [x] ~~~`GetWindowsDirectoryA/W()`~~~ - ✅:
-   * [x] ~~~needs to set `ERROR_INSUFFICIENT_BUFFER`~~~ - ✅;
+  * [x] ~~~`ExpandEnvironmentStringsA/W()`~~~ - ✅;
+  * [x] ~~~`GetEnvironmentVariableA/W()`~~~ - ✅;
+  * [x] ~~~`GetModuleFileNameA/W()`~~~ - ✅;
+  * [x] ~~~`GetSystemDirectoryA/W()`~~~ - ✅;
+    * [x] ~~~needs to set `ERROR_INSUFFICIENT_BUFFER`~~~ - ✅;
+  * [x] ~~~`GetWindowsDirectoryA/W()`~~~ - ✅;
+    * [x] ~~~needs to set `ERROR_INSUFFICIENT_BUFFER`~~~ - ✅;
 
 
 ### Code changes (1.12+)
 
-* [ ] C++ 11/14/17/20/23/26 compatibility:
-  * [ ] C++ 11 compatibility:
-    * [ ] T.B.C.;
-  * [ ] C++ 14 compatibility:
-    * [ ] T.B.C.;
-  * [ ] C++ 17 compatibility:
-    * [ ] T.B.C.;
-  * [ ] C++ 20 compatibility:
-    * [ ] T.B.C.;
-  * [ ] C++ 23 compatibility:
-    * [ ] T.B.C.;
-  * [ ] C++ 26 compatibility:
-    * [ ] T.B.C.;
+* [ ] C++ 11/14/17/20/23/26 compatibility — inventory remaining gaps and record concrete per-standard fixes here (partial work already tracked under **Code changes (1.11.x)**);
 * [ ] syslog in variadic templates, a la `winstl::output_debug_line()`;
 * [ ] Simple thread-pool (bring from **SS** work circa 2000);
 * [ ] include/*stl*/error => include/*stl*/diagnostics;
@@ -110,10 +99,11 @@
 
 ## Packaging improvements
 
+
 ### Administrative (1.10.x)
 
 * [ ] GitHub README.md image features - version, build, etc;
-* [ ] ~~STLSoft 1.10-related blog posts (focusing on new components);
+* [ ] STLSoft 1.10-related blog posts (focusing on new components);
 * [ ] fix Doxygen build;
 * [x] ~~~CMake~~~ - ✅;
 
@@ -124,37 +114,37 @@
 * [ ] convert to https://github.com/synesissoftware/STLSoft;
 * [ ] take down https://github.com/synesissoftware/STLSoft-1.10-delta;
 * [ ] Documentation improvements;
-* [ ] update the downloads on SourceForge;
-* [ ] sort the SourceForge site;
+* [-] ~~~update the downloads on SourceForge~~~ - ❌ (canonical distribution is now GitHub);
+* [-] ~~~sort the SourceForge site~~~ - ❌ (canonical presence is now GitHub);
 * [ ] STLSoft 1.11-related blog posts (focusing on new components);
-* [ ] Website - currenty http://stlsoft.org/ is *VERY* out of date;
+* [ ] Website - currently http://stlsoft.org/ is *VERY* out of date;
 * [ ] Set-up donation;
 * [ ] Ensure all permutations (in below table) work;
 
 
 ### Building/executing automated tests (1.11.x)
 
- | C++   | C   | Clang 15.0 (macOS, ARM64) | Clang 17.0 (macOS, x64) | GCC 11.4 (Linux)  | GCC 13.2 (Linux)  | GCC 14.2 (Linux)  | GCC 14.2 (MinGW, Windows) | Visual C++ 17.x (Windows) |
- | ----- | --- | :-----------------------: | :---------------------: | :---------------: | :---------------: | :---------------: | :-----------------------: | :-----------------------: |
- | 23    | 23  |                           | ✅                       |                   | ✅                 | ✅                 |                           |                           |
- | 23    | 17  |                           | ✅                       |                   |                   |                   |                           |                              |
- | 20    | 23  |                           | ✅                       |                   |                   |                   |                           |                             |
- | 20    | 17  |                           | ✅                       | ✅                 | ✅                 | ✅                 | ✅                         | ✅                            |
- | 20    | 11  |                           | ✅                       |                   |                   |                   |                           |                             |
- | 20    | 99  |                           | ✅                       |                   |                   |                   |                           |                             |
- | 20    | 90  |                           | ✅                       |                   |                   |                   |                           |                             |
- | 17    | 17  |                           | ✅                       | ✅                | ✅                 | ✅                 |                            | ✅                           |
- | 17    | 11  |                           | ✅                       |                   |                   |                   | ✅                         |                       |
- | 17    | 99  |                           | ✅                       |                   |                   |                   |                           |                             |
- | 17    | 90  |                           | ✅                       |                   |                   |                   |                           |                             |
- | 14    | 11  |                           | ✅                       | ✅                 | ✅                 | ✅                 | ✅                         | ✅                            |
- | 14    | 99  |                           | ✅                       |                   |                   |                   |                           |                             |
- | 14    | 90  |                           | ✅                       |                   |                   |                   |                           | ✅                            |
- | 11    | 11  |                           | ✅                       | ✅                 | ✅                 | ✅                 | ✅                         | ✅                            |
- | 11    | 99  |                           | ✅                       |                   |                   | ✅                 |                           |                             |
- | 11    | 90  |                           | ✅                       |                   |                   |                   |                           |                             |
- | 98    | 99  |                           | ✅                       | ✅                | ✅                 | ✅                 | ✅                          | ✅                            |
- | 98    | 90  |                           | ✅                       |                   | ❌                 | ❌                 |                           | ✅                            |
+| C++   | C   | Clang 15.0 (macOS, ARM64) | Clang 17.0 (macOS, x64) | GCC 11.4 (Linux)  | GCC 13.2 (Linux)  | GCC 14.2 (Linux)  | GCC 14.2 (MinGW, Windows) | Visual C++ 17.x (Windows) |
+| ----- | --- | :-----------------------: | :---------------------: | :---------------: | :---------------: | :---------------: | :-----------------------: | :-----------------------: |
+| 23    | 23  |                           | ✅                       |                   | ✅                 | ✅                 |                           |                           |
+| 23    | 17  |                           | ✅                       |                   |                   |                   |                           |                              |
+| 20    | 23  |                           | ✅                       |                   |                   |                   |                           |                             |
+| 20    | 17  |                           | ✅                       | ✅                 | ✅                 | ✅                 | ✅                         | ✅                            |
+| 20    | 11  |                           | ✅                       |                   |                   |                   |                           |                             |
+| 20    | 99  |                           | ✅                       |                   |                   |                   |                           |                             |
+| 20    | 90  |                           | ✅                       |                   |                   |                   |                           |                             |
+| 17    | 17  |                           | ✅                       | ✅                | ✅                 | ✅                 |                            | ✅                           |
+| 17    | 11  |                           | ✅                       |                   |                   |                   | ✅                         |                       |
+| 17    | 99  |                           | ✅                       |                   |                   |                   |                           |                             |
+| 17    | 90  |                           | ✅                       |                   |                   |                   |                           |                             |
+| 14    | 11  |                           | ✅                       | ✅                 | ✅                 | ✅                 | ✅                         | ✅                            |
+| 14    | 99  |                           | ✅                       |                   |                   |                   |                           |                             |
+| 14    | 90  |                           | ✅                       |                   |                   |                   |                           | ✅                            |
+| 11    | 11  |                           | ✅                       | ✅                 | ✅                 | ✅                 | ✅                         | ✅                            |
+| 11    | 99  |                           | ✅                       |                   |                   | ✅                 |                           |                             |
+| 11    | 90  |                           | ✅                       |                   |                   |                   |                           |                             |
+| 98    | 99  |                           | ✅                       | ✅                | ✅                 | ✅                 | ✅                          | ✅                            |
+| 98    | 90  |                           | ✅                       |                   | ❌                 | ❌                 |                           | ✅                            |
 
 
 ### Administrative (1.12+)
