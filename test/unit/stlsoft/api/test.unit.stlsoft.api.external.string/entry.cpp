@@ -127,17 +127,6 @@ is_required_case_insensitive_alias_host_()
 #endif
 }
 
-static void
-fail_missing_required_alias_(
-    char const* alias_name
-)
-{
-    TEST_FAIL_WITH_QUALIFIER(
-        "required case-insensitive string alias is not defined on this host (Linux/macOS/Windows with Clang, GCC, MSVC, or MinGW)"
-    ,   alias_name
-    );
-}
-
 
 static void TEST_stricmp_IS_DEFINED_ON_REQUIRED_HOSTS()
 {
@@ -153,7 +142,10 @@ static void TEST_stricmp_IS_DEFINED_ON_REQUIRED_HOSTS()
     TEST_PASSED();
 #else
 
-    fail_missing_required_alias_("STLSOFT_API_EXTERNAL_string_stricmp");
+    TEST_FAIL_WITH_QUALIFIER(
+        "required case-insensitive string alias is not defined on this host (Linux/macOS/Windows with Clang, GCC, MSVC, or MinGW)"
+    ,   "STLSOFT_API_EXTERNAL_string_stricmp"
+    );
 #endif
 }
 
@@ -171,7 +163,10 @@ static void TEST_wcsicmp_IS_DEFINED_ON_REQUIRED_HOSTS()
     TEST_PASSED();
 #else
 
-    fail_missing_required_alias_("STLSOFT_API_EXTERNAL_string_wcsicmp");
+    TEST_FAIL_WITH_QUALIFIER(
+        "required case-insensitive string alias is not defined on this host (Linux/macOS/Windows with Clang, GCC, MSVC, or MinGW)"
+    ,   "STLSOFT_API_EXTERNAL_string_wcsicmp"
+    );
 #endif
 }
 
@@ -218,7 +213,10 @@ static void TEST_stricmp_BEHAVIOUR()
 
     if (is_required_case_insensitive_alias_host_())
     {
-        fail_missing_required_alias_("STLSOFT_API_EXTERNAL_string_stricmp");
+        TEST_FAIL_WITH_QUALIFIER(
+            "required case-insensitive string alias is not defined on this host (Linux/macOS/Windows with Clang, GCC, MSVC, or MinGW)"
+        ,   "STLSOFT_API_EXTERNAL_string_stricmp"
+        );
     }
     else
     {
@@ -241,7 +239,10 @@ static void TEST_wcsicmp_BEHAVIOUR()
 
     if (is_required_case_insensitive_alias_host_())
     {
-        fail_missing_required_alias_("STLSOFT_API_EXTERNAL_string_wcsicmp");
+        TEST_FAIL_WITH_QUALIFIER(
+            "required case-insensitive string alias is not defined on this host (Linux/macOS/Windows with Clang, GCC, MSVC, or MinGW)"
+        ,   "STLSOFT_API_EXTERNAL_string_wcsicmp"
+        );
     }
     else
     {
