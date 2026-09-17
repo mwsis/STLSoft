@@ -147,7 +147,8 @@ static void TEST_stricmp_IS_DEFINED_ON_REQUIRED_HOSTS()
         return;
     }
 
-#if defined(STLSOFT_API_EXTERNAL_string_stricmp)
+#if 0
+#elif defined(STLSOFT_API_EXTERNAL_string_stricmp)
 
     TEST_PASSED();
 #else
@@ -164,7 +165,8 @@ static void TEST_wcsicmp_IS_DEFINED_ON_REQUIRED_HOSTS()
         return;
     }
 
-#if defined(STLSOFT_API_EXTERNAL_string_wcsicmp)
+#if 0
+#elif defined(STLSOFT_API_EXTERNAL_string_wcsicmp)
 
     TEST_PASSED();
 #else
@@ -179,7 +181,8 @@ static void TEST_strnicmp_IS_DEFINED()
      * software fallback in stlsoft/api/external/string.h.
      */
 
-#if defined(STLSOFT_API_EXTERNAL_string_strnicmp)
+#if 0
+#elif defined(STLSOFT_API_EXTERNAL_string_strnicmp)
 
     TEST_PASSED();
 #else
@@ -190,7 +193,8 @@ static void TEST_strnicmp_IS_DEFINED()
 
 static void TEST_wcsnicmp_IS_DEFINED()
 {
-#if defined(STLSOFT_API_EXTERNAL_string_wcsnicmp)
+#if 0
+#elif defined(STLSOFT_API_EXTERNAL_string_wcsnicmp)
 
     TEST_PASSED();
 #else
@@ -202,7 +206,8 @@ static void TEST_wcsnicmp_IS_DEFINED()
 
 static void TEST_stricmp_BEHAVIOUR()
 {
-#if defined(STLSOFT_API_EXTERNAL_string_stricmp)
+#if 0
+#elif defined(STLSOFT_API_EXTERNAL_string_stricmp)
 
     TEST_INT_EQ(0, STLSOFT_API_EXTERNAL_string_stricmp("abc", "abc"));
     TEST_INT_EQ(0, STLSOFT_API_EXTERNAL_string_stricmp("ABC", "abc"));
@@ -224,7 +229,8 @@ static void TEST_stricmp_BEHAVIOUR()
 
 static void TEST_wcsicmp_BEHAVIOUR()
 {
-#if defined(STLSOFT_API_EXTERNAL_string_wcsicmp)
+#if 0
+#elif defined(STLSOFT_API_EXTERNAL_string_wcsicmp)
 
     TEST_INT_EQ(0, STLSOFT_API_EXTERNAL_string_wcsicmp(L"abc", L"abc"));
     TEST_INT_EQ(0, STLSOFT_API_EXTERNAL_string_wcsicmp(L"ABC", L"abc"));
@@ -246,7 +252,8 @@ static void TEST_wcsicmp_BEHAVIOUR()
 
 static void TEST_strnicmp_BEHAVIOUR()
 {
-#if defined(STLSOFT_API_EXTERNAL_string_strnicmp)
+#if 0
+#elif defined(STLSOFT_API_EXTERNAL_string_strnicmp)
 
     TEST_INT_EQ(0, STLSOFT_API_EXTERNAL_string_strnicmp("abc", "abc", 3));
     TEST_INT_EQ(0, STLSOFT_API_EXTERNAL_string_strnicmp("ABC", "abc", 3));
@@ -261,7 +268,8 @@ static void TEST_strnicmp_BEHAVIOUR()
 
 static void TEST_wcsnicmp_BEHAVIOUR()
 {
-#if defined(STLSOFT_API_EXTERNAL_string_wcsnicmp)
+#if 0
+#elif defined(STLSOFT_API_EXTERNAL_string_wcsnicmp)
 
     TEST_INT_EQ(0, STLSOFT_API_EXTERNAL_string_wcsnicmp(L"abc", L"abc", 3));
     TEST_INT_EQ(0, STLSOFT_API_EXTERNAL_string_wcsnicmp(L"ABC", L"abc", 3));
