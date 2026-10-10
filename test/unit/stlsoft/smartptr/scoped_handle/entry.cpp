@@ -4,7 +4,7 @@
  * Purpose: Unit-tests for `stlsoft::scoped_handle`.
  *
  * Created: 16th October 2008
- * Updated: 29th September 2026
+ * Updated: 10th October 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -426,10 +426,6 @@ static void test_1_4()
     TEST_INT_EQ(0, s_intCount);
 }
 
-static void test_1_5()
-{
-}
-
 static void test_1_6()
 {
     TEST_INT_EQ(0, s_voidCount);
@@ -507,18 +503,6 @@ static void test_1_6()
     TEST_INT_EQ(0, s_voidCount);
 }
 
-static void test_1_7()
-{
-}
-
-static void test_1_8()
-{
-}
-
-static void test_1_9()
-{
-}
-
 static void test_1_10()
 {
     TEST_INT_EQ(0, s_intCount);
@@ -577,42 +561,6 @@ static void test_1_10()
     }
 
     TEST_INT_EQ(0, s_intCount);
-}
-
-static void test_1_11()
-{
-}
-
-static void test_1_12()
-{
-}
-
-static void test_1_13()
-{
-}
-
-static void test_1_14()
-{
-}
-
-static void test_1_15()
-{
-}
-
-static void test_1_16()
-{
-}
-
-static void test_1_17()
-{
-}
-
-static void test_1_18()
-{
-}
-
-static void test_1_19()
-{
 }
 #endif /* compiler */
 } // anonymous namespace
