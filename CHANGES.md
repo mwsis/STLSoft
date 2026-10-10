@@ -1,6 +1,9 @@
 # STLSoft - CHANGES <!-- omit in toc -->
 
 
+## 1.11.1-rc9 - 17th October 2026
+
+
 ## 1.11.1-rc8 - 10th October 2026
 
 * additions:
