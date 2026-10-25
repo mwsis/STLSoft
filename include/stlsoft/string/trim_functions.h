@@ -125,7 +125,7 @@ STLSoft_C_string_trim_left_chars_a(
         }
     }
 
-    return STLSoft_C_string_make_slice_m(
+    return stlsoft_C_string_slice_make_m(
         (first == slice.len) ? NULL : slice.ptr + first
     ,   slice.len - first);
 }
@@ -150,7 +150,7 @@ STLSoft_C_string_trim_right_chars_a(
         --last;
     }
 
-    return STLSoft_C_string_make_slice_m(
+    return stlsoft_C_string_slice_make_m(
         (0u == last) ? NULL : slice.ptr
     ,   last);
 }
@@ -184,7 +184,7 @@ STLSoft_C_string_trim_all_chars_a(
         --last;
     }
 
-    return STLSoft_C_string_make_slice_m(
+    return stlsoft_C_string_slice_make_m(
         (first == last) ? NULL : slice.ptr + first
     ,   last - first);
 }
