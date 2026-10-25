@@ -3,7 +3,10 @@
 
 ## 1.11.2 - 25th October 2026
 
-* **stlsoft/memory/auto_buffer.hpp** — on GCC 12+, marked `deallocate_()` `STLSOFT_NOINLINE` and suppressed `-Wfree-nonheap-object` around the external-buffer `delete`, which GCC misattributes to the internal buffer;
+* fixes:
+  * **stlsoft/memory/auto_buffer.hpp** — on GCC 12+, marked `deallocate_()` `STLSOFT_NOINLINE` and suppressed `-Wfree-nonheap-object` around the external-buffer `delete`, which GCC misattributes to the internal buffer;
+* testing:
+  * applies xTests' null-ptr macros;
 
 
 ## 1.11.1 - 21st October 2026
