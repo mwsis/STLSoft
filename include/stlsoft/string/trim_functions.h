@@ -4,7 +4,7 @@
  * Purpose: C string slice trimming functions.
  *
  * Created: 10th August 2026
- * Updated: 20th October 2026
+ * Updated: 26th October 2026
  *
  * Copyright (c) 2026, Matthew Wilson and Synesis Information Systems
  * All rights reserved.
@@ -51,7 +51,7 @@
 # define STLSOFT_VER_STLSOFT_STRING_H_TRIM_FUNCTIONS_MAJOR      1
 # define STLSOFT_VER_STLSOFT_STRING_H_TRIM_FUNCTIONS_MINOR      0
 # define STLSOFT_VER_STLSOFT_STRING_H_TRIM_FUNCTIONS_REVISION   0
-# define STLSOFT_VER_STLSOFT_STRING_H_TRIM_FUNCTIONS_EDIT       2
+# define STLSOFT_VER_STLSOFT_STRING_H_TRIM_FUNCTIONS_EDIT       3
 #endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
 
 
@@ -85,9 +85,11 @@ namespace stlsoft
  * implementation
  */
 
+#ifndef STLSOFT_DOCUMENTATION_SKIP_SECTION
+
 STLSOFT_INLINE
-int
-STLSoft_C_string_trim_contains_char_a(
+ss_truthy_t
+STLSoft_C_string_slice_trim_contains_char_m_(
     stlsoft_C_string_slice_m_t  trim_chars
 ,   char                        ch
 )
@@ -104,6 +106,12 @@ STLSoft_C_string_trim_contains_char_a(
 
     return 0;
 }
+#endif /* !STLSOFT_DOCUMENTATION_SKIP_SECTION */
+
+
+/* /////////////////////////////////////////////////////////////////////////
+ * API functions
+ */
 
 STLSOFT_INLINE
 stlsoft_C_string_slice_m_t
@@ -119,7 +127,7 @@ STLSoft_C_string_trim_left_chars_a(
 
     for (first = 0; first != slice.len; ++first)
     {
-        if (!STLSoft_C_string_trim_contains_char_a(trim_chars, slice.ptr[first]))
+        if (!STLSoft_C_string_slice_trim_contains_char_m_(trim_chars, slice.ptr[first]))
         {
             break;
         }
@@ -145,7 +153,7 @@ STLSoft_C_string_trim_right_chars_a(
     last = slice.len;
 
     while (0 != last &&
-           STLSoft_C_string_trim_contains_char_a(trim_chars, slice.ptr[last - 1]))
+           STLSoft_C_string_slice_trim_contains_char_m_(trim_chars, slice.ptr[last - 1]))
     {
         --last;
     }
@@ -170,7 +178,7 @@ STLSoft_C_string_trim_all_chars_a(
 
     for (first = 0; first != slice.len; ++first)
     {
-        if (!STLSoft_C_string_trim_contains_char_a(trim_chars, slice.ptr[first]))
+        if (!STLSoft_C_string_slice_trim_contains_char_m_(trim_chars, slice.ptr[first]))
         {
             break;
         }
@@ -179,7 +187,7 @@ STLSoft_C_string_trim_all_chars_a(
     last = slice.len;
 
     while (first != last &&
-           STLSoft_C_string_trim_contains_char_a(trim_chars, slice.ptr[last - 1]))
+           STLSoft_C_string_slice_trim_contains_char_m_(trim_chars, slice.ptr[last - 1]))
     {
         --last;
     }
